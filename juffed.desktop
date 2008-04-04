@@ -1,0 +1,21 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Text editor JuffEd
+Name[ru]=Текстовый редактор JuffEd
+Name[pl]=Edytor tekstu JuffEd
+Name[de]=Texteditor JuffEd
+Comment=Simple text editor
+Comment[ru]=Простой текстовый редактор
+Comment[pl]=Prosty edytor tekstu
+Comment[de]=Ein einfacher Texteditor
+Exec=juffed
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=text/plain;
+Icon=juffed
+Categories=Qt;Utility;TextEditor;
+GenericName=Simple text editor
+GenericName[ru]=Простой текстовый редактор
+GenericName[pl]=Prosty edytor tekstu
+GenericName[de]=Ein einfacher Texteditor

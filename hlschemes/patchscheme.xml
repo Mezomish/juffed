@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HLScheme>
+<HLScheme>
+
+<scheme name="Patch" extensions="patch">
+	<rule>
+		<expr>^Index:.*</expr>
+		<style color="#6666aa" />
+	</rule>
+	<rule>
+		<expr>^(\-{1,2}(?!\-)|\-{4,}).*</expr>
+		<style color="#ff0000" />
+	</rule>
+	<rule>
+		<expr>^(\+{1,2}(?!\+)|\+{4,}).*</expr>
+		<style color="#00aa00" />
+	</rule>
+	<rule>
+		<expr>^\@{2}.*\@{2}$</expr>
+		<style color="#990000" />
+	</rule>
+	<rule>
+		<expr>^(====|\-\-\-\s|\+\+\+\s).*</expr>
+		<style color="#999900" />
+	</rule>
+</scheme>
+
+</HLScheme>

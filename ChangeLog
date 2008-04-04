@@ -1,0 +1,174 @@
+-------------------------------
+Version 0.2-beta3
+-------------------------------
+* fixed crash when exiting (appeared with some versions of Qt);
+* filled up translations;
+* Windows: "open in existing instance" now isn't visible (since 
+  this functionality is unavailable);
+* opening new file now replaces empty unchanged document, if it
+  is the only one which is opened at that momend;
+
+
+-------------------------------
+Version 0.2-beta2
+-------------------------------
+* Added Close button to About dialog;
+* Fixed: can't be compiled on Windows (closing of IPC 
+  socket isn't isolated);
+* Fixed: window title doesn't change properly after "Save 
+  session as" action;
+
+
+-------------------------------
+Version 0.2-beta1
+-------------------------------
+* Added option "Save as a copy" to "Save as" dialog;
+* Added notification of changing file by external program;
+* Added using existing instance of application for opening files;
+* Settings dialog was reorganized a bit;
+* Added French and Spanish localizations;
+* Added license to "About" dialog;
+
+
+-------------------------------
+Version 0.2-dev-20080311
+-------------------------------
+* Fixed regression with opening files;
+* Fixed regression with closing tab with any button;
+* Some improvements in Makefile;
+
+
+-------------------------------
+Version 0.2-dev-20080310
+-------------------------------
+* Code design improvements;
+* Added line markers;
+* Added "Continue from the beginning?" dialog for "Replace" 
+  action when reaches the end of the file;
+* Opening of multiple files with "Open file" dialog and 
+  command line;
+* Added line length indicator;
+* Added auto-saving option;
+* New "About" dialog;
+* Added German localization (thanks to Michael Gangolf);
+
+
+-------------------------------
+Version 0.2-dev-20080116
+-------------------------------
+* Added options "Show line numbers" and "Adjust by width" for each 
+  document separately;
+* Added session name and file name in window title;
+* Added toolbar icons size changing;
+* Improved response when search reaches the end or the beginning of 
+  the document;
+* Added closing documents with middle-click on the corresponding tab;
+* Added "Recent files" menu;
+* "Save as" dialog now contains the original file name;
+* Added optional making a backup copy of file when saving;
+* Added file reload action;
+
+
+-------------------------------
+Version 0.1.2-beta4
+-------------------------------
+* fixed the bug with lost focus after close confirming dialog (if 
+  Compiz is used);
+* fixed the bug when "Noname" document could get wrong tab title after
+  applying settings;
+
+
+-------------------------------
+Version 0.1.2-beta3
+-------------------------------
+* improved highlighting shemes syntax;
+* added highlighting schemes for HTML, XML, PHP, Python, 
+  Makefiles, ini-files, patch-files;
+* fixed the bug when highlighting scheme didn't work properly if 
+  there was no whole-line-comment-rule in scheme (or it was empty);
+* fixed the bug with lost focus after "Go to line number" action (if 
+  Compiz is used);
+* added an opportunity to configure startup behavior (show session
+  dialog, load last saved session or start new session);
+* added session auto-saving option;
+
+
+-------------------------------
+Version 0.1.2-beta2
+-------------------------------
+Fixed:
+* unnecessary indent insertion
+* Makefile install/uninstall instructions (finally!! :)
+* language detection
+
+Changed:
+* directory structure
+
+
+-------------------------------
+Version 0.1.2-beta1
+-------------------------------
+Fixed:
+* opening files from command line (with non-latin symbols in path);
+
+
+-------------------------------
+Version 0.1.2-20070811
+-------------------------------
+Fixed:
+* lost focus after "Save as";
+* bug with "replace all" permanent switching on after using it once;
+* find/replace using regexps;
+* storing the cursor position after switching the charset;
+
+Added:
+* sessions support;
+* simple auto-indent;
+* different toolbar styles (icons only, text under icons, etc.)
+* Polish localization (thanks to Jarek)
+
+Changed:
+* multithread opening is temporary switched off;
+
+
+-------------------------------
+Version 0.1.2-20070709
+-------------------------------
+Added:
+* search and replace using regular expressions;
+* processing (highlighting) multiline blocks;
+
+Fixed:
+* storing of last save dir;
+* row and column number 0 in cursor position indicator;
+
+Changed:
+* now it opens files in separate threads;
+
+
+-------------------------------
+Version 0.1.2-20070625
+-------------------------------
+Added:
+* open file(s) with drag'n'drop;
+* text replacement;
+* localization (only Russian for the present, you're welcome with 
+  your own translations);
+
+Fixed:
+* rich text insertion with copy/paste;
+* corresponding charset menu item now checks depending on file 
+  charset when file switches;
+* context menu is the same as "Edit" menu in main menu bar;
+* some fixes for Windows: errors of compilation, wrong drag'n'drop;
+
+
+===============================
+Version 0.1.1 (12-06-2007)    
+===============================
+Fixed: 
+* window title and status bar didn't change after "Save as";
+
+Changed: 
+* doesn't use Windows registry, uses config file at user directory 
+  instead;

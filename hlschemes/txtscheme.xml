@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HLScheme>
+<HLScheme>
+
+<scheme name="TXT" extensions="txt">
+	<rule name="list">
+		<expr>^(\*|\-)[\s\t]</expr>
+		<style color="#0000cc" />
+	</rule>
+	<rule name="horiz line">
+		<expr>^(\*|\#|\-){3,}.*</expr>
+		<style color="#aa0033" />
+	</rule>
+</scheme>
+
+</HLScheme>

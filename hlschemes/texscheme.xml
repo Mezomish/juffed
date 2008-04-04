@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HLScheme>
+<HLScheme>
+	
+	<scheme name="TeX" extensions="tex">
+		<rule>
+			<expr>\\\w+</expr>
+			<style color="#660000" bold="true" />
+		</rule>
+		<rule name="numbers">
+			<expr>\b\d+\b</expr>
+			<style color="#0000FF" />
+		</rule>
+		<block>
+			<begin>{</begin>
+			<end>}</end>
+			<style color="#000099" />
+		</block>
+		<block>
+			<begin>$</begin>
+			<end>$</end>
+			<style color="#009900" />
+		</block>
+		<comment>
+			<begin>%</begin>
+			<style color="#999999" italic="true" />
+		</comment>
+	</scheme>
+	
+</HLScheme>

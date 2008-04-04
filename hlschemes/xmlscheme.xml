@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE HLScheme>
+<HLScheme>
+	<scheme name="XML" extensions="xml">
+		<rule name="attributes">
+			<expr>([\w\-]+ *=)</expr>
+			<style color="#006600" />
+		</rule>
+		<rule name="tags">
+			<expr>&lt;\/?([\w\-]+)\b</expr>
+			<expr>&lt;(\?\w+)</expr>
+			<expr>(\?&gt;)</expr>
+			<style entry="1" color="#000033" bold="true" />
+		</rule>
+		<rule name="specSymbols">
+			<expr>&amp;[\w\#]+\;</expr>
+			<style color="#0000cc" />
+		</rule>
+		<rule name = "docType" >
+			<expr caseSensitive="false">&lt;(\!doctype)\b</expr>
+			<style entry="1" color="#900090" bold="true" />
+		</rule>
+		<rule name="attrValues">
+			<expr minimal="true">\=[\s\t]*(\".*\")</expr>
+			<style entry="1" color="#990000" />
+		</rule>
+
+		<block name="comment" regExp="true" >
+			<begin>&lt;\!\-\-</begin>
+			<end>\-\-&gt;</end>
+			<style color="#999999" italic="true" />
+		</block>
+	</scheme>
+	
+</HLScheme>

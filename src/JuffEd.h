@@ -46,6 +46,8 @@ private slots:
 	void docFileNameChanged(Document*);
 	void changeCharset();
 	void toggleMarker();
+	void nextMarker();
+	void prevMarker();
 	void removeAllMarkers();
 	void gotoMarker();
 	void initRecentFilesMenu();

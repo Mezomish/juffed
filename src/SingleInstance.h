@@ -19,7 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _SINGLE_INSTANCE_H_
 #define _SINGLE_INSTANCE_H_
 
+class QString;
+
 bool findExistingInstance(int& sock);
-bool sendFileNames(int sock, int argc, char* argv[]);
+bool sendFileNames(int sock, const QString&);
 
 #endif

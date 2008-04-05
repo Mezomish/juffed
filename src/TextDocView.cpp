@@ -616,13 +616,66 @@ void TextDocView::replace(const QRegExp& regexp, const QString& to, DocFindFlags
 void TextDocView::toggleMarker() {
 	QTextCursor c = vInt_->ed_->textCursor();
 	int line = c.blockNumber() + 1;
-	if (vInt_->markers_.contains(line))
+	if (vInt_->markers_.contains(line)) {
 		vInt_->markers_.removeAll(line);
+	}
 	else {
 		vInt_->markers_.push_back(line);
 		qSort(vInt_->markers_.begin(), vInt_->markers_.end());
 	}
 	updateLayout();
+}
+
+void TextDocView::gotoNextMarker() {
+	if (vInt_->markers_.count() == 0)
+		return;
+
+	QTextCursor c = vInt_->ed_->textCursor();
+	int line = c.blockNumber() + 1;
+	foreach (int marker, vInt_->markers_) {
+		if (marker > line) {
+			//	As soon as markers are sorted,
+			//	the condition "marker" > "line" will be 
+			//	true for the first marker after the 
+			//	current line
+			gotoLine(marker);
+			return;
+		}
+	}
+	
+	//	next marker is not found, go to the first one
+	gotoLine( vInt_->markers_.first() );
+}
+
+void TextDocView::gotoPrevMarker() {
+	if (vInt_->markers_.count() == 0)
+		return;
+
+	QTextCursor c = vInt_->ed_->textCursor();
+	int line = c.blockNumber() + 1;
+	int targetLine = -1;
+	foreach (int marker, vInt_->markers_) {
+		if (marker < line) {
+			targetLine = marker;
+		}
+		else {
+			//	As soon as markers are sorted,
+			//	if "marker" becomes > than "line"
+			//	then the previous marker was the closest
+			//	one that precedes current line
+
+			//	If there was no preceding markers,
+			//	we should go to the last one
+
+			if (targetLine >= 0) {
+				gotoLine(targetLine);
+			}
+			else {
+				gotoLine( vInt_->markers_.last() );
+			}
+			return;
+		}
+	}
 }
 
 void TextDocView::removeAllMarkers() {

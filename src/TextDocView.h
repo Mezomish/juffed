@@ -64,6 +64,8 @@ public:
 	void replace(const QRegExp& regexp, const QString& to, DocFindFlags flags);
 
 	void toggleMarker();
+	void gotoNextMarker();
+	void gotoPrevMarker();
 	void removeAllMarkers();
 	IntList markers() const;
 	QString markedLine(int) const;

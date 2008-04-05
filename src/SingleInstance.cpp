@@ -54,16 +54,12 @@ bool findExistingInstance(int& sock) {
 #endif	//	Q_OS_UNIX
 }
 
-bool sendFileNames(int sock, int argc, char* argv[]) {
+bool sendFileNames(int sock, const QString& list) {
 #ifdef Q_OS_UNIX
 
 	bool res = true;
-	if (argc > 1) {
-		QStringList list;
-		for (int i = 1; i < argc; ++i) {
-			list << QString::fromLocal8Bit(argv[i]);
-		}
-		QByteArray buf = list.join(";").toLocal8Bit();
+	if (!list.isEmpty()) {
+		QByteArray buf = list.toLocal8Bit();
 		int res = write(sock, buf.constData(), buf.size());
 		if (res == -1)
 			res = false;

@@ -1,18 +1,23 @@
+* Added: move to the next/previous marker;
+* Fixed: opening in existing instance using relative file 
+  names in console;
+
+
 -------------------------------
 Version 0.2-beta3
 -------------------------------
-* fixed crash when exiting (appeared with some versions of Qt);
-* filled up translations;
-* Windows: "open in existing instance" now isn't visible (since 
-  this functionality is unavailable);
-* opening new file now replaces empty unchanged document, if it
+* Changed: opening new file now replaces empty unchanged document, if it
   is the only one which is opened at that momend;
+* Fixed: crash when exiting (appeared with some versions of Qt);
+* Fixed: "open in existing instance" now isn't visible on Windows (since 
+  this functionality is unavailable);
+* Misc: filled up translations;
 
 
 -------------------------------
 Version 0.2-beta2
 -------------------------------
-* Added Close button to About dialog;
+* Added: Close button to About dialog;
 * Fixed: can't be compiled on Windows (closing of IPC 
   socket isn't isolated);
 * Fixed: window title doesn't change properly after "Save 
@@ -22,51 +27,51 @@ Version 0.2-beta2
 -------------------------------
 Version 0.2-beta1
 -------------------------------
-* Added option "Save as a copy" to "Save as" dialog;
-* Added notification of changing file by external program;
-* Added using existing instance of application for opening files;
-* Settings dialog was reorganized a bit;
-* Added French and Spanish localizations;
-* Added license to "About" dialog;
+* Added: option "Save as a copy" to "Save as" dialog;
+* Added: notification of changing file by external program;
+* Added: using existing instance of application for opening files;
+* Added: French and Spanish localizations;
+* Added: license to "About" dialog;
+* Changed: Settings dialog was reorganized a bit;
 
 
 -------------------------------
 Version 0.2-dev-20080311
 -------------------------------
-* Fixed regression with opening files;
-* Fixed regression with closing tab with any button;
-* Some improvements in Makefile;
+* Changed: Some improvements in Makefile;
+* Fixed: regression with opening files;
+* Fixed: regression with closing tab with any button;
 
 
 -------------------------------
 Version 0.2-dev-20080310
 -------------------------------
-* Code design improvements;
-* Added line markers;
-* Added "Continue from the beginning?" dialog for "Replace" 
-  action when reaches the end of the file;
-* Opening of multiple files with "Open file" dialog and 
+* Added: line markers;
+* Added: opening of multiple files with "Open file" dialog and 
   command line;
-* Added line length indicator;
-* Added auto-saving option;
-* New "About" dialog;
-* Added German localization (thanks to Michael Gangolf);
+* Added: line length indicator;
+* Added: auto-saving option;
+* Added: German localization (thanks to Michael Gangolf);
+* Changed: new "About" dialog;
+* Fixed: "Continue from the beginning?" dialog also works for 
+  "Replace" action when reaches the end of the file;
+* Misc: code design improvements;
 
 
 -------------------------------
 Version 0.2-dev-20080116
 -------------------------------
-* Added options "Show line numbers" and "Adjust by width" for each 
+* Added: options "Show line numbers" and "Adjust by width" for each 
   document separately;
-* Added session name and file name in window title;
-* Added toolbar icons size changing;
-* Improved response when search reaches the end or the beginning of 
-  the document;
-* Added closing documents with middle-click on the corresponding tab;
-* Added "Recent files" menu;
-* "Save as" dialog now contains the original file name;
-* Added optional making a backup copy of file when saving;
-* Added file reload action;
+* Added: session name and file name in window title;
+* Added: toolbar icons size changing;
+* Added: closing documents with middle-click on the corresponding tab;
+* Added: "Recent files" menu;
+* Added: optional making a backup copy of file when saving;
+* Added: file reload action;
+* Changed: improved response when search reaches the end or the 
+  beginning of the document;
+* Fixed: "Save as" dialog now contains the original file name;
 
 
 -------------------------------

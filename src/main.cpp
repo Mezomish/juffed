@@ -140,8 +140,22 @@ int main(int argc, char* argv[]) {
 		//	wasn't used. In this case do not start 
 		//	new app, just send given files to 
 		//	existing instance
-		if (sendFileNames(sock, argc, argv))
+		QString list;
+		for (int i = 1; i < argc; ++i) {
+			QString argument = QString::fromLocal8Bit(argv[i]);
+			if (argument[0] == '-') {
+				//	command line options
+			}
+			else {
+				if (!list.isEmpty())
+					list += ";";
+				list += QFileInfo(argument).absoluteFilePath();
+			}
+		}
+
+		if (sendFileNames(sock, list)) {
 			return 0;
+		}
 		else {
 			Log::print("Failed to send files");
 			return -1;

@@ -211,8 +211,11 @@ void JuffEd::createCommands() {
 		//
 		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(icons["showLineNumbers"]),	QKeySequence("F11"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(icons["widthAdjust"]),		QKeySequence("F10"), h, SLOT(processTheCommand())),
-		Command(ID_TOGGLE_MARKER,			tr("Add/Remove marker"),	QIcon(icons["addRemoveMarker"]),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
-		Command(ID_REMOVE_ALL_MARKERS,		tr("Remove all markers"),	QIcon(icons["removeAllMarkers"]),	QKeySequence(), 		this, SLOT(removeAllMarkers())),
+		//
+		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	QIcon(icons["addRemoveMarker"]),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
+		Command(ID_MARKER_NEXT,				tr("Next marker"),			QIcon(icons["nextMarker"]),			QKeySequence(),			this, SLOT(nextMarker())),
+		Command(ID_MARKER_PREV,				tr("Previous marker"),		QIcon(icons["prevMarker"]),			QKeySequence(),			this, SLOT(prevMarker())),
+		Command(ID_MARKER_REMOVE_ALL,		tr("Remove all markers"),	QIcon(icons["removeAllMarkers"]),	QKeySequence(), 		this, SLOT(removeAllMarkers())),
 		//
 		Command(ID_DOC_PREV,	tr("Previous"),	QIcon(icons["docPrevious"]),	QKeySequence("Alt+Left"), h, SLOT(processTheCommand())),
 		Command(ID_DOC_NEXT,	tr("Next"),	QIcon(icons["docNext"]),	QKeySequence("Alt+Right"), h, SLOT(processTheCommand())),
@@ -289,10 +292,6 @@ void JuffEd::createMenuBar() {
 	if (action != 0)
 		addAction(action);
 
-	action = CommandStorage::instance()->action(ID_TOGGLE_MARKER);
-	if (action != 0)
-		addAction(action);
-					
 	//	charset menu
 	jInt_->charsetsMenu_ = new QMenu(tr("Charset"));
 	QMenu* vMenu = jInt_->mainMenuItems_.value(tr("&View"), 0);
@@ -353,8 +352,10 @@ void JuffEd::initMarkersMenu(TextDocView* tdView) {
 	QMenu* markersMenu = jInt_->mainMenuItems_.value(tr("&Markers"), 0);
 	if (markersMenu != 0) {
 		markersMenu->clear();
-		markersMenu->addAction(CommandStorage::instance()->action(ID_TOGGLE_MARKER));
-		markersMenu->addAction(CommandStorage::instance()->action(ID_REMOVE_ALL_MARKERS));
+		markersMenu->addAction(CommandStorage::instance()->action(ID_MARKER_TOGGLE));
+		markersMenu->addAction(CommandStorage::instance()->action(ID_MARKER_NEXT));
+		markersMenu->addAction(CommandStorage::instance()->action(ID_MARKER_PREV));
+		markersMenu->addAction(CommandStorage::instance()->action(ID_MARKER_REMOVE_ALL));
 		markersMenu->addSeparator();
 		
 		if (tdView == 0)
@@ -556,6 +557,24 @@ void JuffEd::toggleMarker() {
 		tdView->toggleMarker();
 	}
 	initMarkersMenu(tdView);
+}
+
+void JuffEd::nextMarker() {
+	QWidget* view = jInt_->viewer_->currentView();	
+	TextDocView* tdView = qobject_cast<TextDocView*>(view);
+
+	if (tdView != 0) {
+		tdView->gotoNextMarker();
+	}
+}
+
+void JuffEd::prevMarker() {
+	QWidget* view = jInt_->viewer_->currentView();	
+	TextDocView* tdView = qobject_cast<TextDocView*>(view);
+
+	if (tdView != 0) {
+		tdView->gotoPrevMarker();
+	}
 }
 
 void JuffEd::removeAllMarkers() {

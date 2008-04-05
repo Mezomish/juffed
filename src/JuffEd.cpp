@@ -213,8 +213,8 @@ void JuffEd::createCommands() {
 		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(icons["widthAdjust"]),		QKeySequence("F10"), h, SLOT(processTheCommand())),
 		//
 		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	QIcon(icons["addRemoveMarker"]),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
-		Command(ID_MARKER_NEXT,				tr("Next marker"),			QIcon(icons["nextMarker"]),			QKeySequence(),			this, SLOT(nextMarker())),
-		Command(ID_MARKER_PREV,				tr("Previous marker"),		QIcon(icons["prevMarker"]),			QKeySequence(),			this, SLOT(prevMarker())),
+		Command(ID_MARKER_NEXT,				tr("Next marker"),			QIcon(icons["nextMarker"]),			QKeySequence("Ctrl+Alt+N"),this, SLOT(nextMarker())),
+		Command(ID_MARKER_PREV,				tr("Previous marker"),		QIcon(icons["prevMarker"]),			QKeySequence("Ctrl+Alt+P"),this, SLOT(prevMarker())),
 		Command(ID_MARKER_REMOVE_ALL,		tr("Remove all markers"),	QIcon(icons["removeAllMarkers"]),	QKeySequence(), 		this, SLOT(removeAllMarkers())),
 		//
 		Command(ID_DOC_PREV,	tr("Previous"),	QIcon(icons["docPrevious"]),	QKeySequence("Alt+Left"), h, SLOT(processTheCommand())),

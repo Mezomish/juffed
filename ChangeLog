@@ -1,6 +1,7 @@
 * Added: move to the next/previous marker;
 * Fixed: opening in existing instance using relative file 
   names in console;
+* Fixed: regression in beta3 with multi-line blocks highlighting;
 
 
 -------------------------------

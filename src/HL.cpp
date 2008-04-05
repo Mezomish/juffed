@@ -42,7 +42,9 @@ bool HL::findBlockBegin(const QString& str, int& blockIndex, int& begPos) {
 	begPos = -1;
 	int pos = -1;
 	int i = 0;
-	foreach (HLBlock bl, sch_.blocks) {
+	QVector<HLBlock>::iterator blIt = sch_.blocks.begin();
+	while (blIt != sch_.blocks.end()) {
+		HLBlock& bl = *blIt;
 		pos = str.isEmpty() || bl.begin.isEmpty() ? -1 : bl.begin.indexIn(str);
 		if (pos >= 0) {
 			//	the beginning of i-th block is found
@@ -63,6 +65,7 @@ bool HL::findBlockBegin(const QString& str, int& blockIndex, int& begPos) {
 			}
 		}
 		i++;
+		blIt++;
 	}
 	return (begPos >= 0);
 }

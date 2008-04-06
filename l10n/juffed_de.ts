@@ -124,7 +124,7 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="85"/>
         <source> symbols</source>
-        <translation> Symbole</translation>
+        <translation> Zeichen</translation>
     </message>
 </context>
 <context>
@@ -365,12 +365,12 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="216"/>
         <source>Next marker</source>
-        <translation type="unfinished"></translation>
+        <translation>Nächste Markierung</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="217"/>
         <source>Previous marker</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorherige Markierung</translation>
     </message>
 </context>
 <context>

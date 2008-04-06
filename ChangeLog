@@ -1,3 +1,6 @@
+===============================
+Version 0.2-release
+===============================
 * Added: move to the next/previous marker;
 * Fixed: opening in existing instance using relative file 
   names in console;

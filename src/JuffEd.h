@@ -44,7 +44,8 @@ private slots:
 	void docSwitched(QWidget*);
 	void docCloseRequested(QWidget*);
 	void docFileNameChanged(Document*);
-	void changeCharset();
+	void charsetSelected();
+	void syntaxSelected();
 	void toggleMarker();
 	void nextMarker();
 	void prevMarker();

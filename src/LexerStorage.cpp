@@ -169,13 +169,13 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		//	if it's type is known. If unknown,
 		//	return 0
 		QsciLexer* newLexer = 0;
-		if (name.compare("cpp") == 0) {
+		if (name.compare("c++") == 0) {
 			newLexer = new QsciLexerCPP();
 		}
 		else if (name.compare("java") == 0) {
 			newLexer = new QsciLexerJava();
 		}
-		else if (name.compare("csharp") == 0) {
+		else if (name.compare("c#") == 0) {
 			newLexer = new QsciLexerCSharp();
 		}
 		else if (name.compare("makefile") == 0) {
@@ -205,7 +205,7 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if (name.compare("sql") == 0) {
 			newLexer = new QsciLexerSQL();
 		}
-		else if (name.compare("jscript") == 0) {
+		else if (name.compare("javascript") == 0) {
 			newLexer = new QsciLexerJavaScript();
 		}
 		else if (name.compare("idl") == 0) {
@@ -226,12 +226,12 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 	}
 }
 
-void LSInterior::applyLexerStyle(QsciLexer* lexer, int arg, const Style& style, const QFont& font) {
+void LSInterior::applyLexerStyle(QsciLexer* lex, int arg, const Style& style, const QFont& font) {
 	QFont f(font);
 	f.setStyle(style.italic ? QFont::StyleItalic : QFont::StyleNormal);
 	f.setWeight(style.bold ? QFont::Bold : QFont::Normal);
-	lexer->setColor(style.color, arg);
-	lexer->setFont(f, arg);
+	lex->setColor(style.color, arg);
+	lex->setFont(f, arg);
 }
 
 void LSInterior::setCustomLexerStyle(QsciLexer* lexer, const QString& lexerName, const QFont& font) {
@@ -240,7 +240,7 @@ void LSInterior::setCustomLexerStyle(QsciLexer* lexer, const QString& lexerName,
 
 		StyleMaperList styleMaperList;
 
-		if (lexerName.compare("cpp") == 0) {
+		if (lexerName.compare("c++") == 0) {
 			StyleMaper prepr("preprocessor"), comment("comment"), 
 					numbers("numbers"), keywords("keywords"), strings("strings");
 
@@ -348,19 +348,19 @@ LexerStorage::~LexerStorage() {
 	delete lsInt_;
 }
 
-QsciLexer* LexerStorage::getLexerByFileName(const QString& fileName, const QFont& font) {
-	QsciLexer* lexer = 0;
+QsciLexer* LexerStorage::lexerByFileName(const QString& fileName, const QFont& font) {
+	QsciLexer* lex = 0;
 
 	QString ext = QFileInfo(fileName).suffix().toLower();
 	QString lexerName;
 	if (lsInt_->cppExtList_.contains(ext)) {
-		lexerName = "cpp";
+		lexerName = "c++";
 	}
 	else if (ext.compare("java") == 0) {
 		lexerName = "java";
 	}
 	else if (ext.compare("cs") == 0) {
-		lexerName = "csharp";
+		lexerName = "c#";
 	}
 	else if (ext.isEmpty()) {
 		if (fileName.contains("Makefile")) {
@@ -392,7 +392,7 @@ QsciLexer* LexerStorage::getLexerByFileName(const QString& fileName, const QFont
 		lexerName = "sql";
 	}
 	else if (ext.compare("js") == 0) {
-		lexerName = "jscript";
+		lexerName = "javascript";
 	}
 	else if (ext.compare("idl") == 0) {
 		lexerName = "idl";
@@ -405,22 +405,29 @@ QsciLexer* LexerStorage::getLexerByFileName(const QString& fileName, const QFont
 	}
 
 	if (!lexerName.isEmpty())
-		lexer = getLexer(lexerName, font);
+		lex = lexer(lexerName, font);
 
-	return lexer;
+	return lex;
 }
 
-QsciLexer* LexerStorage::getLexer(const QString& lexerName, const QFont& font) {
-	QsciLexer* lexer = lsInt_->lexer(lexerName);
+QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
+	QsciLexer* lex = lsInt_->lexer(lexerName);
 
-	if (lexer != 0) {
-		lexer->setFont(font, -1);
-		lsInt_->setCustomLexerStyle(lexer, lexerName, font);
+	if (lex != 0) {
+		lex->setFont(font, -1);
+		lsInt_->setCustomLexerStyle(lex, lexerName, font);
 	}
 
-	return lexer;
+	return lex;
 }
 
+void LexerStorage::getLexersList(QStringList& list) {
+	list.clear();
+	list << "Bash" << "C++" << "C#" << "CSS" << "D" << "HTML" << "Java" << "JavaScript" 
+				<< "IDL" << "Lua" << "Makefile" << "Perl" << "Python" << "Ruby" 
+				<< "SQL" << "XML";
+}
+	
 LexerStorage* LexerStorage::instance() {
 	if (instance_ == 0)
 		instance_ = new LexerStorage();

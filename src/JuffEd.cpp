@@ -40,6 +40,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "DocHandler.h"
 #include "DocViewer.h"
 #include "FindDlg.h"
+#include "LexerStorage.h"
 #include "Log.h"
 #include "MainSettings.h"
 #include "Settings.h"
@@ -104,6 +105,7 @@ public:
 	QMap<QString, QMenu*> mainMenuItems_;
 	QMap<QString, QAction*> charsetActions_;
 	QMenu* charsetsMenu_;
+	QMenu* syntaxMenu_;
 	QMenu* markersMenu_;
 	QMenu* recentFilesMenu_;
 	QAction* lastCharsetAction_;
@@ -304,6 +306,18 @@ void JuffEd::createMenuBar() {
 	}
 	initCharsetsMenu();
 
+	//	lexers menu
+	jInt_->syntaxMenu_ = new QMenu(tr("Syntax"));
+	if (vMenu != 0) {
+		vMenu->addSeparator();
+		vMenu->addMenu(jInt_->syntaxMenu_);
+		QStringList sList;
+		LexerStorage::instance()->getLexersList(sList);
+		foreach (QString s, sList) {
+			jInt_->syntaxMenu_->addAction(s, this, SLOT(syntaxSelected()));
+		}
+	}
+	
 	//	markers menu
 	initMarkersMenu(0);
 
@@ -344,7 +358,7 @@ void JuffEd::initCharsetsMenu() {
 	QStringList charsets = CharsetsSettings::getCharsetsList();
 	foreach (QString charset, charsets) {
 		if (CharsetsSettings::charsetEnabled(charset)) {
-			QAction* action = jInt_->charsetsMenu_->addAction(charset, this, SLOT(changeCharset()));
+			QAction* action = jInt_->charsetsMenu_->addAction(charset, this, SLOT(charsetSelected()));
 			action->setCheckable(true);
 			jInt_->charsetActions_[charset] = action;
 		}
@@ -402,7 +416,7 @@ void JuffEd::changeCurrentCharsetAction(QAction* a) {
 	}
 }
 
-void JuffEd::changeCharset() {
+void JuffEd::charsetSelected() {
 	QAction* a = qobject_cast<QAction*>(sender());
 	if (a != 0) {
 		TextDoc* doc = getCurrentTextDoc();
@@ -417,6 +431,18 @@ void JuffEd::changeCharset() {
 		}
 		else {
 			a->setChecked(false);
+		}
+	}
+}
+
+void JuffEd::syntaxSelected() {
+	QAction* a = qobject_cast<QAction*>(sender());
+	if (a != 0) {
+		TextDoc* doc = getCurrentTextDoc();
+		if (doc != 0 && !doc->isNull()) {
+			TextDocView* tdView = qobject_cast<TextDocView*>(doc->view());
+			if (tdView != 0)
+				tdView->setSyntax(a->text().toLower());
 		}
 	}
 }

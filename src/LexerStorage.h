@@ -24,12 +24,15 @@ class QsciLexer;
 
 class QFont;
 class QString;
+class QStringList;
 
 class LexerStorage {
 public:
 	~LexerStorage();
-	QsciLexer* getLexerByFileName(const QString& fileName, const QFont&);
-	QsciLexer* getLexer(const QString&, const QFont&);
+	QsciLexer* lexerByFileName(const QString& fileName, const QFont&);
+	QsciLexer* lexer(const QString&, const QFont&);
+
+	void getLexersList(QStringList&);
 
 	static LexerStorage* instance();
 

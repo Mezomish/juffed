@@ -158,7 +158,7 @@ void TextDocView::setDocument(Document* doc) {
 	connect(vInt_->edit_, SIGNAL(modificationChanged(bool)), doc, SLOT(setModified(bool)));
 	connect(vInt_->edit_, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
 
-	QsciLexer* lexer = LexerStorage::instance()->getLexerByFileName(doc->fileName(), TextDocSettings::font());
+	QsciLexer* lexer = LexerStorage::instance()->lexerByFileName(doc->fileName(), TextDocSettings::font());
 	vInt_->edit_->setLexer(lexer);
 	vInt_->edit_->recolor();
 	if (lexer != 0) {
@@ -166,6 +166,15 @@ void TextDocView::setDocument(Document* doc) {
 	}
 }
 
+void TextDocView::setSyntax(const QString& name) {
+	QsciLexer* lexer = LexerStorage::instance()->lexer(name, TextDocSettings::font());
+	vInt_->edit_->setLexer(lexer);
+	vInt_->edit_->recolor();
+	if (lexer != 0) {
+		lexer->refreshProperties();
+	}
+}
+	
 void TextDocView::rehighlight() {
 }
 

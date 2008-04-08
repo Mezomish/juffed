@@ -48,6 +48,7 @@ public:
 	void getCursorPos(int&, int&) const;
 	void gotoLine(int) const;
 	int lineCount() const;
+	void setSyntax(const QString&);
 	virtual void applySettings();
 
 	virtual void setDocument(Document*);

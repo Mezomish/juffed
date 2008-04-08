@@ -242,6 +242,9 @@ void JuffEd::createCommands() {
 
 	CommandStorage::instance()->action(ID_VIEW_SHOW_LINE_NUMBERS)->setCheckable(true);
 	CommandStorage::instance()->action(ID_VIEW_WIDTH_ADJUST)->setCheckable(true);
+
+	if (jInt_->recentFilesMenu_ != 0)
+		jInt_->recentFilesMenu_->setIcon(QIcon(jInt_->icons_["fileOpen"]));
 }
 
 void JuffEd::createMenuBar() {

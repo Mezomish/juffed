@@ -8,6 +8,7 @@ DEPENDPATH += .
 INCLUDEPATH += .
 DESTDIR		= ..
 QT			+= xml
+LIBS            += -lqscintilla2
 
 # Input
 HEADERS += \
@@ -31,13 +32,10 @@ HEADERS += \
 		SessionDlg.h \
 		TabBar.h \
 		TabWidget.h \
-		HL.h \
-		HLStorage.h \
-		HLTypes.h \
-		TextProcessor.h \
 		AboutDlg.h \
 		SingleInstance.h \
 		SocketListener.h \
+		LexerStorage.h \
 		
 SOURCES += \
 		DocHandler.cpp \
@@ -59,12 +57,10 @@ SOURCES += \
 		SessionDlg.cpp \
 		TabBar.cpp \
 		TabWidget.cpp \
-		HL.cpp \
-		HLStorage.cpp \
-		TextProcessor.cpp \
 		AboutDlg.cpp \
 		SingleInstance.cpp \
 		SocketListener.cpp \
+		LexerStorage.cpp \
 		
 FORMS += \
 		CharsetsSettingsPage.ui \

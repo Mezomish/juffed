@@ -27,104 +27,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextEdit>
 
+#include <Qsci/qscilexer.h>
+#include <Qsci/qsciscintilla.h>
+
 //	local headers
-#include "HL.h"
+#include "LexerStorage.h"
 #include "Log.h"
 #include "TextDoc.h"
 #include "TextDocSettings.h"
-#include "TextProcessor.h"
 #include "types.h"
 
 #include <math.h>
 
-class LineNumWidget : public QWidget {
+class MyQScintilla : public QsciScintilla {
 public:
-	LineNumWidget(QWidget* parent) : QWidget(parent), ed_(0), doc_(0), view_(0) {
-		indent_ = 15;
-		visible_ = true;
-	}
-	virtual ~LineNumWidget() {
-	}
-
-	void applySettings() {
-		setFont(TextDocSettings::font());
-		repaint();
-	}
-
-	void update() {
-		int rowCount = ed_->document()->blockCount();
-		int digits = int(log10(float(rowCount))) + 1;
-
-		int w = 0;
-		if (visible_)
-			w = QFontMetrics(font()).width("0") * digits + indent_;
-		resize(w, height());
-
-		repaint();
-	}
-	
-	virtual void paintEvent(QPaintEvent*) {
-		if (doc_ == 0 || ed_ == 0 || view_ == 0)
-			return;
-
-		QPainter p(this);
-		p.setFont(font());
-		p.setPen(Qt::black);
-		p.setBrush(QColor(250, 250, 250));
-		p.drawRect(rect());
-		QTextBlock bl = ed_->document()->begin();
-		int w = width() - indent_;
-		int h = height();
-		int ind_2 = indent_ / 2;
-
-		IntList markers = view_->markers();
-	
-		//	draw line numbers
-		int blockNum = 1;
-		p.setBrush(QColor("#9999cc"));
-		while (bl.isValid()) {
-			QTextCursor cur(bl);
-			QRect rc(ed_->cursorRect(cur));
-			int y = rc.y();
-			int rc_h = rc.height();
-			if (y > h)
-				break;
-
-			if (y >= -rc_h) {
-				//	draw marker
-				if (markers.contains(blockNum)) {
-					p.setPen(QPen("#888899"));
-					p.drawRect(2, y, width() - 4, rc_h);
-				}
-
-				p.setPen(Qt::black);
-				p.drawText(ind_2, y, w, rc_h, Qt::AlignRight | Qt::AlignBottom, QString::number(blockNum));
-			}
-			bl = bl.next();
-			++blockNum;
-		}
-	}
-	
-	QTextEdit* ed_;
-	TextDoc* doc_;
-	TextDocView* view_;
-	int indent_;
-	bool visible_;
-};
-
-QTextDocument::FindFlags textDocFlags(DocFindFlags f) {
-	QTextDocument::FindFlags flags(0);
-	if (f.matchCase)
-		flags |= QTextDocument::FindCaseSensitively;
-	if (f.backward)
-		flags |= QTextDocument::FindBackward;
-	return flags;
-}
-
-class TextEdit : public QTextEdit {
-public:
-	TextEdit(QWidget* parent) : QTextEdit(parent) {
-		setAcceptRichText(false);
+	MyQScintilla(QWidget* parent) : QsciScintilla(parent) {
 		contextMenu_ = new QMenu();
 		contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_CUT));
 		contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_COPY));
@@ -139,84 +56,75 @@ public:
 		contextMenu_->addSeparator();
 		contextMenu_->addAction(CommandStorage::instance()->action(ID_GOTO_LINE));
 	}
-	virtual ~TextEdit() {
+	virtual ~MyQScintilla() {
 		delete contextMenu_;
 	}
-
-	QTextCursor getCursor(const QString& text, DocFindFlags flags) {
-		QTextCursor cursor = textCursor();
-		if (cursor.selectedText().compare(text) == 0 && flags.backward)
-			cursor.setPosition(cursor.selectionStart());
-
-		QTextCursor cur = document()->find(text, cursor.position(), textDocFlags(flags));
-		return cur;
-	}
-	QTextCursor getCursor(const QRegExp& regexp, DocFindFlags flags) {
-		QTextCursor cursor = textCursor();
-		if (regexp.exactMatch(cursor.selectedText()) && flags.backward)
-			cursor.setPosition(cursor.selectionStart());
-
-		QTextCursor cur = document()->find(regexp, cursor.position(), textDocFlags(flags));
-		return cur;
-	}
-
+	
 protected:
 	virtual void dragEnterEvent(QDragEnterEvent* e) {
 		if (!e->mimeData()->hasUrls())
-			QTextEdit::dragEnterEvent(e);
+			QsciScintilla::dragEnterEvent(e);
 	}
 
 	virtual void dropEvent(QDropEvent* e) {
 		if (!e->mimeData()->hasUrls())
-			QTextEdit::dropEvent(e);
+			QsciScintilla::dropEvent(e);
 	}
+
 	virtual void contextMenuEvent(QContextMenuEvent* e) {
 		contextMenu_->exec(e->globalPos());
-	}
-
-	virtual void paintEvent(QPaintEvent* e) {
-		QTextEdit::paintEvent(e);
-
-		int x = TextDocSettings::lineLengthIndicator() * QFontMetrics(font()).width("0");
-		if (x > 0) {
-			x -= horizontalScrollBar()->value();
-			QPainter p(this->viewport());
-			p.setPen(QPen(Qt::gray, 1, Qt::DotLine));
-			p.drawLine(x + 1, 0, x + 1, height());
-		}
 	}
 
 private:
 	QMenu* contextMenu_;
 };
 
+QTextDocument::FindFlags textDocFlags(DocFindFlags f) {
+	QTextDocument::FindFlags flags(0);
+	if (f.matchCase)
+		flags |= QTextDocument::FindCaseSensitively;
+	if (f.backward)
+		flags |= QTextDocument::FindBackward;
+	return flags;
+}
+
 class TDViewInterior {
 public:
 	TDViewInterior(QWidget* parent) {
-		ed_ = new TextEdit(parent);
-		parent->setFocusProxy(ed_);
-		parent->connect(ed_, SIGNAL(cursorPositionChanged()), parent, SLOT(cursorPositionChangeEvent()));
-		
-		lineNumWidget_ = new LineNumWidget(parent);
-		
 		lineNumVisible_ = true;
 		adjustedByWidth_ = false;
 		
-		hl_ = 0;
-		proc_ = new TextProcessor(ed_);
+		edit_ = new MyQScintilla(parent);
+		edit_->setUtf8(true);
+		edit_->setCaretLineVisible(true);
+		edit_->setIndentationGuides(true);
+		edit_->setCaretLineBackgroundColor(QColor(230, 230, 250));
+		edit_->setIndentationGuidesForegroundColor(QColor(200, 200, 200));
+		edit_->setFolding(QsciScintilla::BoxedTreeFoldStyle);
+		edit_->setAutoIndent(true);
+		edit_->setBackspaceUnindents(true);
+		
+		edit_->setMarginLineNumbers(1, true);
+
+		edit_->setMarginWidth(2, 12);
+		edit_->setMarginMarkerMask(1, 7);
+		edit_->markerDefine(QsciScintilla::RightTriangle, 1);
+		edit_->markerDefine(QsciScintilla::Background, 2);
+		edit_->setMarkerForegroundColor(QColor(100, 100, 100));
+		edit_->setMarkerBackgroundColor(QColor(100, 200, 100));
+		
+		edit_->setBackspaceUnindents(true);
+		edit_->setBraceMatching(QsciScintilla::SloppyBraceMatch);
+		edit_->setMatchedBraceBackgroundColor(QColor(255, 255, 120));
+
+		parent->setFocusProxy(edit_);
+		parent->connect(edit_, SIGNAL(cursorPositionChanged(int, int)), parent, SIGNAL(cursorPositionChanged(int, int)));
 	}
 	~TDViewInterior() {
-		if (hl_ != 0)
-			delete hl_;
-		delete proc_;
-		delete lineNumWidget_;
-		delete ed_;
+		delete edit_;
 	}
 	
-	TextEdit* ed_;
-	LineNumWidget* lineNumWidget_;
-	HL* hl_;
-	TextProcessor* proc_;
+	QsciScintilla* edit_;
 	
 	bool lineNumVisible_;
 	bool adjustedByWidth_;
@@ -228,9 +136,9 @@ public:
 TextDocView::TextDocView(QWidget* parent) : DocView(parent) {
 	vInt_ = new TDViewInterior(this);
 
-	connect(vInt_->ed_, SIGNAL(textChanged()), SLOT(updateLayout()));
-	QScrollBar* scr = vInt_->ed_->verticalScrollBar();
-	connect(scr, SIGNAL(valueChanged(int)), this, SLOT(scrolled(int)));
+	connect(vInt_->edit_, SIGNAL(textChanged()), SLOT(updateLineNums()));
+	
+	updateLineNums();
 }
 
 TextDocView::~TextDocView() {
@@ -247,84 +155,55 @@ void TextDocView::setDocument(Document* doc) {
 		return;
 	}
 	
-	vInt_->lineNumWidget_->doc_ = tDoc;
-	vInt_->lineNumWidget_->ed_= vInt_->ed_;
-	vInt_->lineNumWidget_->view_ = this;
-	
-	if (vInt_->hl_ != 0) {
-		delete vInt_->hl_;
-		vInt_->hl_ = 0;
-	}
-	vInt_->hl_ = new HL(vInt_->ed_->document());
-	
-	connect(vInt_->ed_->document(), SIGNAL(modificationChanged(bool)), doc, SLOT(setModified(bool)));
-	connect(vInt_->ed_->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
-	connect(doc, SIGNAL(fileNameChanged()), SLOT(rehighlight()));
+	connect(vInt_->edit_, SIGNAL(modificationChanged(bool)), doc, SLOT(setModified(bool)));
+	connect(vInt_->edit_, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
 
-	rehighlight();
+	QsciLexer* lexer = LexerStorage::instance()->getLexerByFileName(doc->fileName(), TextDocSettings::font());
+	vInt_->edit_->setLexer(lexer);
+	vInt_->edit_->recolor();
+	if (lexer != 0) {
+		lexer->refreshProperties();
+	}
 }
 
 void TextDocView::rehighlight() {
-	if (vInt_->hl_ != 0)
-		vInt_->hl_->changeFileName(document()->fileName());
 }
 
 void TextDocView::setModified(bool mod) {
-	vInt_->ed_->document()->setModified(mod);
+	vInt_->edit_->setModified(mod);
 }
 
-void TextDocView::updateLayout() {
+void TextDocView::resizeEvent(QResizeEvent*) {
 	int h = height();
 	int w = width();
 
-//	TextDoc* doc = qobject_cast<TextDoc*>(document());
-	vInt_->lineNumWidget_->update();
-
-	int w1 = vInt_->lineNumWidget_->width();
-	
-	vInt_->lineNumWidget_->setGeometry(0, 0, w1, h);
-	vInt_->ed_->setGeometry(w1, 0, w - w1, h);
+	vInt_->edit_->setGeometry(0, 0, w, h);
 }
 
-void TextDocView::scrolled(int) {
-	updateLayout();
-}
-	
-void TextDocView::resizeEvent(QResizeEvent*) {
-	updateLayout();
+void TextDocView::updateLineNums() {
+	QString str = QString("   %1").arg(lineCount());
+	if (vInt_->lineNumVisible_)
+		vInt_->edit_->setMarginWidth(1, str);
+	else
+		vInt_->edit_->setMarginWidth(1, 0);
 }
 
 void TextDocView::setText(const QString& text) {
-	if (vInt_->ed_->document() == 0) {
-	}
-	else {
-		int scrollPos = vInt_->ed_->verticalScrollBar()->value();
-		QTextCursor c = vInt_->ed_->textCursor();
-		int pos = c.position();
-		
-		vInt_->ed_->document()->setPlainText(text);
-		updateLayout();
-		
-		vInt_->ed_->verticalScrollBar()->setValue(scrollPos);
-		c = vInt_->ed_->textCursor();
-		c.setPosition(pos);
-		vInt_->ed_->setTextCursor(c);
-	}
+	vInt_->edit_->setText(text);
+	updateLineNums();
 }
 
 void TextDocView::getText(QString& text) const {
-	text = vInt_->ed_->document()->toPlainText();
+	text = vInt_->edit_->text();
 }
 
-
-
 bool TextDocView::lineNumIsVisible() const {
-	return vInt_->lineNumWidget_->visible_;
+	return vInt_->lineNumVisible_;
 }
 
 void TextDocView::setLineNumVisible(bool visible) {
-	vInt_->lineNumWidget_->visible_ = visible;
-	updateLayout();
+	vInt_->lineNumVisible_ = visible;
+	updateLineNums();
 }
 
 bool TextDocView::isAdjustedByWidth() const {
@@ -334,50 +213,42 @@ bool TextDocView::isAdjustedByWidth() const {
 void TextDocView::setAdjustedByWidth(bool adjust) {
 	vInt_->adjustedByWidth_ = adjust;
 	if (adjust)
-		vInt_->ed_->setLineWrapMode(QTextEdit::WidgetWidth);
+		vInt_->edit_->setWrapMode(QsciScintilla::WrapWord);
 	else
-		vInt_->ed_->setLineWrapMode(QTextEdit::NoWrap);
-		
-	updateLayout();
-}
-
-void TextDocView::cursorPositionChangeEvent() {
-	int row(-1), col(-1);
-	getCursorPos(row, col);
-	emit cursorPositionChanged(row, col);
+		vInt_->edit_->setWrapMode(QsciScintilla::WrapNone);
 }
 
 void TextDocView::getCursorPos(int& row, int& col) const {
-	QTextCursor c = vInt_->ed_->textCursor();
-	row = c.blockNumber();
-	col = c.position() - c.block().position();
+	vInt_->edit_->getCursorPosition(&row, &col);
 }
 
 void TextDocView::gotoLine(int line) const {
-	QTextEdit* edit = vInt_->ed_;
-	QTextBlock block = edit->document()->begin();
-	QTextCursor cur = edit->textCursor();
-	cur.setPosition(block.position());
-	while (block.isValid() && cur.blockNumber() + 1 < line) {
-		cur.setPosition(block.position());
-		block = block.next();
-	}
-	edit->setTextCursor(cur);
+	vInt_->edit_->setCursorPosition(line - 1, 0);
 }
 
 int TextDocView::lineCount() const {
-	return vInt_->ed_->document()->blockCount();
+	return vInt_->edit_->lines();
 }
 
 void TextDocView::applySettings() {
 	QFont font = TextDocSettings::font();
-	vInt_->ed_->setFont(font);
+	vInt_->edit_->setFont(font);
 
-	int tabIndent = TextDocSettings::tabStopWidth() * QFontMetrics(font).width(" ");
-	vInt_->ed_->setTabStopWidth(tabIndent);
-	vInt_->ed_->setPlainText(vInt_->ed_->toPlainText());
+	QsciLexer* lexer = vInt_->edit_->lexer();
+	if (lexer != 0) {
+		lexer->setFont(font, -1);
+	}
 
-	vInt_->lineNumWidget_->applySettings();
+	vInt_->edit_->setTabWidth(TextDocSettings::tabStopWidth());
+
+	int lInd = TextDocSettings::lineLengthIndicator();
+	if (lInd > 0) {
+		vInt_->edit_->setEdgeMode(QsciScintilla::EdgeLine);
+		vInt_->edit_->setEdgeColumn(lInd);	
+	}
+	else {
+		vInt_->edit_->setEdgeMode(QsciScintilla::EdgeNone);
+	}
 }
 
 
@@ -385,23 +256,23 @@ void TextDocView::applySettings() {
 ////////////////////////////////////////////////////////////
 //	EDIT
 void TextDocView::cut() {
-	vInt_->ed_->cut();
+	vInt_->edit_->cut();
 }
 
 void TextDocView::copy() {
-	vInt_->ed_->copy();
+	vInt_->edit_->copy();
 }
 
 void TextDocView::paste() {
-	vInt_->ed_->paste();
+	vInt_->edit_->paste();
 }
 
 void TextDocView::undo() {
-	vInt_->ed_->undo();
+	vInt_->edit_->undo();
 }
 
 void TextDocView::redo() {
-	vInt_->ed_->redo();
+	vInt_->edit_->redo();
 }
 //	EDIT
 ////////////////////////////////////////////////////////////
@@ -410,79 +281,53 @@ void TextDocView::redo() {
 
 ////////////////////////////////////////////////////////////
 //	FIND
-void TextDocView::find(const QString& str, DocFindFlags flags) {
-	TextEdit* edit = vInt_->ed_;
-	
-	if (flags.backward) {
-		//	move cursor to the beginning of the selection
-		QTextCursor c = edit->textCursor();
-		c.setPosition(c.selectionStart());
-		edit->setTextCursor(c);
-	}
-
-	QTextCursor cur = edit->getCursor(str, flags);
-	if (cur.isNull()) {
-		//	not found
-		QString msg;
-		QTextCursor::MoveOperation moveOp;
-		if (flags.backward) {
-			msg = tr("The search has reached the beginning of file.\nContinue from the end?");
-			moveOp = QTextCursor::End;
+void prepareForFind(QsciScintilla* edit, const QString& str, bool back) {
+	if (back) {
+		if (edit->hasSelectedText()) {
+			int fromRow, fromCol, toRow, toCol;
+			edit->getSelection(&fromRow, &fromCol, &toRow, &toCol);
+			if (fromRow == toRow) {
+				QString selection = edit->selectedText();
+				if (selection.compare(str) == 0)
+					edit->setCursorPosition(fromRow, fromCol);
+			}
 		}
-		else {
-			msg = tr("The search has reached the end of file.\nContinue from the beginning?");
-			moveOp = QTextCursor::Start;
-		}
-		QMessageBox::StandardButton choice = QMessageBox::question(this, tr("Find"),
-						msg, QMessageBox::Ok | QMessageBox::Cancel);
-		if (choice == QMessageBox::Ok) {
-			QTextCursor c = vInt_->ed_->textCursor();
-			c.movePosition(moveOp);
-			vInt_->ed_->setTextCursor(c);
-			find(str, flags);
-		}
-	}
-	else {
-		//	found
-		edit->setTextCursor(cur);
 	}
 }
 
-void TextDocView::find(const QRegExp& regexp, DocFindFlags flags) {
-	TextEdit* edit = vInt_->ed_;
-
-	if (flags.backward) {
-		//	move cursor to the beginning of the selection
-		QTextCursor c = edit->textCursor();
-		c.setPosition(c.selectionStart());
-		edit->setTextCursor(c);
-	}
-
-	QTextCursor cur = edit->getCursor(regexp, flags);
-	if (cur.isNull()) {
-		//	not found
-		QString msg;
-		QTextCursor::MoveOperation moveOp;
-		if (flags.backward) {
-			msg = tr("The search has reached the beginning of file.\nContinue from the end?");
-			moveOp = QTextCursor::End;
-		}
-		else {
-			msg = tr("The search has reached the end of file.\nContinue from the beginning?");
-			moveOp = QTextCursor::Start;
-		}
-		QMessageBox::StandardButton choice = QMessageBox::question(this, tr("Find"),
-						msg, QMessageBox::Ok | QMessageBox::Cancel);
-		if (choice == QMessageBox::Ok) {
-			QTextCursor c = vInt_->ed_->textCursor();
-			c.movePosition(moveOp);
-			vInt_->ed_->setTextCursor(c);
-			find(regexp, flags);
-		}
+bool TextDocView::continueOverTheEnd(bool back) {
+	QString msg;
+	int row(0), col(0);
+	if (back) {
+		msg = tr("The search has reached the beginning of file.\nContinue from the end?");
+		row = lineCount() - 1;
+		col = vInt_->edit_->text(row).length();
 	}
 	else {
-		//	found
-		edit->setTextCursor(cur);
+		msg = tr("The search has reached the end of file.\nContinue from the beginning?");
+		row = 0;
+		col = 0;
+	}
+	QMessageBox::StandardButton choice = QMessageBox::question(this, tr("Find"),
+			msg, QMessageBox::Ok | QMessageBox::Cancel);
+	
+	if (choice == QMessageBox::Ok) {
+		vInt_->edit_->setCursorPosition(row, col);
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void TextDocView::find(const QString& str, bool isRegExp, DocFindFlags flags) {
+	prepareForFind(vInt_->edit_, str, flags.backward);
+	
+	bool found = vInt_->edit_->findFirst(str, isRegExp, flags.matchCase, false, false, !flags.backward);
+	if (!found) {
+		//	not found
+		if (continueOverTheEnd(flags.backward))
+			find(str, isRegExp, flags);
 	}
 }
 
@@ -513,97 +358,41 @@ Answer confirm(QWidget* w) {
 	return answer;
 }
 
-bool TextDocView::doReplace(QTextCursor& cur, const QString& text, bool& replaceAll) {
+bool TextDocView::doReplace(const QString& text, bool& replaceAll) {
 	if (!replaceAll) {
 		//	ask confirmation if replace all hasn't been chosen yet
 		Answer conf = confirm(this);
 		if (conf == Cancel)
 			return false;
 		else if (conf == Yes)
-			cur.insertText(text);
+			vInt_->edit_->replace(text);
 		else if (conf == All) {
 			replaceAll = true;
-			cur.insertText(text);
+			vInt_->edit_->replace(text);
 		}
 	}
 	else {
 		//	just replace, because there has been chosen "select all"
-		cur.insertText(text);
+		vInt_->edit_->replace(text);
 	}
 	return true;
 }
 
-void TextDocView::replace(const QString& from, const QString& to, DocFindFlags flags) {
-	QTextCursor cur = vInt_->ed_->getCursor(from, flags);
-
+void TextDocView::replace(const QString& from, bool isRegExp, const QString& to, DocFindFlags flags) {
+	prepareForFind(vInt_->edit_, from, flags.backward);
+	
+	bool cancelled = false;
 	bool replaceAll = false;
-	while (cur.position() >= 0) {
-		vInt_->ed_->setTextCursor(cur);
-
-		if (!doReplace(cur, to, replaceAll))
+	while (vInt_->edit_->findFirst(from, isRegExp, flags.matchCase, false, false, !flags.backward)) {
+		if (!doReplace(to, replaceAll)) {
+			cancelled = true;
 			break;
-
-		cur = vInt_->ed_->getCursor(from, flags);
-	}
-
-
-	if (cur.position() < 0) {
-		//	not found
-		QString msg;
-		QTextCursor::MoveOperation moveOp;
-		if (flags.backward) {
-			msg = tr("The search has reached the beginning of file.\nContinue from the end?");
-			moveOp = QTextCursor::End;
-		}
-		else {
-			msg = tr("The search has reached the end of file.\nContinue from the beginning?");
-			moveOp = QTextCursor::Start;
-		}
-		QMessageBox::StandardButton choice = QMessageBox::question(this, tr("Find"),
-						msg, QMessageBox::Ok | QMessageBox::Cancel);
-		if (choice == QMessageBox::Ok) {
-			QTextCursor c = vInt_->ed_->textCursor();
-			c.movePosition(moveOp);
-			vInt_->ed_->setTextCursor(c);
-			replace(from, to, flags);
 		}
 	}
-}
-
-void TextDocView::replace(const QRegExp& regexp, const QString& to, DocFindFlags flags) {
-	QTextCursor cur = vInt_->ed_->getCursor(regexp, flags);
-
-	bool replaceAll = false;
-	while (cur.position() >= 0) {
-		vInt_->ed_->setTextCursor(cur);
-
-		if (!doReplace(cur, to, replaceAll))
-			break;
-
-		cur = vInt_->ed_->getCursor(regexp, flags);
-	}
-
-
-	if (cur.position() < 0) {
-		//	not found
-		QString msg;
-		QTextCursor::MoveOperation moveOp;
-		if (flags.backward) {
-			msg = tr("The search has reached the beginning of file.\nContinue from the end?");
-			moveOp = QTextCursor::End;
-		}
-		else {
-			msg = tr("The search has reached the end of file.\nContinue from the beginning?");
-			moveOp = QTextCursor::Start;
-		}
-		QMessageBox::StandardButton choice = QMessageBox::question(this, tr("Find"),
-						msg, QMessageBox::Ok | QMessageBox::Cancel);
-		if (choice == QMessageBox::Ok) {
-			QTextCursor c = vInt_->ed_->textCursor();
-			c.movePosition(moveOp);
-			vInt_->ed_->setTextCursor(c);
-			replace(regexp, to, flags);
-		}
+	if (!cancelled) {
+		//	reached the end or the beginning
+		if (continueOverTheEnd(flags.backward))
+			replace(from, isRegExp, to, flags);
 	}
 }
 //	FIND & REPLACE
@@ -614,24 +403,29 @@ void TextDocView::replace(const QRegExp& regexp, const QString& to, DocFindFlags
 ////////////////////////////////////////////////////////////
 //	MARKERS
 void TextDocView::toggleMarker() {
-	QTextCursor c = vInt_->ed_->textCursor();
-	int line = c.blockNumber() + 1;
+	int line(-1), col(-1);
+	vInt_->edit_->getCursorPosition(&line, &col);
+	line++;
 	if (vInt_->markers_.contains(line)) {
 		vInt_->markers_.removeAll(line);
+		vInt_->edit_->markerDelete(line - 1, 1);
+		vInt_->edit_->markerDelete(line - 1, 2);
 	}
 	else {
 		vInt_->markers_.push_back(line);
 		qSort(vInt_->markers_.begin(), vInt_->markers_.end());
+		vInt_->edit_->markerAdd(line - 1, 1);
+		vInt_->edit_->markerAdd(line - 1, 2);
 	}
-	updateLayout();
 }
 
 void TextDocView::gotoNextMarker() {
 	if (vInt_->markers_.count() == 0)
 		return;
 
-	QTextCursor c = vInt_->ed_->textCursor();
-	int line = c.blockNumber() + 1;
+	int line(-1), col(-1);
+	vInt_->edit_->getCursorPosition(&line, &col);
+	line++;
 	foreach (int marker, vInt_->markers_) {
 		if (marker > line) {
 			//	As soon as markers are sorted,
@@ -651,8 +445,9 @@ void TextDocView::gotoPrevMarker() {
 	if (vInt_->markers_.count() == 0)
 		return;
 
-	QTextCursor c = vInt_->ed_->textCursor();
-	int line = c.blockNumber() + 1;
+	int line(-1), col(-1);
+	vInt_->edit_->getCursorPosition(&line, &col);
+	line++;
 	int targetLine = -1;
 	foreach (int marker, vInt_->markers_) {
 		if (marker < line) {
@@ -680,7 +475,7 @@ void TextDocView::gotoPrevMarker() {
 
 void TextDocView::removeAllMarkers() {
 	vInt_->markers_.clear();
-	updateLayout();
+	vInt_->edit_->markerDeleteAll();
 }
 
 IntList TextDocView::markers() const {
@@ -688,10 +483,7 @@ IntList TextDocView::markers() const {
 }
 
 QString TextDocView::markedLine(int line) const {
-	QTextCursor c = vInt_->ed_->textCursor();
-	c.movePosition(QTextCursor::Start);
-	c.movePosition(QTextCursor::NextBlock, QTextCursor::MoveAnchor, line - 1);
-	return c.block().text();
+	return vInt_->edit_->text(line - 1);
 }
 //	MARKERS
 ////////////////////////////////////////////////////////////

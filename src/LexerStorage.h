@@ -16,29 +16,29 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _HL_H_
-#define _HL_H_
+#ifndef _LEXER_STORAGE_H_
+#define _LEXER_STORAGE_H_
 
-//	Local
-#include "HLTypes.h"
+class LSInterior;
+class QsciLexer;
 
-//	Qt
-#include <QtGui/QSyntaxHighlighter>
+class QFont;
+class QString;
 
-class HL : public QSyntaxHighlighter {
+class LexerStorage {
 public:
-	HL(QTextDocument*);
-	virtual ~HL();
+	~LexerStorage();
+	QsciLexer* getLexerByFileName(const QString& fileName, const QFont&);
+	QsciLexer* getLexer(const QString&, const QFont&);
 
-	void changeFileName(const QString&);
+	static LexerStorage* instance();
 
+protected:
+	LexerStorage();
+	
 private:
-	virtual void highlightBlock(const QString&);
-	void highlightTheString(const QString&, int indent = 0, int blockType = -1);
-	void applyRules(const QString&, int indent = 0);
-	bool findBlockBegin(const QString&, int& blockIndex, int& begPos);
-
-	HLScheme sch_;
+	static LexerStorage* instance_;
+	LSInterior* lsInt_;
 };
 
 #endif

@@ -58,10 +58,8 @@ public:
 	void undo();
 	void redo();
 
-	void find(const QString& str, DocFindFlags flags);
-	void find(const QRegExp& regexp, DocFindFlags flags);
-	void replace(const QString& from, const QString& to, DocFindFlags flags);
-	void replace(const QRegExp& regexp, const QString& to, DocFindFlags flags);
+	void find(const QString& str, bool isRegExp, DocFindFlags flags);
+	void replace(const QString& from, bool isRegExp, const QString& to, DocFindFlags flags);
 
 	void toggleMarker();
 	void gotoNextMarker();
@@ -78,13 +76,12 @@ protected:
 	virtual void resizeEvent(QResizeEvent*);
 	
 protected slots:	
-	void updateLayout();
-	void scrolled(int);
 	void rehighlight();
-	void cursorPositionChangeEvent();
+	void updateLineNums();
 	
 private:
-	bool doReplace(QTextCursor&, const QString&, bool&);
+	bool doReplace(const QString& text, bool& replaceAll);
+	bool continueOverTheEnd(bool back);
 
 	TDViewInterior* vInt_;
 };

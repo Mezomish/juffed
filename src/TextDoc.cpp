@@ -188,36 +188,15 @@ void TextDoc::find(const QString& str, const DocFindFlags& flags) {
 			DocFindFlags fl = dlg.flags();
 			bool regexpMode = dlg.isRegexpMode();
 			if (dlg.isReplaceMode()) {
-				if (regexpMode) {
-					QRegExp r(text);
-					r.setCaseSensitivity(fl.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-					tdView->replace(r, dlg.replaceTo(), fl);
-				}
-				else {
-					tdView->replace(text, dlg.replaceTo(), fl);
-				}
+				tdView->replace(text, regexpMode, dlg.replaceTo(), fl);
 			}
 			else {
-				if (regexpMode) {
-					QRegExp r(text);
-					r.setCaseSensitivity(fl.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-					tdView->find(r, fl);
-				}
-				else {
-					tdView->find(text, fl);
-				}
+				tdView->find(text, regexpMode, fl);
 			}
 		}
 	}
 	else {
-		if (FindDlg::lastRegExpMode()) {
-			QRegExp r(str);
-			r.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-			tdView->find(r, flags);
-		}
-		else {
-			tdView->find(str, flags);
-		}
+		tdView->find(str, FindDlg::lastRegExpMode(), flags);
 	}
 }
 
@@ -381,4 +360,3 @@ Document::Status TextDoc::writeContent(const QString& name, bool getNewName /*= 
 int TextDoc::count() {
 	return TextDocInterior::count_;
 }
-

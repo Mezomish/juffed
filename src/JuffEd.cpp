@@ -250,8 +250,10 @@ void JuffEd::createCommands() {
 void JuffEd::createMenuBar() {
 	menuBar()->clear();
 
-	CommandID fileMenu[] = { ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_FILE_SAVE_AS, ID_FILE_RELOAD, 
-					ID_SEPARATOR, ID_FILE_CLOSE, ID_FILE_CLOSE_ALL, ID_SEPARATOR, ID_EXIT, ID_NONE };
+	CommandID fileMenu[] = { ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_FILE_SAVE_AS, 
+					ID_FILE_RELOAD, ID_FILE_CLOSE, ID_FILE_CLOSE_ALL, ID_SEPARATOR, 
+					ID_SESSION_NEW, ID_SESSION_OPEN, ID_SESSION_SAVE, ID_SESSION_SAVE_AS, 
+					ID_SEPARATOR, ID_EXIT, ID_NONE };
 
 	CommandID editMenu[] = { ID_EDIT_CUT, ID_EDIT_COPY, ID_EDIT_PASTE, ID_SEPARATOR, ID_EDIT_UNDO, 
 					ID_EDIT_REDO, ID_SEPARATOR, ID_FIND, ID_FIND_NEXT, ID_FIND_PREV, 
@@ -263,12 +265,12 @@ void JuffEd::createMenuBar() {
 
 	CommandID toolsMenu[] = { ID_SETTINGS, ID_NONE };
 
-	CommandID sessMenu[] = { ID_SESSION_NEW, ID_SESSION_OPEN, ID_SESSION_SAVE, ID_SESSION_SAVE_AS, ID_NONE };
+//	CommandID sessMenu[] = { ID_SESSION_NEW, ID_SESSION_OPEN, ID_SESSION_SAVE, ID_SESSION_SAVE_AS, ID_NONE };
 
 	CommandID helpMenu[] = { ID_ABOUT, ID_ABOUT_QT, ID_NONE };
 
-	CommandID* menu_ids[] = { fileMenu, editMenu, viewMenu, markersMenu, toolsMenu, sessMenu, helpMenu, 0 };
-	QString menus[] = { tr("&File"), tr("&Edit"), tr("&View"), tr("&Markers"), tr("&Tools"), tr("&Session"), tr("&Help"), "" };
+	CommandID* menu_ids[] = { fileMenu, editMenu, viewMenu, markersMenu, toolsMenu, helpMenu, 0 };
+	QString menus[] = { tr("&File"), tr("&Edit"), tr("&View"), tr("&Markers"), tr("&Tools"), tr("&Help"), "" };
 
 
 	for (unsigned i = 0; !menus[i].isEmpty(); i++) {
@@ -316,6 +318,27 @@ void JuffEd::createMenuBar() {
 		fMenu->insertMenu(openAct, jInt_->recentFilesMenu_);
 	}
 	initRecentFilesMenu();
+	
+	//	session menu
+/*	jInt_->sessionMenu_ = new QMenu(tr("Session"));
+	QAction* exitAct = CommandStorage::instance()->action(ID_FILE_NEW);
+	if (fMenu != 0 && exitAct != 0) {
+		fMenu->insertMenu(exitAct, jInt_->sessionMenu_);
+		fMenu->insertSeparator(fileNewAct);
+		CommandID ids[] = { ID_SESSION_NEW, ID_SESSION_OPEN, ID_SESSION_SAVE, ID_SESSION_SAVE_AS, ID_NONE };
+		for (int j = 0; ids[j] != ID_NONE; j++) {
+			CommandID id = ids[j];
+			if (id == ID_SEPARATOR) {
+				jInt_->sessionMenu_->addSeparator();
+			}
+			else {
+				QAction* action = CommandStorage::instance()->action(id);
+				if (action != 0) {
+					jInt_->sessionMenu_->addAction(action);
+				}
+			}
+		}
+	}*/
 }
 
 void JuffEd::createToolBar() {

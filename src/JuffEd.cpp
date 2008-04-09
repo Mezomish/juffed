@@ -52,7 +52,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class JuffEdInterior {
 public:
-	JuffEdInterior(DocHandler* h, QWidget* parent) : charsetsMenu_(0), lastCharsetAction_(0) {
+	JuffEdInterior(DocHandler* h, QWidget* parent) : 
+		charsetsMenu_(0), 
+		syntaxMenu_(0), 
+		markersMenu_(0), 
+		recentFilesMenu_(0), 
+		lastCharsetAction_(0) {
+		
 		handler_ = h;
 		viewer_ = new DocViewer(parent);
 		handler_->addViewer(viewer_);
@@ -247,6 +253,7 @@ void JuffEd::createCommands() {
 
 	if (jInt_->recentFilesMenu_ != 0)
 		jInt_->recentFilesMenu_->setIcon(QIcon(jInt_->icons_["fileOpen"]));
+	qDebug("1");
 }
 
 void JuffEd::createMenuBar() {

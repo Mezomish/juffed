@@ -49,6 +49,7 @@ public:
 	void gotoLine(int) const;
 	int lineCount() const;
 	void setSyntax(const QString&);
+	QString syntax() const;
 	virtual void applySettings();
 
 	virtual void setDocument(Document*);

@@ -93,7 +93,7 @@ public:
 	TDViewInterior(QWidget* parent) {
 		lineNumVisible_ = true;
 		adjustedByWidth_ = false;
-		syntax_ = "";
+		syntax_ = "none";
 		
 		edit_ = new MyQScintilla(parent);
 		edit_->setUtf8(true);
@@ -164,6 +164,10 @@ void TextDocView::setDocument(Document* doc) {
 	setSyntax(lexName);
 }
 
+QString TextDocView::syntax() const {
+	return vInt_->syntax_;
+}
+	
 void TextDocView::setSyntax(const QString& lexName) {
 	if (lexName.isEmpty())
 		return;
@@ -175,6 +179,7 @@ void TextDocView::setSyntax(const QString& lexName) {
 	
 	vInt_->edit_->setLexer(lexer);
 	vInt_->edit_->recolor();
+	vInt_->edit_->update();
 }
 	
 void TextDocView::rehighlight() {

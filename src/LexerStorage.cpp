@@ -217,6 +217,9 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if (name.compare("Lua") == 0) {
 			newLexer = new QsciLexerLua();
 		}
+		else if (name.compare("none") == 0) {
+			newLexer = new QsciLexerPython();
+		}
 	
 		if (newLexer != 0) {
 			lexers_[name] = newLexer;
@@ -350,7 +353,7 @@ LexerStorage::~LexerStorage() {
 
 QString LexerStorage::lexerName(const QString& fileName) const {
 	QString ext = QFileInfo(fileName).suffix().toLower();
-	QString name = "";
+	QString name = "none";
 
 	if (ext.isEmpty()) {
 		if (fileName.contains("Makefile")) {
@@ -418,7 +421,7 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 
 void LexerStorage::getLexersList(QStringList& list) {
 	list.clear();
-	list << "Bash" << "C++" << "C#" << "CSS" << "D" << "HTML" << "Java" << "JavaScript" 
+	list << "none" << "Bash" << "C++" << "C#" << "CSS" << "D" << "HTML" << "Java" << "JavaScript" 
 				<< "IDL" << "Lua" << "Makefile" << "Perl" << "Python" << "Ruby" 
 				<< "SQL" << "XML";
 }
@@ -430,10 +433,18 @@ void LexerStorage::updateLexer(const QString& name, const QFont& font) {
 		lex->refreshProperties();
 
 		//	TODO: remove this test code, apply custom lexer style here
-		QFont font = lex->font(0);
-		font.setItalic(true);
-		lex->setFont(font, QsciLexerCPP::Comment);
-		lex->setFont(font, QsciLexerCPP::CommentLine);
+		if (name.compare("none") == 0) {
+			QFont font = lex->font(0);
+			lex->setFont(font, -1);
+			lex->setColor(Qt::black, -1);
+			lex->setPaper(Qt::white, -1);
+		}
+		else {
+			QFont font = lex->font(0);
+			font.setItalic(true);
+			lex->setFont(font, QsciLexerCPP::Comment);
+			lex->setFont(font, QsciLexerCPP::CommentLine);
+		}
 		//	TODO: remove this test code
 	}
 }

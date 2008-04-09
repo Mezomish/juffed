@@ -56,6 +56,7 @@ private slots:
 	void displayFileName(const QString&);
 	void displayCursorPos(int, int);
 	void displayCharset(const QString&);
+	void displaySyntax(const QString&);
 	
 private:
 	virtual void closeEvent(QCloseEvent*);
@@ -71,6 +72,7 @@ private:
 	void createCommands();
 
 	void changeCurrentCharsetAction(QAction*);
+	void changeCurrentSyntaxAction(QAction*);
 	
 	TextDoc* getCurrentTextDoc();
 

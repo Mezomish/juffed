@@ -57,7 +57,8 @@ public:
 		syntaxMenu_(0), 
 		markersMenu_(0), 
 		recentFilesMenu_(0), 
-		lastCharsetAction_(0) {
+		lastCharsetAction_(0),
+		lastSyntaxAction_(0) {
 		
 		handler_ = h;
 		viewer_ = new DocViewer(parent);
@@ -107,14 +108,17 @@ public:
 	QLabel* cursorPosL_;
 	QLabel* fileNameL_;
 	QLabel* charsetL_;
+	QLabel* syntaxL_;
 	QToolBar* toolBar_;
 	QMap<QString, QMenu*> mainMenuItems_;
 	QMap<QString, QAction*> charsetActions_;
+	QMap<QString, QAction*> syntaxActions_;
 	QMenu* charsetsMenu_;
 	QMenu* syntaxMenu_;
 	QMenu* markersMenu_;
 	QMenu* recentFilesMenu_;
 	QAction* lastCharsetAction_;
+	QAction* lastSyntaxAction_;
 };
 
 JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
@@ -140,9 +144,11 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 	jInt_->cursorPosL_ = new QLabel("");
 	jInt_->fileNameL_ = new QLabel("");
 	jInt_->charsetL_ = new QLabel("");
+	jInt_->syntaxL_ = new QLabel("");
 	statusBar()->addWidget(jInt_->cursorPosL_);
 	statusBar()->addWidget(jInt_->fileNameL_);
 	statusBar()->addWidget(jInt_->charsetL_);
+	statusBar()->addWidget(jInt_->syntaxL_);
 	
 	setCentralWidget(jInt_->viewer_->widget());
 
@@ -253,7 +259,6 @@ void JuffEd::createCommands() {
 
 	if (jInt_->recentFilesMenu_ != 0)
 		jInt_->recentFilesMenu_->setIcon(QIcon(jInt_->icons_["fileOpen"]));
-	qDebug("1");
 }
 
 void JuffEd::createMenuBar() {
@@ -321,8 +326,10 @@ void JuffEd::createMenuBar() {
 		QStringList sList;
 		LexerStorage::instance()->getLexersList(sList);
 		foreach (QString s, sList) {
-			jInt_->syntaxMenu_->addAction(s, this, SLOT(syntaxSelected()));
-		}
+			QAction* a = jInt_->syntaxMenu_->addAction(s, this, SLOT(syntaxSelected()));
+			a->setCheckable(true);
+			jInt_->syntaxActions_[s] = a;
+		}	
 	}
 	
 	//	markers menu
@@ -423,6 +430,16 @@ void JuffEd::changeCurrentCharsetAction(QAction* a) {
 	}
 }
 
+void JuffEd::changeCurrentSyntaxAction(QAction* a) {
+	if (jInt_->lastSyntaxAction_ != 0)
+		jInt_->lastSyntaxAction_->setChecked(false);
+
+	if (a != 0) {
+		jInt_->lastSyntaxAction_ = a;
+		a->setChecked(true);
+	}
+}
+
 void JuffEd::charsetSelected() {
 	QAction* a = qobject_cast<QAction*>(sender());
 	if (a != 0) {
@@ -448,8 +465,17 @@ void JuffEd::syntaxSelected() {
 		TextDoc* doc = getCurrentTextDoc();
 		if (doc != 0 && !doc->isNull()) {
 			TextDocView* tdView = qobject_cast<TextDocView*>(doc->view());
-			if (tdView != 0)
+			if (tdView != 0) {
 				tdView->setSyntax(a->text());
+				displaySyntax(a->text());
+				changeCurrentSyntaxAction(a);
+			}
+			else {
+				a->setChecked(false);
+			}
+		}
+		else {
+			a->setChecked(false);
 		}
 	}
 }
@@ -529,6 +555,11 @@ void JuffEd::displayCharset(const QString& charset) {
 	changeCurrentCharsetAction(jInt_->charsetActions_[charset]);
 }
 
+void JuffEd::displaySyntax(const QString& syntax) {
+	jInt_->syntaxL_->setText(QString(" %1 ").arg(syntax));
+	changeCurrentSyntaxAction(jInt_->syntaxActions_[syntax]);
+}
+
 void JuffEd::docFileNameChanged(Document* doc) {
 	if (doc != 0 && !doc->isNull()) {
 		displayFileName(doc->fileName());
@@ -555,6 +586,7 @@ void JuffEd::docSwitched(QWidget* w) {
 		displayCursorPos(-1, -1);
 		displayFileName("");
 		displayCharset("");
+		displaySyntax("none");
 		return;
 	}
 
@@ -574,11 +606,13 @@ void JuffEd::docSwitched(QWidget* w) {
 	int row(0), col(0);
 	tdView->getCursorPos(row, col);
 	displayCursorPos(row, col);
-
+	displaySyntax(tdView->syntax());
+		
 	//	charset menu item
 	TextDoc* doc = qobject_cast<TextDoc*>(tdView->document());
-	if (doc == 0)
+	if (doc == 0) {
 		displayCharset("");
+	}
 	else {
 		displayCharset(doc->charset());
 		jInt_->handler_->docActivated(doc);

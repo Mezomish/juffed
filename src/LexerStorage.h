@@ -29,9 +29,10 @@ class QStringList;
 class LexerStorage {
 public:
 	~LexerStorage();
-	QsciLexer* lexerByFileName(const QString& fileName, const QFont&);
-	QsciLexer* lexer(const QString&, const QFont&);
-
+	QString lexerName(const QString& fileName) const;
+	QsciLexer* lexer(const QString& name, const QFont&);
+	void updateLexer(const QString& name, const QFont& font);
+	
 	void getLexersList(QStringList&);
 
 	static LexerStorage* instance();

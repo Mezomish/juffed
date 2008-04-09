@@ -169,59 +169,59 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		//	if it's type is known. If unknown,
 		//	return 0
 		QsciLexer* newLexer = 0;
-		if (name.compare("c++") == 0) {
+		if (name.compare("C++") == 0) {
 			newLexer = new QsciLexerCPP();
 		}
-		else if (name.compare("java") == 0) {
+		else if (name.compare("Java") == 0) {
 			newLexer = new QsciLexerJava();
 		}
-		else if (name.compare("c#") == 0) {
+		else if (name.compare("C#") == 0) {
 			newLexer = new QsciLexerCSharp();
 		}
-		else if (name.compare("makefile") == 0) {
+		else if (name.compare("Makefile") == 0) {
 			newLexer = new QsciLexerMakefile();
 		}
-		else if (name.compare("python") == 0) {
+		else if (name.compare("Python") == 0) {
 			newLexer = new QsciLexerPython();
 		}
-		else if (name.compare("ruby") == 0) {
+		else if (name.compare("Ruby") == 0) {
 			newLexer = new QsciLexerRuby();
 		}
-		else if (name.compare("perl") == 0) {
+		else if (name.compare("Perl") == 0) {
 			newLexer = new QsciLexerPerl();
 		}
-		else if (name.compare("bash") == 0) {
+		else if (name.compare("Bash") == 0) {
 			newLexer = new QsciLexerBash();
 		}
-		else if (name.compare("html") == 0) {
+		else if (name.compare("HTML") == 0) {
 			newLexer = new QsciLexerHTML();
 		}
-		else if (name.compare("css") == 0) {
+		else if (name.compare("CSS") == 0) {
 			newLexer = new QsciLexerCSS();
 		}
-		else if (name.compare("xml") == 0) {
+		else if (name.compare("XML") == 0) {
 			newLexer = new QsciLexerHTML();
 		}
-		else if (name.compare("sql") == 0) {
+		else if (name.compare("SQL") == 0) {
 			newLexer = new QsciLexerSQL();
 		}
-		else if (name.compare("javascript") == 0) {
+		else if (name.compare("JavaScript") == 0) {
 			newLexer = new QsciLexerJavaScript();
 		}
-		else if (name.compare("idl") == 0) {
+		else if (name.compare("IDL") == 0) {
 			newLexer = new QsciLexerIDL();
 		}
-		else if (name.compare("d") == 0) {
+		else if (name.compare("D") == 0) {
 			newLexer = new QsciLexerD();
 		}
-		else if (name.compare("lua") == 0) {
+		else if (name.compare("Lua") == 0) {
 			newLexer = new QsciLexerLua();
 		}
 	
 		if (newLexer != 0) {
 			lexers_[name] = newLexer;
 		}
-	
+
 		return newLexer;
 	}
 }
@@ -348,73 +348,68 @@ LexerStorage::~LexerStorage() {
 	delete lsInt_;
 }
 
-QsciLexer* LexerStorage::lexerByFileName(const QString& fileName, const QFont& font) {
-	QsciLexer* lex = 0;
-
+QString LexerStorage::lexerName(const QString& fileName) const {
 	QString ext = QFileInfo(fileName).suffix().toLower();
-	QString lexerName;
-	if (lsInt_->cppExtList_.contains(ext)) {
-		lexerName = "c++";
-	}
-	else if (ext.compare("java") == 0) {
-		lexerName = "java";
-	}
-	else if (ext.compare("cs") == 0) {
-		lexerName = "c#";
-	}
-	else if (ext.isEmpty()) {
+	QString name = "";
+
+	if (ext.isEmpty()) {
 		if (fileName.contains("Makefile")) {
-			lexerName = "makefile";
+			name = "Makefile";
 		}
 	}
+	else if (lsInt_->cppExtList_.contains(ext)) {
+		name = "C++";
+	}
+	else if (ext.compare("java") == 0) {
+		name = "Java";
+	}
+	else if (ext.compare("cs") == 0) {
+		name = "C#";
+	}
 	else if (ext.compare("py") == 0) {
-		lexerName = "python";
+		name = "Python";
 	}
 	else if (ext.compare("rb") == 0) {
-		lexerName = "ruby";
+		name = "Ruby";
 	}
 	else if (ext.compare("pl") == 0) {
-		lexerName = "perl";
+		name = "Perl";
 	}
 	else if (lsInt_->bashExtList_.contains(ext)) {
-		lexerName = "bash";
+		name = "Bash";
 	}
 	else if (lsInt_->htmlExtList_.contains(ext)) {
-		lexerName = "html";
+		name = "HTML";
 	}
 	else if (ext.compare("css") == 0) {
-		lexerName = "css";
+		name = "CSS";
 	}
 	else if (lsInt_->xmlExtList_.contains(ext)) {
-		lexerName = "xml";
+		name = "XML";
 	}
 	else if (ext.compare("sql") == 0) {
-		lexerName = "sql";
+		name = "SQL";
 	}
 	else if (ext.compare("js") == 0) {
-		lexerName = "javascript";
+		name = "JavaScript";
 	}
 	else if (ext.compare("idl") == 0) {
-		lexerName = "idl";
+		name = "IDL";
 	}
 	else if (ext.compare("d") == 0 || ext.compare("di") == 0) {
-		lexerName = "d";
+		name = "D";
 	}
 	else if (ext.compare("lua") == 0 || ext.compare("tasklua") == 0) {
-		lexerName = "lua";
+		name = "Lua";
 	}
 
-	if (!lexerName.isEmpty())
-		lex = lexer(lexerName, font);
-
-	return lex;
+	return name;
 }
 
 QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 	QsciLexer* lex = lsInt_->lexer(lexerName);
 
 	if (lex != 0) {
-		lex->setFont(font, -1);
 		lsInt_->setCustomLexerStyle(lex, lexerName, font);
 	}
 
@@ -426,6 +421,21 @@ void LexerStorage::getLexersList(QStringList& list) {
 	list << "Bash" << "C++" << "C#" << "CSS" << "D" << "HTML" << "Java" << "JavaScript" 
 				<< "IDL" << "Lua" << "Makefile" << "Perl" << "Python" << "Ruby" 
 				<< "SQL" << "XML";
+}
+
+void LexerStorage::updateLexer(const QString& name, const QFont& font) {
+	if (lsInt_->lexers_.contains(name)) {
+		QsciLexer* lex = lsInt_->lexers_[name];
+		lex->setFont(font);
+		lex->refreshProperties();
+
+		//	TODO: remove this test code, apply custom lexer style here
+		QFont font = lex->font(0);
+		font.setItalic(true);
+		lex->setFont(font, QsciLexerCPP::Comment);
+		lex->setFont(font, QsciLexerCPP::CommentLine);
+		//	TODO: remove this test code
+	}
 }
 	
 LexerStorage* LexerStorage::instance() {

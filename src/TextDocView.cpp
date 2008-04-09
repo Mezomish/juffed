@@ -93,6 +93,7 @@ public:
 	TDViewInterior(QWidget* parent) {
 		lineNumVisible_ = true;
 		adjustedByWidth_ = false;
+		syntax_ = "";
 		
 		edit_ = new MyQScintilla(parent);
 		edit_->setUtf8(true);
@@ -128,6 +129,7 @@ public:
 	
 	bool lineNumVisible_;
 	bool adjustedByWidth_;
+	QString syntax_;
 	IntList markers_;
 };
 
@@ -158,21 +160,21 @@ void TextDocView::setDocument(Document* doc) {
 	connect(vInt_->edit_, SIGNAL(modificationChanged(bool)), doc, SLOT(setModified(bool)));
 	connect(vInt_->edit_, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
 
-	QsciLexer* lexer = LexerStorage::instance()->lexerByFileName(doc->fileName(), TextDocSettings::font());
-	vInt_->edit_->setLexer(lexer);
-	vInt_->edit_->recolor();
-	if (lexer != 0) {
-		lexer->refreshProperties();
-	}
+	QString lexName = LexerStorage::instance()->lexerName(doc->fileName());
+	setSyntax(lexName);
 }
 
-void TextDocView::setSyntax(const QString& name) {
-	QsciLexer* lexer = LexerStorage::instance()->lexer(name, TextDocSettings::font());
+void TextDocView::setSyntax(const QString& lexName) {
+	if (lexName.isEmpty())
+		return;
+
+	QFont font = TextDocSettings::font();
+	vInt_->syntax_ = lexName;
+	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName, font);
+	LexerStorage::instance()->updateLexer(lexName, font);
+	
 	vInt_->edit_->setLexer(lexer);
 	vInt_->edit_->recolor();
-	if (lexer != 0) {
-		lexer->refreshProperties();
-	}
 }
 	
 void TextDocView::rehighlight() {
@@ -241,12 +243,8 @@ int TextDocView::lineCount() const {
 
 void TextDocView::applySettings() {
 	QFont font = TextDocSettings::font();
-	vInt_->edit_->setFont(font);
 
-	QsciLexer* lexer = vInt_->edit_->lexer();
-	if (lexer != 0) {
-		lexer->setFont(font, -1);
-	}
+	LexerStorage::instance()->updateLexer(vInt_->syntax_, font);
 
 	vInt_->edit_->setTabWidth(TextDocSettings::tabStopWidth());
 

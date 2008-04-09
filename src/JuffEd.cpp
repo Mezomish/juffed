@@ -449,7 +449,7 @@ void JuffEd::syntaxSelected() {
 		if (doc != 0 && !doc->isNull()) {
 			TextDocView* tdView = qobject_cast<TextDocView*>(doc->view());
 			if (tdView != 0)
-				tdView->setSyntax(a->text().toLower());
+				tdView->setSyntax(a->text());
 		}
 	}
 }

@@ -2,6 +2,8 @@
 Version 0.3-dev-?????????
 -------------------------------
 * using QScintilla instead of QTextEdit;
+* manual syntax highlighting selection;
+* custom highlights for C++, Makefile, Python, HTML, XML, Bash;
 
 
 ===============================

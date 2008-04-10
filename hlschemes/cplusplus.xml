@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="C++" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false" >
+	<style name="preprocessor" color="#006600" />
+	<style name="keywords" color="#000099" bold="true" />
+	<!--style name="numbers" color="#0000ff" /-->
+	<style name="numbers" color="#009900" bold="true" />
+	<style name="strings" color="#aa0000" />
+	<style name="comment" color="#999999" bgColor="#f0f0f0" italic="true" bold="true" />
+	<style name="commentdoc" color="#a09090" />
+</scheme>
+</JuffScheme>

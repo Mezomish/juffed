@@ -46,17 +46,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 //	local headers
 #include "AppInfo.h"
+#include "Log.h"
 
-class LSInterior {
 	struct Style {
-		Style() {
-			bold = false;
-			italic = false;
-			color = Qt::black;
-		}
-		
-		Style(const QColor& c, bool b, bool i) {
+		Style(const QColor& c = Qt::black, const QColor& bgc = Qt::white, bool b = false, bool i = false) {
 			color = c;
+			bgColor = bgc;
 			bold = b;
 			italic = i;
 		}
@@ -64,99 +59,234 @@ class LSInterior {
 		bool bold;
 		bool italic;
 		QColor color;
+		QColor bgColor;
 	};
-		
-	struct StyleMaper {
-		StyleMaper(const QString& style) {
-			configStyle = style;
+
+	struct Rule {
+		Rule(Style st) {
+			style = st;
 		}
-		QString configStyle;
-		QList<int> lexerStyles;
+		
+		QList<int> hlElements;
+		Style style;
 	};
-
-	typedef QList<StyleMaper> StyleMaperList;
+	
+	typedef QList<Rule> Scheme;
 	typedef QMap<QString, Style> StyleMap;
+	typedef QMap<QString, Scheme> SchemeMap;
 
+class LSInterior {
 public:
 	LSInterior() {
 		cppExtList_ << "cpp" << "cxx" << "c++" << "c" << "cc" << "h" << "hpp" << "hxx" << "h++";
 		bashExtList_ << "sh" << "run";
 		htmlExtList_ << "html" << "htm" << "php";
-		xmlExtList_ << "xml";
 	}
 	~LSInterior() {
 	}
 	
-	bool stringToBool(const QString& str) {
-		return (str.compare("true") == 0 || str.compare("yes") == 0 || str.compare("1") == 0);
-	}
-
-	void parseScheme(const QDomElement& schEl, StyleMap& styles) {
-//		sch.name = schEl.attribute("name", "");
-
-		QDomNode styleNode = schEl.firstChild();
-	
-		while (!styleNode.isNull()) {
-			QDomElement styleEl = styleNode.toElement();
-			if (styleEl.tagName().toLower().compare("style") == 0) {
-				Style style;
-				QString name = styleEl.attribute("name", "");
-				if (styleEl.hasAttribute("color")) {
-					QString colorStr = styleEl.attribute("color");
-					style.color = QVariant(colorStr).value<QColor>();
-				}
-				style.bold = stringToBool(styleEl.attribute("bold", "false"));
-				style.italic = stringToBool(styleEl.attribute("italic", "false"));
-				styles[name] = style;
-			}
-
-			styleNode = styleNode.nextSibling();
-		}
-	}
-
-	bool readScheme(const QString& name, StyleMap& styles) {
-		QDomDocument doc("HLScheme2");
-		QString fileName = QString("%1.xml").arg(name);
-		fileName = AppInfo::configDir() + "/hlschemes/" + fileName;
-		QFile file(fileName);
-		if (QFileInfo(fileName).suffix().toLower().compare("xml") != 0 || !file.open(QIODevice::ReadOnly)) {
-			return false;
-		}
-		QString err;
-		if (!doc.setContent(&file, &err)) {
-			qDebug(qPrintable(err));
-			file.close();
-			return false;
-		}
-		file.close();
-
-		styles.clear();
-		QDomElement docElem = doc.documentElement();
-		QDomNode schNode = docElem.firstChild();
-		while(!schNode.isNull()) {
-			QDomElement schEl = schNode.toElement();
-			if(!schEl.isNull()) {
-				if (schEl.tagName().toLower().compare("scheme") == 0) {
-					parseScheme(schEl, styles);
-				}
-			}
-			schNode = schNode.nextSibling();
-		}
-		return true;
-	}
-
-	QsciLexer* lexer(const QString& name);
-	void setCustomLexerStyle(QsciLexer* lexer, const QString& lexerName, const QFont& font);
-	void applyLexerStyle(QsciLexer* lexer, int arg, const Style& style, const QFont& font);
+	QsciLexer* lexer(const QString& name/*, const QFont&*/);
+	void readCustomStyle(const QString& name);
+	void applyCustomStyle(const QString& name, const QFont& font);
 	
 	QStringList cppExtList_;
 	QStringList bashExtList_;
 	QStringList htmlExtList_;
-	QStringList xmlExtList_;
 	
 	QMap<QString, QsciLexer*> lexers_;
+	SchemeMap schemes_;
 };
 
+bool stringToBool(const QString& str) {
+	return (str.compare("true") == 0 || str.compare("yes") == 0 || str.compare("1") == 0);
+}
+
+QColor stringToColor(const QString& str) {
+	return QVariant(str).value<QColor>();
+}
+
+void parseScheme(const QDomElement& schEl, StyleMap& styles) {
+	QDomNode styleNode = schEl.firstChild();
+	
+	QString defColorStr = schEl.attribute("defaultColor", "#000000");
+	QString defBgColorStr = schEl.attribute("defaultBgColor", "#ffffff");
+	QString defBoldStr = schEl.attribute("defaultBold", "false");
+	QString defItalicStr = schEl.attribute("defaultItalic", "false");
+	
+	while (!styleNode.isNull()) {
+		QDomElement styleEl = styleNode.toElement();
+		if (styleEl.tagName().toLower().compare("style") == 0) {
+			Style style;
+			QString name = styleEl.attribute("name", "");
+			if (!name.isEmpty()) {
+				style.color = stringToColor(styleEl.attribute("color", defColorStr));
+				style.bgColor = stringToColor(styleEl.attribute("bgColor", defBgColorStr));
+				style.bold = stringToBool(styleEl.attribute("bold", defBoldStr));
+				style.italic = stringToBool(styleEl.attribute("italic", defItalicStr));
+				styles[name] = style;
+			}
+		}
+
+		styleNode = styleNode.nextSibling();
+	}
+}
+
+void LSInterior::readCustomStyle(const QString& name) {
+	QDomDocument doc("JuffScheme");
+	QString nm = name;
+	nm = nm.replace(QString("+"), "plus").replace(QString("#"), "csharp").toLower();
+	QString fileName = QString("%1.xml").arg(nm);
+//	Log::debug(fileName);
+	fileName = AppInfo::configDir() + "/hlschemes/" + fileName;
+	QFile file(fileName);
+	if (QFileInfo(fileName).suffix().toLower().compare("xml") != 0 || !file.open(QIODevice::ReadOnly)) {
+		return;
+	}
+	QString err;
+	if (!doc.setContent(&file, &err)) {
+		Log::print(err);
+		file.close();
+		return;
+	}
+	file.close();
+
+	QDomElement docElem = doc.documentElement();
+	QDomNode schNode = docElem.firstChild();
+	StyleMap styles;
+	while(!schNode.isNull()) {
+		QDomElement schEl = schNode.toElement();
+		if(!schEl.isNull()) {
+			if (schEl.tagName().toLower().compare("scheme") == 0) {
+				parseScheme(schEl, styles);
+			}
+		}
+		schNode = schNode.nextSibling();
+	}
+
+
+	if (name.compare("C++") == 0) {
+		Rule preprRule(styles["preprocessor"]), commRule(styles["comment"]), 
+				numbRule(styles["numbers"]), keywRule(styles["keywords"]), strRule(styles["strings"]);
+
+		preprRule.hlElements << QsciLexerCPP::PreProcessor;
+		commRule.hlElements << QsciLexerCPP::CommentLine << QsciLexerCPP::Comment;
+		numbRule.hlElements << QsciLexerCPP::Number;
+		keywRule.hlElements << QsciLexerCPP::Keyword;
+		strRule.hlElements << QsciLexerCPP::DoubleQuotedString;
+
+		Scheme cppSch;
+		cppSch << preprRule << commRule << numbRule << keywRule << strRule;
+		schemes_[name] = cppSch;
+	}
+	else if(name.compare("Makefile") == 0) {
+		Rule variables(styles["variables"]), targets(styles["targets"]), comment(styles["comment"]);
+
+		variables.hlElements << QsciLexerMakefile::Variable;
+		targets.hlElements << QsciLexerMakefile::Target;
+		comment.hlElements << QsciLexerMakefile::Comment;
+			
+		Scheme mkSch;
+		mkSch << variables << targets << comment;			
+		schemes_[name] = mkSch;
+	}
+	else if (name.compare("Python") == 0) {
+		Rule keywords(styles["keywords"]), comment(styles["comment"]), numbers(styles["numbers"]), 
+				operators(styles["operators"]), identifiers(styles["identifiers"]), 
+				functions(styles["functions"]),	stringSingle(styles["stringSingle"]), 
+				stringDouble(styles["stringDouble"]), tripleSingle(styles["tripleSingle"]), 
+				tripleDouble(styles["tripleDouble"]), decorators(styles["decorators"]);
+		
+		keywords.hlElements << QsciLexerPython::Keyword;
+		comment.hlElements << QsciLexerPython::Comment << QsciLexerPython::CommentBlock;
+		numbers.hlElements << QsciLexerPython::Number;
+		operators.hlElements << QsciLexerPython::Operator;
+		identifiers.hlElements << QsciLexerPython::Identifier;
+		functions.hlElements << QsciLexerPython::FunctionMethodName;
+		stringSingle.hlElements << QsciLexerPython::SingleQuotedString;
+		stringDouble.hlElements << QsciLexerPython::DoubleQuotedString;
+		tripleSingle.hlElements << QsciLexerPython::TripleSingleQuotedString;
+		tripleDouble.hlElements << QsciLexerPython::TripleDoubleQuotedString;
+		decorators.hlElements << QsciLexerPython::Decorator;
+		
+		Scheme pySch;
+		pySch << keywords << comment << numbers << operators 
+				<< identifiers << functions << stringSingle << stringDouble 
+				<< tripleSingle << tripleDouble << decorators;
+		schemes_[name] = pySch;
+	}
+	else if (name.compare("XML") == 0) {
+		Rule tags(styles["tags"]), attributes(styles["attributes"]), comment(styles["comment"]), 
+				values(styles["values"]), entities(styles["entities"]);
+			
+		tags.hlElements << QsciLexerHTML::Tag << QsciLexerHTML::UnknownTag << QsciLexerHTML::XMLTagEnd;
+		attributes.hlElements << QsciLexerHTML::Attribute << QsciLexerHTML::UnknownAttribute;
+		comment.hlElements << QsciLexerHTML::HTMLComment;
+		values.hlElements << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString;
+		entities.hlElements << QsciLexerHTML::Entity;
+		
+		Scheme xmlSch;
+		xmlSch << tags << attributes << comment << values << entities;
+		schemes_[name] = xmlSch;
+	}
+	else if (name.compare("Bash") == 0) {
+		Rule variables(styles["variables"]), strings(styles["strings"]), 
+				keywords(styles["keywords"]), comment(styles["comment"]), backticks(styles["backticks"]);
+			
+		variables.hlElements << QsciLexerBash::Identifier;
+		strings.hlElements << QsciLexerBash::DoubleQuotedString << QsciLexerBash::SingleQuotedString;
+		keywords.hlElements << QsciLexerBash::Keyword << QsciLexerBash::Operator;
+		comment.hlElements << QsciLexerBash::Comment;
+		backticks.hlElements << QsciLexerBash::Backticks;
+
+		Scheme bashSch;
+		bashSch << variables << strings << keywords << comment << backticks;
+		schemes_[name] = bashSch;
+	}
+	else if (name.compare("HTML") == 0) {
+		Rule tags(styles["tags"]), attributes(styles["attributes"]), comment(styles["comment"]), 
+				values(styles["values"]), entities(styles["entities"]);
+			
+		tags.hlElements << QsciLexerHTML::Tag;
+		attributes.hlElements << QsciLexerHTML::Attribute;
+		comment.hlElements << QsciLexerHTML::HTMLComment;
+		values.hlElements << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString 
+				<< QsciLexerHTML::HTMLValue << QsciLexerHTML::HTMLNumber << QsciLexerHTML::OtherInTag;
+		entities.hlElements << QsciLexerHTML::Entity;
+
+		Scheme htmlSch;
+		htmlSch << tags << attributes << comment << values << entities;
+		schemes_[name] = htmlSch;
+	}
+}
+
+void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
+	QsciLexer* lex = lexers_.value(name, 0);
+	if (lex != 0) {
+		lex->setFont(font, -1);
+
+		if (name.compare("none") == 0) {
+			lex->setColor(Qt::black, -1);
+			lex->setPaper(Qt::white, -1);
+		}
+		else {
+			if (schemes_.contains(name)) {
+				Scheme& scheme = schemes_[name];
+				
+				foreach (Rule const& rule, scheme) {
+					foreach (int element, rule.hlElements) {
+						QFont f(font);
+						f.setStyle(rule.style.italic ? QFont::StyleItalic : QFont::StyleNormal);
+						f.setWeight(rule.style.bold ? QFont::Bold : QFont::Normal);
+						lex->setColor(rule.style.color, element);
+						lex->setPaper(rule.style.bgColor, element);
+						lex->setFont(f, element);
+					}
+				}
+			}
+		}
+		lex->refreshProperties();
+	}
+}
 
 QsciLexer* LSInterior::lexer(const QString& name) {
 	if (lexers_.contains(name)) {
@@ -165,7 +295,7 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		return lexers_[name];
 	}
 	else {
-		//	if doesn't exist yes, create lexer
+		//	if doesn't exist yet, create lexer
 		//	if it's type is known. If unknown,
 		//	return 0
 		QsciLexer* newLexer = 0;
@@ -223,123 +353,19 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 	
 		if (newLexer != 0) {
 			lexers_[name] = newLexer;
+			if (!name.isEmpty() && name.compare("none") != 0) {
+				readCustomStyle(name);
+			}
 		}
 
 		return newLexer;
 	}
 }
 
-void LSInterior::applyLexerStyle(QsciLexer* lex, int arg, const Style& style, const QFont& font) {
-	QFont f(font);
-	f.setStyle(style.italic ? QFont::StyleItalic : QFont::StyleNormal);
-	f.setWeight(style.bold ? QFont::Bold : QFont::Normal);
-	lex->setColor(style.color, arg);
-	lex->setFont(f, arg);
-}
 
-void LSInterior::setCustomLexerStyle(QsciLexer* lexer, const QString& lexerName, const QFont& font) {
-/*	StyleMap styles;
-	if (readScheme(lexerName, styles)) {
-
-		StyleMaperList styleMaperList;
-
-		if (lexerName.compare("c++") == 0) {
-			StyleMaper prepr("preprocessor"), comment("comment"), 
-					numbers("numbers"), keywords("keywords"), strings("strings");
-
-			prepr.lexerStyles << QsciLexerCPP::PreProcessor;
-			comment.lexerStyles << QsciLexerCPP::CommentLine << QsciLexerCPP::Comment;
-			numbers.lexerStyles << QsciLexerCPP::Number;
-			keywords.lexerStyles << QsciLexerCPP::Keyword;
-			strings.lexerStyles << QsciLexerCPP::DoubleQuotedString;
-
-			styleMaperList << prepr << comment << numbers << keywords << strings;
-		}
-		else if(lexerName.compare("makefile") == 0) {
-			StyleMaper variables("variables"), targets("targets"), comment("comment");
-
-			variables.lexerStyles << QsciLexerMakefile::Variable;
-			targets.lexerStyles << QsciLexerMakefile::Target;
-			comment.lexerStyles << QsciLexerMakefile::Comment;
-			
-			styleMaperList << variables << targets << comment;			
-		}
-		else if (lexerName.compare("python") == 0) {
-			StyleMaper keywords("keywords"), comment("comment"), numbers("numbers"), 
-					operators("operators"), identifiers("identifiers"), 
-					functions("functions"),	stringSingle("stringSingle"), 
-					stringDouble("stringDouble"), tripleSingle("tripleSingle"), 
-					tripleDouble("tripleDouble"), decorators("decorators");
-
-			keywords.lexerStyles << QsciLexerPython::Keyword;
-			comment.lexerStyles << QsciLexerPython::Comment << QsciLexerPython::CommentBlock;
-			numbers.lexerStyles << QsciLexerPython::Number;
-			operators.lexerStyles << QsciLexerPython::Operator;
-			identifiers.lexerStyles << QsciLexerPython::Identifier;
-			functions.lexerStyles << QsciLexerPython::FunctionMethodName;
-			stringSingle.lexerStyles << QsciLexerPython::SingleQuotedString;
-			stringDouble.lexerStyles << QsciLexerPython::DoubleQuotedString;
-			tripleSingle.lexerStyles << QsciLexerPython::TripleSingleQuotedString;
-			tripleDouble.lexerStyles << QsciLexerPython::TripleDoubleQuotedString;
-			decorators.lexerStyles << QsciLexerPython::Decorator;
-			
-			styleMaperList << keywords << comment << numbers << operators 
-					<< identifiers << functions << stringSingle << stringDouble 
-					<< tripleSingle << tripleDouble << decorators;
-		}
-		else if (lexerName.compare("bash") == 0) {
-			StyleMaper variables("variables"), strings("strings"), 
-					keywords("keywords"), comment("comment"), backticks("backticks");
-			
-			variables.lexerStyles << QsciLexerBash::Identifier;
-			strings.lexerStyles << QsciLexerBash::DoubleQuotedString << QsciLexerBash::SingleQuotedString;
-			keywords.lexerStyles << QsciLexerBash::Keyword << QsciLexerBash::Operator;
-			comment.lexerStyles << QsciLexerBash::Comment;
-			backticks.lexerStyles << QsciLexerBash::Backticks;
-			
-			styleMaperList << variables << strings << keywords << comment << backticks;
-		}
-		else if (lexerName.compare("html") == 0) {
-			StyleMaper tags("tags"), attributes("attributes"), comment("comment"), 
-					values("values"), entities("entities");
-			
-			tags.lexerStyles << QsciLexerHTML::Tag;
-			attributes.lexerStyles << QsciLexerHTML::Attribute;
-			comment.lexerStyles << QsciLexerHTML::HTMLComment;
-			values.lexerStyles << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString 
-					<< QsciLexerHTML::HTMLValue << QsciLexerHTML::HTMLNumber << QsciLexerHTML::OtherInTag;
-			entities.lexerStyles << QsciLexerHTML::Entity;
-			
-			styleMaperList << tags << attributes << comment << values << entities;
-		}
-		else if (lexerName.compare("xml") == 0) {
-			StyleMaper tags("tags"), attributes("attributes"), comment("comment"), 
-					values("values"), entities("entities");
-			
-			tags.lexerStyles << QsciLexerHTML::Tag << QsciLexerHTML::UnknownTag << QsciLexerHTML::XMLTagEnd;
-			attributes.lexerStyles << QsciLexerHTML::Attribute << QsciLexerHTML::UnknownAttribute;
-			comment.lexerStyles << QsciLexerHTML::HTMLComment;
-			values.lexerStyles << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString;
-			entities.lexerStyles << QsciLexerHTML::Entity;
-		
-			styleMaperList << tags << attributes << comment << values << entities;
-		}
-
-		//	apply style
-		StyleMaperList::const_iterator mIt = styleMaperList.begin();
-		while (mIt != styleMaperList.end()) {
-			if (styles.contains((*mIt).configStyle)) {
-				const Style& style = styles[(*mIt).configStyle];
-				QList<int>::const_iterator it = (*mIt).lexerStyles.begin();
-				while (it != (*mIt).lexerStyles.end()) {
-					applyLexerStyle(lexer, *it, style, font);
-					it++;
-				}
-			}
-			mIt++;
-		}
-	}*/
-}
+//////////////////////////////////////////////////////////////////////
+//	LexerStorage implementation
+//////////////////////////////////////////////////////////////////////
 
 LexerStorage* LexerStorage::instance_ = 0;
 
@@ -387,7 +413,7 @@ QString LexerStorage::lexerName(const QString& fileName) const {
 	else if (ext.compare("css") == 0) {
 		name = "CSS";
 	}
-	else if (lsInt_->xmlExtList_.contains(ext)) {
+	else if (ext.compare("xml") == 0) {
 		name = "XML";
 	}
 	else if (ext.compare("sql") == 0) {
@@ -413,7 +439,7 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 	QsciLexer* lex = lsInt_->lexer(lexerName);
 
 	if (lex != 0) {
-		lsInt_->setCustomLexerStyle(lex, lexerName, font);
+		lsInt_->applyCustomStyle(lexerName, font);
 	}
 
 	return lex;
@@ -421,9 +447,9 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 
 void LexerStorage::getLexersList(QStringList& list) {
 	list.clear();
-	list << "none" << "Bash" << "C++" << "C#" << "CSS" << "D" << "HTML" << "Java" << "JavaScript" 
-				<< "IDL" << "Lua" << "Makefile" << "Perl" << "Python" << "Ruby" 
-				<< "SQL" << "XML";
+	list << "none" << "Bash" << "C++" << "C#" << "CSS" << "D" << "HTML" << "Java" 
+				<< "JavaScript" << "IDL" << "Lua" << "Makefile" << "Perl" << "Python" 
+				<< "Ruby" << "SQL" << "XML";
 }
 
 void LexerStorage::updateLexer(const QString& name, const QFont& font) {
@@ -432,20 +458,7 @@ void LexerStorage::updateLexer(const QString& name, const QFont& font) {
 		lex->setFont(font);
 		lex->refreshProperties();
 
-		//	TODO: remove this test code, apply custom lexer style here
-		if (name.compare("none") == 0) {
-			QFont font = lex->font(0);
-			lex->setFont(font, -1);
-			lex->setColor(Qt::black, -1);
-			lex->setPaper(Qt::white, -1);
-		}
-		else {
-			QFont font = lex->font(0);
-			font.setItalic(true);
-			lex->setFont(font, QsciLexerCPP::Comment);
-			lex->setFont(font, QsciLexerCPP::CommentLine);
-		}
-		//	TODO: remove this test code
+		lsInt_->applyCustomStyle(name, font);
 	}
 }
 	

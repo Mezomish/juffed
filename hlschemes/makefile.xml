@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="Makefile">
+	<style name="variables" color="#aa00aa" />
+	<style name="targets" color="#0000ff" />
+	<style name="comment" color="#609060" />
+</scheme>
+</JuffScheme>

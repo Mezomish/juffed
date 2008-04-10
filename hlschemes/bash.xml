@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="Bash">
+	<style name="comment" color="#999999" italic="true" />
+	<style name="keywords" color="#990000" bold="true" />
+	<style name="strings" color="#aa0000" />
+	<style name="variables" color="#000066" />
+	<style name="backticks" color="#0000ff" />
+</scheme>
+</JuffScheme>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="HTML">
+	<style name="tags" color="#000066" bold="true" />
+	<style name="attributes" color="#006600" />
+	<style name="comment" color="#999999" italic="true" />
+	<style name="values" color="#990033" />
+	<style name="entities" color="#0000ff" />
+</scheme>
+</JuffScheme>

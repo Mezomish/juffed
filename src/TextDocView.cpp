@@ -179,9 +179,8 @@ void TextDocView::setSyntax(const QString& lexName) {
 	
 	vInt_->edit_->setLexer(lexer);
 	vInt_->edit_->recolor();
-	vInt_->edit_->update();
 }
-	
+
 void TextDocView::rehighlight() {
 }
 

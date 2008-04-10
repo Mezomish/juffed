@@ -108,6 +108,7 @@ private:
 	bool modified_;
 	QDateTime lastModified_;
 	QTimer* modCheckTimer_;
+	bool checkingNow_;
 };
 
 #endif

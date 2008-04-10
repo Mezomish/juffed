@@ -80,7 +80,8 @@ public:
 	LSInterior() {
 		cppExtList_ << "cpp" << "cxx" << "c++" << "c" << "cc" << "h" << "hpp" << "hxx" << "h++";
 		bashExtList_ << "sh" << "run";
-		htmlExtList_ << "html" << "htm" << "php";
+		htmlExtList_ << "html" << "htm" << "php" << "php3" << "php4" << "php5";
+		perlExtList_ << "pl" << "pm" << "cgi";
 	}
 	~LSInterior() {
 	}
@@ -92,6 +93,7 @@ public:
 	QStringList cppExtList_;
 	QStringList bashExtList_;
 	QStringList htmlExtList_;
+	QStringList perlExtList_;
 	
 	QMap<QString, QsciLexer*> lexers_;
 	SchemeMap schemes_;
@@ -401,7 +403,7 @@ QString LexerStorage::lexerName(const QString& fileName) const {
 	else if (ext.compare("rb") == 0) {
 		name = "Ruby";
 	}
-	else if (ext.compare("pl") == 0) {
+	else if (lsInt_->perlExtList_.contains(ext)) {
 		name = "Perl";
 	}
 	else if (lsInt_->bashExtList_.contains(ext)) {

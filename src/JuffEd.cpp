@@ -321,7 +321,6 @@ void JuffEd::createMenuBar() {
 	//	lexers menu
 	jInt_->syntaxMenu_ = new QMenu(tr("Syntax"));
 	if (vMenu != 0) {
-		vMenu->addSeparator();
 		vMenu->addMenu(jInt_->syntaxMenu_);
 		QStringList sList;
 		LexerStorage::instance()->getLexersList(sList);

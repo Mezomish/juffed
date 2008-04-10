@@ -6,6 +6,15 @@ Version 0.3-dev-?????????
 * custom highlights for C++, Makefile, Python, HTML, XML, Bash;
 
 
+-------------------------------
+Exported from 0.2.1
+-------------------------------
+* Fixed: (Windows) sometimes wrong tab name appeared after 'Save as'
+  action (relative or absolute file path instead of file name)
+* Fixed: multiple asking 'what to do?' when file was modified by 
+  external program
+
+
 ===============================
 Version 0.2-release
 ===============================

@@ -161,12 +161,14 @@ const QString& DocHandler::sessionName() const {
 
 QString docTitle(Document* doc) {
 	QString fileName = doc->fileName();
-
-	if (fileName.isEmpty())
+	
+	if (fileName.isEmpty()) {
 		fileName = QObject::tr("Noname");
-	else
-		fileName = fileName.section('/', -1, -1);
-
+	}
+	else {
+		fileName = QFileInfo(fileName).fileName();
+	}
+	
 	if (doc->isModified())
 		fileName += "*";
 

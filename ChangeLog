@@ -4,6 +4,7 @@ Version 0.3-dev-?????????
 * using QScintilla instead of QTextEdit;
 * manual syntax highlighting selection;
 * custom highlights for C++, Makefile, Python, HTML, XML, Bash;
+* updating markers menu;
 
 
 -------------------------------
@@ -13,6 +14,7 @@ Exported from 0.2.1
   action (relative or absolute file path instead of file name)
 * Fixed: multiple asking 'what to do?' when file was modified by 
   external program
+* Fixed: menu item 'Recent files' has an old icon when icon theme changed
 
 
 ===============================

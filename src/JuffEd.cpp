@@ -332,7 +332,11 @@ void JuffEd::createMenuBar() {
 	}
 	
 	//	markers menu
-	initMarkersMenu(0);
+	initMarkersMenu();
+	QMenu* markMenu = jInt_->mainMenuItems_.value(tr("&Markers"), 0);
+	if (markMenu != 0) {
+		connect(markMenu, SIGNAL(aboutToShow()), SLOT(initMarkersMenu()));
+	}
 
 	//	recent files
 	jInt_->recentFilesMenu_ = new QMenu(tr("Recent files"));
@@ -378,7 +382,7 @@ void JuffEd::initCharsetsMenu() {
 	}
 }
 
-void JuffEd::initMarkersMenu(TextDocView* tdView) {
+void JuffEd::initMarkersMenu() {
 	QMenu* markersMenu = jInt_->mainMenuItems_.value(tr("&Markers"), 0);
 	if (markersMenu != 0) {
 		markersMenu->clear();
@@ -387,6 +391,12 @@ void JuffEd::initMarkersMenu(TextDocView* tdView) {
 		markersMenu->addAction(CommandStorage::instance()->action(ID_MARKER_PREV));
 		markersMenu->addAction(CommandStorage::instance()->action(ID_MARKER_REMOVE_ALL));
 		markersMenu->addSeparator();
+		
+		TextDoc* doc = getCurrentTextDoc();
+		if (doc == 0 || doc->isNull())
+			return;
+
+		TextDocView* tdView = qobject_cast<TextDocView*>(doc->view());		
 		
 		if (tdView == 0)
 			return;
@@ -578,9 +588,6 @@ void JuffEd::docCloseRequested(QWidget* w) {
 void JuffEd::docSwitched(QWidget* w) {
 	TextDocView* tdView = qobject_cast<TextDocView*>(w);
 
-	//	markers menu
-	initMarkersMenu(tdView);
-
 	if (tdView == 0) {
 		displayCursorPos(-1, -1);
 		displayFileName("");
@@ -625,7 +632,6 @@ void JuffEd::toggleMarker() {
 	if (tdView != 0) {
 		tdView->toggleMarker();
 	}
-	initMarkersMenu(tdView);
 }
 
 void JuffEd::nextMarker() {
@@ -653,7 +659,6 @@ void JuffEd::removeAllMarkers() {
 	if (tdView != 0) {
 		tdView->removeAllMarkers();
 	}
-	initMarkersMenu(tdView);
 }
 
 void JuffEd::gotoMarker() {

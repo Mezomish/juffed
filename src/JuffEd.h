@@ -52,6 +52,7 @@ private slots:
 	void removeAllMarkers();
 	void gotoMarker();
 	void initRecentFilesMenu();
+	void initMarkersMenu();
 
 	void displayFileName(const QString&);
 	void displayCursorPos(int, int);
@@ -66,7 +67,6 @@ private:
 	void createMenuBar();
 	void createToolBar();
 	void initCharsetsMenu();
-	void initMarkersMenu(TextDocView*);
 	void loadIcons();
 	void setupToolBarStyle();
 	void createCommands();

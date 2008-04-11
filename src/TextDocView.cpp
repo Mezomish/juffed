@@ -108,7 +108,9 @@ public:
 		edit_->setMarginLineNumbers(1, true);
 
 		edit_->setMarginWidth(2, 12);
-		edit_->setMarginMarkerMask(1, 7);
+		//	set margin number 1 accept markers 
+		//	number 1 and 2 (binary mask 00000110 == 6)
+		edit_->setMarginMarkerMask(1, 6);
 		edit_->markerDefine(QsciScintilla::RightTriangle, 1);
 		edit_->markerDefine(QsciScintilla::Background, 2);
 		edit_->setMarkerForegroundColor(QColor(100, 100, 100));
@@ -130,7 +132,6 @@ public:
 	bool lineNumVisible_;
 	bool adjustedByWidth_;
 	QString syntax_;
-	IntList markers_;
 };
 
 
@@ -416,81 +417,62 @@ void TextDocView::replace(const QString& from, bool isRegExp, const QString& to,
 void TextDocView::toggleMarker() {
 	int line(-1), col(-1);
 	vInt_->edit_->getCursorPosition(&line, &col);
-	line++;
-	if (vInt_->markers_.contains(line)) {
-		vInt_->markers_.removeAll(line);
-		vInt_->edit_->markerDelete(line - 1, 1);
-		vInt_->edit_->markerDelete(line - 1, 2);
+
+	//	determine if this line comtains marker 
+	//	number 1 (binary mask 00000010 == 2)
+	if (vInt_->edit_->markersAtLine(line) & 2) {
+		vInt_->edit_->markerDelete(line, 1);
+		vInt_->edit_->markerDelete(line, 2);
 	}
 	else {
-		vInt_->markers_.push_back(line);
-		qSort(vInt_->markers_.begin(), vInt_->markers_.end());
-		vInt_->edit_->markerAdd(line - 1, 1);
-		vInt_->edit_->markerAdd(line - 1, 2);
+		vInt_->edit_->markerAdd(line, 1);
+		vInt_->edit_->markerAdd(line, 2);
 	}
 }
 
 void TextDocView::gotoNextMarker() {
-	if (vInt_->markers_.count() == 0)
-		return;
+	int row(-1), col(-1);
+	vInt_->edit_->getCursorPosition(&row, &col);
 
-	int line(-1), col(-1);
-	vInt_->edit_->getCursorPosition(&line, &col);
-	line++;
-	foreach (int marker, vInt_->markers_) {
-		if (marker > line) {
-			//	As soon as markers are sorted,
-			//	the condition "marker" > "line" will be 
-			//	true for the first marker after the 
-			//	current line
-			gotoLine(marker);
-			return;
+	int mLine = vInt_->edit_->markerFindNext(row + 1, 2);
+	if (mLine >= 0) {
+		gotoLine(mLine + 1);
+	}
+	else {
+		mLine = vInt_->edit_->markerFindNext(0, 2);
+		if (mLine >= 0) {
+			gotoLine(mLine + 1);
 		}
 	}
-	
-	//	next marker is not found, go to the first one
-	gotoLine( vInt_->markers_.first() );
 }
 
 void TextDocView::gotoPrevMarker() {
-	if (vInt_->markers_.count() == 0)
-		return;
+	int row(-1), col(-1);
+	vInt_->edit_->getCursorPosition(&row, &col);
 
-	int line(-1), col(-1);
-	vInt_->edit_->getCursorPosition(&line, &col);
-	line++;
-	int targetLine = -1;
-	foreach (int marker, vInt_->markers_) {
-		if (marker < line) {
-			targetLine = marker;
-		}
-		else {
-			//	As soon as markers are sorted,
-			//	if "marker" becomes > than "line"
-			//	then the previous marker was the closest
-			//	one that precedes current line
-
-			//	If there was no preceding markers,
-			//	we should go to the last one
-
-			if (targetLine >= 0) {
-				gotoLine(targetLine);
-			}
-			else {
-				gotoLine( vInt_->markers_.last() );
-			}
-			return;
+	int mLine = vInt_->edit_->markerFindPrevious(row - 1 , 2);
+	if (mLine >= 0) {
+		gotoLine(mLine + 1);
+	}
+	else {
+		mLine = vInt_->edit_->markerFindPrevious(lineCount() - 1, 2);
+		if (mLine >= 0) {
+			gotoLine(mLine + 1);
 		}
 	}
 }
 
 void TextDocView::removeAllMarkers() {
-	vInt_->markers_.clear();
 	vInt_->edit_->markerDeleteAll();
 }
 
 IntList TextDocView::markers() const {
-	return vInt_->markers_;
+	IntList list;
+	int line = 0;
+	while ((line = vInt_->edit_->markerFindNext(line, 2)) >= 0) {
+		list << ++line;
+	}
+	return list;
 }
 
 QString TextDocView::markedLine(int line) const {

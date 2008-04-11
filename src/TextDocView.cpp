@@ -197,7 +197,7 @@ void TextDocView::resizeEvent(QResizeEvent*) {
 }
 
 void TextDocView::updateLineNums() {
-	QString str = QString("   %1").arg(lineCount());
+	QString str = QString("00%1").arg(lineCount());
 	if (vInt_->lineNumVisible_)
 		vInt_->edit_->setMarginWidth(1, str);
 	else
@@ -261,6 +261,8 @@ void TextDocView::applySettings() {
 	else {
 		vInt_->edit_->setEdgeMode(QsciScintilla::EdgeNone);
 	}
+	
+	updateLineNums();
 }
 
 

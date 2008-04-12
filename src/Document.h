@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QtCore/QDateTime>
 #include <QtCore/QFileInfo>
+#include <QtCore/QMutex>
 #include <QtCore/QString>
 #include <QtCore/QTimer>
 
@@ -108,7 +109,7 @@ private:
 	bool modified_;
 	QDateTime lastModified_;
 	QTimer* modCheckTimer_;
-	bool checkingNow_;
+	QMutex checkingMutex_;
 };
 
 #endif

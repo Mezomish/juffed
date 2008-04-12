@@ -19,7 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Document.h"
 
 Document::Document(const QString& fileName, DocView* view) : QObject(), fileName_(fileName), view_(view), modified_(false) {
-	checkingNow_ = false;
 	modCheckTimer_ = new QTimer(this);
 	connect(modCheckTimer_, SIGNAL(timeout()), SLOT(checkLastModified()));
 }
@@ -81,46 +80,44 @@ void Document::checkLastModified() {
 	QFileInfo fi(fileName_);
 	if (fi.exists()) {
 		if (fi.lastModified() > lastModified_) {
-			if (checkingNow_)
-				return;
-			
-			checkingNow_ = true;
-			QString question(tr("The file was modified by external program\nWhat do you want to do?"));
-			QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, 
-						QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, view_);
-			QAbstractButton* btn = msgBox.button(QMessageBox::Save);
-			if (btn != 0)
-				btn->setText(tr("Save current"));
-			btn = msgBox.button(QMessageBox::Open);
-			if (btn != 0)
-				btn->setText(tr("Reload from disk"));
-			btn = msgBox.button(QMessageBox::Cancel);
-			if (btn != 0)
-				btn->setText(tr("Ignore"));
+			if (checkingMutex_.tryLock()) {
+				QString question(tr("The file was modified by external program\nWhat do you want to do?"));
+				QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, 
+							QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, view_);
+				QAbstractButton* btn = msgBox.button(QMessageBox::Save);
+				if (btn != 0)
+					btn->setText(tr("Save current"));
+				btn = msgBox.button(QMessageBox::Open);
+				if (btn != 0)
+					btn->setText(tr("Reload from disk"));
+				btn = msgBox.button(QMessageBox::Cancel);
+				if (btn != 0)
+					btn->setText(tr("Ignore"));
 					
-			int res = msgBox.exec();
-			switch (res) {
-				case QMessageBox::Open:
-					//	Reload
-					reload();
-					break;
+				int res = msgBox.exec();
+				switch (res) {
+					case QMessageBox::Open:
+						//	Reload
+						reload();
+						break;
 						
-				case QMessageBox::Save:
-					save();
-					//	Save
-					break;
+					case QMessageBox::Save:
+						save();
+						//	Save
+						break;
 						
-				case QMessageBox::Cancel:
-					//	Nothing to do. In this case we just make 
-					//	local "check date" equal to file's real 
-					//	"last modified date" on file system (to 
-					//	prevent asking "What to do" again)
-					lastModified_ = fi.lastModified();
-					break;
+					case QMessageBox::Cancel:
+						//	Nothing to do. In this case we just make 
+						//	local "check date" equal to file's real 
+						//	"last modified date" on file system (to 
+						//	prevent asking "What to do" again)
+						lastModified_ = fi.lastModified();
+						break;
 					
-				default: ;
+					default: ;
+				}
+				checkingMutex_.unlock();
 			}
-			checkingNow_ = false;
 		}
 	}
 }

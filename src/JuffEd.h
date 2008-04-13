@@ -67,7 +67,6 @@ private:
 	void createMenuBar();
 	void createToolBar();
 	void initCharsetsMenu();
-	void loadIcons();
 	void setupToolBarStyle();
 	void createCommands();
 

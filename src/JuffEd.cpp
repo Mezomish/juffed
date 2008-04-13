@@ -19,8 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "JuffEd.h"
 
 //	Qt headers
-#include <QtCore/QCoreApplication>
-#include <QtCore/QDir>
 #include <QtCore/QMap>
 #include <QtCore/QUrl>
 #include <QtGui/QAction>
@@ -40,6 +38,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "DocHandler.h"
 #include "DocViewer.h"
 #include "FindDlg.h"
+#include "IconManager.h"
 #include "LexerStorage.h"
 #include "Log.h"
 #include "MainSettings.h"
@@ -99,7 +98,7 @@ public:
 		delete viewer_;
 	}
 
-	QMap<QString, QString> icons_;
+//	QMap<QString, QString> icons_;
 	DocHandler* handler_;
 	DocViewer* viewer_;
 	SettingsDlg* settingsDlg_;
@@ -194,55 +193,56 @@ void JuffEd::applySettings() {
 	jInt_->viewer_->applySettings();
 
 	setupToolBarStyle();	
-	loadIcons();
+	IconManager::instance()->loadTheme(MainSettings::iconTheme());
 	createCommands();
 	initCharsetsMenu();
 }
 
 void JuffEd::createCommands() {
 	CommandStorage* st = CommandStorage::instance();
-	QMap<QString, QString>& icons = jInt_->icons_;
 	DocHandler* h = jInt_->handler_;
+	IconManager* im = IconManager::instance();
+	
 	Command cmds[] = {
-		Command(ID_FILE_NEW,	tr("New"),		QIcon(icons["fileNew"]),	QKeySequence("Ctrl+N"), h, SLOT(docNew())),
-		Command(ID_FILE_OPEN,	tr("Open"),		QIcon(icons["fileOpen"]),	QKeySequence("Ctrl+O"), h, SLOT(docOpen())),
-		Command(ID_FILE_SAVE,	tr("Save"),		QIcon(icons["fileSave"]),	QKeySequence("Ctrl+S"), h, SLOT(docSave())),
-		Command(ID_FILE_SAVE_AS,tr("Save as"),	QIcon(icons["fileSaveAs"]),	QKeySequence("Ctrl+Shift+S"),			h, SLOT(docSaveAs())),
-		Command(ID_FILE_RELOAD, tr("Reload"),	QIcon(icons["reload"]),		QKeySequence("F5"),		h, SLOT(docReload())),
-		Command(ID_FILE_CLOSE,	tr("Close"),	QIcon(icons["fileClose"]),	QKeySequence("Ctrl+W"), h, SLOT(docClose())),
-		Command(ID_FILE_CLOSE_ALL, tr("Close all"), QIcon(icons["fileCloseAll"]), QKeySequence(),	h, SLOT(docCloseAll())),
-		Command(ID_EXIT,		tr("Exit"),		QIcon(icons["exit"]),		QKeySequence(),			this, SLOT(exit())),
+		Command(ID_FILE_NEW,	tr("New"),		im->icon("fileNew"),	QKeySequence("Ctrl+N"), h, SLOT(docNew())),
+		Command(ID_FILE_OPEN,	tr("Open"),		im->icon("fileOpen"),	QKeySequence("Ctrl+O"), h, SLOT(docOpen())),
+		Command(ID_FILE_SAVE,	tr("Save"),		im->icon("fileSave"),	QKeySequence("Ctrl+S"), h, SLOT(docSave())),
+		Command(ID_FILE_SAVE_AS,tr("Save as"),	im->icon("fileSaveAs"),	QKeySequence("Ctrl+Shift+S"),			h, SLOT(docSaveAs())),
+		Command(ID_FILE_RELOAD, tr("Reload"),	im->icon("reload"),		QKeySequence("F5"),		h, SLOT(docReload())),
+		Command(ID_FILE_CLOSE,	tr("Close"),	im->icon("fileClose"),	QKeySequence("Ctrl+W"), h, SLOT(docClose())),
+		Command(ID_FILE_CLOSE_ALL, tr("Close all"), im->icon("fileCloseAll"), QKeySequence(),	h, SLOT(docCloseAll())),
+		Command(ID_EXIT,		tr("Exit"),		im->icon("exit"),		QKeySequence(),			this, SLOT(exit())),
 		//
-		Command(ID_EDIT_CUT,	tr("Cut"),		QIcon(icons["editCut"]),	QKeySequence("Ctrl+X"), h, SLOT(processTheCommand())),
-		Command(ID_EDIT_COPY,	tr("Copy"),		QIcon(icons["editCopy"]),	QKeySequence("Ctrl+C"), h, SLOT(processTheCommand())),
-		Command(ID_EDIT_PASTE,	tr("Paste"),	QIcon(icons["editPaste"]),	QKeySequence("Ctrl+V"), h, SLOT(processTheCommand())),
-		Command(ID_EDIT_UNDO,	tr("Undo"),		QIcon(icons["editUndo"]),	QKeySequence("Ctrl+Z"), h, SLOT(processTheCommand())),
-		Command(ID_EDIT_REDO,	tr("Redo"),		QIcon(icons["editRedo"]),	QKeySequence("Ctrl+R"), h, SLOT(processTheCommand())),
-		Command(ID_FIND,		tr("Find"),		QIcon(icons["find"]),		QKeySequence("Ctrl+F"), h, SLOT(processTheCommand())),
-		Command(ID_FIND_NEXT,	tr("Find next"), QIcon(icons["findNext"]),	QKeySequence("F3"), h, SLOT(processTheCommand())),
-		Command(ID_FIND_PREV,	tr("Find previous"), QIcon(icons["findPrev"]), QKeySequence("Shift+F3"), h, SLOT(processTheCommand())),
-		Command(ID_GOTO_LINE,	tr("Go to line"), QIcon(icons["gotoLine"]),	QKeySequence("Ctrl+G"), h, SLOT(processTheCommand())),
+		Command(ID_EDIT_CUT,	tr("Cut"),		im->icon("editCut"),	QKeySequence("Ctrl+X"), h, SLOT(processTheCommand())),
+		Command(ID_EDIT_COPY,	tr("Copy"),		im->icon("editCopy"),	QKeySequence("Ctrl+C"), h, SLOT(processTheCommand())),
+		Command(ID_EDIT_PASTE,	tr("Paste"),	im->icon("editPaste"),	QKeySequence("Ctrl+V"), h, SLOT(processTheCommand())),
+		Command(ID_EDIT_UNDO,	tr("Undo"),		im->icon("editUndo"),	QKeySequence("Ctrl+Z"), h, SLOT(processTheCommand())),
+		Command(ID_EDIT_REDO,	tr("Redo"),		im->icon("editRedo"),	QKeySequence("Ctrl+R"), h, SLOT(processTheCommand())),
+		Command(ID_FIND,		tr("Find"),		im->icon("find"),		QKeySequence("Ctrl+F"), h, SLOT(processTheCommand())),
+		Command(ID_FIND_NEXT,	tr("Find next"), im->icon("findNext"),	QKeySequence("F3"), h, SLOT(processTheCommand())),
+		Command(ID_FIND_PREV,	tr("Find previous"), im->icon("findPrev"), QKeySequence("Shift+F3"), h, SLOT(processTheCommand())),
+		Command(ID_GOTO_LINE,	tr("Go to line"), im->icon("gotoLine"),	QKeySequence("Ctrl+G"), h, SLOT(processTheCommand())),
 		//
-		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(icons["showLineNumbers"]),	QKeySequence("F11"), h, SLOT(processTheCommand())),
-		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(icons["widthAdjust"]),		QKeySequence("F10"), h, SLOT(processTheCommand())),
+		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	im->icon("showLineNumbers"),	QKeySequence("F11"), h, SLOT(processTheCommand())),
+		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	im->icon("widthAdjust"),		QKeySequence("F10"), h, SLOT(processTheCommand())),
 		//
-		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	QIcon(icons["addRemoveMarker"]),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
-		Command(ID_MARKER_NEXT,				tr("Next marker"),			QIcon(icons["nextMarker"]),			QKeySequence("Ctrl+Alt+N"),this, SLOT(nextMarker())),
-		Command(ID_MARKER_PREV,				tr("Previous marker"),		QIcon(icons["prevMarker"]),			QKeySequence("Ctrl+Alt+P"),this, SLOT(prevMarker())),
-		Command(ID_MARKER_REMOVE_ALL,		tr("Remove all markers"),	QIcon(icons["removeAllMarkers"]),	QKeySequence(), 		this, SLOT(removeAllMarkers())),
+		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	im->icon("addRemoveMarker"),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
+		Command(ID_MARKER_NEXT,				tr("Next marker"),			im->icon("nextMarker"),			QKeySequence("Ctrl+Alt+N"),this, SLOT(nextMarker())),
+		Command(ID_MARKER_PREV,				tr("Previous marker"),		im->icon("prevMarker"),			QKeySequence("Ctrl+Alt+P"),this, SLOT(prevMarker())),
+		Command(ID_MARKER_REMOVE_ALL,		tr("Remove all markers"),	im->icon("removeAllMarkers"),	QKeySequence(), 		this, SLOT(removeAllMarkers())),
 		//
-		Command(ID_DOC_PREV,	tr("Previous"),	QIcon(icons["docPrevious"]),	QKeySequence("Alt+Left"), h, SLOT(processTheCommand())),
-		Command(ID_DOC_NEXT,	tr("Next"),	QIcon(icons["docNext"]),	QKeySequence("Alt+Right"), h, SLOT(processTheCommand())),
+		Command(ID_DOC_PREV,	tr("Previous"),	im->icon("docPrevious"),	QKeySequence("Alt+Left"), h, SLOT(processTheCommand())),
+		Command(ID_DOC_NEXT,	tr("Next"),	im->icon("docNext"),	QKeySequence("Alt+Right"), h, SLOT(processTheCommand())),
 		//
-		Command(ID_SETTINGS,	tr("Settings"),	QIcon(icons["settings"]),	QKeySequence(), this, SLOT(settings())),
+		Command(ID_SETTINGS,	tr("Settings"),	im->icon("settings"),	QKeySequence(), this, SLOT(settings())),
 		//
-		Command(ID_SESSION_NEW,	tr("New session"),	QIcon(icons["newSession"]),	QKeySequence(), h, SLOT(processTheCommand())),
-		Command(ID_SESSION_OPEN, tr("Open session"), QIcon(icons["openSession"]), QKeySequence(), h, SLOT(processTheCommand())),
-		Command(ID_SESSION_SAVE, tr("Save session"), QIcon(icons["saveSession"]), QKeySequence(), h, SLOT(processTheCommand())),
-		Command(ID_SESSION_SAVE_AS, tr("Save session as"), QIcon(icons["saveSessionAs"]), QKeySequence(), h, SLOT(processTheCommand())),
+		Command(ID_SESSION_NEW,	tr("New session"),	im->icon("newSession"),	QKeySequence(), h, SLOT(processTheCommand())),
+		Command(ID_SESSION_OPEN, tr("Open session"), im->icon("openSession"), QKeySequence(), h, SLOT(processTheCommand())),
+		Command(ID_SESSION_SAVE, tr("Save session"), im->icon("saveSession"), QKeySequence(), h, SLOT(processTheCommand())),
+		Command(ID_SESSION_SAVE_AS, tr("Save session as"), im->icon("saveSessionAs"), QKeySequence(), h, SLOT(processTheCommand())),
 		//
-		Command(ID_ABOUT,		tr("About"),	QIcon(icons["about"]),		QKeySequence(), this, SLOT(about())),
-		Command(ID_ABOUT_QT,	tr("About Qt"),	QIcon(icons["aboutQt"]),	QKeySequence(), this, SLOT(aboutQt())),
+		Command(ID_ABOUT,		tr("About"),	im->icon("about"),		QKeySequence(), this, SLOT(about())),
+		Command(ID_ABOUT_QT,	tr("About Qt"),	im->icon("aboutQt"),	QKeySequence(), this, SLOT(aboutQt())),
 		Command()
 	};
 
@@ -258,7 +258,7 @@ void JuffEd::createCommands() {
 	CommandStorage::instance()->action(ID_VIEW_WIDTH_ADJUST)->setCheckable(true);
 
 	if (jInt_->recentFilesMenu_ != 0)
-		jInt_->recentFilesMenu_->setIcon(QIcon(jInt_->icons_["fileOpen"]));
+		jInt_->recentFilesMenu_->setIcon(im->icon("fileOpen"));
 }
 
 void JuffEd::createMenuBar() {
@@ -340,7 +340,7 @@ void JuffEd::createMenuBar() {
 
 	//	recent files
 	jInt_->recentFilesMenu_ = new QMenu(tr("Recent files"));
-	jInt_->recentFilesMenu_->setIcon(QIcon(jInt_->icons_["fileOpen"]));
+	jInt_->recentFilesMenu_->setIcon(IconManager::instance()->icon("fileOpen"));
 	QMenu* fMenu = jInt_->mainMenuItems_.value(tr("&File"), 0);
 	QAction* openAct = CommandStorage::instance()->action(ID_FILE_SAVE);
 	if (fMenu != 0 && openAct != 0) {
@@ -397,7 +397,7 @@ void JuffEd::initMarkersMenu() {
 			return;
 
 		TextDocView* tdView = qobject_cast<TextDocView*>(doc->view());		
-		
+
 		if (tdView == 0)
 			return;
 
@@ -414,7 +414,7 @@ void JuffEd::initMarkersMenu() {
 void JuffEd::initRecentFilesMenu() {
 	if (jInt_->recentFilesMenu_ == 0)
 		return;
-		
+
 	jInt_->recentFilesMenu_->clear();
 	
 	QStringList fileList;
@@ -489,26 +489,6 @@ void JuffEd::syntaxSelected() {
 	}
 }
 
-void JuffEd::loadIcons() {
-	QString iconTheme = MainSettings::iconTheme();
-	QDir iconDir(QCoreApplication::applicationDirPath() + "/icons/" + iconTheme);
-	if (!iconDir.exists())
-		return;
-
-	QString themeFileName = iconDir.filePath(iconTheme + ".theme");
-	QFile file(themeFileName);
-	if (file.open(QIODevice::ReadOnly)) {
-		QString key, value;
-		while (!file.atEnd()) {
-			QString line = file.readLine();
-			key = line.section('=', 0, 0).simplified();
-			value = line.section('=', 1, 1).simplified();
-			jInt_->icons_[key] = iconDir.absolutePath() + "/" + value;
-		}
-		file.close();
-	}
-}
-
 void JuffEd::settings() {
 	jInt_->settingsDlg_->exec();
 }
@@ -524,7 +504,7 @@ void JuffEd::setupToolBarStyle() {
 		else {
 			jInt_->toolBar_->hide();
 		}
-			
+
 		//	toolbar icon size
 		int iconSize = MainSettings::iconSize();
 		switch (iconSize) {
@@ -613,7 +593,7 @@ void JuffEd::docSwitched(QWidget* w) {
 	tdView->getCursorPos(row, col);
 	displayCursorPos(row, col);
 	displaySyntax(tdView->syntax());
-		
+
 	//	charset menu item
 	TextDoc* doc = qobject_cast<TextDoc*>(tdView->document());
 	if (doc == 0) {

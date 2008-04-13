@@ -36,7 +36,8 @@ HEADERS += \
 		SingleInstance.h \
 		SocketListener.h \
 		LexerStorage.h \
-		
+		IconManager.h \
+
 SOURCES += \
 		DocHandler.cpp \
 		JuffEd.cpp \
@@ -61,6 +62,7 @@ SOURCES += \
 		SingleInstance.cpp \
 		SocketListener.cpp \
 		LexerStorage.cpp \
+		IconManager.cpp \
 		
 FORMS += \
 		CharsetsSettingsPage.ui \

@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QVBoxLayout>
 
 //	Local headers
+#include "AppInfo.h"
 #include "MultiPage.h"
 #include "MainSettings.h"
 #include "TextDocSettings.h"
@@ -106,10 +107,19 @@ SettingsDlg::~SettingsDlg() {
 }
 
 void SettingsDlg::init() {
-	QDir iconsDir(QCoreApplication::applicationDirPath() + "/icons");
+	pageView_->ui.iconThemeCmb->clear();
+	QDir iconsDir(AppInfo::configDir() + "/icons");
 	if (iconsDir.exists()) {
-		pageView_->ui.iconThemeCmb->clear();
 		pageView_->ui.iconThemeCmb->addItems(iconsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot));
+	}
+	
+	iconsDir = QDir(QCoreApplication::applicationDirPath() + "/icons");
+	if (iconsDir.exists()) {
+		QStringList themes = iconsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+		foreach (QString theme, themes) {
+			if (pageView_->ui.iconThemeCmb->findText(theme) < 0)
+				pageView_->ui.iconThemeCmb->addItem(theme);
+		}
 	}
 
 	int tabPos = MainSettings::tabPosition();

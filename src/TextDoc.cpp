@@ -32,6 +32,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	local headers
 #include "Log.h"
 #include "FindDlg.h"
+#include "LexerStorage.h"
 #include "MainSettings.h"
 #include "TextDocSettings.h"
 #include "TextDocView.h"
@@ -340,8 +341,13 @@ Document::Status TextDoc::writeContent(const QString& name, bool getNewName /*= 
 			tdView->setFocus();
 			tdView->setModified(false);
 
-			if (getNewName)
+			if (getNewName) {
 				setFileName(name);
+				if (tdView->syntax().compare("none") == 0) {
+					QString syntax = LexerStorage::instance()->lexerName(name);
+					tdView->setSyntax(syntax);
+				}
+			}
 		}
 		else {
 			res = StatusUnknownError;

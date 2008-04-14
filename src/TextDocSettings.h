@@ -25,11 +25,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class TextDocSettings : public Settings {
 public:
-	static QFont font() { return QFont(Settings::value("editor", "fontFamily").toString(), Settings::value("editor", "fontSize").toInt()); }
-	static int tabStopWidth() { return Settings::value("editor", "tabStopWidth").toInt(); }
-	static bool widthAdjust() { return Settings::value("editor", "widthAdjust").toBool(); }
-	static bool showLineNumbers() { return Settings::value("editor", "showLineNumbers").toBool(); }
-	static int lineLengthIndicator() { return Settings::value("editor", "lineLengthIndicator").toInt(); }
+	static QFont font();
+	static int tabStopWidth();
+	static bool widthAdjust();
+	static bool showLineNumbers();
+	static int lineLengthIndicator();
 	
 	static void setFont(const QFont& font) { Settings::setValue("editor", "fontFamily", font.family()); Settings::setValue("editor", "fontSize", font.pointSize()); }
 	static void setWidthAdjust(bool adj) { Settings::setValue("editor", "widthAdjust", adj); }

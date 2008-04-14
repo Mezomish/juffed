@@ -64,6 +64,7 @@ SOURCES += \
 		LexerStorage.cpp \
 		IconManager.cpp \
 		MainSettings.cpp \
+		TextDocSettings.cpp \
 		
 FORMS += \
 		CharsetsSettingsPage.ui \

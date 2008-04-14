@@ -142,12 +142,6 @@ void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 	}
 }
 
-/*Rule hlRule(StyleMap& styleMap, const QString& styleElementName, QList<int> elements) {
-	Rule rule(styleMap[styleElementName]);
-	rule.hlElements = elements;
-	return rule;
-}*/
-
 void LSInterior::readCustomStyle(const QString& name) {
 	QDomDocument doc("JuffScheme");
 	QString nm = name;
@@ -155,7 +149,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 	QString fileName = QString("%1.xml").arg(nm);
 	fileName = AppInfo::configDir() + "/hlschemes/" + fileName;
 	QFile file(fileName);
-	if (QFileInfo(fileName).suffix().toLower().compare("xml") != 0 || !file.open(QIODevice::ReadOnly)) {
+	if (!file.open(QIODevice::ReadOnly)) {
 		return;
 	}
 	QString err;

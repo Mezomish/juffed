@@ -3,11 +3,11 @@
 <JuffScheme>
 <scheme name="C++" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false" >
 	<style name="preprocessor" color="#006600" />
-	<style name="keywords" color="#000099" bold="true" />
-	<!--style name="numbers" color="#0000ff" /-->
-	<style name="numbers" color="#009900" bold="true" />
-	<style name="strings" color="#aa0000" />
-	<style name="comment" color="#999999" bgColor="#f0f0f0" italic="true" bold="true" />
+	<style name="keyword" color="#000066" bold="true" />
+	<style name="number" color="#0000ff" bold="false" />
+	<style name="string" color="#aa0000" />
+	<style name="comment" color="#999999" bgColor="#f0f0f0" italic="true"/>
 	<style name="commentdoc" color="#a09090" />
+	<style name="unclosedString" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
 </scheme>
 </JuffScheme>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="JavaScript" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+	<style name="comment" color="#999999" bold="false" italic="true" />
+	<style name="number" color="#0000ff" bold="false" italic="true" />
+	<style name="keyword" color="#000099" bold="true" italic="true" />
+	<style name="singleString" color="#cc0000" bold="false" italic="true" />
+	<style name="doubleString" color="#cc0000" bold="false" italic="true" />
+	<style name="identifier" color="#806080" bold="false" italic="false" />
+</scheme>
+</JuffScheme>

@@ -63,15 +63,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 	};
 
 	struct Rule {
-		Rule(Style st) {
+		Rule(Style st, const QList<int>& elements) {
 			style = st;
+			hlElements = elements;
 		}
 		
 		QList<int> hlElements;
 		Style style;
 	};
 	
-	typedef QList<Rule> Scheme;
+//	typedef QList<Rule> Scheme;
+	struct Scheme {
+		Style defaultStyle;
+		QList<Rule> rules;
+	};
 	typedef QMap<QString, Style> StyleMap;
 	typedef QMap<QString, Scheme> SchemeMap;
 
@@ -110,10 +115,14 @@ QColor stringToColor(const QString& str) {
 void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 	QDomNode styleNode = schEl.firstChild();
 	
-	QString defColorStr = schEl.attribute("defaultColor", "#000000");
-	QString defBgColorStr = schEl.attribute("defaultBgColor", "#ffffff");
-	QString defBoldStr = schEl.attribute("defaultBold", "false");
-	QString defItalicStr = schEl.attribute("defaultItalic", "false");
+	QString defColorStr = schEl.attribute("defaultColor", "#ff00ff");
+	QString defBgColorStr = schEl.attribute("defaultBgColor", "#ffff00");
+	QString defBoldStr = schEl.attribute("defaultBold", "true");
+	QString defItalicStr = schEl.attribute("defaultItalic", "true");
+	
+	Style defaultStyle(stringToColor(defColorStr), stringToColor(defBgColorStr), 
+			stringToBool(defBoldStr), stringToBool(defItalicStr));
+	styles["default"] = defaultStyle;
 	
 	while (!styleNode.isNull()) {
 		QDomElement styleEl = styleNode.toElement();
@@ -133,12 +142,17 @@ void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 	}
 }
 
+/*Rule hlRule(StyleMap& styleMap, const QString& styleElementName, QList<int> elements) {
+	Rule rule(styleMap[styleElementName]);
+	rule.hlElements = elements;
+	return rule;
+}*/
+
 void LSInterior::readCustomStyle(const QString& name) {
 	QDomDocument doc("JuffScheme");
 	QString nm = name;
 	nm = nm.replace(QString("+"), "plus").replace(QString("#"), "csharp").toLower();
 	QString fileName = QString("%1.xml").arg(nm);
-//	Log::debug(fileName);
 	fileName = AppInfo::configDir() + "/hlschemes/" + fileName;
 	QFile file(fileName);
 	if (QFileInfo(fileName).suffix().toLower().compare("xml") != 0 || !file.open(QIODevice::ReadOnly)) {
@@ -167,97 +181,149 @@ void LSInterior::readCustomStyle(const QString& name) {
 
 
 	if (name.compare("C++") == 0) {
-		Rule preprRule(styles["preprocessor"]), commRule(styles["comment"]), 
-				numbRule(styles["numbers"]), keywRule(styles["keywords"]), strRule(styles["strings"]);
-
-		preprRule.hlElements << QsciLexerCPP::PreProcessor;
-		commRule.hlElements << QsciLexerCPP::CommentLine << QsciLexerCPP::Comment;
-		numbRule.hlElements << QsciLexerCPP::Number;
-		keywRule.hlElements << QsciLexerCPP::Keyword;
-		strRule.hlElements << QsciLexerCPP::DoubleQuotedString;
-
 		Scheme cppSch;
-		cppSch << preprRule << commRule << numbRule << keywRule << strRule;
+		cppSch.defaultStyle = styles["default"];
+		cppSch.rules << Rule(styles["preprocessor"], QList<int>() << QsciLexerCPP::PreProcessor)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine)
+			<< Rule(styles["number"], QList<int>() << QsciLexerCPP::Number)
+			<< Rule(styles["keyword"], QList<int>() << QsciLexerCPP::Keyword)
+			<< Rule(styles["string"], QList<int>() << QsciLexerCPP::DoubleQuotedString)
+			<< Rule(styles["unclosedString"], QList<int>() << QsciLexerCPP::UnclosedString);
 		schemes_[name] = cppSch;
 	}
 	else if(name.compare("Makefile") == 0) {
-		Rule variables(styles["variables"]), targets(styles["targets"]), comment(styles["comment"]);
-
-		variables.hlElements << QsciLexerMakefile::Variable;
-		targets.hlElements << QsciLexerMakefile::Target;
-		comment.hlElements << QsciLexerMakefile::Comment;
-			
 		Scheme mkSch;
-		mkSch << variables << targets << comment;			
+		mkSch.defaultStyle = styles["default"];
+		mkSch.rules << Rule(styles["variable"], QList<int>() << QsciLexerMakefile::Variable)
+			<< Rule(styles["target"], QList<int>() << QsciLexerMakefile::Target)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerMakefile::Comment)
+			<< Rule(styles["error"], QList<int>() << QsciLexerMakefile::Error);
 		schemes_[name] = mkSch;
 	}
 	else if (name.compare("Python") == 0) {
-		Rule keywords(styles["keywords"]), comment(styles["comment"]), numbers(styles["numbers"]), 
-				operators(styles["operators"]), identifiers(styles["identifiers"]), 
-				functions(styles["functions"]),	stringSingle(styles["stringSingle"]), 
-				stringDouble(styles["stringDouble"]), tripleSingle(styles["tripleSingle"]), 
-				tripleDouble(styles["tripleDouble"]), decorators(styles["decorators"]);
-		
-		keywords.hlElements << QsciLexerPython::Keyword;
-		comment.hlElements << QsciLexerPython::Comment << QsciLexerPython::CommentBlock;
-		numbers.hlElements << QsciLexerPython::Number;
-		operators.hlElements << QsciLexerPython::Operator;
-		identifiers.hlElements << QsciLexerPython::Identifier;
-		functions.hlElements << QsciLexerPython::FunctionMethodName;
-		stringSingle.hlElements << QsciLexerPython::SingleQuotedString;
-		stringDouble.hlElements << QsciLexerPython::DoubleQuotedString;
-		tripleSingle.hlElements << QsciLexerPython::TripleSingleQuotedString;
-		tripleDouble.hlElements << QsciLexerPython::TripleDoubleQuotedString;
-		decorators.hlElements << QsciLexerPython::Decorator;
-		
 		Scheme pySch;
-		pySch << keywords << comment << numbers << operators 
-				<< identifiers << functions << stringSingle << stringDouble 
-				<< tripleSingle << tripleDouble << decorators;
+		pySch.defaultStyle = styles["default"];
+		pySch.rules << Rule(styles["keyword"], QList<int>() << QsciLexerPython::Keyword)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerPython::Comment << QsciLexerPython::CommentBlock)
+			<< Rule(styles["number"], QList<int>() << QsciLexerPython::Number)
+			<< Rule(styles["operator"], QList<int>() << QsciLexerPython::Operator)
+			<< Rule(styles["identifier"], QList<int>() << QsciLexerPython::Identifier)
+			<< Rule(styles["function"], QList<int>() << QsciLexerPython::FunctionMethodName)
+			<< Rule(styles["stringSingle"], QList<int>() << QsciLexerPython::SingleQuotedString)
+			<< Rule(styles["stringDouble"], QList<int>() << QsciLexerPython::DoubleQuotedString)
+			<< Rule(styles["tripleSingle"], QList<int>() << QsciLexerPython::TripleSingleQuotedString)
+			<< Rule(styles["tripleDouble"], QList<int>() << QsciLexerPython::TripleDoubleQuotedString)
+			<< Rule(styles["decorator"], QList<int>() << QsciLexerPython::Decorator)
+			<< Rule(styles["unclosedString"], QList<int>() << QsciLexerPython::UnclosedString);
+		
 		schemes_[name] = pySch;
 	}
 	else if (name.compare("XML") == 0) {
-		Rule tags(styles["tags"]), attributes(styles["attributes"]), comment(styles["comment"]), 
-				values(styles["values"]), entities(styles["entities"]);
-			
-		tags.hlElements << QsciLexerHTML::Tag << QsciLexerHTML::UnknownTag << QsciLexerHTML::XMLTagEnd;
-		attributes.hlElements << QsciLexerHTML::Attribute << QsciLexerHTML::UnknownAttribute;
-		comment.hlElements << QsciLexerHTML::HTMLComment;
-		values.hlElements << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString;
-		entities.hlElements << QsciLexerHTML::Entity;
-		
 		Scheme xmlSch;
-		xmlSch << tags << attributes << comment << values << entities;
+		xmlSch.defaultStyle = styles["default"];
+		xmlSch.rules << Rule(styles["tag"], QList<int>() << QsciLexerHTML::Tag << QsciLexerHTML::UnknownTag << QsciLexerHTML::XMLTagEnd)
+			<< Rule(styles["attribute"], QList<int>() << QsciLexerHTML::Attribute << QsciLexerHTML::UnknownAttribute)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerHTML::HTMLComment)
+			<< Rule(styles["value"], QList<int>() << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString)
+			<< Rule(styles["entity"], QList<int>() << QsciLexerHTML::Entity);
 		schemes_[name] = xmlSch;
 	}
 	else if (name.compare("Bash") == 0) {
-		Rule variables(styles["variables"]), strings(styles["strings"]), 
-				keywords(styles["keywords"]), comment(styles["comment"]), backticks(styles["backticks"]);
-			
-		variables.hlElements << QsciLexerBash::Identifier;
-		strings.hlElements << QsciLexerBash::DoubleQuotedString << QsciLexerBash::SingleQuotedString;
-		keywords.hlElements << QsciLexerBash::Keyword << QsciLexerBash::Operator;
-		comment.hlElements << QsciLexerBash::Comment;
-		backticks.hlElements << QsciLexerBash::Backticks;
-
 		Scheme bashSch;
-		bashSch << variables << strings << keywords << comment << backticks;
+		bashSch.defaultStyle = styles["default"];
+		bashSch.rules << Rule(styles["identifier"], QList<int>() << QsciLexerBash::Identifier)
+			<< Rule(styles["singleString"], QList<int>() << QsciLexerBash::SingleQuotedString)
+			<< Rule(styles["doubleString"], QList<int>() << QsciLexerBash::DoubleQuotedString)
+			<< Rule(styles["keyword"], QList<int>() << QsciLexerBash::Keyword)
+			<< Rule(styles["operator"], QList<int>() << QsciLexerBash::Operator)
+			<< Rule(styles["backticks"], QList<int>() << QsciLexerBash::Backticks)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerBash::Comment)
+			<< Rule(styles["scalar"], QList<int>() << QsciLexerBash::Scalar << QsciLexerBash::ParameterExpansion)
+			<< Rule(styles["error"], QList<int>() << QsciLexerBash::Error);
 		schemes_[name] = bashSch;
 	}
 	else if (name.compare("HTML") == 0) {
-		Rule tags(styles["tags"]), attributes(styles["attributes"]), comment(styles["comment"]), 
-				values(styles["values"]), entities(styles["entities"]);
-			
-		tags.hlElements << QsciLexerHTML::Tag;
-		attributes.hlElements << QsciLexerHTML::Attribute;
-		comment.hlElements << QsciLexerHTML::HTMLComment;
-		values.hlElements << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString 
-				<< QsciLexerHTML::HTMLValue << QsciLexerHTML::HTMLNumber << QsciLexerHTML::OtherInTag;
-		entities.hlElements << QsciLexerHTML::Entity;
-
 		Scheme htmlSch;
-		htmlSch << tags << attributes << comment << values << entities;
+		htmlSch.defaultStyle = styles["default"];
+		htmlSch.rules << Rule(styles["tag"], QList<int>() << QsciLexerHTML::Tag)
+			<< Rule(styles["attribute"], QList<int>() << QsciLexerHTML::Attribute)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerHTML::HTMLComment)
+			<< Rule(styles["value"], QList<int>() << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString << QsciLexerHTML::HTMLValue << QsciLexerHTML::HTMLNumber << QsciLexerHTML::OtherInTag)
+			<< Rule(styles["entity"], QList<int>() << QsciLexerHTML::Entity)
+			<< Rule(styles["singleString"], QList<int>() << QsciLexerHTML::HTMLSingleQuotedString)
+			<< Rule(styles["doubleString"], QList<int>() << QsciLexerHTML::HTMLDoubleQuotedString)
+			<< Rule(styles["phpKeyword"], QList<int>() << QsciLexerHTML::PHPKeyword)
+			<< Rule(styles["phpOperator"], QList<int>() << QsciLexerHTML::PHPOperator)
+			<< Rule(styles["phpVariable"], QList<int>() << QsciLexerHTML::PHPVariable)
+			<< Rule(styles["phpSingleString"], QList<int>() << QsciLexerHTML::PHPSingleQuotedString)
+			<< Rule(styles["phpDoubleString"], QList<int>() << QsciLexerHTML::PHPDoubleQuotedString)
+			<< Rule(styles["phpComment"], QList<int>() << QsciLexerHTML::PHPComment << QsciLexerHTML::PHPCommentLine)
+			<< Rule(styles["phpNumber"], QList<int>() << QsciLexerHTML::PHPNumber)
+			<< Rule(styles["jsKeyword"], QList<int>() << QsciLexerHTML::JavaScriptKeyword)
+			<< Rule(styles["jsSingleString"], QList<int>() << QsciLexerHTML::JavaScriptSingleQuotedString)
+			<< Rule(styles["jsDoubleString"], QList<int>() << QsciLexerHTML::JavaScriptDoubleQuotedString)
+			<< Rule(styles["jsComment"], QList<int>() << QsciLexerHTML::JavaScriptComment << QsciLexerHTML::JavaScriptCommentLine)
+			<< Rule(styles["jsNumber"], QList<int>() << QsciLexerHTML::JavaScriptNumber)
+			<< Rule(styles["jsSymbol"], QList<int>() << QsciLexerHTML::JavaScriptSymbol);
+		
 		schemes_[name] = htmlSch;
+	}
+	else if (name.compare("JavaScript") == 0) {
+		Scheme jsSch;
+		jsSch.defaultStyle = styles["default"];
+		jsSch.rules << Rule(styles["keyword"], QList<int>() << QsciLexerCPP::Keyword)
+			<< Rule(styles["singleString"], QList<int>() << QsciLexerCPP::SingleQuotedString)
+			<< Rule(styles["doubleString"], QList<int>() << QsciLexerCPP::DoubleQuotedString)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine)
+			<< Rule(styles["number"], QList<int>() << QsciLexerCPP::Number)
+			<< Rule(styles["identifier"], QList<int>() << QsciLexerCPP::Identifier);
+		
+		schemes_[name] = jsSch;
+	}
+	else if (name.compare("Perl") == 0) {
+		Scheme perlSch;
+		perlSch.defaultStyle = styles["default"];
+		perlSch.rules << Rule(styles["comment"], QList<int>() << QsciLexerPerl::Comment)
+			<< Rule(styles["number"], QList<int>() << QsciLexerPerl::Number)
+			<< Rule(styles["keyword"], QList<int>() << QsciLexerPerl::Keyword)
+			<< Rule(styles["operator"], QList<int>() << QsciLexerPerl::Operator)
+			<< Rule(styles["identifier"], QList<int>() << QsciLexerPerl::Identifier)
+			<< Rule(styles["regexp"], QList<int>() << QsciLexerPerl::Regex)
+			<< Rule(styles["backticks"], QList<int>() << QsciLexerPerl::Backticks)
+			<< Rule(styles["scalar"], QList<int>() << QsciLexerPerl::Scalar)
+			<< Rule(styles["array"], QList<int>() << QsciLexerPerl::Array)
+			<< Rule(styles["hash"], QList<int>() << QsciLexerPerl::Hash)
+			<< Rule(styles["singleString"], QList<int>() << QsciLexerPerl::SingleQuotedString)
+			<< Rule(styles["doubleString"], QList<int>() << QsciLexerPerl::DoubleQuotedString)
+			<< Rule(styles["substitution"], QList<int>() << QsciLexerPerl::Substitution)
+			<< Rule(styles["hereDocument"], QList<int>() << QsciLexerPerl::HereDocumentDelimiter << QsciLexerPerl::SingleQuotedHereDocument << QsciLexerPerl::DoubleQuotedHereDocument)
+			<< Rule(styles["error"], QList<int>() << QsciLexerPerl::Error);
+
+		schemes_[name] = perlSch;
+	}
+	else if (name.compare("Ruby") == 0) {
+		Scheme rbSch;
+		rbSch.defaultStyle = styles["default"];
+		rbSch.rules << Rule(styles["comment"], QList<int>() << QsciLexerRuby::Comment)
+			<< Rule(styles["number"], QList<int>() << QsciLexerRuby::Number)
+			<< Rule(styles["keyword"], QList<int>() << QsciLexerRuby::Keyword)
+			<< Rule(styles["operator"], QList<int>() << QsciLexerRuby::Operator)
+			<< Rule(styles["identifier"], QList<int>() << QsciLexerRuby::Identifier)
+			<< Rule(styles["regexp"], QList<int>() << QsciLexerRuby::Regex)
+			<< Rule(styles["backticks"], QList<int>() << QsciLexerRuby::Backticks)
+			<< Rule(styles["singleString"], QList<int>() << QsciLexerRuby::SingleQuotedString)
+			<< Rule(styles["doubleString"], QList<int>() << QsciLexerRuby::DoubleQuotedString)
+			<< Rule(styles["hereDocument"], QList<int>() << QsciLexerRuby::HereDocumentDelimiter << QsciLexerRuby::HereDocument)
+			<< Rule(styles["pod"], QList<int>() << QsciLexerRuby::POD)
+			<< Rule(styles["symbol"], QList<int>() << QsciLexerRuby::Symbol)
+			<< Rule(styles["className"], QList<int>() << QsciLexerRuby::ClassName)
+			<< Rule(styles["classVariable"], QList<int>() << QsciLexerRuby::ClassVariable)
+			<< Rule(styles["instanceVariable"], QList<int>() << QsciLexerRuby::InstanceVariable)
+			<< Rule(styles["functionMethod"], QList<int>() << QsciLexerRuby::FunctionMethodName)
+			<< Rule(styles["global"], QList<int>() << QsciLexerRuby::Global)
+			<< Rule(styles["error"], QList<int>() << QsciLexerRuby::Error);
+
+		schemes_[name] = rbSch;
 	}
 }
 
@@ -273,8 +339,15 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 		else {
 			if (schemes_.contains(name)) {
 				Scheme& scheme = schemes_[name];
-				
-				foreach (Rule const& rule, scheme) {
+			
+				QFont f(font);
+				f.setStyle(scheme.defaultStyle.italic ? QFont::StyleItalic : QFont::StyleNormal);
+				f.setWeight(scheme.defaultStyle.bold ? QFont::Bold : QFont::Normal);
+				lex->setFont(f, -1);
+				lex->setColor(scheme.defaultStyle.color, -1);
+				lex->setPaper(scheme.defaultStyle.bgColor, -1);
+
+				foreach (Rule const& rule, scheme.rules) {
 					foreach (int element, rule.hlElements) {
 						QFont f(font);
 						f.setStyle(rule.style.italic ? QFont::StyleItalic : QFont::StyleNormal);
@@ -432,6 +505,9 @@ QString LexerStorage::lexerName(const QString& fileName) const {
 	}
 	else if (ext.compare("lua") == 0 || ext.compare("tasklua") == 0) {
 		name = "Lua";
+	}
+	else if (fileName.contains("Makefile")) {
+		name = "Makefile";
 	}
 
 	return name;

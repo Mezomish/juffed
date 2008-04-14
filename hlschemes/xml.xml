@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="XML">
-	<style name="tags" color="#000000" bold="true" />
-	<style name="attributes" color="#005500" />
+<scheme name="XML" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+	<style name="tag" color="#000000" bold="true" />
+	<style name="attribute" color="#005500" />
 	<style name="comment" color="#999999" italic="true" />
-	<style name="values" color="#660000" />
-	<style name="entities" color="#0000aa" />
+	<style name="value" color="#660000" />
+	<style name="entity" color="#0000aa" />
 </scheme>
 </JuffScheme>

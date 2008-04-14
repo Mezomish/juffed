@@ -3,8 +3,9 @@ Version 0.3-dev-?????????
 -------------------------------
 * using QScintilla instead of QTextEdit;
 * manual syntax highlighting selection;
-* custom highlights for C++, Makefile, Python, HTML, XML, Bash;
+* custom highlights for C++, Makefile, Python, HTML, XML, Bash, Perl, Ruby;
 * updating markers menu;
+* added using icon themes at user home dir
 
 
 -------------------------------

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="Bash">
-	<style name="comment" color="#999999" italic="true" />
-	<style name="keywords" color="#990000" bold="true" />
-	<style name="strings" color="#aa0000" />
-	<style name="variables" color="#000066" />
-	<style name="backticks" color="#0000ff" />
+<scheme name="Bash" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+	<style name="comment" color="#999999" bold="false" italic="true" />
+	<style name="keyword" color="#660066" bold="true" italic="false" />
+	<style name="singleString" color="#aa0000" bold="false" italic="false" />
+	<style name="doubleString" color="#aa0000" bold="false" italic="false" />
+	<style name="variable" color="#306030" bold="false" italic="false" />
+	<style name="backticks" color="#0000ff" bgColor="#f0e0ff" bold="false" italic="false" />
+	<style name="operator" color="#009900" bold="false" italic="false" />
+	<style name="scalar" color="#309030" bold="false" italic="false" />
+	<style name="error" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
 </scheme>
 </JuffScheme>

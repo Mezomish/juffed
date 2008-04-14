@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="Makefile">
-	<style name="variables" color="#aa00aa" />
-	<style name="targets" color="#0000ff" />
-	<style name="comment" color="#609060" />
+<scheme name="Makefile" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+	<style name="variable" color="#aa00aa" bold="false" italic="false" />
+	<style name="target" color="#0000ff" bold="false" italic="false" />
+	<style name="comment" color="#609060" bold="false" italic="false" />
+	<style name="error" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
 </scheme>
 </JuffScheme>

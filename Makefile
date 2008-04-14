@@ -27,7 +27,6 @@ install:
 #	Directories
 	install -d $(DESTDIR)
 	install -d $(DESTDIR)/l10n
-	install -d $(DESTDIR)/icons
 	install -d $(DESTDIR)/hlschemes
 #	Copy files
 	install -m 755 juffed $(DESTDIR)
@@ -35,7 +34,6 @@ install:
 	install -m 644 COPYING $(DESTDIR)
 	install -m 644 l10n/*.qm $(DESTDIR)/l10n/
 	install -m 644 hlschemes/* $(DESTDIR)/hlschemes/
-	cp -R icons/* $(DESTDIR)/icons/
 #	Binary
 	install -d $(BIN)
 	cd $(BIN) && ln -sf ../share/juffed/juffed juffed

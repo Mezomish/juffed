@@ -32,16 +32,18 @@ SessionDlg::SessionDlg(QWidget* parent) : QDialog(parent), result_(0) {
 	ui.sessionTree->header()->hide();
 
 	QDir sessionDir(AppInfo::configDir() + "/sessions/");
-	QStringList files = sessionDir.entryList(QDir::Files | QDir::NoSymLinks);
-	foreach (QString file, files) {
-		QStringList items;
-		items << file;
-		QTreeWidgetItem* it = new QTreeWidgetItem(items);
-//		it->setHeight(20);
-		ui.sessionTree->addTopLevelItem(it);
+	if (sessionDir.exists()) {
+		QStringList files = sessionDir.entryList(QDir::Files | QDir::NoSymLinks);
+		foreach (QString file, files) {
+			QStringList items;
+			items << file;
+			QTreeWidgetItem* it = new QTreeWidgetItem(items);
+//			it->setHeight(20);
+			ui.sessionTree->addTopLevelItem(it);
+		}
+		if (files.count() > 0)
+			ui.sessionTree->setCurrentItem(ui.sessionTree->topLevelItem(0));
 	}
-	if (files.count() > 0)
-		ui.sessionTree->setCurrentItem(ui.sessionTree->topLevelItem(0));
 
 	connect(ui.openSessionBtn, SIGNAL(clicked()), SLOT(openSession()));
 	connect(ui.newSessionBtn, SIGNAL(clicked()), SLOT(newSession()));

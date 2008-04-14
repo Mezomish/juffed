@@ -115,8 +115,10 @@ QColor stringToColor(const QString& str) {
 void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 	QDomNode styleNode = schEl.firstChild();
 	
-	QString defColorStr = schEl.attribute("defaultColor", "#ff00ff");
-	QString defBgColorStr = schEl.attribute("defaultBgColor", "#ffff00");
+//	QString defColorStr = schEl.attribute("defaultColor", "#ff00ff");
+//	QString defBgColorStr = schEl.attribute("defaultBgColor", "#ffff00");
+	QString defColorStr = schEl.attribute("defaultColor", "#000000");
+	QString defBgColorStr = schEl.attribute("defaultBgColor", "#ffffff");
 	QString defBoldStr = schEl.attribute("defaultBold", "true");
 	QString defItalicStr = schEl.attribute("defaultItalic", "true");
 	

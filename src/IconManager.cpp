@@ -9,10 +9,11 @@
 
 class IMInterior {
 public:
-	IMInterior() {
+	IMInterior() : default_(true) {
 	}
 	
 	QMap<QString, QIcon> iconMap_;
+	bool default_;
 };
 
 IconManager::IconManager() {
@@ -30,13 +31,15 @@ IconManager* IconManager::instance() {
 }
 
 void IconManager::loadTheme(const QString& iconTheme) {
-	//	first try to find specified theme at user's home dir
+	if (iconTheme.compare("<default>") == 0) {
+		imInt_->default_ = true;
+		imInt_->iconMap_.clear();
+		return;
+	}
+	
 	QDir iconDir(AppInfo::configDir() + "/icons/" + iconTheme);
 	if (!iconDir.exists()) {
-		//	if doesn't exist, try to find it in app's dir
-		iconDir = QDir(QCoreApplication::applicationDirPath() + "/icons/" + iconTheme);
-		if (!iconDir.exists())
-			return;
+		return;
 	}
 
 	QString themeFileName = iconDir.filePath(iconTheme + ".theme");
@@ -44,6 +47,7 @@ void IconManager::loadTheme(const QString& iconTheme) {
 	if (file.open(QIODevice::ReadOnly)) {
 		QString key, value;
 		imInt_->iconMap_.clear();
+		imInt_->default_ = false;
 		while (!file.atEnd()) {
 			QString line = file.readLine();
 			key = line.section('=', 0, 0).simplified();
@@ -55,7 +59,10 @@ void IconManager::loadTheme(const QString& iconTheme) {
 }
 
 QIcon IconManager::icon(const QString& action) const {
-	return imInt_->iconMap_.value(action, QIcon());
+	if (imInt_->default_)
+		return QIcon(QString(":%1").arg(action));
+	else
+		return imInt_->iconMap_.value(action, QIcon());
 }
 
 IconManager* IconManager::instance_ = 0;

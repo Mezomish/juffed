@@ -82,3 +82,5 @@ TRANSLATIONS = \
 win32 {
 	RC_FILE = juffed.rc
 }
+
+RESOURCES = juffed.qrc

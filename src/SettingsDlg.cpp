@@ -107,26 +107,22 @@ SettingsDlg::~SettingsDlg() {
 }
 
 void SettingsDlg::init() {
+	//	icon themes
 	pageView_->ui.iconThemeCmb->clear();
+	pageView_->ui.iconThemeCmb->addItem("<default>");
 	QDir iconsDir(AppInfo::configDir() + "/icons");
 	if (iconsDir.exists()) {
 		pageView_->ui.iconThemeCmb->addItems(iconsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot));
 	}
 	
-	iconsDir = QDir(QCoreApplication::applicationDirPath() + "/icons");
-	if (iconsDir.exists()) {
-		QStringList themes = iconsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-		foreach (QString theme, themes) {
-			if (pageView_->ui.iconThemeCmb->findText(theme) < 0)
-				pageView_->ui.iconThemeCmb->addItem(theme);
-		}
-	}
-
 	int tabPos = MainSettings::tabPosition();
 	QString iconTheme = MainSettings::iconTheme();
 	int style = MainSettings::toolButtonStyle();
 	pageView_->ui.tabPositionCmb->setCurrentIndex(tabPos);
-	pageView_->ui.iconThemeCmb->setCurrentIndex(pageView_->ui.iconThemeCmb->findText(iconTheme));
+	if (iconTheme.isEmpty())
+		pageView_->ui.iconThemeCmb->setCurrentIndex(pageView_->ui.iconThemeCmb->findText("<default>"));
+	else
+		pageView_->ui.iconThemeCmb->setCurrentIndex(pageView_->ui.iconThemeCmb->findText(iconTheme));
 	pageView_->ui.toolButtonStyleCmb->setCurrentIndex(style);
 	pageView_->ui.iconSizeCmb->setCurrentIndex(MainSettings::iconSize());
 	

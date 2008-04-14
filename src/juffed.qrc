@@ -1,0 +1,17 @@
+<RCC>
+    <qresource>
+        <file alias="about">icons/about.png</file>
+        <file alias="editCopy">icons/editCopy.png</file>
+        <file alias="editCut">icons/editCut.png</file>
+        <file alias="editPaste">icons/editPaste.png</file>
+        <file alias="editRedo">icons/editRedo.png</file>
+        <file alias="editUndo">icons/editUndo.png</file>
+        <file alias="exit">icons/exit.png</file>
+        <file alias="fileNew">icons/fileNew.png</file>
+        <file alias="fileOpen">icons/fileOpen.png</file>
+        <file alias="fileSave">icons/fileSave.png</file>
+        <file alias="fileSaveAs">icons/fileSaveAs.png</file>
+        <file alias="find">icons/find.png</file>
+        <file alias="settings">icons/settings.png</file>
+    </qresource>
+</RCC>

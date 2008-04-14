@@ -63,8 +63,24 @@ void Settings::write() {
 	}
 }
 
+bool Settings::valueExists(const QString& section, const QString& key) {
+	return settData_->data_[section].contains(key);
+}
+	
 QVariant Settings::value(const QString& section, const QString& key) {
 	return settData_->data_[section][key];
+}
+
+QString Settings::stringValue(const QString& section, const QString& key, const QString& def) {
+	return settData_->data_[section].value(key, def).toString();
+}
+
+int Settings::intValue(const QString& section, const QString& key, int def) {
+	return settData_->data_[section].value(key, def).toInt();
+}
+
+bool Settings::boolValue(const QString& section, const QString& key, bool def) {
+	return settData_->data_[section].value(key, def).toBool	();
 }
 
 void Settings::setValue(const QString& section, const QString& key, const QVariant& value) {

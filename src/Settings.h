@@ -31,12 +31,18 @@ public:
 	static void write();
 
 protected:
+	static bool valueExists(const QString& section, const QString& key);
+	static QString stringValue(const QString& section, const QString& key, const QString& def = "");
+	static int intValue(const QString& section, const QString& key, int def = 0);
+	static bool boolValue(const QString& section, const QString& key, bool def = false);
 	static QVariant value(const QString& section, const QString& key);
+	
 	static void setValue(const QString& section, const QString& key, const QVariant& value);
-	static QStringList sectionList();
 	static QStringList keyList(const QString& section);
-
+	
 private:
+	static QStringList sectionList();
+
 	static SettingsData* settData_;
 };
 

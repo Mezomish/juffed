@@ -26,23 +26,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class MainSettings : public Settings {
 public:
-	static QString lastOpenDir() { return Settings::value("main", "lastOpenDir").toString(); }
-	static QString lastSaveDir() { return Settings::value("main", "lastSaveDir").toString(); }
-	static int tabPosition() { return Settings::value("main", "tabPosition").toInt(); }
-	static QRect windowRect() { return Settings::value("main", "geometry").toRect(); }
-	static bool isMaximized() { return Settings::value("main", "isMaximized").toBool(); }
-	static QString iconTheme() { return Settings::value("main", "iconTheme").toString(); }
-	static int toolButtonStyle() { return Settings::value("main", "toolButtonStyle").toInt(); }
-	static int iconSize() { return Settings::value("main", "iconSize").toInt(); }
-	static int startupVariant() { return Settings::value("main", "startupVariant").toInt(); }
-	static QString lastSessionName() { return Settings::value("main", "lastSessionName").toString(); }
-	static bool saveSessionOnClose() { return Settings::value("main", "saveSessionOnClose").toBool(); }
-	static QString recentFiles() { return Settings::value("main", "recentFiles").toString(); }
-	static int recentFilesCount() { return 10; /* TODO: remove this */}
-	static bool makeBackupOnSave() { return Settings::value("main", "makeBackupOnSave").toBool(); }
-	static int autoSaveInterval() { return Settings::value("main", "autoSaveInterval").toInt(); }
-	static bool closeTabsInOrderOfUse() { return Settings::value("main", "closeTabsInOrderOfUse").toBool(); }
-	static bool singleInstance() { return Settings::value("main", "singleInstance").toBool(); }
+	static QString lastOpenDir();
+	static QString lastSaveDir();
+	static int tabPosition();
+	static QRect windowRect();
+	static bool isMaximized();
+	static QString iconTheme();
+	static int toolButtonStyle();
+	static int iconSize();
+	static int startupVariant();
+	static QString lastSessionName();
+	static bool saveSessionOnClose();
+	static QString recentFiles();
+	static int recentFilesCount();
+	static bool makeBackupOnSave();
+	static int autoSaveInterval();
+	static bool closeTabsInOrderOfUse();
+	static bool singleInstance();
 	
 	static void setLastOpenDir(const QString& dir) { Settings::setValue("main", "lastOpenDir", dir); }
 	static void setLastSaveDir(const QString& dir) { Settings::setValue("main", "lastSaveDir", dir); }

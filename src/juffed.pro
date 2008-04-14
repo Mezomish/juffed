@@ -63,6 +63,7 @@ SOURCES += \
 		SocketListener.cpp \
 		LexerStorage.cpp \
 		IconManager.cpp \
+		MainSettings.cpp \
 		
 FORMS += \
 		CharsetsSettingsPage.ui \

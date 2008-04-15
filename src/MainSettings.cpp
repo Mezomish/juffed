@@ -70,7 +70,7 @@ QString MainSettings::recentFiles() {
 }
 
 int MainSettings::recentFilesCount() { 
-	return 10; /* TODO: remove this */
+	return Settings::intValue("main", "recentFilesCount", 10);
 }
 
 bool MainSettings::makeBackupOnSave() { 
@@ -82,7 +82,7 @@ int MainSettings::autoSaveInterval() {
 }
 
 bool MainSettings::closeTabsInOrderOfUse() { 
-	return Settings::value("main", "closeTabsInOrderOfUse").toBool(); 
+	return Settings::boolValue("main", "closeTabsInOrderOfUse", false); 
 }
 
 bool MainSettings::singleInstance() { 

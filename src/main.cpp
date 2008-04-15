@@ -38,7 +38,6 @@ void checkForFirstRun() {
 	//	config and localization
 	QString configPath = AppInfo::configDir();
 	QString appPath = QCoreApplication::applicationDirPath();
-	QString configFile = AppInfo::configFile();
 
 	QDir configDir(configPath);
 	if (!configDir.exists()) {
@@ -47,8 +46,6 @@ void checkForFirstRun() {
 			QFile::copy(appPath + "/l10n/" + localization, configPath + "/" + localization);
 		}
 	}
-	if (!QFile::exists(configFile))
-		QFile::copy(appPath + "/juffed.conf", configFile);
 
 	//	highlight schemes
 	QString localSchemePath = AppInfo::configDir() + "/hlschemes";

@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class MainSettings : public Settings {
 public:
 	static QString lastOpenDir();
+	static bool useCurrentDocDir();
 	static QString lastSaveDir();
 	static int tabPosition();
 	static QRect windowRect();

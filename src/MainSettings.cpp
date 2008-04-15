@@ -22,6 +22,10 @@ QString MainSettings::lastOpenDir() {
 	return Settings::value("main", "lastOpenDir").toString(); 
 }
 
+bool MainSettings::useCurrentDocDir() {
+	return Settings::boolValue("main", "useCurrentDocDir", false);
+}
+
 QString MainSettings::lastSaveDir() { 
 	return Settings::value("main", "lastSaveDir").toString(); 
 }

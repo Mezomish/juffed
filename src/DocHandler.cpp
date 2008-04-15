@@ -349,8 +349,22 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 //		fileTypes += "";
 //		fileTypes += "";
 //		fileTypes += "";
+
+		QString startDir("");
+		QString curDocFileName("");
+		Document* curDoc = currentDoc();
+		if (curDoc != 0 && !curDoc->isNull())
+			curDocFileName = curDoc->fileName();
+
+		if (MainSettings::useCurrentDocDir() && QFileInfo(curDocFileName).exists()) {
+			startDir = QFileInfo(curDocFileName).absolutePath();
+		}
+		else {
+			startDir = MainSettings::lastOpenDir();
+		}
+
 		files = QFileDialog::getOpenFileNames(hInt_->viewer_->widget(), 
-				tr("Open file"), MainSettings::lastOpenDir(), fileTypes);
+				tr("Open file"), startDir, fileTypes);
 	
 		if (! files.isEmpty()) {
 			QString file;

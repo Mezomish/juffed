@@ -23,9 +23,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class CharsetsSettings : public Settings {
 public:
-	static QStringList getCharsetsList() { return Settings::keyList("charset"); }
-	static bool charsetEnabled(const QString& charset) { return Settings::value("charset", charset).toBool(); }
-	static void setCharsetEnabled(const QString& charset, bool enable) { Settings::setValue("charset", charset, enable); }
+	static QStringList getCharsetsList();
+	static bool charsetEnabled(const QString& charset);
+	static void setCharsetEnabled(const QString& charset, bool enable);
+
+private:
+	static QStringList csList_;
 };
 
 #endif

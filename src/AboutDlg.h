@@ -58,9 +58,10 @@ public:
 	/** setLicense
 	* Sets the text of the program license
 	*
-	* @param license License file name
+	* @param str License file name if isFileName is true,
+	*            license text otherwise
 	*/
-	void setLicense(const QString&);
+	void setLicense(const QString& str, bool isFileName = true);
 
 private slots:
 	void gotoUrl(const QUrl&);

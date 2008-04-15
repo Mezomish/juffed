@@ -65,6 +65,7 @@ SOURCES += \
 		IconManager.cpp \
 		MainSettings.cpp \
 		TextDocSettings.cpp \
+		CharsetsSettings.cpp \
 		
 FORMS += \
 		CharsetsSettingsPage.ui \

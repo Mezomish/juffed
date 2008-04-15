@@ -175,13 +175,18 @@ void AboutDlg::setThanks(const QString& thanks) {
 	dlgInt_->thanksPage()->setText(thanks);
 }
 	
-void AboutDlg::setLicense(const QString& licenseFile) {
-	QFile file(licenseFile);
-	if (file.open(QIODevice::ReadOnly)) {
-		dlgInt_->licensePage()->setText(file.readAll().constData(), false);
-		file.close();
+void AboutDlg::setLicense(const QString& str, bool isFileName) {
+	if (isFileName) {
+		QFile file(str);
+		if (file.open(QIODevice::ReadOnly)) {
+			dlgInt_->licensePage()->setText(file.readAll().constData(), false);
+			file.close();
+		}
+		else {
+			dlgInt_->licensePage()->setText(QString("Can't open file '%1'").arg(QFileInfo(str).absoluteFilePath()), false);
+		}
 	}
 	else {
-		dlgInt_->licensePage()->setText(QString("Can't open file '%1'").arg(QFileInfo(licenseFile).absoluteFilePath()), false);
+		dlgInt_->licensePage()->setText(str, false);
 	}
 }

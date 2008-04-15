@@ -30,7 +30,6 @@ install:
 	install -d $(DESTDIR)/hlschemes
 #	Copy files
 	install -m 755 juffed $(DESTDIR)
-	install -m 644 juffed.conf $(DESTDIR)
 	install -m 644 COPYING $(DESTDIR)
 	install -m 644 l10n/*.qm $(DESTDIR)/l10n/
 	install -m 644 hlschemes/* $(DESTDIR)/hlschemes/

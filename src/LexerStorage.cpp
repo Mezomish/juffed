@@ -180,7 +180,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 		Scheme cppSch;
 		cppSch.defaultStyle = styles["default"];
 		cppSch.rules << Rule(styles["preprocessor"], QList<int>() << QsciLexerCPP::PreProcessor)
-			<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine << QsciLexerCPP::CommentDoc << QsciLexerCPP::CommentDocKeyword)
 			<< Rule(styles["number"], QList<int>() << QsciLexerCPP::Number)
 			<< Rule(styles["keyword"], QList<int>() << QsciLexerCPP::Keyword)
 			<< Rule(styles["string"], QList<int>() << QsciLexerCPP::DoubleQuotedString)

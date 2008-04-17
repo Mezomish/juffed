@@ -30,12 +30,16 @@ public:
 	static bool widthAdjust();
 	static bool showLineNumbers();
 	static int lineLengthIndicator();
+	static bool showIndents();
+	static bool highlightCurrentLine();
 	
 	static void setFont(const QFont& font) { Settings::setValue("editor", "fontFamily", font.family()); Settings::setValue("editor", "fontSize", font.pointSize()); }
 	static void setWidthAdjust(bool adj) { Settings::setValue("editor", "widthAdjust", adj); }
 	static void setShowLineNumbers(bool show) { Settings::setValue("editor", "showLineNumbers", show); }
 	static void setTabStopWidth(int w) { Settings::setValue("editor", "tabStopWidth", w); }
 	static void setLineLengthIndicator(int ind) { Settings::setValue("editor", "lineLengthIndicator", ind); }
+	static void setShowIndents(bool show) { Settings::setValue("editor", "showIndents", show); }
+	static void setHighlightCurrentLine(bool hl) { Settings::setValue("editor", "highlightCurrentLine", hl); }
 };
 
 #endif

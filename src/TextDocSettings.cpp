@@ -43,3 +43,11 @@ bool TextDocSettings::showLineNumbers() {
 int TextDocSettings::lineLengthIndicator() { 
 	return Settings::intValue("editor", "lineLengthIndicator", 80); 
 }
+
+bool TextDocSettings::showIndents() {
+	return Settings::boolValue("editor", "showIndents", true);
+}
+
+bool TextDocSettings::highlightCurrentLine() {
+	return Settings::boolValue("editor", "highlightCurrentLine", true);
+}

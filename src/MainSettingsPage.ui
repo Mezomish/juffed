@@ -131,7 +131,7 @@
    <item row="1" column="2" >
     <widget class="QRadioButton" name="openLastSessionBtn" >
      <property name="text" >
-      <string>Open last session</string>
+      <string>Open last saved session</string>
      </property>
     </widget>
    </item>

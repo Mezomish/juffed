@@ -18,8 +18,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "MainSettings.h"
 
+#include <QtCore/QDir>
+
 QString MainSettings::lastOpenDir() { 
-	return Settings::value("main", "lastOpenDir").toString(); 
+	return Settings::stringValue("main", "lastOpenDir", QDir::homePath()); 
 }
 
 bool MainSettings::useCurrentDocDir() {
@@ -27,7 +29,7 @@ bool MainSettings::useCurrentDocDir() {
 }
 
 QString MainSettings::lastSaveDir() { 
-	return Settings::value("main", "lastSaveDir").toString(); 
+	return Settings::stringValue("main", "lastSaveDir", QDir::homePath()); 
 }
 
 int MainSettings::tabPosition() { 

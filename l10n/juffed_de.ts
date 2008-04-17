@@ -44,17 +44,17 @@
 <context>
     <name>DocHandler</name>
     <message>
-        <location filename="../src/DocHandler.cpp" line="351"/>
+        <location filename="../src/DocHandler.cpp" line="370"/>
         <source>Open file</source>
         <translation>Datei öffnen</translation>
     </message>
     <message>
-        <location filename="../src/DocHandler.cpp" line="566"/>
+        <location filename="../src/DocHandler.cpp" line="585"/>
         <source>Save session as</source>
         <translation>Sitzung speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/DocHandler.cpp" line="566"/>
+        <location filename="../src/DocHandler.cpp" line="585"/>
         <source>Session name</source>
         <translation>Sitzungsname</translation>
     </message>
@@ -62,27 +62,27 @@
 <context>
     <name>Document</name>
     <message>
-        <location filename="../src/Document.cpp" line="84"/>
+        <location filename="../src/Document.cpp" line="85"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="88"/>
+        <location filename="../src/Document.cpp" line="89"/>
         <source>Save current</source>
         <translation>Speichere aktuelles</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="91"/>
+        <location filename="../src/Document.cpp" line="92"/>
         <source>Reload from disk</source>
         <translation>Erneut laden</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="94"/>
+        <location filename="../src/Document.cpp" line="95"/>
         <source>Ignore</source>
         <translation>Ignorieren</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="83"/>
+        <location filename="../src/Document.cpp" line="84"/>
         <source>The file was modified by external program
 What do you want to do?</source>
         <translation>Die Datei wurde von einem externen Programm geändert
@@ -92,39 +92,49 @@ Was wollen Sie tun?</translation>
 <context>
     <name>EditorSettingsPage</name>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="101"/>
+        <location filename="../src/EditorSettingsPage.ui" line="94"/>
         <source>Adjust by width</source>
         <translation>Zeilenumbruch</translation>
     </message>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="35"/>
+        <location filename="../src/EditorSettingsPage.ui" line="61"/>
         <source>Size</source>
         <translation>Größe</translation>
     </message>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="25"/>
+        <location filename="../src/EditorSettingsPage.ui" line="121"/>
         <source>Font</source>
         <translation>Schrift</translation>
     </message>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="108"/>
+        <location filename="../src/EditorSettingsPage.ui" line="114"/>
         <source>Show line numbers</source>
         <translation>Zeilennummern anzeigen</translation>
     </message>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="55"/>
+        <location filename="../src/EditorSettingsPage.ui" line="68"/>
         <source>Tabstop width</source>
         <translation>Tabulatorweite</translation>
     </message>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="75"/>
+        <location filename="../src/EditorSettingsPage.ui" line="128"/>
         <source>Show line length indicator</source>
         <translation>Zeige Zeilenlängenanzeiger</translation>
     </message>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="85"/>
+        <location filename="../src/EditorSettingsPage.ui" line="78"/>
         <source> symbols</source>
         <translation> Zeichen</translation>
+    </message>
+    <message>
+        <location filename="../src/EditorSettingsPage.ui" line="38"/>
+        <source>Show indents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/EditorSettingsPage.ui" line="135"/>
+        <source>Highlight current line</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -293,7 +303,7 @@ Was wollen Sie tun?</translation>
         <translation>Zeichensatz</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="536"/>
+        <location filename="../src/JuffEd.cpp" line="525"/>
         <source>Row: %1, Col: %2</source>
         <translation> Zeile: %1, Spalte: %2 </translation>
     </message>
@@ -308,7 +318,7 @@ Was wollen Sie tun?</translation>
         <translation>Zeilenumbruch</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="339"/>
+        <location filename="../src/JuffEd.cpp" line="342"/>
         <source>Recent files</source>
         <translation>Zuletzt geöffnete Dateien</translation>
     </message>
@@ -328,7 +338,7 @@ Was wollen Sie tun?</translation>
         <translation>Alle Markierungen entfernen</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="341"/>
+        <location filename="../src/JuffEd.cpp" line="344"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
@@ -343,7 +353,7 @@ Was wollen Sie tun?</translation>
         <translation>&amp;Ansicht</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="383"/>
+        <location filename="../src/JuffEd.cpp" line="386"/>
         <source>&amp;Markers</source>
         <translation>&amp;Markierungen</translation>
     </message>
@@ -388,7 +398,7 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="134"/>
         <source>Open last session</source>
-        <translation>öffne letzte Sitzung</translation>
+        <translation type="obsolete">öffne letzte Sitzung</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="85"/>
@@ -430,21 +440,26 @@ Was wollen Sie tun?</translation>
         <source>Save session when close</source>
         <translation>Speichere Sitzung beim Beenden</translation>
     </message>
+    <message>
+        <location filename="../src/MainSettingsPage.ui" line="134"/>
+        <source>Open last saved session</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/DocHandler.cpp" line="166"/>
+        <location filename="../src/DocHandler.cpp" line="169"/>
         <source>Noname</source>
         <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="349"/>
+        <location filename="../src/TextDocView.cpp" line="355"/>
         <source>Confirmation</source>
         <translation>Bestätigung</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="350"/>
+        <location filename="../src/TextDocView.cpp" line="356"/>
         <source>Replace this text?</source>
         <translation>Text ersetzen?</translation>
     </message>
@@ -495,42 +510,42 @@ Was wollen Sie tun?</translation>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="69"/>
+        <location filename="../src/SettingsDlg.cpp" line="70"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="72"/>
+        <location filename="../src/SettingsDlg.cpp" line="73"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="73"/>
+        <location filename="../src/SettingsDlg.cpp" line="74"/>
         <source>Apply</source>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="74"/>
+        <location filename="../src/SettingsDlg.cpp" line="75"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="84"/>
+        <location filename="../src/SettingsDlg.cpp" line="85"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="86"/>
+        <location filename="../src/SettingsDlg.cpp" line="87"/>
         <source>Editor</source>
         <translation>Editor</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="87"/>
+        <location filename="../src/SettingsDlg.cpp" line="88"/>
         <source>Charsets</source>
         <translation>Zeichensatz</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="85"/>
+        <location filename="../src/SettingsDlg.cpp" line="86"/>
         <source>View</source>
         <translation>Ansicht</translation>
     </message>
@@ -538,39 +553,39 @@ Was wollen Sie tun?</translation>
 <context>
     <name>TextDoc</name>
     <message>
-        <location filename="../src/TextDoc.cpp" line="113"/>
+        <location filename="../src/TextDoc.cpp" line="114"/>
         <source>Save as</source>
         <translation>Speichern unter ...</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="124"/>
+        <location filename="../src/TextDoc.cpp" line="125"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="157"/>
+        <location filename="../src/TextDoc.cpp" line="158"/>
         <source>The document </source>
         <translation>Dokument </translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="158"/>
+        <location filename="../src/TextDoc.cpp" line="159"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> wurde gendert.
 Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="159"/>
+        <location filename="../src/TextDoc.cpp" line="160"/>
         <source>Close document</source>
         <translation>Dokument schließen</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="247"/>
+        <location filename="../src/TextDoc.cpp" line="248"/>
         <source>Go to line</source>
         <translation>Gehe zu Zeile</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="118"/>
+        <location filename="../src/TextDoc.cpp" line="119"/>
         <source>Save as a copy</source>
         <translation>Speichere Kopie als ...</translation>
     </message>
@@ -578,19 +593,19 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>TextDocView</name>
     <message>
-        <location filename="../src/TextDocView.cpp" line="322"/>
+        <location filename="../src/TextDocView.cpp" line="328"/>
         <source>Find</source>
         <translation>Suchen</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="313"/>
+        <location filename="../src/TextDocView.cpp" line="319"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Die Suche hat den Dateianfang erreicht.
 Am Ende fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="318"/>
+        <location filename="../src/TextDocView.cpp" line="324"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Die Suche hat das Dateiende erreicht.

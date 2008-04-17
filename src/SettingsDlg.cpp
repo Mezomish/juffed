@@ -174,6 +174,8 @@ void SettingsDlg::init() {
 		pageEditor_->ui.showLineLengthChk->setChecked(false);
 		pageEditor_->ui.lineLengthSpin->setValue(-chars);
 	}
+	pageEditor_->ui.showIndentsChk->setChecked(TextDocSettings::showIndents());
+	pageEditor_->ui.hlCurLineChk->setChecked(TextDocSettings::highlightCurrentLine());
 
 	pageCharsets_->init();
 }
@@ -207,7 +209,7 @@ void SettingsDlg::apply() {
 		MainSettings::setAutoSaveInterval(-asInterval);
 	MainSettings::setSingleInstance(pageMain_->ui.singleInstanceChk->isChecked());
 
-	
+	//	Editor page
 	QFont font(pageEditor_->ui.fontCmb->currentFont());
 	font.setPointSize(pageEditor_->ui.fontSizeSpin->value());
 	TextDocSettings::setFont(font);
@@ -221,6 +223,8 @@ void SettingsDlg::apply() {
 	else {
 		TextDocSettings::setLineLengthIndicator(-pageEditor_->ui.lineLengthSpin->value());
 	}
+	TextDocSettings::setShowIndents(pageEditor_->ui.showIndentsChk->isChecked());
+	TextDocSettings::setHighlightCurrentLine(pageEditor_->ui.hlCurLineChk->isChecked());
 
 	pageCharsets_->applySettings();
 

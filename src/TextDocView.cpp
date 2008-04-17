@@ -97,8 +97,6 @@ public:
 		
 		edit_ = new MyQScintilla(parent);
 		edit_->setUtf8(true);
-		edit_->setCaretLineVisible(true);
-		edit_->setIndentationGuides(true);
 		edit_->setCaretLineBackgroundColor(QColor(230, 230, 250));
 		edit_->setIndentationGuidesForegroundColor(QColor(200, 200, 200));
 		edit_->setFolding(QsciScintilla::BoxedTreeFoldStyle);
@@ -263,6 +261,9 @@ void TextDocView::applySettings() {
 	}
 	
 	updateLineNums();
+	vInt_->edit_->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
+	vInt_->edit_->setIndentationGuides(TextDocSettings::showIndents());
+	
 }
 
 

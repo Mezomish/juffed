@@ -1,11 +1,21 @@
 -------------------------------
-Version 0.3-dev-?????????
+2008-04-15
+-------------------------------
+* Fixed: crash when tried to change 'Show line numbers' or 
+  'Adjust by width' without any opened documents;
+* added options 'Show indents' and 'Highlight current line'
+  to Settings dialog;
+
+
+-------------------------------
+Version 0.3-dev
 -------------------------------
 * using QScintilla instead of QTextEdit;
 * manual syntax highlighting selection;
-* custom highlights for C++, Makefile, Python, HTML, XML, Bash, Perl, Ruby;
+* custom highlights for C++, Makefile, Python, HTML, XML, Bash, Perl, Ruby, JavaScript;
 * updating markers menu;
-* added using icon themes at user home dir
+* icon themes now at user home dir
+* one built-in icon theme
 
 
 -------------------------------

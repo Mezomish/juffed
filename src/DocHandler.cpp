@@ -152,7 +152,10 @@ int DocHandler::docCount() const {
 }
 
 Document* DocHandler::currentDoc() {
-	return hInt_->curDoc_;
+	if (hInt_->curDoc_ != 0)
+		return hInt_->curDoc_;
+	else
+		return NullDoc::instance();
 }
 
 const QString& DocHandler::sessionName() const { 
@@ -483,7 +486,7 @@ void DocHandler::processTheCommand() {
 		}
 
 		default:
-			if (!doc->isNull())
+			if (doc != 0 && !doc->isNull())
 				doc->processTheCommand(id);
 			break;
 		}

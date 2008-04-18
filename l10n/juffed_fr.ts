@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ru_RU">
+<defaultcodec></defaultcodec>
 <context>
     <name>AboutDlg</name>
     <message>
         <location filename="../src/AboutDlg.cpp" line="106"/>
         <source>About</source>
-        <translation>A propos</translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <location filename="../src/AboutDlg.cpp" line="114"/>
         <source>Authors</source>
-        <translation type="unfinished"></translation>
+        <translation>Auteurs</translation>
     </message>
     <message>
         <location filename="../src/AboutDlg.cpp" line="122"/>
         <source>Thanks</source>
-        <translation type="unfinished"></translation>
+        <translation>Remerciments</translation>
     </message>
     <message>
         <location filename="../src/AboutDlg.cpp" line="130"/>
         <source>License</source>
-        <translation type="unfinished"></translation>
+        <translation>License</translation>
     </message>
     <message>
         <location filename="../src/AboutDlg.cpp" line="69"/>
@@ -33,12 +34,12 @@
     <message>
         <location filename="../src/CharsetsSettingsPage.ui" line="36"/>
         <source>Check all</source>
-        <translation type="unfinished"></translation>
+        <translation>Cocher tous</translation>
     </message>
     <message>
         <location filename="../src/CharsetsSettingsPage.ui" line="43"/>
         <source>Uncheck all</source>
-        <translation type="unfinished"></translation>
+        <translation>Décocher tous</translation>
     </message>
 </context>
 <context>
@@ -51,12 +52,12 @@
     <message>
         <location filename="../src/DocHandler.cpp" line="585"/>
         <source>Save session as</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer session sous</translation>
     </message>
     <message>
         <location filename="../src/DocHandler.cpp" line="585"/>
         <source>Session name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de session</translation>
     </message>
 </context>
 <context>
@@ -64,28 +65,29 @@
     <message>
         <location filename="../src/Document.cpp" line="85"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Avertissement</translation>
     </message>
     <message>
         <location filename="../src/Document.cpp" line="89"/>
         <source>Save current</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer l&apos;actif</translation>
     </message>
     <message>
         <location filename="../src/Document.cpp" line="92"/>
         <source>Reload from disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Recharger de par le disque</translation>
     </message>
     <message>
         <location filename="../src/Document.cpp" line="95"/>
         <source>Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorer</translation>
     </message>
     <message>
         <location filename="../src/Document.cpp" line="84"/>
         <source>The file was modified by external program
 What do you want to do?</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier a été modifié par un programme externe
+Que voulez-vous faire?</translation>
     </message>
 </context>
 <context>
@@ -98,7 +100,7 @@ What do you want to do?</source>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="61"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Grandeur</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="68"/>
@@ -108,32 +110,32 @@ What do you want to do?</source>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="128"/>
         <source>Show line length indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le symbole de la coupure de ligne</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="78"/>
         <source> symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Symboles</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="94"/>
         <source>Adjust by width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuster par largeur</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="114"/>
         <source>Show line numbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le numéro de ligne</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="38"/>
         <source>Show indents</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher indices d&apos;indentation</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="135"/>
         <source>Highlight current line</source>
-        <translation type="unfinished"></translation>
+        <translation>Surligner la ligne actuel</translation>
     </message>
 </context>
 <context>
@@ -146,7 +148,7 @@ What do you want to do?</source>
     <message>
         <location filename="../src/FindDlg.ui" line="110"/>
         <source>Find</source>
-        <translation>Chercher</translation>
+        <translation>Rechercher</translation>
     </message>
     <message>
         <location filename="../src/FindDlg.ui" line="63"/>
@@ -161,12 +163,12 @@ What do you want to do?</source>
     <message>
         <location filename="../src/FindDlg.ui" line="117"/>
         <source>Backward</source>
-        <translation>Chercher en arrière</translation>
+        <translation>Rechercher en arrière</translation>
     </message>
     <message>
         <location filename="../src/FindDlg.ui" line="127"/>
         <source>Regular expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Expression régulière</translation>
     </message>
 </context>
 <context>
@@ -174,7 +176,7 @@ What do you want to do?</source>
     <message>
         <location filename="../src/JuffEd.cpp" line="245"/>
         <source>About Qt</source>
-        <translation>A propos de Qt</translation>
+        <translation>À propos de Qt</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="207"/>
@@ -264,32 +266,32 @@ What do you want to do?</source>
     <message>
         <location filename="../src/JuffEd.cpp" line="226"/>
         <source>Show line numbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le numéro de ligne</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="227"/>
         <source>Adjust text by width</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuster le texte par la largeur</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="229"/>
         <source>Add/Remove marker</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajout/enlève marqueur</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="232"/>
         <source>Remove all markers</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlever tout les marqueurs</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="234"/>
         <source>Previous</source>
-        <translation type="unfinished">Précédent</translation>
+        <translation>Précédent</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="235"/>
         <source>Next</source>
-        <translation type="unfinished">Suivant</translation>
+        <translation>Suivant</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="237"/>
@@ -299,22 +301,22 @@ What do you want to do?</source>
     <message>
         <location filename="../src/JuffEd.cpp" line="239"/>
         <source>New session</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle session</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="240"/>
         <source>Open session</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir session</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="241"/>
         <source>Save session</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer session</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="242"/>
         <source>Save session as</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer la session sous</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="244"/>
@@ -339,7 +341,7 @@ What do you want to do?</source>
     <message>
         <location filename="../src/JuffEd.cpp" line="386"/>
         <source>&amp;Markers</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Marqueurs</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="285"/>
@@ -349,37 +351,37 @@ What do you want to do?</source>
     <message>
         <location filename="../src/JuffEd.cpp" line="285"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aide</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="313"/>
         <source>Charset</source>
-        <translation type="unfinished"></translation>
+        <translation>Encodage</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="342"/>
         <source>Recent files</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichiers récents</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="525"/>
         <source>Row: %1, Col: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligne: %1, Col: %2</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="230"/>
         <source>Next marker</source>
-        <translation type="unfinished"></translation>
+        <translation>Prochain marqueur</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="231"/>
         <source>Previous marker</source>
-        <translation type="unfinished"></translation>
+        <translation>Précédent marqueur</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="322"/>
         <source>Syntax</source>
-        <translation type="unfinished"></translation>
+        <translation>Syntaxe</translation>
     </message>
 </context>
 <context>
@@ -387,52 +389,52 @@ What do you want to do?</source>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="41"/>
         <source>On program start</source>
-        <translation type="unfinished"></translation>
+        <translation>Au démarrage</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="78"/>
         <source>Show session dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher dialogue de session</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="85"/>
         <source>Open empty session</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir session vide</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="105"/>
         <source>Auto save every</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto-enregistrer chaque</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="115"/>
         <source> minute(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>minute(s)</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="61"/>
         <source>Use existing instance of application when open files</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser l&apos;instance déjà existant lors de l&apos;ouverture de fichiers</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="64"/>
         <source>Open files in existing instance</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir les fichiers dans l&apos;instance existant</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="71"/>
         <source>Make backup copy when save file</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer une sauvegarde de secours lors de l&apos;enregistrement</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="141"/>
         <source>Save session when close</source>
-        <translation type="unfinished"></translation>
+        <translation>Lors de la fermeture, enregistrer la session</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="134"/>
         <source>Open last saved session</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir la dernière session enregistré</translation>
     </message>
 </context>
 <context>
@@ -440,37 +442,37 @@ What do you want to do?</source>
     <message>
         <location filename="../src/DocHandler.cpp" line="169"/>
         <source>Noname</source>
-        <translation type="unfinished"></translation>
+        <translation>Sans titre</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="69"/>
         <source>About</source>
-        <translation>A propos</translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="72"/>
         <source>Simple text editor with syntax highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Un simple éditeur de texte avec la coloration syntaxique</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="79"/>
         <source>Polish translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduction polonaise</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="85"/>
         <source>German translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduction allemande</translation>
     </message>
     <message>
         <location filename="../src/TextDocView.cpp" line="355"/>
         <source>Confirmation</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirmation</translation>
     </message>
     <message>
         <location filename="../src/TextDocView.cpp" line="356"/>
         <source>Replace this text?</source>
-        <translation type="unfinished"></translation>
+        <translation>Remplacer ce texte?</translation>
     </message>
 </context>
 <context>
@@ -478,7 +480,7 @@ What do you want to do?</source>
     <message>
         <location filename="../src/SessionDlg.ui" line="13"/>
         <source>Session manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestionnaire de sessions</translation>
     </message>
     <message>
         <location filename="../src/SessionDlg.ui" line="44"/>
@@ -488,12 +490,12 @@ What do you want to do?</source>
     <message>
         <location filename="../src/SessionDlg.ui" line="65"/>
         <source>Open session</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouvrir session</translation>
     </message>
     <message>
         <location filename="../src/SessionDlg.ui" line="75"/>
         <source>New session</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle session</translation>
     </message>
 </context>
 <context>
@@ -531,12 +533,12 @@ What do you want to do?</source>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="88"/>
         <source>Charsets</source>
-        <translation type="unfinished"></translation>
+        <translation>Encodage</translation>
     </message>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="86"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Affichage</translation>
     </message>
 </context>
 <context>
@@ -549,7 +551,7 @@ What do you want to do?</source>
     <message>
         <location filename="../src/TextDoc.cpp" line="119"/>
         <source>Save as a copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer en tant que copie</translation>
     </message>
     <message>
         <location filename="../src/TextDoc.cpp" line="125"/>
@@ -559,18 +561,19 @@ What do you want to do?</source>
     <message>
         <location filename="../src/TextDoc.cpp" line="158"/>
         <source>The document </source>
-        <translation type="unfinished"></translation>
+        <translation>Le document</translation>
     </message>
     <message>
         <location filename="../src/TextDoc.cpp" line="159"/>
         <source> has been modified.
 Do you want to save your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>a été modifié.
+Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <location filename="../src/TextDoc.cpp" line="160"/>
         <source>Close document</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer le document</translation>
     </message>
     <message>
         <location filename="../src/TextDoc.cpp" line="248"/>
@@ -584,13 +587,15 @@ Do you want to save your changes?</source>
         <location filename="../src/TextDocView.cpp" line="319"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
-        <translation type="unfinished"></translation>
+        <translation>La recherche a atteint le début du fichier.
+Continuer à partir de la fin?</translation>
     </message>
     <message>
         <location filename="../src/TextDocView.cpp" line="324"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
-        <translation type="unfinished"></translation>
+        <translation>La recherche a atteint la fin du fichier.
+Continuer à partir du début?</translation>
     </message>
     <message>
         <location filename="../src/TextDocView.cpp" line="328"/>
@@ -603,77 +608,77 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="41"/>
         <source>Icons theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Thème d&apos;icônes</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="48"/>
         <source>Toolbar icons size</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille icônes de la barre d&apos;outils</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="55"/>
         <source>Tabs position</source>
-        <translation type="unfinished"></translation>
+        <translation>Position des onglets</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="63"/>
         <source>16</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="68"/>
         <source>24</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="73"/>
         <source>32</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="82"/>
         <source>Icons only</source>
-        <translation type="unfinished"></translation>
+        <translation>Icônes seulement</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="87"/>
         <source>Text only</source>
-        <translation type="unfinished"></translation>
+        <translation>Texte seulement</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="92"/>
         <source>Text beside the icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Texte à côté de l&apos;icône</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="97"/>
         <source>Text under the icon</source>
-        <translation type="unfinished"></translation>
+        <translation>texte sous l&apos;icône</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="106"/>
         <source>North</source>
-        <translation type="unfinished"></translation>
+        <translation>Nord</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="111"/>
         <source>South</source>
-        <translation type="unfinished"></translation>
+        <translation>Sud</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="116"/>
         <source>West</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouest</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="121"/>
         <source>East</source>
-        <translation type="unfinished"></translation>
+        <translation>Est</translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="129"/>
         <source>Toolbar style</source>
-        <translation type="unfinished"></translation>
+        <translation>Style de la barre d&apos;outils</translation>
     </message>
 </context>
 </TS>

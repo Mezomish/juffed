@@ -63,6 +63,8 @@ private:
 	virtual void closeEvent(QCloseEvent*);
 	virtual void dragEnterEvent(QDragEnterEvent*);
 	virtual void dropEvent(QDropEvent*);
+	virtual void resizeEvent(QResizeEvent*);
+	virtual void moveEvent(QMoveEvent*);
 	
 	void createMenuBar();
 	void createToolBar();

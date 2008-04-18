@@ -118,6 +118,7 @@ public:
 	QMenu* recentFilesMenu_;
 	QAction* lastCharsetAction_;
 	QAction* lastSyntaxAction_;
+	QRect geometry_;
 };
 
 JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
@@ -159,7 +160,7 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 }
 
 JuffEd::~JuffEd() {
-	MainSettings::setWindowRect(geometry());
+	MainSettings::setWindowRect(jInt_->geometry_);
 	MainSettings::setMaximized(isMaximized());
 	if (!jInt_->handler_->sessionName().isEmpty()) {
 		MainSettings::setLastSessionName(jInt_->handler_->sessionName());
@@ -167,6 +168,18 @@ JuffEd::~JuffEd() {
 
 	delete jInt_;
 
+}
+
+void JuffEd::resizeEvent(QResizeEvent* e) {
+	QMainWindow::resizeEvent(e);
+	if (!isMaximized())
+		jInt_->geometry_ = geometry();
+}
+
+void JuffEd::moveEvent(QMoveEvent* e) {
+	QMainWindow::moveEvent(e);
+	if (!isMaximized())
+		jInt_->geometry_ = geometry();
 }
 
 void JuffEd::closeEvent(QCloseEvent* e) {

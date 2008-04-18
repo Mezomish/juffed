@@ -172,212 +172,212 @@ What do you want to do?</source>
 <context>
     <name>JuffEd</name>
     <message>
-        <location filename="../src/JuffEd.cpp" line="245"/>
+        <location filename="../src/JuffEd.cpp" line="258"/>
         <source>About Qt</source>
         <translation>Acerca de Qt</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="207"/>
+        <location filename="../src/JuffEd.cpp" line="220"/>
         <source>New</source>
         <translation>Nuevo</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="208"/>
+        <location filename="../src/JuffEd.cpp" line="221"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="209"/>
+        <location filename="../src/JuffEd.cpp" line="222"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="210"/>
+        <location filename="../src/JuffEd.cpp" line="223"/>
         <source>Save as</source>
         <translation>Guardar como</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="211"/>
+        <location filename="../src/JuffEd.cpp" line="224"/>
         <source>Reload</source>
         <translation>Recargar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="212"/>
+        <location filename="../src/JuffEd.cpp" line="225"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="213"/>
+        <location filename="../src/JuffEd.cpp" line="226"/>
         <source>Close all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="214"/>
+        <location filename="../src/JuffEd.cpp" line="227"/>
         <source>Exit</source>
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="216"/>
+        <location filename="../src/JuffEd.cpp" line="229"/>
         <source>Cut</source>
         <translation>Cortar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="217"/>
+        <location filename="../src/JuffEd.cpp" line="230"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="218"/>
+        <location filename="../src/JuffEd.cpp" line="231"/>
         <source>Paste</source>
         <translation>Pegar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="219"/>
+        <location filename="../src/JuffEd.cpp" line="232"/>
         <source>Undo</source>
         <translation>Deshacer</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="220"/>
+        <location filename="../src/JuffEd.cpp" line="233"/>
         <source>Redo</source>
         <translation>Rehacer</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="221"/>
+        <location filename="../src/JuffEd.cpp" line="234"/>
         <source>Find</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="222"/>
+        <location filename="../src/JuffEd.cpp" line="235"/>
         <source>Find next</source>
         <translation>Buscar siguiente</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="223"/>
+        <location filename="../src/JuffEd.cpp" line="236"/>
         <source>Find previous</source>
         <translation>Buscar Anterior</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="224"/>
+        <location filename="../src/JuffEd.cpp" line="237"/>
         <source>Go to line</source>
         <translation>Ir a la Línea</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="226"/>
+        <location filename="../src/JuffEd.cpp" line="239"/>
         <source>Show line numbers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="227"/>
+        <location filename="../src/JuffEd.cpp" line="240"/>
         <source>Adjust text by width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="229"/>
+        <location filename="../src/JuffEd.cpp" line="242"/>
         <source>Add/Remove marker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="232"/>
+        <location filename="../src/JuffEd.cpp" line="245"/>
         <source>Remove all markers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="234"/>
+        <location filename="../src/JuffEd.cpp" line="247"/>
         <source>Previous</source>
         <translation type="unfinished">Anterior</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="235"/>
+        <location filename="../src/JuffEd.cpp" line="248"/>
         <source>Next</source>
         <translation type="unfinished">Siguiente</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="237"/>
+        <location filename="../src/JuffEd.cpp" line="250"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="239"/>
+        <location filename="../src/JuffEd.cpp" line="252"/>
         <source>New session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="240"/>
+        <location filename="../src/JuffEd.cpp" line="253"/>
         <source>Open session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="241"/>
+        <location filename="../src/JuffEd.cpp" line="254"/>
         <source>Save session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="242"/>
+        <location filename="../src/JuffEd.cpp" line="255"/>
         <source>Save session as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="244"/>
+        <location filename="../src/JuffEd.cpp" line="257"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="344"/>
+        <location filename="../src/JuffEd.cpp" line="357"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="285"/>
+        <location filename="../src/JuffEd.cpp" line="298"/>
         <source>&amp;Edit</source>
         <translation>&amp;Editar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="314"/>
+        <location filename="../src/JuffEd.cpp" line="327"/>
         <source>&amp;View</source>
         <translation>&amp;Ver</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="386"/>
+        <location filename="../src/JuffEd.cpp" line="399"/>
         <source>&amp;Markers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="285"/>
+        <location filename="../src/JuffEd.cpp" line="298"/>
         <source>&amp;Tools</source>
         <translation>&amp;Herramientas</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="285"/>
+        <location filename="../src/JuffEd.cpp" line="298"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="313"/>
+        <location filename="../src/JuffEd.cpp" line="326"/>
         <source>Charset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="342"/>
+        <location filename="../src/JuffEd.cpp" line="355"/>
         <source>Recent files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="525"/>
+        <location filename="../src/JuffEd.cpp" line="538"/>
         <source>Row: %1, Col: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="230"/>
+        <location filename="../src/JuffEd.cpp" line="243"/>
         <source>Next marker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="231"/>
+        <location filename="../src/JuffEd.cpp" line="244"/>
         <source>Previous marker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="322"/>
+        <location filename="../src/JuffEd.cpp" line="335"/>
         <source>Syntax</source>
         <translation type="unfinished"></translation>
     </message>
@@ -463,12 +463,12 @@ What do you want to do?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="355"/>
+        <location filename="../src/TextDocView.cpp" line="353"/>
         <source>Confirmation</source>
         <translation>Confirmación</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="356"/>
+        <location filename="../src/TextDocView.cpp" line="354"/>
         <source>Replace this text?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -581,19 +581,19 @@ Do you want to save your changes?</source>
 <context>
     <name>TextDocView</name>
     <message>
-        <location filename="../src/TextDocView.cpp" line="319"/>
+        <location filename="../src/TextDocView.cpp" line="317"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="324"/>
+        <location filename="../src/TextDocView.cpp" line="322"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="328"/>
+        <location filename="../src/TextDocView.cpp" line="326"/>
         <source>Find</source>
         <translation>Buscar</translation>
     </message>

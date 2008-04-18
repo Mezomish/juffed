@@ -1,4 +1,12 @@
 -------------------------------
+2008-04-16
+-------------------------------
+* Fixed: if the app was closed maximized, it doesn't restore 
+  normal size when started again;
+* Added French localization;
+
+
+-------------------------------
 2008-04-15
 -------------------------------
 * Fixed: crash when tried to change 'Show line numbers' or 

@@ -51,3 +51,7 @@ bool TextDocSettings::showIndents() {
 bool TextDocSettings::highlightCurrentLine() {
 	return Settings::boolValue("editor", "highlightCurrentLine", true);
 }
+
+bool TextDocSettings::replaceTabsWithSpaces() {
+	return Settings::boolValue("editor", "replaceTabsWithSpaces", false);
+}

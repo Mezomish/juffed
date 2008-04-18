@@ -32,6 +32,7 @@ public:
 	static int lineLengthIndicator();
 	static bool showIndents();
 	static bool highlightCurrentLine();
+	static bool replaceTabsWithSpaces();
 	
 	static void setFont(const QFont& font) { Settings::setValue("editor", "fontFamily", font.family()); Settings::setValue("editor", "fontSize", font.pointSize()); }
 	static void setWidthAdjust(bool adj) { Settings::setValue("editor", "widthAdjust", adj); }

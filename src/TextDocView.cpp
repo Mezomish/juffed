@@ -101,7 +101,9 @@ public:
 		edit_->setIndentationGuidesForegroundColor(QColor(200, 200, 200));
 		edit_->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 		edit_->setAutoIndent(true);
-		edit_->setBackspaceUnindents(true);
+		edit_->setBackspaceUnindents(false);
+		edit_->setBraceMatching(QsciScintilla::SloppyBraceMatch);
+		edit_->setMatchedBraceBackgroundColor(QColor(255, 255, 120));
 		
 		edit_->setMarginLineNumbers(1, true);
 
@@ -114,10 +116,6 @@ public:
 		edit_->setMarkerForegroundColor(QColor(100, 100, 100));
 		edit_->setMarkerBackgroundColor(QColor(100, 200, 100));
 		
-		edit_->setBackspaceUnindents(true);
-		edit_->setBraceMatching(QsciScintilla::SloppyBraceMatch);
-		edit_->setMatchedBraceBackgroundColor(QColor(255, 255, 120));
-
 		parent->setFocusProxy(edit_);
 		parent->connect(edit_, SIGNAL(cursorPositionChanged(int, int)), parent, SIGNAL(cursorPositionChanged(int, int)));
 	}
@@ -250,6 +248,7 @@ void TextDocView::applySettings() {
 	LexerStorage::instance()->updateLexer(vInt_->syntax_, font);
 
 	vInt_->edit_->setTabWidth(TextDocSettings::tabStopWidth());
+	vInt_->edit_->setIndentationsUseTabs(!TextDocSettings::replaceTabsWithSpaces());
 
 	int lInd = TextDocSettings::lineLengthIndicator();
 	if (lInd > 0) {

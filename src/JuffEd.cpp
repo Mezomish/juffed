@@ -84,6 +84,10 @@ public:
 						+ newLine + margin
 						+ QObject::tr("German translation");
 
+		thanks += QString("&nbsp;Marc Dumoulin")
+						+ newLine + margin
+						+ QObject::tr("French translation");
+
 		aboutDlg_->setText(text);
 		aboutDlg_->setAuthors(auth);
 		aboutDlg_->setThanks(thanks);

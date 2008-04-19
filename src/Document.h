@@ -1,4 +1,3 @@
-
 /*
 JuffEd - A simple text editor
 Copyright 2007-2008 Mikhail Murzin

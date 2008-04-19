@@ -79,15 +79,6 @@ private:
 	QMenu* contextMenu_;
 };
 
-QTextDocument::FindFlags textDocFlags(DocFindFlags f) {
-	QTextDocument::FindFlags flags(0);
-	if (f.matchCase)
-		flags |= QTextDocument::FindCaseSensitively;
-	if (f.backward)
-		flags |= QTextDocument::FindBackward;
-	return flags;
-}
-
 class TDViewInterior {
 public:
 	TDViewInterior(QWidget* parent) {

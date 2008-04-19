@@ -502,7 +502,7 @@ void DocHandler::processTheCommand() {
 //	SESSIONS
 void DocHandler::newSession() {
 	if (closeAllDocs()) {
-		hInt_->sessionName_ = "";
+		hInt_->sessionName_ = "_empty_session_";
 		docNew();
 	}
 }

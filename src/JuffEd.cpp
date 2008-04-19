@@ -552,8 +552,9 @@ void JuffEd::displayCursorPos(int row, int col) {
 void JuffEd::displayFileName(const QString& fileName) {
 	jInt_->fileNameL_->setText(QString(" %1 ").arg(fileName));
 	QString title("JuffEd");
-	if (!jInt_->handler_->sessionName().isEmpty())
-		title += " - [" + jInt_->handler_->sessionName() + "]";
+	QString sessName = jInt_->handler_->sessionName();
+	if (!sessName.isEmpty()	&& sessName.compare("_empty_session_") != 0)
+		title += " - [" + sessName + "]";
 	if (!fileName.isEmpty())
 		title += " - " + QFileInfo(fileName).fileName();
 	setWindowTitle(title);

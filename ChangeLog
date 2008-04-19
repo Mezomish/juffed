@@ -1,18 +1,21 @@
 2008-04-17:
-* Added "replaceTabsWithSpaces" option (manually at 
+* Added: "replaceTabsWithSpaces" option (manually at 
   config file for now)
+* Added: restoring scrollbar and cursor position when 
+  restoring session
+* Fixed: bug with relative paths in filename (at statusbar)
 
 2008-04-16:
 * Fixed: if the app was closed maximized, it doesn't restore 
   normal size when started again;
-* Added French localization;
+* Added: French localization;
 
 2008-04-15:
 * Fixed: crash when tried to change 'Show line numbers' or 
   'Adjust by width' without any opened documents;
-* added options 'Show indents' and 'Highlight current line'
+* Added: options 'Show indents' and 'Highlight current line'
   to Settings dialog;
-* Added "useCurrentDocDir" option (manually at 
+* Added: "useCurrentDocDir" option (manually at 
   config file for now) for 'Open file' dialog;
 
 

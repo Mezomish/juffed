@@ -63,7 +63,7 @@ void Document::extModMonitoringStop() {
 
 void Document::setFileName(const QString& fileName) {
 	if (fileName_.compare(fileName) != 0) {
-		fileName_ = fileName;
+		fileName_ = QFileInfo(fileName).canonicalFilePath();
 		emit fileNameChanged();
 	}
 }

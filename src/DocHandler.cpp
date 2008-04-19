@@ -206,9 +206,10 @@ Document* DocHandler::newDocument(const QString& fileName) {
 	}
 
 	if (doc->isNull()) {
-
+		QString fName = QFileInfo(fileName).canonicalFilePath();
+		
 		DocView* docView = createDocView();
-		doc = createDocument(fileName, docView);
+		doc = createDocument(fName, docView);
 	
 		connect(docView, SIGNAL(modified(bool)), SLOT(docModified(bool)));
 		connect(doc, SIGNAL(fileNameChanged()), SLOT(docFileNameChanged()));

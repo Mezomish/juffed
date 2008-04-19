@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "SingleInstance.h"
 
 void checkForFirstRun() {
-	//	config and localization
+	//	localizations
 	QString configPath = AppInfo::configDir();
 	QString appPath = QCoreApplication::applicationDirPath();
 
@@ -48,15 +48,16 @@ void checkForFirstRun() {
 	}
 
 	//	highlight schemes
+	QDir schemesDir = QDir(appPath + "/hlschemes");
 	QString localSchemePath = AppInfo::configDir() + "/hlschemes";
 
 	QDir localSchemeDir(localSchemePath);
 	if (!localSchemeDir.exists())
 		localSchemeDir.mkpath(localSchemePath);
-	if (localSchemeDir.entryList(QDir::Files).isEmpty()) {
-		QString schemeDirPath = appPath + "/hlschemes";
-		foreach (QString fileName, QDir(schemeDirPath).entryList(QDir::Files))
-			QFile::copy(schemeDirPath + "/" + fileName, localSchemePath + "/" + fileName);
+	foreach (QString schemeFile, schemesDir.entryList(QDir::Files)) {
+		if (!QFileInfo(localSchemePath + "/" + schemeFile).exists()) {
+			QFile::copy(schemesDir.absolutePath() + "/" + schemeFile, localSchemePath + "/" + schemeFile);
+		}
 	}
 
 	//	sessions

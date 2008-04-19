@@ -1,9 +1,13 @@
-2008-04-17:
-* Added: "replaceTabsWithSpaces" option (manually at 
-  config file for now)
+2008-04-18:
 * Added: restoring scrollbar and cursor position when 
   restoring session
 * Fixed: bug with relative paths in filename (at statusbar)
+* Fixed: copying highlighting schemes to home dir. Now checks 
+  if every single file exists.
+
+2008-04-17:
+* Added: "replaceTabsWithSpaces" option (manually at 
+  config file for now)
 
 2008-04-16:
 * Fixed: if the app was closed maximized, it doesn't restore 

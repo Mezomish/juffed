@@ -38,6 +38,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TextDocView.h"
 #include "types.h"
 
+using namespace Juff;
+
 class TextDocInterior {
 public:
 	TextDocInterior() {

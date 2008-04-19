@@ -42,7 +42,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	Application-dependent headers
 #include "TextDoc.h"
 
-typedef QList<Document*> DocList;
+//using namespace Juff;
+
+typedef QList<Juff::Document*> DocList;
 //typedef QVector<Document*> DocVector;
 
 class DocHandlerInterior {
@@ -85,7 +87,7 @@ public:
 
 	//	Removes given document and activates
 	//	that one, which was active before
-	void removeDoc(Document* doc) {
+	void removeDoc(Juff::Document* doc) {
 		docs_.removeAll(doc);
 		doc->extModMonitoringStop();
 		if (curDoc_ == doc)
@@ -106,7 +108,7 @@ public:
 	QString sessionName_;
 	QStringList recentFiles_;
 	QTimer* autoSaveTimer_;
-	Document* curDoc_;
+	Juff::Document* curDoc_;
 	SocketListener* listener_;
 };
 
@@ -135,7 +137,7 @@ DocHandler::~DocHandler() {
 }
 
 void DocHandler::autoSaveEvent() {
-	foreach (Document* doc, hInt_->docs_) {
+	foreach (Juff::Document* doc, hInt_->docs_) {
 		if (!doc->fileName().isEmpty() && doc->isModified())
 			doc->save();
 	}
@@ -151,7 +153,7 @@ int DocHandler::docCount() const {
 	return hInt_->docs_.count();
 }
 
-Document* DocHandler::currentDoc() {
+Juff::Document* DocHandler::currentDoc() {
 	if (hInt_->curDoc_ != 0)
 		return hInt_->curDoc_;
 	else
@@ -162,7 +164,7 @@ const QString& DocHandler::sessionName() const {
 	return hInt_->sessionName_; 
 }
 
-QString docTitle(Document* doc) {
+QString docTitle(Juff::Document* doc) {
 	QString fileName = doc->fileName();
 	
 	if (fileName.isEmpty()) {
@@ -195,8 +197,8 @@ void DocHandler::restoreSession() {
 	}
 }
 
-Document* DocHandler::newDocument(const QString& fileName) {
-	Document* doc = NullDoc::instance();
+Juff::Document* DocHandler::newDocument(const QString& fileName) {
+	Juff::Document* doc = NullDoc::instance();
 	
 	if (!fileName.isEmpty()) {
 		if (!QFileInfo(fileName).isFile())
@@ -220,7 +222,7 @@ Document* DocHandler::newDocument(const QString& fileName) {
 		//	2. it is new document (not saved yet) AND
 		//	3. it is not modified
 		if (hInt_->docs_.count() == 1) {
-			Document* curDoc = currentDoc();
+			Juff::Document* curDoc = currentDoc();
 			if (curDoc->fileName().isEmpty() && !curDoc->isModified()) {
 				closeDocument(curDoc);
 			}
@@ -240,19 +242,19 @@ Document* DocHandler::newDocument(const QString& fileName) {
 	return doc;
 }
 
-bool DocHandler::closeDocument(Document* doc) {
+bool DocHandler::closeDocument(Juff::Document* doc) {
 	if (doc == 0 || doc->isNull())
 		return false;
 
 	if (doc->isModified()) {
 		//	TODO :	Possible change just to bool
-		Document::SaveRequest saveRequest = doc->confirmForClose();
-		if (saveRequest == Document::SaveYes) {
+		Juff::Document::SaveRequest saveRequest = doc->confirmForClose();
+		if (saveRequest == Juff::Document::SaveYes) {
 			doc->save();
 			hInt_->removeDoc(doc);
 			return true;
 		}
-		else if (saveRequest == Document::SaveNo) {
+		else if (saveRequest == Juff::Document::SaveNo) {
 			hInt_->removeDoc(doc);
 			return true;
 		}
@@ -269,7 +271,7 @@ bool DocHandler::closeAllDocs() {
 	if (MainSettings::saveSessionOnClose())
 		saveSession(hInt_->sessionName_);
 
-	foreach (Document* doc, hInt_->docs_) {
+	foreach (Juff::Document* doc, hInt_->docs_) {
 		if (!closeDocument(doc)) {
 			return false;
 		}
@@ -278,10 +280,10 @@ bool DocHandler::closeAllDocs() {
 	return true;
 }
 
-Document* DocHandler::findDocument(const QString& fileName) {
-	Document* doc = NullDoc::instance();
+Juff::Document* DocHandler::findDocument(const QString& fileName) {
+	Juff::Document* doc = NullDoc::instance();
 	if (!fileName.isEmpty()) {
-		foreach (Document* d, hInt_->docs_) {
+		foreach (Juff::Document* d, hInt_->docs_) {
 			if (d->fileName().compare(fileName) == 0) {
 				doc = d;
 				break;
@@ -299,7 +301,7 @@ void DocHandler::docModified(bool) {
 }
 
 void DocHandler::docFileNameChanged() {
-	Document* doc = qobject_cast<Document*>(sender());
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if (doc != 0) {
 		hInt_->viewer_->setDocViewTitle(doc->view(), docTitle(doc));
 		emit fileNameChanged(doc);
@@ -309,12 +311,12 @@ void DocHandler::docFileNameChanged() {
 void DocHandler::applySettings() {
 	hInt_->checkTheTimer();
 	
-	foreach (Document* doc, hInt_->docs_) {
+	foreach (Juff::Document* doc, hInt_->docs_) {
 		doc->applySettings();
 	}
 }
 
-void DocHandler::docActivated(Document* doc) {
+void DocHandler::docActivated(Juff::Document* doc) {
 	if (doc == 0)
 		return;
 
@@ -356,7 +358,7 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 
 		QString startDir("");
 		QString curDocFileName("");
-		Document* curDoc = currentDoc();
+		Juff::Document* curDoc = currentDoc();
 		if (curDoc != 0 && !curDoc->isNull())
 			curDocFileName = curDoc->fileName();
 
@@ -374,7 +376,7 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 			QString file;
 		
 			foreach (file, files) {
-				Document* doc = findDocument(file);
+				Juff::Document* doc = findDocument(file);
 				if (doc->isNull()) {
 					if (!newDocument(file)->isNull()) {
 						addToRecentFiles(file);
@@ -390,7 +392,7 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 		}
 	}
 	else {
-		Document* doc = findDocument(name);
+		Juff::Document* doc = findDocument(name);
 		if (doc->isNull()) {
 			if (!newDocument(name)->isNull()) {
 				addToRecentFiles(name);
@@ -404,21 +406,21 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 }
 
 void DocHandler::docSave() {
-	Document* doc = currentDoc();
+	Juff::Document* doc = currentDoc();
 	if (!doc->isNull()) {
 		doc->save();
 	}
 }
 
 void DocHandler::docSaveAs() {
-	Document* doc = currentDoc();
+	Juff::Document* doc = currentDoc();
 	if (!doc->isNull()) {
 		doc->saveAs();
 	}
 }
 
 void DocHandler::docReload() {
-	Document* doc = currentDoc();
+	Juff::Document* doc = currentDoc();
 	if (doc->isNull())
 		return;
 
@@ -449,7 +451,7 @@ void DocHandler::prevDoc() {
 void DocHandler::processTheCommand() {
 	QAction* a = qobject_cast<QAction*>(sender());
 	if (a != 0) {
-		Document* doc = currentDoc();
+		Juff::Document* doc = currentDoc();
 
 		CommandID id = CommandID(a->data().toInt());
 
@@ -534,7 +536,7 @@ void DocHandler::openSession(const QString& session) {
 	if (name.isEmpty())
 		newSession();
 	else {
-		Document* doc = 0;
+		Juff::Document* doc = 0;
 		QFile sess(AppInfo::configDir() + "/sessions/" + name);
 		if (sess.open(QIODevice::ReadOnly)) {
 			QString fileName("");
@@ -572,7 +574,7 @@ void DocHandler::saveSession(const QString& name) {
 	
 	QFile sess(AppInfo::configDir() + "/sessions/" + name);
 	if (sess.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-		Document* doc = 0;
+		Juff::Document* doc = 0;
 		QWidgetList wList;
 		hInt_->viewer_->getViewsOrder(wList);
 		foreach (QWidget* w, wList) {
@@ -637,7 +639,7 @@ void DocHandler::getRecentFiles(QStringList& list) const {
 ////////////////////////////////////////////////////////////
 //	Application-dependent functions
 ////////////////////////////////////////////////////////////
-Document* DocHandler::createDocument(const QString& fileName, DocView* view) {
+Juff::Document* DocHandler::createDocument(const QString& fileName, DocView* view) {
 	return new TextDoc(fileName, view);
 }
 
@@ -681,7 +683,7 @@ bool DocHandler::testAddExistingDoc() {
 }
 
 bool DocHandler::testRemoveOneDoc() {
-	Document* doc = newDocument("SomeDoc");
+	Juff::Document* doc = newDocument("SomeDoc");
 	int count = docCount();
 
 	if (doc->isNull())

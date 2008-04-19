@@ -18,6 +18,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Document.h"
 
+#include "DocView.h"
+
+namespace Juff {
+	
 Document::Document(const QString& fileName, DocView* view) : QObject(), fileName_(fileName), view_(view), modified_(false) {
 	modCheckTimer_ = new QTimer(this);
 	connect(modCheckTimer_, SIGNAL(timeout()), SLOT(checkLastModified()));
@@ -122,3 +126,4 @@ void Document::checkLastModified() {
 	}
 }
 	
+}	//	namespace Juff

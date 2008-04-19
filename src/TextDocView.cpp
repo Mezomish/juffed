@@ -144,7 +144,7 @@ TextDocView::~TextDocView() {
 	delete vInt_;
 }
 
-void TextDocView::setDocument(Document* doc) {
+void TextDocView::setDocument(Juff::Document* doc) {
 	DocView::setDocument(doc);
 	
 	TextDoc* tDoc = qobject_cast<TextDoc*>(doc);

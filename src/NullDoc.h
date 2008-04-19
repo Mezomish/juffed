@@ -22,17 +22,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Document.h"
 #include "Log.h"
 
-class NullDoc : public Document {
+class NullDoc : public Juff::Document {
 public:
-	static Document* instance();
+	static Juff::Document* instance();
 	virtual ~NullDoc();
 	
-	virtual Document::Status save();
-	virtual Document::Status saveAs();
-	virtual Document::Status open();	
-	virtual Document::Status reload();
-	virtual Document::Status close();
-	virtual Document::SaveRequest confirmForClose();
+	virtual Juff::Document::Status save();
+	virtual Juff::Document::Status saveAs();
+	virtual Juff::Document::Status open();	
+	virtual Juff::Document::Status reload();
+	virtual Juff::Document::Status close();
+	virtual Juff::Document::SaveRequest confirmForClose();
 
 	virtual void processTheCommand(CommandID);
 
@@ -46,7 +46,7 @@ protected:
 	
 private:
 	void scream() const;
-	static Document* doc_;
+	static Juff::Document* doc_;
 };
 
 #endif

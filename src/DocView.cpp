@@ -27,6 +27,6 @@ DocView::~DocView() {
 //	Log::debug("DocView dt");
 }
 
-void DocView::setDocument(Document* doc) {
+void DocView::setDocument(Juff::Document* doc) {
 	doc_ = doc;
 }

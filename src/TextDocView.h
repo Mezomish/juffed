@@ -55,7 +55,7 @@ public:
 	QString syntax() const;
 	virtual void applySettings();
 
-	virtual void setDocument(Document*);
+	virtual void setDocument(Juff::Document*);
 
 	void cut();
 	void copy();

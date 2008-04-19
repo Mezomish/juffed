@@ -37,10 +37,10 @@ public:
 	~DocHandler();
 
 	void addViewer(DocViewer*);
-	bool closeDocument(Document*);
+	bool closeDocument(Juff::Document*);
 	bool closeAllDocs();
 	void applySettings();
-	Document* currentDoc();
+	Juff::Document* currentDoc();
 	int docCount() const;
 	const QString& sessionName() const;
 	void restoreSession();
@@ -62,7 +62,7 @@ public slots:
 	void saveSession(const QString&);
 	void saveSessionAs();
 
-	void docActivated(Document*);
+	void docActivated(Juff::Document*);
 	
 protected slots:
 	void docModified(bool);
@@ -70,13 +70,13 @@ protected slots:
 	void autoSaveEvent();
 	
 signals:
-	void fileNameChanged(Document*);
+	void fileNameChanged(Juff::Document*);
 	void recentFileAdded();
 	void cursorPositionChanged(int, int);
 	
 private:
-	Document* newDocument(const QString& fileName = "");
-	Document* findDocument(const QString&);
+	Juff::Document* newDocument(const QString& fileName = "");
+	Juff::Document* findDocument(const QString&);
 	void addToRecentFiles(const QString&);
 
 	void nextDoc();
@@ -103,7 +103,7 @@ protected:
 	 * Creates the document of that type,
 	 * which is used in this app
 	 */
-	Document* createDocument(const QString&, DocView*);
+	Juff::Document* createDocument(const QString&, DocView*);
 	/**
 	 * Application-dependent function. 
 	 * Creates the document view of that type,

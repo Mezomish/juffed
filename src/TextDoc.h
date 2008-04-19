@@ -25,17 +25,17 @@ class TextDocView;
 
 #include "Document.h"
 
-class TextDoc : public Document {
+class TextDoc : public Juff::Document {
 Q_OBJECT
 public:
 	TextDoc(const QString& fileName, DocView* view);
 	virtual ~TextDoc();
 	
-	virtual Document::Status save();
-	virtual Document::Status saveAs();
-	virtual Document::Status open();
-	virtual Document::Status reload();
-	virtual Document::SaveRequest confirmForClose();
+	virtual Juff::Document::Status save();
+	virtual Juff::Document::Status saveAs();
+	virtual Juff::Document::Status open();
+	virtual Juff::Document::Status reload();
+	virtual Juff::Document::SaveRequest confirmForClose();
 
 	virtual void processTheCommand(CommandID);
 	virtual void applySettings();
@@ -49,8 +49,8 @@ public:
 private:
 	TextDocView* textDocView() const;
 	
-	Document::Status readContent(const QString&);
-	Document::Status writeContent(const QString&, bool getNewName = true);
+	Juff::Document::Status readContent(const QString&);
+	Juff::Document::Status writeContent(const QString&, bool getNewName = true);
 	void find(const QString&, const DocFindFlags&);
 	
 	TextDocInterior* docInt_;

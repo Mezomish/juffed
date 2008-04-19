@@ -20,13 +20,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define _JUFF_ED_H_
 
 class DocHandler;
-class Document;
+//class Document;
 class DocViewer;
 class JuffEdInterior;
 class TextDoc;
 class TextDocView;
 
 #include <QtGui/QMainWindow>
+
+#include "Document.h"
 
 class JuffEd : public QMainWindow {
 Q_OBJECT
@@ -43,7 +45,7 @@ private slots:
 
 	void docSwitched(QWidget*);
 	void docCloseRequested(QWidget*);
-	void docFileNameChanged(Document*);
+	void docFileNameChanged(Juff::Document*);
 	void charsetSelected();
 	void syntaxSelected();
 	void toggleMarker();

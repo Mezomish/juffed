@@ -34,9 +34,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QMessageBox>
 
 #include "CommandStorage.h"
-#include "DocView.h"
+//#include "DocView.h"
 #include "Log.h"
 
+class DocView;
+
+namespace Juff {
+	
 class Document : public QObject {
 Q_OBJECT
 public:
@@ -111,5 +115,7 @@ private:
 	QTimer* modCheckTimer_;
 	QMutex checkingMutex_;
 };
+
+}	//	namespace Juff
 
 #endif

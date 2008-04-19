@@ -570,7 +570,7 @@ void JuffEd::displaySyntax(const QString& syntax) {
 	changeCurrentSyntaxAction(jInt_->syntaxActions_[syntax]);
 }
 
-void JuffEd::docFileNameChanged(Document* doc) {
+void JuffEd::docFileNameChanged(Juff::Document* doc) {
 	if (doc != 0 && !doc->isNull()) {
 		displayFileName(doc->fileName());
 	}
@@ -579,7 +579,7 @@ void JuffEd::docFileNameChanged(Document* doc) {
 void JuffEd::docCloseRequested(QWidget* w) {
 	TextDocView* tdView = qobject_cast<TextDocView*>(w);
 	if (tdView != 0) {
-		Document* doc = tdView->document();
+		Juff::Document* doc = tdView->document();
 		if (doc != 0) {
 			jInt_->handler_->closeDocument(doc);
 		}

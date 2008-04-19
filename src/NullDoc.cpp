@@ -18,9 +18,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "NullDoc.h"
 
-Document* NullDoc::doc_ = NULL;
+Juff::Document* NullDoc::doc_ = NULL;
 
-Document* NullDoc::instance() {
+Juff::Document* NullDoc::instance() {
 	if (doc_ == NULL) {
 		doc_ = new NullDoc();
 	}
@@ -30,40 +30,40 @@ Document* NullDoc::instance() {
 NullDoc::~NullDoc() {
 }
 
-Document::Status NullDoc::save() { 
+Juff::Document::Status NullDoc::save() { 
 	scream(); 
 	return StatusUnknownError; 
 }
 
-Document::Status NullDoc::saveAs() { 
+Juff::Document::Status NullDoc::saveAs() { 
 	scream(); 
 	return StatusUnknownError; 
 }
 
-Document::Status NullDoc::reload() {
+Juff::Document::Status NullDoc::reload() {
 	scream(); 
 	return StatusUnknownError; 
 }
 	
-Document::Status NullDoc::open() { 
-	scream(); 
-	return StatusUnknownError; 
-}
-	
-Document::Status NullDoc::close() { 
+Juff::Document::Status NullDoc::open() { 
 	scream(); 
 	return StatusUnknownError; 
 }
 
-Document::SaveRequest NullDoc::confirmForClose() {
+Juff::Document::Status NullDoc::close() { 
+	scream(); 
+	return StatusUnknownError; 
+}
+
+Juff::Document::SaveRequest NullDoc::confirmForClose() {
 	scream();
-	return Document::SaveYes;
+	return Juff::Document::SaveYes;
 }
 
 void NullDoc::processTheCommand(CommandID) {
 }
 
-NullDoc::NullDoc() : Document("", 0) {
+NullDoc::NullDoc() : Juff::Document("", 0) {
 }
 	
 void NullDoc::scream() const { 

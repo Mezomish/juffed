@@ -19,7 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _DOC_VIEW_H_
 #define _DOC_VIEW_H_
 
-class Document;
+#include "Document.h"
 
 #include <QtGui/QWidget>
 
@@ -29,13 +29,13 @@ public:
 	DocView(QWidget*);
 	virtual ~DocView();
 
-	Document* document() { return doc_; }
-	virtual void setDocument(Document*);
+	Juff::Document* document() { return doc_; }
+	virtual void setDocument(Juff::Document*);
 
 	virtual void applySettings() = 0;
 	
 private:
-	Document* doc_;
+	Juff::Document* doc_;
 };
 
 #endif

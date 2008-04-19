@@ -234,6 +234,24 @@ void TextDocView::getCursorPos(int& row, int& col) const {
 	vInt_->edit_->getCursorPosition(&row, &col);
 }
 
+void TextDocView::setCursorPos(int row, int col) {
+	vInt_->edit_->setCursorPosition(row, col);
+}
+
+int TextDocView::scrollPos() const {
+	QScrollBar* scr = vInt_->edit_->verticalScrollBar();
+	if (scr != 0)
+		return scr->value();
+	else
+		return 0;
+}
+
+void TextDocView::setScrollPos(int pos) {
+	QScrollBar* scr = vInt_->edit_->verticalScrollBar();
+	if (scr != 0)
+		scr->setValue(pos);
+}
+
 void TextDocView::gotoLine(int line) const {
 	vInt_->edit_->setCursorPosition(line - 1, 0);
 }

@@ -538,9 +538,19 @@ void DocHandler::openSession(const QString& session) {
 		if (sess.open(QIODevice::ReadOnly)) {
 			QString fileName("");
 			while (!sess.atEnd()) {
-				fileName = sess.readLine().simplified();
+				QString lineStr = sess.readLine().simplified();
+				fileName = lineStr.section(':', 0, 0);
+				int scrPos = lineStr.section(':', 1, 1).toInt();
+				int line = lineStr.section(':', 2, 2).toInt();
 				if (!fileName.isEmpty()) {
 					doc = newDocument(fileName);
+					if (doc != 0 && !doc->isNull()) {
+						TextDocView* tdView = qobject_cast<TextDocView*>(doc->view());
+						if (tdView != 0) {
+							tdView->setCursorPos(line, 0);
+							tdView->setScrollPos(scrPos);
+						}
+					}
 				}
 			}
 	
@@ -565,9 +575,13 @@ void DocHandler::saveSession(const QString& name) {
 		QWidgetList wList;
 		hInt_->viewer_->getViewsOrder(wList);
 		foreach (QWidget* w, wList) {
-			DocView* view = qobject_cast<DocView*>(w);
+			TextDocView* view = qobject_cast<TextDocView*>(w);
 			if (view != 0) {
-				sess.write(view->document()->fileName().toLocal8Bit() + "\n");
+				int scrPos = view->scrollPos();
+				int line, col;
+				view->getCursorPos(line, col);
+				sess.write(QString("%1:%2:%3\n")
+					.arg(view->document()->fileName()).arg(scrPos).arg(line).toLocal8Bit());
 			}
 		}
 		sess.close();

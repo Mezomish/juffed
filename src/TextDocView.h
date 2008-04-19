@@ -45,7 +45,10 @@ public:
 	void setModified(bool);
 	void getText(QString&) const;
 	void setText(const QString&);
+	int scrollPos() const;
+	void setScrollPos(int);
 	void getCursorPos(int&, int&) const;
+	void setCursorPos(int, int);
 	void gotoLine(int) const;
 	int lineCount() const;
 	void setSyntax(const QString&);

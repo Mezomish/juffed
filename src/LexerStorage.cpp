@@ -150,16 +150,30 @@ void LSInterior::readCustomStyle(const QString& name) {
 	nm = nm.replace(QString("+"), "plus").replace(QString("#"), "csharp").toLower();
 	QString fileName = QString("%1.xml").arg(nm);
 	fileName = AppInfo::configDir() + "/hlschemes/" + fileName;
+
+	Log::debug(QString("Reading custom style from file '%1'...").arg(fileName));
+
 	QFile file(fileName);
 	if (!file.open(QIODevice::ReadOnly)) {
+		Log::debug(QString("Can't open file '%1'").arg(fileName));
 		return;
 	}
+	else {
+		Log::debug(QString("File '%1' opened successfully").arg(fileName));
+	}
+
 	QString err;
-	if (!doc.setContent(&file, &err)) {
-		Log::print(err);
+	int errLine, errCol;
+	if (!doc.setContent(&file, &err, &errLine, &errCol)) {
+		Log::debug(QString("File %1: XML reading error: '%2', line %3, column %4")
+					.arg(fileName).arg(err).arg(errLine).arg(errCol));
 		file.close();
 		return;
 	}
+	else {
+		Log::debug(QString("File '%1' was parsed successfully").arg(fileName));
+	}
+	
 	file.close();
 
 	QDomElement docElem = doc.documentElement();

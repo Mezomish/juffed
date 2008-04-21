@@ -476,7 +476,7 @@ Que voulez-vous faire?</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="89"/>
         <source>French translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduction française</translation>
     </message>
 </context>
 <context>

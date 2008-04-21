@@ -1,0 +1,32 @@
+JuffEd
+Simple text editor with syntax highlighting
+Copyright (C) 2007-2008 Mikhail Murzin <mezomish@gmail.com>
+
+Requirements:
+	Qt (>= 4.2)
+	QScintilla2 (>= 2.1)
+	
+Installation:
+	$ ./configure
+	$ make
+	$ make install
+	
+ License:
+	JuffEd is distributed under the GNU General Public License.
+	See COPYING for details.
+
+Features:
+	- multi-document interface (tabs)
+	- syntax highlighting
+	- code blocks folding
+	- sessions support
+	- find/replace using regular expressions
+	- charset selection
+	- line markers
+	- international languages support
+	
+Homepage:
+	https://sourceforge.net/projects/juffed/
+	
+Bugs and feature requests:
+	https://sourceforge.net/tracker/?group_id=205470

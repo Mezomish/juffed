@@ -1,0 +1,517 @@
+PACKAGE_NAME="juffed"
+PACKAGE_VERSION="0.3-svn-20080420"
+
+prefix="/usr";
+datadir="${prefix}/share"
+destdir="${datadir}/${PACKAGE_NAME}"
+include_path="${prefix}/include"
+qt_include_path="${include_path}/qt4"
+lib_path="${prefix}/lib"
+qt_lib_path="${lib_path}"
+
+usage() {
+	echo ""
+	echo "  Usage: ./configure [options]"
+	echo ""
+	echo "  Available options:"
+	echo "   --help                      Print this message"
+	echo "   --clean                     Clean results of configuring and quit"
+	echo "   --prefix=<prefix>           Set prefix (default: /usr)"
+	echo "   --datadir=<dir>             Set data dir (default: ${prefix}/share"
+	echo "   --qmake=<name>              Set qmake executable"
+	echo "   --include_path=<path>       Set include path (default: ${prefix}/include)"
+	echo "   --lib_path=<path>           Set lib path (default: ${prefix}/lib)"
+	echo "   --qt_lib_path=<path>        Set Qt4 lib path (if non-standard)"
+	echo "   --qt_include_path=<path>    Set Qt4 include path (if non-standard)"
+	echo "   --qsci_lib_path=<path>      Set QScintilla lib path (if non-standard)"
+	echo "   --qsci_include_path=<path>  Set QScintilla include path (if non-standard)"
+	echo ""
+}
+
+clean_all() {
+	rm src/AppInfo.h src/juffed.pro Makefile 2>/dev/null
+}
+
+############################################################
+#	Read parameters
+############################################################
+
+for arg in ${@}; do
+	case ${arg} in
+	
+	--help)
+		usage
+		exit 0
+		;;
+
+	--clean)
+		clean_all
+		rm configure.log 2>/dev/null
+		exit 0
+		;;
+	
+	--prefix=*)
+		arg_prefix=${arg:9}
+		;;
+
+	--datadir=*)
+		arg_datadir=${arg:10}
+		;;
+
+	--qmake=*)
+		arg_qmake_cmd=${arg:8}
+		;;
+
+	--include_path=*)
+		arg_include_path=${arg:15}
+		;;
+
+	--lib_path=*)
+		arg_lib_path=${arg:11}
+		;;
+
+	--qt_include_path=*)
+		arg_qt_include_path=${arg:18}
+		;;
+
+	--qt_lib_path=*)
+		arg_qt_lib_path=${arg:14}
+		;;
+
+	--qsci_include_path=*)
+		arg_qsci_include_path=${arg:20}
+		;;
+
+	--qsci_lib_path=*)
+		arg_qsci_lib_path=${arg:16}
+		;;
+
+	*)
+		echo "Unrecognized option: ${arg}"
+		usage
+		exit 1
+		;;
+
+	esac
+
+done
+
+clean_all
+rm configure.log 2>/dev/null
+
+if [ -n "${arg_prefix}" ]; then
+	prefix="${arg_prefix}"
+	datadir="${prefix}/share"
+	destdir="${datadir}/${PACKAGE_NAME}"
+	include_path="${prefix}/include"
+	qt_include_path="${include_path}/qt4"
+	lib_path="${prefix}/lib"
+	qt_lib_path="${lib_path}"
+fi
+
+if [ -n "${arg_datadir}" ]; then
+	datadir="${arg_datadir}"
+	destdir="${datadir}/${PACKAGE_NAME}"
+fi
+
+if [ -n "${arg_include_path}" ]; then
+	include_path="${arg_include_path}"
+	qt_include_path="${include_path}/qt4"
+fi
+
+if [ -n "${arg_lib_path}" ]; then
+	lib_path="${arg_lib_path}"
+	qt_lib_path="${lib_path}"
+fi
+
+if [ -n "${arg_qt_include_path}" ]; then
+	qt_include_path="${arg_qt_include_path}"
+fi
+
+if [ -n "${arg_qt_lib_path}" ]; then
+	qt_lib_path="${arg_qt_lib_path}"
+fi
+
+#if [ -n "${}" ]; then
+#fi
+
+
+
+############################################################
+#	Check for commands
+############################################################
+
+#	g++
+echo -n "checking for g++... "
+if [ -n "${gpp_cmd}" ]; then
+	gpp_cmd=`which ${gpp_cmd}`
+else
+	gpp_cmd=`which g++`
+fi
+if [ -n "${gpp_cmd}" ]; then
+	echo "${gpp_cmd}"
+else
+	echo "no"
+	exit 1
+fi
+
+#	make
+echo -n "checking for make... "
+if [ -n "${make_cmd}" ]; then
+	make_cmd=`which ${make_cmd}`
+else
+	make_cmd=`which make`
+	if [ -z "${make_cmd}" ]; then
+		make_cmd=`which gmake`
+	fi
+fi
+if [ -n "${make_cmd}" ]; then
+	echo "${make_cmd}"
+else
+	echo "no"
+	exit 1
+fi
+
+#	qmake
+echo -n "checking for qmake... "
+if [ -n "${arg_qmake_cmd}" ]; then
+	qmake_cmd=`which ${arg_qmake_cmd}`
+else
+	qmake_cmd=`which qmake-qt4`
+	if [ -z "${qmake_cmd}" ]; then
+		qmake_cmd=`which qmake`
+	fi
+fi
+if [ -n "${qmake_cmd}" ]; then
+	echo "${qmake_cmd}"
+else
+	echo "no"
+	exit 1
+fi
+
+#	lrelease
+echo -n "checking for lrelease... "
+if [ -n "${lrelease_cmd}" ]; then
+	lrelease_cmd=`which ${lrelease_cmd}`
+else
+	lrelease_cmd=`which lrelease`
+fi
+if [ -n "${lrelease_cmd}" ]; then
+	echo "${lrelease_cmd}"
+else
+	echo "no"
+	exit 1
+fi
+
+
+
+############################################################
+#	Check for includes and libraries paths
+############################################################
+
+rm cfg_qt4_test cfg_qt4_test.cpp 2>/dev/null
+qt_libs='QtCore QtGui QtXml'
+GXX="${gpp_cmd}"
+
+##############################
+#	Qt4
+echo -n "Running Qt4 test... "
+
+if test "${qt_include_path}" != "${include_path}" ; then
+	include_path="${include_path} ${qt_include_path}"
+fi
+
+for d in ${qt_libs}; do
+	include_path="${include_path} ${qt_include_path}/${d}"
+done
+
+
+###############
+#	test file
+cat > cfg_qt4_test.cpp << _TEST_EOF
+#include <QtCore/QObject>
+#include <QtGui/QWidget>
+#include <QtXml/QDomAttr>
+#include <QString>
+#include <QActionEvent>
+int main(){QWidget w;return 0;}
+_TEST_EOF
+
+for i_dir in ${include_path}; do
+	include_string=${include_string}" -I${i_dir}"
+done
+for l_dir in ${lib_path}; do
+	lib_string=${lib_string}" -L${l_dir}"
+done
+for l in ${qt_libs}; do
+	lib_string=${lib_string}" -l${l}"
+done
+
+if test "${lib_path}" != "${qt_lib_path}"; then
+	lib_string=${lib_string}" -L${qt_lib_path}"
+fi
+
+
+${GXX} cfg_qt4_test.cpp -o cfg_qt4_test ${include_string} ${lib_string} 2>configure.log
+test_prg=`cat configure.log`
+
+if [ -z "${test_prg}" ]; then
+	echo "passed"
+	rm cfg_qt4_test cfg_qt4_test.cpp 2>/dev/null
+else
+	echo "failed."
+	echo "Please check your libqt4-dev installation and/or specify valid --qt_lib_path and --qt_include_path"
+	rm cfg_qt4_test cfg_qt4_test.cpp 2>/dev/null
+	exit 1
+fi
+
+
+##############################
+#	QScintilla2
+
+echo -n "Running QScintilla2 test... "
+
+#	libs
+if [ -n "${arg_qsci_lib_path}" ]; then
+	lib_string=${lib_string}" -L${arg_qsci_lib_path}"
+fi
+lib_string=${lib_string}" -lqscintilla2"
+#	includes
+if [ -n "${arg_qsci_include_path}" ]; then
+	include_path=${include_path}" ${arg_qsci_include_path}"
+	include_string=${include_string}" -I${arg_qsci_include_path}"
+fi
+
+###############
+#	test file
+cat > cfg_qsci_test.cpp << _TEST_EOF
+#include <Qsci/qsciscintilla.h>
+int main(){QsciScintilla s;return 0;}
+_TEST_EOF
+
+${GXX} cfg_qsci_test.cpp -o cfg_qsci_test ${include_string} ${lib_string} 2>configure.log
+test_prg=`cat configure.log`
+
+if [ -z "${test_prg}" ]; then
+	echo "passed"
+	rm cfg_qsci_test cfg_qsci_test.cpp 2>/dev/null
+else
+	echo "failed."
+	echo "Please check your libqscintilla2-dev installation and/or specify valid --qsci_lib_path and --qsci_include_path"
+	rm cfg_qsci_test cfg_qsci_test.cpp 2>/dev/null
+	exit 1
+fi
+
+
+
+############################################################
+#	AppInfo.h
+############################################################
+tmp=`touch src/AppInfo.h`
+if [ -n "${tmp}" ]; then
+	echo "Can't create file src/AppInfo.h. Please check your distribution."
+	exit 1
+fi
+
+echo '#ifndef _APP_INFO_H_
+#define _APP_INFO_H_
+
+#include <QtCore/QDir>
+#include <QtCore/QString>
+
+class AppInfo {
+public:
+	static QString name() { return "JuffEd"; }
+	static QString organization() { return "Juff"; }
+	static QString configDir() { return QDir::homePath() + "/.config/" + organization().toLower(); }
+	static QString configFile() { return configDir() + "/" + name().toLower() + ".conf"; }
+	static QString version() { return "'${PACKAGE_VERSION}'"; }
+	static QString logFile() { return configDir() + "/juffed.log"; }
+	static QString socketPath() { return "/tmp/juffed"; }
+	static QString appDirPath() { return "'${destdir}'"; }
+};
+
+#endif' > src/AppInfo.h
+
+
+
+############################################################
+#	Makefile
+############################################################
+echo 'PREFIX=
+BIN=$(PREFIX)'${bindir}'
+DESTDIR=$(PREFIX)'${destdir}'
+PIXMAPS=$(PREFIX)'${datadir}'/pixmaps
+APPLICATIONS=$(PREFIX)'${datadir}'/applications
+
+QMAKE='${qmake_cmd}'
+MAKE='${make_cmd}'
+LRELEASE='${lrelease_cmd}'
+
+src/juffed:
+	cd src && $(QMAKE) && $(MAKE)
+	cd src && $(LRELEASE) juffed.pro
+
+distclean:
+	rm juffed
+	rm l10n/juffed_*.qm
+	cd src && make clean
+	rm src/Makefile
+
+clean:
+	cd src && make clean
+	rm src/Makefile
+
+install:
+#	Directories
+	install -d $(DESTDIR)
+	install -d $(DESTDIR)/l10n
+	install -d $(DESTDIR)/hlschemes
+#	Copy files
+	install -m 644 COPYING $(DESTDIR)
+	install -m 644 l10n/*.qm $(DESTDIR)/l10n/
+	install -m 644 hlschemes/* $(DESTDIR)/hlschemes/
+#	Binary
+	install -d $(BIN)
+	install -m 755 juffed $(BIN)
+#	App icon and .desktop file
+	install -d $(PIXMAPS)
+	install -d $(APPLICATIONS)
+	install -m 644 juffed.png $(PIXMAPS)/
+	install -m 644 juffed.desktop $(APPLICATIONS)/
+
+uninstall:
+	rm -rf $(DESTDIR)
+	rm $(BIN)/juffed
+	rm $(PIXMAPS)/juffed.png
+	rm $(APPLICATIONS)/juffed.desktop
+' > Makefile
+
+
+############################################################
+#	juffed.pro
+############################################################
+tmp=`touch src/juffed.pro`
+if [ -n "${tmp}" ]; then
+	echo "Can't create file src/juffed.pro. Please check your distribution."
+	exit 1
+fi
+
+echo 'TEMPLATE = app
+TARGET      = juffed
+DEPENDPATH  += .
+INCLUDEPATH += .
+INCLUDEPATH += '${include_path_2}'
+DESTDIR	    = ..
+QT          += xml
+LIBS        += '${lib_string}'
+
+# Input
+HEADERS += \
+		DocHandler.h \
+		JuffEd.h \
+		Document.h \
+		TextDoc.h \
+		NullDoc.h \
+		Log.h \
+		DocViewer.h \
+		DocView.h \
+		Settings.h \
+		MainSettings.h \
+		CommandStorage.h \
+		MultiPage.h \
+		SettingsDlg.h \
+		CharsetsSettingsPage.h \
+		TextDocSettings.h \
+		TextDocView.h \
+		FindDlg.h \
+		SessionDlg.h \
+		TabBar.h \
+		TabWidget.h \
+		AboutDlg.h \
+		SingleInstance.h \
+		SocketListener.h \
+		LexerStorage.h \
+		IconManager.h \
+
+SOURCES += \
+		DocHandler.cpp \
+		JuffEd.cpp \
+		main.cpp \
+		Document.cpp \
+		TextDoc.cpp \
+		NullDoc.cpp \
+		Log.cpp \
+		DocViewer.cpp \
+		DocView.cpp \
+		Settings.cpp \
+		CommandStorage.cpp \
+		MultiPage.cpp \
+		SettingsDlg.cpp \
+		CharsetsSettingsPage.cpp \
+		TextDocView.cpp \
+		FindDlg.cpp \
+		SessionDlg.cpp \
+		TabBar.cpp \
+		TabWidget.cpp \
+		AboutDlg.cpp \
+		SingleInstance.cpp \
+		SocketListener.cpp \
+		LexerStorage.cpp \
+		IconManager.cpp \
+		MainSettings.cpp \
+		TextDocSettings.cpp \
+		CharsetsSettings.cpp \
+		
+FORMS += \
+		CharsetsSettingsPage.ui \
+		ViewSettingsPage.ui \
+		EditorSettingsPage.ui \
+		MainSettingsPage.ui \
+		FindDlg.ui \
+		SessionDlg.ui \
+		
+TRANSLATIONS = \
+	../l10n/juffed_ru.ts \
+	../l10n/juffed_pl.ts \
+	../l10n/juffed_de.ts \
+	../l10n/juffed_fr.ts \
+	../l10n/juffed_sp.ts \
+	
+win32 {
+	RC_FILE = juffed.rc
+}
+
+RESOURCES = juffed.qrc' > src/juffed.pro
+
+
+
+############################################################
+#	configure.log
+############################################################
+echo "# ${PACKAGE_NAME} was configured with the following parameters:" >> configure.log
+echo "#   --prefix=${arg_prefix}" >> configure.log
+echo "#   --datadir=${arg_datadir}" >> configure.log
+echo "#   --qmake=${arg_qmake}" >> configure.log
+echo "#   --include_path=${arg_include_path}" >> configure.log
+echo "#   --lib_path=${arg_lib_path}" >> configure.log
+echo "#   --qt_lib_path=${arg_qt_lib_path}" >> configure.log
+echo "#   --qt_include_path=${arg_qt_include_path}" >> configure.log
+echo "#   --qsci_lib_path=${arg_qsci_lib_path}" >> configure.log
+echo "#   --qsci_include_path=${arg_qsci_include_path}" >> configure.log
+echo "" >> configure.log
+echo "# Current file 'configure.log' is a script that can reconfigure ${PACKAGE_NAME} with last used parameters" >> configure.log
+echo "# Just type './configure.log' in your shell" >> configure.log
+echo "" >> configure.log
+echo "./configure --prefix=${arg_prefix} --include_path=${arg_include_path} --lib_path=${arg_lib_path} --qt_include_path=${arg_qt_include_path} --qt_lib_path=${arg_qt_lib_path} --qsci_include_path=${arg_qsci_include_path} --qsci_lib_path=${arg_qsci_lib_path}" >> configure.log
+chmod +x configure.log
+
+
+
+############################################################
+#	OK
+############################################################
+echo ""
+echo "    It seems like everything is OK."
+echo "    Run 'make' now."
+echo ""

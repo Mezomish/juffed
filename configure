@@ -1,7 +1,8 @@
 PACKAGE_NAME="juffed"
 PACKAGE_VERSION="0.3-svn-20080420"
 
-prefix="/usr";
+prefix="/usr"
+bindir="${prefix}/bin"
 datadir="${prefix}/share"
 destdir="${datadir}/${PACKAGE_NAME}"
 include_path="${prefix}/include"
@@ -101,6 +102,7 @@ rm configure.log 2>/dev/null
 
 if [ -n "${arg_prefix}" ]; then
 	prefix="${arg_prefix}"
+	bindir="${prefix}/bin"
 	datadir="${prefix}/share"
 	destdir="${datadir}/${PACKAGE_NAME}"
 	include_path="${prefix}/include"
@@ -369,6 +371,7 @@ install:
 	install -d $(DESTDIR)/hlschemes
 #	Copy files
 	install -m 644 COPYING $(DESTDIR)
+	install -m 644 README $(DESTDIR)
 	install -m 644 l10n/*.qm $(DESTDIR)/l10n/
 	install -m 644 hlschemes/* $(DESTDIR)/hlschemes/
 #	Binary

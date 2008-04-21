@@ -10,6 +10,7 @@ Installation:
 	$ ./configure
 	$ make
 	$ make install
+	(to install to fake root folder for further packaging use 'make FAKE_ROOT=<path> install')
 	
  License:
 	JuffEd is distributed under the GNU General Public License.

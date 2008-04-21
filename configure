@@ -340,11 +340,11 @@ public:
 ############################################################
 #	Makefile
 ############################################################
-echo 'PREFIX=
-BIN=$(PREFIX)'${bindir}'
-DESTDIR=$(PREFIX)'${destdir}'
-PIXMAPS=$(PREFIX)'${datadir}'/pixmaps
-APPLICATIONS=$(PREFIX)'${datadir}'/applications
+echo 'FAKE_ROOT=
+BIN=$(FAKE_ROOT)'${bindir}'
+DESTDIR=$(FAKE_ROOT)'${destdir}'
+PIXMAPS=$(FAKE_ROOT)'${datadir}'/pixmaps
+APPLICATIONS=$(FAKE_ROOT)'${datadir}'/applications
 
 QMAKE='${qmake_cmd}'
 MAKE='${make_cmd}'

@@ -37,7 +37,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 void checkForFirstRun() {
 	//	localizations
 	QString configPath = AppInfo::configDir();
-	QString appPath = QCoreApplication::applicationDirPath();
+	QString appPath = AppInfo::appDirPath();
 
 	QDir configDir(configPath);
 	if (!configDir.exists()) {

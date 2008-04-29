@@ -71,8 +71,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		QList<int> hlElements;
 		Style style;
 	};
-	
-//	typedef QList<Rule> Scheme;
+
 	struct Scheme {
 		Style defaultStyle;
 		QList<Rule> rules;
@@ -197,6 +196,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 			<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine << QsciLexerCPP::CommentDoc << QsciLexerCPP::CommentDocKeyword)
 			<< Rule(styles["number"], QList<int>() << QsciLexerCPP::Number)
 			<< Rule(styles["keyword"], QList<int>() << QsciLexerCPP::Keyword)
+			<< Rule(styles["operator"], QList<int>() << QsciLexerCPP::Operator)
 			<< Rule(styles["string"], QList<int>() << QsciLexerCPP::DoubleQuotedString)
 			<< Rule(styles["unclosedString"], QList<int>() << QsciLexerCPP::UnclosedString);
 		schemes_[name] = cppSch;

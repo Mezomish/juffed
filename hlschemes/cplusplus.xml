@@ -4,6 +4,7 @@
 <scheme name="C++" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false" >
 	<style name="preprocessor" color="#006600" />
 	<style name="keyword" color="#000066" bold="true" />
+	<style name="operator" color="#990099" bold="true" />
 	<style name="number" color="#0000ff" bold="false" />
 	<style name="string" color="#aa0000" />
 	<style name="comment" color="#999999" bgColor="#f0f0f0" italic="true"/>

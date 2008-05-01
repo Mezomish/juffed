@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define _LOG_H_
 
 class QString;
+class QRect;
 
 namespace Log {
 	void print(const QString&);
@@ -27,6 +28,7 @@ namespace Log {
 	void debug(const QString&);
 	void debug(const char*);
 	void debug(int);
+	void debug(const QRect&);
 };
 
 #endif

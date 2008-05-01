@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 //	Qt headers
 #include <QtCore/QObject>
+#include <QtCore/QRect>
 
 //	local headers
 #include "AppInfo.h"
@@ -53,5 +54,8 @@ namespace Log {
 		debug(QString::number(n));
 	}
 
+	void debug(const QRect& r) {
+		debug(QString("%1,%2,%3,%4").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
+	}
 };
 

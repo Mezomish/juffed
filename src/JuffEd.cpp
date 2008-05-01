@@ -136,6 +136,7 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 	
 	//	settings
 	setGeometry(MainSettings::windowRect());
+	jInt_->geometry_ = geometry();
 	if (MainSettings::isMaximized())
 		showMaximized();
 	applySettings();

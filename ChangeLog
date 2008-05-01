@@ -1,3 +1,7 @@
+2008-04-30:
+* Fixed: bug with small window when the app was closed 
+  maximized several times in a row;
+  
 2008-04-20:
 * Added: configure script
 

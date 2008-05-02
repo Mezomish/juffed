@@ -92,7 +92,6 @@ public:
 		edit_->setIndentationGuidesForegroundColor(QColor(200, 200, 200));
 		edit_->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 		edit_->setAutoIndent(true);
-		edit_->setBackspaceUnindents(false);
 		edit_->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 		edit_->setMatchedBraceBackgroundColor(QColor(255, 255, 120));
 		
@@ -271,6 +270,7 @@ void TextDocView::applySettings() {
 	updateLineNums();
 	vInt_->edit_->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
 	vInt_->edit_->setIndentationGuides(TextDocSettings::showIndents());
+	vInt_->edit_->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
 	
 }
 

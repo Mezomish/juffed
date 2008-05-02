@@ -55,3 +55,7 @@ bool TextDocSettings::highlightCurrentLine() {
 bool TextDocSettings::replaceTabsWithSpaces() {
 	return Settings::boolValue("editor", "replaceTabsWithSpaces", false);
 }
+
+bool TextDocSettings::backspaceUnindents() {
+	return Settings::boolValue("editor", "backspaceUnindents", false);
+}

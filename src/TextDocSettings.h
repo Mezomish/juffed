@@ -33,6 +33,7 @@ public:
 	static bool showIndents();
 	static bool highlightCurrentLine();
 	static bool replaceTabsWithSpaces();
+	static bool backspaceUnindents();
 	
 	static void setFont(const QFont& font) { Settings::setValue("editor", "fontFamily", font.family()); Settings::setValue("editor", "fontSize", font.pointSize()); }
 	static void setWidthAdjust(bool adj) { Settings::setValue("editor", "widthAdjust", adj); }
@@ -41,6 +42,8 @@ public:
 	static void setLineLengthIndicator(int ind) { Settings::setValue("editor", "lineLengthIndicator", ind); }
 	static void setShowIndents(bool show) { Settings::setValue("editor", "showIndents", show); }
 	static void setHighlightCurrentLine(bool hl) { Settings::setValue("editor", "highlightCurrentLine", hl); }
+	static void setReplaceTabsWithSpaces(bool replace) { Settings::setValue("editor", "replaceTabsWithSpaces", replace); }
+	static void setBackspaceUnindents(bool unindents) { Settings::setValue("editor", "backspaceUnindents", unindents); }
 };
 
 #endif

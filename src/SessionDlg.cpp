@@ -24,7 +24,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QHeaderView>
 
 //	local headers
+#ifdef Q_OS_WIN
+#include "AppInfo.win.h"
+#else
 #include "AppInfo.h"
+#endif
 
 SessionDlg::SessionDlg(QWidget* parent) : QDialog(parent), result_(0) {
 	ui.setupUi(this);

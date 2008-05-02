@@ -16,12 +16,19 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include "AppInfo.h"
-#include "Settings.h"
-
+//	Qt includes
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QSettings>
+
+//	local includes
+#ifdef Q_OS_WIN
+#include "AppInfo.win.h"
+#else
+#include "AppInfo.h"
+#endif
+
+#include "Settings.h"
 
 typedef QMap<QString, QVariant> Section;
 typedef QMap<QString, Section> SettingsMap;

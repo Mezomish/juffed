@@ -45,7 +45,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtXml/QDomNode>
 
 //	local headers
+#ifdef Q_OS_WIN
+#include "AppInfo.win.h"
+#else
 #include "AppInfo.h"
+#endif
+
 #include "Log.h"
 
 	struct Style {

@@ -25,7 +25,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QIcon>
 
 //	local headers
+#ifdef Q_OS_WIN
+#include "AppInfo.win.h"
+#else
 #include "AppInfo.h"
+#endif
+
 #include "DocHandler.h"
 #include "JuffEd.h"
 #include "Log.h"

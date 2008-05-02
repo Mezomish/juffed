@@ -30,7 +30,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QMessageBox>
 
 //	local headers
+#ifdef Q_OS_WIN
+#include "AppInfo.win.h"
+#else
 #include "AppInfo.h"
+#endif
+
 #include "DocViewer.h"
 #include "Log.h"
 #include "NullDoc.h"

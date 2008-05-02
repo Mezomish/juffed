@@ -1,0 +1,18 @@
+QMAKE=qmake
+MAKE=make
+LRELEASE=lrelease
+
+src/juffed:
+	cd src && $(QMAKE) juffed.pro.win && $(MAKE)
+	cd src && $(LRELEASE) juffed.pro.win
+
+distclean:
+	rm juffed.exe
+	rm l10n/juffed_*.qm
+	cd src && make clean
+	rm src/Makefile*
+
+clean:
+	cd src && make clean
+	rm src/Makefile*
+

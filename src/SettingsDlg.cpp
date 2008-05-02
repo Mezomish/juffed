@@ -26,7 +26,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QVBoxLayout>
 
 //	Local headers
+#ifdef Q_OS_WIN
+#include "AppInfo.win.h"
+#else
 #include "AppInfo.h"
+#endif
+
 #include "MultiPage.h"
 #include "MainSettings.h"
 #include "TextDocSettings.h"
@@ -176,6 +181,8 @@ void SettingsDlg::init() {
 	}
 	pageEditor_->ui.showIndentsChk->setChecked(TextDocSettings::showIndents());
 	pageEditor_->ui.hlCurLineChk->setChecked(TextDocSettings::highlightCurrentLine());
+	pageEditor_->ui.replaceTabsChk->setChecked(TextDocSettings::replaceTabsWithSpaces());
+	pageEditor_->ui.unindentChk->setChecked(TextDocSettings::backspaceUnindents());
 
 	pageCharsets_->init();
 }
@@ -225,6 +232,8 @@ void SettingsDlg::apply() {
 	}
 	TextDocSettings::setShowIndents(pageEditor_->ui.showIndentsChk->isChecked());
 	TextDocSettings::setHighlightCurrentLine(pageEditor_->ui.hlCurLineChk->isChecked());
+	TextDocSettings::setReplaceTabsWithSpaces(pageEditor_->ui.replaceTabsChk->isChecked());
+	TextDocSettings::setBackspaceUnindents(pageEditor_->ui.unindentChk->isChecked());
 
 	pageCharsets_->applySettings();
 

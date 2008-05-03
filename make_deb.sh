@@ -3,7 +3,6 @@
 VERSION=`cat version`
 RELEASE="1"
 TEMP_DIR="temp_fake_root_dir"
-DO_NOT_CLEAN=
 ARCH="i386"
 
 print_usage() {
@@ -25,33 +24,37 @@ exit_with_error() {
 }
 
 #	Parse command line arguments
-for arg in $@
-do
-	if [ ${arg:0:10} == "--release=" ]
-	then
-		RELEASE=${arg:10}
-	fi
+for arg in ${@}; do
+	case ${arg} in
 	
-	if [ ${arg:0:8} == "--distr=" ]
-	then
-		DISTR=${arg:8}
-	fi
-
-	if [ ${arg:0:7} == "--arch=" ]
-	then
-		ARCH=${arg:7}
-	fi
-	
-	if [ $arg == "--help" ]
-	then
+	--help)
 		print_usage
 		exit 0
-	fi
+		;;
+
+	--distr=*)
+		DISTR=`echo ${arg} | cut -c 9-`
+		;;
 	
-	if [ $arg == "--do-not-clean" ]
-	then
+	--release=*)
+		RELEASE=`echo ${arg} | cut -c 11-`
+		;;
+		
+	--arch=*)
+		ARCH=`echo ${arg} | cut -c 8-`
+		;;
+		
+	--do-not-clean)
 		DO_NOT_CLEAN="yes"
-	fi
+		;;
+		
+	*)
+		echo "Unrecognized option: ${arg}"
+		print_usage
+		exit 1
+		;;
+
+	esac
 done
 
 rm -rf ${TEMP_DIR}

@@ -198,7 +198,9 @@ void LSInterior::readCustomStyle(const QString& name) {
 		Scheme cppSch;
 		cppSch.defaultStyle = styles["default"];
 		cppSch.rules << Rule(styles["preprocessor"], QList<int>() << QsciLexerCPP::PreProcessor)
-			<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine << QsciLexerCPP::CommentDoc << QsciLexerCPP::CommentDocKeyword)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine)
+			<< Rule(styles["commentdoc"], QList<int>() << QsciLexerCPP::CommentDoc)
+			<< Rule(styles["commentdockeyword"], QList<int>() << QsciLexerCPP::CommentDocKeyword)
 			<< Rule(styles["number"], QList<int>() << QsciLexerCPP::Number)
 			<< Rule(styles["keyword"], QList<int>() << QsciLexerCPP::Keyword)
 			<< Rule(styles["operator"], QList<int>() << QsciLexerCPP::Operator)
@@ -214,6 +216,20 @@ void LSInterior::readCustomStyle(const QString& name) {
 			<< Rule(styles["comment"], QList<int>() << QsciLexerMakefile::Comment)
 			<< Rule(styles["error"], QList<int>() << QsciLexerMakefile::Error);
 		schemes_[name] = mkSch;
+	}
+	else if (name.compare("Java") == 0) {
+		Scheme javaSch;
+		javaSch.defaultStyle = styles["default"];
+		javaSch.rules << Rule(styles["preprocessor"], QList<int>() << QsciLexerCPP::PreProcessor)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine)
+			<< Rule(styles["commentdoc"], QList<int>() << QsciLexerCPP::CommentDoc)
+			<< Rule(styles["commentdockeyword"], QList<int>() << QsciLexerCPP::CommentDocKeyword)
+			<< Rule(styles["number"], QList<int>() << QsciLexerCPP::Number)
+			<< Rule(styles["keyword"], QList<int>() << QsciLexerCPP::Keyword)
+			<< Rule(styles["operator"], QList<int>() << QsciLexerCPP::Operator)
+			<< Rule(styles["string"], QList<int>() << QsciLexerCPP::DoubleQuotedString)
+			<< Rule(styles["unclosedString"], QList<int>() << QsciLexerCPP::UnclosedString);
+		schemes_[name] = javaSch;
 	}
 	else if (name.compare("Python") == 0) {
 		Scheme pySch;

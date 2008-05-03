@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="Java" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false" >
+	<style name="keyword" color="#660033" bold="true" />
+	<style name="number" color="#003300" />
+	<style name="string" color="#0000bb" />
+	<style name="comment" color="#9999a9" bgColor="#f0f0f6" italic="true"/>
+	<style name="commentdoc" color="#6060a0" bgColor="#f0f0f6" />
+	<style name="commentdockeyword" color="#c060a0" bgColor="#f0f0f6" />
+	<style name="unclosedString" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
+	<style name="operator" color="#660099" />
+</scheme>
+</JuffScheme>

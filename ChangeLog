@@ -1,3 +1,10 @@
+2008-05-02:
+* Added: Java custom highlighting scheme
+* Added: doc comments to C++ scheme
+* Added: 'Replace tabs with spaces' option
+* Settings dialog improvements
+* Windows building improvements
+
 2008-04-30:
 * Fixed: bug with small window when the app was closed 
   maximized several times in a row;

@@ -76,7 +76,7 @@ public:
 		QString newLine("<br>"), margin("&nbsp;&nbsp;");
 		QString text = QString("   %1   \n\n   Copyright (c) 2007-2008 Mikhail Murzin   ").arg(QObject::tr("Simple text editor with syntax highlighting"));
 		QString auth("<br>&nbsp;Mikhail Murzin a.k.a. Mezomish<br>&nbsp;&nbsp;<a href='mailto:mezomish@gmail.com'>mezomish@gmail.com</a>");
-		QString thanks = QString("<br>&nbsp;Jarek") 
+		QString thanks = QString("&nbsp;Jarek") 
 						+ newLine + margin
 						+ QString("<a href='mailto:ajep9691@wp.pl'>ajep9691@wp.pl</a>") 
 						+ newLine + margin
@@ -100,7 +100,7 @@ public:
 		aboutDlg_->setAuthors(auth);
 		aboutDlg_->setThanks(thanks);
 		aboutDlg_->setLicense(License::licenseText, false);
-		aboutDlg_->resize(500, 250);
+		aboutDlg_->resize(500, 300);
 		aboutDlg_->setIcon(QIcon(juffed_px));
 		
 		toolBar_ = 0;

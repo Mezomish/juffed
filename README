@@ -7,11 +7,15 @@ Requirements:
 	QScintilla2 (>= 2.1)
 	
 Installation:
-	$ ./configure
-	$ make
-	$ make install
-	(to install to fake root folder for further packaging use 'make FAKE_ROOT=<path> install')
-	
+	*nix:
+		$ ./configure
+		$ make
+		$ sudo make install
+		(to install to fake root folder for further packaging use 'make FAKE_ROOT=<path> install')
+
+	Windows (using MinGW):
+		> mingw32-make -f WinMakefile
+
  License:
 	JuffEd is distributed under the GNU General Public License.
 	See COPYING for details.

@@ -2,7 +2,7 @@
 # configure script
 
 PACKAGE_NAME="juffed"
-PACKAGE_VERSION="0.3-svn-20080420"
+PACKAGE_VERSION=`cat version`
 
 prefix="/usr"
 bindir="${prefix}/bin"
@@ -376,7 +376,7 @@ install:
 	install -m 644 COPYING $(DESTDIR)
 	install -m 644 README $(DESTDIR)
 	install -m 644 l10n/*.qm $(DESTDIR)/l10n/
-	install -m 644 hlschemes/* $(DESTDIR)/hlschemes/
+	install -m 644 hlschemes/*.xml $(DESTDIR)/hlschemes/
 #	Binary
 	install -d $(BIN)
 	install -m 755 juffed $(BIN)

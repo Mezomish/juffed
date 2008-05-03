@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>386</width>
+    <width>365</width>
     <height>347</height>
    </rect>
   </property>
@@ -27,35 +27,66 @@
    <property name="spacing" >
     <number>6</number>
    </property>
-   <item row="0" column="0" >
-    <widget class="QLabel" name="label_4" >
-     <property name="sizePolicy" >
-      <sizepolicy>
-       <hsizetype>5</hsizetype>
-       <vsizetype>0</vsizetype>
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+   <item row="0" column="0" colspan="4" >
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
      </property>
-     <property name="text" >
-      <string>On program start</string>
+     <property name="spacing" >
+      <number>6</number>
      </property>
-    </widget>
+     <item row="2" column="1" >
+      <widget class="QRadioButton" name="openEmptySessionBtn" >
+       <property name="text" >
+        <string>Open empty session</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QRadioButton" name="showSessionDlgBtn" >
+       <property name="text" >
+        <string>Show session dialog</string>
+       </property>
+      </widget>
+     </item>
+     <item rowspan="2" row="1" column="0" >
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>20</width>
+         <height>21</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="1" >
+      <widget class="QRadioButton" name="openLastSessionBtn" >
+       <property name="text" >
+        <string>Open last saved session</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" >
+      <widget class="QLabel" name="label_4" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>5</hsizetype>
+         <vsizetype>0</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text" >
+        <string>On program start</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
-   <item rowspan="2" row="1" column="0" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>20</width>
-       <height>21</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="4" column="0" colspan="3" >
+   <item row="2" column="0" colspan="4" >
     <widget class="QCheckBox" name="singleInstanceChk" >
      <property name="toolTip" >
       <string>Use existing instance of application when open files</string>
@@ -65,28 +96,14 @@
      </property>
     </widget>
    </item>
-   <item row="5" column="0" colspan="3" >
+   <item row="3" column="0" colspan="4" >
     <widget class="QCheckBox" name="makeBackupChk" >
      <property name="text" >
       <string>Make backup copy when save file</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="2" >
-    <widget class="QRadioButton" name="showSessionDlgBtn" >
-     <property name="text" >
-      <string>Show session dialog</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2" >
-    <widget class="QRadioButton" name="openEmptySessionBtn" >
-     <property name="text" >
-      <string>Open empty session</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="1" colspan="2" >
+   <item row="5" column="1" colspan="3" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -99,14 +116,21 @@
      </property>
     </spacer>
    </item>
-   <item row="6" column="0" >
+   <item row="4" column="0" >
     <widget class="QCheckBox" name="autoSaveChk" >
      <property name="text" >
       <string>Auto save every</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="2" >
+   <item row="1" column="0" colspan="2" >
+    <widget class="QCheckBox" name="saveSessionChk" >
+     <property name="text" >
+      <string>Save session when close</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="3" >
     <widget class="QSpinBox" name="autoSaveIntervalSpin" >
      <property name="enabled" >
       <bool>false</bool>
@@ -128,19 +152,18 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2" >
-    <widget class="QRadioButton" name="openLastSessionBtn" >
-     <property name="text" >
-      <string>Open last saved session</string>
+   <item row="4" column="2" >
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
      </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2" >
-    <widget class="QCheckBox" name="saveSessionChk" >
-     <property name="text" >
-      <string>Save session when close</string>
+     <property name="sizeHint" >
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
      </property>
-    </widget>
+    </spacer>
    </item>
   </layout>
  </widget>

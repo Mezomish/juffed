@@ -139,22 +139,22 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="96"/>
         <source>Indents</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeileneinzug</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="141"/>
         <source>Replace tabs with spaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabulator mit Leerstellen ersetzen</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="156"/>
         <source>Backspace removes indent</source>
-        <translation type="unfinished"></translation>
+        <translation>Backspace entfernt Zeileneinzug</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="173"/>
         <source>Misc</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonstiges</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="249"/>
@@ -166,13 +166,15 @@ Was wollen Sie tun?</translation>
         <source>If &quot;Replace tabs with spaces&quot; option is checked, 
 the current option lets backspace key to remove the 
 whole indent instead of removind single whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn &quot;Tabulator mit Leerstellen ersetzen&quot; aktiviert ist
+wird die Backspace Taste den gesamten Zeileneinzug entfernen,
+anstelle von nur einer Leerstelle</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="245"/>
         <source>Sets the default view of 
 newly created/opened docs</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestimmt das Standardverhalten von neu erstellten/geöffneten Dokumenten</translation>
     </message>
 </context>
 <context>
@@ -511,7 +513,7 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="68"/>
         <source>Open last saved session</source>
-        <translation>Letzte gespeicherte Session öffnen</translation>
+        <translation>letzte gespeicherte Session öffnen</translation>
     </message>
 </context>
 <context>
@@ -760,7 +762,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="129"/>
         <source>Toolbar style</source>
-        <translation>Werkzeugleistenthema</translation>
+        <translation>Werkzeugleisten-Ansicht</translation>
     </message>
 </context>
 </TS>

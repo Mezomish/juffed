@@ -139,22 +139,22 @@ What do you want to do?</source>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="96"/>
         <source>Indents</source>
-        <translation type="unfinished"></translation>
+        <translation>Отступы</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="141"/>
         <source>Replace tabs with spaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Заменять табы пробелами</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="156"/>
         <source>Backspace removes indent</source>
-        <translation type="unfinished"></translation>
+        <translation>Backspace удаляет отступ целиком</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="173"/>
         <source>Misc</source>
-        <translation type="unfinished"></translation>
+        <translation>Прочее</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="249"/>
@@ -166,13 +166,16 @@ What do you want to do?</source>
         <source>If &quot;Replace tabs with spaces&quot; option is checked, 
 the current option lets backspace key to remove the 
 whole indent instead of removind single whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation>Если выбрана опция &quot;Заменять табы пробелами&quot;, то
+данная опция позволяет клавишей Backspace
+удалять отступ целиком вместо удаления одного пробела</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="245"/>
         <source>Sets the default view of 
 newly created/opened docs</source>
-        <translation type="unfinished"></translation>
+        <translation>Задаёт значение по умолчанию для
+новых/открытых документов</translation>
     </message>
 </context>
 <context>

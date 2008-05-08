@@ -55,39 +55,39 @@ for arg in ${@}; do
 		;;
 	
 	--prefix=*)
-		arg_prefix=${arg:9}
+		arg_prefix=`echo ${arg} | cut -c 10-`
 		;;
 
 	--datadir=*)
-		arg_datadir=${arg:10}
+		arg_datadir=`echo ${arg} | cut -c 11-`
 		;;
 
 	--qmake=*)
-		arg_qmake_cmd=${arg:8}
+		arg_qmake_cmd=`echo ${arg} | cut -c 9-`
 		;;
 
 	--include_path=*)
-		arg_include_path=${arg:15}
+		arg_include_path=`echo ${arg} | cut -c 16-`
 		;;
 
 	--lib_path=*)
-		arg_lib_path=${arg:11}
+		arg_lib_path=`echo ${arg} | cut -c 12-`
 		;;
 
 	--qt_include_path=*)
-		arg_qt_include_path=${arg:18}
+		arg_qt_include_path=`echo ${arg} | cut -c 19-`
 		;;
 
 	--qt_lib_path=*)
-		arg_qt_lib_path=${arg:14}
+		arg_qt_lib_path=`echo ${arg} | cut -c 15-`
 		;;
 
 	--qsci_include_path=*)
-		arg_qsci_include_path=${arg:20}
+		arg_qsci_include_path=`echo ${arg} | cut -c 21-`
 		;;
 
 	--qsci_lib_path=*)
-		arg_qsci_lib_path=${arg:16}
+		arg_qsci_lib_path=`echo ${arg} | cut -c 17-`
 		;;
 
 	*)

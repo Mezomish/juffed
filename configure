@@ -8,10 +8,6 @@ prefix="/usr"
 bindir="${prefix}/bin"
 datadir="${prefix}/share"
 destdir="${datadir}/${PACKAGE_NAME}"
-include_path="${prefix}/include"
-qt_include_path="${include_path}/qt4"
-lib_path="${prefix}/lib"
-qt_lib_path="${lib_path}"
 
 usage() {
 	echo ""
@@ -23,10 +19,6 @@ usage() {
 	echo "   --prefix=<prefix>           Set prefix (default: /usr)"
 	echo "   --datadir=<dir>             Set data dir (default: ${prefix}/share"
 	echo "   --qmake=<name>              Set qmake executable"
-	echo "   --include_path=<path>       Set include path (default: ${prefix}/include)"
-	echo "   --lib_path=<path>           Set lib path (default: ${prefix}/lib)"
-	echo "   --qt_lib_path=<path>        Set Qt4 lib path (if non-standard)"
-	echo "   --qt_include_path=<path>    Set Qt4 include path (if non-standard)"
 	echo "   --qsci_lib_path=<path>      Set QScintilla lib path (if non-standard)"
 	echo "   --qsci_include_path=<path>  Set QScintilla include path (if non-standard)"
 	echo ""
@@ -66,22 +58,6 @@ for arg in ${@}; do
 		arg_qmake_cmd=`echo ${arg} | cut -c 9-`
 		;;
 
-	--include_path=*)
-		arg_include_path=`echo ${arg} | cut -c 16-`
-		;;
-
-	--lib_path=*)
-		arg_lib_path=`echo ${arg} | cut -c 12-`
-		;;
-
-	--qt_include_path=*)
-		arg_qt_include_path=`echo ${arg} | cut -c 19-`
-		;;
-
-	--qt_lib_path=*)
-		arg_qt_lib_path=`echo ${arg} | cut -c 15-`
-		;;
-
 	--qsci_include_path=*)
 		arg_qsci_include_path=`echo ${arg} | cut -c 21-`
 		;;
@@ -108,10 +84,6 @@ if [ -n "${arg_prefix}" ]; then
 	bindir="${prefix}/bin"
 	datadir="${prefix}/share"
 	destdir="${datadir}/${PACKAGE_NAME}"
-	include_path="${prefix}/include"
-	qt_include_path="${include_path}/qt4"
-	lib_path="${prefix}/lib"
-	qt_lib_path="${lib_path}"
 fi
 
 if [ -n "${arg_datadir}" ]; then
@@ -119,46 +91,11 @@ if [ -n "${arg_datadir}" ]; then
 	destdir="${datadir}/${PACKAGE_NAME}"
 fi
 
-if [ -n "${arg_include_path}" ]; then
-	include_path="${arg_include_path}"
-	qt_include_path="${include_path}/qt4"
-fi
-
-if [ -n "${arg_lib_path}" ]; then
-	lib_path="${arg_lib_path}"
-	qt_lib_path="${lib_path}"
-fi
-
-if [ -n "${arg_qt_include_path}" ]; then
-	qt_include_path="${arg_qt_include_path}"
-fi
-
-if [ -n "${arg_qt_lib_path}" ]; then
-	qt_lib_path="${arg_qt_lib_path}"
-fi
-
-#if [ -n "${}" ]; then
-#fi
-
 
 
 ############################################################
 #	Check for commands
 ############################################################
-
-#	g++
-echo -n "checking for g++... "
-if [ -n "${gpp_cmd}" ]; then
-	gpp_cmd=`which ${gpp_cmd}`
-else
-	gpp_cmd=`which g++`
-fi
-if [ -n "${gpp_cmd}" ]; then
-	echo "${gpp_cmd}"
-else
-	echo "no"
-	exit 1
-fi
 
 #	make
 echo -n "checking for make... "
@@ -214,26 +151,18 @@ fi
 #	Check for includes and libraries paths
 ############################################################
 
-rm cfg_qt4_test cfg_qt4_test.cpp 2>/dev/null
-qt_libs='QtCore QtGui QtXml'
-GXX="${gpp_cmd}"
-
 ##############################
 #	Qt4
+TEST_DIR="juffed_qt4_test_dir"
+
+rm -rf ${TEST_DIR} 2>/dev/null
+mkdir ${TEST_DIR}
+
 echo -n "Running Qt4 test... "
-
-if test "${qt_include_path}" != "${include_path}" ; then
-	include_path="${include_path} ${qt_include_path}"
-fi
-
-for d in ${qt_libs}; do
-	include_path="${include_path} ${qt_include_path}/${d}"
-done
-
 
 ###############
 #	test file
-cat > cfg_qt4_test.cpp << _TEST_EOF
+cat > ${TEST_DIR}/qt4_test.cpp << _TEST_EOF
 #include <QtCore/QObject>
 #include <QtGui/QWidget>
 #include <QtXml/QDomAttr>
@@ -242,68 +171,69 @@ cat > cfg_qt4_test.cpp << _TEST_EOF
 int main(){QWidget w;return 0;}
 _TEST_EOF
 
-for i_dir in ${include_path}; do
-	include_string=${include_string}" -I${i_dir}"
-done
-for l_dir in ${lib_path}; do
-	lib_string=${lib_string}" -L${l_dir}"
-done
-for l in ${qt_libs}; do
-	lib_string=${lib_string}" -l${l}"
-done
+cd ${TEST_DIR}
+${qmake_cmd} -project -o test.pro
+echo "" >> test.pro
+echo "QT  += xml" >> test.pro
+${qmake_cmd} 2>configure.log
+${make_cmd} 1>/dev/null 2>>configure.log
 
-if test "${lib_path}" != "${qt_lib_path}"; then
-	lib_string=${lib_string}" -L${qt_lib_path}"
-fi
-
-
-${GXX} cfg_qt4_test.cpp -o cfg_qt4_test ${include_string} ${lib_string} 2>configure.log
 test_prg=`cat configure.log`
+cd ..
+rm -rf ${TEST_DIR} 2>/dev/null
 
 if [ -z "${test_prg}" ]; then
-	echo "passed"
-	rm cfg_qt4_test cfg_qt4_test.cpp 2>/dev/null
+	echo "passed."
 else
 	echo "failed."
-	echo "Please check your libqt4-dev installation and/or specify valid --qt_lib_path and --qt_include_path"
-	rm cfg_qt4_test cfg_qt4_test.cpp 2>/dev/null
+	echo "Please check your libqt4-dev installation and configuration"
 	exit 1
 fi
 
 
 ##############################
 #	QScintilla2
+TEST_DIR="juffed_qsci_test_dir"
+
+rm -rf ${TEST_DIR} 2>/dev/null
+mkdir ${TEST_DIR}
 
 echo -n "Running QScintilla2 test... "
 
-#	libs
-if [ -n "${arg_qsci_lib_path}" ]; then
-	lib_string=${lib_string}" -L${arg_qsci_lib_path}"
-fi
-lib_string=${lib_string}" -lqscintilla2"
-#	includes
-if [ -n "${arg_qsci_include_path}" ]; then
-	include_path=${include_path}" ${arg_qsci_include_path}"
-	include_string=${include_string}" -I${arg_qsci_include_path}"
-fi
-
 ###############
 #	test file
-cat > cfg_qsci_test.cpp << _TEST_EOF
+cat > ${TEST_DIR}/cfg_qsci_test.cpp << _TEST_EOF
 #include <Qsci/qsciscintilla.h>
 int main(){QsciScintilla s;return 0;}
 _TEST_EOF
 
-${GXX} cfg_qsci_test.cpp -o cfg_qsci_test ${include_string} ${lib_string} 2>configure.log
+
+
+cd ${TEST_DIR}
+${qmake_cmd} -project -o test.pro
+echo "" >> test.pro
+echo "QT  += xml" >> test.pro
+echo "LIBS += -lqscintilla2" >> test.pro
+if [ -n "${arg_qsci_include_path}" ]; then
+	echo "INCLUDEPATH += ${arg_qsci_include_path}" >> test.pro
+fi
+if [ -n "${arg_qsci_lib_path}" ]; then
+	echo "LIBS += -L${arg_qsci_lib_path}" >> test.pro
+fi
+
+${qmake_cmd} 2>configure.log
+${make_cmd} 1>/dev/null 2>>configure.log
+
 test_prg=`cat configure.log`
+cd ..
+rm -rf ${TEST_DIR} 2>/dev/null
+
 
 if [ -z "${test_prg}" ]; then
 	echo "passed"
-	rm cfg_qsci_test cfg_qsci_test.cpp 2>/dev/null
 else
 	echo "failed."
 	echo "Please check your libqscintilla2-dev installation and/or specify valid --qsci_lib_path and --qsci_include_path"
-	rm cfg_qsci_test cfg_qsci_test.cpp 2>/dev/null
 	exit 1
 fi
 
@@ -407,10 +337,9 @@ echo 'TEMPLATE = app
 TARGET      = juffed
 DEPENDPATH  += .
 INCLUDEPATH += .
-INCLUDEPATH += '${include_path_2}'
 DESTDIR	    = ..
 QT          += xml
-LIBS        += '${lib_string}'
+LIBS        += -lqscintilla2
 
 # Input
 HEADERS += \
@@ -489,6 +418,12 @@ win32 {
 }
 
 RESOURCES = juffed.qrc' > src/juffed.pro
+if [ -n "${arg_qsci_include_path}" ]; then
+	echo "INCLUDEPATH += ${arg_qsci_include_path}" >> src/juffed.pro
+fi
+if [ -n "${arg_qsci_lib_path}" ]; then
+	echo "LIBS += -L${arg_qsci_lib_path}" >> src/juffed.pro
+fi
 
 
 
@@ -498,18 +433,33 @@ RESOURCES = juffed.qrc' > src/juffed.pro
 echo "# ${PACKAGE_NAME} was configured with the following parameters:" >> configure.log
 echo "#   --prefix=${arg_prefix}" >> configure.log
 echo "#   --datadir=${arg_datadir}" >> configure.log
-echo "#   --qmake=${arg_qmake}" >> configure.log
-echo "#   --include_path=${arg_include_path}" >> configure.log
-echo "#   --lib_path=${arg_lib_path}" >> configure.log
-echo "#   --qt_lib_path=${arg_qt_lib_path}" >> configure.log
-echo "#   --qt_include_path=${arg_qt_include_path}" >> configure.log
+echo "#   --qmake=${arg_qmake_cmd}" >> configure.log
 echo "#   --qsci_lib_path=${arg_qsci_lib_path}" >> configure.log
 echo "#   --qsci_include_path=${arg_qsci_include_path}" >> configure.log
 echo "" >> configure.log
 echo "# Current file 'configure.log' is a script that can reconfigure ${PACKAGE_NAME} with last used parameters" >> configure.log
 echo "# Just type './configure.log' in your shell" >> configure.log
 echo "" >> configure.log
-echo "./configure --prefix=${arg_prefix} --include_path=${arg_include_path} --lib_path=${arg_lib_path} --qt_include_path=${arg_qt_include_path} --qt_lib_path=${arg_qt_lib_path} --qsci_include_path=${arg_qsci_include_path} --qsci_lib_path=${arg_qsci_lib_path}" >> configure.log
+echo "" >> configure.log
+echo "# Here the script part starts:" >> configure.log
+echo "" >> configure.log
+echo -n "./configure" >> configure.log
+if [ -n "${arg_prefix}" ]; then
+	echo -n " --prefix=${arg_prefix}" >> configure.log
+fi
+if [ -n "${arg_datadir}" ]; then
+	echo -n " --datadir=${arg_datadir}" >> configure.log
+fi
+if [ -n "${arg_qmake_cmd}" ]; then
+	echo -n " --qmake=${arg_qmake_cmd}" >> configure.log
+fi
+if [ -n "${arg_qsci_include_path}" ]; then 
+	echo -n " --qsci_include_path=${arg_qsci_include_path}" >> configure.log
+fi
+if [ -n "${arg_qsci_lib_path}" ]; then
+	echo -n " --qsci_lib_path=${arg_qsci_lib_path}" >> configure.log
+fi
+echo "" >> configure.log
 chmod +x configure.log
 
 

@@ -352,10 +352,15 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 	if (name.isEmpty()) {
 		QString fileTypes("All files (*)");
 		fileTypes += ";;C/C++ files (*.c *.cpp *.cxx *.CPP *.CXX)";
+		fileTypes += ";;C# (*.cs)";
 		fileTypes += ";;Header files (*.h *.hpp *.H *.HPP)";
-		fileTypes += ";;Python (*.py)";
-		fileTypes += ";;HTML (*.htm *.html *.xhtml)";
+		fileTypes += ";;HTML (*.htm *.html *.xhtml *.dhtml)";
+		fileTypes += ";;IDL (*.idl)";
+		fileTypes += ";;Perl (*.pl)";
 		fileTypes += ";;PHP (*.php)";
+		fileTypes += ";;Python (*.py)";
+		fileTypes += ";;Ruby (*.rb)";
+		fileTypes += ";;SQL (*.sql)";
 		fileTypes += ";;XML (*.xml *.ui)";
 //		fileTypes += "";
 //		fileTypes += "";

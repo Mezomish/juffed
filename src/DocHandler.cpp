@@ -213,7 +213,9 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 	}
 
 	if (doc->isNull()) {
-		QString fName = QFileInfo(fileName).canonicalFilePath();
+		QString fName("");
+		if (!fileName.isEmpty())
+			fName = QFileInfo(fileName).canonicalFilePath();
 		
 		DocView* docView = createDocView();
 		doc = createDocument(fName, docView);

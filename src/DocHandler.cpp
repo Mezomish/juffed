@@ -348,6 +348,9 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 	//	TODO :	Move everything into the TextDoc
 	//
 	
+	if (QFileInfo(name).isDir())
+		return;
+
 	QStringList files;
 	if (name.isEmpty()) {
 		QString fileTypes("All files (*)");

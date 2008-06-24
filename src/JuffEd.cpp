@@ -96,6 +96,10 @@ public:
 						+ newLine + margin
 						+ QObject::tr("French translation");
 
+		thanks += QString("&nbsp;Giuliano S. Nascimento")
+						+ newLine + margin
+						+ QObject::tr("Brazilian Portuguese translation");
+
 		aboutDlg_->setText(text);
 		aboutDlg_->setAuthors(auth);
 		aboutDlg_->setThanks(thanks);

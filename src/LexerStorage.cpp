@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <Qsci/qscilexercsharp.h>
 #include <Qsci/qscilexercss.h>
 #include <Qsci/qscilexerd.h>
+#include <Qsci/qscilexerdiff.h>
 #include <Qsci/qscilexerhtml.h>
 #include <Qsci/qscilexeridl.h>
 #include <Qsci/qscilexerjava.h>
@@ -216,6 +217,17 @@ void LSInterior::readCustomStyle(const QString& name) {
 			<< Rule(styles["comment"], QList<int>() << QsciLexerMakefile::Comment)
 			<< Rule(styles["error"], QList<int>() << QsciLexerMakefile::Error);
 		schemes_[name] = mkSch;
+	}
+	else if (name.compare("Diff") == 0) {
+		Scheme diffSch;
+		diffSch.defaultStyle = styles["default"];
+		diffSch.rules << Rule(styles["lineadded"], QList<int>() << QsciLexerDiff::LineAdded)
+			<< Rule(styles["lineremoved"], QList<int>() << QsciLexerDiff::LineRemoved)
+			<< Rule(styles["command"], QList<int>() << QsciLexerDiff::Command)
+			<< Rule(styles["position"], QList<int>() << QsciLexerDiff::Position)
+			<< Rule(styles["header"], QList<int>() << QsciLexerDiff::Header)
+			<< Rule(styles["comment"], QList<int>() << QsciLexerDiff::Comment);
+		schemes_[name] = diffSch;
 	}
 	else if (name.compare("Java") == 0) {
 		Scheme javaSch;
@@ -417,6 +429,9 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if (name.compare("Makefile") == 0) {
 			newLexer = new QsciLexerMakefile();
 		}
+		else if (name.compare("Diff") == 0) {
+			newLexer = new QsciLexerDiff();
+		}
 		else if (name.compare("Python") == 0) {
 			newLexer = new QsciLexerPython();
 		}
@@ -495,6 +510,9 @@ QString LexerStorage::lexerName(const QString& fileName) const {
 	else if (lsInt_->cppExtList_.contains(ext)) {
 		name = "C++";
 	}
+	else if (ext.compare("diff") == 0 || ext.compare("patch") == 0) {
+		name = "Diff";
+	}
 	else if (ext.compare("java") == 0) {
 		name = "Java";
 	}
@@ -556,9 +574,9 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 
 void LexerStorage::getLexersList(QStringList& list) {
 	list.clear();
-	list << "none" << "Bash" << "C++" << "C#" << "CSS" << "D" << "HTML" << "Java" 
-				<< "JavaScript" << "IDL" << "Lua" << "Makefile" << "Perl" << "Python" 
-				<< "Ruby" << "SQL" << "XML";
+	list << "none" << "Bash" << "C++" << "C#" << "CSS" << "D" << "Diff" << "HTML" 
+				<< "Java" << "JavaScript" << "IDL" << "Lua" << "Makefile" << "Perl" 
+				<< "Python" << "Ruby" << "SQL" << "XML";
 }
 
 void LexerStorage::updateLexer(const QString& name, const QFont& font) {

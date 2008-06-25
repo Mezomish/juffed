@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="Diff" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+	<style name="lineadded" color="#009900" bold="false" italic="false" />
+	<style name="lineremoved" color="#cc0000" bold="false" italic="false" />
+	<style name="comment" color="#609090" bold="false" italic="true" />
+	<style name="header" color="#666699" bold="false" italic="false" />
+	<style name="position" color="#aaaa33" bold="false" italic="false" />
+	<style name="command" color="#000066" bold="true" italic="false" />
+</scheme>
+</JuffScheme>

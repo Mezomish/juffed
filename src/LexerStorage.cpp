@@ -575,7 +575,7 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 void LexerStorage::getLexersList(QStringList& list) {
 	list.clear();
 	list << "none" << "Bash" << "C++" << "C#" << "CSS" << "D" << "Diff" << "HTML" 
-				<< "Java" << "JavaScript" << "IDL" << "Lua" << "Makefile" << "Perl" 
+				<< "IDL" << "Java" << "JavaScript" << "Lua" << "Makefile" << "Perl" 
 				<< "Python" << "Ruby" << "SQL" << "XML";
 }
 

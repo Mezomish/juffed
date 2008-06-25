@@ -1,3 +1,10 @@
+2008-06-23:
+* Added file types templates to 'Open' dialog (C#, IDL, 
+  Perl, Ruby, SQL)
+* Hopefully fixed bug with opening the current dir (appered 
+  on FreeBSD)
+* Added Portuguese localization
+
 2008-05-03:
 * Added: packaging script for Debian-based distros
 

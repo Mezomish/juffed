@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="de">
-<defaultcodec></defaultcodec>
 <context>
     <name>AboutDlg</name>
     <message>
@@ -562,7 +561,7 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="101"/>
         <source>Brazilian Portuguese translation</source>
-        <translation type="unfinished"></translation>
+        <translation> Brasilianisch-Portugiesische Übersetzung</translation>
     </message>
 </context>
 <context>

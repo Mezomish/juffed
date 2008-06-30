@@ -94,9 +94,12 @@ public:
 						+ newLine + margin
 						+ QString("<a href='mailto:shadosan@gmail.com'>shadosan@gmail.com</a>")
 						+ newLine + margin
-						+ QObject::tr("French translation");
+						+ QObject::tr("French translation")
+						+ newLine + newLine;
 
 		thanks += QString("&nbsp;Giuliano S. Nascimento")
+						+ newLine + margin
+						+ QString("<a href='mailto:giusoft.tecnologia@gmail.com'>giusoft.tecnologia@gmail.com</a>")
 						+ newLine + margin
 						+ QObject::tr("Brazilian Portuguese translation");
 

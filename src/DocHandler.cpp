@@ -206,13 +206,19 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 	Juff::Document* doc = NullDoc::instance();
 	
 	if (!fileName.isEmpty()) {
-		if (!QFileInfo(fileName).isFile())
+		//	there was a non-empty argument received
+		if (!QFileInfo(fileName).isFile()) {
+			//	argument is not a file. return NullDoc
 			return doc;
-		else
+		}
+		else {
+			//	argument is a file. Try to find it among already opened.
 			doc = findDocument(fileName);
+		}
 	}
 
 	if (doc->isNull()) {
+		//	the received file wasn't found among opened ones
 		QString fName("");
 		if (!fileName.isEmpty())
 			fName = QFileInfo(fileName).canonicalFilePath();
@@ -377,7 +383,7 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 		if (curDoc != 0 && !curDoc->isNull())
 			curDocFileName = curDoc->fileName();
 
-		if (MainSettings::useCurrentDocDir() && QFileInfo(curDocFileName).exists()) {
+		if (MainSettings::syncOpenDialogToCurDoc() && QFileInfo(curDocFileName).exists()) {
 			startDir = QFileInfo(curDocFileName).absolutePath();
 		}
 		else {
@@ -411,6 +417,7 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 		if (doc->isNull()) {
 			if (!newDocument(name)->isNull()) {
 				addToRecentFiles(name);
+				MainSettings::setLastOpenDir(QFileInfo(name).absolutePath());
 			}
 		}
 		else {

@@ -5,7 +5,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>365</width>
+    <width>473</width>
     <height>347</height>
    </rect>
   </property>
@@ -27,6 +27,52 @@
    <property name="spacing" >
     <number>6</number>
    </property>
+   <item row="4" column="0" colspan="4" >
+    <widget class="QCheckBox" name="makeBackupChk" >
+     <property name="text" >
+      <string>Make backup copy when save file</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="4" >
+    <widget class="QCheckBox" name="singleInstanceChk" >
+     <property name="toolTip" >
+      <string>Use existing instance of application when open files</string>
+     </property>
+     <property name="text" >
+      <string>Open files in existing instance</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3" >
+    <widget class="QSpinBox" name="autoSaveIntervalSpin" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+     <property name="suffix" >
+      <string> minute(s)</string>
+     </property>
+     <property name="prefix" >
+      <string/>
+     </property>
+     <property name="maximum" >
+      <number>30</number>
+     </property>
+     <property name="minimum" >
+      <number>1</number>
+     </property>
+     <property name="value" >
+      <number>2</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2" >
+    <widget class="QCheckBox" name="saveSessionChk" >
+     <property name="text" >
+      <string>Save session when close</string>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0" colspan="4" >
     <layout class="QGridLayout" >
      <property name="margin" >
@@ -86,24 +132,7 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0" colspan="4" >
-    <widget class="QCheckBox" name="singleInstanceChk" >
-     <property name="toolTip" >
-      <string>Use existing instance of application when open files</string>
-     </property>
-     <property name="text" >
-      <string>Open files in existing instance</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="4" >
-    <widget class="QCheckBox" name="makeBackupChk" >
-     <property name="text" >
-      <string>Make backup copy when save file</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1" colspan="3" >
+   <item row="6" column="1" colspan="3" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -116,43 +145,14 @@
      </property>
     </spacer>
    </item>
-   <item row="4" column="0" >
+   <item row="5" column="0" >
     <widget class="QCheckBox" name="autoSaveChk" >
      <property name="text" >
       <string>Auto save every</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2" >
-    <widget class="QCheckBox" name="saveSessionChk" >
-     <property name="text" >
-      <string>Save session when close</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="3" >
-    <widget class="QSpinBox" name="autoSaveIntervalSpin" >
-     <property name="enabled" >
-      <bool>false</bool>
-     </property>
-     <property name="suffix" >
-      <string> minute(s)</string>
-     </property>
-     <property name="prefix" >
-      <string/>
-     </property>
-     <property name="maximum" >
-      <number>30</number>
-     </property>
-     <property name="minimum" >
-      <number>1</number>
-     </property>
-     <property name="value" >
-      <number>2</number>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="2" >
+   <item row="5" column="2" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Horizontal</enum>
@@ -164,6 +164,13 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="2" column="0" >
+    <widget class="QCheckBox" name="syncOpenDlgChk" >
+     <property name="text" >
+      <string>Sync 'Open' dialog to current doc's dir</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

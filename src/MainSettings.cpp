@@ -24,8 +24,8 @@ QString MainSettings::lastOpenDir() {
 	return Settings::stringValue("main", "lastOpenDir", QDir::homePath()); 
 }
 
-bool MainSettings::useCurrentDocDir() {
-	return Settings::boolValue("main", "useCurrentDocDir", false);
+bool MainSettings::syncOpenDialogToCurDoc() {
+	return Settings::boolValue("main", "syncOpenDialogToCurDoc", false);
 }
 
 QString MainSettings::lastSaveDir() { 

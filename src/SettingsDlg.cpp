@@ -149,6 +149,7 @@ void SettingsDlg::init() {
 	}
 
 	pageMain_->ui.saveSessionChk->setChecked(MainSettings::saveSessionOnClose());
+	pageMain_->ui.syncOpenDlgChk->setChecked(MainSettings::syncOpenDialogToCurDoc());
 	pageMain_->ui.makeBackupChk->setChecked(MainSettings::makeBackupOnSave());
 	int autoSaveInterval = MainSettings::autoSaveInterval();
 	if (autoSaveInterval > 0) {
@@ -208,6 +209,7 @@ void SettingsDlg::apply() {
 	MainSettings::setStartupVariant(startupVariant);
 
 	MainSettings::setSaveSessionOnClose(pageMain_->ui.saveSessionChk->isChecked());
+	MainSettings::setSyncOpenDialogToCurDoc(pageMain_->ui.syncOpenDlgChk->isChecked());
 	MainSettings::setMakeBackupOnSave(pageMain_->ui.makeBackupChk->isChecked());
 	int asInterval = pageMain_->ui.autoSaveIntervalSpin->value();
 	if (pageMain_->ui.autoSaveChk->isChecked())

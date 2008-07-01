@@ -27,8 +27,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class MainSettings : public Settings {
 public:
 	static QString lastOpenDir();
-	static bool useCurrentDocDir();
 	static QString lastSaveDir();
+	static bool syncOpenDialogToCurDoc();
 	static int tabPosition();
 	static QRect windowRect();
 	static bool isMaximized();
@@ -47,6 +47,7 @@ public:
 	
 	static void setLastOpenDir(const QString& dir) { Settings::setValue("main", "lastOpenDir", dir); }
 	static void setLastSaveDir(const QString& dir) { Settings::setValue("main", "lastSaveDir", dir); }
+	static void setSyncOpenDialogToCurDoc(bool sync) { Settings::setValue("main", "syncOpenDialogToCurDoc", sync); }
 	static void setWindowRect(const QRect& rect) { Settings::setValue("main", "geometry", rect); }
 	static void setMaximized(bool maximized) { Settings::setValue("main", "isMaximized", maximized); }
 	static void setTabPosition(int pos) { Settings::setValue("main", "tabPosition", pos); }

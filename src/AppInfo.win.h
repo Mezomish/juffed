@@ -29,7 +29,7 @@ public:
 	static QString organization() { return "Juff"; }
 	static QString configDir() { return QDir::homePath() + "/.config/" + organization().toLower(); }
 	static QString configFile() { return configDir() + "/" + name().toLower() + ".conf"; }
-	static QString version() { return "0.3-beta1"; }
+	static QString version() { return "0.3-beta2-svn"; }
 	static QString logFile() { return configDir() + "/juffed.log"; }
 	static QString socketPath() { return "/tmp/juffed"; }
 	static QString appDirPath() { return QCoreApplication::applicationDirPath(); }

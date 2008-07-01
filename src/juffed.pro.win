@@ -77,6 +77,7 @@ TRANSLATIONS = \
 	../l10n/juffed_de.ts \
 	../l10n/juffed_fr.ts \
 	../l10n/juffed_sp.ts \
+	../l10n/juffed_pt.ts \
 	
 win32 {
 	RC_FILE = juffed.rc

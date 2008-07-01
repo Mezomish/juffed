@@ -140,22 +140,22 @@ Co chcesz zrobić?</translation>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="96"/>
         <source>Indents</source>
-        <translation type="unfinished"></translation>
+        <translation>Wcięcia</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="141"/>
         <source>Replace tabs with spaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamienia zakładki z odstępami</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="156"/>
         <source>Backspace removes indent</source>
-        <translation type="unfinished"></translation>
+        <translation>Backspace (znak cofania) usuwa wcięcie</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="173"/>
         <source>Misc</source>
-        <translation type="unfinished"></translation>
+        <translation>Misc</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="249"/>
@@ -167,13 +167,16 @@ Co chcesz zrobić?</translation>
         <source>If &quot;Replace tabs with spaces&quot; option is checked, 
 the current option lets backspace key to remove the 
 whole indent instead of removind single whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli &quot;Zamienia zakładki z odstępami&quot; jest zaznaczone,
+bieżąca opcja pozwala klawiszowi cofania usunąć
+całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="245"/>
         <source>Sets the default view of 
 newly created/opened docs</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustawia domyślny widok
+nowy utworzony/otwarty dokument</translation>
     </message>
 </context>
 <context>
@@ -560,7 +563,7 @@ Co chcesz zrobić?</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="101"/>
         <source>Brazilian Portuguese translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Brazylijskie portugalskie tłumaczenie</translation>
     </message>
 </context>
 <context>

@@ -59,3 +59,9 @@ bool TextDocSettings::replaceTabsWithSpaces() {
 bool TextDocSettings::backspaceUnindents() {
 	return Settings::boolValue("editor", "backspaceUnindents", false);
 }
+
+QColor TextDocSettings::markersColor() {
+	QColor deflt(100, 200, 100);
+	QColor c = Settings::value("editor", "markersColor").value<QColor>();
+	return c.isValid() ? c : deflt;
+}

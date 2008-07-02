@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Settings.h"
 
+#include <QtGui/QColor>
 #include <QtGui/QFont>
 
 class TextDocSettings : public Settings {
@@ -34,6 +35,7 @@ public:
 	static bool highlightCurrentLine();
 	static bool replaceTabsWithSpaces();
 	static bool backspaceUnindents();
+	static QColor markersColor();
 	
 	static void setFont(const QFont& font) { Settings::setValue("editor", "fontFamily", font.family()); Settings::setValue("editor", "fontSize", font.pointSize()); }
 	static void setWidthAdjust(bool adj) { Settings::setValue("editor", "widthAdjust", adj); }
@@ -44,6 +46,7 @@ public:
 	static void setHighlightCurrentLine(bool hl) { Settings::setValue("editor", "highlightCurrentLine", hl); }
 	static void setReplaceTabsWithSpaces(bool replace) { Settings::setValue("editor", "replaceTabsWithSpaces", replace); }
 	static void setBackspaceUnindents(bool unindents) { Settings::setValue("editor", "backspaceUnindents", unindents); }
+	static void setMarkersColor(const QColor& color) { Settings::setValue("editor", "markersColor", color); }
 };
 
 #endif

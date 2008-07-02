@@ -104,7 +104,7 @@ public:
 		edit_->markerDefine(QsciScintilla::RightTriangle, 1);
 		edit_->markerDefine(QsciScintilla::Background, 2);
 		edit_->setMarkerForegroundColor(QColor(100, 100, 100));
-		edit_->setMarkerBackgroundColor(QColor(100, 200, 100));
+		edit_->setMarkerBackgroundColor(TextDocSettings::markersColor());
 		
 		parent->setFocusProxy(edit_);
 		parent->connect(edit_, SIGNAL(cursorPositionChanged(int, int)), parent, SIGNAL(cursorPositionChanged(int, int)));
@@ -271,7 +271,7 @@ void TextDocView::applySettings() {
 	vInt_->edit_->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
 	vInt_->edit_->setIndentationGuides(TextDocSettings::showIndents());
 	vInt_->edit_->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
-	
+	vInt_->edit_->setMarkerBackgroundColor(TextDocSettings::markersColor());
 }
 
 

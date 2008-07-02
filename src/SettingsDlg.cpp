@@ -32,6 +32,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #endif
 
+#include "ColorButton.h"
 #include "MultiPage.h"
 #include "MainSettings.h"
 #include "TextDocSettings.h"
@@ -62,8 +63,15 @@ class EditorSettingsPage : public QWidget {
 public:
 	EditorSettingsPage() : QWidget () {
 		ui.setupUi(this);
+
+		//	Creating a ColorButton extension. It doesn't demand to be deleted 
+		//	manually 'cause it will be deleted automatically when it's parent 
+		//	button is deleted
+		markersColorBtn_ = new ColorButton(ui.markerColorBtn, TextDocSettings::markersColor());
 	}
+	
 	Ui::EditorSettingsPage ui;
+	ColorButton* markersColorBtn_;
 };
 
 #include "CharsetsSettingsPage.h"
@@ -184,7 +192,7 @@ void SettingsDlg::init() {
 	pageEditor_->ui.hlCurLineChk->setChecked(TextDocSettings::highlightCurrentLine());
 	pageEditor_->ui.replaceTabsChk->setChecked(TextDocSettings::replaceTabsWithSpaces());
 	pageEditor_->ui.unindentChk->setChecked(TextDocSettings::backspaceUnindents());
-
+	
 	pageCharsets_->init();
 }
 
@@ -236,6 +244,7 @@ void SettingsDlg::apply() {
 	TextDocSettings::setHighlightCurrentLine(pageEditor_->ui.hlCurLineChk->isChecked());
 	TextDocSettings::setReplaceTabsWithSpaces(pageEditor_->ui.replaceTabsChk->isChecked());
 	TextDocSettings::setBackspaceUnindents(pageEditor_->ui.unindentChk->isChecked());
+	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
 
 	pageCharsets_->applySettings();
 

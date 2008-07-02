@@ -368,6 +368,7 @@ HEADERS += \
 		SocketListener.h \
 		LexerStorage.h \
 		IconManager.h \
+		ColorButton.h \
 
 SOURCES += \
 		DocHandler.cpp \
@@ -397,6 +398,7 @@ SOURCES += \
 		MainSettings.cpp \
 		TextDocSettings.cpp \
 		CharsetsSettings.cpp \
+		ColorButton.cpp \
 		
 FORMS += \
 		CharsetsSettingsPage.ui \

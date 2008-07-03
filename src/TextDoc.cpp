@@ -267,6 +267,10 @@ void TextDoc::processTheCommand(CommandID id) {
 			tdView->setAdjustedByWidth(!tdView->isAdjustedByWidth());
 		break;
 
+	case ID_VIEW_SHOW_WHITESPACES :
+		tdView->showWhitespaces(!tdView->whitespacesVisible());
+		break;
+
 	default:
 		Log::debug(QString("Unknown action ID: %1").arg(id));
 		break;

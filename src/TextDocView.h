@@ -40,6 +40,8 @@ public:
 
 	bool lineNumIsVisible() const;
 	void setLineNumVisible(bool);
+	void showWhitespaces(bool);
+	bool whitespacesVisible() const;
 	bool isAdjustedByWidth() const;
 	void setAdjustedByWidth(bool adjust);
 	void setModified(bool);

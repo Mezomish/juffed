@@ -259,6 +259,7 @@ void JuffEd::createCommands() {
 		//
 		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(),	QKeySequence("F11"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(),	QKeySequence("F10"), h, SLOT(processTheCommand())),
+		Command(ID_VIEW_SHOW_WHITESPACES,	tr("Show whitespaces"),		QIcon(),	QKeySequence(), h, SLOT(processTheCommand())),
 		//
 		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	im->icon("addRemoveMarker"),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
 		Command(ID_MARKER_NEXT,				tr("Next marker"),			im->icon("nextMarker"),			QKeySequence("Ctrl+Alt+PgDown"),this, SLOT(nextMarker())),
@@ -290,6 +291,7 @@ void JuffEd::createCommands() {
 
 	CommandStorage::instance()->action(ID_VIEW_SHOW_LINE_NUMBERS)->setCheckable(true);
 	CommandStorage::instance()->action(ID_VIEW_WIDTH_ADJUST)->setCheckable(true);
+	CommandStorage::instance()->action(ID_VIEW_SHOW_WHITESPACES)->setCheckable(true);
 
 	if (jInt_->recentFilesMenu_ != 0)
 		jInt_->recentFilesMenu_->setIcon(im->icon("fileOpen"));
@@ -307,7 +309,8 @@ void JuffEd::createMenuBar() {
 					ID_EDIT_REDO, ID_SEPARATOR, ID_FIND, ID_FIND_NEXT, ID_FIND_PREV, 
 					ID_SEPARATOR, ID_GOTO_LINE, ID_NONE };
 
-	CommandID viewMenu[] = { ID_VIEW_SHOW_LINE_NUMBERS, ID_VIEW_WIDTH_ADJUST, ID_NONE };
+	CommandID viewMenu[] = { ID_VIEW_SHOW_LINE_NUMBERS, ID_VIEW_WIDTH_ADJUST, 
+					ID_VIEW_SHOW_WHITESPACES, ID_NONE };
 
 	CommandID markersMenu[] = { ID_NONE };	
 
@@ -626,6 +629,12 @@ void JuffEd::docSwitched(QWidget* w) {
 		adjustAction->setChecked(tdView->isAdjustedByWidth());
 	}
 
+	//	show whitespaces menu item
+	QAction* showWSAction = CommandStorage::instance()->action(ID_VIEW_SHOW_WHITESPACES);
+	if (showWSAction != 0) {
+		showWSAction->setChecked(tdView->whitespacesVisible());
+	}
+	
 	displayFileName(tdView->document()->fileName());
 	int row(0), col(0);
 	tdView->getCursorPos(row, col);

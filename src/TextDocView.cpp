@@ -208,6 +208,14 @@ void TextDocView::setLineNumVisible(bool visible) {
 	updateLineNums();
 }
 
+void TextDocView::showWhitespaces(bool show) {
+	vInt_->edit_->setWhitespaceVisibility(show ? QsciScintilla::WsVisible : QsciScintilla::WsInvisible);
+}
+
+bool TextDocView::whitespacesVisible() const {
+	return (vInt_->edit_->whitespaceVisibility() == QsciScintilla::WsVisible);
+}
+
 bool TextDocView::isAdjustedByWidth() const {
 	return vInt_->adjustedByWidth_;
 }

@@ -564,9 +564,9 @@ void DocHandler::openSession(const QString& session) {
 			QString fileName("");
 			while (!sess.atEnd()) {
 				QString lineStr = sess.readLine().simplified();
-				fileName = lineStr.section(':', 0, 0);
-				int scrPos = lineStr.section(':', 1, 1).toInt();
-				int line = lineStr.section(':', 2, 2).toInt();
+				fileName = lineStr.section(':', 0, -3);
+				int scrPos = lineStr.section(':', -2, -2).toInt();
+				int line = lineStr.section(':', -1, -1).toInt();
 				if (!fileName.isEmpty()) {
 					doc = newDocument(fileName);
 					if (doc != 0 && !doc->isNull()) {

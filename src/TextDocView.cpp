@@ -88,7 +88,7 @@ public:
 		
 		edit_ = new MyQScintilla(parent);
 		edit_->setUtf8(true);
-		edit_->setCaretLineBackgroundColor(QColor(230, 230, 250));
+		edit_->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
 		edit_->setIndentationGuidesForegroundColor(QColor(200, 200, 200));
 		edit_->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 		edit_->setAutoIndent(true);
@@ -272,6 +272,7 @@ void TextDocView::applySettings() {
 	vInt_->edit_->setIndentationGuides(TextDocSettings::showIndents());
 	vInt_->edit_->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
 	vInt_->edit_->setMarkerBackgroundColor(TextDocSettings::markersColor());
+	vInt_->edit_->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
 }
 
 

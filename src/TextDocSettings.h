@@ -36,6 +36,7 @@ public:
 	static bool replaceTabsWithSpaces();
 	static bool backspaceUnindents();
 	static QColor markersColor();
+	static QColor curLineColor();
 	
 	static void setFont(const QFont& font) { Settings::setValue("editor", "fontFamily", font.family()); Settings::setValue("editor", "fontSize", font.pointSize()); }
 	static void setWidthAdjust(bool adj) { Settings::setValue("editor", "widthAdjust", adj); }
@@ -47,6 +48,7 @@ public:
 	static void setReplaceTabsWithSpaces(bool replace) { Settings::setValue("editor", "replaceTabsWithSpaces", replace); }
 	static void setBackspaceUnindents(bool unindents) { Settings::setValue("editor", "backspaceUnindents", unindents); }
 	static void setMarkersColor(const QColor& color) { Settings::setValue("editor", "markersColor", color); }
+	static void setCurLineColor(const QColor& color) { Settings::setValue("editor", "curLineColor", color); }
 };
 
 #endif

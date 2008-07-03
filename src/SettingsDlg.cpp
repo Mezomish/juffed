@@ -64,13 +64,15 @@ public:
 	EditorSettingsPage() : QWidget () {
 		ui.setupUi(this);
 
-		//	Creating a ColorButton extension. It doesn't demand to be deleted 
-		//	manually 'cause it will be deleted automatically when it's parent 
-		//	button is deleted
+		//	Creating ColorButton extensions. We shouldn't delete them
+		//	manually 'cause they will be deleted automatically when their 
+		//	parent buttons are deleted
+		curLineColorBtn_ = new ColorButton(ui.curLineColorBtn, TextDocSettings::curLineColor());
 		markersColorBtn_ = new ColorButton(ui.markerColorBtn, TextDocSettings::markersColor());
 	}
 	
 	Ui::EditorSettingsPage ui;
+	ColorButton* curLineColorBtn_;
 	ColorButton* markersColorBtn_;
 };
 
@@ -245,6 +247,7 @@ void SettingsDlg::apply() {
 	TextDocSettings::setReplaceTabsWithSpaces(pageEditor_->ui.replaceTabsChk->isChecked());
 	TextDocSettings::setBackspaceUnindents(pageEditor_->ui.unindentChk->isChecked());
 	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
+	TextDocSettings::setCurLineColor(pageEditor_->curLineColorBtn_->color());
 
 	pageCharsets_->applySettings();
 

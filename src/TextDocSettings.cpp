@@ -65,3 +65,9 @@ QColor TextDocSettings::markersColor() {
 	QColor c = Settings::value("editor", "markersColor").value<QColor>();
 	return c.isValid() ? c : deflt;
 }
+
+QColor TextDocSettings::curLineColor() {
+	QColor deflt(230, 250, 230);
+	QColor c = Settings::value("editor", "curLineColor").value<QColor>();
+	return c.isValid() ? c : deflt;
+}

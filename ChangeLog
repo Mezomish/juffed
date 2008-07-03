@@ -1,6 +1,7 @@
 2008-07-02:
 * Added: syncronizing file open dialog with current doc's dir
-* Added: color selection for markers
+* Added: custom color for markers
+* Added: custom color for current line highlighting
 * Added: unindention of selected text with Shift+Tab
 * Added: --lrelease option to configure script
 

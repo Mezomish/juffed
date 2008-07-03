@@ -94,3 +94,54 @@ bool MainSettings::closeTabsInOrderOfUse() {
 bool MainSettings::singleInstance() { 
 	return Settings::value("main", "singleInstance").toBool(); 
 }
+
+
+
+void MainSettings::setLastOpenDir(const QString& dir) { 
+	Settings::setValue("main", "lastOpenDir", dir); 
+}
+void MainSettings::setLastSaveDir(const QString& dir) { 
+	Settings::setValue("main", "lastSaveDir", dir); 
+}
+void MainSettings::setSyncOpenDialogToCurDoc(bool sync) { 
+	Settings::setValue("main", "syncOpenDialogToCurDoc", sync); 
+}
+void MainSettings::setWindowRect(const QRect& rect) { 
+	Settings::setValue("main", "geometry", rect); 
+}
+void MainSettings::setMaximized(bool maximized) { 
+	Settings::setValue("main", "isMaximized", maximized); 
+}
+void MainSettings::setTabPosition(int pos) { 
+	Settings::setValue("main", "tabPosition", pos); 
+}
+void MainSettings::setIconTheme(const QString& theme) { 
+	Settings::setValue("main", "iconTheme", theme); 
+}
+void MainSettings::setToolButtonStyle(int style) { 
+	Settings::setValue("main", "toolButtonStyle", style); 
+}
+void MainSettings::setIconSize(int sz) { 
+	Settings::setValue("main", "iconSize", sz); 
+}
+void MainSettings::setStartupVariant(int v) { 
+	Settings::setValue("main", "startupVariant", v); 
+}
+void MainSettings::setLastSessionName(const QString& session) { 
+	Settings::setValue("main", "lastSessionName", session); 
+}
+void MainSettings::setSaveSessionOnClose(bool save) { 
+	Settings::setValue("main", "saveSessionOnClose", save); 
+}
+void MainSettings::setRecentFiles(const QString& files) { 
+	Settings::setValue("main", "recentFiles", files); 
+}
+void MainSettings::setMakeBackupOnSave(bool bkp) { 
+	Settings::setValue("main", "makeBackupOnSave", bkp); 
+}
+void MainSettings::setAutoSaveInterval(int interval) { 
+	Settings::setValue("main", "autoSaveInterval", interval); 
+}
+void MainSettings::setSingleInstance(bool single) { 
+	Settings::setValue("main", "singleInstance", single); 
+}

@@ -45,22 +45,22 @@ public:
 	static bool closeTabsInOrderOfUse();
 	static bool singleInstance();
 	
-	static void setLastOpenDir(const QString& dir) { Settings::setValue("main", "lastOpenDir", dir); }
-	static void setLastSaveDir(const QString& dir) { Settings::setValue("main", "lastSaveDir", dir); }
-	static void setSyncOpenDialogToCurDoc(bool sync) { Settings::setValue("main", "syncOpenDialogToCurDoc", sync); }
-	static void setWindowRect(const QRect& rect) { Settings::setValue("main", "geometry", rect); }
-	static void setMaximized(bool maximized) { Settings::setValue("main", "isMaximized", maximized); }
-	static void setTabPosition(int pos) { Settings::setValue("main", "tabPosition", pos); }
-	static void setIconTheme(const QString& theme) { Settings::setValue("main", "iconTheme", theme); }
-	static void setToolButtonStyle(int style) { Settings::setValue("main", "toolButtonStyle", style); }
-	static void setIconSize(int sz) { Settings::setValue("main", "iconSize", sz); }
-	static void setStartupVariant(int v) { Settings::setValue("main", "startupVariant", v); }
-	static void setLastSessionName(const QString& session) { Settings::setValue("main", "lastSessionName", session); }
-	static void setSaveSessionOnClose(bool save) { Settings::setValue("main", "saveSessionOnClose", save); }
-	static void setRecentFiles(const QString& files) { Settings::setValue("main", "recentFiles", files); }
-	static void setMakeBackupOnSave(bool bkp) { Settings::setValue("main", "makeBackupOnSave", bkp); }
-	static void setAutoSaveInterval(int interval) { Settings::setValue("main", "autoSaveInterval", interval); }
-	static void setSingleInstance(bool single) { Settings::setValue("main", "singleInstance", single); }
+	static void setLastOpenDir(const QString& dir);
+	static void setLastSaveDir(const QString& dir);
+	static void setSyncOpenDialogToCurDoc(bool sync);
+	static void setWindowRect(const QRect& rect);
+	static void setMaximized(bool maximized);
+	static void setTabPosition(int pos);
+	static void setIconTheme(const QString& theme);
+	static void setToolButtonStyle(int style);
+	static void setIconSize(int sz);
+	static void setStartupVariant(int v);
+	static void setLastSessionName(const QString& session);
+	static void setSaveSessionOnClose(bool save);
+	static void setRecentFiles(const QString& files);
+	static void setMakeBackupOnSave(bool bkp);
+	static void setAutoSaveInterval(int interval);
+	static void setSingleInstance(bool single);
 };
 
 #endif

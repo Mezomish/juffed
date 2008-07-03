@@ -445,6 +445,7 @@ echo "# ${PACKAGE_NAME} was configured with the following parameters:" >> config
 echo "#   --prefix=${arg_prefix}" >> configure.log
 echo "#   --datadir=${arg_datadir}" >> configure.log
 echo "#   --qmake=${arg_qmake_cmd}" >> configure.log
+echo "#   --lrelease=${arg_lrelease_cmd}" >> configure.log
 echo "#   --qsci_lib_path=${arg_qsci_lib_path}" >> configure.log
 echo "#   --qsci_include_path=${arg_qsci_include_path}" >> configure.log
 echo "" >> configure.log
@@ -463,6 +464,9 @@ if [ -n "${arg_datadir}" ]; then
 fi
 if [ -n "${arg_qmake_cmd}" ]; then
 	echo -n " --qmake=${arg_qmake_cmd}" >> configure.log
+fi
+if [ -n "${arg_lrelease_cmd}" ]; then
+	echo -n " --lrelease=${arg_lrelease_cmd}" >> configure.log
 fi
 if [ -n "${arg_qsci_include_path}" ]; then 
 	echo -n " --qsci_include_path=${arg_qsci_include_path}" >> configure.log

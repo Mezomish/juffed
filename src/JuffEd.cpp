@@ -255,6 +255,7 @@ void JuffEd::createCommands() {
 		Command(ID_FIND_NEXT,	tr("Find next"), im->icon("findNext"),	QKeySequence("F3"), h, SLOT(processTheCommand())),
 		Command(ID_FIND_PREV,	tr("Find previous"), im->icon("findPrev"), QKeySequence("Shift+F3"), h, SLOT(processTheCommand())),
 		Command(ID_GOTO_LINE,	tr("Go to line"), im->icon("gotoLine"),	QKeySequence("Ctrl+G"), h, SLOT(processTheCommand())),
+		Command(ID_UNINDENT,	tr("Unindent"), im->icon("unindent"),	QKeySequence("Shift+Tab"), h, SLOT(processTheCommand())),
 		//
 		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(),	QKeySequence("F11"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(),	QKeySequence("F10"), h, SLOT(processTheCommand())),
@@ -339,6 +340,9 @@ void JuffEd::createMenuBar() {
 	if (action != 0)
 		addAction(action);
 	action = CommandStorage::instance()->action(ID_DOC_NEXT);
+	if (action != 0)
+		addAction(action);
+	action = CommandStorage::instance()->action(ID_UNINDENT);
 	if (action != 0)
 		addAction(action);
 

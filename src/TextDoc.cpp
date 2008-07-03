@@ -253,6 +253,10 @@ void TextDoc::processTheCommand(CommandID id) {
 			break;
 		}
 
+	case ID_UNINDENT :
+		tdView->unindentSelectedLines();
+		break;
+	
 	case ID_VIEW_SHOW_LINE_NUMBERS :
 		if (tdView != 0)
 			tdView->setLineNumVisible(!tdView->lineNumIsVisible());

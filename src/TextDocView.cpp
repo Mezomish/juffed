@@ -297,6 +297,18 @@ void TextDocView::undo() {
 void TextDocView::redo() {
 	vInt_->edit_->redo();
 }
+
+void TextDocView::unindentSelectedLines() {
+	int lineFrom(-1), lineTo(-1), colFrom(-1), colTo(-1);
+	vInt_->edit_->getSelection(&lineFrom, &colFrom, &lineTo, &colTo);
+	unindentLines(lineFrom, lineTo);
+}
+void TextDocView::unindentLines(int from, int to) {
+	if (from <= to && from >= 0) {
+		for (int line = from; line <= to; ++line)
+			vInt_->edit_->unindent(line);
+	}
+}
 //	EDIT
 ////////////////////////////////////////////////////////////
 

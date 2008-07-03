@@ -50,6 +50,8 @@ public:
 	void getCursorPos(int&, int&) const;
 	void setCursorPos(int, int);
 	void gotoLine(int) const;
+	void unindentSelectedLines();
+	void unindentLines(int, int);
 	int lineCount() const;
 	void setSyntax(const QString&);
 	QString syntax() const;

@@ -45,6 +45,7 @@ typedef enum {
 	ID_EDIT_PASTE		= 1103,
 	ID_EDIT_UNDO		= 1104,
 	ID_EDIT_REDO		= 1105,
+	ID_UNINDENT			= 1106,
 	//
 	ID_FIND				= 1201,
 	ID_FIND_NEXT		= 1202,

@@ -19,6 +19,7 @@ usage() {
 	echo "   --prefix=<prefix>           Set prefix (default: /usr)"
 	echo "   --datadir=<dir>             Set data dir (default: ${prefix}/share"
 	echo "   --qmake=<name>              Set qmake executable"
+	echo "   --lrelease=<name>           Set lrelease executable"
 	echo "   --qsci_lib_path=<path>      Set QScintilla lib path (if non-standard)"
 	echo "   --qsci_include_path=<path>  Set QScintilla include path (if non-standard)"
 	echo ""
@@ -56,6 +57,10 @@ for arg in ${@}; do
 
 	--qmake=*)
 		arg_qmake_cmd=`echo ${arg} | cut -c 9-`
+		;;
+	
+	--lrelease=*)
+		arg_lrelease_cmd=`echo ${arg} | cut -c 12-`
 		;;
 
 	--qsci_include_path=*)
@@ -133,10 +138,13 @@ fi
 
 #	lrelease
 echo -n "checking for lrelease... "
-if [ -n "${lrelease_cmd}" ]; then
-	lrelease_cmd=`which ${lrelease_cmd}`
+if [ -n "${arg_lrelease_cmd}" ]; then
+	lrelease_cmd=`which ${arg_lrelease_cmd}`
 else
-	lrelease_cmd=`which lrelease`
+	lrelease_cmd=`which lrelease-qt4`
+	if [ -z "${lrelease_cmd}" ]; then
+		lrelease_cmd=`which lrelease`
+	fi
 fi
 if [ -n "${lrelease_cmd}" ]; then
 	echo "${lrelease_cmd}"

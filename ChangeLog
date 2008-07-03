@@ -1,56 +1,36 @@
-2008-06-24:
+2008-07-02:
+* Added: syncronizing file open dialog with current doc's dir
+* Added: color selection for markers
+* Added: unindention of selected text with Shift+Tab
+* Added: --lrelease option to configure script
+
+
+-------------------------------
+Version 0.3-beta1
+-------------------------------
 * Added support for diff-files;
-
-2008-06-23:
-* Added file types templates to 'Open' dialog (C#, IDL, 
-  Perl, Ruby, SQL)
 * Hopefully fixed bug with opening the current dir (appered 
-  on FreeBSD)
-* Added Portuguese localization
-
-2008-05-03:
+* Added French, Portuguese localizations
 * Added: packaging script for Debian-based distros
-
-2008-05-02:
 * Added: Java custom highlighting scheme
 * Added: doc comments to C++ scheme
 * Added: 'Replace tabs with spaces' option
-* Settings dialog improvements
-* Windows building improvements
-
-2008-04-30:
+* Improved settings dialog
 * Fixed: bug with small window when the app was closed 
   maximized several times in a row;
-  
-2008-04-20:
 * Added: configure script
-
-2008-04-19:
 * Added: saving of last session even if no name was given to it
-
-2008-04-18:
 * Added: restoring scrollbar and cursor position when 
   restoring session
 * Fixed: bug with relative paths in filename (at statusbar)
 * Fixed: copying highlighting schemes to home dir. Now checks 
   if every single file exists.
-
-2008-04-17:
-* Added: "replaceTabsWithSpaces" option (manually at 
-  config file for now)
-
-2008-04-16:
 * Fixed: if the app was closed maximized, it doesn't restore 
   normal size when started again;
-* Added: French localization;
-
-2008-04-15:
 * Fixed: crash when tried to change 'Show line numbers' or 
   'Adjust by width' without any opened documents;
 * Added: options 'Show indents' and 'Highlight current line'
   to Settings dialog;
-* Added: "useCurrentDocDir" option (manually at 
-  config file for now) for 'Open file' dialog;
 
 
 -------------------------------

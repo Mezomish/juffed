@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ru_RU">
+<defaultcodec></defaultcodec>
 <context>
     <name>AboutDlg</name>
     <message>
@@ -180,12 +181,12 @@ nowy utworzony/otwarty dokument</translation>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="131"/>
         <source>Markers color</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor znacznika</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="187"/>
         <source>Current line highlighting color</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor aktualnej podświetlonej linii</translation>
     </message>
 </context>
 <context>
@@ -471,12 +472,12 @@ Co chcesz zrobić?</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="258"/>
         <source>Unindent</source>
-        <translation type="unfinished"></translation>
+        <translation>Unindent</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="262"/>
         <source>Show hidden symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż ukryte symbole</translation>
     </message>
 </context>
 <context>
@@ -539,7 +540,7 @@ Co chcesz zrobić?</translation>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="171"/>
         <source>Sync &apos;Open&apos; dialog to current doc&apos;s dir</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronizacja dialogu &quot;Otwórz&quot; z aktualnym katalogiem dokumentów</translation>
     </message>
 </context>
 <context>

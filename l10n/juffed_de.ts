@@ -179,12 +179,12 @@ newly created/opened docs</source>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="131"/>
         <source>Markers color</source>
-        <translation type="unfinished"></translation>
+        <translation>Marker-Farbe</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="187"/>
         <source>Current line highlighting color</source>
-        <translation type="unfinished"></translation>
+        <translation>Hervorhebungsfarbe der aktuellen Zeile</translation>
     </message>
 </context>
 <context>
@@ -470,12 +470,12 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="258"/>
         <source>Unindent</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeileneinzug entfernen</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="262"/>
         <source>Show hidden symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Verstecke Symbole anzeigen</translation>
     </message>
 </context>
 <context>
@@ -538,7 +538,7 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="171"/>
         <source>Sync &apos;Open&apos; dialog to current doc&apos;s dir</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;Öffnen&apos; Dialog mit aktuellem Dokument abgleichen</translation>
     </message>
 </context>
 <context>

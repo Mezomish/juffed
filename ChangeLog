@@ -1,16 +1,15 @@
-2008-07-04:
-* Updated desktop-file
-
-2008-07-03:
+-------------------------------
+Version 0.3-beta2
+-------------------------------
 * Fixed: bug with session restoring on Windows (forgot 
   about ':' in file path :))
-
-2008-07-02:
 * Added: syncronizing 'Open' dialog with current doc's dir
 * Added: custom color for markers
 * Added: custom color for current line highlighting
 * Added: unindention of selected text with Shift+Tab
 * Added: --lrelease option to configure script
+* Updated desktop-file
+* Updated localizations
 
 
 -------------------------------

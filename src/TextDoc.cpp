@@ -267,8 +267,8 @@ void TextDoc::processTheCommand(CommandID id) {
 			tdView->setAdjustedByWidth(!tdView->isAdjustedByWidth());
 		break;
 
-	case ID_VIEW_SHOW_WHITESPACES :
-		tdView->showWhitespaces(!tdView->whitespacesVisible());
+	case ID_VIEW_SHOW_HIDDEN_SYMBOLS:
+		tdView->showHiddenSymbols(!tdView->hiddenSymbolsVisible());
 		break;
 
 	default:

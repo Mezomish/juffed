@@ -259,7 +259,7 @@ void JuffEd::createCommands() {
 		//
 		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(),	QKeySequence("F11"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(),	QKeySequence("F10"), h, SLOT(processTheCommand())),
-		Command(ID_VIEW_SHOW_WHITESPACES,	tr("Show whitespaces"),		QIcon(),	QKeySequence(), h, SLOT(processTheCommand())),
+		Command(ID_VIEW_SHOW_HIDDEN_SYMBOLS,tr("Show hidden symbols"),	QIcon(),	QKeySequence(), h, SLOT(processTheCommand())),
 		//
 		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	im->icon("addRemoveMarker"),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
 		Command(ID_MARKER_NEXT,				tr("Next marker"),			im->icon("nextMarker"),			QKeySequence("Ctrl+Alt+PgDown"),this, SLOT(nextMarker())),
@@ -291,7 +291,7 @@ void JuffEd::createCommands() {
 
 	CommandStorage::instance()->action(ID_VIEW_SHOW_LINE_NUMBERS)->setCheckable(true);
 	CommandStorage::instance()->action(ID_VIEW_WIDTH_ADJUST)->setCheckable(true);
-	CommandStorage::instance()->action(ID_VIEW_SHOW_WHITESPACES)->setCheckable(true);
+	CommandStorage::instance()->action(ID_VIEW_SHOW_HIDDEN_SYMBOLS)->setCheckable(true);
 
 	if (jInt_->recentFilesMenu_ != 0)
 		jInt_->recentFilesMenu_->setIcon(im->icon("fileOpen"));
@@ -310,7 +310,7 @@ void JuffEd::createMenuBar() {
 					ID_SEPARATOR, ID_GOTO_LINE, ID_NONE };
 
 	CommandID viewMenu[] = { ID_VIEW_SHOW_LINE_NUMBERS, ID_VIEW_WIDTH_ADJUST, 
-					ID_VIEW_SHOW_WHITESPACES, ID_NONE };
+					ID_VIEW_SHOW_HIDDEN_SYMBOLS, ID_NONE };
 
 	CommandID markersMenu[] = { ID_NONE };	
 
@@ -629,10 +629,10 @@ void JuffEd::docSwitched(QWidget* w) {
 		adjustAction->setChecked(tdView->isAdjustedByWidth());
 	}
 
-	//	show whitespaces menu item
-	QAction* showWSAction = CommandStorage::instance()->action(ID_VIEW_SHOW_WHITESPACES);
+	//	show hidden symbols menu item
+	QAction* showWSAction = CommandStorage::instance()->action(ID_VIEW_SHOW_HIDDEN_SYMBOLS);
 	if (showWSAction != 0) {
-		showWSAction->setChecked(tdView->whitespacesVisible());
+		showWSAction->setChecked(tdView->hiddenSymbolsVisible());
 	}
 	
 	displayFileName(tdView->document()->fileName());

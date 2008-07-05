@@ -208,11 +208,12 @@ void TextDocView::setLineNumVisible(bool visible) {
 	updateLineNums();
 }
 
-void TextDocView::showWhitespaces(bool show) {
+void TextDocView::showHiddenSymbols(bool show) {
 	vInt_->edit_->setWhitespaceVisibility(show ? QsciScintilla::WsVisible : QsciScintilla::WsInvisible);
+	vInt_->edit_->setWrapVisualFlags(show ? QsciScintilla::WrapFlagByBorder : QsciScintilla::WrapFlagNone);
 }
 
-bool TextDocView::whitespacesVisible() const {
+bool TextDocView::hiddenSymbolsVisible() const {
 	return (vInt_->edit_->whitespaceVisibility() == QsciScintilla::WsVisible);
 }
 

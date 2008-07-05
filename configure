@@ -27,6 +27,7 @@ usage() {
 
 clean_all() {
 	rm src/AppInfo.h src/juffed.pro Makefile 2>/dev/null
+	rm -rf juffed_qt4_test_dir juffed_qsci_test_dir
 }
 
 ############################################################

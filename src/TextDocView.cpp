@@ -311,6 +311,8 @@ void TextDocView::redo() {
 void TextDocView::unindentSelectedLines() {
 	int lineFrom(-1), lineTo(-1), colFrom(-1), colTo(-1);
 	vInt_->edit_->getSelection(&lineFrom, &colFrom, &lineTo, &colTo);
+	if (colTo == 0)
+		--lineTo;
 	unindentLines(lineFrom, lineTo);
 }
 void TextDocView::unindentLines(int from, int to) {

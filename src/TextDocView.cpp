@@ -95,6 +95,10 @@ public:
 		edit_->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 		edit_->setMatchedBraceBackgroundColor(QColor(255, 255, 120));
 		
+		//	TODO : make the following configurable
+		edit_->setAutoCompletionSource(QsciScintilla::AcsDocument);
+		edit_->setAutoCompletionThreshold(2);
+		
 		edit_->setMarginLineNumbers(1, true);
 
 		edit_->setMarginWidth(2, 12);

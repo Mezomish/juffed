@@ -34,13 +34,13 @@ class DocHandler : public QObject {
 Q_OBJECT
 public:
 	DocHandler(bool listen = true);
-	~DocHandler();
+	virtual ~DocHandler();
 
 	void addViewer(DocViewer*);
 	bool closeDocument(Juff::Document*);
 	bool closeAllDocs();
 	void applySettings();
-	Juff::Document* currentDoc();
+	Juff::Document* currentDoc() const;
 	int docCount() const;
 	const QString& sessionName() const;
 	void restoreSession();
@@ -113,6 +113,27 @@ protected:
 	
 private:
 	DocHandlerInterior* hInt_;
+
+	/*
+	*	PLUGINS
+	*/
+public slots:
+	//	text
+	void getText(QString&) const;
+	void getCursorPos(int&, int&) const;
+	void getSelection(int& lineFrom, int& colFrom, int& lineTo, int& colTo) const;
+	void getSelectedText(QString&) const;
+	void setCursorPos(int, int);
+	void insertText(const QString&);
+	void replaceSelectedText(const QString&);
+	//	docs
+/*	void openDoc(const QString&);
+	void closeCurrentDoc();*/
+
+signals:
+	void docOpened(const QString&);
+	void docClosed(const QString&);
+	void docSwitched(const QString&);
 };
 
 #endif

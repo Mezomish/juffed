@@ -44,6 +44,7 @@ public:
 	static int autoSaveInterval();
 	static bool closeTabsInOrderOfUse();
 	static bool singleInstance();
+	static QByteArray mwState();
 	
 	static void setLastOpenDir(const QString& dir);
 	static void setLastSaveDir(const QString& dir);
@@ -61,6 +62,7 @@ public:
 	static void setMakeBackupOnSave(bool bkp);
 	static void setAutoSaveInterval(int interval);
 	static void setSingleInstance(bool single);
+	static void setMwState(const QByteArray&);
 };
 
 #endif

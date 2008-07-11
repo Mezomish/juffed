@@ -94,6 +94,9 @@ bool MainSettings::closeTabsInOrderOfUse() {
 bool MainSettings::singleInstance() { 
 	return Settings::value("main", "singleInstance").toBool(); 
 }
+QByteArray MainSettings::mwState() {
+	return Settings::value("main", "mwState").toByteArray(); 
+}
 
 
 
@@ -144,4 +147,7 @@ void MainSettings::setAutoSaveInterval(int interval) {
 }
 void MainSettings::setSingleInstance(bool single) { 
 	Settings::setValue("main", "singleInstance", single); 
+}
+void MainSettings::setMwState(const QByteArray& state) {
+	Settings::setValue("main", "mwState", state); 
 }

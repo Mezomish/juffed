@@ -47,6 +47,10 @@ public:
 	void setModified(bool);
 	void getText(QString&) const;
 	void setText(const QString&);
+	void insertText(const QString&);
+	void getSelectedText(QString&) const;
+	void replaceSelectedText(const QString&);
+	void setSelection(int, int, int, int);
 	int scrollPos() const;
 	void setScrollPos(int);
 	void getCursorPos(int&, int&) const;

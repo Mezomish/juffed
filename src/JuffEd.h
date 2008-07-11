@@ -73,6 +73,8 @@ private:
 	void initCharsetsMenu();
 	void setupToolBarStyle();
 	void createCommands();
+	void loadPlugins();
+	void unloadPlugins();
 
 	void changeCurrentCharsetAction(QAction*);
 	void changeCurrentSyntaxAction(QAction*);

@@ -19,10 +19,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "JuffEd.h"
 
 //	Qt headers
+#include <QtCore/QDir>
+#include <QtCore/QList>
 #include <QtCore/QMap>
+#include <QtCore/QPluginLoader>
 #include <QtCore/QUrl>
 #include <QtGui/QAction>
 #include <QtGui/QCloseEvent>
+#include <QtGui/QDockWidget>
 #include <QtGui/QIcon>
 #include <QtGui/QLabel>
 #include <QtGui/QMenuBar>
@@ -48,6 +52,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "license.h"
 #include "Log.h"
 #include "MainSettings.h"
+#include "PluginInterface.h"
 #include "Settings.h"
 #include "SettingsDlg.h"
 #include "TextDoc.h"
@@ -138,6 +143,8 @@ public:
 	QAction* lastCharsetAction_;
 	QAction* lastSyntaxAction_;
 	QRect geometry_;
+
+	QList<JuffPlugin*> pluginList_;
 };
 
 JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
@@ -177,6 +184,10 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 	connect(jInt_->handler_, SIGNAL(fileNameChanged(Juff::Document*)), SLOT(docFileNameChanged(Juff::Document*)));
 	connect(jInt_->handler_, SIGNAL(recentFileAdded()), SLOT(initRecentFilesMenu()));
 	connect(jInt_->handler_, SIGNAL(cursorPositionChanged(int, int)), SLOT(displayCursorPos(int, int)));
+	
+	loadPlugins();
+	
+	restoreState(MainSettings::mwState());
 }
 
 JuffEd::~JuffEd() {
@@ -187,7 +198,55 @@ JuffEd::~JuffEd() {
 	}
 
 	delete jInt_;
+	
+}
 
+void JuffEd::loadPlugins() {
+	QDir pluginDir(AppInfo::configDir() + "/plugins");
+
+	foreach (QString fileName, pluginDir.entryList(QDir::Files)) {
+		QPluginLoader loader(pluginDir.absoluteFilePath(fileName));
+		QObject *obj = loader.instance();
+		if (obj) {
+			JuffPlugin* plugin = qobject_cast<JuffPlugin*>(obj);
+			if (plugin != 0){
+				jInt_->pluginList_.append(plugin);
+				plugin->setParent(jInt_->handler_);
+				
+				//	toolbars
+				if (plugin->toolBar() != 0)
+					addToolBar(plugin->toolBar());
+
+				//	TODO : adding custom actions from plugins to menus
+				//	actions
+/*				ActionList editActionsList = plugin->getMenuActions("Edit");
+				foreach(QAction* act, editActionsList) {
+					QMenu* editMenu = jInt_->mainMenuItems_.value(tr("&Edit"), 0);
+					if (editMenu != 0) {
+						editMenu->addAction(act);
+					}
+				}*/
+				
+				//	dock widgets
+				Qt::DockWidgetArea area(Qt::LeftDockWidgetArea);
+				QWidget* w = plugin->dockWidget(area);
+				if (w != 0) {
+					QDockWidget* dock = new QDockWidget(plugin->name());
+					dock->setObjectName(plugin->name() + "Dock");
+					dock->setWidget(w);
+					addDockWidget(area, dock);
+				}
+			}
+		}
+	}
+}
+
+void JuffEd::unloadPlugins() {
+	foreach (JuffPlugin* plugin, jInt_->pluginList_) {
+		if (plugin != 0) {
+			plugin->deinit();
+		}
+	}
 }
 
 void JuffEd::resizeEvent(QResizeEvent* e) {
@@ -203,10 +262,15 @@ void JuffEd::moveEvent(QMoveEvent* e) {
 }
 
 void JuffEd::closeEvent(QCloseEvent* e) {
-	if (jInt_->handler_->closeAllDocs())
+	if (jInt_->handler_->closeAllDocs()) {
+		QByteArray state = saveState();
+		MainSettings::setMwState(state);
+		unloadPlugins();
 		e->accept();
-	else
+	}
+	else {
 		e->ignore();
+	}
 }
 
 void JuffEd::about() {
@@ -394,6 +458,7 @@ void JuffEd::createToolBar() {
 					ID_EDIT_CUT, ID_EDIT_COPY, ID_EDIT_PASTE, ID_SEPARATOR, 
 					ID_EDIT_UNDO, ID_EDIT_REDO, ID_SEPARATOR, ID_FIND, ID_NONE};
 	jInt_->toolBar_ = addToolBar("Main");
+	jInt_->toolBar_->setObjectName("MainToolBar");
 	for (unsigned i = 0; actions[i] != ID_NONE; i++) {
 		CommandID id = actions[i];
 		if (id == ID_SEPARATOR)

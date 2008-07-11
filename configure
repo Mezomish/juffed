@@ -378,6 +378,7 @@ HEADERS += \
 		LexerStorage.h \
 		IconManager.h \
 		ColorButton.h \
+		PluginInterface.h \
 
 SOURCES += \
 		DocHandler.cpp \

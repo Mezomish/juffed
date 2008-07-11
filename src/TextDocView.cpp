@@ -199,6 +199,25 @@ void TextDocView::getText(QString& text) const {
 	text = vInt_->edit_->text();
 }
 
+void TextDocView::insertText(const QString& text) {
+	vInt_->edit_->insert(text);
+}
+
+void TextDocView::getSelectedText(QString& text) const {
+	text = vInt_->edit_->selectedText();
+}
+
+void TextDocView::replaceSelectedText(const QString& text) {
+	vInt_->edit_->beginUndoAction();
+	vInt_->edit_->removeSelectedText();
+	vInt_->edit_->insert(text);
+	vInt_->edit_->endUndoAction();
+}
+
+void TextDocView::setSelection(int, int, int, int) {
+	Log::debug("TextDocView::setSelection: not implemented yet");
+}
+
 bool TextDocView::lineNumIsVisible() const {
 	return vInt_->lineNumVisible_;
 }

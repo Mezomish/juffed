@@ -158,7 +158,7 @@ int DocHandler::docCount() const {
 	return hInt_->docs_.count();
 }
 
-Juff::Document* DocHandler::currentDoc() {
+Juff::Document* DocHandler::currentDoc() const {
 	if (hInt_->curDoc_ != 0)
 		return hInt_->curDoc_;
 	else
@@ -249,6 +249,9 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 
 		hInt_->viewer_->widget()->activateWindow();
 		
+		//	emit informational signal
+		emit docOpened(fName);
+		
 		if (docCount() == 1)
 			hInt_->viewer_->updateCurrentViewInfo();
 	}
@@ -259,23 +262,34 @@ bool DocHandler::closeDocument(Juff::Document* doc) {
 	if (doc == 0 || doc->isNull())
 		return false;
 
+	QString fName = doc->fileName();
 	if (doc->isModified()) {
 		//	TODO :	Possible change just to bool
 		Juff::Document::SaveRequest saveRequest = doc->confirmForClose();
 		if (saveRequest == Juff::Document::SaveYes) {
 			doc->save();
+
+			//	TODO : !!!!!!!!!
 			hInt_->removeDoc(doc);
+			//	emit informational signal
+			emit docClosed(fName);
 			return true;
 		}
 		else if (saveRequest == Juff::Document::SaveNo) {
+			//	TODO : !!!!!!!!!
 			hInt_->removeDoc(doc);
+			//	emit informational signal
+			emit docClosed(fName);
 			return true;
 		}
 		else
 			return false;
 	}
 	else {
+		//	TODO : !!!!!!!!!
 		hInt_->removeDoc(doc);
+		//	emit informational signal
+		emit docClosed(fName);
 		return true;
 	}
 }
@@ -341,6 +355,9 @@ void DocHandler::docActivated(Juff::Document* doc) {
 
 	hInt_->curDoc_ = doc;
 	doc->extModMonitoringStart();
+	
+	//	emit informational signal
+	emit docSwitched(doc->fileName());
 }
 
 
@@ -671,6 +688,65 @@ DocView* DocHandler::createDocView() {
 //	Application-dependent functions
 ////////////////////////////////////////////////////////////
 
+
+
+////////////////////////////////////////////////////////////
+//	Plugins
+////////////////////////////////////////////////////////////
+
+//	just helping function to avoid duplicated code
+TextDocView* getView(Juff::Document* doc) {
+	if (doc == 0 || doc->isNull())
+		return 0;
+	return qobject_cast<TextDocView*>(doc->view());
+}
+
+void DocHandler::getText(QString& text) const {
+	text = "";
+	TextDocView* tdView = getView(currentDoc());
+	if (tdView != 0)
+		tdView->getText(text);
+}
+
+void DocHandler::getCursorPos(int& line, int& col) const {
+	line = col = -1;
+	TextDocView* tdView = getView(currentDoc());
+	if (tdView != 0)
+		tdView->getCursorPos(line, col);
+}
+
+void DocHandler::getSelection(int&, int&, int&, int&) const {
+	Log::debug("DocHandler::getSelection: not implemented yet");
+}
+
+void DocHandler::getSelectedText(QString& text) const {
+	text = "";
+	TextDocView* tdView = getView(currentDoc());
+	if (tdView != 0)
+		tdView->getSelectedText(text);
+}
+
+void DocHandler::replaceSelectedText(const QString& text) {
+	TextDocView* tdView = getView(currentDoc());
+	if (tdView != 0) {
+		tdView->replaceSelectedText(text);
+	}
+}
+
+void DocHandler::setCursorPos(int line, int col) {
+	TextDocView* tdView = getView(currentDoc());
+	if (tdView != 0)
+		tdView->setCursorPos(line, col);
+}
+
+void DocHandler::insertText(const QString& text) {
+	TextDocView* tdView = getView(currentDoc());
+	if (tdView != 0)
+		tdView->insertText(text);
+}
+
+//	Plugins
+////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////

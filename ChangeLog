@@ -1,3 +1,9 @@
+2008-07-08:
+* Fixed: bug with unindention of the line below the selected ones
+
+2008-07-05:
+* Splitted 0.3 branch and started 0.4-dev
+
 -------------------------------
 Version 0.3-beta2
 -------------------------------

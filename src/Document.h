@@ -65,6 +65,7 @@ public:
 
 	const QString& fileName() const;
 	bool isModified() const;
+	bool isNoname() const;
 	DocView* view() const;
 	
 	virtual Document::Status open() = 0;

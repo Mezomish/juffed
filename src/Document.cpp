@@ -42,6 +42,10 @@ const QString& Document::fileName() const {
 	return fileName_; 
 }
 
+bool Document::isNoname() const {
+	return fileName_.isEmpty();
+}
+
 bool Document::isModified() const { 
 	return modified_; 
 }

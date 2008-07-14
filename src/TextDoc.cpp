@@ -95,11 +95,12 @@ TextDocView* TextDoc::textDocView() const {
 
 Document::Status TextDoc::save() {
 	Document::Status res = Document::StatusSuccess;
-	QString fName = fileName();
 	
-	if (fName.isEmpty())
+	if (isNoname()) {
 		res = saveAs();
+	}
 	else {
+		QString fName = fileName();
 		if (MainSettings::makeBackupOnSave()) {
 			QFile::remove(fName + "~");
 			QFile::copy(fName, fName + "~");
@@ -121,7 +122,7 @@ Document::Status TextDoc::saveAs() {
 	QCheckBox* saveAsCopyChk = new QCheckBox(tr("Save as a copy"));
 	layout->addWidget(saveAsCopyChk);
 
-	if (!fileName().isEmpty()) {
+	if (!isNoname()) {
 		saveDlg.selectFile(QFileInfo(fileName()).fileName());
 	}
 	saveDlg.setLabelText(QFileDialog::Accept, tr("Save"));
@@ -144,7 +145,7 @@ Document::Status TextDoc::saveAs() {
 }
 
 Document::Status TextDoc::reload() {
-	if (!fileName().isEmpty()) {
+	if (!isNoname()) {
 		return readContent(fileName());
 	}
 	return Document::StatusSuccess;

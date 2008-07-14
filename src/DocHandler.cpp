@@ -143,7 +143,7 @@ DocHandler::~DocHandler() {
 
 void DocHandler::autoSaveEvent() {
 	foreach (Juff::Document* doc, hInt_->docs_) {
-		if (!doc->fileName().isEmpty() && doc->isModified())
+		if (!doc->isNoname() && doc->isModified())
 			doc->save();
 	}
 	if (!currentDoc()->isNull() && currentDoc()->view() != 0)
@@ -170,19 +170,19 @@ const QString& DocHandler::sessionName() const {
 }
 
 QString docTitle(Juff::Document* doc) {
-	QString fileName = doc->fileName();
+	QString title;
 	
-	if (fileName.isEmpty()) {
-		fileName = QObject::tr("Noname");
+	if (doc->isNoname()) {
+		title = QObject::tr("Noname");
 	}
 	else {
-		fileName = QFileInfo(fileName).fileName();
+		title = QFileInfo(doc->fileName()).fileName();
 	}
 	
 	if (doc->isModified())
-		fileName += "*";
+		title += "*";
 
-	return fileName;
+	return title;
 }
 
 void DocHandler::restoreSession() {
@@ -236,7 +236,7 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 		//	3. it is not modified
 		if (hInt_->docs_.count() == 1) {
 			Juff::Document* curDoc = currentDoc();
-			if (curDoc->fileName().isEmpty() && !curDoc->isModified()) {
+			if (curDoc->isNoname() && !curDoc->isModified()) {
 				closeDocument(curDoc);
 			}
 		}

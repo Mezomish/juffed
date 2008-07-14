@@ -39,6 +39,7 @@ typedef enum {
 	ID_FILE_CLOSE_ALL	= 1006,
 	ID_EXIT				= 1007,
 	ID_FILE_RELOAD		= 1008,
+	ID_FILE_PRINT		= 1009,
 	//
 	ID_EDIT_CUT			= 1101,
 	ID_EDIT_COPY		= 1102,

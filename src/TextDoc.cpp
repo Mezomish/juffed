@@ -150,6 +150,14 @@ Document::Status TextDoc::reload() {
 	return Document::StatusSuccess;
 }
 
+void TextDoc::print() const {
+	TextDocView* tdView = textDocView();
+	if (tdView == 0)
+		return;
+
+	tdView->print();
+}
+
 Document::Status TextDoc::open() {
 	return readContent(fileName());
 }

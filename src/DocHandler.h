@@ -53,6 +53,7 @@ public slots:
 	void docSave();
 	void docSaveAs();
 	void docReload();
+	void docPrint();
 	void docClose();
 	void docCloseAll();
 	void processTheCommand();

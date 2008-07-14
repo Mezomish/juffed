@@ -22,12 +22,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QMenu>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPainter>
+#include <QtGui/QPrintDialog>
 #include <QtGui/QResizeEvent>
 #include <QtGui/QScrollBar>
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextEdit>
 
 #include <Qsci/qscilexer.h>
+#include <Qsci/qsciprinter.h>
 #include <Qsci/qsciscintilla.h>
 
 //	local headers
@@ -307,6 +309,13 @@ void TextDocView::applySettings() {
 	vInt_->edit_->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
 }
 
+void TextDocView::print() {
+	QPrinter prn;
+	QPrintDialog dlg(&prn, this);
+	QMessageBox::information(this, "Sorry....", "Printing is not implemented yet");
+//	if (dlg.exec() == QDialog::Accepted) {
+//	}
+}
 
 
 ////////////////////////////////////////////////////////////

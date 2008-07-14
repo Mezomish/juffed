@@ -10,6 +10,7 @@
         <file alias="fileNew">icons/fileNew.png</file>
         <file alias="fileOpen">icons/fileOpen.png</file>
         <file alias="fileSave">icons/fileSave.png</file>
+        <file alias="filePrint">icons/filePrint.png</file>
         <file alias="fileSaveAs">icons/fileSaveAs.png</file>
         <file alias="find">icons/find.png</file>
         <file alias="settings">icons/settings.png</file>

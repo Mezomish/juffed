@@ -33,6 +33,7 @@ public:
 	virtual Juff::Document::Status reload();
 	virtual Juff::Document::Status close();
 	virtual Juff::Document::SaveRequest confirmForClose();
+	virtual void print() const;
 
 	virtual void processTheCommand(CommandID);
 

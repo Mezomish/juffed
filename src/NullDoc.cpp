@@ -45,6 +45,10 @@ Juff::Document::Status NullDoc::reload() {
 	return StatusUnknownError; 
 }
 	
+void NullDoc::print() const {
+	scream(); 
+}
+
 Juff::Document::Status NullDoc::open() { 
 	scream(); 
 	return StatusUnknownError; 
@@ -69,3 +73,4 @@ NullDoc::NullDoc() : Juff::Document("", 0) {
 void NullDoc::scream() const { 
 	Log::debug("Empty document was called."); 
 }
+

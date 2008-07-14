@@ -466,6 +466,14 @@ void DocHandler::docReload() {
 	doc->reload();
 }
 
+void DocHandler::docPrint() {
+	Juff::Document* doc = currentDoc();
+	if (doc->isNull())
+		return;
+
+	doc->print();
+}
+
 void DocHandler::docClose() {
 	closeDocument(currentDoc());
 	

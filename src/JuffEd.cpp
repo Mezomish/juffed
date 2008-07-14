@@ -75,6 +75,7 @@ public:
 		handler_->addViewer(viewer_);
 
 		settingsDlg_ = new SettingsDlg(parent);
+
 		aboutDlg_ = new AboutDlg(parent);
 		aboutDlg_->setWindowTitle(QObject::tr("About"));
 		aboutDlg_->setProgramName(AppInfo::name() + " v" + AppInfo::version());
@@ -306,6 +307,7 @@ void JuffEd::createCommands() {
 		Command(ID_FILE_SAVE,	tr("Save"),		im->icon("fileSave"),	QKeySequence("Ctrl+S"), h, SLOT(docSave())),
 		Command(ID_FILE_SAVE_AS,tr("Save as"),	im->icon("fileSaveAs"),	QKeySequence("Ctrl+Shift+S"),			h, SLOT(docSaveAs())),
 		Command(ID_FILE_RELOAD, tr("Reload"),	im->icon("reload"),		QKeySequence("F5"),		h, SLOT(docReload())),
+		Command(ID_FILE_PRINT,	tr("Print"),	im->icon("filePrint"),	QKeySequence("Ctrl+P"),	h, SLOT(docPrint())),
 		Command(ID_FILE_CLOSE,	tr("Close"),	im->icon("fileClose"),	QKeySequence("Ctrl+W"), h, SLOT(docClose())),
 		Command(ID_FILE_CLOSE_ALL, tr("Close all"), im->icon("fileCloseAll"), QKeySequence(),	h, SLOT(docCloseAll())),
 		Command(ID_EXIT,		tr("Exit"),		im->icon("exit"),		QKeySequence(),			this, SLOT(exit())),
@@ -365,7 +367,7 @@ void JuffEd::createMenuBar() {
 	menuBar()->clear();
 
 	CommandID fileMenu[] = { ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_FILE_SAVE_AS, 
-					ID_FILE_RELOAD, ID_FILE_CLOSE, ID_FILE_CLOSE_ALL, ID_SEPARATOR, 
+					ID_FILE_RELOAD, ID_FILE_PRINT, ID_FILE_CLOSE, ID_FILE_CLOSE_ALL, ID_SEPARATOR, 
 					ID_SESSION_NEW, ID_SESSION_OPEN, ID_SESSION_SAVE, ID_SESSION_SAVE_AS, 
 					ID_SEPARATOR, ID_EXIT, ID_NONE };
 
@@ -454,9 +456,10 @@ void JuffEd::createMenuBar() {
 }
 
 void JuffEd::createToolBar() {
-	CommandID actions[] = {ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_SEPARATOR, 
-					ID_EDIT_CUT, ID_EDIT_COPY, ID_EDIT_PASTE, ID_SEPARATOR, 
-					ID_EDIT_UNDO, ID_EDIT_REDO, ID_SEPARATOR, ID_FIND, ID_NONE};
+	CommandID actions[] = {ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_SEPARATOR, ID_FILE_PRINT, 
+					ID_SEPARATOR, ID_EDIT_CUT, ID_EDIT_COPY, ID_EDIT_PASTE, 
+					ID_SEPARATOR, ID_EDIT_UNDO, ID_EDIT_REDO, ID_SEPARATOR, 
+					ID_FIND, ID_NONE};
 	jInt_->toolBar_ = addToolBar("Main");
 	jInt_->toolBar_->setObjectName("MainToolBar");
 	for (unsigned i = 0; actions[i] != ID_NONE; i++) {

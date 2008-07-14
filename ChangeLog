@@ -1,5 +1,9 @@
+2008-07-14:
+Added: printing
+
 2008-07-10:
 * Added: basic plugins support
+* Added: basic autocomplete
 
 2008-07-08:
 * Fixed: bug with unindention of the line below the selected ones

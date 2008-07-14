@@ -310,11 +310,12 @@ void TextDocView::applySettings() {
 }
 
 void TextDocView::print() {
-	QPrinter prn;
+	QsciPrinter prn;
 	QPrintDialog dlg(&prn, this);
-	QMessageBox::information(this, "Sorry....", "Printing is not implemented yet");
-//	if (dlg.exec() == QDialog::Accepted) {
-//	}
+	if (dlg.exec() == QDialog::Accepted) {
+		prn.setWrapMode(isAdjustedByWidth() ? QsciScintilla::WrapWord : QsciScintilla::WrapNone);
+		prn.printRange(vInt_->edit_, 0);
+	}
 }
 
 

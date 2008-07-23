@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 //	Lexers
 #include <Qsci/qscilexerbash.h>
+#include <Qsci/qscilexerbatch.h>
 #include <Qsci/qscilexercpp.h>
 #include <Qsci/qscilexercsharp.h>
 #include <Qsci/qscilexercss.h>
@@ -285,6 +286,16 @@ void LSInterior::readCustomStyle(const QString& name) {
 			<< Rule(styles["error"], QList<int>() << QsciLexerBash::Error);
 		schemes_[name] = bashSch;
 	}
+	else if (name.compare("Batch") == 0) {
+		Scheme batSch;
+		batSch.defaultStyle = styles["default"];
+		batSch.rules << Rule(styles["variable"], QList<int>() << QsciLexerBatch::Variable)
+			<<	Rule(styles["comment"], QList<int>() << QsciLexerBatch::Comment)
+			<<	Rule(styles["operator"], QList<int>() << QsciLexerBatch::Operator)
+			<<	Rule(styles["keyword"], QList<int>() << QsciLexerBatch::Keyword)
+			<<	Rule(styles["label"], QList<int>() << QsciLexerBatch::Label);
+		schemes_[name] = batSch;
+	}
 	else if (name.compare("HTML") == 0) {
 		Scheme htmlSch;
 		htmlSch.defaultStyle = styles["default"];
@@ -444,6 +455,9 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if (name.compare("Bash") == 0) {
 			newLexer = new QsciLexerBash();
 		}
+		else if (name.compare("Batch") == 0) {
+			newLexer = new QsciLexerBatch();
+		}
 		else if (name.compare("HTML") == 0) {
 			newLexer = new QsciLexerHTML();
 		}
@@ -531,6 +545,9 @@ QString LexerStorage::lexerName(const QString& fileName) const {
 	else if (lsInt_->bashExtList_.contains(ext)) {
 		name = "Bash";
 	}
+	else if (ext.compare("bat") == 0) {
+		name = "Batch";
+	}
 	else if (lsInt_->htmlExtList_.contains(ext)) {
 		name = "HTML";
 	}
@@ -574,7 +591,7 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 
 void LexerStorage::getLexersList(QStringList& list) {
 	list.clear();
-	list << "none" << "Bash" << "C++" << "C#" << "CSS" << "D" << "Diff" << "HTML" 
+	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CSS" << "D" << "Diff" << "HTML" 
 				<< "IDL" << "Java" << "JavaScript" << "Lua" << "Makefile" << "Perl" 
 				<< "Python" << "Ruby" << "SQL" << "XML";
 }

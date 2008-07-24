@@ -21,10 +21,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "DocView.h"
 
 namespace Juff {
+
+int Document::index_ = 0;
 	
-Document::Document(const QString& fileName, DocView* view) : QObject(), fileName_(fileName), view_(view), modified_(false) {
+Document::Document(const QString& fileName, DocView* view) : QObject(), view_(view), modified_(false) {
 	modCheckTimer_ = new QTimer(this);
 	connect(modCheckTimer_, SIGNAL(timeout()), SLOT(checkLastModified()));
+	if (fileName.isEmpty())
+		fileName_ = QString("Noname %1").arg(index_++);
+	else
+		fileName_ = fileName;
 }
 
 Document::~Document() {
@@ -43,7 +49,7 @@ const QString& Document::fileName() const {
 }
 
 bool Document::isNoname() const {
-	return fileName_.isEmpty();
+	return fileName_.left(6).compare("Noname") == 0;
 }
 
 bool Document::isModified() const { 
@@ -71,8 +77,9 @@ void Document::extModMonitoringStop() {
 
 void Document::setFileName(const QString& fileName) {
 	if (fileName_.compare(fileName) != 0) {
+		QString oldName(fileName_);
 		fileName_ = QFileInfo(fileName).canonicalFilePath();
-		emit fileNameChanged();
+		emit fileNameChanged(oldName);
 	}
 }
 

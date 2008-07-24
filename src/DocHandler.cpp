@@ -204,7 +204,7 @@ void DocHandler::restoreSession() {
 
 Juff::Document* DocHandler::newDocument(const QString& fileName) {
 	Juff::Document* doc = NullDoc::instance();
-	
+
 	if (!fileName.isEmpty()) {
 		//	there was a non-empty argument received
 		if (!QFileInfo(fileName).isFile()) {
@@ -220,6 +220,7 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 	if (doc->isNull()) {
 		//	the received file wasn't found among opened ones
 		QString fName("");
+
 		if (!fileName.isEmpty())
 			fName = QFileInfo(fileName).canonicalFilePath();
 		
@@ -227,7 +228,7 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 		doc = createDocument(fName, docView);
 	
 		connect(docView, SIGNAL(modified(bool)), SLOT(docModified(bool)));
-		connect(doc, SIGNAL(fileNameChanged()), SLOT(docFileNameChanged()));
+		connect(doc, SIGNAL(fileNameChanged(const QString&)), SLOT(docFileNameChanged(const QString&)));
 		connect(docView, SIGNAL(cursorPositionChanged(int, int)), SIGNAL(cursorPositionChanged(int, int)));
 
 		//	close current document if
@@ -249,8 +250,9 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 
 		hInt_->viewer_->widget()->activateWindow();
 		
-		//	emit informational signal
-		emit docOpened(fName);
+		//	emit informational signals
+		emit docOpened(doc->fileName());
+		emit docSwitched(doc->fileName());
 		
 		if (docCount() == 1)
 			hInt_->viewer_->updateCurrentViewInfo();
@@ -324,14 +326,20 @@ void DocHandler::docModified(bool) {
 	TextDocView* tdView = qobject_cast<TextDocView*>(sender());
 	if (tdView != 0) {
 		hInt_->viewer_->setDocViewTitle(tdView, docTitle(tdView->document()));
+		
+		//	emit informational signal
+		emit docModified(tdView->document()->fileName(), tdView->document()->isModified());
 	}
 }
 
-void DocHandler::docFileNameChanged() {
+void DocHandler::docFileNameChanged(const QString& oldName) {
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if (doc != 0) {
 		hInt_->viewer_->setDocViewTitle(doc->view(), docTitle(doc));
 		emit fileNameChanged(doc);
+		
+		//	emit informational signal
+		emit docFileNameChanged(oldName, doc->fileName());
 	}
 }
 

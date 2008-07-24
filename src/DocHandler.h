@@ -67,7 +67,7 @@ public slots:
 	
 protected slots:
 	void docModified(bool);
-	void docFileNameChanged();
+	void docFileNameChanged(const QString&);
 	void autoSaveEvent();
 	
 signals:
@@ -135,6 +135,8 @@ signals:
 	void docOpened(const QString&);
 	void docClosed(const QString&);
 	void docSwitched(const QString&);
+	void docFileNameChanged(const QString& oldName, const QString& newName);
+	void docModified(const QString&, bool);
 };
 
 #endif

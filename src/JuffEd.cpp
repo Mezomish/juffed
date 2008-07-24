@@ -30,7 +30,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QIcon>
 #include <QtGui/QLabel>
 #include <QtGui/QMenuBar>
-#include <QtGui/QMessageBox>		
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 
@@ -68,6 +67,7 @@ public:
 		syntaxMenu_(0), 
 		markersMenu_(0), 
 		recentFilesMenu_(0), 
+		toolBarsMenu_(0), 
 		lastCharsetAction_(0),
 		lastSyntaxAction_(0) {
 
@@ -78,7 +78,6 @@ public:
 		settingsDlg_ = new SettingsDlg(parent);
 		createAboutDlg(parent);
 	}
-		
 	~JuffEdInterior() {
 		delete aboutDlg_;
 		delete settingsDlg_;
@@ -140,6 +139,7 @@ public:
 	QMenu* syntaxMenu_;
 	QMenu* markersMenu_;
 	QMenu* recentFilesMenu_;
+	QMenu* toolBarsMenu_;
 	QAction* lastCharsetAction_;
 	QAction* lastSyntaxAction_;
 	QRect geometry_;
@@ -220,13 +220,13 @@ void JuffEd::loadPlugins() {
 
 				//	TODO : adding custom actions from plugins to menus
 				//	actions
-/*				ActionList editActionsList = plugin->getMenuActions("Edit");
+				ActionList editActionsList = plugin->getMenuActions("Edit");
 				foreach(QAction* act, editActionsList) {
 					QMenu* editMenu = jInt_->mainMenuItems_.value(tr("&Edit"), 0);
 					if (editMenu != 0) {
 						editMenu->addAction(act);
 					}
-				}*/
+				}
 				
 				//	dock widgets
 				Qt::DockWidgetArea area(Qt::LeftDockWidgetArea);
@@ -236,6 +236,11 @@ void JuffEd::loadPlugins() {
 					dock->setObjectName(plugin->name() + "Dock");
 					dock->setWidget(w);
 					addDockWidget(area, dock);
+
+					//	toolbars toggle actions
+					if (jInt_->toolBarsMenu_ != 0) {
+						jInt_->toolBarsMenu_->addAction(dock->toggleViewAction());
+					}
 				}
 			}
 		}
@@ -453,6 +458,15 @@ void JuffEd::createMenuBar() {
 		fMenu->insertMenu(openAct, jInt_->recentFilesMenu_);
 	}
 	initRecentFilesMenu();
+	
+	//	toolbars
+	jInt_->toolBarsMenu_ = new QMenu(tr("Toolbars"));
+	QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
+	QAction* settAct = CommandStorage::instance()->action(ID_SETTINGS);
+	if (tMenu != 0 && settAct != 0) {
+		tMenu->insertMenu(settAct, jInt_->toolBarsMenu_);
+		tMenu->insertSeparator(settAct);
+	}
 }
 
 void JuffEd::createToolBar() {
@@ -640,11 +654,18 @@ void JuffEd::displayCursorPos(int row, int col) {
 void JuffEd::displayFileName(const QString& fileName) {
 	jInt_->fileNameL_->setText(QString(" %1 ").arg(fileName));
 	QString title("JuffEd");
+
+	//	session name
 	QString sessName = jInt_->handler_->sessionName();
 	if (!sessName.isEmpty()	&& sessName.compare("_empty_session_") != 0)
 		title += " - [" + sessName + "]";
-	if (!fileName.isEmpty())
+
+	//	file name
+	if (fileName.left(6).compare("Noname") != 0)
 		title += " - " + QFileInfo(fileName).fileName();
+	else
+		title += " - " + tr("Noname");
+
 	setWindowTitle(title);
 }
 

@@ -94,8 +94,10 @@ public:
 	 */
 	virtual bool isNull() { return false; }
 
+	static int index() { return index_; }
+
 signals:
-	void fileNameChanged();
+	void fileNameChanged(const QString& oldName);
 
 public slots:
 	void setModified(bool mod);
@@ -115,6 +117,7 @@ private:
 	QDateTime lastModified_;
 	QTimer* modCheckTimer_;
 	QMutex checkingMutex_;
+	static int index_;
 };
 
 }	//	namespace Juff

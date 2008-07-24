@@ -63,7 +63,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class JuffEdInterior {
 public:
 	JuffEdInterior(DocHandler* h, QWidget* parent) : 
-		toolBar_ = 0;
+		toolBar_(0),
 		charsetsMenu_(0), 
 		syntaxMenu_(0), 
 		markersMenu_(0), 

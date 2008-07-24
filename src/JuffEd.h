@@ -45,6 +45,7 @@ private slots:
 
 	void docSwitched(QWidget*);
 	void docCloseRequested(QWidget*);
+	void fileNameRequested(QWidget*, QString&);
 	void docFileNameChanged(Juff::Document*);
 	void charsetSelected();
 	void syntaxSelected();

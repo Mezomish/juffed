@@ -160,7 +160,7 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 	if (MainSettings::isMaximized())
 		showMaximized();
 	applySettings();
-
+	
 	connect(jInt_->settingsDlg_, SIGNAL(applied()), SLOT(applySettings()));
 
 	//	menus and toolbar	
@@ -182,6 +182,7 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 
 	connect(jInt_->viewer_, SIGNAL(docViewChanged(QWidget*)), SLOT(docSwitched(QWidget*)));
 	connect(jInt_->viewer_, SIGNAL(docViewCloseRequested(QWidget*)), SLOT(docCloseRequested(QWidget*)));
+	connect(jInt_->viewer_, SIGNAL(requestFileName(QWidget*, QString&)), SLOT(fileNameRequested(QWidget*, QString&)));
 	connect(jInt_->handler_, SIGNAL(fileNameChanged(Juff::Document*)), SLOT(docFileNameChanged(Juff::Document*)));
 	connect(jInt_->handler_, SIGNAL(recentFileAdded()), SLOT(initRecentFilesMenu()));
 	connect(jInt_->handler_, SIGNAL(cursorPositionChanged(int, int)), SLOT(displayCursorPos(int, int)));
@@ -670,6 +671,25 @@ void JuffEd::docCloseRequested(QWidget* w) {
 		Juff::Document* doc = tdView->document();
 		if (doc != 0) {
 			jInt_->handler_->closeDocument(doc);
+		}
+	}
+}
+
+void JuffEd::fileNameRequested(QWidget* w, QString& fileName) {
+	if (w == 0) {
+		fileName = "";
+	}
+	else {
+		TextDocView* tdView = qobject_cast<TextDocView*>(w);
+		if (tdView == 0) {
+			fileName = "";
+		}
+		else {
+			Juff::Document* doc = tdView->document();
+			if (doc == 0)
+				fileName = "";
+			else
+				fileName = doc->fileName();
 		}
 	}
 }

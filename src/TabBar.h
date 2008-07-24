@@ -19,22 +19,32 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _TAB_BAR_H_
 #define _TAB_BAR_H_
 
+class QMenu;
+
 #include <QtGui/QTabBar>
 
 class TabBar : public QTabBar {
 Q_OBJECT
 public:
-	TabBar(QWidget* parent) : QTabBar(parent) {
-	}
-	virtual ~TabBar() {
-	}
+	TabBar(QWidget* parent);
+	virtual ~TabBar();
 
 signals:
 	void tabCloseRequested(int);
+	void requestFileName(int, QString&);
 	
+protected slots:
+	void copyFileName();
+	void copyFilePath();
+	void copyDirPath();
+
 protected:
 	virtual void mousePressEvent(QMouseEvent*);
 	virtual void mouseReleaseEvent(QMouseEvent*);
+
+private:
+	QMenu* tabMenu_;
+	int index_;
 };
 
 #endif

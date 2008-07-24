@@ -35,10 +35,12 @@ public:
 		setAcceptDrops(true);
 		
 		connect(tabBar_, SIGNAL(tabCloseRequested(int)), this, SIGNAL(tabCloseRequested(int)));
+		connect(tabBar_, SIGNAL(requestFileName(int, QString&)), this, SIGNAL(requestFileName(int, QString&)));
 	}
 
 signals:
 	void tabCloseRequested(int);
+	void requestFileName(int, QString&);
 
 protected:
 	TabBar* tabBar_;

@@ -45,6 +45,7 @@ DocViewer::DocViewer(QWidget* parent) : QObject() {
 	
 	connect(vInt_->tabWidget_, SIGNAL(currentChanged(int)), SLOT(onChangeCurrent(int)));
 	connect(vInt_->tabWidget_, SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
+	connect(vInt_->tabWidget_, SIGNAL(requestFileName(int, QString&)), SLOT(fileNameRequested(int, QString&)));
 }
 
 DocViewer::~DocViewer() {
@@ -101,6 +102,10 @@ void DocViewer::onChangeCurrent(int index) {
 
 void DocViewer::onTabCloseRequested(int index) {
 	emit docViewCloseRequested(vInt_->tabWidget_->widget(index));
+}
+
+void DocViewer::fileNameRequested(int index, QString& fileName) {
+	emit requestFileName(vInt_->tabWidget_->widget(index), fileName);
 }
 
 void DocViewer::updateCurrentViewInfo() {

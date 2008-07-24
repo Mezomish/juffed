@@ -19,10 +19,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TabBar.h"
 
 //	Qt headers
+#include <QtCore/QFileInfo>
+#include <QtGui/QApplication>
+#include <QtGui/QClipboard>
+#include <QtGui/QMenu>
 #include <QtGui/QMouseEvent>
 
 //	local headers
 #include "Log.h"
+
+TabBar::TabBar(QWidget* parent) : QTabBar(parent), index_(-1) {
+	tabMenu_ = new QMenu();
+	tabMenu_->addAction(tr("Copy file name to clipboard"), this, SLOT(copyFileName()));
+	tabMenu_->addAction(tr("Copy full file path to clipboard"), this, SLOT(copyFilePath()));
+	tabMenu_->addAction(tr("Copy file directory path to clipboard"), this, SLOT(copyDirPath()));
+}
+
+TabBar::~TabBar() {
+	delete tabMenu_;
+}
 
 void TabBar::mousePressEvent(QMouseEvent* e) {
 	QTabBar::mousePressEvent(e);
@@ -37,8 +52,38 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 		int index = tabAt(e->pos());
 		emit tabCloseRequested(index);
 	}
+	else if (e->button() & Qt::RightButton) {
+		index_ = tabAt(e->pos());
+		tabMenu_->popup(e->globalPos());
+	}
 	
 #endif
 
 	QTabBar::mouseReleaseEvent(e);
+}
+
+void TabBar::copyFileName() {
+	QString fileName;
+	requestFileName(index_, fileName);
+	if (!fileName.isEmpty()) {
+		QString name = QFileInfo(fileName).fileName();
+		QApplication::clipboard()->setText(name);
+	}
+}
+
+void TabBar::copyFilePath() {
+	QString fileName;
+	requestFileName(index_, fileName);
+	if (!fileName.isEmpty()) {
+		QApplication::clipboard()->setText(fileName);
+	}
+}
+
+void TabBar::copyDirPath() {
+	QString fileName;
+	requestFileName(index_, fileName);
+	if (!fileName.isEmpty()) {
+		QString name = QFileInfo(fileName).absolutePath();
+		QApplication::clipboard()->setText(name);
+	}
 }

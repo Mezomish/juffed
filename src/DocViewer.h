@@ -48,10 +48,12 @@ public:
 signals:
 	void docViewChanged(QWidget*);
 	void docViewCloseRequested(QWidget*);
+	void requestFileName(QWidget*, QString&);
 	
 private slots:
 	void onChangeCurrent(int);
 	void onTabCloseRequested(int);
+	void fileNameRequested(int, QString&);
 	
 private:
 	DocViewerInterior* vInt_;

@@ -63,6 +63,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class JuffEdInterior {
 public:
 	JuffEdInterior(DocHandler* h, QWidget* parent) : 
+		toolBar_ = 0;
 		charsetsMenu_(0), 
 		syntaxMenu_(0), 
 		markersMenu_(0), 
@@ -75,39 +76,44 @@ public:
 		handler_->addViewer(viewer_);
 
 		settingsDlg_ = new SettingsDlg(parent);
+		createAboutDlg(parent);
+	}
+		
+	~JuffEdInterior() {
+		delete aboutDlg_;
+		delete settingsDlg_;
+		delete viewer_;
+	}
 
+	struct Helper {
+		QString name;
+		QString email;
+		QString contribution;
+		Helper (const QString& nm = "", const QString& eml = "", const QString& contr = "") {
+			name = nm;
+			email = eml;
+			contribution = contr;
+		}
+	};
+	
+	void createAboutDlg(QWidget* parent) {
 		aboutDlg_ = new AboutDlg(parent);
 		aboutDlg_->setWindowTitle(QObject::tr("About"));
 		aboutDlg_->setProgramName(AppInfo::name() + " v" + AppInfo::version());
-		QString newLine("<br>"), margin("&nbsp;&nbsp;");
 		QString text = QString("   %1   \n\n   Copyright (c) 2007-2008 Mikhail Murzin   ").arg(QObject::tr("Simple text editor with syntax highlighting"));
 		QString auth("<br>&nbsp;Mikhail Murzin a.k.a. Mezomish<br>&nbsp;&nbsp;<a href='mailto:mezomish@gmail.com'>mezomish@gmail.com</a>");
-		QString thanks = QString("&nbsp;Jarek") 
-						+ newLine + margin
-						+ QString("<a href='mailto:ajep9691@wp.pl'>ajep9691@wp.pl</a>") 
-						+ newLine + margin
-						+ QObject::tr("Polish translation")
-						+ newLine + newLine;
-						
-		thanks += QString("&nbsp;Michael Gangolf")
-						+ newLine + margin
-						+ QString("<a href='mailto:miga@migaweb.de'>miga@migaweb.de</a>")
-						+ newLine + margin
-						+ QObject::tr("German translation")
-						+ newLine + newLine;
+		QList<Helper> helpers;
+		helpers << Helper("Jarek", "ajep9691@wp.pl", QObject::tr("Polish translation"))
+				<< Helper("Michael Gangolf", "miga@migaweb.de", QObject::tr("German translation"))
+				<< Helper("Marc Dumoulin", "shadosan@gmail.com", QObject::tr("French translation"))
+				<< Helper("Giuliano S. Nascimento", "giusoft.tecnologia@gmail.com", QObject::tr("Brazilian Portuguese translation"));
 
-		thanks += QString("&nbsp;Marc Dumoulin")
-						+ newLine + margin
-						+ QString("<a href='mailto:shadosan@gmail.com'>shadosan@gmail.com</a>")
-						+ newLine + margin
-						+ QObject::tr("French translation")
-						+ newLine + newLine;
-
-		thanks += QString("&nbsp;Giuliano S. Nascimento")
-						+ newLine + margin
-						+ QString("<a href='mailto:giusoft.tecnologia@gmail.com'>giusoft.tecnologia@gmail.com</a>")
-						+ newLine + margin
-						+ QObject::tr("Brazilian Portuguese translation");
+		QString thanks;
+		foreach(Helper helper, helpers) {
+			thanks += QString("&nbsp;%1<br>").arg(helper.name);
+			thanks += QString("&nbsp;&nbsp;<a href='mailto:%1'>%2</a><br>").arg(helper.email).arg(helper.email);
+			thanks += QString("&nbsp;&nbsp;%1<br><br>").arg(helper.contribution);
+		}
 
 		aboutDlg_->setText(text);
 		aboutDlg_->setAuthors(auth);
@@ -115,13 +121,6 @@ public:
 		aboutDlg_->setLicense(License::licenseText, false);
 		aboutDlg_->resize(500, 300);
 		aboutDlg_->setIcon(QIcon(juffed_px));
-		
-		toolBar_ = 0;
-	}
-	~JuffEdInterior() {
-		delete aboutDlg_;
-		delete settingsDlg_;
-		delete viewer_;
 	}
 
 	DocHandler* handler_;

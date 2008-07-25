@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define _JUFFED_PLUGIN_INTERFACE_H_
 
 class QAction;
+class QMenu;
 class QToolBar;
 
 #include <QtCore/QList>
@@ -28,19 +29,11 @@ class QToolBar;
 
 typedef QList<QAction*> ActionList;
 
-/*typedef enum {
-	LeftArea = 0,
-	RightArea,
-	TopArea,
-	BottomArea
-} DockArea;*/
-
 class JuffPlugin {
 public:
 	virtual ~JuffPlugin() { qDebug("Plugin deleted"); }
 	//	initialization
 	virtual void setParent(QObject* parent) = 0;
-//	virtual void setParentWidget(QWidget*) = 0;
 
 	//	deinitialization
 	virtual void deinit() = 0;
@@ -52,6 +45,7 @@ public:
 	//	controls
 	virtual ActionList getMenuActions(const QString& menuName) const = 0;
 	virtual QToolBar* toolBar() const = 0;
+	virtual QMenu* menu() const = 0;
 	virtual QWidget* settingsPage() const = 0;
 	virtual QWidget* dockWidget(Qt::DockWidgetArea& area) const = 0;
 };

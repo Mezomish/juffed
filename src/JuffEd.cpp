@@ -213,6 +213,7 @@ void JuffEd::loadPlugins() {
 			if (plugin != 0){
 				jInt_->pluginList_.append(plugin);
 				plugin->setParent(jInt_->handler_);
+				qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
 				
 				//	toolbars
 				if (plugin->toolBar() != 0)
@@ -241,6 +242,12 @@ void JuffEd::loadPlugins() {
 					if (jInt_->toolBarsMenu_ != 0) {
 						jInt_->toolBarsMenu_->addAction(dock->toggleViewAction());
 					}
+				}
+				
+				//	menus
+				QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
+				if (tMenu != 0 && plugin->menu() != 0) {
+					menuBar()->insertMenu(tMenu->menuAction(), plugin->menu());
 				}
 			}
 		}
@@ -460,7 +467,7 @@ void JuffEd::createMenuBar() {
 	initRecentFilesMenu();
 	
 	//	toolbars
-	jInt_->toolBarsMenu_ = new QMenu(tr("Toolbars"));
+	jInt_->toolBarsMenu_ = new QMenu(tr("Panels"));
 	QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
 	QAction* settAct = CommandStorage::instance()->action(ID_SETTINGS);
 	if (tMenu != 0 && settAct != 0) {
@@ -629,11 +636,21 @@ void JuffEd::setupToolBarStyle() {
 
 		//	toolbar icon size
 		int iconSize = MainSettings::iconSize();
+		QSize sz(24, 24);
 		switch (iconSize) {
-			case 0: jInt_->toolBar_->setIconSize(QSize(16, 16)); break;
-			case 1: jInt_->toolBar_->setIconSize(QSize(24, 24)); break;
-			case 2: jInt_->toolBar_->setIconSize(QSize(32, 32)); break;
-			default: jInt_->toolBar_->setIconSize(QSize(24, 24)); break;
+			case 0: sz = QSize(16, 16); break;
+			case 2: sz = QSize(32, 32); break;
+			case 1:
+			default: ;
+		}
+		
+		jInt_->toolBar_->setIconSize(sz);
+		foreach (JuffPlugin* plugin, jInt_->pluginList_) {
+			if (plugin != 0) {
+				if (plugin->toolBar() != 0) {
+					plugin->toolBar()->setIconSize(sz);
+				}
+			}
 		}
 	}
 }

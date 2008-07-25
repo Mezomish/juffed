@@ -71,6 +71,7 @@ public:
 	void undo();
 	void redo();
 	void print();
+	void printSelected();
 
 	void find(const QString& str, bool isRegExp, DocFindFlags flags);
 	void replace(const QString& from, bool isRegExp, const QString& to, DocFindFlags flags);

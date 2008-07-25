@@ -159,6 +159,14 @@ void TextDoc::print() const {
 	tdView->print();
 }
 
+void TextDoc::printSelected() const {
+	TextDocView* tdView = textDocView();
+	if (tdView == 0)
+		return;
+
+	tdView->printSelected();
+}
+
 Document::Status TextDoc::open() {
 	return readContent(fileName());
 }

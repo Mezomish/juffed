@@ -44,8 +44,12 @@ Juff::Document::Status NullDoc::reload() {
 	scream(); 
 	return StatusUnknownError; 
 }
-	
+
 void NullDoc::print() const {
+	scream(); 
+}
+
+void NullDoc::printSelected() const {
 	scream(); 
 }
 

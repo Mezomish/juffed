@@ -482,6 +482,14 @@ void DocHandler::docPrint() {
 	doc->print();
 }
 
+void DocHandler::docPrintSelected() {
+	Juff::Document* doc = currentDoc();
+	if (doc->isNull())
+		return;
+
+	doc->printSelected();
+}
+
 void DocHandler::docClose() {
 	closeDocument(currentDoc());
 	

@@ -34,6 +34,7 @@ public:
 	virtual Juff::Document::Status close();
 	virtual Juff::Document::SaveRequest confirmForClose();
 	virtual void print() const;
+	virtual void printSelected() const;
 
 	virtual void processTheCommand(CommandID);
 

@@ -318,6 +318,20 @@ void TextDocView::print() {
 	}
 }
 
+void TextDocView::printSelected() {
+	QsciPrinter prn;
+	QPrintDialog dlg(&prn, this);
+	if (dlg.exec() == QDialog::Accepted) {
+		int lineFrom(-1), lineTo(-1), colFrom(-1), colTo(-1);
+		vInt_->edit_->getSelection(&lineFrom, &colFrom, &lineTo, &colTo);
+		if (colTo == 0)
+			--lineTo;
+
+		prn.setWrapMode(isAdjustedByWidth() ? QsciScintilla::WrapWord : QsciScintilla::WrapNone);
+		prn.printRange(vInt_->edit_, lineFrom, lineTo);
+	}
+}
+
 
 ////////////////////////////////////////////////////////////
 //	EDIT

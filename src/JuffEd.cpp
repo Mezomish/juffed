@@ -320,6 +320,7 @@ void JuffEd::createCommands() {
 		Command(ID_FILE_SAVE_AS,tr("Save as"),	im->icon("fileSaveAs"),	QKeySequence("Ctrl+Shift+S"),			h, SLOT(docSaveAs())),
 		Command(ID_FILE_RELOAD, tr("Reload"),	im->icon("reload"),		QKeySequence("F5"),		h, SLOT(docReload())),
 		Command(ID_FILE_PRINT,	tr("Print"),	im->icon("filePrint"),	QKeySequence("Ctrl+P"),	h, SLOT(docPrint())),
+		Command(ID_FILE_PRINT_SELECTED,	tr("Print selected lines"),	im->icon("filePrintSelected"),	QKeySequence(),	h, SLOT(docPrintSelected())),
 		Command(ID_FILE_CLOSE,	tr("Close"),	im->icon("fileClose"),	QKeySequence("Ctrl+W"), h, SLOT(docClose())),
 		Command(ID_FILE_CLOSE_ALL, tr("Close all"), im->icon("fileCloseAll"), QKeySequence(),	h, SLOT(docCloseAll())),
 		Command(ID_EXIT,		tr("Exit"),		im->icon("exit"),		QKeySequence(),			this, SLOT(exit())),
@@ -379,7 +380,7 @@ void JuffEd::createMenuBar() {
 	menuBar()->clear();
 
 	CommandID fileMenu[] = { ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_FILE_SAVE_AS, 
-					ID_FILE_RELOAD, ID_FILE_PRINT, ID_FILE_CLOSE, ID_FILE_CLOSE_ALL, ID_SEPARATOR, 
+					ID_FILE_RELOAD, ID_FILE_PRINT, ID_FILE_PRINT_SELECTED, ID_FILE_CLOSE, ID_FILE_CLOSE_ALL, ID_SEPARATOR, 
 					ID_SESSION_NEW, ID_SESSION_OPEN, ID_SESSION_SAVE, ID_SESSION_SAVE_AS, 
 					ID_SEPARATOR, ID_EXIT, ID_NONE };
 

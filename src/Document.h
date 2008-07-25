@@ -74,6 +74,7 @@ public:
 	virtual Document::Status reload() = 0;
 	virtual Document::SaveRequest confirmForClose() = 0;
 	virtual void print() const = 0;
+	virtual void printSelected() const = 0;
 
 	virtual void processTheCommand(CommandID) = 0;
 	virtual void applySettings();

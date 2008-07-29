@@ -1,5 +1,12 @@
+2008-07-24:
+* Added: printing of selected lines
+
+2008-07-23:
+* Added: highlighting for Batch files
+* Added: context menu for document tab
+
 2008-07-14:
-Added: printing
+* Added: printing
 
 2008-07-10:
 * Added: basic plugins support

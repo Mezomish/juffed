@@ -146,6 +146,8 @@ AboutDlg::AboutDlg(QWidget* parent /*= 0*/, Qt::WindowFlags f /*= 0*/) : QDialog
 }
 
 AboutDlg::~AboutDlg() {
+	JUFFDTOR;
+
 	delete dlgInt_;
 }
 

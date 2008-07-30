@@ -34,6 +34,8 @@ Document::Document(const QString& fileName, DocView* view) : QObject(), view_(vi
 }
 
 Document::~Document() {
+	JUFFDTOR;
+
 	//	modCheckTimer_ will be automatically deleted
 	//	by QObject class destructor, that's why
 	//	here we just stop it. If I delete it by myself 

@@ -23,6 +23,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QObject>
 #include <QtCore/QRect>
 
+#ifdef Q_OS_WIN
+#include <QtGui/QMessageBox>
+#endif
+
 //	local headers
 #ifdef Q_OS_WIN
 #include "AppInfo.win.h"
@@ -31,36 +35,61 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #endif
 
 namespace Log {
-	void print(int n) {
-		print(QString::number(n));
+	
+	static bool logFileErrorShowed = false;
+
+	void printToLog(int n, bool canBeSkipped) {
+		printToLog(QString::number(n), canBeSkipped);
 	}
 	
-	void print(const QString& str) {
+	void printToLog(const QString& str, bool canBeSkipped) {
 		QFile log(AppInfo::logFile());
 		if (log.open(QIODevice::Append)) {
-			log.write(str.toLocal8Bit());
+			log.write(QDateTime::currentDateTime().toString("[hh:mm:ss] %1").arg(str).toLocal8Bit());
 			log.write("\r\n");
 			log.close();
 		}
 		else {
-			debug(QString("Can't open log file: ") + log.errorString());
+#ifdef Q_OS_WIN
+			if (!canBeSkipped) {
+				QMessageBox::warning(0, "Logging error", 
+						QString("Can't open log file (reason: '%1') for writing the message\n\n '%2'")
+						.arg(log.errorString()).arg(str));
+			}
+			else {
+				if (!logFileErrorShowed) {
+					QMessageBox::warning(0, "Error", 
+							QString("Can't open log file (reason: '%1').\nNothing will be logged.")
+							.arg(log.errorString()));
+
+					logFileErrorShowed = true;
+				}
+			}
+#else
+			qDebug(qPrintable(QString("Can't open log file: ") + log.errorString()));
+			qDebug(qPrintable(QString("Log string: ") + str));
+#endif
 		}
 	}
 	
-	void debug(const QString& str) {
-		qDebug(qPrintable(QDateTime::currentDateTime().toString("[hh:mm:ss] ") + str));
-	}
+	void debug(const QString& str, bool canBeSkipped) {
+#ifdef Q_OS_WIN
+		printToLog(str, canBeSkipped);
+#else
+		qDebug(qPrintable(QDateTime::currentDateTime().toString("[hh:mm:ss] %1").arg(str)));
+#endif
+}
 	
-	void debug(const char* str)  {
-		debug(QString(str));
+	void debug(const char* str, bool canBeSkipped)  {
+		debug(QString(str), canBeSkipped);
 	}
 
-	void debug(int n) {
-		debug(QString::number(n));
+	void debug(int n, bool canBeSkipped) {
+		debug(QString::number(n), canBeSkipped);
 	}
 
-	void debug(const QRect& r) {
-		debug(QString("%1,%2,%3,%4").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()));
+	void debug(const QRect& r, bool canBeSkipped) {
+		debug(QString("%1,%2,%3,%4").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()), canBeSkipped);
 	}
 };
 

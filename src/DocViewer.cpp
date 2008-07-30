@@ -49,6 +49,8 @@ DocViewer::DocViewer(QWidget* parent) : QObject() {
 }
 
 DocViewer::~DocViewer() {
+	JUFFDTOR;
+
 	delete vInt_;
 }
 

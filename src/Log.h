@@ -23,12 +23,27 @@ class QString;
 class QRect;
 
 namespace Log {
-	void print(const QString&);
-	void print(int);
-	void debug(const QString&);
-	void debug(const char*);
-	void debug(int);
-	void debug(const QRect&);
+	void printToLog(const QString&, bool canBeSkipped = false);
+	void printToLog(int, bool canBeSkipped = false);
+	void debug(const QString&, bool canBeSkipped = false);
+	void debug(const char*, bool canBeSkipped = false);
+	void debug(int, bool canBeSkipped = false);
+	void debug(const QRect&, bool canBeSkipped = false);
 };
+
+//	TODO: remove it from here to configure and .pro file
+#define _JUFF_DEBUG_
+
+#ifdef _JUFF_DEBUG_
+
+#define JUFFENTRY Log::debug(QString("Entering %1 (%2:%3)").arg(__FUNCTION__).arg(__FILE__).arg(__LINE__))
+#define JUFFDTOR Log::debug(QString("Destructor: %1").arg(__FUNCTION__))
+
+#else
+
+#define JUFFENTRY ;
+#define JUFFDTOR ;
+
+#endif
 
 #endif

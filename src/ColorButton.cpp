@@ -33,7 +33,7 @@ ColorButton::ColorButton(QPushButton* btn, const QColor& color) : QObject(btn) {
 }
 
 ColorButton::~ColorButton() {
-	Log::print("Color btn destroyed");
+	JUFFDTOR;
 }
 
 void ColorButton::clicked() {
@@ -49,7 +49,6 @@ void ColorButton::setBtnColor(const QColor& color) {
 
 	color_ = color;
 
-	Log::print(QString("%1 %2").arg(btn_->width()).arg(btn_->height()));
 	QPixmap pm(btn_->width() - 10, btn_->height() - 10);
 	QPainter p(&pm);
 	p.setBrush(color);

@@ -192,6 +192,8 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 }
 
 JuffEd::~JuffEd() {
+	JUFFDTOR;
+
 	MainSettings::setWindowRect(jInt_->geometry_);
 	MainSettings::setMaximized(isMaximized());
 	if (!jInt_->handler_->sessionName().isEmpty()) {
@@ -199,7 +201,6 @@ JuffEd::~JuffEd() {
 	}
 
 	delete jInt_;
-	
 }
 
 void JuffEd::loadPlugins() {

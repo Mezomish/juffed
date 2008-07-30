@@ -24,7 +24,7 @@ DocView::DocView(QWidget* parent) : QWidget(parent) {
 }
 
 DocView::~DocView() {
-//	Log::debug("DocView dt");
+	JUFFDTOR;
 }
 
 void DocView::setDocument(Juff::Document* doc) {

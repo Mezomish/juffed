@@ -36,6 +36,8 @@ TabBar::TabBar(QWidget* parent) : QTabBar(parent), index_(-1) {
 }
 
 TabBar::~TabBar() {
+	JUFFDTOR;
+
 	delete tabMenu_;
 }
 

@@ -72,7 +72,7 @@ TextDoc::TextDoc(const QString& fileName, DocView* view) : Document(fileName, vi
 
 	TextDocView* tdView = qobject_cast<TextDocView*>(view);
 	if (tdView == 0) {
-		Log::print("TextDoc was initialized with wrong view");
+		Log::debug("TextDoc was initialized with a wrong view");
 	}
 	else {
 		tdView->setLineNumVisible(TextDocSettings::showLineNumbers());
@@ -81,7 +81,8 @@ TextDoc::TextDoc(const QString& fileName, DocView* view) : Document(fileName, vi
 }
 
 TextDoc::~TextDoc() {
-//	Log::debug("TextDoc dt");
+	JUFFDTOR;
+
 	delete docInt_;
 }
 
@@ -223,8 +224,8 @@ void TextDoc::find(const QString& str, const DocFindFlags& flags) {
 void TextDoc::processTheCommand(CommandID id) {
 	TextDocView* tdView = textDocView();
 	if (tdView == 0) {
-		Log::print(QString("Wrong view in %1:%2").arg(__FILE__).arg(__LINE__));
-		Log::print("TextDoc was initialized with wrong view");
+		Log::debug(QString("Wrong view in %1:%2").arg(__FILE__).arg(__LINE__));
+		Log::debug("TextDoc was initialized with a wrong view");
 		return;
 	}
 	
@@ -336,7 +337,7 @@ Document::Status TextDoc::readContent(const QString& name) {
 
 		TextDocView* tdView = qobject_cast<TextDocView*>(view());
 		if (tdView == 0) {
-			Log::print("TextDoc was initialized with wrong view");
+			Log::debug("TextDoc was initialized with a wrong view");
 			res = Document::StatusUnknownError;
 		}
 		else {

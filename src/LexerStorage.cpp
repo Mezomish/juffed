@@ -157,7 +157,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 	QString fileName = QString("%1.xml").arg(nm);
 	fileName = AppInfo::configDir() + "/hlschemes/" + fileName;
 
-	Log::debug(QString("Reading custom style from file '%1'...").arg(fileName));
+	Log::debug(QString("Reading custom style from file '%1'...").arg(fileName), true);
 
 	QFile file(fileName);
 	if (!file.open(QIODevice::ReadOnly)) {
@@ -165,7 +165,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 		return;
 	}
 	else {
-		Log::debug(QString("File '%1' opened successfully").arg(fileName));
+		Log::debug(QString("File '%1' opened successfully").arg(fileName), true);
 	}
 
 	QString err;
@@ -177,7 +177,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 		return;
 	}
 	else {
-		Log::debug(QString("File '%1' was parsed successfully").arg(fileName));
+		Log::debug(QString("File '%1' was parsed successfully").arg(fileName), true);
 	}
 	
 	file.close();
@@ -509,6 +509,8 @@ LexerStorage::LexerStorage() {
 }
 
 LexerStorage::~LexerStorage() {
+	JUFFDTOR;
+
 	delete lsInt_;
 }
 

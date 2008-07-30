@@ -160,7 +160,7 @@ int main(int argc, char* argv[]) {
 			return 0;
 		}
 		else {
-			Log::print("Failed to send files");
+			Log::printToLog("Failed to send file names to the existing app");
 			return -1;
 		}
 	}

@@ -137,6 +137,8 @@ TextDocView::TextDocView(QWidget* parent) : DocView(parent) {
 }
 
 TextDocView::~TextDocView() {
+	JUFFDTOR;
+
 	delete vInt_;
 }
 
@@ -146,7 +148,6 @@ void TextDocView::setDocument(Juff::Document* doc) {
 	TextDoc* tDoc = qobject_cast<TextDoc*>(doc);
 	if (tDoc == 0) {
 		Log::debug("Wrong document");
-		Log::print("Wrong document");
 		return;
 	}
 	

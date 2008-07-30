@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 
 //	Qt headers
+#include <QtCore/QDateTime>
 #include <QtCore/QObject>
 #include <QtCore/QRect>
 
@@ -47,11 +48,11 @@ namespace Log {
 	}
 	
 	void debug(const QString& str) {
-		qDebug(qPrintable(str));
+		qDebug(qPrintable(QDateTime::currentDateTime().toString("[hh:mm:ss] ") + str));
 	}
 	
 	void debug(const char* str)  {
-		qDebug(str);
+		debug(QString(str));
 	}
 
 	void debug(int n) {

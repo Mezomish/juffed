@@ -159,6 +159,7 @@ int DocHandler::docCount() const {
 }
 
 Juff::Document* DocHandler::currentDoc() const {
+	Log::debug("Entering DocHandler::currentDoc()");
 	if (hInt_->curDoc_ != 0)
 		return hInt_->curDoc_;
 	else
@@ -203,6 +204,7 @@ void DocHandler::restoreSession() {
 }
 
 Juff::Document* DocHandler::newDocument(const QString& fileName) {
+	Log::debug("Entering DocHandler::newDocument()");
 	Juff::Document* doc = NullDoc::instance();
 
 	if (!fileName.isEmpty()) {
@@ -261,6 +263,7 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 }
 
 bool DocHandler::closeDocument(Juff::Document* doc) {
+	Log::debug("Entering DocHandler::closeDocument()");
 	if (doc == 0 || doc->isNull())
 		return false;
 
@@ -310,6 +313,7 @@ bool DocHandler::closeAllDocs() {
 }
 
 Juff::Document* DocHandler::findDocument(const QString& fileName) {
+	Log::debug("Entering DocHandler::findDocument()");
 	Juff::Document* doc = NullDoc::instance();
 	if (!fileName.isEmpty()) {
 		foreach (Juff::Document* d, hInt_->docs_) {
@@ -323,6 +327,7 @@ Juff::Document* DocHandler::findDocument(const QString& fileName) {
 }
 
 void DocHandler::docModified(bool) {
+	Log::debug("Entering DocHandler::docModified()");
 	TextDocView* tdView = qobject_cast<TextDocView*>(sender());
 	if (tdView != 0) {
 		hInt_->viewer_->setDocViewTitle(tdView, docTitle(tdView->document()));
@@ -333,6 +338,7 @@ void DocHandler::docModified(bool) {
 }
 
 void DocHandler::docFileNameChanged(const QString& oldName) {
+	Log::debug("Entering DocHandler::docFileNameChanged()");
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if (doc != 0) {
 		hInt_->viewer_->setDocViewTitle(doc->view(), docTitle(doc));
@@ -352,6 +358,7 @@ void DocHandler::applySettings() {
 }
 
 void DocHandler::docActivated(Juff::Document* doc) {
+	Log::debug("Entering DocHandler::docActivated()");
 	if (doc == 0)
 		return;
 
@@ -373,10 +380,12 @@ void DocHandler::docActivated(Juff::Document* doc) {
 //	PUBLIC SLOTS
 ////////////////////////////////////////////////////////////
 void DocHandler::docNew() {
+	Log::debug("Entering DocHandler::docNew()");
 	newDocument("");
 }
 
 void DocHandler::docOpen(const QString& name/*= ""*/) {
+	Log::debug("Entering DocHandler::docOpen()");
 	//
 	//	TODO :	Move everything into the TextDoc
 	//
@@ -453,6 +462,7 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 }
 
 void DocHandler::docSave() {
+	Log::debug("Entering DocHandler::docSave()");
 	Juff::Document* doc = currentDoc();
 	if (!doc->isNull()) {
 		doc->save();
@@ -460,6 +470,7 @@ void DocHandler::docSave() {
 }
 
 void DocHandler::docSaveAs() {
+	Log::debug("Entering DocHandler::docSaveAs()");
 	Juff::Document* doc = currentDoc();
 	if (!doc->isNull()) {
 		doc->saveAs();
@@ -467,6 +478,7 @@ void DocHandler::docSaveAs() {
 }
 
 void DocHandler::docReload() {
+	Log::debug("Entering DocHandler::docReload()");
 	Juff::Document* doc = currentDoc();
 	if (doc->isNull())
 		return;
@@ -491,6 +503,7 @@ void DocHandler::docPrintSelected() {
 }
 
 void DocHandler::docClose() {
+	Log::debug("Entering DocHandler::docClose()");
 	closeDocument(currentDoc());
 	
 	//	Need to be called, because if index of current view doesn't 

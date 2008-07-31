@@ -44,49 +44,23 @@
 <context>
     <name>DocHandler</name>
     <message>
-        <location filename="../src/DocHandler.cpp" line="394"/>
+        <location filename="../src/DocHandler.cpp" line="441"/>
         <source>Open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/DocHandler.cpp" line="624"/>
+        <location filename="../src/DocHandler.cpp" line="695"/>
         <source>Save session as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/DocHandler.cpp" line="624"/>
+        <location filename="../src/DocHandler.cpp" line="695"/>
         <source>Session name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Document</name>
-    <message>
-        <location filename="../src/Document.cpp" line="88"/>
-        <source>The file was modified by external program
-What do you want to do?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/Document.cpp" line="89"/>
-        <source>Warning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/Document.cpp" line="93"/>
-        <source>Save current</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/Document.cpp" line="96"/>
-        <source>Reload from disk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/Document.cpp" line="99"/>
-        <source>Ignore</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>EditorSettingsPage</name>
@@ -213,253 +187,282 @@ newly created/opened docs</source>
     </message>
 </context>
 <context>
+    <name>Juff::Document</name>
+    <message>
+        <location filename="../src/Document.cpp" line="101"/>
+        <source>The file was modified by external program
+What do you want to do?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Document.cpp" line="102"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Document.cpp" line="106"/>
+        <source>Save current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Document.cpp" line="109"/>
+        <source>Reload from disk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Document.cpp" line="112"/>
+        <source>Ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>JuffEd</name>
     <message>
-        <location filename="../src/JuffEd.cpp" line="280"/>
+        <location filename="../src/JuffEd.cpp" line="360"/>
         <source>About Qt</source>
         <translation>Acerca de Qt</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="240"/>
+        <location filename="../src/JuffEd.cpp" line="318"/>
         <source>New</source>
         <translation>Nuevo</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="241"/>
+        <location filename="../src/JuffEd.cpp" line="319"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="242"/>
+        <location filename="../src/JuffEd.cpp" line="320"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="243"/>
+        <location filename="../src/JuffEd.cpp" line="321"/>
         <source>Save as</source>
         <translation>Guardar como</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="244"/>
+        <location filename="../src/JuffEd.cpp" line="322"/>
         <source>Reload</source>
         <translation>Recargar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="245"/>
+        <location filename="../src/JuffEd.cpp" line="325"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="246"/>
+        <location filename="../src/JuffEd.cpp" line="326"/>
         <source>Close all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="247"/>
+        <location filename="../src/JuffEd.cpp" line="327"/>
         <source>Exit</source>
         <translation>Salir</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="249"/>
+        <location filename="../src/JuffEd.cpp" line="329"/>
         <source>Cut</source>
         <translation>Cortar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="250"/>
+        <location filename="../src/JuffEd.cpp" line="330"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="251"/>
+        <location filename="../src/JuffEd.cpp" line="331"/>
         <source>Paste</source>
         <translation>Pegar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="252"/>
+        <location filename="../src/JuffEd.cpp" line="332"/>
         <source>Undo</source>
         <translation>Deshacer</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="253"/>
+        <location filename="../src/JuffEd.cpp" line="333"/>
         <source>Redo</source>
         <translation>Rehacer</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="254"/>
+        <location filename="../src/JuffEd.cpp" line="334"/>
         <source>Find</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="255"/>
+        <location filename="../src/JuffEd.cpp" line="335"/>
         <source>Find next</source>
         <translation>Buscar siguiente</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="256"/>
+        <location filename="../src/JuffEd.cpp" line="336"/>
         <source>Find previous</source>
         <translation>Buscar Anterior</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="257"/>
+        <location filename="../src/JuffEd.cpp" line="337"/>
         <source>Go to line</source>
         <translation>Ir a la Línea</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="260"/>
+        <location filename="../src/JuffEd.cpp" line="340"/>
         <source>Show line numbers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="261"/>
+        <location filename="../src/JuffEd.cpp" line="341"/>
         <source>Adjust text by width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="264"/>
+        <location filename="../src/JuffEd.cpp" line="344"/>
         <source>Add/Remove marker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="267"/>
+        <location filename="../src/JuffEd.cpp" line="347"/>
         <source>Remove all markers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="269"/>
+        <location filename="../src/JuffEd.cpp" line="349"/>
         <source>Previous</source>
         <translation>Anterior</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="270"/>
+        <location filename="../src/JuffEd.cpp" line="350"/>
         <source>Next</source>
         <translation>Siguiente</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="272"/>
+        <location filename="../src/JuffEd.cpp" line="352"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="274"/>
+        <location filename="../src/JuffEd.cpp" line="354"/>
         <source>New session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="275"/>
+        <location filename="../src/JuffEd.cpp" line="355"/>
         <source>Open session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="276"/>
+        <location filename="../src/JuffEd.cpp" line="356"/>
         <source>Save session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="277"/>
+        <location filename="../src/JuffEd.cpp" line="357"/>
         <source>Save session as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="279"/>
+        <location filename="../src/JuffEd.cpp" line="359"/>
         <source>About</source>
         <translation>Acerca de</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="384"/>
+        <location filename="../src/JuffEd.cpp" line="464"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="322"/>
+        <location filename="../src/JuffEd.cpp" line="402"/>
         <source>&amp;Edit</source>
         <translation>&amp;Editar</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="354"/>
+        <location filename="../src/JuffEd.cpp" line="434"/>
         <source>&amp;View</source>
         <translation>&amp;Ver</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="426"/>
+        <location filename="../src/JuffEd.cpp" line="517"/>
         <source>&amp;Markers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="322"/>
+        <location filename="../src/JuffEd.cpp" line="473"/>
         <source>&amp;Tools</source>
         <translation>&amp;Herramientas</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="322"/>
+        <location filename="../src/JuffEd.cpp" line="402"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="353"/>
+        <location filename="../src/JuffEd.cpp" line="433"/>
         <source>Charset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="382"/>
+        <location filename="../src/JuffEd.cpp" line="462"/>
         <source>Recent files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="565"/>
+        <location filename="../src/JuffEd.cpp" line="666"/>
         <source>Row: %1, Col: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="265"/>
+        <location filename="../src/JuffEd.cpp" line="345"/>
         <source>Next marker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="266"/>
+        <location filename="../src/JuffEd.cpp" line="346"/>
         <source>Previous marker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="362"/>
+        <location filename="../src/JuffEd.cpp" line="442"/>
         <source>Syntax</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="258"/>
+        <location filename="../src/JuffEd.cpp" line="323"/>
+        <source>Print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/JuffEd.cpp" line="324"/>
+        <source>Print selected lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/JuffEd.cpp" line="338"/>
         <source>Unindent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="262"/>
+        <location filename="../src/JuffEd.cpp" line="342"/>
         <source>Show hidden symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/JuffEd.cpp" line="472"/>
+        <source>Panels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/JuffEd.cpp" line="686"/>
+        <source>Noname</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="129"/>
-        <source>On program start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/MainSettingsPage.ui" line="94"/>
-        <source>Show session dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/MainSettingsPage.ui" line="87"/>
-        <source>Open empty session</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/MainSettingsPage.ui" line="151"/>
-        <source>Auto save every</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/MainSettingsPage.ui" line="53"/>
-        <source> minute(s)</source>
+        <location filename="../src/MainSettingsPage.ui" line="33"/>
+        <source>Make backup copy when save file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -473,8 +476,8 @@ newly created/opened docs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="33"/>
-        <source>Make backup copy when save file</source>
+        <location filename="../src/MainSettingsPage.ui" line="53"/>
+        <source> minute(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -483,8 +486,28 @@ newly created/opened docs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/MainSettingsPage.ui" line="87"/>
+        <source>Open empty session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/MainSettingsPage.ui" line="94"/>
+        <source>Show session dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/MainSettingsPage.ui" line="114"/>
         <source>Open last saved session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/MainSettingsPage.ui" line="129"/>
+        <source>On program start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/MainSettingsPage.ui" line="151"/>
+        <source>Auto save every</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -496,48 +519,48 @@ newly created/opened docs</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/DocHandler.cpp" line="176"/>
+        <location filename="../src/DocHandler.cpp" line="182"/>
         <source>Noname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="74"/>
+        <location filename="../src/JuffEd.cpp" line="100"/>
         <source>About</source>
-        <translation>Acerca de</translation>
+        <translation type="unfinished">Acerca de</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="77"/>
+        <location filename="../src/JuffEd.cpp" line="102"/>
         <source>Simple text editor with syntax highlighting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="84"/>
+        <location filename="../src/JuffEd.cpp" line="105"/>
         <source>Polish translation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="91"/>
+        <location filename="../src/JuffEd.cpp" line="106"/>
         <source>German translation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="383"/>
-        <source>Confirmation</source>
-        <translation>Confirmación</translation>
-    </message>
-    <message>
-        <location filename="../src/TextDocView.cpp" line="384"/>
-        <source>Replace this text?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="98"/>
+        <location filename="../src/JuffEd.cpp" line="107"/>
         <source>French translation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="104"/>
+        <location filename="../src/JuffEd.cpp" line="108"/>
         <source>Brazilian Portuguese translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TextDocView.cpp" line="433"/>
+        <source>Confirmation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TextDocView.cpp" line="434"/>
+        <source>Replace this text?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -551,7 +574,7 @@ newly created/opened docs</source>
     <message>
         <location filename="../src/SessionDlg.ui" line="44"/>
         <source>Name</source>
-        <translation>Nombre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/SessionDlg.ui" line="65"/>
@@ -569,26 +592,31 @@ newly created/opened docs</source>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="85"/>
         <source>Settings</source>
-        <translation>Configuración</translation>
+        <translation type="unfinished">Configuración</translation>
     </message>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="88"/>
         <source>OK</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="89"/>
         <source>Apply</source>
-        <translation>Aplicar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="90"/>
         <source>Cancel</source>
-        <translation>Cancelar</translation>
+        <translation type="unfinished">Cancelar</translation>
     </message>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="100"/>
         <source>General</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SettingsDlg.cpp" line="101"/>
+        <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -601,69 +629,82 @@ newly created/opened docs</source>
         <source>Charsets</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>TabBar</name>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="101"/>
-        <source>View</source>
+        <location filename="../src/TabBar.cpp" line="33"/>
+        <source>Copy file name to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TabBar.cpp" line="34"/>
+        <source>Copy full file path to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/TabBar.cpp" line="35"/>
+        <source>Copy file directory path to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>TextDoc</name>
     <message>
-        <location filename="../src/TextDoc.cpp" line="116"/>
+        <location filename="../src/TextDoc.cpp" line="118"/>
         <source>Save as</source>
-        <translation>Guardar como</translation>
+        <translation type="unfinished">Guardar como</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="121"/>
+        <location filename="../src/TextDoc.cpp" line="123"/>
         <source>Save as a copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="127"/>
+        <location filename="../src/TextDoc.cpp" line="129"/>
         <source>Save</source>
-        <translation>Guardar</translation>
+        <translation type="unfinished">Guardar</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="160"/>
+        <location filename="../src/TextDoc.cpp" line="178"/>
         <source>The document </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="161"/>
+        <location filename="../src/TextDoc.cpp" line="179"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="162"/>
+        <location filename="../src/TextDoc.cpp" line="180"/>
         <source>Close document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="250"/>
+        <location filename="../src/TextDoc.cpp" line="268"/>
         <source>Go to line</source>
-        <translation>Ir a la Línea</translation>
+        <translation type="unfinished">Ir a la Línea</translation>
     </message>
 </context>
 <context>
     <name>TextDocView</name>
     <message>
-        <location filename="../src/TextDocView.cpp" line="347"/>
+        <location filename="../src/TextDocView.cpp" line="397"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="352"/>
+        <location filename="../src/TextDocView.cpp" line="402"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="356"/>
+        <location filename="../src/TextDocView.cpp" line="406"/>
         <source>Find</source>
-        <translation>Buscar</translation>
+        <translation type="unfinished">Buscar</translation>
     </message>
 </context>
 <context>
@@ -686,17 +727,17 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="63"/>
         <source>16</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="68"/>
         <source>24</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="73"/>
         <source>32</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ViewSettingsPage.ui" line="82"/>

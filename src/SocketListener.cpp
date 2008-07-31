@@ -56,7 +56,7 @@ void SocketListener::run() {
 	socket_ = socket(AF_UNIX, SOCK_STREAM, 0);
 	if (socket_ == -1) {
 		//	error
-		Log::print("Failed to create socket");
+		Log::debug("Failed to create socket");
 	}
 	else {
 		//	Socket was created successfully.
@@ -71,7 +71,7 @@ void SocketListener::run() {
 
 		if (res == -1) {
 			//	error
-			Log::print("Failed to bind socket");
+			Log::debug("Failed to bind socket");
 		}
 		else {
 			//	Socket was binded successfully. Now it 
@@ -79,7 +79,7 @@ void SocketListener::run() {
 			int res = listen(socket_, 0);
 			if (res == -1) {
 				//	error
-				Log::print("Failed to start listening");
+				Log::debug("Failed to start listening");
 			}
 			else {
 				sockaddr cl_addr;
@@ -95,7 +95,7 @@ void SocketListener::run() {
 					int connected_sock = accept(socket_, &cl_addr, &addr_len);
 					if (connected_sock == -1) {
 						//	error
-						Log::print("Accept failed");
+						Log::debug("Accept failed");
 						++fails;
 					}
 					else {

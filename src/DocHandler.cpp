@@ -159,6 +159,8 @@ void DocHandler::addViewer(DocViewer* viewer) {
 }
 
 int DocHandler::docCount() const {
+	JUFFENTRY;
+
 	return hInt_->docs_.count();
 }
 
@@ -172,10 +174,14 @@ Juff::Document* DocHandler::currentDoc() const {
 }
 
 const QString& DocHandler::sessionName() const { 
+	JUFFENTRY;
+
 	return hInt_->sessionName_; 
 }
 
 QString docTitle(Juff::Document* doc) {
+	JUFFENTRY;
+
 	QString title;
 	
 	if (doc->isNoname()) {
@@ -192,6 +198,8 @@ QString docTitle(Juff::Document* doc) {
 }
 
 void DocHandler::restoreSession() {
+	JUFFENTRY;
+
 	int startupVariant = MainSettings::startupVariant();
 	switch (startupVariant) {
 	case 1:
@@ -250,17 +258,23 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 			}
 		}
 		
+		Log::debug("ChP 1");
 		hInt_->docs_.append(doc);
+		Log::debug("ChP 2");
 		hInt_->viewer_->addDocView(docTitle(doc), docView);
-
+		Log::debug("ChP 3");
 		doc->applySettings();
+		Log::debug("ChP 4");
 		doc->open();
+		Log::debug("ChP 5");
 
 		hInt_->viewer_->widget()->activateWindow();
+		Log::debug("ChP 6");
 		
 		//	emit informational signals
 		emit docOpened(doc->fileName());
 		emit docSwitched(doc->fileName());
+		Log::debug("ChP 7");
 		
 		if (docCount() == 1)
 			hInt_->viewer_->updateCurrentViewInfo();
@@ -307,6 +321,8 @@ bool DocHandler::closeDocument(Juff::Document* doc) {
 }
 
 bool DocHandler::closeAllDocs() {
+	JUFFENTRY;
+
 	if (MainSettings::saveSessionOnClose())
 		saveSession(hInt_->sessionName_);
 
@@ -360,6 +376,8 @@ void DocHandler::docFileNameChanged(const QString& oldName) {
 }
 
 void DocHandler::applySettings() {
+	JUFFENTRY;
+
 	hInt_->checkTheTimer();
 	
 	foreach (Juff::Document* doc, hInt_->docs_) {
@@ -426,20 +444,24 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 
 		QString startDir("");
 		QString curDocFileName("");
+		Log::debug("ChP 1");
 		Juff::Document* curDoc = currentDoc();
 		if (curDoc != 0 && !curDoc->isNull())
 			curDocFileName = curDoc->fileName();
 
+		Log::debug("ChP 2");
 		if (MainSettings::syncOpenDialogToCurDoc() && QFileInfo(curDocFileName).exists()) {
 			startDir = QFileInfo(curDocFileName).absolutePath();
 		}
 		else {
 			startDir = MainSettings::lastOpenDir();
 		}
+		Log::debug("ChP 3");
 
 		files = QFileDialog::getOpenFileNames(hInt_->viewer_->widget(), 
 				tr("Open file"), startDir, fileTypes);
 	
+		Log::debug("ChP 4");
 		if (! files.isEmpty()) {
 			QString file;
 		
@@ -503,6 +525,8 @@ void DocHandler::docReload() {
 }
 
 void DocHandler::docPrint() {
+	JUFFENTRY;
+
 	Juff::Document* doc = currentDoc();
 	if (doc->isNull())
 		return;
@@ -511,6 +535,8 @@ void DocHandler::docPrint() {
 }
 
 void DocHandler::docPrintSelected() {
+	JUFFENTRY;
+
 	Juff::Document* doc = currentDoc();
 	if (doc->isNull())
 		return;
@@ -532,6 +558,8 @@ void DocHandler::docClose() {
 }
 
 void DocHandler::docCloseAll() {
+	JUFFENTRY;
+
 	closeAllDocs();
 }
 
@@ -542,6 +570,8 @@ void DocHandler::prevDoc() {
 }
 
 void DocHandler::processTheCommand() {
+	JUFFENTRY;
+
 	QAction* a = qobject_cast<QAction*>(sender());
 	if (a != 0) {
 		Juff::Document* doc = currentDoc();
@@ -596,6 +626,8 @@ void DocHandler::processTheCommand() {
 //////////////////////////////////////////////////////////////////////
 //	SESSIONS
 void DocHandler::newSession() {
+	JUFFENTRY;
+
 	if (closeAllDocs()) {
 		hInt_->sessionName_ = "_empty_session_";
 		docNew();
@@ -603,6 +635,8 @@ void DocHandler::newSession() {
 }
 
 void DocHandler::openSession(const QString& session) {
+	JUFFENTRY;
+
 	QString name(session);
 	
 	if (name.isEmpty()) {
@@ -660,6 +694,8 @@ void DocHandler::openSession(const QString& session) {
 }
 
 void DocHandler::saveSession(const QString& name) {
+	JUFFENTRY;
+
 	if (name.isEmpty())
 		return;
 
@@ -692,6 +728,8 @@ void DocHandler::saveSession(const QString& name) {
 }
 
 void DocHandler::saveSessionAs() {
+	JUFFENTRY;
+
 	QString name = QInputDialog::getText(hInt_->viewer_->widget(), tr("Save session as"), tr("Session name"), QLineEdit::Normal, hInt_->sessionName_);
 	if (!name.isEmpty())
 		saveSession(name);
@@ -704,6 +742,8 @@ void DocHandler::saveSessionAs() {
 //////////////////////////////////////////////////////////////////////
 
 void DocHandler::docOpenRecent() {
+	JUFFENTRY;
+
 	QAction* a = qobject_cast<QAction*>(sender());
 	if (a == NULL)
 		return;
@@ -715,6 +755,8 @@ void DocHandler::docOpenRecent() {
 }
 
 void DocHandler::addToRecentFiles(const QString& fileName) {
+	JUFFENTRY;
+
 	hInt_->recentFiles_.removeAll(fileName);
 	hInt_->recentFiles_.push_front(fileName);
 	if (hInt_->recentFiles_.count() > MainSettings::recentFilesCount())
@@ -725,6 +767,8 @@ void DocHandler::addToRecentFiles(const QString& fileName) {
 }
 
 void DocHandler::getRecentFiles(QStringList& list) const {
+	JUFFENTRY;
+
 	list = hInt_->recentFiles_;
 }
 
@@ -733,10 +777,14 @@ void DocHandler::getRecentFiles(QStringList& list) const {
 //	Application-dependent functions
 ////////////////////////////////////////////////////////////
 Juff::Document* DocHandler::createDocument(const QString& fileName, DocView* view) {
+	JUFFENTRY;
+
 	return new TextDoc(fileName, view);
 }
 
 DocView* DocHandler::createDocView() {
+	JUFFENTRY;
+
 	return new TextDocView(0);
 }
 //	Application-dependent functions
@@ -750,12 +798,16 @@ DocView* DocHandler::createDocView() {
 
 //	just helping function to avoid duplicated code
 TextDocView* getView(Juff::Document* doc) {
+	JUFFENTRY;
+
 	if (doc == 0 || doc->isNull())
 		return 0;
 	return qobject_cast<TextDocView*>(doc->view());
 }
 
 void DocHandler::getText(QString& text) const {
+	JUFFENTRY;
+
 	text = "";
 	TextDocView* tdView = getView(currentDoc());
 	if (tdView != 0)
@@ -763,6 +815,8 @@ void DocHandler::getText(QString& text) const {
 }
 
 void DocHandler::getCursorPos(int& line, int& col) const {
+	JUFFENTRY;
+
 	line = col = -1;
 	TextDocView* tdView = getView(currentDoc());
 	if (tdView != 0)
@@ -774,6 +828,8 @@ void DocHandler::getSelection(int&, int&, int&, int&) const {
 }
 
 void DocHandler::getSelectedText(QString& text) const {
+	JUFFENTRY;
+
 	text = "";
 	TextDocView* tdView = getView(currentDoc());
 	if (tdView != 0)
@@ -781,6 +837,8 @@ void DocHandler::getSelectedText(QString& text) const {
 }
 
 void DocHandler::replaceSelectedText(const QString& text) {
+	JUFFENTRY;
+
 	TextDocView* tdView = getView(currentDoc());
 	if (tdView != 0) {
 		tdView->replaceSelectedText(text);
@@ -788,12 +846,16 @@ void DocHandler::replaceSelectedText(const QString& text) {
 }
 
 void DocHandler::setCursorPos(int line, int col) {
+	JUFFENTRY;
+
 	TextDocView* tdView = getView(currentDoc());
 	if (tdView != 0)
 		tdView->setCursorPos(line, col);
 }
 
 void DocHandler::insertText(const QString& text) {
+	JUFFENTRY;
+
 	TextDocView* tdView = getView(currentDoc());
 	if (tdView != 0)
 		tdView->insertText(text);

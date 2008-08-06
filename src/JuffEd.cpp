@@ -19,10 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "JuffEd.h"
 
 //	Qt headers
-#include <QtCore/QDir>
-#include <QtCore/QList>
 #include <QtCore/QMap>
-#include <QtCore/QPluginLoader>
 #include <QtCore/QUrl>
 #include <QtGui/QAction>
 #include <QtGui/QCloseEvent>
@@ -52,6 +49,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 #include "MainSettings.h"
 #include "PluginInterface.h"
+#include "PluginManager.h"
 #include "Settings.h"
 #include "SettingsDlg.h"
 #include "TextDoc.h"
@@ -143,8 +141,6 @@ public:
 	QAction* lastCharsetAction_;
 	QAction* lastSyntaxAction_;
 	QRect geometry_;
-
-	QList<JuffPlugin*> pluginList_;
 };
 
 JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
@@ -185,8 +181,9 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 	connect(jInt_->handler_, SIGNAL(fileNameChanged(Juff::Document*)), SLOT(docFileNameChanged(Juff::Document*)));
 	connect(jInt_->handler_, SIGNAL(recentFileAdded()), SLOT(initRecentFilesMenu()));
 	connect(jInt_->handler_, SIGNAL(cursorPositionChanged(int, int)), SLOT(displayCursorPos(int, int)));
-	
+
 	loadPlugins();
+	jInt_->settingsDlg_->addPluginsSettings();
 	
 	restoreState(MainSettings::mwState());
 }
@@ -203,83 +200,29 @@ JuffEd::~JuffEd() {
 	delete jInt_;
 }
 
-void JuffEd::loadPlugins() {
-	QDir pluginDir(AppInfo::configDir() + "/plugins");
-
-	foreach (QString fileName, pluginDir.entryList(QDir::Files)) {
-		QPluginLoader loader(pluginDir.absoluteFilePath(fileName));
-		QObject *obj = loader.instance();
-		if (obj) {
-			JuffPlugin* plugin = qobject_cast<JuffPlugin*>(obj);
-			if (plugin != 0){
-				jInt_->pluginList_.append(plugin);
-				plugin->setParent(jInt_->handler_);
-				qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
-				
-				//	toolbars
-				if (plugin->toolBar() != 0)
-					addToolBar(plugin->toolBar());
-
-				//	TODO : adding custom actions from plugins to menus
-				//	actions
-				ActionList editActionsList = plugin->getMenuActions("Edit");
-				foreach(QAction* act, editActionsList) {
-					QMenu* editMenu = jInt_->mainMenuItems_.value(tr("&Edit"), 0);
-					if (editMenu != 0) {
-						editMenu->addAction(act);
-					}
-				}
-				
-				//	dock widgets
-				Qt::DockWidgetArea area(Qt::LeftDockWidgetArea);
-				QWidget* w = plugin->dockWidget(area);
-				if (w != 0) {
-					QDockWidget* dock = new QDockWidget(plugin->name());
-					dock->setObjectName(plugin->name() + "Dock");
-					dock->setWidget(w);
-					addDockWidget(area, dock);
-
-					//	toolbars toggle actions
-					if (jInt_->toolBarsMenu_ != 0) {
-						jInt_->toolBarsMenu_->addAction(dock->toggleViewAction());
-					}
-				}
-				
-				//	menus
-				QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
-				if (tMenu != 0 && plugin->menu() != 0) {
-					menuBar()->insertMenu(tMenu->menuAction(), plugin->menu());
-				}
-			}
-		}
-	}
-}
-
-void JuffEd::unloadPlugins() {
-	foreach (JuffPlugin* plugin, jInt_->pluginList_) {
-		if (plugin != 0) {
-			plugin->deinit();
-		}
-	}
-}
-
 void JuffEd::resizeEvent(QResizeEvent* e) {
+	JUFFENTRY;
+
 	QMainWindow::resizeEvent(e);
 	if (!isMaximized())
 		jInt_->geometry_ = geometry();
 }
 
 void JuffEd::moveEvent(QMoveEvent* e) {
+	JUFFENTRY;
+
 	QMainWindow::moveEvent(e);
 	if (!isMaximized())
 		jInt_->geometry_ = geometry();
 }
 
 void JuffEd::closeEvent(QCloseEvent* e) {
+	JUFFENTRY;
+
 	if (jInt_->handler_->closeAllDocs()) {
 		QByteArray state = saveState();
 		MainSettings::setMwState(state);
-		unloadPlugins();
+		PluginManager::instance()->unloadPlugins();
 		e->accept();
 	}
 	else {
@@ -300,6 +243,8 @@ void JuffEd::exit() {
 }
 
 void JuffEd::applySettings() {
+	JUFFENTRY;
+
 	jInt_->handler_->applySettings();
 	jInt_->viewer_->applySettings();
 
@@ -309,7 +254,56 @@ void JuffEd::applySettings() {
 	initCharsetsMenu();
 }
 
+void JuffEd::loadPlugins() {
+	JUFFENTRY;
+
+	PluginManager::instance()->setHandler(jInt_->handler_);
+	PluginManager::instance()->loadPlugins();
+
+	PluginList plugins = PluginManager::instance()->plugins();
+	foreach (JuffPlugin* plugin, plugins) {
+		if (plugin != 0) {
+			//	toolbars
+			if (plugin->toolBar() != 0)
+				addToolBar(plugin->toolBar());
+
+			//	TODO : adding custom actions from plugins to menus
+			//	actions
+			ActionList editActionsList = plugin->getMenuActions("Edit");
+			foreach(QAction* act, editActionsList) {
+				QMenu* editMenu = jInt_->mainMenuItems_.value(tr("&Edit"), 0);
+				if (editMenu != 0) {
+					editMenu->addAction(act);
+				}
+			}
+			
+			//	dock widgets
+			Qt::DockWidgetArea area(Qt::LeftDockWidgetArea);
+			QWidget* w = plugin->dockWidget(area);
+			if (w != 0) {
+				QDockWidget* dock = new QDockWidget(plugin->name());
+				dock->setObjectName(plugin->name() + "Dock");
+				dock->setWidget(w);
+				addDockWidget(area, dock);
+
+				//	toolbars toggle actions
+				if (jInt_->toolBarsMenu_ != 0) {
+					jInt_->toolBarsMenu_->addAction(dock->toggleViewAction());
+				}
+			}
+			
+			//	menus
+			QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
+			if (tMenu != 0 && plugin->menu() != 0) {
+				menuBar()->insertMenu(tMenu->menuAction(), plugin->menu());
+			}
+		}
+	}
+}
+
 void JuffEd::createCommands() {
+	JUFFENTRY;
+
 	CommandStorage* st = CommandStorage::instance();
 	DocHandler* h = jInt_->handler_;
 	IconManager* im = IconManager::instance();
@@ -378,6 +372,8 @@ void JuffEd::createCommands() {
 }
 
 void JuffEd::createMenuBar() {
+	JUFFENTRY;
+
 	menuBar()->clear();
 
 	CommandID fileMenu[] = { ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_FILE_SAVE_AS, 
@@ -479,6 +475,8 @@ void JuffEd::createMenuBar() {
 }
 
 void JuffEd::createToolBar() {
+	JUFFENTRY;
+
 	CommandID actions[] = {ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_SEPARATOR, ID_FILE_PRINT, 
 					ID_SEPARATOR, ID_EDIT_CUT, ID_EDIT_COPY, ID_EDIT_PASTE, 
 					ID_SEPARATOR, ID_EDIT_UNDO, ID_EDIT_REDO, ID_SEPARATOR, 
@@ -497,6 +495,8 @@ void JuffEd::createToolBar() {
 }
 
 void JuffEd::initCharsetsMenu() {
+	JUFFENTRY;
+
 	if (jInt_->charsetsMenu_ == 0)
 		return;
 
@@ -514,6 +514,8 @@ void JuffEd::initCharsetsMenu() {
 }
 
 void JuffEd::initMarkersMenu() {
+	JUFFENTRY;
+
 	QMenu* markersMenu = jInt_->mainMenuItems_.value(tr("&Markers"), 0);
 	if (markersMenu != 0) {
 		markersMenu->clear();
@@ -543,6 +545,8 @@ void JuffEd::initMarkersMenu() {
 }
 
 void JuffEd::initRecentFilesMenu() {
+	JUFFENTRY;
+
 	if (jInt_->recentFilesMenu_ == 0)
 		return;
 
@@ -561,6 +565,8 @@ void JuffEd::initRecentFilesMenu() {
 	
 
 void JuffEd::changeCurrentCharsetAction(QAction* a) {
+	JUFFENTRY;
+
 	if (jInt_->lastCharsetAction_ != 0)
 		jInt_->lastCharsetAction_->setChecked(false);
 
@@ -571,6 +577,8 @@ void JuffEd::changeCurrentCharsetAction(QAction* a) {
 }
 
 void JuffEd::changeCurrentSyntaxAction(QAction* a) {
+	JUFFENTRY;
+
 	if (jInt_->lastSyntaxAction_ != 0)
 		jInt_->lastSyntaxAction_->setChecked(false);
 
@@ -581,6 +589,8 @@ void JuffEd::changeCurrentSyntaxAction(QAction* a) {
 }
 
 void JuffEd::charsetSelected() {
+	JUFFENTRY;
+
 	QAction* a = qobject_cast<QAction*>(sender());
 	if (a != 0) {
 		TextDoc* doc = getCurrentTextDoc();
@@ -600,6 +610,8 @@ void JuffEd::charsetSelected() {
 }
 
 void JuffEd::syntaxSelected() {
+	JUFFENTRY;
+
 	QAction* a = qobject_cast<QAction*>(sender());
 	if (a != 0) {
 		TextDoc* doc = getCurrentTextDoc();
@@ -621,10 +633,14 @@ void JuffEd::syntaxSelected() {
 }
 
 void JuffEd::settings() {
+	JUFFENTRY;
+
 	jInt_->settingsDlg_->exec();
 }
 
 void JuffEd::setupToolBarStyle() {
+	JUFFENTRY;
+
 	if (jInt_->toolBar_ != 0) {
 		//	toolbar style
 		int style = MainSettings::toolButtonStyle();
@@ -647,7 +663,8 @@ void JuffEd::setupToolBarStyle() {
 		}
 		
 		jInt_->toolBar_->setIconSize(sz);
-		foreach (JuffPlugin* plugin, jInt_->pluginList_) {
+		PluginList plugins = PluginManager::instance()->plugins();
+		foreach (JuffPlugin* plugin, plugins) {
 			if (plugin != 0) {
 				if (plugin->toolBar() != 0) {
 					plugin->toolBar()->setIconSize(sz);
@@ -658,11 +675,15 @@ void JuffEd::setupToolBarStyle() {
 }
 
 TextDoc* JuffEd::getCurrentTextDoc() {
+	JUFFENTRY;
+
 	TextDoc* tDoc = qobject_cast<TextDoc*>(jInt_->handler_->currentDoc());
 	return tDoc;
 }
 
 void JuffEd::displayCursorPos(int row, int col) {
+	JUFFENTRY;
+
 	QString text(tr("Row: %1, Col: %2"));
 	if (row == -1 && col == -1)
 		jInt_->cursorPosL_->setText(" ");
@@ -671,6 +692,8 @@ void JuffEd::displayCursorPos(int row, int col) {
 }
 
 void JuffEd::displayFileName(const QString& fileName) {
+	JUFFENTRY;
+
 	jInt_->fileNameL_->setText(QString(" %1 ").arg(fileName));
 	QString title("JuffEd");
 
@@ -689,22 +712,30 @@ void JuffEd::displayFileName(const QString& fileName) {
 }
 
 void JuffEd::displayCharset(const QString& charset) {
+	JUFFENTRY;
+
 	jInt_->charsetL_->setText(QString(" %1 ").arg(charset));
 	changeCurrentCharsetAction(jInt_->charsetActions_[charset]);
 }
 
 void JuffEd::displaySyntax(const QString& syntax) {
+	JUFFENTRY;
+
 	jInt_->syntaxL_->setText(QString(" %1 ").arg(syntax));
 	changeCurrentSyntaxAction(jInt_->syntaxActions_[syntax]);
 }
 
 void JuffEd::docFileNameChanged(Juff::Document* doc) {
+	JUFFENTRY;
+
 	if (doc != 0 && !doc->isNull()) {
 		displayFileName(doc->fileName());
 	}
 }
 
 void JuffEd::docCloseRequested(QWidget* w) {
+	JUFFENTRY;
+
 	TextDocView* tdView = qobject_cast<TextDocView*>(w);
 	if (tdView != 0) {
 		Juff::Document* doc = tdView->document();
@@ -715,6 +746,8 @@ void JuffEd::docCloseRequested(QWidget* w) {
 }
 
 void JuffEd::fileNameRequested(QWidget* w, QString& fileName) {
+	JUFFENTRY;
+
 	if (w == 0) {
 		fileName = "";
 	}
@@ -734,6 +767,8 @@ void JuffEd::fileNameRequested(QWidget* w, QString& fileName) {
 }
 
 void JuffEd::docSwitched(QWidget* w) {
+	JUFFENTRY;
+
 	TextDocView* tdView = qobject_cast<TextDocView*>(w);
 
 	if (tdView == 0) {
@@ -780,6 +815,8 @@ void JuffEd::docSwitched(QWidget* w) {
 }
 
 void JuffEd::toggleMarker() {
+	JUFFENTRY;
+
 	QWidget* view = jInt_->viewer_->currentView();	
 	TextDocView* tdView = qobject_cast<TextDocView*>(view);
 
@@ -789,6 +826,8 @@ void JuffEd::toggleMarker() {
 }
 
 void JuffEd::nextMarker() {
+	JUFFENTRY;
+
 	QWidget* view = jInt_->viewer_->currentView();	
 	TextDocView* tdView = qobject_cast<TextDocView*>(view);
 
@@ -798,6 +837,8 @@ void JuffEd::nextMarker() {
 }
 
 void JuffEd::prevMarker() {
+	JUFFENTRY;
+
 	QWidget* view = jInt_->viewer_->currentView();	
 	TextDocView* tdView = qobject_cast<TextDocView*>(view);
 
@@ -807,6 +848,8 @@ void JuffEd::prevMarker() {
 }
 
 void JuffEd::removeAllMarkers() {
+	JUFFENTRY;
+
 	QWidget* view = jInt_->viewer_->currentView();	
 	TextDocView* tdView = qobject_cast<TextDocView*>(view);
 
@@ -816,6 +859,8 @@ void JuffEd::removeAllMarkers() {
 }
 
 void JuffEd::gotoMarker() {
+	JUFFENTRY;
+
 	QAction* a = qobject_cast<QAction*>(sender());
 	if (a != 0) {
 		int line = a->text().section(':', 0, 0).toInt();
@@ -832,12 +877,16 @@ void JuffEd::gotoMarker() {
 ///////////////////////////////////////////////////////////////////////
 
 void JuffEd::dragEnterEvent(QDragEnterEvent* e) {
+	JUFFENTRY;
+
 	if (e->mimeData()->hasUrls()) {
 		e->acceptProposedAction();
 	}
 }
 
 void JuffEd::dropEvent(QDropEvent* e) {
+	JUFFENTRY;
+
 	if (e->mimeData()->hasUrls()) {
 		QList<QUrl> urls = e->mimeData()->urls();
 		foreach (QUrl url, urls) {

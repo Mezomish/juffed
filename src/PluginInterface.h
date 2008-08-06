@@ -20,8 +20,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define _JUFFED_PLUGIN_INTERFACE_H_
 
 class QAction;
+class QObject;
 class QMenu;
 class QToolBar;
+class QWidget;
 
 #include <QtCore/QList>
 #include <QtCore/QString>
@@ -47,7 +49,13 @@ public:
 	virtual QToolBar* toolBar() const = 0;
 	virtual QMenu* menu() const = 0;
 	virtual QWidget* settingsPage() const = 0;
+	virtual void applySettings() = 0;
 	virtual QWidget* dockWidget(Qt::DockWidgetArea& area) const = 0;
+
+	QString path() const { return path_; }
+	void setPath(const QString& path) { path_ = path; }
+private:
+	QString path_;
 };
 
 Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/1.0")

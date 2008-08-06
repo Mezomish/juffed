@@ -28,6 +28,7 @@ class MainSettingsPage;
 class ViewSettingsPage;
 class EditorSettingsPage;
 class CharsetsSettingsPage;
+class PluginPage;
 
 class SettingsDlg : public QDialog {
 Q_OBJECT
@@ -36,6 +37,7 @@ public:
 	virtual ~SettingsDlg();
 
 	int exec();
+	void addPluginsSettings();
 
 signals:
 	void applied();
@@ -56,6 +58,8 @@ private:
 	ViewSettingsPage* pageView_;
 	EditorSettingsPage* pageEditor_;
 	CharsetsSettingsPage* pageCharsets_;
+	QWidget* pluginsMainPage_;
+	QList<PluginPage*> pluginPages_;
 };
 
 #endif

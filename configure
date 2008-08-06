@@ -379,6 +379,9 @@ HEADERS += \
 		IconManager.h \
 		ColorButton.h \
 		PluginInterface.h \
+		PluginManager.h \
+		PluginPage.h \
+		PluginsSettings.h \
 
 SOURCES += \
 		DocHandler.cpp \
@@ -409,6 +412,9 @@ SOURCES += \
 		TextDocSettings.cpp \
 		CharsetsSettings.cpp \
 		ColorButton.cpp \
+		PluginManager.cpp \
+		PluginPage.cpp \
+		PluginsSettings.cpp \
 		
 FORMS += \
 		CharsetsSettingsPage.ui \

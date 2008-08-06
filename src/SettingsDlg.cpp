@@ -35,6 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "ColorButton.h"
 #include "MultiPage.h"
 #include "MainSettings.h"
+#include "PluginManager.h"
 #include "TextDocSettings.h"
 
 #include "ui_MainSettingsPage.h"
@@ -77,6 +78,8 @@ public:
 };
 
 #include "CharsetsSettingsPage.h"
+#include "PluginPage.h"
+#include "PluginInterface.h"
 
 /////////////////////////////////////////////////////////////
 
@@ -101,6 +104,10 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	mp_->addPage(tr("View"), pageView_);
 	mp_->addPage(tr("Editor"), pageEditor_);
 	mp_->addPage(tr("Charsets"), pageCharsets_);
+
+	//	plugins
+	pluginsMainPage_ = new QWidget();
+	mp_->addPage(tr("Plugins"), pluginsMainPage_);
 
 	// layouts
 	QHBoxLayout* btnLayout = new QHBoxLayout();
@@ -195,7 +202,21 @@ void SettingsDlg::init() {
 	pageEditor_->ui.replaceTabsChk->setChecked(TextDocSettings::replaceTabsWithSpaces());
 	pageEditor_->ui.unindentChk->setChecked(TextDocSettings::backspaceUnindents());
 	
+	//	charsets page
 	pageCharsets_->init();
+}
+
+void SettingsDlg::addPluginsSettings() {
+	PluginList plugins = PluginManager::instance()->plugins();
+	foreach (JuffPlugin* plugin, plugins) {
+		if (plugin != 0) {
+			QWidget* sPage = plugin->settingsPage();
+			if (sPage != 0) {
+				PluginPage* plPage = new PluginPage(plugin->path(), sPage);
+				mp_->addChildPage(tr("Plugins"), plugin->name(), plPage);
+			}
+		}
+	}
 }
 
 int SettingsDlg::exec() {
@@ -249,8 +270,11 @@ void SettingsDlg::apply() {
 	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
 	TextDocSettings::setCurLineColor(pageEditor_->curLineColorBtn_->color());
 
+	//	charsets
 	pageCharsets_->applySettings();
 
+	//	plugins
+	
 	emit applied();
 }
 

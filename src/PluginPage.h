@@ -16,33 +16,30 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _MULTIPAGE_H_
-#define _MULTIPAGE_H_
+#ifndef _PLUGIN_PAGE_H_
+#define _PLUGIN_PAGE_H_
+
+class QCheckBox;
 
 #include <QtGui/QWidget>
 
-class MultiPageInterior;
-class QString;
-class QTreeWidgetItem;
-
-class MultiPage : public QWidget {
+class PluginPage : public QWidget {
 Q_OBJECT
 public:
-	MultiPage(QWidget* = 0);
-	virtual ~MultiPage();
+	PluginPage(const QString& pluginPath, QWidget* page);
+	virtual ~PluginPage();
+	
+	bool pageEnabled() const;
+	QString path() const { return path_; }
 
-	void addPage(const QString& pageTitle, QWidget*);
-	void addChildPage(const QString& parentTitle, const QString& pageTitle, QWidget*);
-	int pageCount() const;
-	QWidget* currentPage() const;
-	int currentIndex() const;
-	void selectPage(int);
-
-protected slots:
-	void changeCurrentItem(QTreeWidgetItem*, QTreeWidgetItem* = 0);
+public slots:
+	void enablePage(bool);
 
 private:
-	MultiPageInterior* mpInt_;
+	QCheckBox* usePluginChk_;
+	QWidget* page_;
+	bool enabled_;
+	QString path_;
 };
 
 #endif

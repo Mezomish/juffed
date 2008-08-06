@@ -16,33 +16,35 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _MULTIPAGE_H_
-#define _MULTIPAGE_H_
+#ifndef _PLUGIN_MANAGER_H_
+#define _PLUGIN_MANAGER_H_
 
-#include <QtGui/QWidget>
+class JuffPlugin;
+class QObject;
 
-class MultiPageInterior;
-class QString;
-class QTreeWidgetItem;
+#include <QtCore/QList>
 
-class MultiPage : public QWidget {
-Q_OBJECT
+typedef QList<JuffPlugin*> PluginList;
+
+class PluginManager {
 public:
-	MultiPage(QWidget* = 0);
-	virtual ~MultiPage();
+	~PluginManager();
 
-	void addPage(const QString& pageTitle, QWidget*);
-	void addChildPage(const QString& parentTitle, const QString& pageTitle, QWidget*);
-	int pageCount() const;
-	QWidget* currentPage() const;
-	int currentIndex() const;
-	void selectPage(int);
+	void setHandler(QObject* handler);
+	PluginList plugins();
+//	JuffPlugin plugin(const QString& path) const;
+	void loadPlugins();
+	void loadPlugin(const QString&);
+	void unloadPlugins();
+	void unloadPlugin(const QString&);
 
-protected slots:
-	void changeCurrentItem(QTreeWidgetItem*, QTreeWidgetItem* = 0);
+	static PluginManager* instance();
 
 private:
-	MultiPageInterior* mpInt_;
+	PluginManager();
+	QObject* handler_;
+	PluginList pluginList_;
+	static PluginManager* instance_;
 };
 
 #endif

@@ -51,9 +51,16 @@ void ColorButton::setBtnColor(const QColor& color) {
 
 	QPixmap pm(btn_->width() - 10, btn_->height() - 10);
 	QPainter p(&pm);
+	//	Draw a rectangle of selected color 
+	//	with light grey border
 	p.setBrush(color);
-	p.setPen(QPen(color));
+	p.setPen(QPen(QColor(200, 200, 200)));
 	p.drawRect(0, 0, pm.width(), pm.height());
+	//	Draw dark grey angle to make kind of a relief
+	p.setPen(QPen(QColor(50, 50, 50)));
+	p.drawLine(0, 0, pm.width(), 0);
+	p.drawLine(0, 0, 0, pm.height());
+	
 	btn_->setIconSize(pm.size());
 	btn_->setIcon(QIcon(pm));
 }

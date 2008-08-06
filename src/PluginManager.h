@@ -42,6 +42,8 @@ public:
 
 private:
 	PluginManager();
+	bool pluginExists(const QString& name) const;
+
 	QObject* handler_;
 	PluginList pluginList_;
 	static PluginManager* instance_;

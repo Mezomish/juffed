@@ -48,6 +48,15 @@ PluginList PluginManager::plugins() {
 	return pluginList_;
 }
 
+bool PluginManager::pluginExists(const QString& name) const {
+	foreach (JuffPlugin* plugin, pluginList_) {
+		if (plugin->name().compare(name) == 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void PluginManager::loadPlugin(const QString& path) {
 	QPluginLoader loader(path);
 	if (!loader.load())
@@ -57,18 +66,16 @@ void PluginManager::loadPlugin(const QString& path) {
 	if (obj) {
 		JuffPlugin* plugin = qobject_cast<JuffPlugin*>(obj);
 		if (plugin != 0) {
-			Log::debug(plugin->name());
-			if (PluginsSettings::pluginEnabled(plugin->name().toLower())) {
-				plugin->setPath(path);
-				pluginList_.append(plugin);
-				plugin->setParent(handler_);
-				qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
-//				PluginsSettings::setPluginEnabled(plugin->name(), true);
-			}
-			else {
-				Log::debug("b");
-//				loader.unload();
-			}
+			
+			//	Check if plugin with the same name was already loaded.
+			//	If is was then exit.
+			if (pluginExists(plugin->name()))
+				return;
+
+			plugin->setPath(path);
+			pluginList_.append(plugin);
+			plugin->setParent(handler_);
+			qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
 		}
 	}
 }
@@ -99,5 +106,3 @@ void PluginManager::unloadPlugins() {
 		}
 	}
 }
-
-/* 613-736-7162 Natasha (do 22) */

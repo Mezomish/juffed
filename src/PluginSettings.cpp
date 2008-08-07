@@ -16,36 +16,29 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _PLUGIN_MANAGER_H_
-#define _PLUGIN_MANAGER_H_
+#include "PluginSettings.h"
 
-class JuffPlugin;
-class QObject;
+#include "PluginInterface.h"
 
-#include <QtCore/QList>
+void PluginSettings::readSettings(JuffPlugin* plugin) {
+	if (plugin == 0)
+		return;
+	
+	QString section = plugin->name();
+	QStringList keys = Settings::keyList(section);
+	QMap<QString, QVariant> map;
+	foreach (QString key, keys) {
+		map[key] = Settings::value(section, key);
+	}
+	plugin->setSettings(map);
+}
 
-typedef QList<JuffPlugin*> PluginList;
-
-class PluginManager {
-public:
-	~PluginManager();
-
-	void setHandler(QObject* handler);
-	PluginList plugins();
-	void loadPlugins();
-	void loadPlugin(const QString&);
-	void unloadPlugins();
-	void unloadPlugin(const QString&);
-
-	static PluginManager* instance();
-
-private:
-	PluginManager();
-	bool pluginExists(const QString& name) const;
-
-	QObject* handler_;
-	PluginList pluginList_;
-	static PluginManager* instance_;
-};
-
-#endif
+void PluginSettings::saveSettings(JuffPlugin* plugin) {
+	QString section = plugin->name();
+	QMap<QString, QVariant> map = plugin->settings();
+	QMap<QString, QVariant>::iterator it = map.begin();
+	while (it != map.end()) {
+		Settings::setValue(section, it.key(), it.value());
+		it++;
+	}
+}

@@ -26,11 +26,11 @@ class QCheckBox;
 class PluginPage : public QWidget {
 Q_OBJECT
 public:
-	PluginPage(const QString& pluginPath, QWidget* page);
+	PluginPage(const QString& pluginName, QWidget* page);
 	virtual ~PluginPage();
 	
 	bool pageEnabled() const;
-	QString path() const { return path_; }
+	QString name() const { return name_; }
 
 public slots:
 	void enablePage(bool);
@@ -39,7 +39,7 @@ private:
 	QCheckBox* usePluginChk_;
 	QWidget* page_;
 	bool enabled_;
-	QString path_;
+	QString name_;
 };
 
 #endif

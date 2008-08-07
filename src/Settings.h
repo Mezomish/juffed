@@ -38,11 +38,11 @@ protected:
 	static QVariant value(const QString& section, const QString& key);
 	
 	static void setValue(const QString& section, const QString& key, const QVariant& value);
-	
-private:
+
 	static QStringList sectionList();
 	static QStringList keyList(const QString& section);
 
+private:
 	static SettingsData* settData_;
 };
 

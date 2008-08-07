@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #include "Log.h"
 #include "PluginInterface.h"
-#include "PluginsSettings.h"
+#include "PluginSettings.h"
 
 PluginManager* PluginManager::instance_ = 0;
 
@@ -72,7 +72,7 @@ void PluginManager::loadPlugin(const QString& path) {
 			if (pluginExists(plugin->name()))
 				return;
 
-			plugin->setPath(path);
+			PluginSettings::readSettings(plugin);
 			pluginList_.append(plugin);
 			plugin->setParent(handler_);
 			qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
@@ -102,6 +102,7 @@ void PluginManager::unloadPlugin(const QString&) {
 void PluginManager::unloadPlugins() {
 	foreach (JuffPlugin* plugin, pluginList_) {
 		if (plugin != 0) {
+			PluginSettings::saveSettings(plugin);
 			plugin->deinit();
 		}
 	}

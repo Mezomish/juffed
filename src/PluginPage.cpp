@@ -21,10 +21,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QCheckBox>
 #include <QtGui/QVBoxLayout>
 
-PluginPage::PluginPage(const QString& pluginPath, QWidget* page) : 
+PluginPage::PluginPage(const QString& pluginName, QWidget* page) : 
 	QWidget(), 
 	enabled_(true), 
-	path_(pluginPath) {
+	name_(pluginName) {
 
 	page_ = page;
 

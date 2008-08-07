@@ -19,15 +19,23 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _PLUGINS_SETTINGS_H_
 #define _PLUGINS_SETTINGS_H_
 
+class JuffPlugin;
+
 #include "Settings.h"
 
-class PluginsSettings : public Settings {
+class PluginSettings : public Settings {
 public:
-	static bool pluginEnabled(const QString& name);
-	static QString pluginPath(const QString& name);
+	
+	/** Reads all settings from config file that are
+	 *  related to \a plugin and sends these settings
+	 *  to \a plugin.
+	 */
+	static void readSettings(JuffPlugin* plugin);
 
-//	static void setPluginEnabled(const QString& name, bool);
-	static void setPluginPath(const QString& name, const QString& path);
+	/** Gets settings from \a plugin and saves them
+	 *  to config file.
+	 */
+	static void saveSettings(JuffPlugin* plugin);
 };
 
 #endif

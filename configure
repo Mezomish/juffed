@@ -381,7 +381,7 @@ HEADERS += \
 		PluginInterface.h \
 		PluginManager.h \
 		PluginPage.h \
-		PluginsSettings.h \
+		PluginSettings.h \
 
 SOURCES += \
 		DocHandler.cpp \
@@ -414,7 +414,7 @@ SOURCES += \
 		ColorButton.cpp \
 		PluginManager.cpp \
 		PluginPage.cpp \
-		PluginsSettings.cpp \
+		PluginSettings.cpp \
 		
 FORMS += \
 		CharsetsSettingsPage.ui \

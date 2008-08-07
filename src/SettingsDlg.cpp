@@ -212,7 +212,7 @@ void SettingsDlg::addPluginsSettings() {
 		if (plugin != 0) {
 			QWidget* sPage = plugin->settingsPage();
 			if (sPage != 0) {
-				PluginPage* plPage = new PluginPage(plugin->path(), sPage);
+				PluginPage* plPage = new PluginPage(plugin->name(), sPage);
 				mp_->addChildPage(tr("Plugins"), plugin->name(), plPage);
 			}
 		}

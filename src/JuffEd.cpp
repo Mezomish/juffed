@@ -252,6 +252,13 @@ void JuffEd::applySettings() {
 	IconManager::instance()->loadTheme(MainSettings::iconTheme());
 	createCommands();
 	initCharsetsMenu();
+
+	PluginList plugins = PluginManager::instance()->plugins();
+	foreach (JuffPlugin* plugin, plugins) {
+		if (plugin != 0) {
+			plugin->applySettings();
+		}
+	}
 }
 
 void JuffEd::loadPlugins() {

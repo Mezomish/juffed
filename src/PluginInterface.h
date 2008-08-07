@@ -26,10 +26,13 @@ class QToolBar;
 class QWidget;
 
 #include <QtCore/QList>
+#include <QtCore/QMap>
 #include <QtCore/QString>
+#include <QtCore/QVariant>
 #include <Qt>
 
 typedef QList<QAction*> ActionList;
+typedef QMap<QString, QVariant> SettingsMap;
 
 class JuffPlugin {
 public:
@@ -52,10 +55,43 @@ public:
 	virtual void applySettings() = 0;
 	virtual QWidget* dockWidget(Qt::DockWidgetArea& area) const = 0;
 
-	QString path() const { return path_; }
-	void setPath(const QString& path) { path_ = path; }
+
+	SettingsMap settings() const {
+		return settings_;
+	}
+	void setSettings(const SettingsMap& settingsMap) {
+		settings_ = settingsMap;
+	}
+
+protected:
+	bool getBoolValue(const QString& name, bool defValue = false) {
+		return settings_.value(name, QVariant(defValue)).toBool();
+	}
+	int getIntValue(const QString& name, int defValue = 0) {
+		return settings_.value(name, QVariant(defValue)).toInt();
+	}
+	double getDoubleValue(const QString& name, double defValue) {
+		return settings_.value(name, QVariant(defValue)).toDouble();
+	}
+	QString getStringValue(const QString& name, const QString& defValue = "") {
+		return settings_.value(name, QVariant(defValue)).toString();
+	}
+
+	void setBoolValue(const QString& name, bool value) {
+		settings_[name] = QVariant(value);
+	}
+	void setIntValue(const QString& name, int value) {
+		settings_[name] = QVariant(value);
+	}
+	void setDoubleValue(const QString& name, double value) {
+		settings_[name] = QVariant(value);
+	}
+	void setStringValue(const QString& name, const QString& value) {
+		settings_[name] = QVariant(value);
+	}
+
 private:
-	QString path_;
+	SettingsMap settings_;
 };
 
 Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/1.0")

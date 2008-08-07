@@ -21,7 +21,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QDir>
 #include <QtCore/QPluginLoader>
 
+#ifdef Q_OS_WIN
+#include "AppInfo.win.h"
+#else
 #include "AppInfo.h"
+#endif
+
 #include "Log.h"
 #include "PluginInterface.h"
 #include "PluginSettings.h"

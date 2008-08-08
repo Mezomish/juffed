@@ -75,17 +75,17 @@ protected:
 	 * Use the following functions to get settings values
 	 * that were stored to main application's config file
 	 */
-	bool getBoolValue(const QString& name, bool defValue = false) {
-		return settings_.value(name, QVariant(defValue)).toBool();
+	bool getBoolValue(const QString& name, bool defaultValue = false) {
+		return settings_.value(name, QVariant(defaultValue)).toBool();
 	}
-	int getIntValue(const QString& name, int defValue = 0) {
-		return settings_.value(name, QVariant(defValue)).toInt();
+	int getIntValue(const QString& name, int defaultValue = 0) {
+		return settings_.value(name, QVariant(defaultValue)).toInt();
 	}
-	double getDoubleValue(const QString& name, double defValue) {
-		return settings_.value(name, QVariant(defValue)).toDouble();
+	double getDoubleValue(const QString& name, double defaultValue = 0.0) {
+		return settings_.value(name, QVariant(defaultValue)).toDouble();
 	}
-	QString getStringValue(const QString& name, const QString& defValue = "") {
-		return settings_.value(name, QVariant(defValue)).toString();
+	QString getStringValue(const QString& name, const QString& defaultValue = "") {
+		return settings_.value(name, QVariant(defaultValue)).toString();
 	}
 
 	/*

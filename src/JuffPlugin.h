@@ -37,33 +37,44 @@ typedef QMap<QString, QVariant> SettingsMap;
 class JuffPlugin {
 public:
 	virtual ~JuffPlugin() { qDebug("Plugin deleted"); }
+	
+	
+	/*
+	 * Reimplement these (and only these) functions 
+	 * to create your own plugin.
+	 */
+	
 	//	initialization
 	virtual void setHandler(QObject* handler) = 0;
-
-	//	deinitialization
-	virtual void deinit() = 0;
+	virtual void init() = 0;
 
 	//	info
 	virtual QString name() const = 0;
 	virtual QString description() const = 0;
 
 	//	controls
-	virtual ActionList getMenuActions(const QString& menuName) const = 0;
+//	virtual ActionList getMenuActions(const QString& menuName) const = 0;
 	virtual QToolBar* toolBar() const = 0;
 	virtual QMenu* menu() const = 0;
+	virtual QWidget* dockWidget(Qt::DockWidgetArea& area) const = 0;
 	virtual QWidget* settingsPage() const = 0;
 	virtual void applySettings() = 0;
-	virtual QWidget* dockWidget(Qt::DockWidgetArea& area) const = 0;
+
+	/*
+	 * That's the end of the part that is interesting to you.
+	 * It's better not to touch anything else :).
+	 */
 
 
-	SettingsMap settings() const {
-		return settings_;
-	}
-	void setSettings(const SettingsMap& settingsMap) {
-		settings_ = settingsMap;
-	}
+	SettingsMap settings() const { return settings_; }
+	void setSettings(const SettingsMap& settingsMap) { settings_ = settingsMap; }
 
 protected:
+	
+	/*
+	 * Use the following functions to get settings values
+	 * that were stored to main application's config file
+	 */
 	bool getBoolValue(const QString& name, bool defValue = false) {
 		return settings_.value(name, QVariant(defValue)).toBool();
 	}
@@ -77,6 +88,10 @@ protected:
 		return settings_.value(name, QVariant(defValue)).toString();
 	}
 
+	/*
+	 * Use the following functions to store settings values
+	 * to main application's config file
+	 */
 	void setBoolValue(const QString& name, bool value) {
 		settings_[name] = QVariant(value);
 	}

@@ -79,7 +79,7 @@ public:
 
 #include "CharsetsSettingsPage.h"
 #include "PluginPage.h"
-#include "PluginInterface.h"
+#include "JuffPlugin.h"
 
 /////////////////////////////////////////////////////////////
 

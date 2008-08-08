@@ -48,7 +48,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "license.h"
 #include "Log.h"
 #include "MainSettings.h"
-#include "PluginInterface.h"
+#include "JuffPlugin.h"
 #include "PluginManager.h"
 #include "Settings.h"
 #include "SettingsDlg.h"
@@ -276,13 +276,13 @@ void JuffEd::loadPlugins() {
 
 			//	TODO : adding custom actions from plugins to menus
 			//	actions
-			ActionList editActionsList = plugin->getMenuActions("Edit");
+/*			ActionList editActionsList = plugin->getMenuActions("Edit");
 			foreach(QAction* act, editActionsList) {
 				QMenu* editMenu = jInt_->mainMenuItems_.value(tr("&Edit"), 0);
 				if (editMenu != 0) {
 					editMenu->addAction(act);
 				}
-			}
+			}*/
 			
 			//	dock widgets
 			Qt::DockWidgetArea area(Qt::LeftDockWidgetArea);

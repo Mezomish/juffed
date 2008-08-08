@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "PluginSettings.h"
 
-#include "PluginInterface.h"
+#include "JuffPlugin.h"
 
 void PluginSettings::readSettings(JuffPlugin* plugin) {
 	if (plugin == 0)

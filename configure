@@ -378,7 +378,7 @@ HEADERS += \
 		LexerStorage.h \
 		IconManager.h \
 		ColorButton.h \
-		PluginInterface.h \
+		JuffPlugin.h \
 		PluginManager.h \
 		PluginPage.h \
 		PluginSettings.h \

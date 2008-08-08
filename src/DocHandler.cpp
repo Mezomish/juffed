@@ -258,23 +258,23 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 			}
 		}
 		
-		Log::debug("ChP 1");
+		JUFFDEBUG("ChP 1");
 		hInt_->docs_.append(doc);
-		Log::debug("ChP 2");
+		JUFFDEBUG("ChP 2");
 		hInt_->viewer_->addDocView(docTitle(doc), docView);
-		Log::debug("ChP 3");
+		JUFFDEBUG("ChP 3");
 		doc->applySettings();
-		Log::debug("ChP 4");
+		JUFFDEBUG("ChP 4");
 		doc->open();
-		Log::debug("ChP 5");
+		JUFFDEBUG("ChP 5");
 
 		hInt_->viewer_->widget()->activateWindow();
-		Log::debug("ChP 6");
+		JUFFDEBUG("ChP 6");
 		
 		//	emit informational signals
 		emit docOpened(doc->fileName());
 		emit docSwitched(doc->fileName());
-		Log::debug("ChP 7");
+		JUFFDEBUG("ChP 7");
 		
 		if (docCount() == 1)
 			hInt_->viewer_->updateCurrentViewInfo();
@@ -444,24 +444,24 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 
 		QString startDir("");
 		QString curDocFileName("");
-		Log::debug("ChP 1");
+		JUFFDEBUG("ChP 1");
 		Juff::Document* curDoc = currentDoc();
 		if (curDoc != 0 && !curDoc->isNull())
 			curDocFileName = curDoc->fileName();
 
-		Log::debug("ChP 2");
+		JUFFDEBUG("ChP 2");
 		if (MainSettings::syncOpenDialogToCurDoc() && QFileInfo(curDocFileName).exists()) {
 			startDir = QFileInfo(curDocFileName).absolutePath();
 		}
 		else {
 			startDir = MainSettings::lastOpenDir();
 		}
-		Log::debug("ChP 3");
+		JUFFDEBUG("ChP 3");
 
 		files = QFileDialog::getOpenFileNames(hInt_->viewer_->widget(), 
 				tr("Open file"), startDir, fileTypes);
 	
-		Log::debug("ChP 4");
+		JUFFDEBUG("ChP 4");
 		if (! files.isEmpty()) {
 			QString file;
 		

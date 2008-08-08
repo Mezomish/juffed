@@ -22,6 +22,7 @@ usage() {
 	echo "   --lrelease=<name>           Set lrelease executable"
 	echo "   --qsci_lib_path=<path>      Set QScintilla lib path (if non-standard)"
 	echo "   --qsci_include_path=<path>  Set QScintilla include path (if non-standard)"
+	echo "   --full-debug                Switch on all debug messages"
 	echo ""
 }
 
@@ -72,6 +73,10 @@ for arg in ${@}; do
 		arg_qsci_lib_path=`echo ${arg} | cut -c 17-`
 		;;
 
+	--full-debug)
+		full_debug="yes"
+		;;
+		
 	*)
 		echo "Unrecognized option: ${arg}"
 		usage
@@ -443,7 +448,9 @@ fi
 if [ -n "${arg_qsci_lib_path}" ]; then
 	echo "LIBS += -L${arg_qsci_lib_path}" >> src/juffed.pro
 fi
-
+if [ -n "${full_debug}" ]; then
+	echo "DEFINES += JUFF_DEBUG" >> src/juffed.pro
+fi
 
 
 ############################################################
@@ -481,6 +488,9 @@ if [ -n "${arg_qsci_include_path}" ]; then
 fi
 if [ -n "${arg_qsci_lib_path}" ]; then
 	echo -n " --qsci_lib_path=${arg_qsci_lib_path}" >> configure.log
+fi
+if [ -n "${full_debug}" ]; then
+	echo -n " --full-debug" >> configure.log
 fi
 echo "" >> configure.log
 chmod +x configure.log

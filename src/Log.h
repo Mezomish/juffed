@@ -32,18 +32,17 @@ namespace Log {
 };
 
 //	TODO: remove it from here to configure and .pro file
-#define _JUFF_DEBUG_
 
-#ifdef _JUFF_DEBUG_
+#ifdef JUFF_DEBUG
 
 #define JUFFENTRY Log::debug(QString("Entering %1 (%2:%3)").arg(__FUNCTION__).arg(__FILE__).arg(__LINE__))
 #define JUFFDTOR Log::debug(QString("Destructor: %1").arg(__FUNCTION__))
-
+#define JUFFDEBUG(x) Log::debug(x)
 #else
 
 #define JUFFENTRY ;
 #define JUFFDTOR ;
-
+#define JUFFDEBUG(x) ;
 #endif
 
 #endif

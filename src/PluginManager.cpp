@@ -80,6 +80,7 @@ void PluginManager::loadPlugin(const QString& path) {
 			PluginSettings::readSettings(plugin);
 			pluginList_.append(plugin);
 			plugin->setParent(handler_);
+			plugin->setHandler(handler_);
 			qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
 		}
 	}

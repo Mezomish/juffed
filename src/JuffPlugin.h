@@ -38,7 +38,7 @@ class JuffPlugin {
 public:
 	virtual ~JuffPlugin() { qDebug("Plugin deleted"); }
 	//	initialization
-	virtual void setParent(QObject* parent) = 0;
+	virtual void setHandler(QObject* handler) = 0;
 
 	//	deinitialization
 	virtual void deinit() = 0;

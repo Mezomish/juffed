@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _SETTINGS_DLG_H_
 #define _SETTINGS_DLG_H_
 
+#include <QtCore/QMap>
 #include <QtGui/QDialog>
 
 class QPushButton;
@@ -38,6 +39,7 @@ public:
 
 	int exec();
 	void addPluginsSettings();
+	bool isPluginEnabled(const QString&);
 
 signals:
 	void applied();
@@ -59,7 +61,7 @@ private:
 	EditorSettingsPage* pageEditor_;
 	CharsetsSettingsPage* pageCharsets_;
 	QWidget* pluginsMainPage_;
-	QList<PluginPage*> pluginPages_;
+	QMap<QString, PluginPage*> pluginPages_;
 };
 
 #endif

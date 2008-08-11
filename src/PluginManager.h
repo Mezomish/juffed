@@ -36,15 +36,17 @@ public:
 	void loadPlugin(const QString&);
 	void unloadPlugins();
 	void unloadPlugin(const QString&);
+	void enablePlugin(const QString& pluginName, bool enable = true);
 
 	static PluginManager* instance();
 
 private:
 	PluginManager();
 	bool pluginExists(const QString& name) const;
+	JuffPlugin* findPlugin(const QString& name) const;
 
-	QObject* handler_;
-	PluginList pluginList_;
+	class PMInterior;
+	PMInterior* pmInt_;
 	static PluginManager* instance_;
 };
 

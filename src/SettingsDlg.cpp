@@ -36,6 +36,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "MultiPage.h"
 #include "MainSettings.h"
 #include "PluginManager.h"
+#include "PluginSettings.h"
 #include "TextDocSettings.h"
 
 #include "ui_MainSettingsPage.h"
@@ -210,11 +211,10 @@ void SettingsDlg::addPluginsSettings() {
 	PluginList plugins = PluginManager::instance()->plugins();
 	foreach (JuffPlugin* plugin, plugins) {
 		if (plugin != 0) {
-			QWidget* sPage = plugin->settingsPage();
-			if (sPage != 0) {
-				PluginPage* plPage = new PluginPage(plugin->name(), sPage);
-				mp_->addChildPage(tr("Plugins"), plugin->name(), plPage);
-			}
+			PluginPage* plPage = new PluginPage(plugin->name(), plugin->settingsPage());
+			mp_->addChildPage(tr("Plugins"), plugin->name(), plPage);
+			pluginPages_[plugin->name()] = plPage;
+			plPage->enablePage(PluginSettings::pluginEnabled(plugin->name()));
 		}
 	}
 }
@@ -274,6 +274,16 @@ void SettingsDlg::apply() {
 	pageCharsets_->applySettings();
 
 	//	plugins
+	PluginList plugins = PluginManager::instance()->plugins();
+	foreach (JuffPlugin* plugin, plugins) {
+		if (plugin != 0) {
+			QString name = plugin->name();
+			PluginPage* page = pluginPages_[name];
+			if (page != 0) {
+				PluginSettings::setPluginEnabled(plugin->name(), page->pageEnabled());
+			}
+		}
+	}
 	
 	emit applied();
 }
@@ -281,4 +291,12 @@ void SettingsDlg::apply() {
 void SettingsDlg::ok() {
 	apply();
 	accept();
+}
+
+bool SettingsDlg::isPluginEnabled(const QString& pluginName) {
+	PluginPage* page = pluginPages_.value(pluginName, 0);
+	if (page != 0)
+		return page->pageEnabled();
+	else
+		return false;
 }

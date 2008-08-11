@@ -36,6 +36,15 @@ public:
 	 *  to config file.
 	 */
 	static void saveSettings(JuffPlugin* plugin);
+
+	/** Returns if plugin with name \a pluginName is
+	 *  enabled (supposed to be loaded).
+	 */
+	static bool pluginEnabled(const QString& pluginName);
+
+	/**
+	 */
+	static void setPluginEnabled(const QString& pluginName, bool enabled);
 };
 
 #endif

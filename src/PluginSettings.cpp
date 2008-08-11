@@ -42,3 +42,11 @@ void PluginSettings::saveSettings(JuffPlugin* plugin) {
 		it++;
 	}
 }
+
+bool PluginSettings::pluginEnabled(const QString& pluginName) {
+	return Settings::boolValue("Plugins", pluginName, true);
+}
+
+void PluginSettings::setPluginEnabled(const QString& pluginName, bool enabled) {
+	Settings::setValue("Plugins", pluginName, enabled);
+}

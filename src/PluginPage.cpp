@@ -31,18 +31,19 @@ PluginPage::PluginPage(const QString& pluginName, QWidget* page) :
 	QVBoxLayout* vBox = new QVBoxLayout();
 
 		//	TODO : uncomment this when loading/unloading is ready
-/*	usePluginChk_ = new QCheckBox(tr("Use this plugin"));
+	usePluginChk_ = new QCheckBox(tr("Use this plugin"));
 	connect(usePluginChk_, SIGNAL(toggled(bool)), SLOT(enablePage(bool)));
-	vBox->addWidget(usePluginChk_);*/
+	vBox->addWidget(usePluginChk_);
 
-	vBox->addWidget(page);
+	if (page != 0)
+		vBox->addWidget(page);
 	vBox->addStretch();
 	
 	setLayout(vBox);
 }
 
 PluginPage::~PluginPage() {
-//	delete usePluginChk_;
+	delete usePluginChk_;
 }
 
 bool PluginPage::pageEnabled() const {
@@ -50,8 +51,10 @@ bool PluginPage::pageEnabled() const {
 }
 
 void PluginPage::enablePage(bool e) {
+	enabled_ = e;
+	if (sender() == 0)
+		usePluginChk_->setChecked(e);
 	if (page_ != 0) {
 		page_->setEnabled(e);
-		enabled_ = e;
 	}
 }

@@ -23,6 +23,7 @@ class DocHandler;
 //class Document;
 class DocViewer;
 class JuffEdInterior;
+class JuffPlugin;
 class TextDoc;
 class TextDocView;
 
@@ -75,6 +76,8 @@ private:
 	void setupToolBarStyle();
 	void createCommands();
 	void loadPlugins();
+	void initPlugins();
+	void activatePlugin(JuffPlugin*, bool activate = true);
 
 	void changeCurrentCharsetAction(QAction*);
 	void changeCurrentSyntaxAction(QAction*);

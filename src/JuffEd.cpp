@@ -50,6 +50,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "MainSettings.h"
 #include "JuffPlugin.h"
 #include "PluginManager.h"
+#include "PluginSettings.h"
 #include "Settings.h"
 #include "SettingsDlg.h"
 #include "TextDoc.h"
@@ -65,7 +66,8 @@ public:
 		syntaxMenu_(0), 
 		markersMenu_(0), 
 		recentFilesMenu_(0), 
-		toolBarsMenu_(0), 
+		panelsMenu_(0), 
+		toolbarsMenu_(0), 
 		lastCharsetAction_(0),
 		lastSyntaxAction_(0) {
 
@@ -137,10 +139,12 @@ public:
 	QMenu* syntaxMenu_;
 	QMenu* markersMenu_;
 	QMenu* recentFilesMenu_;
-	QMenu* toolBarsMenu_;
+	QMenu* panelsMenu_;
+	QMenu* toolbarsMenu_;
 	QAction* lastCharsetAction_;
 	QAction* lastSyntaxAction_;
 	QRect geometry_;
+	QMap<QString, bool> pluginActivated_;
 };
 
 JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
@@ -184,6 +188,7 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 
 	loadPlugins();
 	jInt_->settingsDlg_->addPluginsSettings();
+	initPlugins();
 	
 	restoreState(MainSettings::mwState());
 }
@@ -253,10 +258,35 @@ void JuffEd::applySettings() {
 	createCommands();
 	initCharsetsMenu();
 
+	initPlugins();
+}
+
+void JuffEd::initPlugins() {
 	PluginList plugins = PluginManager::instance()->plugins();
 	foreach (JuffPlugin* plugin, plugins) {
 		if (plugin != 0) {
-			plugin->applySettings();
+//			Log::debug(plugin->name());
+//			bool newEnabled = jInt_->settingsDlg_->isPluginEnabled(plugin->name());
+			bool newEnabled = PluginSettings::pluginEnabled(plugin->name());
+//			bool oldEnabled = PluginManager::instance()->isPluginEnabled(plugin->name());
+			bool oldEnabled = jInt_->pluginActivated_[plugin->name()];
+			Log::debug(plugin->name());
+			Log::debug(QString("newEnabled: %1").arg(newEnabled ? "true" : "false"));
+			Log::debug(QString("oldEnabled: %1").arg(oldEnabled ? "true" : "false"));
+	//		Log::debug();
+			if (newEnabled != oldEnabled) {
+				//	plugin enable state was changed
+				PluginManager::instance()->enablePlugin(plugin->name(), newEnabled);
+				if (newEnabled) {
+					//	plugin was enabled
+					plugin->applySettings();
+					activatePlugin(plugin, true);
+				}
+				else {
+					//	plugin was disabled
+					activatePlugin(plugin, false);
+				}
+			}
 		}
 	}
 }
@@ -269,41 +299,81 @@ void JuffEd::loadPlugins() {
 
 	PluginList plugins = PluginManager::instance()->plugins();
 	foreach (JuffPlugin* plugin, plugins) {
-		if (plugin != 0) {
-			//	toolbars
-			if (plugin->toolBar() != 0)
-				addToolBar(plugin->toolBar());
+		jInt_->pluginActivated_[plugin->name()] = false;
+	}
+}
 
-			//	TODO : adding custom actions from plugins to menus
-			//	actions
-/*			ActionList editActionsList = plugin->getMenuActions("Edit");
-			foreach(QAction* act, editActionsList) {
-				QMenu* editMenu = jInt_->mainMenuItems_.value(tr("&Edit"), 0);
-				if (editMenu != 0) {
-					editMenu->addAction(act);
-				}
-			}*/
-			
-			//	dock widgets
-			Qt::DockWidgetArea area(Qt::LeftDockWidgetArea);
-			QWidget* w = plugin->dockWidget(area);
-			if (w != 0) {
-				QDockWidget* dock = new QDockWidget(plugin->name());
-				dock->setObjectName(plugin->name() + "Dock");
-				dock->setWidget(w);
-				addDockWidget(area, dock);
+void JuffEd::activatePlugin(JuffPlugin* plugin, bool activate) {
+	if (plugin == 0)
+		return;
 
-				//	toolbars toggle actions
-				if (jInt_->toolBarsMenu_ != 0) {
-					jInt_->toolBarsMenu_->addAction(dock->toggleViewAction());
+	jInt_->pluginActivated_[plugin->name()] = activate;
+	
+	if (activate) {
+		//	toolbar
+		QToolBar* toolBar = plugin->toolBar();
+		if (toolBar != 0) {
+			qDebug("added");
+			addToolBar(toolBar);
+			toolBar->show();
+
+			//	toolbars toggle actions
+			if (jInt_->toolbarsMenu_ != 0) {
+				jInt_->toolbarsMenu_->addAction(toolBar->toggleViewAction());
+			}
+		}
+		else {
+			qDebug("not added");
+		}
+
+		//	dock widget
+		Qt::DockWidgetArea area(Qt::LeftDockWidgetArea);
+		QWidget* w = plugin->dockWidget(area);
+		if (w != 0) {
+			QDockWidget* dock = new QDockWidget(plugin->name());
+			dock->setObjectName(plugin->name() + "Dock");
+			dock->setWidget(w);
+			addDockWidget(area, dock);
+
+			//	panels toggle actions
+			if (jInt_->panelsMenu_ != 0) {
+				jInt_->panelsMenu_->addAction(dock->toggleViewAction());
+			}
+		}
+		
+		//	menu
+		QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
+		if (tMenu != 0 && plugin->menu() != 0) {
+			menuBar()->insertMenu(tMenu->menuAction(), plugin->menu());
+		}
+	}
+	else {
+		//	toolbar`
+		if (plugin->toolBar() != 0) {
+			qDebug("removed");
+			removeToolBar(plugin->toolBar());
+		}
+		else {
+			qDebug("not removed");
+		}
+		
+		//	dock widget
+		Qt::DockWidgetArea area;
+		QWidget* dw = plugin->dockWidget(area);
+		if (dw != 0) {
+			QDockWidget* dock = qobject_cast<QDockWidget*>(dw->parentWidget());
+			if (dock != 0) {
+				removeDockWidget(dock);
+				if (jInt_->panelsMenu_ != 0) {
+					jInt_->panelsMenu_->removeAction(dock->toggleViewAction());
 				}
 			}
-			
-			//	menus
-			QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
-			if (tMenu != 0 && plugin->menu() != 0) {
-				menuBar()->insertMenu(tMenu->menuAction(), plugin->menu());
-			}
+		}
+		
+		//	menu
+		QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
+		if (tMenu != 0 && plugin->menu() != 0) {
+			menuBar()->removeAction(plugin->menu()->menuAction());
 		}
 	}
 }
@@ -471,12 +541,14 @@ void JuffEd::createMenuBar() {
 	}
 	initRecentFilesMenu();
 	
-	//	toolbars
-	jInt_->toolBarsMenu_ = new QMenu(tr("Panels"));
+	//	plugins panels and toolbars
+	jInt_->panelsMenu_ = new QMenu(tr("Panels"));
+	jInt_->toolbarsMenu_ = new QMenu(tr("Toolbars"));
 	QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
 	QAction* settAct = CommandStorage::instance()->action(ID_SETTINGS);
 	if (tMenu != 0 && settAct != 0) {
-		tMenu->insertMenu(settAct, jInt_->toolBarsMenu_);
+		tMenu->insertMenu(settAct, jInt_->toolbarsMenu_);
+		tMenu->insertMenu(settAct, jInt_->panelsMenu_);
 		tMenu->insertSeparator(settAct);
 	}
 }

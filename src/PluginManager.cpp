@@ -33,10 +33,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 PluginManager* PluginManager::instance_ = 0;
 
+class PluginManager::PMInterior {
+public:
+	QObject* handler_;
+	PluginList pluginList_;
+};
+
 PluginManager::PluginManager() {
+	pmInt_ = new PMInterior();
 }
 
 PluginManager::~PluginManager() {
+	delete pmInt_;
 }
 
 PluginManager* PluginManager::instance() {
@@ -46,20 +54,24 @@ PluginManager* PluginManager::instance() {
 }
 
 void PluginManager::setHandler(QObject* handler) {
-	handler_ = handler;
+	pmInt_->handler_ = handler;
 }
 
 PluginList PluginManager::plugins() {
-	return pluginList_;
+	return pmInt_->pluginList_;
+}
+
+JuffPlugin* PluginManager::findPlugin(const QString& name) const {
+	foreach (JuffPlugin* plugin, pmInt_->pluginList_) {
+		if (plugin->name().compare(name) == 0) {
+			return plugin;
+		}
+	}
+	return 0;
 }
 
 bool PluginManager::pluginExists(const QString& name) const {
-	foreach (JuffPlugin* plugin, pluginList_) {
-		if (plugin->name().compare(name) == 0) {
-			return true;
-		}
-	}
-	return false;
+	return findPlugin(name) != 0;
 }
 
 void PluginManager::loadPlugin(const QString& path) {
@@ -77,10 +89,9 @@ void PluginManager::loadPlugin(const QString& path) {
 			if (pluginExists(plugin->name()))
 				return;
 
-			PluginSettings::readSettings(plugin);
-			pluginList_.append(plugin);
-			plugin->init();
-			plugin->setHandler(handler_);
+			pmInt_->pluginList_.append(plugin);
+			enablePlugin(plugin->name());
+
 			qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
 		}
 	}
@@ -106,10 +117,28 @@ void PluginManager::unloadPlugin(const QString&) {
 }
 
 void PluginManager::unloadPlugins() {
-	foreach (JuffPlugin* plugin, pluginList_) {
+	foreach (JuffPlugin* plugin, pmInt_->pluginList_) {
 		if (plugin != 0) {
 			PluginSettings::saveSettings(plugin);
 			delete plugin;
 		}
+	}
+}
+
+void PluginManager::enablePlugin(const QString& pluginName, bool enable) {
+	JuffPlugin* plugin = findPlugin(pluginName);
+	if (plugin == 0) {
+		Log::debug(QString("Can't %1 plugin '%2': it doesn't exist")
+					.arg(enable ? "enable" : "disable").arg(pluginName));
+		return;
+	}
+
+	if (enable) {
+		PluginSettings::readSettings(plugin);
+		plugin->init(pmInt_->handler_);
+	}
+	else {
+		PluginSettings::saveSettings(plugin);
+		plugin->deinit(pmInt_->handler_);
 	}
 }

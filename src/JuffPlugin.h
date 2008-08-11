@@ -45,8 +45,8 @@ public:
 	 */
 	
 	//	initialization
-	virtual void setHandler(QObject* handler) = 0;
-	virtual void init() = 0;
+	virtual void init(QObject* handler) = 0;
+	virtual void deinit(QObject* handler) = 0;
 
 	//	info
 	virtual QString name() const = 0;

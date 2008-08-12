@@ -90,7 +90,6 @@ void PluginManager::loadPlugin(const QString& path) {
 				return;
 
 			pmInt_->pluginList_.append(plugin);
-			enablePlugin(plugin->name());
 
 			qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
 		}

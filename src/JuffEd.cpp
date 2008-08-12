@@ -262,6 +262,8 @@ void JuffEd::applySettings() {
 }
 
 void JuffEd::initPlugins() {
+	JUFFENTRY;
+
 	PluginList plugins = PluginManager::instance()->plugins();
 	foreach (JuffPlugin* plugin, plugins) {
 		if (plugin != 0) {
@@ -304,6 +306,8 @@ void JuffEd::loadPlugins() {
 }
 
 void JuffEd::activatePlugin(JuffPlugin* plugin, bool activate) {
+	JUFFENTRY;
+
 	if (plugin == 0)
 		return;
 

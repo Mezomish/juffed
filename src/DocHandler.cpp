@@ -335,7 +335,7 @@ bool DocHandler::closeAllDocs() {
 	return true;
 }
 
-Juff::Document* DocHandler::findDocument(const QString& fileName) {
+Juff::Document* DocHandler::findDocument(const QString& fileName) const {
 	JUFFENTRY;
 
 	Juff::Document* doc = NullDoc::instance();
@@ -812,6 +812,16 @@ void DocHandler::getText(QString& text) const {
 	TextDocView* tdView = getView(currentDoc());
 	if (tdView != 0)
 		tdView->getText(text);
+}
+
+void DocHandler::getText(const QString& fileName, QString& text) const {
+	JUFFENTRY;
+
+	text = "";
+	TextDocView* tdView = getView(findDocument(fileName));
+	if (tdView != 0) {
+		tdView->getText(text);
+	}
 }
 
 void DocHandler::getCurrentLine(QString& line) {

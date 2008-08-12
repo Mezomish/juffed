@@ -78,7 +78,7 @@ signals:
 	
 private:
 	Juff::Document* newDocument(const QString& fileName = "");
-	Juff::Document* findDocument(const QString&);
+	Juff::Document* findDocument(const QString&) const;
 	void addToRecentFiles(const QString&);
 
 	void nextDoc();
@@ -122,6 +122,7 @@ private:
 public slots:
 	//	text
 	void getText(QString&) const;
+	void getText(const QString& fileName, QString&) const;
 	void getCurrentLine(QString&);
 	void getCursorPos(int&, int&) const;
 	void getSelection(int& lineFrom, int& colFrom, int& lineTo, int& colTo) const;

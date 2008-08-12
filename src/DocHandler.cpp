@@ -814,6 +814,15 @@ void DocHandler::getText(QString& text) const {
 		tdView->getText(text);
 }
 
+void DocHandler::getCurrentLine(QString& line) {
+	JUFFENTRY;
+
+	line = "";
+	TextDocView* tdView = getView(currentDoc());
+	if (tdView != 0)
+		tdView->getCurrentLine(line);
+}
+
 void DocHandler::getCursorPos(int& line, int& col) const {
 	JUFFENTRY;
 
@@ -859,6 +868,14 @@ void DocHandler::insertText(const QString& text) {
 	TextDocView* tdView = getView(currentDoc());
 	if (tdView != 0)
 		tdView->insertText(text);
+}
+
+void DocHandler::getDocumentList(QStringList& list) {
+	list.clear();
+	foreach(Juff::Document* doc, hInt_->docs_) {
+		if (doc != 0 && !doc->isNull())
+			list << doc->fileName();
+	}
 }
 
 //	Plugins

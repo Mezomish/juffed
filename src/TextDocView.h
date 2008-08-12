@@ -46,6 +46,7 @@ public:
 	void setAdjustedByWidth(bool adjust);
 	void setModified(bool);
 	void getText(QString&) const;
+	void getCurrentLine(QString&);
 	void setText(const QString&);
 	void insertText(const QString&);
 	void getSelectedText(QString&) const;

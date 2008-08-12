@@ -122,9 +122,12 @@ private:
 public slots:
 	//	text
 	void getText(QString&) const;
+	void getCurrentLine(QString&);
 	void getCursorPos(int&, int&) const;
 	void getSelection(int& lineFrom, int& colFrom, int& lineTo, int& colTo) const;
 	void getSelectedText(QString&) const;
+	void getDocumentList(QStringList&);
+
 	void setCursorPos(int, int);
 	void insertText(const QString&);
 	void replaceSelectedText(const QString&);

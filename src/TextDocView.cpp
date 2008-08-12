@@ -206,6 +206,12 @@ void TextDocView::getText(QString& text) const {
 	text = vInt_->edit_->text();
 }
 
+void TextDocView::getCurrentLine(QString& line) {
+	int row(-1), col(-1);
+	getCursorPos(row, col);
+	line = vInt_->edit_->text(row);
+}
+
 void TextDocView::insertText(const QString& text) {
 	vInt_->edit_->insert(text);
 }

@@ -564,8 +564,11 @@ void JuffEd::createToolBar() {
 					ID_SEPARATOR, ID_EDIT_CUT, ID_EDIT_COPY, ID_EDIT_PASTE, 
 					ID_SEPARATOR, ID_EDIT_UNDO, ID_EDIT_REDO, ID_SEPARATOR, 
 					ID_FIND, ID_NONE};
+
 	jInt_->toolBar_ = addToolBar("Main");
 	jInt_->toolBar_->setObjectName("MainToolBar");
+	jInt_->toolbarsMenu_->addAction(jInt_->toolBar_->toggleViewAction());
+
 	for (unsigned i = 0; actions[i] != ID_NONE; i++) {
 		CommandID id = actions[i];
 		if (id == ID_SEPARATOR)

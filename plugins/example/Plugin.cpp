@@ -122,4 +122,4 @@ void Plugin::addHeader() {
 	emit insertText(text);
 }
 
-Q_EXPORT_PLUGIN2(subs, Plugin)
+Q_EXPORT_PLUGIN2(plugin, Plugin)

@@ -267,15 +267,11 @@ void JuffEd::initPlugins() {
 	PluginList plugins = PluginManager::instance()->plugins();
 	foreach (JuffPlugin* plugin, plugins) {
 		if (plugin != 0) {
-//			Log::debug(plugin->name());
-//			bool newEnabled = jInt_->settingsDlg_->isPluginEnabled(plugin->name());
 			bool newEnabled = PluginSettings::pluginEnabled(plugin->name());
-//			bool oldEnabled = PluginManager::instance()->isPluginEnabled(plugin->name());
 			bool oldEnabled = jInt_->pluginActivated_[plugin->name()];
-			Log::debug(plugin->name());
-			Log::debug(QString("newEnabled: %1").arg(newEnabled ? "true" : "false"));
-			Log::debug(QString("oldEnabled: %1").arg(oldEnabled ? "true" : "false"));
-	//		Log::debug();
+//			Log::debug(plugin->name());
+//			Log::debug(QString("newEnabled: %1").arg(newEnabled ? "true" : "false"));
+//			Log::debug(QString("oldEnabled: %1").arg(oldEnabled ? "true" : "false"));
 			if (newEnabled != oldEnabled) {
 				//	plugin enable state was changed
 				PluginManager::instance()->enablePlugin(plugin->name(), newEnabled);
@@ -317,7 +313,6 @@ void JuffEd::activatePlugin(JuffPlugin* plugin, bool activate) {
 		//	toolbar
 		QToolBar* toolBar = plugin->toolBar();
 		if (toolBar != 0) {
-			qDebug("added");
 			addToolBar(toolBar);
 			toolBar->show();
 
@@ -325,9 +320,6 @@ void JuffEd::activatePlugin(JuffPlugin* plugin, bool activate) {
 			if (jInt_->toolbarsMenu_ != 0) {
 				jInt_->toolbarsMenu_->addAction(toolBar->toggleViewAction());
 			}
-		}
-		else {
-			qDebug("not added");
 		}
 
 		//	dock widget

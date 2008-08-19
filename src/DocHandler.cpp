@@ -182,8 +182,10 @@ const QString& DocHandler::sessionName() const {
 QString docTitle(Juff::Document* doc) {
 	JUFFENTRY;
 
+	if (doc == 0 || doc->isNull())
+		return "";
+
 	QString title;
-	
 	if (doc->isNoname()) {
 		title = QObject::tr("Noname");
 	}
@@ -294,30 +296,16 @@ bool DocHandler::closeDocument(Juff::Document* doc) {
 		Juff::Document::SaveRequest saveRequest = doc->confirmForClose();
 		if (saveRequest == Juff::Document::SaveYes) {
 			doc->save();
-
-			//	TODO : !!!!!!!!!
-			hInt_->removeDoc(doc);
-			//	emit informational signal
-			emit docClosed(fName);
-			return true;
 		}
-		else if (saveRequest == Juff::Document::SaveNo) {
-			//	TODO : !!!!!!!!!
-			hInt_->removeDoc(doc);
-			//	emit informational signal
-			emit docClosed(fName);
-			return true;
-		}
-		else
+		else if (saveRequest != Juff::Document::SaveNo) {
 			return false;
+		}
 	}
-	else {
-		//	TODO : !!!!!!!!!
-		hInt_->removeDoc(doc);
-		//	emit informational signal
-		emit docClosed(fName);
-		return true;
-	}
+
+	hInt_->removeDoc(doc);
+	//	emit informational signal
+	emit docClosed(fName);
+	return true;
 }
 
 bool DocHandler::closeAllDocs() {
@@ -357,8 +345,12 @@ void DocHandler::docModified(bool) {
 	if (tdView != 0) {
 		hInt_->viewer_->setDocViewTitle(tdView, docTitle(tdView->document()));
 		
+		//	Looks like emitting the signal causes segfault. Let's see....
+
 		//	emit informational signal
+		Log::debug("Emitting the signal...");
 		emit docModified(tdView->document()->fileName(), tdView->document()->isModified());
+		Log::debug("Signal was handled properly");
 	}
 }
 

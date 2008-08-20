@@ -391,7 +391,7 @@ void JuffEd::createCommands() {
 		Command(ID_FILE_PRINT_SELECTED,	tr("Print selected lines"),	im->icon("filePrintSelected"),	QKeySequence(),	h, SLOT(docPrintSelected())),
 		Command(ID_FILE_CLOSE,	tr("Close"),	im->icon("fileClose"),	QKeySequence("Ctrl+W"), h, SLOT(docClose())),
 		Command(ID_FILE_CLOSE_ALL, tr("Close all"), im->icon("fileCloseAll"), QKeySequence(),	h, SLOT(docCloseAll())),
-		Command(ID_EXIT,		tr("Exit"),		im->icon("exit"),		QKeySequence(),			this, SLOT(exit())),
+		Command(ID_EXIT,		tr("Exit"),		im->icon("exit"),		QKeySequence("Ctrl+Q"),			this, SLOT(exit())),
 		//
 		Command(ID_EDIT_CUT,	tr("Cut"),		im->icon("editCut"),	QKeySequence("Ctrl+X"), h, SLOT(processTheCommand())),
 		Command(ID_EDIT_COPY,	tr("Copy"),		im->icon("editCopy"),	QKeySequence("Ctrl+C"), h, SLOT(processTheCommand())),

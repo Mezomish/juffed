@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define _TEXT_DOC_VIEW_H_
 
 class DocFindFlags;
+class QsciLexer;
 class QTextCursor;
 class QTextDocument;
 class TDViewInterior;
@@ -98,6 +99,7 @@ protected slots:
 private:
 	bool doReplace(const QString& text, bool& replaceAll);
 	bool continueOverTheEnd(bool back);
+	void loadAutocompletionAPI(const QString&, QsciLexer*);
 
 	TDViewInterior* vInt_;
 };

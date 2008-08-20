@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TextDocView.h"
 
 //	Qt headers
+#include <QtCore/QDir>
 #include <QtGui/QMenu>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPainter>
@@ -28,11 +29,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextEdit>
 
+#include <Qsci/qsciapis.h>
 #include <Qsci/qscilexer.h>
 #include <Qsci/qsciprinter.h>
 #include <Qsci/qsciscintilla.h>
 
 //	local headers
+#include "AppInfo.h"
 #include "LexerStorage.h"
 #include "Log.h"
 #include "TextDoc.h"
@@ -98,7 +101,7 @@ public:
 		edit_->setMatchedBraceBackgroundColor(QColor(255, 255, 120));
 		
 		//	TODO : make the following configurable
-		edit_->setAutoCompletionSource(QsciScintilla::AcsDocument);
+		edit_->setAutoCompletionSource(QsciScintilla::AcsAll);
 		edit_->setAutoCompletionThreshold(2);
 		
 		edit_->setMarginLineNumbers(1, true);
@@ -171,11 +174,30 @@ void TextDocView::setSyntax(const QString& lexName) {
 	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName, font);
 	LexerStorage::instance()->updateLexer(lexName, font);
 	
+	//	find autocompletion API
+	loadAutocompletionAPI(lexName, lexer);
+	
 	vInt_->edit_->setLexer(lexer);
 	vInt_->edit_->recolor();
 }
 
 void TextDocView::rehighlight() {
+}
+
+void TextDocView::loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer) {
+	QDir dir(AppInfo::configDir() + "/apis");
+	QString fileName = lexName.toLower() + ".api";
+	fileName.replace(QString("+"), "plus").replace(QString("#"), "sharp");
+	if (dir.entryList(QDir::Files).contains(fileName)) {
+		QsciAPIs* apis = new QsciAPIs(lexer);
+		if (apis->load(dir.absoluteFilePath(fileName))) {
+			apis->prepare();
+			lexer->setAPIs(apis);
+		}
+		else {
+			delete apis;
+		}
+	}
 }
 
 void TextDocView::setModified(bool mod) {

@@ -153,7 +153,7 @@ void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 void LSInterior::readCustomStyle(const QString& name) {
 	QDomDocument doc("JuffScheme");
 	QString nm = name;
-	nm = nm.replace(QString("+"), "plus").replace(QString("#"), "csharp").toLower();
+	nm = nm.replace(QString("+"), "plus").replace(QString("#"), "sharp").toLower();
 	QString fileName = QString("%1.xml").arg(nm);
 	fileName = AppInfo::configDir() + "/hlschemes/" + fileName;
 

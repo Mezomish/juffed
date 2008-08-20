@@ -265,7 +265,9 @@ void TextDoc::processTheCommand(CommandID id) {
 
 	case ID_GOTO_LINE : {
 			bool ok = false;
-			int line = QInputDialog::getInteger(tdView, tr("Go to line"), tr("Go to line"), 1, 1, tdView->lineCount(), 1, &ok);
+			int line = QInputDialog::getInteger(tdView, tr("Go to line"), 
+						tr("Go to line") + QString(" (1 - %1):").arg(tdView->lineCount()), 
+						1, 1, tdView->lineCount(), 1, &ok);
 			if (ok)
 				tdView->gotoLine(line);
 			break;

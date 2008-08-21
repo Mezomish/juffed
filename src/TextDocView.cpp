@@ -70,6 +70,92 @@ public:
 		delete contextMenu_;
 	}
 
+	bool find(const QString& s, bool isRegExp, bool back, bool caseSens) {
+		QString str(s);
+		QString text = this->text();
+		QStringList lines = text.split(QRegExp("\r?\n"));
+		int row(-1), col(-1);
+		this->getCursorPosition(&row, &col);
+		int lineIndex(0);
+		if (row < 0 || col < 0)
+			return false;
+
+		if (!back) {
+			foreach (QString line, lines) {
+				if (lineIndex < row) {
+				}
+				else {
+					int indent(0);			
+					if (lineIndex == row) {
+						line = line.right(line.length() - col);
+						indent = col;
+					}
+					int index(-1);
+					QRegExp regExp(str);
+					regExp.setCaseSensitivity(caseSens ? Qt::CaseSensitive : Qt::CaseInsensitive);
+					if (isRegExp)
+						index = line.indexOf(regExp);
+					else {
+						if (!caseSens) {
+							str = str.toLower();
+							line = line.toLower();
+						}
+						index = line.indexOf(str);
+					}
+
+					if (index >= 0) {
+						if (isRegExp)
+							this->setSelection(lineIndex, index + indent, lineIndex, index + indent + regExp.matchedLength());
+						else
+							this->setSelection(lineIndex, index + indent, lineIndex, index + indent + str.length());
+						return true;
+					}
+				}
+				++lineIndex;
+			}
+		}
+		else {
+			QStringList::iterator it = lines.end();
+			it--;
+			int lineIndex = lines.count() - 1;
+			while (lineIndex >= 0) {
+				if (lineIndex > row) {
+				}
+				else {
+					QString line = *it;
+					if (lineIndex == row) {
+						line = line.left(col);
+					}
+
+					int index(-1);
+					QRegExp regExp(str);
+					regExp.setCaseSensitivity(caseSens ? Qt::CaseSensitive : Qt::CaseInsensitive);
+					if (isRegExp)
+						index = line.lastIndexOf(regExp);
+					else {
+						if (!caseSens) {
+							str = str.toLower();
+							line = line.toLower();
+						}
+						index = line.lastIndexOf(str);
+					}
+
+					if (index >= 0) {
+						if (isRegExp)
+							this->setSelection(lineIndex, index, lineIndex, index + regExp.matchedLength());
+						else
+							this->setSelection(lineIndex, index, lineIndex, index + str.length());
+						return true;
+					}
+				}
+				lineIndex--;
+				it--;
+			}
+		}
+
+		return false;
+	}
+
 protected:
 	virtual void dragEnterEvent(QDragEnterEvent* e) {
 		if (!e->mimeData()->hasUrls())
@@ -127,7 +213,7 @@ public:
 		delete edit_;
 	}
 	
-	QsciScintilla* edit_;
+	MyQScintilla* edit_;
 	
 	bool lineNumVisible_;
 	bool adjustedByWidth_;
@@ -409,7 +495,8 @@ void TextDocView::unindentLines(int from, int to) {
 
 ////////////////////////////////////////////////////////////
 //	FIND
-void prepareForFind(QsciScintilla* edit, const QString& str, bool isRegExp, bool back) {
+void prepareForFind(QsciScintilla* edit, const QString& s, bool isRegExp, bool back, bool matchCase) {
+	QString str(s);
 	if (back) {
 		if (edit->hasSelectedText()) {
 			int fromRow, fromCol, toRow, toCol;
@@ -417,10 +504,16 @@ void prepareForFind(QsciScintilla* edit, const QString& str, bool isRegExp, bool
 			if (fromRow == toRow) {
 				QString selection = edit->selectedText();
 				if (isRegExp) {
-					if (QRegExp(str).exactMatch(selection))
+					QRegExp r(str);
+					r.setCaseSensitivity(matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+					if (r.exactMatch(selection))
 						edit->setCursorPosition(fromRow, fromCol);
 				}
 				else {
+					if (!matchCase) {
+						str = str.toLower();
+						selection = selection.toLower();
+					}
 					if (selection.compare(str) == 0)
 						edit->setCursorPosition(fromRow, fromCol);
 				}
@@ -455,9 +548,10 @@ bool TextDocView::continueOverTheEnd(bool back) {
 }
 
 void TextDocView::find(const QString& str, bool isRegExp, DocFindFlags flags) {
-	prepareForFind(vInt_->edit_, str, isRegExp, flags.backward);
-	
-	bool found = vInt_->edit_->findFirst(str, isRegExp, flags.matchCase, false, false, !flags.backward);
+	prepareForFind(vInt_->edit_, str, isRegExp, flags.backward, flags.matchCase);
+
+//	bool found = vInt_->edit_->findFirst(str, isRegExp, flags.matchCase, false, false, !flags.backward);
+	bool found = vInt_->edit_->find(str, isRegExp, flags.backward, flags.matchCase);
 	if (!found) {
 		//	not found
 		if (continueOverTheEnd(flags.backward))
@@ -513,7 +607,7 @@ bool TextDocView::doReplace(const QString& text, bool& replaceAll) {
 }
 
 void TextDocView::replace(const QString& from, bool isRegExp, const QString& to, DocFindFlags flags) {
-	prepareForFind(vInt_->edit_, from, isRegExp, flags.backward);
+	prepareForFind(vInt_->edit_, from, isRegExp, flags.backward, flags.matchCase);
 	
 	bool cancelled = false;
 	bool replaceAll = false;

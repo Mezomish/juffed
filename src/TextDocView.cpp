@@ -69,7 +69,7 @@ public:
 	virtual ~MyQScintilla() {
 		delete contextMenu_;
 	}
-	
+
 protected:
 	virtual void dragEnterEvent(QDragEnterEvent* e) {
 		if (!e->mimeData()->hasUrls())
@@ -409,15 +409,21 @@ void TextDocView::unindentLines(int from, int to) {
 
 ////////////////////////////////////////////////////////////
 //	FIND
-void prepareForFind(QsciScintilla* edit, const QString& str, bool back) {
+void prepareForFind(QsciScintilla* edit, const QString& str, bool isRegExp, bool back) {
 	if (back) {
 		if (edit->hasSelectedText()) {
 			int fromRow, fromCol, toRow, toCol;
 			edit->getSelection(&fromRow, &fromCol, &toRow, &toCol);
 			if (fromRow == toRow) {
 				QString selection = edit->selectedText();
-				if (selection.compare(str) == 0)
-					edit->setCursorPosition(fromRow, fromCol);
+				if (isRegExp) {
+					if (QRegExp(str).exactMatch(selection))
+						edit->setCursorPosition(fromRow, fromCol);
+				}
+				else {
+					if (selection.compare(str) == 0)
+						edit->setCursorPosition(fromRow, fromCol);
+				}
 			}
 		}
 	}
@@ -449,7 +455,7 @@ bool TextDocView::continueOverTheEnd(bool back) {
 }
 
 void TextDocView::find(const QString& str, bool isRegExp, DocFindFlags flags) {
-	prepareForFind(vInt_->edit_, str, flags.backward);
+	prepareForFind(vInt_->edit_, str, isRegExp, flags.backward);
 	
 	bool found = vInt_->edit_->findFirst(str, isRegExp, flags.matchCase, false, false, !flags.backward);
 	if (!found) {
@@ -507,7 +513,7 @@ bool TextDocView::doReplace(const QString& text, bool& replaceAll) {
 }
 
 void TextDocView::replace(const QString& from, bool isRegExp, const QString& to, DocFindFlags flags) {
-	prepareForFind(vInt_->edit_, from, flags.backward);
+	prepareForFind(vInt_->edit_, from, isRegExp, flags.backward);
 	
 	bool cancelled = false;
 	bool replaceAll = false;

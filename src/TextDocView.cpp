@@ -104,10 +104,14 @@ public:
 					}
 
 					if (index >= 0) {
-						if (flags.isRegExp)
+						if (flags.isRegExp) {
 							this->setSelection(lineIndex, index + indent, lineIndex, index + indent + regExp.matchedLength());
-						else
+							this->ensureCursorVisible();
+						}
+						else {
 							this->setSelection(lineIndex, index + indent, lineIndex, index + indent + str.length());
+							this->ensureCursorVisible();
+						}
 						return true;
 					}
 				}
@@ -141,10 +145,14 @@ public:
 					}
 
 					if (index >= 0) {
-						if (flags.isRegExp)
+						if (flags.isRegExp) {
 							this->setSelection(lineIndex, index, lineIndex, index + regExp.matchedLength());
-						else
+							this->ensureCursorVisible();
+						}
+						else {
 							this->setSelection(lineIndex, index, lineIndex, index + str.length());
+							this->ensureCursorVisible();
+						}
 						return true;
 					}
 				}

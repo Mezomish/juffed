@@ -30,8 +30,7 @@ PluginPage::PluginPage(const QString& pluginName, QWidget* page) :
 
 	QVBoxLayout* vBox = new QVBoxLayout();
 
-		//	TODO : uncomment this when loading/unloading is ready
-	usePluginChk_ = new QCheckBox(tr("Use this plugin"));
+	usePluginChk_ = new QCheckBox(tr("Enabled"));
 	connect(usePluginChk_, SIGNAL(toggled(bool)), SLOT(enablePage(bool)));
 	vBox->addWidget(usePluginChk_);
 

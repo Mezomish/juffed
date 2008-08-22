@@ -269,21 +269,13 @@ void JuffEd::initPlugins() {
 		if (plugin != 0) {
 			bool newEnabled = PluginSettings::pluginEnabled(plugin->name());
 			bool oldEnabled = jInt_->pluginActivated_[plugin->name()];
-//			Log::debug(plugin->name());
-//			Log::debug(QString("newEnabled: %1").arg(newEnabled ? "true" : "false"));
-//			Log::debug(QString("oldEnabled: %1").arg(oldEnabled ? "true" : "false"));
 			if (newEnabled != oldEnabled) {
 				//	plugin enable state was changed
 				PluginManager::instance()->enablePlugin(plugin->name(), newEnabled);
 				if (newEnabled) {
-					//	plugin was enabled
 					plugin->applySettings();
-					activatePlugin(plugin, true);
 				}
-				else {
-					//	plugin was disabled
-					activatePlugin(plugin, false);
-				}
+				activatePlugin(plugin, newEnabled);
 			}
 		}
 	}
@@ -346,11 +338,7 @@ void JuffEd::activatePlugin(JuffPlugin* plugin, bool activate) {
 	else {
 		//	toolbar`
 		if (plugin->toolBar() != 0) {
-			qDebug("removed");
 			removeToolBar(plugin->toolBar());
-		}
-		else {
-			qDebug("not removed");
 		}
 		
 		//	dock widget

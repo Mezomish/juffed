@@ -23,7 +23,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QList>
 #include <QtCore/QSet>
 #include <QtCore/QTimer>
-//#include <QtCore/QVector>
 #include <QtGui/QAction>
 #include <QtGui/QFileDialog>
 #include <QtGui/QInputDialog>
@@ -47,10 +46,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	Application-dependent headers
 #include "TextDoc.h"
 
-//using namespace Juff;
-
 typedef QList<Juff::Document*> DocList;
-//typedef QVector<Document*> DocVector;
 
 class DocHandlerInterior {
 public:

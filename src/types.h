@@ -32,11 +32,4 @@ struct DocFindFlags {
 	bool isRegExp;
 };
 
-/*struct Marker {
-	int lineNumber;
-	QString text;
-};*/
-
-//typedef QMap<int, QString> MarkerMap;
-
 #endif

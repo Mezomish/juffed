@@ -213,7 +213,7 @@ public:
 		edit_->setMarginLineNumbers(1, true);
 
 		edit_->setMarginWidth(2, 12);
-		//	set margin number 1 accept markers 
+		//	set the 1st margin accept markers 
 		//	number 1 and 2 (binary mask 00000110 == 6)
 		edit_->setMarginMarkerMask(1, 6);
 		edit_->markerDefine(QsciScintilla::RightTriangle, 1);
@@ -565,7 +565,6 @@ bool TextDocView::continueOverTheEnd(bool back) {
 void TextDocView::find(const QString& str, DocFindFlags flags) {
 	prepareForFind(vInt_->edit_, str, flags);
 
-//	bool found = vInt_->edit_->findFirst(str, isRegExp, flags.matchCase, false, false, !flags.backward);
 	bool found = vInt_->edit_->find(str, flags);
 	if (!found) {
 		//	not found
@@ -619,7 +618,7 @@ bool TextDocView::doReplace(const QString& fromText, const QString& toText, bool
 	}
 
 	if (!replaceAll) {
-		//	ask confirmation if replace all hasn't been chosen yet
+		//	ask for confirmation if replace all hasn't been chosen yet
 		
 		Answer conf = confirm(this);
 		if (conf == Cancel)

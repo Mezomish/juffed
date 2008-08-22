@@ -419,20 +419,23 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 	QStringList files;
 	if (name.isEmpty()) {
 		QString fileTypes("All files (*)");
-		fileTypes += ";;C/C++ files (*.c *.cpp *.cxx *.CPP *.CXX)";
+		fileTypes += ";;Batch files (*.bat)";
+		fileTypes += ";;Shell scripts (*.sh *.run)";
+		fileTypes += ";;C/C++ files (*.c *.cpp *.cxx)";
 		fileTypes += ";;C# (*.cs)";
-		fileTypes += ";;Header files (*.h *.hpp *.H *.HPP)";
-		fileTypes += ";;HTML (*.htm *.html *.xhtml *.dhtml)";
+		fileTypes += ";;D (*.d)";
+		fileTypes += ";;Diff/Patch files (*.diff *.patch)";
+		fileTypes += ";;Header files (*.h *.hpp)";
+		fileTypes += ";;HTML/CSS/JS (*.htm *.html *.xhtml *.dhtml *.css *js)";
 		fileTypes += ";;IDL (*.idl)";
+		fileTypes += ";;Lua (*.lua)";
+		fileTypes += ";;Makefiles (*Makefile*)";
 		fileTypes += ";;Perl (*.pl)";
 		fileTypes += ";;PHP (*.php)";
 		fileTypes += ";;Python (*.py)";
 		fileTypes += ";;Ruby (*.rb)";
 		fileTypes += ";;SQL (*.sql)";
-		fileTypes += ";;XML (*.xml *.ui)";
-//		fileTypes += "";
-//		fileTypes += "";
-//		fileTypes += "";
+		fileTypes += ";;XML (*.xml)";
 
 		QString startDir("");
 		QString curDocFileName("");

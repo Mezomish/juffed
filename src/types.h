@@ -22,13 +22,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QMap>
 
 struct DocFindFlags {
-	DocFindFlags(bool MatchCase = false, bool Backward = false, bool IsRegExp = false) {
+	DocFindFlags(bool MatchCase = false, bool Backwards = false, bool IsRegExp = false) {
 		matchCase = MatchCase;
-		backward = Backward;
+		backwards = Backwards;
 		isRegExp = IsRegExp;
 	}
 	bool matchCase;
-	bool backward;
+	bool backwards;
 	bool isRegExp;
 };
 

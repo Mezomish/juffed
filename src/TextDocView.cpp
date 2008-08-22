@@ -80,7 +80,7 @@ public:
 		if (row < 0 || col < 0)
 			return false;
 
-		if (!flags.backward) {
+		if (!flags.backwards) {
 			foreach (QString line, lines) {
 				if (lineIndex < row) {
 				}
@@ -512,7 +512,7 @@ void TextDocView::unindentLines(int from, int to) {
 //	FIND
 void prepareForFind(QsciScintilla* edit, const QString& s, const DocFindFlags& flags) {
 	QString str(s);
-	if (flags.backward) {
+	if (flags.backwards) {
 		if (edit->hasSelectedText()) {
 			int fromRow, fromCol, toRow, toCol;
 			edit->getSelection(&fromRow, &fromCol, &toRow, &toCol);
@@ -568,7 +568,7 @@ void TextDocView::find(const QString& str, DocFindFlags flags) {
 	bool found = vInt_->edit_->find(str, flags);
 	if (!found) {
 		//	not found
-		if (continueOverTheEnd(flags.backward))
+		if (continueOverTheEnd(flags.backwards))
 			find(str, flags);
 	}
 }
@@ -654,7 +654,7 @@ void TextDocView::replace(const QString& from, const QString& to, DocFindFlags f
 	}
 	if (!cancelled) {
 		//	reached the end or the beginning
-		if (continueOverTheEnd(flags.backward))
+		if (continueOverTheEnd(flags.backwards))
 			replace(from, to, flags);
 	}
 }

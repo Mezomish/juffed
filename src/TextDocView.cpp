@@ -70,7 +70,7 @@ public:
 		delete contextMenu_;
 	}
 
-	bool find(const QString& s, bool isRegExp, bool back, bool caseSens) {
+	bool find(const QString& s, const DocFindFlags& flags) {
 		QString str(s);
 		QString text = this->text();
 		QStringList lines = text.split(QRegExp("\r?\n"));
@@ -80,7 +80,7 @@ public:
 		if (row < 0 || col < 0)
 			return false;
 
-		if (!back) {
+		if (!flags.backward) {
 			foreach (QString line, lines) {
 				if (lineIndex < row) {
 				}
@@ -92,11 +92,11 @@ public:
 					}
 					int index(-1);
 					QRegExp regExp(str);
-					regExp.setCaseSensitivity(caseSens ? Qt::CaseSensitive : Qt::CaseInsensitive);
-					if (isRegExp)
+					regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+					if (flags.isRegExp)
 						index = line.indexOf(regExp);
 					else {
-						if (!caseSens) {
+						if (!flags.matchCase) {
 							str = str.toLower();
 							line = line.toLower();
 						}
@@ -104,7 +104,7 @@ public:
 					}
 
 					if (index >= 0) {
-						if (isRegExp)
+						if (flags.isRegExp)
 							this->setSelection(lineIndex, index + indent, lineIndex, index + indent + regExp.matchedLength());
 						else
 							this->setSelection(lineIndex, index + indent, lineIndex, index + indent + str.length());
@@ -129,11 +129,11 @@ public:
 
 					int index(-1);
 					QRegExp regExp(str);
-					regExp.setCaseSensitivity(caseSens ? Qt::CaseSensitive : Qt::CaseInsensitive);
-					if (isRegExp)
+					regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+					if (flags.isRegExp)
 						index = line.lastIndexOf(regExp);
 					else {
-						if (!caseSens) {
+						if (!flags.matchCase) {
 							str = str.toLower();
 							line = line.toLower();
 						}
@@ -141,7 +141,7 @@ public:
 					}
 
 					if (index >= 0) {
-						if (isRegExp)
+						if (flags.isRegExp)
 							this->setSelection(lineIndex, index, lineIndex, index + regExp.matchedLength());
 						else
 							this->setSelection(lineIndex, index, lineIndex, index + str.length());
@@ -502,22 +502,22 @@ void TextDocView::unindentLines(int from, int to) {
 
 ////////////////////////////////////////////////////////////
 //	FIND
-void prepareForFind(QsciScintilla* edit, const QString& s, bool isRegExp, bool back, bool matchCase) {
+void prepareForFind(QsciScintilla* edit, const QString& s, const DocFindFlags& flags) {
 	QString str(s);
-	if (back) {
+	if (flags.backward) {
 		if (edit->hasSelectedText()) {
 			int fromRow, fromCol, toRow, toCol;
 			edit->getSelection(&fromRow, &fromCol, &toRow, &toCol);
 			if (fromRow == toRow) {
 				QString selection = edit->selectedText();
-				if (isRegExp) {
+				if (flags.isRegExp) {
 					QRegExp r(str);
-					r.setCaseSensitivity(matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+					r.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
 					if (r.exactMatch(selection))
 						edit->setCursorPosition(fromRow, fromCol);
 				}
 				else {
-					if (!matchCase) {
+					if (!flags.matchCase) {
 						str = str.toLower();
 						selection = selection.toLower();
 					}
@@ -554,15 +554,15 @@ bool TextDocView::continueOverTheEnd(bool back) {
 	}
 }
 
-void TextDocView::find(const QString& str, bool isRegExp, DocFindFlags flags) {
-	prepareForFind(vInt_->edit_, str, isRegExp, flags.backward, flags.matchCase);
+void TextDocView::find(const QString& str, DocFindFlags flags) {
+	prepareForFind(vInt_->edit_, str, flags);
 
 //	bool found = vInt_->edit_->findFirst(str, isRegExp, flags.matchCase, false, false, !flags.backward);
-	bool found = vInt_->edit_->find(str, isRegExp, flags.backward, flags.matchCase);
+	bool found = vInt_->edit_->find(str, flags);
 	if (!found) {
 		//	not found
 		if (continueOverTheEnd(flags.backward))
-			find(str, isRegExp, flags);
+			find(str, flags);
 	}
 }
 
@@ -634,13 +634,13 @@ bool TextDocView::doReplace(const QString& fromText, const QString& toText, bool
 	return true;
 }
 
-void TextDocView::replace(const QString& from, bool isRegExp, const QString& to, DocFindFlags flags) {
-	prepareForFind(vInt_->edit_, from, isRegExp, flags.backward, flags.matchCase);
+void TextDocView::replace(const QString& from, const QString& to, DocFindFlags flags) {
+	prepareForFind(vInt_->edit_, from, flags);
 	
 	bool cancelled = false;
 	bool replaceAll = false;
-	while (vInt_->edit_->find(from, isRegExp, flags.backward, flags.matchCase)) {
-		if (!doReplace(from, to, isRegExp, flags.matchCase, replaceAll)) {
+	while (vInt_->edit_->find(from, flags)) {
+		if (!doReplace(from, to, flags.isRegExp, flags.matchCase, replaceAll)) {
 			cancelled = true;
 			break;
 		}
@@ -648,7 +648,7 @@ void TextDocView::replace(const QString& from, bool isRegExp, const QString& to,
 	if (!cancelled) {
 		//	reached the end or the beginning
 		if (continueOverTheEnd(flags.backward))
-			replace(from, isRegExp, to, flags);
+			replace(from, to, flags);
 	}
 }
 //	FIND & REPLACE

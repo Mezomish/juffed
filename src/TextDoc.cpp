@@ -207,17 +207,16 @@ void TextDoc::find(const QString& str, const DocFindFlags& flags) {
 		if (dlg.exec() == QDialog::Accepted) {
 			QString text = dlg.text();
 			DocFindFlags fl = dlg.flags();
-			bool regexpMode = dlg.isRegexpMode();
 			if (dlg.isReplaceMode()) {
-				tdView->replace(text, regexpMode, dlg.replaceTo(), fl);
+				tdView->replace(text, dlg.replaceTo(), fl);
 			}
 			else {
-				tdView->find(text, regexpMode, fl);
+				tdView->find(text, fl);
 			}
 		}
 	}
 	else {
-		tdView->find(str, FindDlg::lastRegExpMode(), flags);
+		tdView->find(str, flags);
 	}
 }
 
@@ -256,11 +255,11 @@ void TextDoc::processTheCommand(CommandID id) {
 		break;
 		
 	case ID_FIND_NEXT :
-		find(FindDlg::lastText(), DocFindFlags(FindDlg::lastMatchCase(), false));
+		find(FindDlg::lastText(), DocFindFlags(FindDlg::lastMatchCase(), false, FindDlg::lastRegExpMode()));
 		break;
 
 	case ID_FIND_PREV :
-		find(FindDlg::lastText(), DocFindFlags(FindDlg::lastMatchCase(), true));
+		find(FindDlg::lastText(), DocFindFlags(FindDlg::lastMatchCase(), true, FindDlg::lastRegExpMode()));
 		break;
 
 	case ID_GOTO_LINE : {

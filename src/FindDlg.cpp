@@ -56,7 +56,7 @@ FindDlg::~FindDlg() {
 }
 
 DocFindFlags FindDlg::flags() const {
-	DocFindFlags flags(uiFind.matchCaseChk->isChecked(), uiFind.backwardChk->isChecked());
+	DocFindFlags flags(uiFind.matchCaseChk->isChecked(), uiFind.backwardChk->isChecked(), uiFind.regexpChk->isChecked());
 	return flags;
 }
 

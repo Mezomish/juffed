@@ -75,8 +75,8 @@ public:
 	void print();
 	void printSelected();
 
-	void find(const QString& str, bool isRegExp, DocFindFlags flags);
-	void replace(const QString& from, bool isRegExp, const QString& to, DocFindFlags flags);
+	void find(const QString& str, DocFindFlags flags);
+	void replace(const QString& from, const QString& to, DocFindFlags flags);
 
 	void toggleMarker();
 	void gotoNextMarker();

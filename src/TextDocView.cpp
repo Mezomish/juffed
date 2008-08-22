@@ -156,6 +156,13 @@ public:
 		return false;
 	}
 
+	void replaceSelected(const QString& targetText) {
+		beginUndoAction();
+		removeSelectedText();
+		insert(targetText);
+		endUndoAction();
+	}
+	
 protected:
 	virtual void dragEnterEvent(QDragEnterEvent* e) {
 		if (!e->mimeData()->hasUrls())
@@ -586,22 +593,43 @@ Answer confirm(QWidget* w) {
 	return answer;
 }
 
-bool TextDocView::doReplace(const QString& text, bool& replaceAll) {
+bool TextDocView::doReplace(const QString& fromText, const QString& toText, bool isRegExp, bool matchCase, bool& replaceAll) {
+	QString selectedText = vInt_->edit_->selectedText();
+	QString targetText(toText);
+	if (isRegExp) {
+		QRegExp regExp(fromText);
+		regExp.setCaseSensitivity(matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+		if (regExp.exactMatch(selectedText)) {
+			QStringList matches = regExp.capturedTexts();
+			int n = matches.size();
+			for (int i = 0; i < n; ++i) {
+				targetText.replace(QString("\\%1").arg(i), matches[i]);
+			}
+		}
+		else
+			return false;
+	}
+
 	if (!replaceAll) {
 		//	ask confirmation if replace all hasn't been chosen yet
+		
 		Answer conf = confirm(this);
 		if (conf == Cancel)
 			return false;
-		else if (conf == Yes)
-			vInt_->edit_->replace(text);
+		else if (conf == Yes) {
+			vInt_->edit_->replaceSelected(targetText);
+			vInt_->edit_->selectAll(false);
+		}
 		else if (conf == All) {
+			vInt_->edit_->replaceSelected(targetText);
+			vInt_->edit_->selectAll(false);
 			replaceAll = true;
-			vInt_->edit_->replace(text);
 		}
 	}
 	else {
 		//	just replace, because there has been chosen "select all"
-		vInt_->edit_->replace(text);
+		vInt_->edit_->replaceSelected(targetText);
+		vInt_->edit_->selectAll(false);
 	}
 	return true;
 }
@@ -611,8 +639,8 @@ void TextDocView::replace(const QString& from, bool isRegExp, const QString& to,
 	
 	bool cancelled = false;
 	bool replaceAll = false;
-	while (vInt_->edit_->findFirst(from, isRegExp, flags.matchCase, false, false, !flags.backward)) {
-		if (!doReplace(to, replaceAll)) {
+	while (vInt_->edit_->find(from, isRegExp, flags.backward, flags.matchCase)) {
+		if (!doReplace(from, to, isRegExp, flags.matchCase, replaceAll)) {
 			cancelled = true;
 			break;
 		}

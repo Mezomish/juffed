@@ -94,33 +94,14 @@ TextDocView* TextDoc::textDocView() const {
 	return qobject_cast<TextDocView*>(view());
 }
 
-Document::Status TextDoc::save() {
-	Document::Status res = Document::StatusSuccess;
-	
-	if (isNoname()) {
-		res = saveAs();
-	}
-	else {
-		QString fName = fileName();
-		if (MainSettings::makeBackupOnSave()) {
-			QFile::remove(fName + "~");
-			QFile::copy(fName, fName + "~");
-		}
-		res = writeContent(fName);
-	}
-	
-	return res;
-}
-
-Document::Status TextDoc::saveAs() {
-	Document::Status res = Document::StatusSuccess;
-
+QString TextDoc::getSaveFileName(bool& changeName) {
 	QFileDialog saveDlg(view(), tr("Save as"), MainSettings::lastSaveDir());
 	saveDlg.setConfirmOverwrite(true);
 	saveDlg.setAcceptMode(QFileDialog::AcceptSave);
 
 	QLayout* layout = saveDlg.layout();
 	QCheckBox* saveAsCopyChk = new QCheckBox(tr("Save as a copy"));
+	saveAsCopyChk->setChecked(!changeName);
 	layout->addWidget(saveAsCopyChk);
 
 	if (!isNoname()) {
@@ -131,12 +112,80 @@ Document::Status TextDoc::saveAs() {
 	QString fName("");
 	if (saveDlg.exec() == QDialog::Accepted) {
 		fName = saveDlg.selectedFiles()[0];
+		changeName = !saveAsCopyChk->isChecked();
 	}
+	
+	return fName;
+}
+
+Document::Status TextDoc::save() {
+	Document::Status res = Document::StatusSuccess;
+	
+	if (isNoname()) {
+		res = saveAs();
+	}
+	else {
+		QString name = fileName();
+		if (MainSettings::makeBackupOnSave()) {
+			QFile::remove(name + "~");
+			QFile::copy(name, name + "~");
+		}
+		
+		bool changeName(true);
+
+		//	check for read-only
+		if (QFile::exists(name) && !QFileInfo(name).isWritable()) {
+			//	File exists and it is read-only for the current user.
+			//	Ask for what to do with it.
+			QString msg = tr("File '%1' is read-only.").arg(QFileInfo(name).fileName()) + "\n";
+			msg += tr("What do you want to do?");
+			QMessageBox msgBox(QMessageBox::Information, tr("Warning"), msg, QMessageBox::NoButton, view());
+			QPushButton* owrBtn = msgBox.addButton(tr("Overwrite"), QMessageBox::YesRole);
+			QPushButton* savBtn = msgBox.addButton(tr("Save as"), QMessageBox::ApplyRole);
+			msgBox.addButton(QMessageBox::Cancel);
+			bool resolved = false;
+			do {
+				msgBox.exec();
+				QAbstractButton* btn = msgBox.clickedButton();
+				if (btn == owrBtn) {
+					//	Try to change permissions and save
+					QFile::Permissions perm = QFile::permissions(name);
+					if (QFile::setPermissions(name, perm | QFile::WriteUser)) {
+						resolved = true;
+					}
+					else {
+						//	Can't change permissions
+						QMessageBox::warning(view(), tr("Warning"), tr("Can't change permissions: Access denied"));
+					}
+				}
+				else if (btn == savBtn) {
+					//	Choose file name
+					QString fName = getSaveFileName(changeName);
+					if (!fName.isEmpty()) {
+						name = fName;
+						resolved = true;
+					}
+				}
+				else {
+					return res;
+				}
+			} while (!resolved);
+		}
+		res = writeContent(name, changeName);
+	}
+	
+	return res;
+}
+
+Document::Status TextDoc::saveAs() {
+	Document::Status res = Document::StatusSuccess;
+
+	bool changeName(true);
+	QString fName = getSaveFileName(changeName);
 
 	if (!fName.isEmpty()) {
 		MainSettings::setLastSaveDir(QFileInfo(fName).absolutePath());
-		bool getNewName = !saveAsCopyChk->isChecked();
-		res = writeContent(fName, getNewName);
+		res = writeContent(fName, changeName);
 	}
 	else {
 		res = Document::StatusCancel;
@@ -345,6 +394,11 @@ Document::Status TextDoc::readContent(const QString& name) {
 			bool mod = isModified();
 			tdView->setText(text);
 			tdView->setModified(mod);
+			
+			//	check for read-only
+			if (!QFileInfo(name).isWritable() && tdView->isVisible()) {
+				QMessageBox::information(tdView, tr("Warning"), tr("File '%1' is read-only.").arg(QFileInfo(name).fileName()));
+			}
 		}
 	}
 	else
@@ -353,29 +407,30 @@ Document::Status TextDoc::readContent(const QString& name) {
 	return res;
 }
 
-Document::Status TextDoc::writeContent(const QString& name, bool getNewName /*= true*/) {
+Document::Status TextDoc::writeContent(const QString& fileName, bool changeName /*= true*/) {
+	QString name(fileName);
 	Document::Status res = Document::StatusSuccess;
-	
+	TextDocView* tdView = textDocView();
+
 	QFile file(name);
 	if (file.open(QIODevice::WriteOnly)) {
 		QString text("");
-		TextDocView* tdView = textDocView();
 		if (tdView != 0) {
 			tdView->getText(text);
 			file.write(docInt_->codec_->fromUnicode(text));
 			file.close();
 
-			setLastModified(QFileInfo(file).lastModified());
-
 			tdView->setFocus();
-			tdView->setModified(false);
-
-			if (getNewName) {
+			if (changeName) {
+				//	We save document with new file name and set
+				//	new name as doc's fileName
 				setFileName(name);
+				setLastModified(QFileInfo(file).lastModified());
 				if (tdView->syntax().compare("none") == 0) {
 					QString syntax = LexerStorage::instance()->lexerName(name);
 					tdView->setSyntax(syntax);
 				}
+				tdView->setModified(false);
 			}
 		}
 		else {

@@ -98,7 +98,8 @@ void Document::checkLastModified() {
 	if (fi.exists()) {
 		if (fi.lastModified() > lastModified_) {
 			if (checkingMutex_.tryLock()) {
-				QString question(tr("The file was modified by external program\nWhat do you want to do?"));
+				QString question = tr("The file was modified by external program.") + "\n";
+				question += tr("What do you want to do?");
 				QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, 
 							QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, view_);
 				QAbstractButton* btn = msgBox.button(QMessageBox::Save);

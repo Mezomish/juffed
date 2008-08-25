@@ -50,6 +50,7 @@ public:
 	
 private:
 	TextDocView* textDocView() const;
+	QString getSaveFileName(bool&);
 	
 	Juff::Document::Status readContent(const QString&);
 	Juff::Document::Status writeContent(const QString&, bool getNewName = true);

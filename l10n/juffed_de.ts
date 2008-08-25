@@ -490,17 +490,17 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="378"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Drucken</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="379"/>
         <source>Print selected lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Drucke markierte Zeilen</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="530"/>
         <source>Toolbars</source>
-        <translation type="unfinished"></translation>
+        <translation>Werkzeugleisten</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="775"/>
@@ -510,7 +510,7 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="529"/>
         <source>Dock windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenster andocken</translation>
     </message>
 </context>
 <context>
@@ -581,7 +581,7 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/PluginPage.cpp" line="33"/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiv</translation>
     </message>
 </context>
 <context>
@@ -700,7 +700,7 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="215"/>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugins</translation>
     </message>
 </context>
 <context>
@@ -708,17 +708,17 @@ Was wollen Sie tun?</translation>
     <message>
         <location filename="../src/TabBar.cpp" line="33"/>
         <source>Copy file name to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateiname in die Zwischenablage kopieren</translation>
     </message>
     <message>
         <location filename="../src/TabBar.cpp" line="34"/>
         <source>Copy full file path to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateipfad in die Zwischenablage kopieren</translation>
     </message>
     <message>
         <location filename="../src/TabBar.cpp" line="35"/>
         <source>Copy file directory path to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzeichnispfad in die Zwischenablage kopieren</translation>
     </message>
 </context>
 <context>
@@ -763,7 +763,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/TextDoc.cpp" line="400"/>
         <source>File &apos;%1&apos; is read-only.</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei &apos;%1&apos; ist schreibgeschützt</translation>
     </message>
     <message>
         <location filename="../src/TextDoc.cpp" line="141"/>
@@ -778,12 +778,12 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/TextDoc.cpp" line="143"/>
         <source>Overwrite</source>
-        <translation type="unfinished"></translation>
+        <translation>Überschreiben</translation>
     </message>
     <message>
         <location filename="../src/TextDoc.cpp" line="158"/>
         <source>Can&apos;t change permissions: Access denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellung können nicht geändert werden: Zugriff verweigert</translation>
     </message>
 </context>
 <context>

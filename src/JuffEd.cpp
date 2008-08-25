@@ -526,7 +526,7 @@ void JuffEd::createMenuBar() {
 	initRecentFilesMenu();
 	
 	//	plugins panels and toolbars
-	jInt_->panelsMenu_ = new QMenu(tr("Panels"));
+	jInt_->panelsMenu_ = new QMenu(tr("Dock windows"));
 	jInt_->toolbarsMenu_ = new QMenu(tr("Toolbars"));
 	QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
 	QAction* settAct = CommandStorage::instance()->action(ID_SETTINGS);

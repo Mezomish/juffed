@@ -39,6 +39,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SingleInstance.h"
 
+void copyToLocalDir(const QString& subDirName) {
+	QDir dir = QDir(AppInfo::appDirPath() + "/" + subDirName);
+	QString localPath = AppInfo::configDir() + "/" + subDirName;
+
+	QDir localDir(localPath);
+	if (!localDir.exists())
+		localDir.mkpath(localPath);
+	foreach (QString file, dir.entryList(QDir::Files)) {
+		if (!QFileInfo(localPath + "/" + file).exists()) {
+			QFile::copy(dir.absolutePath() + "/" + file, localPath + "/" + file);
+		}
+	}
+}
+
 void checkForFirstRun() {
 	//	localizations
 	QString configPath = AppInfo::configDir();
@@ -52,19 +66,10 @@ void checkForFirstRun() {
 		}
 	}
 
-	//	highlight schemes
-	QDir schemesDir = QDir(appPath + "/hlschemes");
-	QString localSchemePath = AppInfo::configDir() + "/hlschemes";
-
-	QDir localSchemeDir(localSchemePath);
-	if (!localSchemeDir.exists())
-		localSchemeDir.mkpath(localSchemePath);
-	foreach (QString schemeFile, schemesDir.entryList(QDir::Files)) {
-		if (!QFileInfo(localSchemePath + "/" + schemeFile).exists()) {
-			QFile::copy(schemesDir.absolutePath() + "/" + schemeFile, localSchemePath + "/" + schemeFile);
-		}
-	}
-
+	//	highlight schemes and API lists
+	copyToLocalDir("hlschemes");
+	copyToLocalDir("apis");
+	
 	//	sessions
 	QDir sessionDir(configPath + "/sessions/");
 	if (!sessionDir.exists())

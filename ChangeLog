@@ -1,3 +1,7 @@
+2008-08-25:
+* Added: copying of installed API files to user's dir (if 
+  they don't exist yet)
+
 2008-08-24:
 * Added: processing of read-only files
 

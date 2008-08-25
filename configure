@@ -316,11 +316,13 @@ install:
 	install -d $(DESTDIR)
 	install -d $(DESTDIR)/l10n
 	install -d $(DESTDIR)/hlschemes
+	install -d $(DESTDIR)/apis
 #	Copy files
 	install -m 644 COPYING $(DESTDIR)
 	install -m 644 README $(DESTDIR)
 	install -m 644 l10n/*.qm $(DESTDIR)/l10n/
 	install -m 644 hlschemes/*.xml $(DESTDIR)/hlschemes/
+	install -m 644 apis/*.api $(DESTDIR)/apis/
 #	Binary
 	install -d $(BIN)
 	install -m 755 juffed $(BIN)

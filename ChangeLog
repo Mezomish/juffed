@@ -1,5 +1,9 @@
+2008-08-24:
+* Added: processing of read-only files
+
 2008-08-21:
 * Improved: serach using regexps
+* Added: more file types to 'Open' dialog
 
 2008-08-19:
 * Added: autocompletion from API list (dictionary)

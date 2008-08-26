@@ -267,12 +267,16 @@ Juff::Document* DocHandler::newDocument(const QString& fileName) {
 		JUFFDEBUG("ChP 5");
 
 		hInt_->viewer_->widget()->activateWindow();
-		JUFFDEBUG("ChP 6");
-		
+
+		//	Looks like we have segfault here.... :(
 		//	emit informational signals
+		Log::debug("Emitting informational signal 'docOpened'");
 		emit docOpened(doc->fileName());
+		Log::debug("Signal 'docOpened' was handled properly");
+
+		Log::debug("Emitting informational signal 'docSwitched'");
 		emit docSwitched(doc->fileName());
-		JUFFDEBUG("ChP 7");
+		Log::debug("Signal 'docSwitched' was handled properly");
 		
 		if (docCount() == 1)
 			hInt_->viewer_->updateCurrentViewInfo();
@@ -297,10 +301,15 @@ bool DocHandler::closeDocument(Juff::Document* doc) {
 			return false;
 		}
 	}
-
+	
 	hInt_->removeDoc(doc);
+
+	//	Looks like we have segfault here.... :(
 	//	emit informational signal
+	Log::debug("Emitting informational signal 'docClosed'");
 	emit docClosed(fName);
+	Log::debug("Signal 'docClosed' was handled properly");
+
 	return true;
 }
 
@@ -341,12 +350,11 @@ void DocHandler::docModified(bool) {
 	if (tdView != 0) {
 		hInt_->viewer_->setDocViewTitle(tdView, docTitle(tdView->document()));
 		
-		//	Looks like emitting the signal causes segfault. Let's see....
-
+		//	Looks like we have segfault here.... :(
 		//	emit informational signal
-		Log::debug("Emitting the signal...");
+		Log::debug("Emitting informational signal 'docModified'");
 		emit docModified(tdView->document()->fileName(), tdView->document()->isModified());
-		Log::debug("Signal was handled properly");
+		Log::debug("Signal 'docModified' was handled properly");
 	}
 }
 
@@ -358,8 +366,11 @@ void DocHandler::docFileNameChanged(const QString& oldName) {
 		hInt_->viewer_->setDocViewTitle(doc->view(), docTitle(doc));
 		emit fileNameChanged(doc);
 		
+		//	Looks like we have segfault here.... :(
 		//	emit informational signal
+		Log::debug("Emitting informational signal 'docFileNameChanged'");
 		emit docFileNameChanged(oldName, doc->fileName());
+		Log::debug("Signal 'docFileNameChanged' was handled properly");
 	}
 }
 
@@ -388,8 +399,11 @@ void DocHandler::docActivated(Juff::Document* doc) {
 	hInt_->curDoc_ = doc;
 	doc->extModMonitoringStart();
 	
+	//	Looks like we have segfault here.... :(
 	//	emit informational signal
+	Log::debug("Emitting informational signal 'docSwitched'");
 	emit docSwitched(doc->fileName());
+	Log::debug("Signal 'docSwitched' was handled properly");
 }
 
 

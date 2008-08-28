@@ -113,6 +113,18 @@ public:
 	SocketListener* listener_;
 };
 
+
+//	just helping function to avoid duplicated code
+TextDocView* getView(Juff::Document* doc) {
+	JUFFENTRY;
+
+	if (doc == 0 || doc->isNull())
+		return 0;
+	return qobject_cast<TextDocView*>(doc->view());
+}
+
+
+
 DocHandler::DocHandler(bool listen) : QObject(), hInt_(0) {
 	hInt_ = new DocHandlerInterior(this, listen);
 
@@ -800,15 +812,6 @@ DocView* DocHandler::createDocView() {
 ////////////////////////////////////////////////////////////
 //	Plugins
 ////////////////////////////////////////////////////////////
-
-//	just helping function to avoid duplicated code
-TextDocView* getView(Juff::Document* doc) {
-	JUFFENTRY;
-
-	if (doc == 0 || doc->isNull())
-		return 0;
-	return qobject_cast<TextDocView*>(doc->view());
-}
 
 void DocHandler::getText(QString& text) const {
 	JUFFENTRY;

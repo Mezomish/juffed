@@ -195,10 +195,25 @@ Document::Status TextDoc::saveAs() {
 }
 
 Document::Status TextDoc::reload() {
+	Document::Status st = Document::StatusSuccess;
 	if (!isNoname()) {
-		return readContent(fileName());
+		TextDocView* view = textDocView();
+		if (view != 0) {
+			int scrPos = view->scrollPos();
+			int line, col;
+			view->getCursorPos(line, col);
+
+			st = readContent(fileName());
+			view->setModified(false);
+
+			view->setCursorPos(line, 0);
+			view->setScrollPos(scrPos);
+		}
+		else {
+			st = Document::StatusUnknownError;
+		}
 	}
-	return Document::StatusSuccess;
+	return st;
 }
 
 void TextDoc::print() const {

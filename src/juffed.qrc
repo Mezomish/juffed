@@ -14,7 +14,7 @@
         <file alias="fileSaveAs">icons/fileSaveAs.png</file>
         <file alias="find">icons/find.png</file>
         <file alias="settings">icons/settings.png</file>
-		<file alias="fontLarger">icons/fontLarger.png</file>
-		<file alias="fontSmaller">icons/fontSmaller.png</file>
+		<file alias="zoomIn">icons/zoomIn.png</file>
+		<file alias="zoomOut">icons/zoomOut.png</file>
     </qresource>
 </RCC>

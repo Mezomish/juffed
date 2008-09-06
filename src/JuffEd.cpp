@@ -395,8 +395,8 @@ void JuffEd::createCommands() {
 		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(),	QKeySequence("F11"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(),	QKeySequence("F10"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_SHOW_HIDDEN_SYMBOLS,tr("Show hidden symbols"),	QIcon(),	QKeySequence(), h, SLOT(processTheCommand())),
-		Command(ID_ZOOM_IN,		tr("Increase font"),	im->icon("fontLarger"),	QKeySequence("Ctrl++"), h, SLOT(processTheCommand())),
-		Command(ID_ZOOM_OUT,	tr("Decrease font"),	im->icon("fontSmaller"),QKeySequence("Ctrl+-"), h, SLOT(processTheCommand())),
+		Command(ID_ZOOM_IN,		tr("Increase font"),	im->icon("zoomIn"),	QKeySequence("Ctrl++"), h, SLOT(processTheCommand())),
+		Command(ID_ZOOM_OUT,	tr("Decrease font"),	im->icon("zoomOut"),QKeySequence("Ctrl+-"), h, SLOT(processTheCommand())),
 		//
 		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	im->icon("addRemoveMarker"),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
 		Command(ID_MARKER_NEXT,				tr("Next marker"),			im->icon("nextMarker"),			QKeySequence("Ctrl+Alt+PgDown"),this, SLOT(nextMarker())),

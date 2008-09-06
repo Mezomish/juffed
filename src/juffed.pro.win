@@ -37,6 +37,7 @@ HEADERS += \
 		PluginManager.h \
 		PluginPage.h \
 		PluginSettings.h \
+		AutocompleteSettings.h \
 		
 SOURCES += \
 		DocHandler.cpp \
@@ -70,6 +71,7 @@ SOURCES += \
 		PluginManager.cpp \
 		PluginPage.cpp \
 		PluginSettings.cpp \
+		AutocompleteSettings.cpp \
 		
 FORMS += \
 		CharsetsSettingsPage.ui \
@@ -78,6 +80,7 @@ FORMS += \
 		MainSettingsPage.ui \
 		FindDlg.ui \
 		SessionDlg.ui \
+		AutocompleteSettingsPage.ui \
 		
 TRANSLATIONS = \
 	../l10n/juffed_ru.ts \

@@ -14,10 +14,10 @@
   </property>
   <layout class="QGridLayout" >
    <property name="margin" >
-    <number>9</number>
+    <number>0</number>
    </property>
    <property name="spacing" >
-    <number>5</number>
+    <number>3</number>
    </property>
    <item row="4" column="2" >
     <spacer>

@@ -41,6 +41,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #endif
 
+#include "AutocompleteSettings.h"
 #include "LexerStorage.h"
 #include "Log.h"
 #include "TextDoc.h"
@@ -206,12 +207,7 @@ public:
 		edit_->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 		edit_->setMatchedBraceBackgroundColor(QColor(255, 255, 120));
 		
-		//	TODO : make the following configurable
-		edit_->setAutoCompletionSource(QsciScintilla::AcsAll);
-		edit_->setAutoCompletionThreshold(2);
-		
 		edit_->setMarginLineNumbers(1, true);
-
 		edit_->setMarginWidth(2, 12);
 		//	set the 1st margin accept markers 
 		//	number 1 and 2 (binary mask 00000110 == 6)
@@ -442,6 +438,22 @@ void TextDocView::applySettings() {
 	vInt_->edit_->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
 	vInt_->edit_->setMarkerBackgroundColor(TextDocSettings::markersColor());
 	vInt_->edit_->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
+
+	//	autocompletion
+	vInt_->edit_->setAutoCompletionThreshold(AutocompleteSettings::threshold());
+	vInt_->edit_->setAutoCompletionReplaceWord(AutocompleteSettings::replaceWord());
+	if (AutocompleteSettings::useDocument()) {
+		if (AutocompleteSettings::useApis())
+			vInt_->edit_->setAutoCompletionSource(QsciScintilla::AcsAll);
+		else
+			vInt_->edit_->setAutoCompletionSource(QsciScintilla::AcsDocument);
+	}
+	else {
+		if (AutocompleteSettings::useApis())
+			vInt_->edit_->setAutoCompletionSource(QsciScintilla::AcsAPIs);
+		else
+			vInt_->edit_->setAutoCompletionSource(QsciScintilla::AcsNone);
+	}
 }
 
 void TextDocView::print() {

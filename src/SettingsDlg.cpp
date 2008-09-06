@@ -38,6 +38,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "PluginManager.h"
 #include "PluginSettings.h"
 #include "TextDocSettings.h"
+#include "AutocompleteSettings.h"
 
 #include "ui_MainSettingsPage.h"
 
@@ -78,6 +79,17 @@ public:
 	ColorButton* markersColorBtn_;
 };
 
+#include "ui_AutocompleteSettingsPage.h"
+
+class AutocompleteSettingsPage : public QWidget {
+public:
+	AutocompleteSettingsPage() : QWidget() {
+		ui.setupUi(this);
+	}
+	
+	Ui::AutocompletePage ui;
+};
+
 #include "CharsetsSettingsPage.h"
 #include "PluginPage.h"
 #include "JuffPlugin.h"
@@ -101,9 +113,11 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	pageView_ = new ViewSettingsPage();
 	pageEditor_ = new EditorSettingsPage();
 	pageCharsets_ = new CharsetsSettingsPage();
+	pageAC_ = new AutocompleteSettingsPage();
 	mp_->addPage(tr("General"), pageMain_);
 	mp_->addPage(tr("View"), pageView_);
 	mp_->addPage(tr("Editor"), pageEditor_);
+	mp_->addPage(tr("Autocompletion"), pageAC_);
 	mp_->addPage(tr("Charsets"), pageCharsets_);
 
 	//	plugins
@@ -127,6 +141,10 @@ SettingsDlg::~SettingsDlg() {
 	delete pageCharsets_;
 	delete pageEditor_;
 	delete pageMain_;
+	delete pageAC_;
+	delete pageView_;
+	delete pluginsMainPage_;
+	delete mp_;
 }
 
 void SettingsDlg::init() {
@@ -188,7 +206,6 @@ void SettingsDlg::init() {
 	pageEditor_->ui.fontSizeSpin->setValue(TextDocSettings::font().pointSize());
 	pageEditor_->ui.widthAdjustChk->setChecked(TextDocSettings::widthAdjust());
 	pageEditor_->ui.showLineNumbersChk->setChecked(TextDocSettings::showLineNumbers());
-	pageEditor_->ui.tabStopWidthSpin->setValue(TextDocSettings::tabStopWidth());
 	int chars = TextDocSettings::lineLengthIndicator();
 	if (chars > 0) {
 		pageEditor_->ui.showLineLengthChk->setChecked(true);
@@ -198,10 +215,17 @@ void SettingsDlg::init() {
 		pageEditor_->ui.showLineLengthChk->setChecked(false);
 		pageEditor_->ui.lineLengthSpin->setValue(-chars);
 	}
-	pageEditor_->ui.showIndentsChk->setChecked(TextDocSettings::showIndents());
 	pageEditor_->ui.hlCurLineChk->setChecked(TextDocSettings::highlightCurrentLine());
+	pageEditor_->ui.tabStopWidthSpin->setValue(TextDocSettings::tabStopWidth());
+	pageEditor_->ui.showIndentsChk->setChecked(TextDocSettings::showIndents());
 	pageEditor_->ui.replaceTabsChk->setChecked(TextDocSettings::replaceTabsWithSpaces());
 	pageEditor_->ui.unindentChk->setChecked(TextDocSettings::backspaceUnindents());
+
+	//	Autocomplete
+	pageAC_->ui.useDocumentChk->setChecked(AutocompleteSettings::useDocument());
+	pageAC_->ui.useApiChk->setChecked(AutocompleteSettings::useApis());
+	pageAC_->ui.replaceWordChk->setChecked(AutocompleteSettings::replaceWord());
+	pageAC_->ui.thresholdSpin->setValue(AutocompleteSettings::threshold());
 	
 	//	charsets page
 	pageCharsets_->init();
@@ -255,7 +279,6 @@ void SettingsDlg::apply() {
 	TextDocSettings::setFont(font);
 	TextDocSettings::setWidthAdjust(pageEditor_->ui.widthAdjustChk->isChecked());
 	TextDocSettings::setShowLineNumbers(pageEditor_->ui.showLineNumbersChk->isChecked());
-	TextDocSettings::setTabStopWidth(pageEditor_->ui.tabStopWidthSpin->value());
 
 	if (pageEditor_->ui.showLineLengthChk->isChecked()) {
 		TextDocSettings::setLineLengthIndicator(pageEditor_->ui.lineLengthSpin->value());
@@ -263,12 +286,19 @@ void SettingsDlg::apply() {
 	else {
 		TextDocSettings::setLineLengthIndicator(-pageEditor_->ui.lineLengthSpin->value());
 	}
-	TextDocSettings::setShowIndents(pageEditor_->ui.showIndentsChk->isChecked());
 	TextDocSettings::setHighlightCurrentLine(pageEditor_->ui.hlCurLineChk->isChecked());
-	TextDocSettings::setReplaceTabsWithSpaces(pageEditor_->ui.replaceTabsChk->isChecked());
-	TextDocSettings::setBackspaceUnindents(pageEditor_->ui.unindentChk->isChecked());
 	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
 	TextDocSettings::setCurLineColor(pageEditor_->curLineColorBtn_->color());
+	TextDocSettings::setReplaceTabsWithSpaces(pageEditor_->ui.replaceTabsChk->isChecked());
+	TextDocSettings::setBackspaceUnindents(pageEditor_->ui.unindentChk->isChecked());
+	TextDocSettings::setTabStopWidth(pageEditor_->ui.tabStopWidthSpin->value());
+	TextDocSettings::setShowIndents(pageEditor_->ui.showIndentsChk->isChecked());
+
+	//	Autocomplete
+	AutocompleteSettings::setUseDocument(pageAC_->ui.useDocumentChk->isChecked());
+	AutocompleteSettings::setUseApis(pageAC_->ui.useApiChk->isChecked());
+	AutocompleteSettings::setReplaceWord(pageAC_->ui.replaceWordChk->isChecked());
+	AutocompleteSettings::setThreshold(pageAC_->ui.thresholdSpin->value());
 
 	//	charsets
 	pageCharsets_->applySettings();

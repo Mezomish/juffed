@@ -84,7 +84,10 @@ public:
 	void removeAllMarkers();
 	IntList markers() const;
 	QString markedLine(int) const;
-	
+
+	void increaseFont();
+	void decreaseFont();
+
 signals:
 	void modified(bool);
 	void cursorPositionChanged(int, int);

@@ -395,6 +395,8 @@ void JuffEd::createCommands() {
 		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(),	QKeySequence("F11"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(),	QKeySequence("F10"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_SHOW_HIDDEN_SYMBOLS,tr("Show hidden symbols"),	QIcon(),	QKeySequence(), h, SLOT(processTheCommand())),
+		Command(ID_ZOOM_IN,		tr("Increase font"),	im->icon("fontLarger"),	QKeySequence("Ctrl++"), h, SLOT(processTheCommand())),
+		Command(ID_ZOOM_OUT,	tr("Decrease font"),	im->icon("fontSmaller"),QKeySequence("Ctrl+-"), h, SLOT(processTheCommand())),
 		//
 		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	im->icon("addRemoveMarker"),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
 		Command(ID_MARKER_NEXT,				tr("Next marker"),			im->icon("nextMarker"),			QKeySequence("Ctrl+Alt+PgDown"),this, SLOT(nextMarker())),
@@ -485,6 +487,12 @@ void JuffEd::createMenuBar() {
 	action = CommandStorage::instance()->action(ID_UNINDENT);
 	if (action != 0)
 		addAction(action);
+	action = CommandStorage::instance()->action(ID_ZOOM_IN);
+	if (action != 0)
+		addAction(action);
+	action = CommandStorage::instance()->action(ID_ZOOM_OUT);
+	if (action != 0)
+		addAction(action);
 
 	//	charset menu
 	jInt_->charsetsMenu_ = new QMenu(tr("Charset"));
@@ -543,7 +551,7 @@ void JuffEd::createToolBar() {
 	CommandID actions[] = {ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_SEPARATOR, ID_FILE_PRINT, 
 					ID_SEPARATOR, ID_EDIT_CUT, ID_EDIT_COPY, ID_EDIT_PASTE, 
 					ID_SEPARATOR, ID_EDIT_UNDO, ID_EDIT_REDO, ID_SEPARATOR, 
-					ID_FIND, ID_NONE};
+					ID_FIND, ID_SEPARATOR, ID_ZOOM_IN, ID_ZOOM_OUT, ID_NONE};
 
 	jInt_->toolBar_ = addToolBar("Main");
 	jInt_->toolBar_->setObjectName("MainToolBar");

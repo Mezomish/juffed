@@ -354,6 +354,14 @@ void TextDoc::processTheCommand(CommandID id) {
 		tdView->showHiddenSymbols(!tdView->hiddenSymbolsVisible());
 		break;
 
+	case ID_ZOOM_IN:
+		tdView->increaseFont();
+		break;
+	
+	case ID_ZOOM_OUT:
+		tdView->decreaseFont();
+		break;
+	
 	default:
 		Log::debug(QString("Unknown action ID: %1").arg(id));
 		break;

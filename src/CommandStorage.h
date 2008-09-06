@@ -48,6 +48,8 @@ typedef enum {
 	ID_EDIT_UNDO		= 1104,
 	ID_EDIT_REDO		= 1105,
 	ID_UNINDENT			= 1106,
+	ID_ZOOM_IN			= 1107,
+	ID_ZOOM_OUT			= 1108,
 	//
 	ID_FIND				= 1201,
 	ID_FIND_NEXT		= 1202,

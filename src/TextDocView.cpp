@@ -479,6 +479,13 @@ void TextDocView::printSelected() {
 	}
 }
 
+void TextDocView::increaseFont() {
+	vInt_->edit_->zoomIn();
+}
+
+void TextDocView::decreaseFont() {
+	vInt_->edit_->zoomOut();
+}
 
 ////////////////////////////////////////////////////////////
 //	EDIT

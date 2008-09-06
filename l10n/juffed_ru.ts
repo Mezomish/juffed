@@ -29,6 +29,34 @@
     </message>
 </context>
 <context>
+    <name>AutocompletePage</name>
+    <message>
+        <location filename="../src/AutocompleteSettingsPage.ui" line="25"/>
+        <source>Use current document</source>
+        <translation>Использовать текущий документ</translation>
+    </message>
+    <message>
+        <location filename="../src/AutocompleteSettingsPage.ui" line="32"/>
+        <source>Use API files</source>
+        <translation>Использовать API файлы</translation>
+    </message>
+    <message>
+        <location filename="../src/AutocompleteSettingsPage.ui" line="39"/>
+        <source>Replace word</source>
+        <translation>Заменять слова</translation>
+    </message>
+    <message>
+        <location filename="../src/AutocompleteSettingsPage.ui" line="54"/>
+        <source>Threshold</source>
+        <translation>Чувствительность автоотступа</translation>
+    </message>
+    <message>
+        <location filename="../src/AutocompleteSettingsPage.ui" line="64"/>
+        <source> symbol(s)</source>
+        <translation> символа(ов)</translation>
+    </message>
+</context>
+<context>
     <name>CharsetsSettingsPage</name>
     <message>
         <location filename="../src/CharsetsSettingsPage.ui" line="36"/>
@@ -44,17 +72,17 @@
 <context>
     <name>DocHandler</name>
     <message>
-        <location filename="../src/DocHandler.cpp" line="453"/>
+        <location filename="../src/DocHandler.cpp" line="479"/>
         <source>Open file</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="../src/DocHandler.cpp" line="724"/>
+        <location filename="../src/DocHandler.cpp" line="750"/>
         <source>Save session as</source>
         <translation>Сохранить сеанс как</translation>
     </message>
     <message>
-        <location filename="../src/DocHandler.cpp" line="724"/>
+        <location filename="../src/DocHandler.cpp" line="750"/>
         <source>Session name</source>
         <translation>Имя сеанса</translation>
     </message>
@@ -82,13 +110,6 @@
         <translation>Игнорировать</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="88"/>
-        <source>The file was modified by external program
-What do you want to do?</source>
-        <translation type="obsolete">Файл был изменён внешней программой
-Что вы хотите сделать?</translation>
-    </message>
-    <message>
         <location filename="../src/Document.cpp" line="101"/>
         <source>The file was modified by external program.</source>
         <translation>Файл был изменён внешней программой.</translation>
@@ -101,11 +122,6 @@ What do you want to do?</source>
 </context>
 <context>
     <name>EditorSettingsPage</name>
-    <message>
-        <location filename="../src/EditorSettingsPage.ui" line="94"/>
-        <source>Adjust by width</source>
-        <translation type="obsolete">Подгонять текст по ширине</translation>
-    </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="317"/>
         <source>Size</source>
@@ -232,36 +248,6 @@ newly created/opened docs</source>
     </message>
 </context>
 <context>
-    <name>Juff::Document</name>
-    <message>
-        <location filename="../src/Document.cpp" line="88"/>
-        <source>The file was modified by external program
-What do you want to do?</source>
-        <translation type="obsolete">Файл был изменён внешней программой
-Что вы хотите сделать?</translation>
-    </message>
-    <message>
-        <location filename="../src/Document.cpp" line="89"/>
-        <source>Warning</source>
-        <translation type="obsolete">Внимание</translation>
-    </message>
-    <message>
-        <location filename="../src/Document.cpp" line="93"/>
-        <source>Save current</source>
-        <translation type="obsolete">Сохранить текущий</translation>
-    </message>
-    <message>
-        <location filename="../src/Document.cpp" line="96"/>
-        <source>Reload from disk</source>
-        <translation type="obsolete">Перезагрузить с диска</translation>
-    </message>
-    <message>
-        <location filename="../src/Document.cpp" line="99"/>
-        <source>Ignore</source>
-        <translation type="obsolete">Игнорировать</translation>
-    </message>
-</context>
-<context>
     <name>JuffEd</name>
     <message>
         <location filename="../src/JuffEd.cpp" line="373"/>
@@ -344,57 +330,57 @@ What do you want to do?</source>
         <translation>Перейти к строке</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="404"/>
+        <location filename="../src/JuffEd.cpp" line="406"/>
         <source>Previous</source>
         <translation>Предыдущий</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="405"/>
+        <location filename="../src/JuffEd.cpp" line="407"/>
         <source>Next</source>
         <translation>Следующий</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="407"/>
+        <location filename="../src/JuffEd.cpp" line="409"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="409"/>
+        <location filename="../src/JuffEd.cpp" line="411"/>
         <source>New session</source>
         <translation>Новый сеанс</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="410"/>
+        <location filename="../src/JuffEd.cpp" line="412"/>
         <source>Open session</source>
         <translation>Открыть сеанс</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="411"/>
+        <location filename="../src/JuffEd.cpp" line="413"/>
         <source>Save session</source>
         <translation>Сохранить сеанс</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="412"/>
+        <location filename="../src/JuffEd.cpp" line="414"/>
         <source>Save session as</source>
         <translation>Сохранить сеанс как</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="414"/>
+        <location filename="../src/JuffEd.cpp" line="416"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="415"/>
+        <location filename="../src/JuffEd.cpp" line="417"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="490"/>
+        <location filename="../src/JuffEd.cpp" line="498"/>
         <source>Charset</source>
         <translation>Кодировка</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="753"/>
+        <location filename="../src/JuffEd.cpp" line="761"/>
         <source>Row: %1, Col: %2</source>
         <translation>Стр: %1, Стлб: %2</translation>
     </message>
@@ -414,67 +400,62 @@ What do you want to do?</source>
         <translation>Подгонять по ширине</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="399"/>
+        <location filename="../src/JuffEd.cpp" line="401"/>
         <source>Add/Remove marker</source>
         <translation>Добавить/Удалить маркер</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="402"/>
+        <location filename="../src/JuffEd.cpp" line="404"/>
         <source>Remove all markers</source>
         <translation>Удалить все маркеры</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="519"/>
+        <location filename="../src/JuffEd.cpp" line="527"/>
         <source>Recent files</source>
         <translation>Последние файлы</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="521"/>
+        <location filename="../src/JuffEd.cpp" line="529"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="459"/>
+        <location filename="../src/JuffEd.cpp" line="461"/>
         <source>&amp;Edit</source>
         <translation>&amp;Правка</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="491"/>
+        <location filename="../src/JuffEd.cpp" line="499"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="585"/>
+        <location filename="../src/JuffEd.cpp" line="593"/>
         <source>&amp;Markers</source>
         <translation>&amp;Маркеры</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="531"/>
+        <location filename="../src/JuffEd.cpp" line="539"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="268"/>
-        <source>&amp;Session</source>
-        <translation type="obsolete">&amp;Сеанс</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="459"/>
+        <location filename="../src/JuffEd.cpp" line="461"/>
         <source>&amp;Help</source>
         <translation>Помо&amp;щь</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="400"/>
+        <location filename="../src/JuffEd.cpp" line="402"/>
         <source>Next marker</source>
         <translation>Следующий маркер</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="401"/>
+        <location filename="../src/JuffEd.cpp" line="403"/>
         <source>Previous marker</source>
         <translation>Предыдущий маркер</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="499"/>
+        <location filename="../src/JuffEd.cpp" line="507"/>
         <source>Syntax</source>
         <translation>Синтаксис</translation>
     </message>
@@ -499,82 +480,87 @@ What do you want to do?</source>
         <translation>Печать выделенных строк</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="530"/>
+        <location filename="../src/JuffEd.cpp" line="538"/>
         <source>Toolbars</source>
         <translation>Панели инструментов</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="775"/>
+        <location filename="../src/JuffEd.cpp" line="783"/>
         <source>Noname</source>
         <translation>Без имени</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="529"/>
+        <location filename="../src/JuffEd.cpp" line="537"/>
         <source>Dock windows</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/JuffEd.cpp" line="398"/>
+        <source>Increase font</source>
+        <translation>Увеличить шрифт</translation>
+    </message>
+    <message>
+        <location filename="../src/JuffEd.cpp" line="399"/>
+        <source>Decrease font</source>
+        <translation>Уменьшить шрифт</translation>
     </message>
 </context>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="94"/>
+        <location filename="../src/MainSettingsPage.ui" line="48"/>
         <source>Show session dialog</source>
         <translation>Показывать диалог выбора сеанса</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="134"/>
-        <source>Open last session</source>
-        <translation type="obsolete">Открывать последний сеанс</translation>
-    </message>
-    <message>
-        <location filename="../src/MainSettingsPage.ui" line="87"/>
+        <location filename="../src/MainSettingsPage.ui" line="41"/>
         <source>Open empty session</source>
         <translation>Начать новый сеанс</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="129"/>
+        <location filename="../src/MainSettingsPage.ui" line="83"/>
         <source>On program start</source>
         <translation>При запуске программы</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="151"/>
+        <location filename="../src/MainSettingsPage.ui" line="131"/>
         <source>Auto save every</source>
         <translation>Автоматически сохранять каждые</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="53"/>
+        <location filename="../src/MainSettingsPage.ui" line="154"/>
         <source> minute(s)</source>
         <translation> минут(ы)</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="40"/>
+        <location filename="../src/MainSettingsPage.ui" line="106"/>
         <source>Use existing instance of application when open files</source>
         <translation>Использовать уже запущенное приложение для открытия файлов</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="43"/>
+        <location filename="../src/MainSettingsPage.ui" line="109"/>
         <source>Open files in existing instance</source>
         <translation>Открывать в существующем приложении</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="33"/>
+        <location filename="../src/MainSettingsPage.ui" line="116"/>
         <source>Make backup copy when save file</source>
         <translation>Резервная копия при сохранении файла</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="72"/>
+        <location filename="../src/MainSettingsPage.ui" line="92"/>
         <source>Save session when close</source>
         <translation>Сохранять сеанс при выходе</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="114"/>
+        <location filename="../src/MainSettingsPage.ui" line="68"/>
         <source>Open last saved session</source>
         <translation>Открывать последний сохранённый сеанс</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="171"/>
+        <location filename="../src/MainSettingsPage.ui" line="99"/>
         <source>Sync &apos;Open&apos; dialog to current doc&apos;s dir</source>
-        <translation>Подставлять каталог текущего документа в диалог открытия файла</translation>
+        <translation>Использовать каталог текущего документа при открытия файла</translation>
     </message>
 </context>
 <context>
@@ -588,17 +574,17 @@ What do you want to do?</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/DocHandler.cpp" line="186"/>
+        <location filename="../src/DocHandler.cpp" line="198"/>
         <source>Noname</source>
         <translation>Без имени</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="580"/>
+        <location filename="../src/TextDocView.cpp" line="599"/>
         <source>Confirmation</source>
         <translation>Подтверждение</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="581"/>
+        <location filename="../src/TextDocView.cpp" line="600"/>
         <source>Replace this text?</source>
         <translation>Заменить этот текст?</translation>
     </message>
@@ -659,49 +645,54 @@ What do you want to do?</source>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="89"/>
+        <location filename="../src/SettingsDlg.cpp" line="101"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="92"/>
+        <location filename="../src/SettingsDlg.cpp" line="104"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="93"/>
+        <location filename="../src/SettingsDlg.cpp" line="105"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="94"/>
+        <location filename="../src/SettingsDlg.cpp" line="106"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="104"/>
+        <location filename="../src/SettingsDlg.cpp" line="117"/>
         <source>General</source>
         <translation>Основные</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="106"/>
+        <location filename="../src/SettingsDlg.cpp" line="119"/>
         <source>Editor</source>
         <translation>Редактор</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="107"/>
+        <location filename="../src/SettingsDlg.cpp" line="121"/>
         <source>Charsets</source>
         <translation>Кодировки</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="105"/>
+        <location filename="../src/SettingsDlg.cpp" line="118"/>
         <source>View</source>
         <translation>Вид</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="215"/>
+        <location filename="../src/SettingsDlg.cpp" line="239"/>
         <source>Plugins</source>
         <translation>Плагины</translation>
+    </message>
+    <message>
+        <location filename="../src/SettingsDlg.cpp" line="120"/>
+        <source>Autocompletion</source>
+        <translation>Автодополнение</translation>
     </message>
 </context>
 <context>
@@ -735,24 +726,24 @@ What do you want to do?</source>
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="227"/>
+        <location filename="../src/TextDoc.cpp" line="242"/>
         <source>The document </source>
         <translation>Документ </translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="228"/>
+        <location filename="../src/TextDoc.cpp" line="243"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> был изменён.
 Желаете сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="229"/>
+        <location filename="../src/TextDoc.cpp" line="244"/>
         <source>Close document</source>
         <translation>Закрыть документ</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="317"/>
+        <location filename="../src/TextDoc.cpp" line="332"/>
         <source>Go to line</source>
         <translation>Перейти к строке</translation>
     </message>
@@ -762,7 +753,7 @@ Do you want to save your changes?</source>
         <translation>Сохранить как копию</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="400"/>
+        <location filename="../src/TextDoc.cpp" line="423"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Файл &apos;%1&apos; открыт только для чтения.</translation>
     </message>
@@ -772,7 +763,7 @@ Do you want to save your changes?</source>
         <translation>Что вы хотите сделать?</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="400"/>
+        <location filename="../src/TextDoc.cpp" line="423"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
@@ -790,19 +781,19 @@ Do you want to save your changes?</source>
 <context>
     <name>TextDocView</name>
     <message>
-        <location filename="../src/TextDocView.cpp" line="553"/>
+        <location filename="../src/TextDocView.cpp" line="572"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="544"/>
+        <location filename="../src/TextDocView.cpp" line="563"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Поиск достиг начала файла.
 Продолжить с конца?</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="549"/>
+        <location filename="../src/TextDocView.cpp" line="568"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Поиск достиг конца файла.

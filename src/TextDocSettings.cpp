@@ -27,47 +27,72 @@ QFont TextDocSettings::font() {
 	int fontSize = Settings::intValue("editor", "fontSize", 10);
 	return QFont(fontFamily, fontSize); 
 }
-
 int TextDocSettings::tabStopWidth() { 
 	return Settings::intValue("editor", "tabStopWidth", 4); 
 }
-
 bool TextDocSettings::widthAdjust() { 
 	return Settings::boolValue("editor", "widthAdjust", false);
 }
-
 bool TextDocSettings::showLineNumbers() { 
 	return Settings::boolValue("editor", "showLineNumbers", true); 
 }
-	
 int TextDocSettings::lineLengthIndicator() { 
 	return Settings::intValue("editor", "lineLengthIndicator", 80); 
 }
-
 bool TextDocSettings::showIndents() {
 	return Settings::boolValue("editor", "showIndents", true);
 }
-
 bool TextDocSettings::highlightCurrentLine() {
 	return Settings::boolValue("editor", "highlightCurrentLine", true);
 }
-
 bool TextDocSettings::replaceTabsWithSpaces() {
 	return Settings::boolValue("editor", "replaceTabsWithSpaces", false);
 }
-
 bool TextDocSettings::backspaceUnindents() {
 	return Settings::boolValue("editor", "backspaceUnindents", false);
 }
-
 QColor TextDocSettings::markersColor() {
 	QColor deflt(100, 200, 100);
 	QColor c = Settings::value("editor", "markersColor").value<QColor>();
 	return c.isValid() ? c : deflt;
 }
-
 QColor TextDocSettings::curLineColor() {
 	QColor deflt(230, 250, 230);
 	QColor c = Settings::value("editor", "curLineColor").value<QColor>();
 	return c.isValid() ? c : deflt;
+}
+
+
+void TextDocSettings::setFont(const QFont& font) { 
+	Settings::setValue("editor", "fontFamily", font.family()); Settings::setValue("editor", "fontSize", font.pointSize()); 
+}
+void TextDocSettings::setWidthAdjust(bool adj) { 
+	Settings::setValue("editor", "widthAdjust", adj); 
+}
+void TextDocSettings::setShowLineNumbers(bool show) { 
+	Settings::setValue("editor", "showLineNumbers", show); 
+}
+void TextDocSettings::setTabStopWidth(int w) { 
+	Settings::setValue("editor", "tabStopWidth", w); 
+}
+void TextDocSettings::setLineLengthIndicator(int ind) { 
+	Settings::setValue("editor", "lineLengthIndicator", ind); 
+}
+void TextDocSettings::setShowIndents(bool show) { 
+	Settings::setValue("editor", "showIndents", show); 
+}
+void TextDocSettings::setHighlightCurrentLine(bool hl) { 
+	Settings::setValue("editor", "highlightCurrentLine", hl); 
+}
+void TextDocSettings::setReplaceTabsWithSpaces(bool replace) { 
+	Settings::setValue("editor", "replaceTabsWithSpaces", replace); 
+}
+void TextDocSettings::setBackspaceUnindents(bool unindents) { 
+	Settings::setValue("editor", "backspaceUnindents", unindents); 
+}
+void TextDocSettings::setMarkersColor(const QColor& color) { 
+	Settings::setValue("editor", "markersColor", color); 
+}
+void TextDocSettings::setCurLineColor(const QColor& color) { 
+	Settings::setValue("editor", "curLineColor", color); 
 }

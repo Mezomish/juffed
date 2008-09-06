@@ -31,8 +31,6 @@ namespace Log {
 	void debug(const QRect&, bool canBeSkipped = false);
 };
 
-//	TODO: remove it from here to configure and .pro file
-
 #ifdef JUFF_DEBUG
 
 #define JUFFENTRY Log::debug(QString("Entering %1 (%2:%3)").arg(__FUNCTION__).arg(__FILE__).arg(__LINE__))

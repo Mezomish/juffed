@@ -38,17 +38,17 @@ public:
 	static QColor markersColor();
 	static QColor curLineColor();
 	
-	static void setFont(const QFont& font) { Settings::setValue("editor", "fontFamily", font.family()); Settings::setValue("editor", "fontSize", font.pointSize()); }
-	static void setWidthAdjust(bool adj) { Settings::setValue("editor", "widthAdjust", adj); }
-	static void setShowLineNumbers(bool show) { Settings::setValue("editor", "showLineNumbers", show); }
-	static void setTabStopWidth(int w) { Settings::setValue("editor", "tabStopWidth", w); }
-	static void setLineLengthIndicator(int ind) { Settings::setValue("editor", "lineLengthIndicator", ind); }
-	static void setShowIndents(bool show) { Settings::setValue("editor", "showIndents", show); }
-	static void setHighlightCurrentLine(bool hl) { Settings::setValue("editor", "highlightCurrentLine", hl); }
-	static void setReplaceTabsWithSpaces(bool replace) { Settings::setValue("editor", "replaceTabsWithSpaces", replace); }
-	static void setBackspaceUnindents(bool unindents) { Settings::setValue("editor", "backspaceUnindents", unindents); }
-	static void setMarkersColor(const QColor& color) { Settings::setValue("editor", "markersColor", color); }
-	static void setCurLineColor(const QColor& color) { Settings::setValue("editor", "curLineColor", color); }
+	static void setFont(const QFont& font);
+	static void setWidthAdjust(bool adj);
+	static void setShowLineNumbers(bool show);
+	static void setTabStopWidth(int w);
+	static void setLineLengthIndicator(int ind);
+	static void setShowIndents(bool show);
+	static void setHighlightCurrentLine(bool hl);
+	static void setReplaceTabsWithSpaces(bool replace);
+	static void setBackspaceUnindents(bool unindents);
+	static void setMarkersColor(const QColor& color);
+	static void setCurLineColor(const QColor& color);
 };
 
 #endif

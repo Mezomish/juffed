@@ -48,7 +48,7 @@
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="54"/>
         <source>Threshold</source>
-        <translation>Чувствительность автоотступа</translation>
+        <translation>Чувствительность автодополнения</translation>
     </message>
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="64"/>

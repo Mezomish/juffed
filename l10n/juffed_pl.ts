@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ru_RU">
+<defaultcodec></defaultcodec>
 <context>
     <name>AboutDlg</name>
     <message>
@@ -33,27 +34,27 @@
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="25"/>
         <source>Use current document</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj bieżący dokument</translation>
     </message>
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="32"/>
         <source>Use API files</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj plików API</translation>
     </message>
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="39"/>
         <source>Replace word</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastąp wyrazy</translation>
     </message>
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="54"/>
         <source>Threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartość graniczna</translation>
     </message>
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="64"/>
         <source> symbol(s)</source>
-        <translation type="unfinished"></translation>
+        <translation> symbol(e,i)</translation>
     </message>
 </context>
 <context>
@@ -472,17 +473,17 @@ nowy utworzony/otwarty dokument</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="378"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="379"/>
         <source>Print selected lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Drukuj zaznaczone linie</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="538"/>
         <source>Toolbars</source>
-        <translation type="unfinished"></translation>
+        <translation>Paski narzędzi</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="783"/>
@@ -492,17 +493,17 @@ nowy utworzony/otwarty dokument</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="537"/>
         <source>Dock windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokuj okna</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="398"/>
         <source>Increase font</source>
-        <translation type="unfinished"></translation>
+        <translation>Zwiększ czcionkę</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="399"/>
         <source>Decrease font</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmniejsz czcionkę</translation>
     </message>
 </context>
 <context>
@@ -568,7 +569,7 @@ nowy utworzony/otwarty dokument</translation>
     <message>
         <location filename="../src/PluginPage.cpp" line="33"/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Włączone</translation>
     </message>
 </context>
 <context>
@@ -687,12 +688,12 @@ nowy utworzony/otwarty dokument</translation>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="239"/>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Wtyczki</translation>
     </message>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="120"/>
         <source>Autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Autozakończenie</translation>
     </message>
 </context>
 <context>
@@ -700,17 +701,17 @@ nowy utworzony/otwarty dokument</translation>
     <message>
         <location filename="../src/TabBar.cpp" line="33"/>
         <source>Copy file name to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiuj nazwę pliku do schowka</translation>
     </message>
     <message>
         <location filename="../src/TabBar.cpp" line="34"/>
         <source>Copy full file path to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiuj pełną ścieżkę pliku do schowka</translation>
     </message>
     <message>
         <location filename="../src/TabBar.cpp" line="35"/>
         <source>Copy file directory path to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiuj ścieżkę katalogu do schowka</translation>
     </message>
 </context>
 <context>
@@ -755,7 +756,7 @@ Czy chcesz zachować swoje zmiany?</translation>
     <message>
         <location filename="../src/TextDoc.cpp" line="423"/>
         <source>File &apos;%1&apos; is read-only.</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik &apos;%1&apos; jest plikiem tylko do odczytu. </translation>
     </message>
     <message>
         <location filename="../src/TextDoc.cpp" line="141"/>
@@ -770,12 +771,12 @@ Czy chcesz zachować swoje zmiany?</translation>
     <message>
         <location filename="../src/TextDoc.cpp" line="143"/>
         <source>Overwrite</source>
-        <translation type="unfinished"></translation>
+        <translation>Nadpisz</translation>
     </message>
     <message>
         <location filename="../src/TextDoc.cpp" line="158"/>
         <source>Can&apos;t change permissions: Access denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można zmienić uprawnień: Brak dostępu</translation>
     </message>
 </context>
 <context>

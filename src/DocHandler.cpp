@@ -896,6 +896,14 @@ void DocHandler::getDocumentList(QStringList& list) {
 	}
 }
 
+void DocHandler::getCurrentFileName(QString& name) {
+	Document* doc = currentDoc();
+	if (doc != 0 && !doc->isNull())
+		name = doc->fileName();
+	else
+		name = "";
+}
+
 //	Plugins
 ////////////////////////////////////////////////////////////
 

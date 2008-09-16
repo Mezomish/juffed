@@ -128,6 +128,7 @@ public slots:
 	void getSelection(int& lineFrom, int& colFrom, int& lineTo, int& colTo) const;
 	void getSelectedText(QString&) const;
 	void getDocumentList(QStringList&);
+	void getCurrentFileName(QString&);
 
 	void setCursorPos(int, int);
 	void insertText(const QString&);

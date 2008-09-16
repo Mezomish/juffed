@@ -54,7 +54,7 @@
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="64"/>
         <source> symbol(s)</source>
-        <translation> symbol(e,i)</translation>
+        <translation> symbol (e,i)</translation>
     </message>
 </context>
 <context>
@@ -151,7 +151,7 @@
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="92"/>
         <source> symbols</source>
-        <translation> symbole</translation>
+        <translation> symbol (e;i)</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="285"/>
@@ -181,7 +181,7 @@
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="38"/>
         <source>Misc</source>
-        <translation>Misc</translation>
+        <translation>Różne</translation>
     </message>
     <message>
         <location filename="../src/EditorSettingsPage.ui" line="172"/>
@@ -418,7 +418,7 @@ nowy utworzony/otwarty dokument</translation>
     <message>
         <location filename="../src/JuffEd.cpp" line="377"/>
         <source>Reload</source>
-        <translation>Przeładuj</translation>
+        <translation>Wczytaj ponownie</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="401"/>
@@ -531,7 +531,7 @@ nowy utworzony/otwarty dokument</translation>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="154"/>
         <source> minute(s)</source>
-        <translation> minut(a,ty)</translation>
+        <translation> minut (a,ty)</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="106"/>

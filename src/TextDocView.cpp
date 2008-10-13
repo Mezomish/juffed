@@ -168,7 +168,10 @@ public:
 	void replaceSelected(const QString& targetText) {
 		beginUndoAction();
 		removeSelectedText();
+		int r, c;
+		getCursorPosition(&r, &c);
 		insert(targetText);
+		setCursorPosition(r, c + targetText.length());
 		endUndoAction();
 	}
 	

@@ -1,3 +1,8 @@
+2008-10-13:
+* Fixed: now we have current file's directory at 'Save as' dialog
+* Fixed: bug with repeated replacements if replacing text 
+  contains the replaceable one as a substring
+
 2008-09-05:
 * Added: zoom in and zoom out (increase and decrease font)
 * Added: settings page for autocompletion

@@ -95,7 +95,7 @@ TextDocView* TextDoc::textDocView() const {
 }
 
 QString TextDoc::getSaveFileName(bool& changeName) {
-	QFileDialog saveDlg(view(), tr("Save as"), MainSettings::lastSaveDir());
+	QFileDialog saveDlg(view(), tr("Save as"));
 	saveDlg.setConfirmOverwrite(true);
 	saveDlg.setAcceptMode(QFileDialog::AcceptSave);
 
@@ -105,7 +105,12 @@ QString TextDoc::getSaveFileName(bool& changeName) {
 	layout->addWidget(saveAsCopyChk);
 
 	if (!isNoname()) {
-		saveDlg.selectFile(QFileInfo(fileName()).fileName());
+		QFileInfo fi(fileName());
+		saveDlg.selectFile(fi.fileName());
+		saveDlg.setDirectory(fi.path());
+	}
+	else {
+		saveDlg.setDirectory(MainSettings::lastSaveDir());
 	}
 	saveDlg.setLabelText(QFileDialog::Accept, tr("Save"));
 		

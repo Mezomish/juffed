@@ -60,7 +60,7 @@ int MainSettings::iconSize() {
 }
 
 int MainSettings::startupVariant() { 
-	return Settings::value("main", "startupVariant").toInt(); 
+	return Settings::intValue("main", "startupVariant", 1); 
 }
 
 QString MainSettings::lastSessionName() { 

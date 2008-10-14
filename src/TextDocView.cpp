@@ -286,6 +286,41 @@ void TextDocView::setSyntax(const QString& lexName) {
 	vInt_->edit_->recolor();
 }
 
+int TextDocView::eolMode() const {
+	switch (vInt_->edit_->eolMode()) {
+		case QsciScintilla::EolWindows:
+			return EOL_WIN;
+		
+		case QsciScintilla::EolUnix:
+			return EOL_UNIX;
+		
+		case QsciScintilla::EolMac:
+			return EOL_MAC;
+
+		default:
+			return -1;
+	}
+}
+
+void TextDocView::setEolMode(int mode) {
+	switch (mode) {
+		case EOL_WIN:
+			vInt_->edit_->setEolMode(QsciScintilla::EolWindows);
+			vInt_->edit_->convertEols(QsciScintilla::EolWindows);
+			break;
+		
+		case EOL_UNIX:
+			vInt_->edit_->setEolMode(QsciScintilla::EolUnix);
+			vInt_->edit_->convertEols(QsciScintilla::EolUnix);
+			break;
+		
+		case EOL_MAC:
+			vInt_->edit_->setEolMode(QsciScintilla::EolMac);
+			vInt_->edit_->convertEols(QsciScintilla::EolMac);
+			break;
+	}
+}
+
 void TextDocView::rehighlight() {
 }
 

@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QMap>
 #include <QtCore/QUrl>
 #include <QtGui/QAction>
+#include <QtGui/QActionGroup>
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDockWidget>
 #include <QtGui/QIcon>
@@ -64,6 +65,7 @@ public:
 		toolBar_(0),
 		charsetsMenu_(0), 
 		syntaxMenu_(0), 
+		eolMenu_(0),
 		markersMenu_(0), 
 		recentFilesMenu_(0), 
 		panelsMenu_(0), 
@@ -131,12 +133,14 @@ public:
 	QLabel* fileNameL_;
 	QLabel* charsetL_;
 	QLabel* syntaxL_;
+	QLabel* eolL_;
 	QToolBar* toolBar_;
 	QMap<QString, QMenu*> mainMenuItems_;
 	QMap<QString, QAction*> charsetActions_;
 	QMap<QString, QAction*> syntaxActions_;
 	QMenu* charsetsMenu_;
 	QMenu* syntaxMenu_;
+	QMenu* eolMenu_;
 	QMenu* markersMenu_;
 	QMenu* recentFilesMenu_;
 	QMenu* panelsMenu_;
@@ -172,10 +176,12 @@ JuffEd::JuffEd(DocHandler* handler) : QMainWindow() {
 	jInt_->fileNameL_ = new QLabel("");
 	jInt_->charsetL_ = new QLabel("");
 	jInt_->syntaxL_ = new QLabel("");
+	jInt_->eolL_ = new QLabel("");
 	statusBar()->addWidget(jInt_->cursorPosL_);
 	statusBar()->addWidget(jInt_->fileNameL_);
 	statusBar()->addWidget(jInt_->charsetL_);
 	statusBar()->addWidget(jInt_->syntaxL_);
+	statusBar()->addWidget(jInt_->eolL_);
 	
 	setCentralWidget(jInt_->viewer_->widget());
 
@@ -392,12 +398,17 @@ void JuffEd::createCommands() {
 		Command(ID_GOTO_LINE,	tr("Go to line"), im->icon("gotoLine"),	QKeySequence("Ctrl+G"), h, SLOT(processTheCommand())),
 		Command(ID_UNINDENT,	tr("Unindent"), im->icon("unindent"),	QKeySequence("Shift+Tab"), h, SLOT(processTheCommand())),
 		//
-		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(),	QKeySequence("F11"), h, SLOT(processTheCommand())),
-		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(),	QKeySequence("F10"), h, SLOT(processTheCommand())),
-		Command(ID_VIEW_SHOW_HIDDEN_SYMBOLS,tr("Show hidden symbols"),	QIcon(),	QKeySequence(), h, SLOT(processTheCommand())),
-		Command(ID_ZOOM_IN,		tr("Increase font"),	im->icon("zoomIn"),	QKeySequence("Ctrl+="), h, SLOT(processTheCommand())),
-		Command(ID_ZOOM_OUT,	tr("Decrease font"),	im->icon("zoomOut"),QKeySequence("Ctrl+-"), h, SLOT(processTheCommand())),
-		Command(ID_ZOOM_100,	tr("Normal size"),		im->icon("zoom100"),QKeySequence("Ctrl+0"), 		h, SLOT(processTheCommand())),
+		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(),	QKeySequence("F11"), h,	SLOT(processTheCommand())),
+		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(),	QKeySequence("F10"), h,	SLOT(processTheCommand())),
+		Command(ID_VIEW_SHOW_HIDDEN_SYMBOLS,tr("Show hidden symbols"),	QIcon(),	QKeySequence(), h,	SLOT(processTheCommand())),
+		//
+		Command(ID_ZOOM_IN,		tr("Increase font"),im->icon("zoomIn"),	QKeySequence("Ctrl+="), h,	SLOT(processTheCommand())),
+		Command(ID_ZOOM_OUT,	tr("Decrease font"),im->icon("zoomOut"),QKeySequence("Ctrl+-"), h,	SLOT(processTheCommand())),
+		Command(ID_ZOOM_100,	tr("Normal size"),	im->icon("zoom100"),QKeySequence("Ctrl+0"), h,	SLOT(processTheCommand())),
+		//
+		Command(ID_EOL_WIN,		tr("Win"),			im->icon("win"),	QKeySequence(),		this,	SLOT(eolSelected())),
+		Command(ID_EOL_UNIX,	tr("Unix"),			im->icon("unix"),	QKeySequence(),		this,	SLOT(eolSelected())),
+		Command(ID_EOL_MAC,		tr("Mac"),			im->icon("mac"),	QKeySequence(),		this,	SLOT(eolSelected())),
 		//
 		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	im->icon("addRemoveMarker"),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
 		Command(ID_MARKER_NEXT,				tr("Next marker"),			im->icon("nextMarker"),			QKeySequence("Ctrl+Alt+PgDown"),this, SLOT(nextMarker())),
@@ -430,6 +441,9 @@ void JuffEd::createCommands() {
 	CommandStorage::instance()->action(ID_VIEW_SHOW_LINE_NUMBERS)->setCheckable(true);
 	CommandStorage::instance()->action(ID_VIEW_WIDTH_ADJUST)->setCheckable(true);
 	CommandStorage::instance()->action(ID_VIEW_SHOW_HIDDEN_SYMBOLS)->setCheckable(true);
+	CommandStorage::instance()->action(ID_EOL_WIN)->setCheckable(true);
+	CommandStorage::instance()->action(ID_EOL_UNIX)->setCheckable(true);
+	CommandStorage::instance()->action(ID_EOL_MAC)->setCheckable(true);
 
 	if (jInt_->recentFilesMenu_ != 0)
 		jInt_->recentFilesMenu_->setIcon(im->icon("fileOpen"));
@@ -452,14 +466,18 @@ void JuffEd::createMenuBar() {
 	CommandID viewMenu[] = { ID_VIEW_SHOW_LINE_NUMBERS, ID_VIEW_WIDTH_ADJUST, 
 					ID_VIEW_SHOW_HIDDEN_SYMBOLS, ID_ZOOM_IN, ID_ZOOM_OUT, ID_ZOOM_100, ID_NONE };
 
+	CommandID formatMenu[] = { ID_NONE };
+	
 	CommandID markersMenu[] = { ID_NONE };	
 
 	CommandID toolsMenu[] = { ID_SETTINGS, ID_NONE };
 
 	CommandID helpMenu[] = { ID_ABOUT, ID_ABOUT_QT, ID_NONE };
 
-	CommandID* menu_ids[] = { fileMenu, editMenu, viewMenu, markersMenu, toolsMenu, helpMenu, 0 };
-	QString menus[] = { tr("&File"), tr("&Edit"), tr("&View"), tr("&Markers"), tr("&Tools"), tr("&Help"), "" };
+	CommandID* menu_ids[] = { fileMenu, editMenu, viewMenu, formatMenu, 
+								markersMenu, toolsMenu, helpMenu, 0 };
+	QString menus[] = { tr("&File"), tr("&Edit"), tr("&View"), tr("Format"), 
+								tr("&Markers"), tr("&Tools"), tr("&Help"), "" };
 
 
 	for (unsigned i = 0; !menus[i].isEmpty(); i++) {
@@ -497,17 +515,16 @@ void JuffEd::createMenuBar() {
 
 	//	charset menu
 	jInt_->charsetsMenu_ = new QMenu(tr("Charset"));
-	QMenu* vMenu = jInt_->mainMenuItems_.value(tr("&View"), 0);
-	if (vMenu != 0) {
-		vMenu->addSeparator();
-		vMenu->addMenu(jInt_->charsetsMenu_);
+	QMenu* fmtMenu = jInt_->mainMenuItems_.value(tr("Format"), 0);
+	if (fmtMenu != 0) {
+		fmtMenu->addMenu(jInt_->charsetsMenu_);
 	}
 	initCharsetsMenu();
 
 	//	lexers menu
 	jInt_->syntaxMenu_ = new QMenu(tr("Syntax"));
-	if (vMenu != 0) {
-		vMenu->addMenu(jInt_->syntaxMenu_);
+	if (fmtMenu != 0) {
+		fmtMenu->addMenu(jInt_->syntaxMenu_);
 		QStringList sList;
 		LexerStorage::instance()->getLexersList(sList);
 		foreach (QString s, sList) {
@@ -515,6 +532,23 @@ void JuffEd::createMenuBar() {
 			a->setCheckable(true);
 			jInt_->syntaxActions_[s] = a;
 		}	
+	}
+
+	//	EOL menu
+	if (fmtMenu != 0) {
+		jInt_->eolMenu_ = new QMenu(tr("End of line"));
+		QActionGroup* gr = new QActionGroup(this);
+
+		QAction* actions[] = {
+				CommandStorage::instance()->action(ID_EOL_WIN),
+				CommandStorage::instance()->action(ID_EOL_UNIX),
+				CommandStorage::instance()->action(ID_EOL_MAC) };
+		for (int i = 0; i < 3; ++i) {
+			jInt_->eolMenu_->addAction(actions[i]);
+			gr->addAction(actions[i]);
+		}
+		
+		fmtMenu->addMenu(jInt_->eolMenu_);
 	}
 	
 	//	markers menu
@@ -707,6 +741,31 @@ void JuffEd::syntaxSelected() {
 	}
 }
 
+void JuffEd::eolSelected() {
+	JUFFENTRY;
+
+	QAction* a = qobject_cast<QAction*>(sender());
+	if (a != 0) {
+		QString eolModeStr = a->text();
+		Log::debug(eolModeStr);
+		TextDocView* tdView = getCurrentTextDocView();
+		if (tdView != 0) {
+			int mode = -1;
+			if (eolModeStr.compare("Win") == 0) {
+				mode = TextDocView::EOL_WIN;
+			}
+			else if (eolModeStr.compare("Unix") == 0) {
+				mode = TextDocView::EOL_UNIX;
+			}
+			else if (eolModeStr.compare("Mac") == 0) {
+				mode = TextDocView::EOL_MAC;
+			}
+			tdView->setEolMode(mode);
+			displayEol(mode);
+		}
+	}
+}
+
 void JuffEd::settings() {
 	JUFFENTRY;
 
@@ -756,6 +815,15 @@ TextDoc* JuffEd::getCurrentTextDoc() {
 	return tDoc;
 }
 
+TextDocView* JuffEd::getCurrentTextDocView() {
+	TextDoc* doc = getCurrentTextDoc();
+	if (doc != 0 && !doc->isNull()) {
+		TextDocView* tdView = qobject_cast<TextDocView*>(doc->view());
+		return tdView;
+	}
+	return 0;
+}
+
 void JuffEd::displayCursorPos(int row, int col) {
 	JUFFENTRY;
 
@@ -798,6 +866,30 @@ void JuffEd::displaySyntax(const QString& syntax) {
 
 	jInt_->syntaxL_->setText(QString(" %1 ").arg(syntax));
 	changeCurrentSyntaxAction(jInt_->syntaxActions_[syntax]);
+}
+
+void JuffEd::displayEol(int eolMode) {
+	JUFFENTRY;
+
+	QString str("??");
+	switch (eolMode) {
+		case TextDocView::EOL_WIN: 
+			CommandStorage::instance()->action(ID_EOL_WIN)->setChecked(true);
+			str = tr("Win");
+			break;
+
+		case TextDocView::EOL_UNIX: 
+			CommandStorage::instance()->action(ID_EOL_UNIX)->setChecked(true);
+			str = tr("Unix");
+			break;
+
+		case TextDocView::EOL_MAC: 
+			CommandStorage::instance()->action(ID_EOL_MAC)->setChecked(true);
+			str = tr("Mac");
+			break;
+	}
+	
+	jInt_->eolL_->setText(QString(" %1 ").arg(str));
 }
 
 void JuffEd::docFileNameChanged(Juff::Document* doc) {
@@ -851,6 +943,7 @@ void JuffEd::docSwitched(QWidget* w) {
 		displayFileName("");
 		displayCharset("");
 		displaySyntax("none");
+		displayEol(-1);
 		return;
 	}
 
@@ -887,6 +980,10 @@ void JuffEd::docSwitched(QWidget* w) {
 		displayCharset(doc->charset());
 		jInt_->handler_->docActivated(doc);
 	}
+	
+	//	EOLs
+	int eolMode = tdView->eolMode();
+	displayEol(eolMode);
 }
 
 void JuffEd::toggleMarker() {

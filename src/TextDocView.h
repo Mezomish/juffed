@@ -36,6 +36,12 @@ typedef QList<int> IntList;
 class TextDocView : public DocView {
 Q_OBJECT
 public:
+	enum {
+		EOL_WIN,
+		EOL_UNIX,
+		EOL_MAC
+	};
+	
 	TextDocView(QWidget*);
 	virtual ~TextDocView();
 
@@ -62,6 +68,8 @@ public:
 	void unindentLines(int, int);
 	int lineCount() const;
 	void setSyntax(const QString&);
+	int eolMode() const;
+	void setEolMode(int);
 	QString syntax() const;
 	virtual void applySettings();
 

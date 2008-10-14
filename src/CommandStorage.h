@@ -76,7 +76,11 @@ typedef enum {
 	ID_MARKER_TOGGLE	= 1701,
 	ID_MARKER_REMOVE_ALL= 1702,
 	ID_MARKER_NEXT		= 1703,
-	ID_MARKER_PREV		= 1704
+	ID_MARKER_PREV		= 1704,
+	//
+	ID_EOL_WIN			= 1801,
+	ID_EOL_UNIX			= 1802,
+	ID_EOL_MAC			= 1803
 } CommandID;
 
 struct Command {

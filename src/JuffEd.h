@@ -50,6 +50,7 @@ private slots:
 	void docFileNameChanged(Juff::Document*);
 	void charsetSelected();
 	void syntaxSelected();
+	void eolSelected();
 	void toggleMarker();
 	void nextMarker();
 	void prevMarker();
@@ -62,7 +63,8 @@ private slots:
 	void displayCursorPos(int, int);
 	void displayCharset(const QString&);
 	void displaySyntax(const QString&);
-	
+	void displayEol(int);
+
 private:
 	virtual void closeEvent(QCloseEvent*);
 	virtual void dragEnterEvent(QDragEnterEvent*);
@@ -83,6 +85,7 @@ private:
 	void changeCurrentSyntaxAction(QAction*);
 	
 	TextDoc* getCurrentTextDoc();
+	TextDocView* getCurrentTextDocView();
 
 	JuffEdInterior* jInt_;
 };

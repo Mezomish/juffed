@@ -367,6 +367,10 @@ void TextDoc::processTheCommand(CommandID id) {
 		tdView->decreaseFont();
 		break;
 	
+	case ID_ZOOM_100:
+		tdView->restoreFont();
+		break;
+	
 	default:
 		Log::debug(QString("Unknown action ID: %1").arg(id));
 		break;

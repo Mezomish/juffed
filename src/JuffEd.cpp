@@ -395,8 +395,9 @@ void JuffEd::createCommands() {
 		Command(ID_VIEW_SHOW_LINE_NUMBERS,	tr("Show line numbers"),	QIcon(),	QKeySequence("F11"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_WIDTH_ADJUST,		tr("Adjust text by width"),	QIcon(),	QKeySequence("F10"), h, SLOT(processTheCommand())),
 		Command(ID_VIEW_SHOW_HIDDEN_SYMBOLS,tr("Show hidden symbols"),	QIcon(),	QKeySequence(), h, SLOT(processTheCommand())),
-		Command(ID_ZOOM_IN,		tr("Increase font"),	im->icon("zoomIn"),	QKeySequence("Ctrl++"), h, SLOT(processTheCommand())),
+		Command(ID_ZOOM_IN,		tr("Increase font"),	im->icon("zoomIn"),	QKeySequence("Ctrl+="), h, SLOT(processTheCommand())),
 		Command(ID_ZOOM_OUT,	tr("Decrease font"),	im->icon("zoomOut"),QKeySequence("Ctrl+-"), h, SLOT(processTheCommand())),
+		Command(ID_ZOOM_100,	tr("Normal size"),		im->icon("zoom100"),QKeySequence("Ctrl+0"), 		h, SLOT(processTheCommand())),
 		//
 		Command(ID_MARKER_TOGGLE,			tr("Add/Remove marker"),	im->icon("addRemoveMarker"),	QKeySequence("Ctrl+B"), this, SLOT(toggleMarker())),                    
 		Command(ID_MARKER_NEXT,				tr("Next marker"),			im->icon("nextMarker"),			QKeySequence("Ctrl+Alt+PgDown"),this, SLOT(nextMarker())),
@@ -449,7 +450,7 @@ void JuffEd::createMenuBar() {
 					ID_SEPARATOR, ID_GOTO_LINE, ID_NONE };
 
 	CommandID viewMenu[] = { ID_VIEW_SHOW_LINE_NUMBERS, ID_VIEW_WIDTH_ADJUST, 
-					ID_VIEW_SHOW_HIDDEN_SYMBOLS, ID_NONE };
+					ID_VIEW_SHOW_HIDDEN_SYMBOLS, ID_ZOOM_IN, ID_ZOOM_OUT, ID_ZOOM_100, ID_NONE };
 
 	CommandID markersMenu[] = { ID_NONE };	
 
@@ -548,10 +549,10 @@ void JuffEd::createMenuBar() {
 void JuffEd::createToolBar() {
 	JUFFENTRY;
 
-	CommandID actions[] = {ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_SEPARATOR, ID_FILE_PRINT, 
+	CommandID actions[] = { ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_SEPARATOR, ID_FILE_PRINT, 
 					ID_SEPARATOR, ID_EDIT_CUT, ID_EDIT_COPY, ID_EDIT_PASTE, 
 					ID_SEPARATOR, ID_EDIT_UNDO, ID_EDIT_REDO, ID_SEPARATOR, 
-					ID_FIND, ID_SEPARATOR, ID_ZOOM_IN, ID_ZOOM_OUT, ID_NONE};
+					ID_FIND, ID_SEPARATOR, ID_ZOOM_IN, ID_ZOOM_OUT, ID_ZOOM_100, ID_NONE };
 
 	jInt_->toolBar_ = addToolBar("Main");
 	jInt_->toolBar_->setObjectName("MainToolBar");

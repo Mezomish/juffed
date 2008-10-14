@@ -50,6 +50,7 @@ typedef enum {
 	ID_UNINDENT			= 1106,
 	ID_ZOOM_IN			= 1107,
 	ID_ZOOM_OUT			= 1108,
+	ID_ZOOM_100			= 1109,
 	//
 	ID_FIND				= 1201,
 	ID_FIND_NEXT		= 1202,

@@ -1,4 +1,5 @@
 2008-10-13:
+* Added: actoin "Normal size" for text zoom
 * Fixed: now we have current file's directory at 'Save as' dialog
 * Fixed: bug with repeated replacements if replacing text 
   contains the replaceable one as a substring

@@ -87,7 +87,8 @@ public:
 
 	void increaseFont();
 	void decreaseFont();
-
+	void restoreFont();
+	
 signals:
 	void modified(bool);
 	void cursorPositionChanged(int, int);

@@ -490,6 +490,10 @@ void TextDocView::decreaseFont() {
 	vInt_->edit_->zoomOut();
 }
 
+void TextDocView::restoreFont() {
+	vInt_->edit_->zoomTo(0);
+}
+
 ////////////////////////////////////////////////////////////
 //	EDIT
 void TextDocView::cut() {

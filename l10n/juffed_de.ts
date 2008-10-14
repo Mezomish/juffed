@@ -33,27 +33,27 @@
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="25"/>
         <source>Use current document</source>
-        <translation type="unfinished"></translation>
+        <translation>Das aktuelle Dokument benutzen</translation>
     </message>
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="32"/>
         <source>Use API files</source>
-        <translation type="unfinished"></translation>
+        <translation>API Dateien benutzen</translation>
     </message>
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="39"/>
         <source>Replace word</source>
-        <translation type="unfinished"></translation>
+        <translation>Wort ersetzen</translation>
     </message>
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="54"/>
         <source>Threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Schwellenwert</translation>
     </message>
     <message>
         <location filename="../src/AutocompleteSettingsPage.ui" line="64"/>
         <source> symbol(s)</source>
-        <translation type="unfinished"></translation>
+        <translation> Buchstabe(n)</translation>
     </message>
 </context>
 <context>
@@ -529,42 +529,42 @@ newly created/opened docs</source>
     <message>
         <location filename="../src/JuffEd.cpp" line="405"/>
         <source>Increase font</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrift verkleinern</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="406"/>
         <source>Decrease font</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrift vergrößern</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="407"/>
         <source>Normal size</source>
-        <translation type="unfinished"></translation>
+        <translation>Normale Schriftgröße</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="878"/>
         <source>Win</source>
-        <translation type="unfinished"></translation>
+        <translation>Windows</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="883"/>
         <source>Unix</source>
-        <translation type="unfinished"></translation>
+        <translation>Unix</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="888"/>
         <source>Mac</source>
-        <translation type="unfinished"></translation>
+        <translation>Macintosh</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="518"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Format</translation>
     </message>
     <message>
         <location filename="../src/JuffEd.cpp" line="539"/>
         <source>End of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeilenende</translation>
     </message>
 </context>
 <context>
@@ -577,7 +577,7 @@ newly created/opened docs</source>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="41"/>
         <source>Open empty session</source>
-        <translation>öffne leere Sitzung</translation>
+        <translation>Öffne leere Sitzung</translation>
     </message>
     <message>
         <location filename="../src/MainSettingsPage.ui" line="83"/>
@@ -754,7 +754,7 @@ newly created/opened docs</source>
     <message>
         <location filename="../src/SettingsDlg.cpp" line="120"/>
         <source>Autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Autovervollständigung</translation>
     </message>
 </context>
 <context>
@@ -796,7 +796,7 @@ newly created/opened docs</source>
         <location filename="../src/TextDoc.cpp" line="248"/>
         <source> has been modified.
 Do you want to save your changes?</source>
-        <translation> wurde gendert.
+        <translation> wurde geändert.
 Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>

@@ -108,6 +108,20 @@ fi
 #	Check for commands
 ############################################################
 
+#	g++
+echo -n "checking for g++... "
+if [ -n "${gpp_cmd}" ]; then
+	gpp_cmd=`which ${gpp_cmd}`
+else
+	gpp_cmd=`which g++`
+fi
+if [ -n "${gpp_cmd}" ]; then
+	echo "${gpp_cmd}"
+else
+	echo "no"
+	exit 1
+fi
+
 #	make
 echo -n "checking for make... "
 if [ -n "${make_cmd}" ]; then

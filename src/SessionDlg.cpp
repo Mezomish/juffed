@@ -30,26 +30,32 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #endif
 
+QStringList SessionDlg::sessionList() {
+	QStringList sessions;
+	QDir sessionDir(AppInfo::configDir() + "/sessions/");
+	if (sessionDir.exists()) {
+		sessions = sessionDir.entryList(QDir::Files | QDir::NoSymLinks);
+	}
+	return sessions;
+}
+
 SessionDlg::SessionDlg(QWidget* parent) : QDialog(parent), result_(0) {
 	ui.setupUi(this);
 
 	ui.sessionTree->header()->hide();
 
-	QDir sessionDir(AppInfo::configDir() + "/sessions/");
-	if (sessionDir.exists()) {
-		QStringList files = sessionDir.entryList(QDir::Files | QDir::NoSymLinks);
-		foreach (QString file, files) {
-			if (file.compare("_empty_session_") != 0) {
-				QStringList items;
-				items << file;
-				QTreeWidgetItem* it = new QTreeWidgetItem(items);
+	QStringList sList = sessionList();
+	foreach (QString session, sList) {
+		if (session.compare("_empty_session_") != 0) {
+			QStringList items;
+			items << session;
+			QTreeWidgetItem* it = new QTreeWidgetItem(items);
 //				it->setHeight(20);
-				ui.sessionTree->addTopLevelItem(it);
-			}
+			ui.sessionTree->addTopLevelItem(it);
 		}
-		if (files.count() > 0)
-			ui.sessionTree->setCurrentItem(ui.sessionTree->topLevelItem(0));
 	}
+	if (sList.count() > 0)
+		ui.sessionTree->setCurrentItem(ui.sessionTree->topLevelItem(0));
 
 	connect(ui.openSessionBtn, SIGNAL(clicked()), SLOT(openSession()));
 	connect(ui.newSessionBtn, SIGNAL(clicked()), SLOT(newSession()));

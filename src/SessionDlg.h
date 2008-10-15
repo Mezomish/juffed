@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _SESSION_DLG_H_
 #define _SESSION_DLG_H_
 
+#include <QtCore/QStringList>
 #include <QtGui/QDialog>
 
 #include "ui_SessionDlg.h"
@@ -32,6 +33,7 @@ public:
 	int result() const;
 	QString curSessionName() const;
 	int sessionCount() const;
+	static QStringList sessionList();
 
 private slots:
 	void openSession();
@@ -41,6 +43,7 @@ private slots:
 private:
 	Ui::SessionDlg ui;
 	int result_;
+//	static QStringList sessionList_;
 };
 
 #endif

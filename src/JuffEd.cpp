@@ -145,6 +145,7 @@ public:
 	QMenu* recentFilesMenu_;
 	QMenu* panelsMenu_;
 	QMenu* toolbarsMenu_;
+	QMenu* sessionsMenu_;
 	QAction* lastCharsetAction_;
 	QAction* lastSyntaxAction_;
 	QRect geometry_;
@@ -456,8 +457,9 @@ void JuffEd::createMenuBar() {
 
 	CommandID fileMenu[] = { ID_FILE_NEW, ID_FILE_OPEN, ID_FILE_SAVE, ID_FILE_SAVE_AS, 
 					ID_FILE_RELOAD, ID_FILE_PRINT, ID_FILE_PRINT_SELECTED, ID_FILE_CLOSE, ID_FILE_CLOSE_ALL, ID_SEPARATOR, 
-					ID_SESSION_NEW, ID_SESSION_OPEN, ID_SESSION_SAVE, ID_SESSION_SAVE_AS, 
-					ID_SEPARATOR, ID_EXIT, ID_NONE };
+//					ID_SESSION_NEW, ID_SESSION_OPEN, ID_SESSION_SAVE, ID_SESSION_SAVE_AS, 
+//					ID_SEPARATOR, 
+					ID_EXIT, ID_NONE };
 
 	CommandID editMenu[] = { ID_EDIT_CUT, ID_EDIT_COPY, ID_EDIT_PASTE, ID_SEPARATOR, ID_EDIT_UNDO, 
 					ID_EDIT_REDO, ID_SEPARATOR, ID_FIND, ID_FIND_NEXT, ID_FIND_PREV, 
@@ -562,11 +564,20 @@ void JuffEd::createMenuBar() {
 	jInt_->recentFilesMenu_ = new QMenu(tr("Recent files"));
 	jInt_->recentFilesMenu_->setIcon(IconManager::instance()->icon("fileOpen"));
 	QMenu* fMenu = jInt_->mainMenuItems_.value(tr("&File"), 0);
-	QAction* openAct = CommandStorage::instance()->action(ID_FILE_SAVE);
-	if (fMenu != 0 && openAct != 0) {
-		fMenu->insertMenu(openAct, jInt_->recentFilesMenu_);
+	QAction* saveAct = CommandStorage::instance()->action(ID_FILE_SAVE);
+	if (fMenu != 0 && saveAct != 0) {
+		fMenu->insertMenu(saveAct, jInt_->recentFilesMenu_);
+		initRecentFilesMenu();
 	}
-	initRecentFilesMenu();
+	
+	//	sessions
+	jInt_->sessionsMenu_ = new QMenu(tr("Session"));
+	QAction* exitAct = CommandStorage::instance()->action(ID_EXIT);
+	if (fMenu != 0 && exitAct != 0) {
+		fMenu->insertMenu(exitAct, jInt_->sessionsMenu_);
+		fMenu->insertSeparator(exitAct);
+		initSessionsMenu();
+	}
 	
 	//	plugins panels and toolbars
 	jInt_->panelsMenu_ = new QMenu(tr("Dock windows"));
@@ -672,6 +683,17 @@ void JuffEd::initRecentFilesMenu() {
 		jInt_->recentFilesMenu_->setEnabled(true);
 }
 	
+void JuffEd::initSessionsMenu() {
+	if (jInt_->sessionsMenu_ == 0)
+		return;
+	
+	jInt_->sessionsMenu_->clear();
+	
+	jInt_->sessionsMenu_->addAction(CommandStorage::instance()->action(ID_SESSION_NEW));
+	jInt_->sessionsMenu_->addAction(CommandStorage::instance()->action(ID_SESSION_OPEN));
+	jInt_->sessionsMenu_->addAction(CommandStorage::instance()->action(ID_SESSION_SAVE));
+	jInt_->sessionsMenu_->addAction(CommandStorage::instance()->action(ID_SESSION_SAVE_AS));
+}
 
 void JuffEd::changeCurrentCharsetAction(QAction* a) {
 	JUFFENTRY;

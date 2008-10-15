@@ -501,7 +501,7 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 	else {
 		Juff::Document* doc = findDocument(name);
 		if (doc->isNull()) {
-			if (!newDocument(name)->isNull()) {
+			if ( !newDocument(name)->isNull() ) {
 				addToRecentFiles(name);
 				MainSettings::setLastOpenDir(QFileInfo(name).absolutePath());
 			}
@@ -513,10 +513,16 @@ void DocHandler::docOpen(const QString& name/*= ""*/) {
 	}
 }
 
-void DocHandler::docSave() {
+void DocHandler::docSave(const QString& fileName) {
 	JUFFENTRY;
 
-	Juff::Document* doc = currentDoc();
+	Juff::Document* doc = NullDoc::instance();
+
+	if (fileName.isEmpty())
+		doc = currentDoc();
+	else
+		doc = findDocument(fileName);
+
 	if (!doc->isNull()) {
 		doc->save();
 	}
@@ -561,10 +567,15 @@ void DocHandler::docPrintSelected() {
 	doc->printSelected();
 }
 
-void DocHandler::docClose() {
+void DocHandler::docClose(const QString& fileName) {
 	JUFFENTRY;
 
-	closeDocument(currentDoc());
+	if (fileName.isEmpty()) {
+		closeDocument(currentDoc());
+	}
+	else {
+		closeDocument(findDocument(fileName));
+	}
 	
 	//	Need to be called, because if index of current view doesn't 
 	//	change or the closed doc was the last one, DocViewer's signal 

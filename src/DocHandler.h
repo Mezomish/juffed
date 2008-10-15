@@ -50,12 +50,12 @@ public slots:
 	void docNew();
 	void docOpen(const QString& = "");
 	void docOpenRecent();
-	void docSave();
+	void docSave(const QString& = "");
 	void docSaveAs();
 	void docReload();
 	void docPrint();
 	void docPrintSelected();
-	void docClose();
+	void docClose(const QString& = "");
 	void docCloseAll();
 	void processTheCommand();
 

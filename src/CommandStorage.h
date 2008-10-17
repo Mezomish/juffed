@@ -56,6 +56,7 @@ typedef enum {
 	ID_FIND_NEXT		= 1202,
 	ID_FIND_PREV		= 1203,
 	ID_GOTO_LINE		= 1204,
+	ID_REPLACE			= 1205,
 	//
 	ID_DOC_NEXT			= 1301,
 	ID_DOC_PREV			= 1302,

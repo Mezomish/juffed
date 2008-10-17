@@ -64,6 +64,7 @@ public:
 		contextMenu_->addAction(CommandStorage::instance()->action(ID_FIND));
 		contextMenu_->addAction(CommandStorage::instance()->action(ID_FIND_NEXT));
 		contextMenu_->addAction(CommandStorage::instance()->action(ID_FIND_PREV));
+		contextMenu_->addAction(CommandStorage::instance()->action(ID_REPLACE));
 		contextMenu_->addSeparator();
 		contextMenu_->addAction(CommandStorage::instance()->action(ID_GOTO_LINE));
 	}

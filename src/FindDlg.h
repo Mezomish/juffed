@@ -42,11 +42,11 @@ public:
 	static bool lastMatchCase() { return matchCase_; }
 	static bool lastRegExpMode() { return regExpMode_; }
 
+public slots:
+	void setReplaceMode(bool);
+
 protected:
 	virtual void keyPressEvent(QKeyEvent*);
-
-protected slots:
-	void setReplaceMode(bool);
 
 private:
 

@@ -266,13 +266,14 @@ Document::SaveRequest TextDoc::confirmForClose() {
 	return res;
 }
 
-void TextDoc::find(const QString& str, const DocFindFlags& flags) {
+void TextDoc::find(const QString& str, const DocFindFlags& flags, bool replace) {
 	TextDocView* tdView = textDocView();
 	if (tdView == 0)
 		return;
 		
 	if (str.isEmpty()) {
 		FindDlg dlg(view());
+		dlg.setReplaceMode(replace);
 		if (dlg.exec() == QDialog::Accepted) {
 			QString text = dlg.text();
 			DocFindFlags fl = dlg.flags();
@@ -329,6 +330,10 @@ void TextDoc::processTheCommand(CommandID id) {
 
 	case ID_FIND_PREV :
 		find(FindDlg::lastText(), DocFindFlags(FindDlg::lastMatchCase(), true, FindDlg::lastRegExpMode()));
+		break;
+
+	case ID_REPLACE:
+		find("", DocFindFlags(), true);
 		break;
 
 	case ID_GOTO_LINE : {

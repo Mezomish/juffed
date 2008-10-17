@@ -79,5 +79,7 @@ void FindDlg::setReplaceMode(bool replaceMode) {
 		uiFind.findBtn->setText(tr("Find"));
 		setWindowTitle(tr("Find"));
 	}
+	if (uiFind.replaceChk->isChecked() != replaceMode)
+		uiFind.replaceChk->setChecked(replaceMode);
 }
 

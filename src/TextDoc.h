@@ -54,7 +54,7 @@ private:
 	
 	Juff::Document::Status readContent(const QString&);
 	Juff::Document::Status writeContent(const QString&, bool getNewName = true);
-	void find(const QString&, const DocFindFlags&);
+	void find(const QString&, const DocFindFlags&, bool replace = false);
 	
 	TextDocInterior* docInt_;
 };

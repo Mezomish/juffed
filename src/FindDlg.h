@@ -38,6 +38,7 @@ public:
 	bool isRegexpMode() const { return uiFind.regexpChk->isChecked(); }
 
 	static QString lastText() { return lastString_; }
+	static QString lastReplaceText() { return lastReplaceText_; }
 	static bool lastMatchCase() { return matchCase_; }
 	static bool lastRegExpMode() { return regExpMode_; }
 
@@ -52,6 +53,7 @@ private:
 	Ui::FindDlg uiFind;
 
 	static QString lastString_;
+	static QString lastReplaceText_;
 	static bool matchCase_;
 	static bool backward_;
 	static bool regExpMode_;

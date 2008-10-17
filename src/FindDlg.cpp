@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "types.h"
 
 QString FindDlg::lastString_ = "";
+QString FindDlg::lastReplaceText_ = "";
 bool FindDlg::matchCase_ = true;
 bool FindDlg::backward_ = false;
 bool FindDlg::regExpMode_ = false;
@@ -35,6 +36,7 @@ FindDlg::FindDlg(QWidget* parent) :
 	uiFind.setupUi(this);
 
 	uiFind.findWhatEd->setText(lastString_);
+	uiFind.replaceToEd->setText(lastReplaceText_);
 	uiFind.matchCaseChk->setChecked(matchCase_);
 	uiFind.backwardChk->setChecked(backward_);
 	uiFind.replaceChk->setChecked(false);
@@ -50,6 +52,7 @@ FindDlg::FindDlg(QWidget* parent) :
 
 FindDlg::~FindDlg() {
 	lastString_ = uiFind.findWhatEd->text();
+	lastReplaceText_ = uiFind.replaceToEd->text();
 	matchCase_ = uiFind.matchCaseChk->isChecked();
 	backward_ = uiFind.backwardChk->isChecked();
 	regExpMode_ = uiFind.regexpChk->isChecked();

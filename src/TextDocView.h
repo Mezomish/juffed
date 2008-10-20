@@ -109,7 +109,7 @@ protected slots:
 	void updateLineNums();
 	
 private:
-	bool doReplace(const QString& fromText, const QString& text, bool isRegExp, bool matchCase, bool& replaceAll);
+	bool doReplace(const QString& fromText, const QString& text, const DocFindFlags& flags, bool& replaceAll);
 	bool continueOverTheEnd(bool back);
 	void loadAutocompletionAPI(const QString&, QsciLexer*);
 

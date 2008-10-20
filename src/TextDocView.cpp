@@ -166,13 +166,14 @@ public:
 		return false;
 	}
 
-	void replaceSelected(const QString& targetText) {
+	void replaceSelected(const QString& targetText, bool backwards) {
 		beginUndoAction();
 		removeSelectedText();
 		int r, c;
 		getCursorPosition(&r, &c);
 		insert(targetText);
-		setCursorPosition(r, c + targetText.length());
+		if ( !backwards )
+			setCursorPosition(r, c + targetText.length());
 		endUndoAction();
 	}
 	
@@ -662,12 +663,12 @@ Answer confirm(QWidget* w) {
 	return answer;
 }
 
-bool TextDocView::doReplace(const QString& fromText, const QString& toText, bool isRegExp, bool matchCase, bool& replaceAll) {
+bool TextDocView::doReplace(const QString& fromText, const QString& toText, const DocFindFlags& flags, bool& replaceAll) {
 	QString selectedText = vInt_->edit_->selectedText();
 	QString targetText(toText);
-	if (isRegExp) {
+	if (flags.isRegExp) {
 		QRegExp regExp(fromText);
-		regExp.setCaseSensitivity(matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+		regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
 		if (regExp.exactMatch(selectedText)) {
 			QStringList matches = regExp.capturedTexts();
 			int n = matches.size();
@@ -686,18 +687,18 @@ bool TextDocView::doReplace(const QString& fromText, const QString& toText, bool
 		if (conf == Cancel)
 			return false;
 		else if (conf == Yes) {
-			vInt_->edit_->replaceSelected(targetText);
+			vInt_->edit_->replaceSelected(targetText, flags.backwards);
 			vInt_->edit_->selectAll(false);
 		}
 		else if (conf == All) {
-			vInt_->edit_->replaceSelected(targetText);
+			vInt_->edit_->replaceSelected(targetText, flags.backwards);
 			vInt_->edit_->selectAll(false);
 			replaceAll = true;
 		}
 	}
 	else {
 		//	just replace, because there has been chosen "select all"
-		vInt_->edit_->replaceSelected(targetText);
+		vInt_->edit_->replaceSelected(targetText, flags.backwards);
 		vInt_->edit_->selectAll(false);
 	}
 	return true;
@@ -709,7 +710,7 @@ void TextDocView::replace(const QString& from, const QString& to, DocFindFlags f
 	bool cancelled = false;
 	bool replaceAll = false;
 	while (vInt_->edit_->find(from, flags)) {
-		if (!doReplace(from, to, flags.isRegExp, flags.matchCase, replaceAll)) {
+		if (!doReplace(from, to, flags, replaceAll)) {
 			cancelled = true;
 			break;
 		}

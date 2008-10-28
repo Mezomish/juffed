@@ -91,8 +91,9 @@ public:
 	LSInterior() {
 		cppExtList_ << "cpp" << "cxx" << "c++" << "c" << "cc" << "h" << "hpp" << "hxx" << "h++";
 		bashExtList_ << "sh" << "run";
-		htmlExtList_ << "html" << "htm" << "php" << "php3" << "php4" << "php5";
+		htmlExtList_ << "html" << "htm" << "xhtml" << "dhtml";
 		perlExtList_ << "pl" << "pm" << "cgi";
+		phpExtList_ << "php" << "php3" << "php4" << "php5";
 	}
 	~LSInterior() {
 	}
@@ -105,6 +106,7 @@ public:
 	QStringList bashExtList_;
 	QStringList htmlExtList_;
 	QStringList perlExtList_;
+	QStringList phpExtList_;
 	
 	QMap<QString, QsciLexer*> lexers_;
 	SchemeMap schemes_;
@@ -299,20 +301,14 @@ void LSInterior::readCustomStyle(const QString& name) {
 	else if (name.compare("HTML") == 0) {
 		Scheme htmlSch;
 		htmlSch.defaultStyle = styles["default"];
-		htmlSch.rules << Rule(styles["tag"], QList<int>() << QsciLexerHTML::Tag)
+		htmlSch.rules 
+			<< Rule(styles["tag"], QList<int>() << QsciLexerHTML::Tag)
 			<< Rule(styles["attribute"], QList<int>() << QsciLexerHTML::Attribute)
 			<< Rule(styles["comment"], QList<int>() << QsciLexerHTML::HTMLComment)
 			<< Rule(styles["value"], QList<int>() << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString << QsciLexerHTML::HTMLValue << QsciLexerHTML::HTMLNumber << QsciLexerHTML::OtherInTag)
 			<< Rule(styles["entity"], QList<int>() << QsciLexerHTML::Entity)
 			<< Rule(styles["singleString"], QList<int>() << QsciLexerHTML::HTMLSingleQuotedString)
 			<< Rule(styles["doubleString"], QList<int>() << QsciLexerHTML::HTMLDoubleQuotedString)
-			<< Rule(styles["phpKeyword"], QList<int>() << QsciLexerHTML::PHPKeyword)
-			<< Rule(styles["phpOperator"], QList<int>() << QsciLexerHTML::PHPOperator)
-			<< Rule(styles["phpVariable"], QList<int>() << QsciLexerHTML::PHPVariable)
-			<< Rule(styles["phpSingleString"], QList<int>() << QsciLexerHTML::PHPSingleQuotedString)
-			<< Rule(styles["phpDoubleString"], QList<int>() << QsciLexerHTML::PHPDoubleQuotedString)
-			<< Rule(styles["phpComment"], QList<int>() << QsciLexerHTML::PHPComment << QsciLexerHTML::PHPCommentLine)
-			<< Rule(styles["phpNumber"], QList<int>() << QsciLexerHTML::PHPNumber)
 			<< Rule(styles["jsKeyword"], QList<int>() << QsciLexerHTML::JavaScriptKeyword)
 			<< Rule(styles["jsSingleString"], QList<int>() << QsciLexerHTML::JavaScriptSingleQuotedString)
 			<< Rule(styles["jsDoubleString"], QList<int>() << QsciLexerHTML::JavaScriptDoubleQuotedString)
@@ -321,6 +317,20 @@ void LSInterior::readCustomStyle(const QString& name) {
 			<< Rule(styles["jsSymbol"], QList<int>() << QsciLexerHTML::JavaScriptSymbol);
 		
 		schemes_[name] = htmlSch;
+	}
+	else if (name.compare("PHP") == 0) {
+		Scheme phpSch;
+		phpSch.defaultStyle = styles["default"];
+		phpSch.rules 
+			<< Rule(styles["phpKeyword"], QList<int>() << QsciLexerHTML::PHPKeyword)
+			<< Rule(styles["phpOperator"], QList<int>() << QsciLexerHTML::PHPOperator)
+			<< Rule(styles["phpVariable"], QList<int>() << QsciLexerHTML::PHPVariable)
+			<< Rule(styles["phpSingleString"], QList<int>() << QsciLexerHTML::PHPSingleQuotedString)
+			<< Rule(styles["phpDoubleString"], QList<int>() << QsciLexerHTML::PHPDoubleQuotedString)
+			<< Rule(styles["phpComment"], QList<int>() << QsciLexerHTML::PHPComment << QsciLexerHTML::PHPCommentLine)
+			<< Rule(styles["phpNumber"], QList<int>() << QsciLexerHTML::PHPNumber);
+		
+		schemes_[name] = phpSch;
 	}
 	else if (name.compare("JavaScript") == 0) {
 		Scheme jsSch;
@@ -446,6 +456,9 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if (name.compare("Python") == 0) {
 			newLexer = new QsciLexerPython();
 		}
+		else if (name.compare("PHP") == 0) {
+			newLexer = new QsciLexerHTML();
+		}
 		else if (name.compare("Ruby") == 0) {
 			newLexer = new QsciLexerRuby();
 		}
@@ -538,6 +551,9 @@ QString LexerStorage::lexerName(const QString& fileName) const {
 	else if (ext.compare("py") == 0) {
 		name = "Python";
 	}
+	else if (lsInt_->phpExtList_.contains(ext)) {
+		name = "PHP";
+	}
 	else if (ext.compare("rb") == 0) {
 		name = "Ruby";
 	}
@@ -595,7 +611,7 @@ void LexerStorage::getLexersList(QStringList& list) {
 	list.clear();
 	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CSS" << "D" << "Diff" << "HTML" 
 				<< "IDL" << "Java" << "JavaScript" << "Lua" << "Makefile" << "Perl" 
-				<< "Python" << "Ruby" << "SQL" << "XML";
+				<< "Python" << "PHP" << "Ruby" << "SQL" << "XML";
 }
 
 void LexerStorage::updateLexer(const QString& name, const QFont& font) {

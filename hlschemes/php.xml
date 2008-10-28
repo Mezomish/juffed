@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="PHP" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+	<!-- PHP -->
+	<style name="phpKeyword" color="#000099" bold="true" italic="false" />
+	<style name="phpOperator" color="#336633" bold="false" italic="false" />
+	<style name="phpVariable" color="#990099" bold="false" italic="false" />
+	<style name="phpSingleString" color="#cc0000" bold="false" italic="false" />
+	<style name="phpDoubleString" color="#cc0000" bold="false" italic="false" />
+	<style name="phpComment" color="#999999" bold="false" italic="true" />
+	<style name="phpNumber" color="#0000ff" bold="false" italic="false" />
+</scheme>
+</JuffScheme>

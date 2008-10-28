@@ -411,36 +411,33 @@ Document::Status TextDoc::readContent(const QString& name) {
 
 	Document::Status res = Document::StatusSuccess;
 	
-	QFile file(name);
-	if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-		QString text = "";
-		QTextStream ts(&file);
-		ts.setCodec(docInt_->codec_);
-		while (!ts.atEnd()) {
-			text += ts.readLine() + "\n";
-		}
-		setLastModified(QFileInfo(file).lastModified());
-		file.close();
-
-		TextDocView* tdView = qobject_cast<TextDocView*>(view());
-		if (tdView == 0) {
-			Log::debug("TextDoc was initialized with a wrong view");
-			res = Document::StatusUnknownError;
-		}
-		else {
+	TextDocView* tdView = qobject_cast<TextDocView*>(view());
+	if (tdView == 0) {
+		Log::debug("TextDoc was initialized with a wrong view");
+		res = Document::StatusUnknownError;
+	}
+	else {
+		QFile file(name);
+		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
 			bool mod = isModified();
-			tdView->setText(text);
-			tdView->setModified(mod);
+			setLastModified(QFileInfo(file).lastModified());
+
+			QTextStream ts(&file);
+			ts.setCodec(docInt_->codec_);
+			tdView->setText(ts.readAll());
+			file.close();
 			
+			tdView->setModified(mod);
+
 			//	check for read-only
 			if (!QFileInfo(name).isWritable() && tdView->isVisible()) {
 				QMessageBox::information(tdView, tr("Warning"), tr("File '%1' is read-only.").arg(QFileInfo(name).fileName()));
 			}
 		}
+		else
+			res = Document::StatusErrorOpenFile;
 	}
-	else
-		res = Document::StatusErrorOpenFile;
-
+	
 	return res;
 }
 

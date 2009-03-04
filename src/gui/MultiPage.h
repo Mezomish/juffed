@@ -16,36 +16,33 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <QtGui/QApplication>
+#ifndef _MULTIPAGE_H_
+#define _MULTIPAGE_H_
 
-#include "gui/GUI.h"
-#include "Manager.h"
-//#include "DocHandler.h"
-#include "Settings.h"
+#include <QtGui/QWidget>
 
-class JuffApp : public QApplication {
+class MultiPageInterior;
+class QString;
+class QTreeWidgetItem;
+
+class MultiPage : public QWidget {
+Q_OBJECT
 public:
-	JuffApp(int& argc, char** argv) : QApplication(argc, argv) {
-		setOrganizationName("Juff");
-		setApplicationName("JuffEd");
-		Settings::read();
-	}
-	
-	virtual ~JuffApp() {
-		Settings::write();
-	}
+	MultiPage(QWidget* = 0);
+	virtual ~MultiPage();
+
+	void addPage(const QString& pageTitle, QWidget*);
+	void addChildPage(const QString& parentTitle, const QString& pageTitle, QWidget*);
+	int pageCount() const;
+	QWidget* currentPage() const;
+	int currentIndex() const;
+	void selectPage(int);
+
+protected slots:
+	void changeCurrentItem(QTreeWidgetItem*, QTreeWidgetItem* = 0);
+
+private:
+	MultiPageInterior* mpInt_;
 };
 
-int main(int argc, char* argv[])
-{
-	JuffApp app(argc, argv);
-		
-	Juff::GUI::GUI gui;
-	Juff::Manager manager(&gui);
-//	Juff::DocHandler handler;
-	
-//	handler.setGUI(&gui);
-	gui.show();
-	
-	return app.exec();
-}
+#endif

@@ -16,36 +16,42 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <QtGui/QApplication>
+#include "Parameter.h"
 
-#include "gui/GUI.h"
-#include "Manager.h"
-//#include "DocHandler.h"
-#include "Settings.h"
+namespace Juff {
 
-class JuffApp : public QApplication {
-public:
-	JuffApp(int& argc, char** argv) : QApplication(argc, argv) {
-		setOrganizationName("Juff");
-		setApplicationName("JuffEd");
-		Settings::read();
-	}
-	
-	virtual ~JuffApp() {
-		Settings::write();
-	}
-};
-
-int main(int argc, char* argv[])
-{
-	JuffApp app(argc, argv);
-		
-	Juff::GUI::GUI gui;
-	Juff::Manager manager(&gui);
-//	Juff::DocHandler handler;
-	
-//	handler.setGUI(&gui);
-	gui.show();
-	
-	return app.exec();
+Param::Param() {
+	type_ = None;
 }
+Param::Param(int n) {
+	type_ = Int;
+	data_ = n;
+}
+Param::Param(bool b) {
+	type_ = Bool;
+	data_ = b;
+}
+Param::Param(const QString& str) {
+	type_ = String;
+	data_ = str;
+}
+
+bool Param::isEmpty() const {
+	return type_ == None;
+}
+bool Param::isInt() const {
+	return type_ == Int;
+}
+bool Param::isBool() const {
+	return type_ == Bool;
+}
+bool Param::isString() const {
+	return type_ == String;
+}
+
+QString Param::toString() const {
+	return data_.toString();
+}
+
+
+}	//	namespace Juff

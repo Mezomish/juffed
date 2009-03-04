@@ -16,36 +16,40 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <QtGui/QApplication>
+#ifndef _JUFF_SESSION_DLG_H_
+#define _JUFF_SESSION_DLG_H_
 
-#include "gui/GUI.h"
-#include "Manager.h"
-//#include "DocHandler.h"
-#include "Settings.h"
+#include <QtCore/QStringList>
+#include <QtGui/QDialog>
 
-class JuffApp : public QApplication {
+#include "ui_SessionDlg.h"
+
+namespace Juff {
+namespace GUI {
+
+class SessionDlg : public QDialog {
+Q_OBJECT
 public:
-	JuffApp(int& argc, char** argv) : QApplication(argc, argv) {
-		setOrganizationName("Juff");
-		setApplicationName("JuffEd");
-		Settings::read();
-	}
-	
-	virtual ~JuffApp() {
-		Settings::write();
-	}
+	SessionDlg(QWidget*);
+	virtual ~SessionDlg();
+
+	int result() const;
+	QString curSessionName() const;
+	int sessionCount() const;
+	static QStringList sessionList();
+
+private slots:
+	void openSession();
+	void newSession();
+	void activated(QTreeWidgetItem*, int);
+
+private:
+	Ui::SessionDlg ui;
+	int result_;
+//	static QStringList sessionList_;
 };
 
-int main(int argc, char* argv[])
-{
-	JuffApp app(argc, argv);
-		
-	Juff::GUI::GUI gui;
-	Juff::Manager manager(&gui);
-//	Juff::DocHandler handler;
-	
-//	handler.setGUI(&gui);
-	gui.show();
-	
-	return app.exec();
-}
+}	//	namespace GUI
+}	//	namespace Juff
+
+#endif

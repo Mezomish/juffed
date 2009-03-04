@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License 
@@ -16,38 +16,49 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _PLUGIN_MANAGER_H_
-#define _PLUGIN_MANAGER_H_
+#ifndef _JUFF_PLUGIN_MANAGER_H_
+#define _JUFF_PLUGIN_MANAGER_H_
 
 class JuffPlugin;
-class QObject;
+class QMainWindow;
 
 #include <QtCore/QList>
+#include <QtCore/QStringList>
+#include <QtGui/QWidgetList>
+
+//#include "EventProxy.h"
+#include "Juff.h"
+#include "ManagerInterface.h"
+#include "Parameter.h"
 
 typedef QList<JuffPlugin*> PluginList;
 
-class PluginManager {
+namespace Juff {
+
+namespace GUI {
+	class GUI;
+}
+
+class PluginManager : public QObject {
+Q_OBJECT
 public:
-	~PluginManager();
+	PluginManager(const QStringList& engines, ManagerInterface*, GUI::GUI*);
+	virtual ~PluginManager();
 
-	void setHandler(QObject* handler);
-	PluginList plugins();
-	void loadPlugins();
 	void loadPlugin(const QString&);
-	void unloadPlugins();
-	void unloadPlugin(const QString&);
-	void enablePlugin(const QString& pluginName, bool enable = true);
+	void loadPlugins();
 
-	static PluginManager* instance();
+	MenuList getMenus(const QString& engine);
+	ToolBarList getToolBars(const QString& engine);
+	QWidgetList getDocks(const QString& engine);
+
+	void emitInfoSignal(InfoEvent, const Param&, const Param& = Param());
 
 private:
-	PluginManager();
-	bool pluginExists(const QString& name) const;
-	JuffPlugin* findPlugin(const QString& name) const;
-
-	class PMInterior;
-	PMInterior* pmInt_;
-	static PluginManager* instance_;
+	class Interior;
+	Interior* pmInt_;
 };
+
+}	//	namespace Juff
 
 #endif

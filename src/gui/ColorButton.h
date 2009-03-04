@@ -16,36 +16,32 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <QtGui/QApplication>
+#ifndef _COLOR_BUTTON_H_
+#define _COLOR_BUTTON_H_
 
-#include "gui/GUI.h"
-#include "Manager.h"
-//#include "DocHandler.h"
-#include "Settings.h"
+#include <QtCore/QObject>
+#include <QtGui/QColor>
 
-class JuffApp : public QApplication {
-public:
-	JuffApp(int& argc, char** argv) : QApplication(argc, argv) {
-		setOrganizationName("Juff");
-		setApplicationName("JuffEd");
-		Settings::read();
-	}
+class QPushButton;
 	
-	virtual ~JuffApp() {
-		Settings::write();
+class ColorButton : public QObject {
+Q_OBJECT
+public:
+	ColorButton(QPushButton*, const QColor& color);
+	virtual ~ColorButton();
+
+	QColor color() const {
+		return color_;
 	}
+
+public slots:
+	void clicked();
+
+private:
+	void setBtnColor(const QColor&);
+
+	QColor color_;
+	QPushButton* btn_;
 };
 
-int main(int argc, char* argv[])
-{
-	JuffApp app(argc, argv);
-		
-	Juff::GUI::GUI gui;
-	Juff::Manager manager(&gui);
-//	Juff::DocHandler handler;
-	
-//	handler.setGUI(&gui);
-	gui.show();
-	
-	return app.exec();
-}
+#endif

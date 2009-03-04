@@ -16,39 +16,52 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _JUFF_DOC_HANDLER_H_
-#define _JUFF_DOC_HANDLER_H_
+#ifndef _JUFF_VIEWER_H_
+#define _JUFF_VIEWER_H_
 
-#include <QtCore/QObject>
-
-#include "Juff.h"
-#include "Document.h"
+#include <QtGui/QWidget>
 
 namespace Juff {
+	
+class Document;
 
-class DocHandler : public QObject {
+namespace GUI {
+
+class Viewer : public QObject {
 Q_OBJECT
 public:
-	DocHandler();
-	virtual ~DocHandler();
+	Viewer();
+	~Viewer();
+	
+	QWidget* widget();
 
-	virtual QString type() const = 0;
-	virtual Document* createDoc(const QString&) = 0;
-	virtual ToolBarList toolBars() const = 0;
-	virtual MenuList menus() const = 0;
-	virtual void docActivated(Document*) = 0;
+	void addDoc(Document*, int panel = 1/*, const QString&*/);
+	void setDocModified(Document*, bool modified);
+	void updateDocTitle(Document*);
+	void removeDoc(Document*);
+	void activateDoc(Document*);
+	int curPanel() const;
+
+	/**
+	*	Returns list of doc views that are opened at panel \par panel.
+	*/
+	void getViewsList(int panel, QWidgetList& list) const;
+
+	QWidget* curView() const;
 
 signals:
-	Juff::Document* getCurDoc();
+	void curDocChanged(QWidget*);
 
-protected:
-	void setDocType(Document*, const QString& type);
+private slots:
+	void curIndexChanged(int);
+	void docActivated();
 
 private:
 	class Interior;
-	Interior* hInt_;
+	Interior* vInt_;
 };
 
+}	//	namespace GUI
 }	//	namespace Juff
 
 #endif

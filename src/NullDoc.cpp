@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License 
@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "NullDoc.h"
 
+namespace Juff {
+
 Juff::Document* NullDoc::doc_ = NULL;
 
 Juff::Document* NullDoc::instance() {
@@ -30,51 +32,30 @@ Juff::Document* NullDoc::instance() {
 NullDoc::~NullDoc() {
 }
 
-Juff::Document::Status NullDoc::save() { 
-	scream(); 
-	return StatusUnknownError; 
-}
-
-Juff::Document::Status NullDoc::saveAs() { 
-	scream(); 
-	return StatusUnknownError; 
-}
-
-Juff::Document::Status NullDoc::reload() {
-	scream(); 
-	return StatusUnknownError; 
-}
-
-void NullDoc::print() const {
-	scream(); 
-}
-
-void NullDoc::printSelected() const {
-	scream(); 
-}
-
-Juff::Document::Status NullDoc::open() { 
-	scream(); 
-	return StatusUnknownError; 
-}
-
-Juff::Document::Status NullDoc::close() { 
-	scream(); 
-	return StatusUnknownError; 
-}
-
-Juff::Document::SaveRequest NullDoc::confirmForClose() {
+bool NullDoc::save(const QString&, QString&) { 
 	scream();
-	return Juff::Document::SaveYes;
+	return false;
 }
 
-void NullDoc::processTheCommand(CommandID) {
+bool NullDoc::isModified() const {
+	scream();
+	return false;
 }
 
-NullDoc::NullDoc() : Juff::Document("", 0) {
+void NullDoc::setModified(bool) {
+	scream();
+}
+
+QWidget* NullDoc::widget() {
+	scream();
+	return NULL;
+}
+
+NullDoc::NullDoc() : Juff::Document("") {
 }
 	
 void NullDoc::scream() const { 
 	Log::debug("Empty document was called."); 
 }
 
+}	//	namespace Juff

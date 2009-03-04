@@ -16,36 +16,30 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <QtGui/QApplication>
+#ifndef _JUFF_SIMPLE_DOC_H_
+#define _JUFF_SIMPLE_DOC_H_
 
-#include "gui/GUI.h"
-#include "Manager.h"
-//#include "DocHandler.h"
-#include "Settings.h"
+#include "Document.h"
 
-class JuffApp : public QApplication {
+namespace Juff {
+
+class SimpleDoc : public Document {
 public:
-	JuffApp(int& argc, char** argv) : QApplication(argc, argv) {
-		setOrganizationName("Juff");
-		setApplicationName("JuffEd");
-		Settings::read();
-	}
-	
-	virtual ~JuffApp() {
-		Settings::write();
-	}
+	SimpleDoc(const QString&);
+	virtual ~SimpleDoc();
+
+	virtual QWidget* widget();
+	virtual bool isModified() const;
+	virtual void setModified(bool);
+	virtual bool save(const QString&, QString&);
+
+private:
+	void readDoc();
+
+	class Interior;
+	Interior* docInt_;
 };
 
-int main(int argc, char* argv[])
-{
-	JuffApp app(argc, argv);
-		
-	Juff::GUI::GUI gui;
-	Juff::Manager manager(&gui);
-//	Juff::DocHandler handler;
-	
-//	handler.setGUI(&gui);
-	gui.show();
-	
-	return app.exec();
-}
+}	//	namespace Juff
+
+#endif

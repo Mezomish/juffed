@@ -16,36 +16,47 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <QtGui/QApplication>
+#include "RichDoc.h"
 
-#include "gui/GUI.h"
-#include "Manager.h"
-//#include "DocHandler.h"
-#include "Settings.h"
+#include <QtGui/QTextEdit>
 
-class JuffApp : public QApplication {
+namespace Juff {
+
+class RichDoc::Interior {
 public:
-	JuffApp(int& argc, char** argv) : QApplication(argc, argv) {
-		setOrganizationName("Juff");
-		setApplicationName("JuffEd");
-		Settings::read();
+	Interior() {
+		w_ = new QTextEdit();
+	}
+	~Interior() {
+		delete w_;
 	}
 	
-	virtual ~JuffApp() {
-		Settings::write();
-	}
+	QTextEdit* w_;
 };
 
-int main(int argc, char* argv[])
-{
-	JuffApp app(argc, argv);
-		
-	Juff::GUI::GUI gui;
-	Juff::Manager manager(&gui);
-//	Juff::DocHandler handler;
+RichDoc::RichDoc(const QString& fileName) : Document(fileName) {
+	docInt_ = new Interior();
 	
-//	handler.setGUI(&gui);
-	gui.show();
-	
-	return app.exec();
+	connect(docInt_->w_->document(), SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
 }
+
+RichDoc::~RichDoc() {
+	delete docInt_;
+}
+
+QWidget* RichDoc::widget() {
+	return docInt_->w_;
+}
+
+bool RichDoc::isModified() const {
+	return docInt_->w_->document()->isModified();
+}
+
+void RichDoc::setModified(bool) {
+}
+
+bool RichDoc::save(const QString&, QString&) {
+	return true;
+}
+
+}	//	namespace Juff

@@ -16,39 +16,51 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _JUFF_DOC_HANDLER_H_
-#define _JUFF_DOC_HANDLER_H_
+#ifndef _JUFF_SCI_DOC_HANDLER_H_
+#define _JUFF_SCI_DOC_HANDLER_H_
 
-#include <QtCore/QObject>
-
-#include "Juff.h"
+#include "DocHandler.h"
 #include "Document.h"
 
 namespace Juff {
 
-class DocHandler : public QObject {
+//class Document;
+
+class SciDocHandler : public DocHandler {
 Q_OBJECT
 public:
-	DocHandler();
-	virtual ~DocHandler();
+	SciDocHandler();
+	virtual ~SciDocHandler();
 
-	virtual QString type() const = 0;
-	virtual Document* createDoc(const QString&) = 0;
-	virtual ToolBarList toolBars() const = 0;
-	virtual MenuList menus() const = 0;
-	virtual void docActivated(Document*) = 0;
+	virtual QString type() const;
+	virtual Document* createDoc(const QString&);
+	virtual ToolBarList toolBars() const;
+	virtual MenuList menus() const;
 
-signals:
-	Juff::Document* getCurDoc();
+	virtual void docActivated(Document*);
 
-protected:
-	void setDocType(Document*, const QString& type);
+private slots:
+	void showLineNums();
+	void wordWrap();
+	void zoomIn();
+	void zoomOut();
+	void zoom100();
+
+	void initMarkersMenu();
+	void toggleMarker();
+	void nextMarker();
+	void prevMarker();
+	void removeAllMarkers();
+	void gotoMarker();
+	void syntaxSelected();
 
 private:
+	void initSyntaxMenu();
+
 	class Interior;
-	Interior* hInt_;
+	Interior* docInt_;
 };
 
-}	//	namespace Juff
+}
 
 #endif

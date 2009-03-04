@@ -1,21 +1,22 @@
 <RCC>
     <qresource>
-        <file alias="about">icons/about.png</file>
-        <file alias="editCopy">icons/editCopy.png</file>
-        <file alias="editCut">icons/editCut.png</file>
-        <file alias="editPaste">icons/editPaste.png</file>
-        <file alias="editRedo">icons/editRedo.png</file>
-        <file alias="editUndo">icons/editUndo.png</file>
-        <file alias="exit">icons/exit.png</file>
-        <file alias="fileNew">icons/fileNew.png</file>
-        <file alias="fileOpen">icons/fileOpen.png</file>
-        <file alias="fileSave">icons/fileSave.png</file>
-        <file alias="filePrint">icons/filePrint.png</file>
-        <file alias="fileSaveAs">icons/fileSaveAs.png</file>
-        <file alias="find">icons/find.png</file>
-        <file alias="settings">icons/settings.png</file>
-        <file alias="zoomIn">icons/zoomIn.png</file>
-        <file alias="zoomOut">icons/zoomOut.png</file>
-        <file alias="zoom100">icons/zoom100.png</file>
+        <file alias="32/about.png">icons/32x32/about.png</file>
+        <file alias="32/editCopy.png">icons/32x32/editCopy.png</file>
+        <file alias="32/editCut.png">icons/32x32/editCut.png</file>
+        <file alias="32/editPaste.png">icons/32x32/editPaste.png</file>
+        <file alias="32/editRedo.png">icons/32x32/editRedo.png</file>
+        <file alias="32/editUndo.png">icons/32x32/editUndo.png</file>
+        <file alias="32/exit.png">icons/32x32/exit.png</file>
+        <file alias="32/fileNew.png">icons/32x32/fileNew.png</file>
+        <file alias="32/fileOpen.png">icons/32x32/fileOpen.png</file>
+        <file alias="32/fileSave.png">icons/32x32/fileSave.png</file>
+        <file alias="32/filePrint.png">icons/32x32/filePrint.png</file>
+        <file alias="32/fileSaveAs.png">icons/32x32/fileSaveAs.png</file>
+        <file alias="32/find.png">icons/32x32/find.png</file>
+        <file alias="32/replace.png">icons/32x32/replace.png</file>
+        <file alias="32/settings.png">icons/32x32/settings.png</file>
+        <file alias="32/zoomIn.png">icons/32x32/zoomIn.png</file>
+        <file alias="32/zoomOut.png">icons/32x32/zoomOut.png</file>
+        <file alias="32/zoom100.png">icons/32x32/zoom100.png</file>
     </qresource>
 </RCC>

@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License 
@@ -19,84 +19,137 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "PluginManager.h"
 
 #include <QtCore/QDir>
+#include <QtCore/QMap>
 #include <QtCore/QPluginLoader>
+#include <QtGui/QMainWindow>
 
-#ifdef Q_OS_WIN
-#include "AppInfo.win.h"
-#else
 #include "AppInfo.h"
-#endif
-
-#include "Log.h"
+//#include "EventProxy.h"
+#include "gui/GUI.h"
 #include "JuffPlugin.h"
-#include "PluginSettings.h"
+#include "Log.h"
 
-PluginManager* PluginManager::instance_ = 0;
+namespace Juff {
 
-class PluginManager::PMInterior {
+class PluginManager::Interior {
 public:
-	QObject* handler_;
-	PluginList pluginList_;
+	Interior() {
+		gui_ = 0;
+		managerInt_ = 0;
+	}
+	~Interior() {
+	}
+	
+	bool addPlugin(JuffPlugin* plugin) {
+		QString engine = plugin->targetEngine();
+
+		Log::debug(engine);
+		
+		if ( engines_.contains(engine) ) {
+			//	plugin has specified its type and this type
+			//	is allowed by PluginManager
+			plugins_[engine].append(plugin);
+			return true;
+		}
+		else {
+			Log::printToLog(QString("Engine type %1 is not acceptable. Plugin %2 was not loaded").arg(engine).arg(plugin->name()));
+			return false;
+		}
+	}
+	
+	QMap<QString, PluginList> plugins_;
+	GUI::GUI* gui_;
+	QStringList engines_;
+	ManagerInterface* managerInt_;
 };
 
-PluginManager::PluginManager() {
-	pmInt_ = new PMInterior();
+
+PluginManager::PluginManager(const QStringList& engines, ManagerInterface* m, GUI::GUI* gui) : QObject() {
+	pmInt_ = new Interior();
+	pmInt_->engines_ = engines;
+	pmInt_->engines_ << "all";
+	pmInt_->gui_ = gui;
+	pmInt_->managerInt_ = m;
 }
 
 PluginManager::~PluginManager() {
 	delete pmInt_;
 }
 
-PluginManager* PluginManager::instance() {
-	if (instance_ == 0)
-		instance_ = new PluginManager();
-	return instance_;
-}
-
-void PluginManager::setHandler(QObject* handler) {
-	pmInt_->handler_ = handler;
-}
-
-PluginList PluginManager::plugins() {
-	return pmInt_->pluginList_;
-}
-
-JuffPlugin* PluginManager::findPlugin(const QString& name) const {
-	foreach (JuffPlugin* plugin, pmInt_->pluginList_) {
-		if (plugin->name().compare(name) == 0) {
-			return plugin;
+void PluginManager::emitInfoSignal(InfoEvent evt, const Param& param1, const Param& param2) {
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			if ( plugin ) {
+				plugin->onInfoEvent(evt, param1, param2);
+			}
 		}
 	}
-	return 0;
-}
-
-bool PluginManager::pluginExists(const QString& name) const {
-	return findPlugin(name) != 0;
 }
 
 void PluginManager::loadPlugin(const QString& path) {
+	JUFFENTRY;
+
+	Log::debug(path);
 	QPluginLoader loader(path);
-	if (!loader.load())
+	if ( !loader.load() ) {
+		Log::debug("Plugin was NOT loaded");
 		return;
+	}
 
 	QObject *obj = loader.instance();
-	if (obj) {
+	if ( obj ) {
 		JuffPlugin* plugin = qobject_cast<JuffPlugin*>(obj);
-		if (plugin != 0) {
+		if ( plugin ) {
+			plugin->setManager(pmInt_->managerInt_);
 			
 			//	Check if plugin with the same name was already loaded.
 			//	If is was then exit.
-			if (pluginExists(plugin->name()))
-				return;
+//			if (pluginExists(plugin->name()))
+//				return;
 
-			pmInt_->pluginList_.append(plugin);
+//			if ( pmInt_->eventProxy_)
+//				plugin->setEventProxy(pmInt_->eventProxy_);
+//			pmInt_->pluginList_.append(plugin);
+			if ( pmInt_->addPlugin(plugin) ) {
 
-			qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
+				qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
+//				plugin->setEventProxy(pmInt_->eventProxy_);
+//				plugin->setEventProxy(this);
+
+				///////////////////////////////
+				////	GUI
+				//	toolbar
+//				if ( QToolBar* tb = plugin->toolBar() )
+//					pmInt_->mw_->addToolBar(tb);
+
+				//	dock windows
+/*				QWidgetList docks = plugin->dockList();
+				Log::debug(docks.count());
+				foreach(QWidget* w, docks) {
+					QString title = w->windowTitle();
+					if ( title.isEmpty() )
+						title = plugin->name();
+					QDockWidget* dock = new QDockWidget(title);
+					dock->setObjectName(title);
+					dock->setWidget(w);
+					pmInt_->gui_->mw()->addDockWidget(Qt::LeftDockWidgetArea, dock);
+
+					//	panels toggle actions
+	//				if (jInt_->panelsMenu_ != 0) {
+	//					jInt_->panelsMenu_->addAction(dock->toggleViewAction());
+	//				}
+				}*/
+			}
+			else {
+				delete plugin;
+				loader.unload();
+			}
 		}
 	}
 }
 
 void PluginManager::loadPlugins() {
+	JUFFENTRY;
 	//	user's plugins
 	QDir pluginDir(AppInfo::configDir() + "/plugins");
 	foreach (QString fileName, pluginDir.entryList(QDir::Files)) {
@@ -112,32 +165,37 @@ void PluginManager::loadPlugins() {
 	}
 }
 
-void PluginManager::unloadPlugin(const QString&) {
+/*void PluginManager::addToolBars(const QString& engine) {
+	JUFFENTRY;
+	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+		pmInt_->gui_->addToolBar(plugin->toolBar());
+	}
+}*/
+
+ToolBarList PluginManager::getToolBars(const QString& engine) {
+	ToolBarList list;
+	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+		list << plugin->toolBar();
+	}
+	return list;
 }
 
-void PluginManager::unloadPlugins() {
-	foreach (JuffPlugin* plugin, pmInt_->pluginList_) {
-		if (plugin != 0) {
-			PluginSettings::saveSettings(plugin);
-			delete plugin;
-		}
+MenuList PluginManager::getMenus(const QString& engine) {
+	MenuList menus;
+	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+		if ( plugin->menu() )
+			menus << plugin->menu();
 	}
+	return menus;
 }
 
-void PluginManager::enablePlugin(const QString& pluginName, bool enable) {
-	JuffPlugin* plugin = findPlugin(pluginName);
-	if (plugin == 0) {
-		Log::debug(QString("Can't %1 plugin '%2': it doesn't exist")
-					.arg(enable ? "enable" : "disable").arg(pluginName));
-		return;
+QWidgetList PluginManager::getDocks(const QString& engine) {
+	QWidgetList list;
+	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+		list << plugin->dockList();
 	}
-
-	if (enable) {
-		PluginSettings::readSettings(plugin);
-		plugin->init(pmInt_->handler_);
-	}
-	else {
-		PluginSettings::saveSettings(plugin);
-		plugin->deinit(pmInt_->handler_);
-	}
+	return list;
 }
+
+
+}	//	namespace Juff

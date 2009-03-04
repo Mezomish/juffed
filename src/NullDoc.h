@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License 
@@ -22,26 +22,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Document.h"
 #include "Log.h"
 
-class NullDoc : public Juff::Document {
+namespace Juff {
+	
+class NullDoc : public Document {
 public:
-	static Juff::Document* instance();
+	static Document* instance();
 	virtual ~NullDoc();
 	
-	virtual Juff::Document::Status save();
-	virtual Juff::Document::Status saveAs();
-	virtual Juff::Document::Status open();	
-	virtual Juff::Document::Status reload();
-	virtual Juff::Document::Status close();
-	virtual Juff::Document::SaveRequest confirmForClose();
-	virtual void print() const;
-	virtual void printSelected() const;
-
-	virtual void processTheCommand(CommandID);
+	virtual bool isModified() const;
+	virtual void setModified(bool);
+	virtual QWidget* widget();
+	virtual bool save(const QString&, QString&);
 
 	/**
-	 *	Only in this class this method must return 'true' !!!
+	 *	Only in class NullDoc this method must return 'true' !!!
 	 */
-	virtual bool isNull() { return true; }
+	virtual bool isNull() const { return true; }
 
 protected:
 	NullDoc();
@@ -50,5 +46,7 @@ private:
 	void scream() const;
 	static Juff::Document* doc_;
 };
+
+}	//	namespace Juff
 
 #endif

@@ -16,36 +16,30 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <QtGui/QApplication>
+#ifndef _CHARSETS_SETTINGS_PAGE_H_
+#define _CHARSETS_SETTINGS_PAGE_H_
 
-#include "gui/GUI.h"
-#include "Manager.h"
-//#include "DocHandler.h"
-#include "Settings.h"
+//	Qt
+#include <QtGui/QWidget>
 
-class JuffApp : public QApplication {
+//	ui
+#include "ui_CharsetsSettingsPage.h"
+
+class CharsetsSettingsPage : public QWidget {
+Q_OBJECT
 public:
-	JuffApp(int& argc, char** argv) : QApplication(argc, argv) {
-		setOrganizationName("Juff");
-		setApplicationName("JuffEd");
-		Settings::read();
-	}
-	
-	virtual ~JuffApp() {
-		Settings::write();
-	}
+	CharsetsSettingsPage(QWidget* parent = 0);
+	virtual ~CharsetsSettingsPage();
+
+	void init();
+	void applySettings();
+
+public slots:
+	void selectAll();
+	void deselectAll();
+
+private:
+	Ui::CharsetsSettingsPage ui;
 };
 
-int main(int argc, char* argv[])
-{
-	JuffApp app(argc, argv);
-		
-	Juff::GUI::GUI gui;
-	Juff::Manager manager(&gui);
-//	Juff::DocHandler handler;
-	
-//	handler.setGUI(&gui);
-	gui.show();
-	
-	return app.exec();
-}
+#endif

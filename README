@@ -1,6 +1,6 @@
 JuffEd
-Simple text editor with syntax highlighting
-Copyright (C) 2007-2008 Mikhail Murzin <mezomish@gmail.com>
+Advanced text editor
+Copyright (C) 2007-2009 Mikhail Murzin <mezomish@gmail.com>
 
 Requirements:
 	Qt (>= 4.2)
@@ -8,13 +8,12 @@ Requirements:
 	
 Installation:
 	*nix:
-		$ ./configure
-		$ make
-		$ sudo make install
-		(to install to fake root folder for further packaging use 'make FAKE_ROOT=<path> install')
-
-	Windows (using MinGW):
-		> mingw32-make -f WinMakefile
+	$ mkdir build
+	$ cd build
+	$ cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=release
+	$ make
+	$ sudo make install
+	(to install to fake root folder for further packaging use 'make DESTDIR=<path> install')
 
  License:
 	JuffEd is distributed under the GNU General Public License.

@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License 
@@ -16,111 +16,87 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-/**
- * Abstract class of document
- */
+#ifndef _JUFF_DOCUMENT_H_
+#define _JUFF_DOCUMENT_H_
 
-#ifndef _DOCUMENT_H_
-#define _DOCUMENT_H_
+class QWidget;
 
-#include <QtCore/QDateTime>
-#include <QtCore/QFileInfo>
-#include <QtCore/QMutex>
+#include "Juff.h"
+
+#include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QTimer>
-
-#include <QtGui/QAbstractButton>
-#include <QtGui/QMessageBox>
-
-#include "CommandStorage.h"
-//#include "DocView.h"
-#include "Log.h"
-
-class DocView;
 
 namespace Juff {
-	
+	class DocHandler;
+
+//namespace Data {
+
 class Document : public QObject {
 Q_OBJECT
+friend class Juff::DocHandler;
 public:
-	enum Status {
-		StatusSuccess,
-		StatusCancel,
-		StatusFileNotFound,
-		StatusErrorOpenFile,
-		StatusErrorSaveFile,
-		StatusWrongFileName,
-		StatusUnknownError
-	};
-
-	enum SaveRequest {
-		SaveYes,
-		SaveNo,
-//		SaveAll,
-		SaveCancel
-	};
-	
-	Document(const QString& fileName, DocView* view);
+	Document(const QString&);
 	virtual ~Document();
 
-	const QString& fileName() const;
-	bool isModified() const;
-	bool isNoname() const;
-	DocView* view() const;
-	
-	virtual Document::Status open() = 0;
-	virtual Document::Status save() = 0;
-	virtual Document::Status saveAs() = 0;
-	virtual Document::Status reload() = 0;
-	virtual Document::SaveRequest confirmForClose() = 0;
-	virtual void print() const = 0;
-	virtual void printSelected() const = 0;
+	QString fileName() const;
+	void setFileName(const QString& fileName);
+	QString type() const;
 
-	virtual void processTheCommand(CommandID) = 0;
-	virtual void applySettings();
-	
-	/**
-	 *	Starts monitoring of external modification of the file
-	 */
-	void extModMonitoringStart();
-	
-	/**
-	 *	Stops monitoring of external modification of the file
-	 */
-	void extModMonitoringStop();
-	
-	
-	/**
-	 *	This method should be reimplemented only in derived NullDoc class
-	 */
-	virtual bool isNull() { return false; }
+	virtual bool isModified() const = 0;
+	virtual void setModified(bool) = 0;
+	virtual QWidget* widget() = 0;
 
-	static int index() { return index_; }
+	virtual bool save(const QString&, QString& err) = 0;
+
+	//	TODO : make the following methods pure virtual
+	virtual void undo() {}
+	virtual void redo() {}
+	virtual void cut() {}
+	virtual void copy() {}
+	virtual void paste() {}
+
+	virtual void find(const QString&, const DocFindFlags&) {}
+	virtual void replace(const QString&, const QString&, const DocFindFlags&) {}
+
+	virtual QString text() const { return ""; }
+	virtual QString selectedText() const { return ""; }
+	virtual void getCursorPos(int&, int&) const {}
+	virtual void setCursorPos(int, int) {}
+	virtual void getSelection(int&, int&, int&, int&) const {}
+	virtual void setSelection(int, int, int, int) {}
+	virtual void insertText(const QString&) {}
+	virtual void removeSelectedText() {}
+	virtual int curLine() const { return 0; }
+	virtual void gotoLine(int) {}
+	virtual int curScrollPos() const { return 0; }
+	virtual void setScrollPos(int) {}
+	virtual int lineCount() const { return 0; }
+	virtual QString charset() const { return ""; }
+	virtual void setCharset(const QString&) {}
+	
+	virtual void applySettings() {}
+
+	/**
+	*	Do not reimplement this method anywhere but at NullDoc class!
+	*/
+	virtual bool isNull() const;
+	
+	virtual void updateActivated() {}
+//	void emitActivated();
 
 signals:
-	void fileNameChanged(const QString& oldName);
-
-public slots:
-	void setModified(bool mod);
+	void modified(bool);
+	void fileNameChanged(const QString& oldFileName);
+//	void activated();
 
 protected:
-	void setFileName(const QString& fileName);	
-	QDateTime lastModified() const;
-	void setLastModified(const QDateTime& dt);
-	
-private slots:
-	void checkLastModified();
-	
+	QString type_;
+
 private:
 	QString fileName_;
-	DocView* view_;
-	bool modified_;
-	QDateTime lastModified_;
-	QTimer* modCheckTimer_;
-	QMutex checkingMutex_;
-	static int index_;
 };
 
+//}	//	namespace Data
 }	//	namespace Juff
 
 #endif

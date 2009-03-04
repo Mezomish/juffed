@@ -16,36 +16,28 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <QtGui/QApplication>
+#include "MW.h"
 
-#include "gui/GUI.h"
-#include "Manager.h"
-//#include "DocHandler.h"
-#include "Settings.h"
+#include "Log.h"
 
-class JuffApp : public QApplication {
-public:
-	JuffApp(int& argc, char** argv) : QApplication(argc, argv) {
-		setOrganizationName("Juff");
-		setApplicationName("JuffEd");
-		Settings::read();
-	}
-	
-	virtual ~JuffApp() {
-		Settings::write();
-	}
-};
+#include <QtGui/QCloseEvent>
 
-int main(int argc, char* argv[])
-{
-	JuffApp app(argc, argv);
-		
-	Juff::GUI::GUI gui;
-	Juff::Manager manager(&gui);
-//	Juff::DocHandler handler;
-	
-//	handler.setGUI(&gui);
-	gui.show();
-	
-	return app.exec();
+namespace Juff {
+namespace GUI {
+
+MW::MW() : QMainWindow() {
 }
+
+void MW::closeEvent(QCloseEvent* e) {
+	JUFFENTRY;
+	
+	bool confirmed = true;
+	emit closeRequested(confirmed);
+	if ( confirmed )
+		e->accept();
+	else
+		e->ignore();
+}
+
+}	//	namespace GUI
+}	//	namespace Juff

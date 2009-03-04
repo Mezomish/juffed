@@ -68,7 +68,8 @@ public:
 signals:
 	void settingsApplied();
 	void closeRequested(bool&);
-	
+	void docOpenRequested(const QString&);
+
 private slots:
 	void settings();
 	void applySettings();

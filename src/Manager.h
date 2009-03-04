@@ -60,6 +60,12 @@ public:
 	virtual void activateDoc(const QString&);
 	virtual void closeDoc(const QString&);
 
+public slots:
+	/**
+	*	Opens a new doc or activates already opened one
+	*/
+	void openDoc(const QString& fileName);
+
 
 private slots:
 	//	slots called by menu/toolbar actions

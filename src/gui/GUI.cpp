@@ -32,6 +32,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QtGui/QCheckBox>
 #include <QtGui/QDockWidget>
+#include <QtGui/QDragEnterEvent>
+#include <QtGui/QDropEvent>
 #include <QtGui/QFileDialog>
 #include <QtGui/QInputDialog>
 #include <QtGui/QLayout>
@@ -87,6 +89,7 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 GUI::GUI() : QObject() {
 	mw_ = new MW();
 	connect(mw_, SIGNAL(closeRequested(bool&)), this, SIGNAL(closeRequested(bool&)));
+	connect(mw_, SIGNAL(docOpenRequested(const QString&)), this, SIGNAL(docOpenRequested(const QString&)));
 	
 	toolsMenu_ = new QMenu(tr("&Tools"));
 	helpMenu_ = new QMenu("?");
@@ -342,6 +345,7 @@ void GUI::about() {
 void GUI::aboutQt() {
 	QMessageBox::aboutQt(mw_, tr("About Qt"));
 }
+
 
 
 }	//	namespace GUI

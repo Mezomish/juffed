@@ -31,9 +31,12 @@ public:
 
 signals:
 	void closeRequested(bool&);
+	void docOpenRequested(const QString&);
 
 protected:
 	virtual void closeEvent(QCloseEvent*);
+	virtual void dragEnterEvent(QDragEnterEvent*);
+	virtual void dropEvent(QDropEvent*);
 };
 
 }	//	namespace GUI

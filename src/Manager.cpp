@@ -131,6 +131,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->gui_ = gui;
 	gui->updateTitle("", "", false);
 	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));
+	connect(gui, SIGNAL(docOpenRequested(const QString&)), this, SLOT(openDoc(const QString&)));
 	gui->setCentralWidget(mInt_->viewer_->widget());
 
 	
@@ -384,6 +385,22 @@ Document* Manager::curDoc() const {
 	return mInt_->getDocByView(w);
 }
 
+
+void Manager::openDoc(const QString& fileName) {
+	//	check if this file is already opened
+	if ( mInt_->docs1_.contains(fileName) ) {
+		mInt_->viewer_->activateDoc(mInt_->docs1_[fileName]);
+	}
+	else if ( mInt_->docs2_.contains(fileName) ) {
+		mInt_->viewer_->activateDoc(mInt_->docs2_[fileName]);
+	}
+	else {
+		createDoc("sci", fileName);
+		mInt_->addToRecentFiles(fileName);
+		initRecentFilesMenu();
+	}
+}
+
 void Manager::createDoc(const QString& type, const QString& fileName) {
 	JUFFENTRY;
 
@@ -539,18 +556,7 @@ void Manager::fileOpen() {
 	QStringList files = mInt_->gui_->getOpenFileNames(startDir, filters);
 	QString fileName = "";
 	foreach (fileName, files) {
-		//	check if this file is already opened
-		if ( mInt_->docs1_.contains(fileName) ) {
-			mInt_->viewer_->activateDoc(mInt_->docs1_[fileName]);
-		}
-		else if ( mInt_->docs2_.contains(fileName) ) {
-			mInt_->viewer_->activateDoc(mInt_->docs2_[fileName]);
-		}
-		else {
-			createDoc("sci", fileName);
-			mInt_->addToRecentFiles(fileName);
-			initRecentFilesMenu();
-		}
+		openDoc(fileName);
 	}
 	if ( !fileName.isEmpty() )
 		MainSettings::setLastOpenDir(QFileInfo(fileName).absolutePath());

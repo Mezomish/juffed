@@ -26,8 +26,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class JuffApp : public QApplication {
 public:
 	JuffApp(int& argc, char** argv) : QApplication(argc, argv) {
-		setOrganizationName("Juff");
-		setApplicationName("JuffEd");
+		setOrganizationName("juff");
+		setApplicationName("juffed");
 		Settings::read();
 	}
 	

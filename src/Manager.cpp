@@ -177,6 +177,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	st->registerCommand(ID_REPLACE, 		this, SLOT(replace()));
 	st->registerCommand(ID_GOTO_LINE, 		this, SLOT(gotoLine()));
 	//
+	st->registerCommand(ID_DOC_NEXT,		mInt_->viewer_,		SLOT(nextDoc()));
+	st->registerCommand(ID_DOC_PREV,		mInt_->viewer_,		SLOT(prevDoc()));
 	
 
 	//	add commands to menu
@@ -233,7 +235,9 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 		mInt_->fileMenu_->insertMenu(saveAct, mInt_->recentFilesMenu_);
 		initRecentFilesMenu();
 	}
-	
+
+	mInt_->viewer_->widget()->addAction(st->action(ID_DOC_NEXT));
+	mInt_->viewer_->widget()->addAction(st->action(ID_DOC_PREV));
 
 /*	
 	//	plugins panels and toolbars

@@ -52,6 +52,10 @@ public:
 signals:
 	void curDocChanged(QWidget*);
 
+public slots:
+	void nextDoc();
+	void prevDoc();
+
 private slots:
 	void curIndexChanged(int);
 	void docActivated();

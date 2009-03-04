@@ -210,6 +210,39 @@ void Viewer::activateDoc(Document* doc) {
 	}
 }
 
+void Viewer::nextDoc() {
+	JUFFENTRY;
+	
+	QTabWidget* tw = 0;
+	if ( vInt_->tw1_->currentWidget()->hasFocus() )
+		tw = vInt_->tw1_;
+	else
+		tw = vInt_->tw2_;
+	
+	if ( tw ) {
+		int index = tw->currentIndex();
+		int n = tw->count();
+		tw->setCurrentIndex( (index + 1) % n);
+	}
+}
+
+void Viewer::prevDoc() {
+	JUFFENTRY;
+	
+	QTabWidget* tw = 0;
+	if ( vInt_->tw1_->currentWidget()->hasFocus() )
+		tw = vInt_->tw1_;
+	else
+		tw = vInt_->tw2_;
+	
+	if ( tw ) {
+		int index = tw->currentIndex();
+		int n = tw->count();
+		tw->setCurrentIndex( (index + n - 1) % n);
+	}
+}
+
+
 void Viewer::curIndexChanged(int i) {
 //	JUFFENTRY;
 	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());

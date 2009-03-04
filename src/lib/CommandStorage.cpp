@@ -122,6 +122,9 @@ QKeySequence CommandStorage::getShortcut(CommandID id) {
 		case ID_MARKER_NEXT :	return QKeySequence("Ctrl+Alt+PgDown");
 		case ID_MARKER_PREV :	return QKeySequence("Ctrl+Alt+PgUp");
 
+		case ID_DOC_NEXT :		return QKeySequence("Alt+Right");
+		case ID_DOC_PREV :		return QKeySequence("Alt+Left");
+			
 		default: return QKeySequence("");
 	}
 }

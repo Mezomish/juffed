@@ -23,9 +23,33 @@ SET ( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 
 SET ( JUFFED "juffed" CACHE STRING "Name of the executeable" )
 
+
 #Version
-file ( READ "${CMAKE_SOURCE_DIR}/version" JUFFED_VERSION )
-string ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
+FILE ( READ "${CMAKE_SOURCE_DIR}/version" JUFFED_VERSION )
+STRING ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
+
+# flag indicating that this is an SVN snapshot release
+SET ( SVN 1)
+
+IF ( SVN )
+	# SVN revision
+	EXECUTE_PROCESS ( 
+		COMMAND svn info ${CMAKE_SOURCE_DIR}
+		COMMAND grep Revision
+		COMMAND cut -d: -f2 
+		OUTPUT_VARIABLE REV
+	)
+	STRING ( STRIP "${REV}" REV )
+
+	# Date
+	EXECUTE_PROCESS ( 
+		COMMAND date +%Y%m%d
+		OUTPUT_VARIABLE DATE
+	)
+	STRING ( STRIP "${DATE}" DATE )
+	SET ( JUFFED_VERSION ${JUFFED_VERSION}-svn${DATE}-r${REV} )
+ENDIF ( SVN )
+
 SET ( VERSION ${JUFFED_VERSION} )
 
 # Install Directories
@@ -139,7 +163,7 @@ SET (QT_USE_QTXML TRUE)
 INCLUDE (${QT_USE_FILE})
 
 #Configure AppInfo.h
-configure_file ("${CMAKE_SOURCE_DIR}/src/AppInfo.nix.h.cmake" "${CMAKE_SOURCE_DIR}/AppInfo.nix.h" @ONLY)
+configure_file ("${CMAKE_SOURCE_DIR}/src/AppInfo.nix.h.cmake" "${CMAKE_SOURCE_DIR}/src/AppInfo.nix.h" @ONLY)
 
 # qt4 actions
 QT4_WRAP_UI ( juffed_UIS_H ${juffed_UIS} )

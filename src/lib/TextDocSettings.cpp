@@ -52,12 +52,12 @@ bool TextDocSettings::backspaceUnindents() {
 	return Settings::boolValue("editor", "backspaceUnindents", false);
 }
 QColor TextDocSettings::markersColor() {
-	QColor deflt(100, 200, 100);
+	QColor deflt(160, 180, 200);
 	QColor c = Settings::value("editor", "markersColor").value<QColor>();
 	return c.isValid() ? c : deflt;
 }
 QColor TextDocSettings::curLineColor() {
-	QColor deflt(230, 250, 230);
+	QColor deflt(240, 240, 255);
 	QColor c = Settings::value("editor", "curLineColor").value<QColor>();
 	return c.isValid() ? c : deflt;
 }

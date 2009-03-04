@@ -709,9 +709,14 @@ void Manager::sessionSave() {
 void Manager::sessionSaveAs() {
 	JUFFENTRY;
 	
-	QString name = mInt_->gui_->getSaveSessionName(mInt_->sessionName_);
-	if ( !name.isEmpty() )
-		saveSess(name);
+	QString sessName = mInt_->gui_->getSaveSessionName(mInt_->sessionName_);
+	if ( !sessName.isEmpty() ) {
+		saveSess(sessName);
+		mInt_->sessionName_ = sessName;
+		Document* doc = curDoc();
+		QString fileName = doc->isNull() ? "" : doc->fileName();
+		mInt_->gui_->updateTitle(fileName, sessName, false);
+	}
 }
 
 void Manager::writePanelViews(QFile& file, int panel) {

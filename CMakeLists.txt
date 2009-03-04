@@ -64,7 +64,7 @@ SET(DATA_INSTALL_DIR
 )
 
 # verbose is off by default
-# SET( CMAKE_VERBOSE_MAKEFILE  ON )
+#SET( CMAKE_VERBOSE_MAKEFILE  ON )
 
 # input files
 
@@ -170,7 +170,7 @@ QT4_WRAP_UI ( juffed_UIS_H ${juffed_UIS} )
 QT4_WRAP_CPP ( juffed_MOC_SRCS ${juffed_MOC_HDRS} )
 QT4_ADD_RESOURCES ( juffed_RESOURCES ${juffed_RESOURCES} )
 QT4_AUTOMOC ( ${juffed_SRCS} )
-#QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
+QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
 
 # definitions for the project
 ADD_DEFINITIONS(
@@ -212,7 +212,7 @@ ADD_EXECUTABLE ( ${JUFFED}
 	${juffed_MOC_SRCS} 
 	${juffed_UIS} 
 	${juffed_RESOURCES} 
-#	${juffed_QM} 
+	${juffed_QM} 
 )
 
 IF ( MINGW )

@@ -129,6 +129,12 @@ void GUI::setToolBarIconSize(int sz) {
 	mw_->setIconSize(QSize(size, size));
 }
 
+void GUI::setToolButtonStyle(Qt::ToolButtonStyle style) {
+	foreach (QToolBar* tb, toolBars_) {
+		tb->setToolButtonStyle(style);
+	}
+}
+
 QStringList GUI::getOpenFileNames(const QString& dir, const QString& filters) {
 	return QFileDialog::getOpenFileNames(mw_, tr("Open files"), dir, filters);
 }

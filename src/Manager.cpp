@@ -359,6 +359,7 @@ void Manager::addDocHandler(DocHandler* handler) {
 void Manager::applySettings() {
 	mInt_->viewer_->applySettings();
 	mInt_->gui_->setToolBarIconSize(MainSettings::iconSize());
+	mInt_->gui_->setToolButtonStyle((Qt::ToolButtonStyle)MainSettings::toolButtonStyle());
 	IconManager::instance()->setCurrentIconTheme(MainSettings::iconTheme(), MainSettings::iconSize());
 	CommandStorage::instance()->updateIcons();
 

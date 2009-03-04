@@ -61,6 +61,7 @@ public:
 //	QToolBar* toolBar() const;
 
 	void setToolBarIconSize(int);
+	void setToolButtonStyle(Qt::ToolButtonStyle);
 	void updateTitle(const QString& fileName, const QString& session, bool modified);
 	void displayError(const QString&);
 

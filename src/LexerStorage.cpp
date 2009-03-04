@@ -157,7 +157,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 	QString nm = name;
 	nm = nm.replace(QString("+"), "plus").replace(QString("#"), "sharp").toLower();
 	QString fileName = QString("%1.xml").arg(nm);
-	fileName = AppInfo::configDir() + "/hlschemes/" + fileName;
+	fileName = AppInfo::configDirPath() + "/hlschemes/" + fileName;
 
 	Log::debug(QString("Reading custom style from file '%1'...").arg(fileName), true);
 

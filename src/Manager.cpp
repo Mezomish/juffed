@@ -740,7 +740,7 @@ bool Manager::openSess(const QString& name) {
 	QString sessName = name.isEmpty() ? "_empty_session_" : name;
 	
 	JUFFDEBUG(sessName);
-	QFile sess(AppInfo::configDir() + "/sessions/" + sessName);
+	QFile sess(AppInfo::configDirPath() + "/sessions/" + sessName);
 	if ( sess.open(QIODevice::ReadOnly) ) {
 		QString fileName("");
 		while ( !sess.atEnd() ) {
@@ -771,7 +771,7 @@ bool Manager::saveSess(const QString& name) {
 	QString sessName = name.isEmpty() ? "_empty_session_" : name;
 	
 	JUFFDEBUG(sessName);
-	QFile sess(AppInfo::configDir() + "/sessions/" + sessName);
+	QFile sess(AppInfo::configDirPath() + "/sessions/" + sessName);
 	if ( sess.open(QIODevice::WriteOnly | QIODevice::Truncate) ) {
 		JUFFDEBUG("AA");
 		writePanelViews(sess, 1);

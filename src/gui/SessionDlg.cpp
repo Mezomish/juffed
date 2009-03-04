@@ -35,7 +35,7 @@ namespace GUI {
 
 QStringList SessionDlg::sessionList() {
 	QStringList sessions;
-	QDir sessionDir(AppInfo::configDir() + "/sessions/");
+	QDir sessionDir(AppInfo::configDirPath() + "/sessions/");
 	if (sessionDir.exists()) {
 		sessions = sessionDir.entryList(QDir::Files | QDir::NoSymLinks);
 	}

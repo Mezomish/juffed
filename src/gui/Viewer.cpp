@@ -100,7 +100,7 @@ QWidget* Viewer::widget() {
 }
 
 void Viewer::addDoc(Document* doc, int panel/*, const QString& fileName*/) {
-	JUFFENTRY;
+//	JUFFENTRY;
 
 	if ( !doc || !doc->widget() )
 		return;
@@ -199,7 +199,7 @@ void Viewer::removeDoc(Document* doc) {
 }
 
 void Viewer::activateDoc(Document* doc) {
-	JUFFENTRY;
+//	JUFFENTRY;
 	if ( doc ) {
 		int index = -1;
 		QTabWidget* tw = vInt_->getTabWidget(doc, index);
@@ -211,7 +211,7 @@ void Viewer::activateDoc(Document* doc) {
 }
 
 void Viewer::curIndexChanged(int i) {
-	JUFFENTRY;
+//	JUFFENTRY;
 	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
 	if ( tw ) {
 		QWidget* w = tw->widget(i);
@@ -225,7 +225,7 @@ void Viewer::curIndexChanged(int i) {
 }
 
 void Viewer::docActivated() {
-	JUFFENTRY;
+//	JUFFENTRY;
 	
 /*	Document* doc = qobject_cast<Document*>(sender());
 	
@@ -254,7 +254,7 @@ int Viewer::curPanel() const {
 }
 
 QWidget* Viewer::curView() const {
-	JUFFENTRY;
+//	JUFFENTRY;
 	return vInt_->curView_;
 }
 

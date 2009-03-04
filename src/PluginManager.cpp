@@ -151,7 +151,7 @@ void PluginManager::loadPlugin(const QString& path) {
 void PluginManager::loadPlugins() {
 	JUFFENTRY;
 	//	user's plugins
-	QDir pluginDir(AppInfo::configDir() + "/plugins");
+	QDir pluginDir(AppInfo::configDirPath() + "/plugins");
 	foreach (QString fileName, pluginDir.entryList(QDir::Files)) {
 		QString path = pluginDir.absoluteFilePath(fileName);
 		loadPlugin(path);

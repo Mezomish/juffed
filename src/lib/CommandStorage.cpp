@@ -128,7 +128,7 @@ QKeySequence CommandStorage::getShortcut(CommandID id) {
 
 
 QAction* CommandStorage::action(int id) {
-	JUFFENTRY;
+//	JUFFENTRY;
 	if ( id == ID_SEPARATOR ) {
 		QAction* sep = new QAction(0);
 		sep->setSeparator(true);

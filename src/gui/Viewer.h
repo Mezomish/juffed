@@ -41,6 +41,7 @@ public:
 	void removeDoc(Document*);
 	void activateDoc(Document*);
 	int curPanel() const;
+	void applySettings();
 
 	/**
 	*	Returns list of doc views that are opened at panel \par panel.

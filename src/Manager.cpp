@@ -357,6 +357,7 @@ void Manager::addDocHandler(DocHandler* handler) {
 }
 
 void Manager::applySettings() {
+	mInt_->viewer_->applySettings();
 	mInt_->gui_->setToolBarIconSize(MainSettings::iconSize());
 	IconManager::instance()->setCurrentIconTheme(MainSettings::iconTheme(), MainSettings::iconSize());
 	CommandStorage::instance()->updateIcons();

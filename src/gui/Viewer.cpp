@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Document.h"
 #include "Functions.h"
 #include "Log.h"
-#include "Parameter.h"
+#include "MainSettings.h"
 
 namespace Juff {
 namespace GUI {
@@ -93,6 +93,11 @@ Viewer::Viewer() : QObject() {
 
 Viewer::~Viewer() {
 	delete vInt_;
+}
+
+void Viewer::applySettings() {
+	vInt_->tw1_->setTabPosition((QTabWidget::TabPosition)MainSettings::tabPosition());
+	vInt_->tw2_->setTabPosition((QTabWidget::TabPosition)MainSettings::tabPosition());
 }
 
 QWidget* Viewer::widget() {

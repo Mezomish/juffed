@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "MW.h"
 
 #include "Log.h"
+#include "MainSettings.h"
 
 #include <QtGui/QCloseEvent>
 
@@ -26,6 +27,7 @@ namespace Juff {
 namespace GUI {
 
 MW::MW() : QMainWindow() {
+	setGeometry(MainSettings::windowRect());
 }
 
 void MW::closeEvent(QCloseEvent* e) {
@@ -33,10 +35,13 @@ void MW::closeEvent(QCloseEvent* e) {
 	
 	bool confirmed = true;
 	emit closeRequested(confirmed);
-	if ( confirmed )
+	if ( confirmed ) {
+		MainSettings::setWindowRect(geometry());
 		e->accept();
-	else
+	}
+	else {
 		e->ignore();
+	}
 }
 
 }	//	namespace GUI

@@ -86,7 +86,6 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 
 GUI::GUI() : QObject() {
 	mw_ = new MW();
-	mw_->setGeometry(200, 50, 800, 600);
 	connect(mw_, SIGNAL(closeRequested(bool&)), this, SIGNAL(closeRequested(bool&)));
 	
 	toolsMenu_ = new QMenu(tr("&Tools"));

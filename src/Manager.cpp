@@ -55,9 +55,9 @@ public:
 		pluginManager_ = 0;
 		
 		mainTB_ = new QToolBar("MainTB");
-		fileMenu_ = new QMenu(QObject::tr("File"));
-		editMenu_ = new QMenu(QObject::tr("Edit"));
-		charsetMenu_ = new QMenu(QObject::tr("Charset"));
+		fileMenu_ = new QMenu(QObject::tr("&File"));
+		editMenu_ = new QMenu(QObject::tr("&Edit"));
+		charsetMenu_ = new QMenu(QObject::tr("&Charset"));
 		
 		chActGr_ = new QActionGroup(m);
 		

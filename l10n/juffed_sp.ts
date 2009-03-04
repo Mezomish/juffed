@@ -1,29 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ru_RU">
 <context>
-    <name></name>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="34"/>
-        <source>Markers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="41"/>
-        <source>Syntax</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>AboutDlg</name>
     <message>
         <location filename="../src/gui/AboutDlg.cpp" line="106"/>
         <source>About</source>
-        <translation type="unfinished">Acerca de</translation>
+        <translation>Acerca de</translation>
     </message>
     <message>
         <location filename="../src/gui/AboutDlg.cpp" line="69"/>
         <source>Close</source>
-        <translation type="unfinished">Cerrar</translation>
+        <translation>Cerrar</translation>
     </message>
     <message>
         <location filename="../src/gui/AboutDlg.cpp" line="114"/>
@@ -87,17 +74,17 @@
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="285"/>
         <source>Font</source>
-        <translation type="unfinished">Fuente</translation>
+        <translation>Fuente</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="295"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="208"/>
         <source>Tabstop width</source>
-        <translation type="unfinished">Tamaño de tabulador</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="38"/>
-        <source>Misc</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de tabulador</translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="58"/>
@@ -112,6 +99,11 @@
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="99"/>
         <source>Highlight current line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="38"/>
+        <source>Misc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -151,38 +143,33 @@ whole indent instead of removind single whitespace</source>
         <source>Show indents</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="295"/>
-        <source>Size</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>FindDlg</name>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="53"/>
         <source>Replace</source>
-        <translation type="unfinished">Reemplazar</translation>
+        <translation>Reemplazar</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="110"/>
         <source>Find</source>
-        <translation type="unfinished">Buscar</translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="63"/>
         <source>Match case</source>
-        <translation type="unfinished">Distinguir entre mayúsculas y minúsculas</translation>
+        <translation>Distinguir entre mayúsculas y minúsculas</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="88"/>
         <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="117"/>
         <source>Backward</source>
-        <translation type="unfinished">Buscar hacia atrás</translation>
+        <translation>Buscar hacia atrás</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="127"/>
@@ -195,20 +182,20 @@ whole indent instead of removind single whitespace</source>
     <message>
         <location filename="../src/gui/FindDlg.cpp" line="79"/>
         <source>Replace</source>
-        <translation type="unfinished">Reemplazar</translation>
+        <translation>Reemplazar</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.cpp" line="83"/>
         <source>Find</source>
-        <translation type="unfinished">Buscar</translation>
+        <translation>Buscar</translation>
     </message>
 </context>
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
         <location filename="../src/gui/GUI.cpp" line="92"/>
-        <source>Tools</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Tools</source>
+        <translation>&amp;Herramientas</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="133"/>
@@ -218,7 +205,7 @@ whole indent instead of removind single whitespace</source>
     <message>
         <location filename="../src/gui/GUI.cpp" line="137"/>
         <source>Save as</source>
-        <translation type="unfinished">Guardar como</translation>
+        <translation>Guardar como</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="143"/>
@@ -228,7 +215,7 @@ whole indent instead of removind single whitespace</source>
     <message>
         <location filename="../src/gui/GUI.cpp" line="155"/>
         <source>Save</source>
-        <translation type="unfinished">Guardar</translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="168"/>
@@ -248,7 +235,7 @@ whole indent instead of removind single whitespace</source>
     <message>
         <location filename="../src/gui/GUI.cpp" line="338"/>
         <source>About Qt</source>
-        <translation type="unfinished">Acerca de Qt</translation>
+        <translation>Acerca de Qt</translation>
     </message>
 </context>
 <context>
@@ -276,7 +263,7 @@ whole indent instead of removind single whitespace</source>
     <message>
         <location filename="../src/Manager.cpp" line="424"/>
         <source>Save as</source>
-        <translation type="unfinished">Guardar como</translation>
+        <translation>Guardar como</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="438"/>
@@ -302,7 +289,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../src/Manager.cpp" line="934"/>
         <source>Go to line</source>
-        <translation type="unfinished">Ir a la Línea</translation>
+        <translation>Ir a la Línea</translation>
     </message>
 </context>
 <context>
@@ -314,6 +301,24 @@ Do you want to save your changes?</source>
     </message>
 </context>
 <context>
+    <name>Juff::SciDocHandler</name>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="60"/>
+        <source>Show line numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="66"/>
+        <source>Wrap words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="82"/>
+        <source>&amp;View</source>
+        <translation>&amp;Ver</translation>
+    </message>
+</context>
+<context>
     <name>Juff::SimpleDoc</name>
     <message>
         <location filename="../src/SimpleDoc.cpp" line="124"/>
@@ -322,138 +327,10 @@ Do you want to save your changes?</source>
     </message>
 </context>
 <context>
-    <name>JuffEd</name>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="429"/>
-        <source>About Qt</source>
-        <translation type="obsolete">Acerca de Qt</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="379"/>
-        <source>New</source>
-        <translation type="obsolete">Nuevo</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="380"/>
-        <source>Open</source>
-        <translation type="obsolete">Abrir</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="381"/>
-        <source>Save</source>
-        <translation type="obsolete">Guardar</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="382"/>
-        <source>Save as</source>
-        <translation type="obsolete">Guardar como</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="383"/>
-        <source>Reload</source>
-        <translation type="obsolete">Recargar</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="386"/>
-        <source>Close</source>
-        <translation type="obsolete">Cerrar</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="388"/>
-        <source>Exit</source>
-        <translation type="obsolete">Salir</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="390"/>
-        <source>Cut</source>
-        <translation type="obsolete">Cortar</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="391"/>
-        <source>Copy</source>
-        <translation type="obsolete">Copiar</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="392"/>
-        <source>Paste</source>
-        <translation type="obsolete">Pegar</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="393"/>
-        <source>Undo</source>
-        <translation type="obsolete">Deshacer</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="394"/>
-        <source>Redo</source>
-        <translation type="obsolete">Rehacer</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="395"/>
-        <source>Find</source>
-        <translation type="obsolete">Buscar</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="396"/>
-        <source>Find next</source>
-        <translation type="obsolete">Buscar siguiente</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="397"/>
-        <source>Find previous</source>
-        <translation type="obsolete">Buscar Anterior</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="398"/>
-        <source>Go to line</source>
-        <translation type="obsolete">Ir a la Línea</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="418"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="419"/>
-        <source>Next</source>
-        <translation type="obsolete">Siguiente</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="421"/>
-        <source>Settings</source>
-        <translation type="obsolete">Configuración</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="428"/>
-        <source>About</source>
-        <translation type="obsolete">Acerca de</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="564"/>
-        <source>&amp;File</source>
-        <translation type="obsolete">&amp;Archivo</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="479"/>
-        <source>&amp;Edit</source>
-        <translation type="obsolete">&amp;Editar</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="479"/>
-        <source>&amp;View</source>
-        <translation type="obsolete">&amp;Ver</translation>
-    </message>
-    <message>
-        <location filename="../src/JuffEd.cpp" line="574"/>
-        <source>&amp;Tools</source>
-        <translation type="obsolete">&amp;Herramientas</translation>
-    </message>
-</context>
-<context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="41"/>
-        <source>Open empty session</source>
+        <location filename="../src/gui/MainSettingsPage.ui" line="83"/>
+        <source>On program start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -462,23 +339,18 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="68"/>
-        <source>Open last saved session</source>
+        <location filename="../src/gui/MainSettingsPage.ui" line="41"/>
+        <source>Open empty session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="83"/>
-        <source>On program start</source>
+        <location filename="../src/gui/MainSettingsPage.ui" line="131"/>
+        <source>Auto save every</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="92"/>
-        <source>Save session when close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="99"/>
-        <source>Sync &apos;Open&apos; dialog to current doc&apos;s dir</source>
+        <location filename="../src/gui/MainSettingsPage.ui" line="154"/>
+        <source> minute(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -497,13 +369,18 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="131"/>
-        <source>Auto save every</source>
+        <location filename="../src/gui/MainSettingsPage.ui" line="92"/>
+        <source>Save session when close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="154"/>
-        <source> minute(s)</source>
+        <location filename="../src/gui/MainSettingsPage.ui" line="68"/>
+        <source>Open last saved session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/MainSettingsPage.ui" line="99"/>
+        <source>Sync &apos;Open&apos; dialog to current doc&apos;s dir</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -518,33 +395,63 @@ Do you want to save your changes?</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="93"/>
-        <source>About</source>
-        <translation type="unfinished">Acerca de</translation>
-    </message>
-    <message>
-        <location filename="../src/SciDoc.cpp" line="418"/>
-        <source>Confirmation</source>
-        <translation type="unfinished">Confirmación</translation>
-    </message>
-    <message>
         <location filename="../include/Functions.h" line="15"/>
         <source>Noname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="58"/>
-        <source>File</source>
+        <location filename="../src/lib/CommandStorage.cpp" line="93"/>
+        <source>About</source>
+        <translation>Acerca de</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="62"/>
+        <source>Simple text editor with syntax highlighting</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="65"/>
+        <source>Polish translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="66"/>
+        <source>German translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="418"/>
+        <source>Confirmation</source>
+        <translation>Confirmación</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="67"/>
+        <source>French translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="68"/>
+        <source>Brazilian Portuguese translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="419"/>
+        <source>Replace this text?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="58"/>
+        <source>&amp;File</source>
+        <translation>&amp;Archivo</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="59"/>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <source>&amp;Edit</source>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="60"/>
-        <source>Charset</source>
+        <source>&amp;Charset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -572,62 +479,32 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="77"/>
         <source>Find</source>
-        <translation type="unfinished">Buscar</translation>
-    </message>
-    <message>
-        <location filename="../src/SciDoc.cpp" line="419"/>
-        <source>Replace this text?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/GUI.cpp" line="62"/>
-        <source>Simple text editor with syntax highlighting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/GUI.cpp" line="65"/>
-        <source>Polish translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/GUI.cpp" line="66"/>
-        <source>German translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/GUI.cpp" line="67"/>
-        <source>French translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/GUI.cpp" line="68"/>
-        <source>Brazilian Portuguese translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="58"/>
         <source>New</source>
-        <translation type="unfinished">Nuevo</translation>
+        <translation>Nuevo</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="59"/>
         <source>Open</source>
-        <translation type="unfinished">Abrir</translation>
+        <translation>Abrir</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="60"/>
         <source>Save</source>
-        <translation type="unfinished">Guardar</translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="61"/>
         <source>Save as</source>
-        <translation type="unfinished">Guardar como</translation>
+        <translation>Guardar como</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="62"/>
         <source>Close</source>
-        <translation type="unfinished">Cerrar</translation>
+        <translation>Cerrar</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="63"/>
@@ -637,7 +514,7 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="64"/>
         <source>Exit</source>
-        <translation type="unfinished">Salir</translation>
+        <translation>Salir</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="66"/>
@@ -662,47 +539,47 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="71"/>
         <source>Undo</source>
-        <translation type="unfinished">Deshacer</translation>
+        <translation>Deshacer</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="72"/>
         <source>Redo</source>
-        <translation type="unfinished">Rehacer</translation>
+        <translation>Rehacer</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="73"/>
         <source>Cut</source>
-        <translation type="unfinished">Cortar</translation>
+        <translation>Cortar</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="74"/>
         <source>Copy</source>
-        <translation type="unfinished">Copiar</translation>
+        <translation>Copiar</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="75"/>
         <source>Paste</source>
-        <translation type="unfinished">Pegar</translation>
+        <translation>Pegar</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="78"/>
         <source>Find next</source>
-        <translation type="unfinished">Buscar siguiente</translation>
+        <translation>Buscar siguiente</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="79"/>
         <source>Find previous</source>
-        <translation type="unfinished">Buscar Anterior</translation>
+        <translation>Buscar Anterior</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="80"/>
         <source>Replace</source>
-        <translation type="unfinished">Reemplazar</translation>
+        <translation>Reemplazar</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="81"/>
         <source>Go to line</source>
-        <translation type="unfinished">Ir a la Línea</translation>
+        <translation>Ir a la Línea</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="83"/>
@@ -742,30 +619,40 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="92"/>
         <source>Settings</source>
-        <translation type="unfinished">Configuración</translation>
+        <translation>Configuración</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="94"/>
         <source>About Qt</source>
-        <translation type="unfinished">Acerca de Qt</translation>
+        <translation>Acerca de Qt</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="96"/>
         <source>N/A</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="34"/>
+        <source>&amp;Markers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="41"/>
+        <source>&amp;Syntax</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SessionDlg</name>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="44"/>
-        <source>Name</source>
-        <translation type="unfinished">Nombre</translation>
-    </message>
-    <message>
         <location filename="../src/gui/SessionDlg.ui" line="13"/>
         <source>Session manager</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SessionDlg.ui" line="44"/>
+        <source>Name</source>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="../src/gui/SessionDlg.ui" line="65"/>
@@ -783,31 +670,26 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="102"/>
         <source>Settings</source>
-        <translation type="unfinished">Configuración</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="106"/>
-        <source>Apply</source>
-        <translation type="unfinished">Aplicar</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="107"/>
-        <source>Cancel</source>
-        <translation type="unfinished">Cancelar</translation>
+        <translation>Configuración</translation>
     </message>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="105"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SettingsDlg.cpp" line="106"/>
+        <source>Apply</source>
+        <translation>Aplicar</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SettingsDlg.cpp" line="107"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="118"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="119"/>
-        <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -819,6 +701,11 @@ Continue from the beginning?</source>
         <location filename="../src/gui/SettingsDlg.cpp" line="122"/>
         <source>Charsets</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SettingsDlg.cpp" line="119"/>
+        <source>View</source>
+        <translation>Ver</translation>
     </message>
 </context>
 <context>
@@ -837,32 +724,6 @@ Continue from the beginning?</source>
         <location filename="../src/TabBar.cpp" line="35"/>
         <source>Copy file directory path to clipboard</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TextDoc</name>
-    <message>
-        <location filename="../src/TextDoc.cpp" line="149"/>
-        <source>Save as</source>
-        <translation type="obsolete">Guardar como</translation>
-    </message>
-    <message>
-        <location filename="../src/TextDoc.cpp" line="115"/>
-        <source>Save</source>
-        <translation type="obsolete">Guardar</translation>
-    </message>
-    <message>
-        <location filename="../src/TextDoc.cpp" line="337"/>
-        <source>Go to line</source>
-        <translation type="obsolete">Ir a la Línea</translation>
-    </message>
-</context>
-<context>
-    <name>TextDocView</name>
-    <message>
-        <location filename="../src/TextDocView.cpp" line="614"/>
-        <source>Find</source>
-        <translation type="obsolete">Buscar</translation>
     </message>
 </context>
 <context>
@@ -885,17 +746,17 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="63"/>
         <source>16</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="68"/>
         <source>24</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="73"/>
         <source>32</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="82"/>

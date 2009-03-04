@@ -89,7 +89,7 @@ GUI::GUI() : QObject() {
 	mw_->setGeometry(200, 50, 800, 600);
 	connect(mw_, SIGNAL(closeRequested(bool&)), this, SIGNAL(closeRequested(bool&)));
 	
-	toolsMenu_ = new QMenu(tr("Tools"));
+	toolsMenu_ = new QMenu(tr("&Tools"));
 	helpMenu_ = new QMenu("?");
 
 	CommandStorage* st = CommandStorage::instance();

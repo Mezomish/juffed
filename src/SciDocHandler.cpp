@@ -31,14 +31,14 @@ namespace Juff {
 class SciDocHandler::Interior {
 public:
 	Interior() {
-		markersMenu_ = new QMenu(tr("Markers"));
+		markersMenu_ = new QMenu(QObject::tr("&Markers"));
 
 	//	initMarkersMenu();
 		
 //		QAction* act = new QAction(tr("Toggle marker"), 0);
 
 
-		syntaxMenu_ = new QMenu(tr("Syntax"));
+		syntaxMenu_ = new QMenu(QObject::tr("&Syntax"));
 		syntaxActGr_ = new QActionGroup(0);
 	}
 	
@@ -57,13 +57,13 @@ public:
 SciDocHandler::SciDocHandler() : DocHandler() {	
 	docInt_ = new Interior();
 	
-		QAction* showLineNumsAct = new QAction("Show line numbers", 0);
+		QAction* showLineNumsAct = new QAction(tr("Show line numbers"), 0);
 		showLineNumsAct->setShortcut(QKeySequence("F11"));
 		showLineNumsAct->setCheckable(true);
 		showLineNumsAct->setChecked(TextDocSettings::showLineNumbers());
 		connect(showLineNumsAct, SIGNAL(activated()), this, SLOT(showLineNums()));
 		
-		QAction* wordWrapAct = new QAction("Wrap words", 0);
+		QAction* wordWrapAct = new QAction(tr("Wrap words"), 0);
 		wordWrapAct->setShortcut(QKeySequence("F10"));
 		wordWrapAct->setCheckable(true);
 		wordWrapAct->setChecked(TextDocSettings::widthAdjust());
@@ -79,7 +79,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 		st->registerCommand(ID_ZOOM_OUT, this, SLOT(zoomOut()));
 		st->registerCommand(ID_ZOOM_100, this, SLOT(zoom100()));
 
-		QMenu* viewMenu = new QMenu("View");
+		QMenu* viewMenu = new QMenu(tr("&View"));
 		viewMenu->addAction(showLineNumsAct);
 		viewMenu->addAction(wordWrapAct);
 		viewMenu->addAction(st->action(ID_ZOOM_IN));

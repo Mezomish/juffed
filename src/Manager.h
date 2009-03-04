@@ -60,6 +60,8 @@ public:
 	virtual void activateDoc(const QString&);
 	virtual void closeDoc(const QString&);
 
+	void restoreSession();
+	
 public slots:
 	/**
 	*	Opens a new doc or activates already opened one
@@ -124,7 +126,6 @@ private:
 	bool openSess(const QString&);
 	bool saveSess(const QString&);
 	void writePanelViews(QFile& file, int panel);
-	void restoreSess();
 
 	bool confirmExit();
 

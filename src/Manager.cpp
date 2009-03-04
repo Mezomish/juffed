@@ -72,7 +72,6 @@ public:
 				addToRecentFiles(fileName);
 			}
 		}
-
 	}
 	~Interior() {
 		delete recentFilesMenu_;
@@ -278,7 +277,6 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 
 	gui->setMenus(menus);
 
-	restoreSess();
 	applySettings();
 }
 
@@ -289,8 +287,9 @@ bool Manager::confirmExit() {
 	JUFFENTRY;
 
 	MainSettings::setLastSessionName(mInt_->sessionName_);
-	if ( MainSettings::saveSessionOnClose() )
+	if ( MainSettings::saveSessionOnClose() ) {
 		saveSess(mInt_->sessionName_);
+	}
 	
 	return closeSess();
 }
@@ -817,7 +816,7 @@ bool Manager::closeSess() {
 	return true;
 }
 
-void Manager::restoreSess() {
+void Manager::restoreSession() {
 	JUFFENTRY;
 
 	int startupVariant = MainSettings::startupVariant();

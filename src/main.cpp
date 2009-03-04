@@ -87,5 +87,20 @@ int main(int argc, char* argv[])
 	Juff::Manager manager(&gui);
 	gui.show();
 	
+	bool openFiles = false;
+	for (int i = 1; i < argc; ++i) {
+		QString argument = QString::fromLocal8Bit(argv[i]);
+		if (argument[0] == '-') {
+			//	command line options
+		}
+		else {
+			manager.openDoc(QFileInfo(argument).absoluteFilePath());
+			openFiles = true;
+		}
+	}
+
+	if ( !openFiles )
+		manager.restoreSession();
+
 	return app.exec();
 }

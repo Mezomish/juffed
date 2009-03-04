@@ -539,9 +539,18 @@ void Manager::fileOpen() {
 	QStringList files = mInt_->gui_->getOpenFileNames(startDir, filters);
 	QString fileName = "";
 	foreach (fileName, files) {
-		createDoc("sci", fileName);
-		mInt_->addToRecentFiles(fileName);
-		initRecentFilesMenu();
+		//	check if this file is already opened
+		if ( mInt_->docs1_.contains(fileName) ) {
+			mInt_->viewer_->activateDoc(mInt_->docs1_[fileName]);
+		}
+		else if ( mInt_->docs2_.contains(fileName) ) {
+			mInt_->viewer_->activateDoc(mInt_->docs2_[fileName]);
+		}
+		else {
+			createDoc("sci", fileName);
+			mInt_->addToRecentFiles(fileName);
+			initRecentFilesMenu();
+		}
 	}
 	if ( !fileName.isEmpty() )
 		MainSettings::setLastOpenDir(QFileInfo(fileName).absolutePath());

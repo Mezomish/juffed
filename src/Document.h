@@ -47,6 +47,7 @@ public:
 	virtual QWidget* widget() = 0;
 
 	virtual bool save(const QString&, QString& err) = 0;
+	virtual void print() = 0;
 
 	//	TODO : make the following methods pure virtual
 	virtual void undo() {}

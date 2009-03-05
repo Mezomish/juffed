@@ -33,6 +33,7 @@ public:
 	virtual void setModified(bool);
 	virtual QWidget* widget();
 	virtual bool save(const QString&, QString&);
+	virtual void print();
 
 	/**
 	 *	Only in class NullDoc this method must return 'true' !!!

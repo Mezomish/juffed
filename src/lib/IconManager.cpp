@@ -37,10 +37,9 @@ public:
 		idIconMap_[Juff::ID_FILE_CLOSE] = QPair<QString, QString>("", "");
 		idIconMap_[Juff::ID_FILE_CLOSE_ALL] = QPair<QString, QString>("", "");
 		idIconMap_[Juff::ID_EXIT] = QPair<QString, QString>("actions/exit.png", "exit.png");
-/*		idIconMap_[Juff::ID_FILE_RELOAD] = QPair<QString, QString>("actions/view-refresh.png", "");
+//		idIconMap_[Juff::ID_FILE_RELOAD] = QPair<QString, QString>("actions/view-refresh.png", "");
 		idIconMap_[Juff::ID_FILE_PRINT] = QPair<QString, QString>("actions/document-print.png", "filePrint.png");
-		idIconMap_[Juff::ID_FILE_PRINT_SELECTED] = QPair<QString, QString>("", "");
-*/		//
+		//
 		idIconMap_[Juff::ID_EDIT_CUT] = QPair<QString, QString>("actions/edit-cut.png", "editCut.png");
 		idIconMap_[Juff::ID_EDIT_COPY] = QPair<QString, QString>("actions/edit-copy.png", "editCopy.png");
 		idIconMap_[Juff::ID_EDIT_PASTE] = QPair<QString, QString>("actions/edit-paste.png", "editPaste.png");

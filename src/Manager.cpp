@@ -159,6 +159,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	st->registerCommand(ID_FILE_SAVE_AS,	this, SLOT(fileSaveAs()));
 	st->registerCommand(ID_FILE_CLOSE,		this, SLOT(fileClose()));
 	st->registerCommand(ID_FILE_CLOSE_ALL,	this, SLOT(fileCloseAll()));
+	st->registerCommand(ID_FILE_PRINT,		this, SLOT(filePrint()));
 	st->registerCommand(ID_EXIT,			this, SLOT(exit()));
 	//
 	st->registerCommand(ID_SESSION_NEW,		this, SLOT(sessionNew()));
@@ -189,6 +190,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_AS));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE_ALL));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_PRINT));
 	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
 	QMenu* sessMenu = new QMenu(QObject::tr("Session"));
 	sessMenu->addAction(st->action(ID_SESSION_NEW));
@@ -219,6 +221,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	tb->addAction(st->action(ID_FILE_NEW));
 	tb->addAction(st->action(ID_FILE_OPEN));
 	tb->addAction(st->action(ID_FILE_SAVE));
+	tb->addAction(st->action(ID_SEPARATOR));
+	tb->addAction(st->action(ID_FILE_PRINT));
 	tb->addAction(st->action(ID_SEPARATOR));
 	tb->addAction(st->action(ID_EDIT_UNDO));
 	tb->addAction(st->action(ID_EDIT_REDO));
@@ -685,6 +689,14 @@ bool Manager::fileClose() {
 
 void Manager::fileCloseAll() {
 	closeAllDocs();
+}
+
+void Manager::filePrint() {
+	JUFFENTRY;
+	
+	Document* doc = curDoc();
+	if ( !doc->isNull() && !isNoname(doc->fileName()) )
+		doc->print();
 }
 
 

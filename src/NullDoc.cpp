@@ -37,6 +37,10 @@ bool NullDoc::save(const QString&, QString&) {
 	return false;
 }
 
+void NullDoc::print() { 
+	scream();
+}
+
 bool NullDoc::isModified() const {
 	scream();
 	return false;

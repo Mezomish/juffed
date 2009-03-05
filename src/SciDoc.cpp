@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TextDocSettings.h"
 
 #include <Qsci/qsciscintilla.h>
+#include <Qsci/qsciprinter.h>
 
 #include <QtCore/QFile>
 #include <QtCore/QTextCodec>
@@ -33,6 +34,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QDropEvent>
 #include <QtGui/QMenu>
 #include <QtGui/QMessageBox>
+#include <QtGui/QPrintDialog>
 #include <QtGui/QScrollBar>
 #include <QtGui/QSplitter>
 
@@ -268,6 +270,28 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 
 SciDoc::~SciDoc() {
 	delete docInt_;
+}
+
+void SciDoc::print() {
+	QsciPrinter prn;
+	QPrintDialog dlg(&prn, widget());
+	if (dlg.exec() == QDialog::Accepted) {
+		prn.setWrapMode(TextDocSettings::widthAdjust() ? QsciScintilla::WrapWord : QsciScintilla::WrapNone);
+		
+		int line1(-1), line2(-1), col1(-1), col2(-1);
+		MyQScintilla* edit = getActiveEdit();
+		edit->getSelection(&line1, &col1, &line2, &col2);
+		if (line1 >=0 && line2 >= 0 && col1 >= 0 && col2 >= 0) {
+			//	We have selection. Print it.
+			
+			--line2;
+			prn.printRange(edit, line1, line2);
+		}
+		else {
+			//	We don't have selection. Print the whole text.
+			prn.printRange(edit, 0);
+		}
+	}
 }
 
 QWidget* SciDoc::widget() {

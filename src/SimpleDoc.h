@@ -32,6 +32,7 @@ public:
 	virtual bool isModified() const;
 	virtual void setModified(bool);
 	virtual bool save(const QString&, QString&);
+	virtual void print();
 
 private:
 	void readDoc();

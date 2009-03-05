@@ -79,6 +79,7 @@ private slots:
 	bool fileClose();
 	void fileCloseAll();
 	void fileRecent();
+	void filePrint();
 	void exit();
 
 	void sessionNew();

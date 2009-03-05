@@ -61,6 +61,7 @@ QString CommandStorage::getName(CommandID id) {
 		case ID_FILE_SAVE_AS :	return QObject::tr("Save as");
 		case ID_FILE_CLOSE :	return QObject::tr("Close");
 		case ID_FILE_CLOSE_ALL :	return QObject::tr("Close all");
+		case ID_FILE_PRINT :	return QObject::tr("Print");
 		case ID_EXIT :			return QObject::tr("Exit");
 
 		case ID_SESSION_NEW :	return QObject::tr("New session");
@@ -104,6 +105,7 @@ QKeySequence CommandStorage::getShortcut(CommandID id) {
 		case ID_FILE_SAVE :		return QKeySequence("Ctrl+S");
 		case ID_FILE_SAVE_AS :	return QKeySequence("");
 		case ID_FILE_CLOSE :	return QKeySequence("Ctrl+W");
+		case ID_FILE_PRINT :	return QKeySequence("Ctrl+P");
 		case ID_EXIT:			return QKeySequence("Ctrl+Q");
 			
 		case ID_EDIT_UNDO :		return QKeySequence("Ctrl+Z");

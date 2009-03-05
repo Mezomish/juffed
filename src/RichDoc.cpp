@@ -59,4 +59,7 @@ bool RichDoc::save(const QString&, QString&) {
 	return true;
 }
 
+void RichDoc::print() { 
+}
+
 }	//	namespace Juff

@@ -43,10 +43,6 @@ void Settings::read() {
 	QSettings sett(QSettings::IniFormat, QSettings::UserScope, 
 					QCoreApplication::organizationName(), QCoreApplication::applicationName());
 
-	JUFFDEBUG("===================================");
-	JUFFDEBUG(QCoreApplication::organizationName());
-	JUFFDEBUG(QCoreApplication::applicationName());
-	
 	QStringList groups = sett.childGroups();
 	foreach (QString grp, groups) {
 		sett.beginGroup(grp);

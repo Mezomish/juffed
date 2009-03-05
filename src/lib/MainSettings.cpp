@@ -92,7 +92,7 @@ bool MainSettings::closeTabsInOrderOfUse() {
 }
 
 bool MainSettings::singleInstance() { 
-	return Settings::value("main", "singleInstance").toBool(); 
+	return Settings::boolValue("main", "singleInstance", false); 
 }
 QByteArray MainSettings::mwState() {
 	return Settings::value("main", "mwState").toByteArray(); 

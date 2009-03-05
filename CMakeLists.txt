@@ -92,6 +92,7 @@ SET ( juffed_UIS
 SET ( juffed_SRCS
 	src/DocHandler.cpp
 	src/Document.cpp
+	src/JuffApp.cpp
 	src/LexerStorage.cpp
 	src/main.cpp
 	src/Manager.cpp
@@ -103,6 +104,7 @@ SET ( juffed_SRCS
 	src/SciDocHandler.cpp
 	src/SimpleDoc.cpp
 	src/SimpleDocHandler.cpp
+	src/SocketListener.cpp
 	src/gui/AboutDlg.cpp
 	src/gui/CharsetsSettingsPage.cpp
 	src/gui/ColorButton.cpp
@@ -118,6 +120,7 @@ SET ( juffed_SRCS
 SET ( juffed_MOC_HDRS
 	src/DocHandler.h
 	src/Document.h
+	src/JuffApp.h
 	src/LexerStorage.h
 	src/Manager.h
 	src/NullDoc.h
@@ -128,6 +131,7 @@ SET ( juffed_MOC_HDRS
 	src/SciDocHandler.h
 	src/SimpleDoc.h
 	src/SimpleDocHandler.h
+	src/SocketListener.h
 	src/gui/AboutDlg.h
 	src/gui/CharsetsSettingsPage.h
 	src/gui/ColorButton.h

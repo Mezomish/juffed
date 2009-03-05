@@ -76,6 +76,7 @@ private slots:
 	void fileOpen();
 	bool fileSave();
 	bool fileSaveAs();
+	void fileReload();
 	bool fileClose();
 	void fileCloseAll();
 	void fileRecent();

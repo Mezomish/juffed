@@ -129,4 +129,7 @@ bool SimpleDoc::save(const QString& fileName, QString& error) {
 void SimpleDoc::print() {
 }
 
+void SimpleDoc::reload() {
+}
+
 }	//	namespace Juff

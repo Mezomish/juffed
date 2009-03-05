@@ -48,6 +48,7 @@ public:
 
 	virtual bool save(const QString&, QString& err) = 0;
 	virtual void print() = 0;
+	virtual void reload() = 0;
 
 	//	TODO : make the following methods pure virtual
 	virtual void undo() {}

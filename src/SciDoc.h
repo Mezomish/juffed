@@ -36,6 +36,7 @@ public:
 	virtual void setModified(bool);
 	virtual bool save(const QString&, QString&);
 	virtual void print();
+	virtual void reload();
 
 	virtual void undo();
 	virtual void redo();

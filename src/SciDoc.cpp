@@ -575,6 +575,20 @@ bool SciDoc::save(const QString& fileName, QString& error) {
 	}
 }
 
+void SciDoc::reload() {
+	if ( !Juff::isNoname(fileName()) ) {
+		int line, col;
+		getCursorPos(line, col);
+		int scroll = curScrollPos();
+		readDoc();
+		setModified(false);
+		if ( line >=0 && col >= 0 ) {
+			setCursorPos(line, col);
+			setScrollPos(scroll);
+		}
+	}
+}
+
 void SciDoc::readDoc() {
 	QString text;
 	QFile file(fileName());

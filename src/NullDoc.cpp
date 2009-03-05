@@ -41,6 +41,10 @@ void NullDoc::print() {
 	scream();
 }
 
+void NullDoc::reload() { 
+	scream();
+}
+
 bool NullDoc::isModified() const {
 	scream();
 	return false;

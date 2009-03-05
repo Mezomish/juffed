@@ -34,6 +34,7 @@ public:
 	virtual QWidget* widget();
 	virtual bool save(const QString&, QString&);
 	virtual void print();
+	virtual void reload();
 
 	/**
 	 *	Only in class NullDoc this method must return 'true' !!!

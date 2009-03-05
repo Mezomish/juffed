@@ -157,6 +157,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	st->registerCommand(ID_FILE_OPEN,		this, SLOT(fileOpen()));
 	st->registerCommand(ID_FILE_SAVE, 		this, SLOT(fileSave()));
 	st->registerCommand(ID_FILE_SAVE_AS,	this, SLOT(fileSaveAs()));
+	st->registerCommand(ID_FILE_RELOAD,		this, SLOT(fileReload()));
 	st->registerCommand(ID_FILE_CLOSE,		this, SLOT(fileClose()));
 	st->registerCommand(ID_FILE_CLOSE_ALL,	this, SLOT(fileCloseAll()));
 	st->registerCommand(ID_FILE_PRINT,		this, SLOT(filePrint()));
@@ -188,6 +189,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_OPEN));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_AS));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_RELOAD));
+	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE_ALL));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_PRINT));
@@ -640,6 +643,14 @@ bool Manager::fileSaveAs() {
 		}
 	}
 	return false;
+}
+
+void Manager::fileReload() {
+	Document* doc = curDoc();
+	
+	if ( !doc->isNull() ) {
+		doc->reload();
+	}
 }
 
 bool Manager::fileClose() {

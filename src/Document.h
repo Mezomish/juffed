@@ -23,8 +23,10 @@ class QWidget;
 
 #include "Juff.h"
 
-#include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QDateTime>
+#include <QtCore/QMutex>
+#include <QtCore/QTimer>
 
 namespace Juff {
 	class DocHandler;
@@ -88,11 +90,17 @@ signals:
 	void fileNameChanged(const QString& oldFileName);
 	void cursorPositionChanged(int, int);
 
+protected slots:
+	void checkLastModified();
+
 protected:
 	QString type_;
 
 private:
 	QString fileName_;
+	QDateTime lastModified_;
+	QTimer* modCheckTimer_;
+	QMutex checkingMutex_;
 };
 
 }	//	namespace Juff

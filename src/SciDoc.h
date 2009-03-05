@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 namespace Juff {
 
-class MyQScintilla;
+class JuffScintilla;
 
 class SciDoc : public Document {
 Q_OBJECT
@@ -85,8 +85,8 @@ public:
 private:
 	void readDoc();
 
-	bool doReplace(MyQScintilla* edit, const QString& str1, const QString& str2, const DocFindFlags& flags, bool& replaceAll);
-	MyQScintilla* getActiveEdit() const;
+	bool doReplace(JuffScintilla* edit, const QString& str1, const QString& str2, const DocFindFlags& flags, bool& replaceAll);
+	JuffScintilla* getActiveEdit() const;
 
 	class Interior;
 	Interior* docInt_;

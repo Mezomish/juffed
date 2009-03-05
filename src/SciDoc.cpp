@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Functions.h"
 #include "Log.h"
 #include "LexerStorage.h"
+#include "JuffScintilla.h"
 #include "TextDocSettings.h"
 
 #include <Qsci/qsciscintilla.h>
@@ -30,8 +31,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QFile>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
-#include <QtGui/QDragEnterEvent>
-#include <QtGui/QDropEvent>
 #include <QtGui/QMenu>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPrintDialog>
@@ -39,152 +38,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QSplitter>
 
 namespace Juff {
-
-class MyQScintilla : public QsciScintilla {
-public:
-	MyQScintilla(QWidget* parent) : QsciScintilla(parent) {
-		contextMenu_ = new QMenu();
-/*		contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_CUT));
-		contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_COPY));
-		contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_PASTE));
-		contextMenu_->addSeparator();
-		contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_UNDO));
-		contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_REDO));
-		contextMenu_->addSeparator();
-		contextMenu_->addAction(CommandStorage::instance()->action(ID_FIND));
-		contextMenu_->addAction(CommandStorage::instance()->action(ID_FIND_NEXT));
-		contextMenu_->addAction(CommandStorage::instance()->action(ID_FIND_PREV));
-		contextMenu_->addAction(CommandStorage::instance()->action(ID_REPLACE));
-//		contextMenu_->addSeparator();
-//		contextMenu_->addAction(CommandStorage::instance()->action(ID_GOTO_LINE));*/
-	}
-	virtual ~MyQScintilla() {
-		delete contextMenu_;
-	}
-
-	bool find(const QString& s, const DocFindFlags& flags) {
-		QString str(s);
-		QString text = this->text();
-		QStringList lines = text.split(QRegExp("\r?\n"));
-		int row(-1), col(-1);
-		this->getCursorPosition(&row, &col);
-		int lineIndex(0);
-		if (row < 0 || col < 0)
-			return false;
-
-		if (!flags.backwards) {
-			foreach (QString line, lines) {
-				if (lineIndex < row) {
-				}
-				else {
-					int indent(0);			
-					if (lineIndex == row) {
-						line = line.right(line.length() - col);
-						indent = col;
-					}
-					int index(-1);
-					QRegExp regExp(str);
-					regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-					if (flags.isRegExp)
-						index = line.indexOf(regExp);
-					else {
-						if (!flags.matchCase) {
-							str = str.toLower();
-							line = line.toLower();
-						}
-						index = line.indexOf(str);
-					}
-
-					if (index >= 0) {
-						if (flags.isRegExp) {
-							this->setSelection(lineIndex, index + indent, lineIndex, index + indent + regExp.matchedLength());
-							this->ensureCursorVisible();
-						}
-						else {
-							this->setSelection(lineIndex, index + indent, lineIndex, index + indent + str.length());
-							this->ensureCursorVisible();
-						}
-						return true;
-					}
-				}
-				++lineIndex;
-			}
-		}
-		else {
-			QStringList::iterator it = lines.end();
-			it--;
-			int lineIndex = lines.count() - 1;
-			while (lineIndex >= 0) {
-				if (lineIndex > row) {
-				}
-				else {
-					QString line = *it;
-					if (lineIndex == row) {
-						line = line.left(col);
-					}
-
-					int index(-1);
-					QRegExp regExp(str);
-					regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-					if (flags.isRegExp)
-						index = line.lastIndexOf(regExp);
-					else {
-						if (!flags.matchCase) {
-							str = str.toLower();
-							line = line.toLower();
-						}
-						index = line.lastIndexOf(str);
-					}
-
-					if (index >= 0) {
-						if (flags.isRegExp) {
-							this->setSelection(lineIndex, index, lineIndex, index + regExp.matchedLength());
-							this->ensureCursorVisible();
-						}
-						else {
-							this->setSelection(lineIndex, index, lineIndex, index + str.length());
-							this->ensureCursorVisible();
-						}
-						return true;
-					}
-				}
-				lineIndex--;
-				it--;
-			}
-		}
-
-		return false;
-	}
-
-	void replaceSelected(const QString& targetText, bool backwards) {
-		beginUndoAction();
-		removeSelectedText();
-		int r, c;
-		getCursorPosition(&r, &c);
-		insert(targetText);
-		if ( !backwards )
-			setCursorPosition(r, c + targetText.length());
-		endUndoAction();
-	}
-	
-protected:
-	virtual void dragEnterEvent(QDragEnterEvent* e) {
-		if ( !e->mimeData()->hasUrls() )
-			QsciScintilla::dragEnterEvent(e);
-	}
-
-	virtual void dropEvent(QDropEvent* e) {
-		if ( !e->mimeData()->hasUrls() )
-			QsciScintilla::dropEvent(e);
-	}
-
-	virtual void contextMenuEvent(QContextMenuEvent* e) {
-		contextMenu_->exec(e->globalPos());
-	}
-
-private:
-	QMenu* contextMenu_;
-};
 
 class SciDoc::Interior {
 public:
@@ -203,6 +56,7 @@ public:
 		
 		spl_->setSizes(QList<int>() << 0 << spl_->height());
 		spl_->setFocusProxy(edit2_);
+		edit2_->setFocus();
 	}
 	
 	
@@ -210,8 +64,8 @@ public:
 		delete spl_;
 	}
 	
-	MyQScintilla* createEdit() {
-		MyQScintilla* edit = new MyQScintilla(0);
+	JuffScintilla* createEdit() {
+		JuffScintilla* edit = new JuffScintilla();
 		edit->setUtf8(true);
 		edit->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
 		edit->setIndentationGuidesForegroundColor(QColor(250, 200, 200));
@@ -234,8 +88,8 @@ public:
 	}
 
 	QSplitter* spl_;
-	MyQScintilla* edit1_;
-	MyQScintilla* edit2_;
+	JuffScintilla* edit1_;
+	JuffScintilla* edit2_;
 	
 	QString syntax_;
 	QTextCodec* codec_;
@@ -272,17 +126,19 @@ void SciDoc::print() {
 		prn.setWrapMode(TextDocSettings::widthAdjust() ? QsciScintilla::WrapWord : QsciScintilla::WrapNone);
 		
 		int line1(-1), line2(-1), col1(-1), col2(-1);
-		MyQScintilla* edit = getActiveEdit();
-		edit->getSelection(&line1, &col1, &line2, &col2);
-		if (line1 >=0 && line2 >= 0 && col1 >= 0 && col2 >= 0) {
-			//	We have selection. Print it.
-			
-			--line2;
-			prn.printRange(edit, line1, line2);
-		}
-		else {
-			//	We don't have selection. Print the whole text.
-			prn.printRange(edit, 0);
+		JuffScintilla* edit = getActiveEdit();
+		if ( edit ) {
+			edit->getSelection(&line1, &col1, &line2, &col2);
+			if (line1 >=0 && line2 >= 0 && col1 >= 0 && col2 >= 0) {
+				//	We have selection. Print it.
+				
+				--line2;
+				prn.printRange(edit, line1, line2);
+			}
+			else {
+				//	We don't have selection. Print the whole text.
+				prn.printRange(edit, 0);
+			}
 		}
 	}
 }
@@ -291,8 +147,8 @@ QWidget* SciDoc::widget() {
 	return docInt_->spl_;
 }
 
-MyQScintilla* SciDoc::getActiveEdit() const {
-	return (docInt_->edit1_->hasFocus() ? docInt_->edit1_ : docInt_->edit2_);
+JuffScintilla* SciDoc::getActiveEdit() const {
+	return qobject_cast<JuffScintilla*>(docInt_->spl_->focusProxy());
 }
 
 bool SciDoc::isModified() const {
@@ -388,7 +244,10 @@ bool continueOverTheEnd(QsciScintilla* edit, bool back) {
 void SciDoc::find(const QString& str, const DocFindFlags& flags) {
 	JUFFENTRY;
 	
-	MyQScintilla* edit = getActiveEdit();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
 	prepareForFind(edit, str, flags);
 
 	bool found = edit->find(str, flags);
@@ -402,7 +261,10 @@ void SciDoc::find(const QString& str, const DocFindFlags& flags) {
 void SciDoc::replace(const QString& str1, const QString& str2, const DocFindFlags& flags) {
 	JUFFENTRY;
 	
-	MyQScintilla* edit = getActiveEdit();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
 	prepareForFind(edit, str1, flags);
 	
 	bool cancelled = false;
@@ -447,7 +309,7 @@ Answer confirm(QWidget* w) {
 	return answer;
 }
 
-bool SciDoc::doReplace(MyQScintilla* edit, const QString& str1, const QString& str2, const DocFindFlags& flags, bool& replaceAll) {
+bool SciDoc::doReplace(JuffScintilla* edit, const QString& str1, const QString& str2, const DocFindFlags& flags, bool& replaceAll) {
 	QString selectedText = edit->selectedText();
 	QString targetText(str2);
 	if ( flags.isRegExp ) {
@@ -651,13 +513,20 @@ void SciDoc::zoom100() {
 void SciDoc::gotoLine(int line) {
 	JUFFENTRY;
 
-	MyQScintilla* edit = getActiveEdit();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
 	edit->setCursorPosition(line, 0);
 }
 
 int SciDoc::curLine() const {
-	int line, col;
-	getActiveEdit()->getCursorPosition(&line, &col);
+	int line = -1, col = -1;
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit ) 
+		return -1;
+	
+	edit->getCursorPosition(&line, &col);
 	return line;
 }
 
@@ -665,48 +534,87 @@ QString SciDoc::text() const {
 	return docInt_->edit1_->text(); 
 }
 
-QString SciDoc::selectedText() const { 
-	return getActiveEdit()->selectedText(); 
+QString SciDoc::selectedText() const {
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return QString();
+	
+	return edit->selectedText(); 
 }
 
 void SciDoc::getCursorPos(int& line, int& col) const {
-	getActiveEdit()->getCursorPosition(&line, &col);
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->getCursorPosition(&line, &col);
 }
 
 void SciDoc::setCursorPos(int line, int col) {
-	getActiveEdit()->setCursorPosition(line, col);
-	getActiveEdit()->setFocus();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->setCursorPosition(line, col);
+	edit->setFocus();
 }
 
 void SciDoc::getSelection(int& line1, int& col1, int& line2, int& col2) const {
-	getActiveEdit()->getSelection(&line1, &col1, &line2, &col2);
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->getSelection(&line1, &col1, &line2, &col2);
 }
 
 void SciDoc::setSelection(int line1, int col1, int line2, int col2) {
-	getActiveEdit()->setSelection(line1, col1, line2, col2);
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->setSelection(line1, col1, line2, col2);
 }
 
 void SciDoc::insertText(const QString& text) {
-	getActiveEdit()->insert(text);
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->insert(text);
 }
 
 void SciDoc::removeSelectedText() {
-	getActiveEdit()->removeSelectedText();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->removeSelectedText();
 }
 
 
 int SciDoc::curScrollPos() const {
-	QScrollBar* scr = getActiveEdit()->verticalScrollBar();
-	if ( scr )
-		return scr->value();
-	else
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
 		return 0;
+	
+	QScrollBar* scr = edit->verticalScrollBar();
+	if ( scr ) {
+		return scr->value();
+	}
+	else {
+		return 0;
+	}
 }
 
 void SciDoc::setScrollPos(int pos) {
-	QScrollBar* scr = getActiveEdit()->verticalScrollBar();
-	if ( scr )
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	QScrollBar* scr = edit->verticalScrollBar();
+	if ( scr ) {
 		scr->setValue(pos);
+	}
 }
 
 
@@ -721,7 +629,10 @@ IntList SciDoc::markers() const {
 }
 
 void SciDoc::toggleMarker() {
-	MyQScintilla* edit = getActiveEdit();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
 	int line, col;
 	edit->getCursorPosition(&line, &col);
 	
@@ -739,7 +650,10 @@ void SciDoc::toggleMarker() {
 }
 
 void SciDoc::nextMarker() {
-	MyQScintilla* edit = getActiveEdit();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
 	int row(-1), col(-1);
 	edit->getCursorPosition(&row, &col);
 
@@ -756,7 +670,10 @@ void SciDoc::nextMarker() {
 }
 
 void SciDoc::prevMarker() {
-	MyQScintilla* edit = getActiveEdit();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
 	int row(-1), col(-1);
 	edit->getCursorPosition(&row, &col);
 

@@ -96,6 +96,7 @@ SET ( juffed_SRCS
 	src/LexerStorage.cpp
 	src/main.cpp
 	src/Manager.cpp
+	src/JuffScintilla.cpp
 	src/NullDoc.cpp
 	src/PluginManager.cpp
 	src/RichDoc.cpp
@@ -123,6 +124,7 @@ SET ( juffed_MOC_HDRS
 	src/JuffApp.h
 	src/LexerStorage.h
 	src/Manager.h
+	src/JuffScintilla.h
 	src/NullDoc.h
 	src/PluginManager.h
 	src/RichDoc.h

@@ -37,13 +37,13 @@ public:
 	virtual ~Document();
 
 	QString fileName() const;
-	void setFileName(const QString& fileName);
 	QString type() const;
 
 	virtual bool isModified() const = 0;
 	virtual void setModified(bool) = 0;
 	virtual QWidget* widget() = 0;
 
+	virtual void setFileName(const QString& fileName);
 	virtual bool save(const QString&, QString& err) = 0;
 	virtual void print() = 0;
 	virtual void reload() = 0;

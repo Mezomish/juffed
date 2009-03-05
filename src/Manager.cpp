@@ -476,6 +476,8 @@ bool Manager::saveDoc(Document* doc, const QString& fileName) {
 		QFile::copy(name, bkpName);
 	}
 	
+	MainSettings::setLastSaveDir(QFileInfo(name).absolutePath());
+	
 	QString err;
 	if ( !doc->save(name, err) ) {
 		Log::debug("Not saved...");

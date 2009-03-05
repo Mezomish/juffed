@@ -119,6 +119,13 @@ SciDoc::~SciDoc() {
 	delete docInt_;
 }
 
+void SciDoc::setFileName(const QString& fileName) {
+	Document::setFileName(fileName);
+	QString lexName = LexerStorage::instance()->lexerName(fileName);
+	if ( lexName != docInt_->syntax_ )
+		setSyntax(lexName);
+}
+
 void SciDoc::print() {
 	QsciPrinter prn;
 	QPrintDialog dlg(&prn, widget());

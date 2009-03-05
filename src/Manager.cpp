@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Manager.h"
 
+#include <QtCore/QFile>
 #include <QtCore/QMap>
 #include <QtGui/QActionGroup>
 #include <QtGui/QApplication>
@@ -433,8 +434,6 @@ bool Manager::saveDoc(Document* doc, const QString& fileName) {
 		return false;
 
 	QString name = fileName;
-//	Log::debug(name);
-	JUFFDEBUG(name);
 	
 	if ( QFile::exists(fileName) && !QFileInfo(fileName).isWritable() ) {
 		//	file exists and is not writabe. Ask what to do.
@@ -472,6 +471,15 @@ bool Manager::saveDoc(Document* doc, const QString& fileName) {
 		} while (!resolved);
 	}
 
+	//	make a backup copy if it is necessary
+	if ( MainSettings::makeBackupOnSave() ) {
+		QString bkpName = name + "~";
+		if ( QFile::exists(bkpName) ) {
+			QFile::remove(bkpName);
+		}
+		QFile::copy(name, bkpName);
+	}
+	
 	QString err;
 	if ( !doc->save(name, err) ) {
 		Log::debug("Not saved...");

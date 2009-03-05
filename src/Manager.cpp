@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QActionGroup>
 #include <QtGui/QApplication>
 #include <QtGui/QInputDialog>
+#include <QtGui/QLabel>
 #include <QtGui/QMenu>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPushButton>
@@ -50,9 +51,9 @@ namespace Juff {
 
 class Manager::Interior {
 public:
-	Interior(Manager* m) {
+	Interior(Manager* m, GUI::GUI* gui) {
 		viewer_ = new GUI::Viewer();
-		gui_ = 0;
+		gui_ = gui;
 		pluginManager_ = 0;
 		
 		mainTB_ = new QToolBar("MainTB");
@@ -73,6 +74,17 @@ public:
 				addToRecentFiles(fileName);
 			}
 		}
+		
+		posL_ = new QLabel("");
+		nameL_ = new QLabel("");
+		charsetL_ = new QLabel("");
+		posL_->setToolTip(QObject::tr("Cursor position"));
+		nameL_->setToolTip(QObject::tr("File full name"));
+		charsetL_->setToolTip(QObject::tr("Character set"));
+		
+		gui_->addStatusWidget(posL_);
+		gui_->addStatusWidget(nameL_);
+		gui_->addStatusWidget(charsetL_);
 	}
 	~Interior() {
 		delete recentFilesMenu_;
@@ -110,6 +122,8 @@ public:
 	}
 	
 	QMap<QString, DocHandler*> handlers_;
+	QMap<QString, QWidgetList> statusWidgets_;
+	QString docOldType_;
 	QMap<QString, Document*> docs1_;
 	QMap<QString, Document*> docs2_;
 	QString sessionName_;
@@ -124,11 +138,13 @@ public:
 	QActionGroup* chActGr_;
 	QMenu* recentFilesMenu_;
 	QStringList recentFiles_;
+	QLabel* posL_;
+	QLabel* nameL_;
+	QLabel* charsetL_;
 };
 
 Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
-	mInt_ = new Interior(this);
-	mInt_->gui_ = gui;
+	mInt_ = new Interior(this, gui);
 	gui->updateTitle("", "", false);
 	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));
 	connect(gui, SIGNAL(docOpenRequested(const QString&)), this, SLOT(openDoc(const QString&)));
@@ -351,6 +367,12 @@ void Manager::addDocHandler(DocHandler* handler) {
 		delete mInt_->handlers_[type];
 	}
 	mInt_->handlers_[type] = handler;
+	mInt_->statusWidgets_[type] = handler->statusWidgets();
+	foreach (QWidget* w, mInt_->statusWidgets_[type]) {
+		mInt_->gui_->addStatusWidget(w);
+		w->hide();
+	}
+	
 	connect(handler, SIGNAL(getCurDoc()), SLOT(curDoc()));
 }
 
@@ -409,6 +431,7 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 			
 			connect(doc, SIGNAL(modified(bool)), SLOT(docModified(bool)));
 			connect(doc, SIGNAL(fileNameChanged(const QString&)), SLOT(docFileNameChanged(const QString&)));
+			connect(doc, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(onCursorPositionChanged(int, int)));
 			
 			if ( doc->type() == "sci" ) {
 				mInt_->docs1_[fName] = doc;
@@ -992,6 +1015,10 @@ void Manager::docModified(bool mod) {
 	}
 }
 
+void Manager::onCursorPositionChanged(int line, int col) {
+	mInt_->posL_->setText(tr("Row: %1, Col: %2").arg(line+1).arg(col+1));
+}
+	
 void Manager::docFileNameChanged(const QString& oldName) {
 	JUFFENTRY;
 
@@ -1052,6 +1079,26 @@ void Manager::onCurDocChanged(QWidget* w) {
 				Log::debug("<no type>");
 			}
 
+			//	status bar
+			mInt_->nameL_->setText(QString(" %1 ").arg(doc->fileName()));
+			mInt_->charsetL_->setText(QString(" %1 ").arg(doc->charset()));
+			int line = -1, col = -1;
+			doc->getCursorPos(line, col);
+			mInt_->posL_->setText(tr(" Row: %1, Col: %2 ").arg(line+1).arg(col+1));
+			if ( type != mInt_->docOldType_ ) {
+				if ( mInt_->statusWidgets_.contains(mInt_->docOldType_) ) {
+					foreach (QWidget* w, mInt_->statusWidgets_[mInt_->docOldType_] ) {
+						w->hide();
+					}
+				}
+				if ( mInt_->statusWidgets_.contains(type) ) {
+					foreach (QWidget* w, mInt_->statusWidgets_[type] ) {
+						w->show();
+					}
+				}
+				mInt_->docOldType_ = type;
+			}
+				
 			if ( QAction* chAct = mInt_->charsetActions_[doc->charset()] )
 				chAct->setChecked(true);
 			else if ( mInt_->chActGr_->checkedAction() )
@@ -1063,7 +1110,30 @@ void Manager::onCurDocChanged(QWidget* w) {
 		}
 		else {
 			mInt_->gui_->updateTitle("", "", false);
+			
+			//	status bar
+			mInt_->nameL_->setText("  ");
+			mInt_->charsetL_->setText("  ");
+			mInt_->posL_->setText("  ");
+			if ( mInt_->statusWidgets_.contains(mInt_->docOldType_) ) {
+				foreach (QWidget* w, mInt_->statusWidgets_[mInt_->docOldType_] ) {
+					w->hide();
+				}
+			}
+			mInt_->docOldType_ = "";
 		}
+	}
+	else {
+		//	status bar
+		mInt_->nameL_->setText("  ");
+		mInt_->charsetL_->setText("  ");
+		mInt_->posL_->setText("  ");
+		if ( mInt_->statusWidgets_.contains(mInt_->docOldType_) ) {
+			foreach (QWidget* w, mInt_->statusWidgets_[mInt_->docOldType_] ) {
+				w->hide();
+			}
+		}
+		mInt_->docOldType_ = "";
 	}
 
 	menus << mInt_->charsetMenu_;

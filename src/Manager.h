@@ -105,6 +105,7 @@ private slots:
 	void onCurDocChanged(QWidget*);
 
 	void docModified(bool);
+	void onCursorPositionChanged(int, int);
 	void docFileNameChanged(const QString&);
 	void applySettings();
 	void onCloseEvent(bool&);

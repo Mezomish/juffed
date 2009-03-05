@@ -86,6 +86,7 @@ public:
 signals:
 	void modified(bool);
 	void fileNameChanged(const QString& oldFileName);
+	void cursorPositionChanged(int, int);
 
 protected:
 	QString type_;

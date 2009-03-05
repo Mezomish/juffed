@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDocHandler.h"
 
+#include <QtGui/QLabel>
 #include <QtGui/QMenu>
 #include <QtGui/QToolBar>
 
@@ -40,6 +41,10 @@ public:
 
 		syntaxMenu_ = new QMenu(QObject::tr("&Syntax"));
 		syntaxActGr_ = new QActionGroup(0);
+		
+		syntaxL_ = new QLabel("");
+		syntaxL_->setToolTip(QObject::tr("Syntax highlighting scheme"));
+		statusWidgets_ << syntaxL_;
 	}
 	
 	~Interior() {
@@ -52,6 +57,8 @@ public:
 	MenuList menus_;
 	QMap<QString, QAction*> syntaxActions_;
 	QActionGroup* syntaxActGr_;
+	QWidgetList statusWidgets_;
+	QLabel* syntaxL_;
 };
 
 SciDocHandler::SciDocHandler() : DocHandler() {	
@@ -164,11 +171,16 @@ MenuList SciDocHandler::menus() const {
 	return docInt_->menus_;
 }
 
+QWidgetList SciDocHandler::statusWidgets() const {
+	return docInt_->statusWidgets_;
+}
+
 void SciDocHandler::docActivated(Document* d) {
 	SciDoc* doc = qobject_cast<SciDoc*>(d);
 	if ( doc ) {
 		initMarkersMenu();
 		QString syntax = doc->syntax();
+		docInt_->syntaxL_->setText(QString(" %1 ").arg(syntax));
 		QAction* act = docInt_->syntaxActions_[syntax];
 		if ( act ) {
 			act->setChecked(true);

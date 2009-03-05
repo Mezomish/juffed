@@ -64,6 +64,8 @@ public:
 	void setToolButtonStyle(Qt::ToolButtonStyle);
 	void updateTitle(const QString& fileName, const QString& session, bool modified);
 	void displayError(const QString&);
+	void addStatusWidget(QWidget*);
+	void setAdditionalStatusWidgets(const QWidgetList&);
 
 signals:
 	void settingsApplied();
@@ -90,6 +92,7 @@ private:
 	SettingsDlg* settDlg_;
 	DocFindFlags lastFlags_;
 	AboutDlg* aboutDlg_;
+	QWidgetList statusWidgets_;
 };
 
 }	//	namespace GUI

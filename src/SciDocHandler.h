@@ -36,6 +36,7 @@ public:
 	virtual Document* createDoc(const QString&);
 	virtual ToolBarList toolBars() const;
 	virtual MenuList menus() const;
+	virtual QWidgetList statusWidgets() const;
 
 	virtual void docActivated(Document*);
 

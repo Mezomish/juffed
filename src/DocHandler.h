@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define _JUFF_DOC_HANDLER_H_
 
 #include <QtCore/QObject>
+#include <QtGui/QWidgetList>
 
 #include "Juff.h"
 #include "Document.h"
@@ -36,6 +37,7 @@ public:
 	virtual Document* createDoc(const QString&) = 0;
 	virtual ToolBarList toolBars() const = 0;
 	virtual MenuList menus() const = 0;
+	virtual QWidgetList statusWidgets() const = 0;
 	virtual void docActivated(Document*) = 0;
 
 signals:

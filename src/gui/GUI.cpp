@@ -39,6 +39,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QLayout>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMessageBox>
+#include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 
 #include "juffed.xpm"
@@ -317,6 +318,20 @@ void GUI::displayError(const QString& err) {
 	QMessageBox::warning(mw_, tr("Warning"), err);
 }
 
+void GUI::addStatusWidget(QWidget* w) {
+	mw_->statusBar()->addWidget(w);
+}
+
+void GUI::setAdditionalStatusWidgets(const QWidgetList& list) {
+	foreach (QWidget* w, statusWidgets_) {
+		mw_->statusBar()->removeWidget(w);
+	}
+	statusWidgets_ = list;
+	foreach (QWidget* w, statusWidgets_) {
+		mw_->statusBar()->addWidget(w);
+		w->show();
+	}
+}
 
 void GUI::settings() {
 	settDlg_->show();

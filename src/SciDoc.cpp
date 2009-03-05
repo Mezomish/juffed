@@ -193,7 +193,6 @@ public:
 		codec_ = QTextCodec::codecForLocale();
 		charsetName_ = codec_->name();
 		
-//		w_ = new SciWidget();
 		edit1_ = createEdit();
 		edit2_ = createEdit();
 		edit2_->setDocument(edit1_->document());
@@ -204,11 +203,6 @@ public:
 		
 		spl_->setSizes(QList<int>() << 0 << spl_->height());
 		spl_->setFocusProxy(edit2_);
-//		edit1_->resize(100, 0);
-
-//		parent->setFocusProxy(edit1_);
-//		parent->connect(edit1_, SIGNAL(cursorPositionChanged(int, int)), parent, SIGNAL(cursorPositionChanged(int, int)));
-
 	}
 	
 	
@@ -264,7 +258,6 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	QString lexName = LexerStorage::instance()->lexerName(fileName);
 	setSyntax(lexName);
 	
-//	docInt_->edit1_->setTabWidth(TextDocSettings::tabStopWidth());
 	applySettings();
 }
 
@@ -394,14 +387,6 @@ bool continueOverTheEnd(QsciScintilla* edit, bool back) {
 
 void SciDoc::find(const QString& str, const DocFindFlags& flags) {
 	JUFFENTRY;
-	
-	JUFFDEBUG("_________");
-	JUFFDEBUG(str);
-	JUFFDEBUG( flags.replace ? "replace" : "not replace" );
-	JUFFDEBUG( flags.matchCase ? "match case" : "not match case" );
-	JUFFDEBUG( flags.backwards ? "backwards" : "forward" );
-	JUFFDEBUG( flags.isRegExp ? "regexp" : "plain text" );
-	JUFFDEBUG("_________");
 	
 	MyQScintilla* edit = getActiveEdit();
 	prepareForFind(edit, str, flags);
@@ -538,35 +523,12 @@ void SciDoc::wrapText(bool wrap) {
 bool SciDoc::save(const QString& fileName, QString& error) {
 	JUFFENTRY;
 	
-//	Log::debug(fileName);
-	
 	QFile file(fileName);
 	if (file.open(QIODevice::WriteOnly)) {
 		QString text("");
-//		if (tdView != 0) {
-//			tdView->getText(text);
-			text = docInt_->edit1_->text();
-			file.write(docInt_->codec_->fromUnicode(text));
-//			file.write(text.toUtf8());
-			file.close();
-
-/*			tdView->setFocus();
-			if (changeName) {
-				//	We save document with new file name and set
-				//	new name as doc's fileName
-				setFileName(name);
-				setLastModified(QFileInfo(file).lastModified());
-				if (tdView->syntax().compare("none") == 0) {
-					QString syntax = LexerStorage::instance()->lexerName(name);
-					tdView->setSyntax(syntax);
-				}
-				tdView->setModified(false);
-			}*/
-/*		}
-		else {
-			res = StatusUnknownError;
-		}*/
-//		docInt_->w_->document()->setModified(false);
+		text = docInt_->edit1_->text();
+		file.write(docInt_->codec_->fromUnicode(text));
+		file.close();
 		return true;
 	}
 	else {

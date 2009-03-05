@@ -268,16 +268,6 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	connect(mInt_->viewer_, SIGNAL(curDocChanged(QWidget*)), SLOT(onCurDocChanged(QWidget*)));
 	connect(gui, SIGNAL(settingsApplied()), SLOT(applySettings()));
 	
-	connect(mInt_->pluginManager_, SIGNAL(signalReceived(Juff::DocCommand, const Juff::Param&, const Juff::Param&, const Juff::Param&, const Juff::Param&)),
-						this, SLOT(pluginSignalReceived(Juff::DocCommand, const Juff::Param&, const Juff::Param&, const Juff::Param&, const Juff::Param&)));
-						
-	connect(mInt_->pluginManager_, SIGNAL(signalReceived(Juff::GetInfoEvent, Juff::Param&, Juff::Param&, Juff::Param&, Juff::Param&)),
-						this, SLOT(pluginSignalReceived(Juff::GetInfoEvent, Juff::Param&, Juff::Param&, Juff::Param&, Juff::Param&)));
-/*	QMenu* fileMenu = gui->getMenu(QObject::tr("File"));
-	fileMenu->addAction("New", this, SLOT(fileNew()), QKeySequence("Ctrl+N"));
-	fileMenu->addAction("New Rich", this, SLOT(fileNewRich()), QKeySequence("Ctrl+M"));
-	fileMenu->addAction("Open", this, SLOT(fileOpen()), QKeySequence("Ctrl+O"));
-*/
 	mInt_->pluginManager_->loadPlugins();
 	
 	initCharsetMenu();
@@ -429,7 +419,6 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 				mInt_->viewer_->addDoc(doc, 2);
 			}
 			mInt_->pluginManager_->emitInfoSignal(INFO_DOC_CREATED, Param(fName));
-//			Log::debug(QString("Doc count: %1").arg(mInt_->docs_.count()));
 		}
 	}
 }
@@ -515,26 +504,12 @@ void Manager::closeDoc(Document* doc) {
 bool Manager::closeAllDocs() {
 	JUFFENTRY;
 
-//	if ( MainSettings::saveSessionOnClose() )
-//		saveSess(mInt_->sessionName_);
-
 	while ( !curDoc()->isNull() ) {
 		if ( !fileClose() ) {
 			return false;
 		}
 	}
 	mInt_->gui_->updateTitle("", mInt_->sessionName_, false);
-
-/*	foreach (Document* doc, mInt_->docs1_) {
-		if ( !closeDoc(doc) ) {
-			return false;
-		}
-	}
-	foreach (Document* doc, mInt_->docs2_) {
-		if ( !closeDoc(doc) ) {
-			return false;
-		}
-	}*/
 
 	return true;
 }
@@ -836,9 +811,6 @@ bool Manager::saveSess(const QString& name) {
 }
 
 bool Manager::closeSess() {
-//	if ( !saveSess(mInt_->sessionName_) )
-//		return false;
-	
 	if ( !closeAllDocs() )
 		return false;
 	
@@ -997,16 +969,8 @@ void Manager::charsetSelected() {
 		Document* doc = curDoc();
 		if ( doc && !doc->isNull() ) {
 			doc->setCharset(a->text());
-/*			if ( doc->setCharset(a->text()) ) {
-//				displayCharset(doc->charset());
-//				changeCurrentCharsetAction(a);
-			}
-			else {
-//				a->setChecked(false);
-			}*/
 		}
 		else {
-//			a->setChecked(false);
 		}
 	}
 }
@@ -1066,7 +1030,6 @@ void Manager::onCurDocChanged(QWidget* w) {
 			QString type = doc->type();
 			DocHandler* handler = mInt_->handlers_[type];
 			if ( handler ) {
-//				Log::debug(type);
 				handler->docActivated(doc);
 				
 				//	toolbars

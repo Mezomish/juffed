@@ -129,13 +129,14 @@ QKeySequence CommandStorage::getShortcut(CommandID id) {
 		case ID_DOC_NEXT :		return QKeySequence("Alt+Right");
 		case ID_DOC_PREV :		return QKeySequence("Alt+Left");
 			
+		case ID_ABOUT :			return QKeySequence("F1");
+			
 		default: return QKeySequence("");
 	}
 }
 
 
 QAction* CommandStorage::action(int id) {
-//	JUFFENTRY;
 	if ( id == ID_SEPARATOR ) {
 		QAction* sep = new QAction(0);
 		sep->setSeparator(true);

@@ -23,7 +23,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QPair>
 #include <QtCore/QString>
 
-//#include "AppInfo.h"
 #include "Log.h"
 #include "MainSettings.h"
 
@@ -45,7 +44,6 @@ public:
 		idIconMap_[Juff::ID_EDIT_PASTE] = QPair<QString, QString>("actions/edit-paste.png", "editPaste.png");
 		idIconMap_[Juff::ID_EDIT_UNDO] = QPair<QString, QString>("actions/edit-undo.png", "editUndo.png");
 		idIconMap_[Juff::ID_EDIT_REDO] = QPair<QString, QString>("actions/edit-redo.png", "editRedo.png");
-//		idIconMap_[Juff::ID_UNINDENT] = QPair<QString, QString>("", "");
 		idIconMap_[Juff::ID_ZOOM_IN] = QPair<QString, QString>("actions/zoom-in.png", "zoomIn.png");
 		idIconMap_[Juff::ID_ZOOM_OUT] = QPair<QString, QString>("actions/zoom-out.png", "zoomOut.png");
 		idIconMap_[Juff::ID_ZOOM_100] = QPair<QString, QString>("actions/zoom-original.png", "zoom100.png");
@@ -56,32 +54,9 @@ public:
 		idIconMap_[Juff::ID_GOTO_LINE] = QPair<QString, QString>("", "");
 		idIconMap_[Juff::ID_REPLACE] = QPair<QString, QString>("actions/edit-find-replace.png", "replace.png");
 		//
-/*		idIconMap_[Juff::ID_DOC_NEXT] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_DOC_PREV] = QPair<QString, QString>("", ""); 
-*/		//
 		idIconMap_[Juff::ID_SETTINGS] = QPair<QString, QString>("actions/configure.png", "settings.png");
 		idIconMap_[Juff::ID_ABOUT] = QPair<QString, QString>("apps/help.png", "about.png");
-		idIconMap_[Juff::ID_ABOUT_QT] = QPair<QString, QString>("", "");
-/*		idIconMap_[Juff::ID_APPLY_SETTINGS] = QPair<QString, QString>("", "");
-		//
-		idIconMap_[Juff::ID_SESSION_NEW] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_SESSION_OPEN] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_SESSION_SAVE] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_SESSION_SAVE_AS] = QPair<QString, QString>("", "");
-		//
-		idIconMap_[Juff::ID_VIEW_SHOW_LINE_NUMBERS] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_VIEW_WIDTH_ADJUST] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_VIEW_SHOW_HIDDEN_SYMBOLS] = QPair<QString, QString>("", "");
-		//
-		idIconMap_[Juff::ID_MARKER_TOGGLE] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_MARKER_REMOVE_ALL] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_MARKER_NEXT] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_MARKER_PREV] = QPair<QString, QString>("", "");
-		//
-		idIconMap_[Juff::ID_EOL_WIN] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_EOL_UNIX] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_EOL_MAC] = QPair<QString, QString>("", "");
-*/		
+
 		theme_ = "<default>";
 		size_ = 1;
 		
@@ -93,7 +68,6 @@ public:
 	
 	typedef QMap<QString, QIcon> IconMap;
 	IconMap iconMap_;
-//	QVector<IconMap> iconMaps_;
 	bool default_;
 	QMap<Juff::CommandID, QPair<QString, QString> > idIconMap_;
 	
@@ -150,9 +124,7 @@ QIcon IconManager::getDefaultIcon(Juff::CommandID id) {
 
 	QString iconFileName = imInt_->idIconMap_[id].second;
 	for (int i = 0; i < 4; ++i) {
-//		Log::debug(imInt_->size_);
 		int sz = imInt_->sizeSeq_[imInt_->size_][i];
-//		Log::debug(sz);
 		QString fileName = QString(":%1/").arg(sz) + iconFileName;
 		if ( QFileInfo(fileName).exists() ) {
 			return QIcon(fileName);

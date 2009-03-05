@@ -24,7 +24,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #include "Log.h"
 #include "Manager.h"
-//#include "DocHandler.h"
 #include "Settings.h"
 
 class JuffApp : public QApplication {
@@ -91,7 +90,7 @@ int main(int argc, char* argv[])
 	for (int i = 1; i < argc; ++i) {
 		QString argument = QString::fromLocal8Bit(argv[i]);
 		if (argument[0] == '-') {
-			//	command line options
+			//	TODO : command line options
 		}
 		else {
 			manager.openDoc(QFileInfo(argument).absoluteFilePath());

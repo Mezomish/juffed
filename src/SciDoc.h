@@ -68,7 +68,6 @@ public:
 
 	QString syntax() const;
 	void setSyntax(const QString& lexName);
-//	void getCursorPos(int&, int&);
 	IntList markers() const;
 	QString getLine(int) const;
 
@@ -83,9 +82,6 @@ public:
 	void prevMarker();
 	void removeAllMarkers();
 
-signals:
-//	QMenu* getMarkersMenu();
-	
 private:
 	void readDoc();
 

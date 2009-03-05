@@ -29,8 +29,6 @@ class QWidget;
 namespace Juff {
 	class DocHandler;
 
-//namespace Data {
-
 class Document : public QObject {
 Q_OBJECT
 friend class Juff::DocHandler;
@@ -84,12 +82,10 @@ public:
 	virtual bool isNull() const;
 	
 	virtual void updateActivated() {}
-//	void emitActivated();
 
 signals:
 	void modified(bool);
 	void fileNameChanged(const QString& oldFileName);
-//	void activated();
 
 protected:
 	QString type_;
@@ -98,7 +94,6 @@ private:
 	QString fileName_;
 };
 
-//}	//	namespace Data
 }	//	namespace Juff
 
 #endif

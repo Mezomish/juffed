@@ -400,6 +400,7 @@ bool SciDoc::save(const QString& fileName, QString& error) {
 		text = docInt_->edit1_->text();
 		file.write(docInt_->codec_->fromUnicode(text));
 		file.close();
+		Document::save(fileName, error);
 		return true;
 	}
 	else {

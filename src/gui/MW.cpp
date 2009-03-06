@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QtCore/QUrl>
 #include <QtGui/QCloseEvent>
+#include <QtGui/QIcon>
 
 namespace Juff {
 namespace GUI {
@@ -30,6 +31,7 @@ namespace GUI {
 MW::MW() : QMainWindow() {
 	setAcceptDrops(true);
 	setGeometry(MainSettings::windowRect());
+	setWindowIcon(QIcon(":juffed.png"));
 }
 
 void MW::closeEvent(QCloseEvent* e) {

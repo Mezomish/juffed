@@ -35,7 +35,7 @@ public:
 	
 	QWidget* widget();
 
-	void addDoc(Document*, int panel = 1/*, const QString&*/);
+	void addDoc(Document*, int panel = 1);
 	void setDocModified(Document*, bool modified);
 	void updateDocTitle(Document*);
 	void removeDoc(Document*);
@@ -48,7 +48,7 @@ public:
 	*/
 	void getViewsList(int panel, QWidgetList& list) const;
 
-	QWidget* curView() const;
+	QWidget* curDoc() const;
 
 signals:
 	void curDocChanged(QWidget*);
@@ -61,7 +61,6 @@ public slots:
 
 private slots:
 	void curIndexChanged(int);
-	void docActivated();
 	void onFileNameRequested(int, QString&);
 	void onTabCloseRequested(int);
 

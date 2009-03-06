@@ -35,9 +35,6 @@ namespace GUI {
 class Viewer::Interior {
 public:
 	Interior() {
-//		widget_ = new QWidget();
-		
-//		QVBoxLayout* vBox = new QVBoxLayout();
 		widget_ = new QSplitter(Qt::Horizontal);
 		tw1_ = new TabWidget(0);
 		tw2_ = new TabWidget(0);
@@ -47,12 +44,9 @@ public:
 		tw2_->hide();
 		
 		curView_ = NULL;
-//		vBox->addWidget(tabWidget_);
-//		widget_->setLayout(vBox);
 	}
 	~Interior() {
 		delete widget_;
-//		delete tabWidget_;
 	}
 	
 	QTabWidget* getTabWidget(Document* doc, int& index) {
@@ -110,38 +104,26 @@ QWidget* Viewer::widget() {
 	return vInt_->widget_;
 }
 
-void Viewer::addDoc(Document* doc, int panel/*, const QString& fileName*/) {
-//	JUFFENTRY;
-
+void Viewer::addDoc(Document* doc, int panel) {
 	if ( !doc || !doc->widget() )
 		return;
-	
-//	JUFFDEBUG("here");
 	
 	QWidget* w = doc->widget();
 	if ( !w )
 		JUFFDEBUG("W is NULL");
 	
 	vInt_->fileNamesMap_[w] = doc->fileName();
-	connect(doc, SIGNAL(activated()), SLOT(docActivated()));
 
 	if ( panel == 1 ) {
-//		JUFFDEBUG("111111111111111");
 		vInt_->tw1_->addTab(w, getDocTitle(doc->fileName()));
 		vInt_->tw1_->setCurrentWidget(w);
 		vInt_->tw1_->show();
 	}
 	else {
-//		JUFFDEBUG("222222222222222");
 		vInt_->tw2_->addTab(w, getDocTitle(doc->fileName()));
 		vInt_->tw2_->setCurrentWidget(w);
 		vInt_->tw2_->show();
 	}
-	
-/*	if ( vInt_->tw1_->isHidden() || vInt_->tw2_->isHidden() ) {
-		int w = vInt_->widget_->width();
-		vInt_->widget_->setSizes(QList<int>() << w/2 << w/2);
-	}*/
 	
 	w->setFocus();
 	
@@ -210,12 +192,10 @@ void Viewer::removeDoc(Document* doc) {
 }
 
 void Viewer::activateDoc(Document* doc) {
-//	JUFFENTRY;
 	if ( doc ) {
 		int index = -1;
 		QTabWidget* tw = vInt_->getTabWidget(doc, index);
 		if ( tw ) {
-			JUFFDEBUG("CURRENT!!!!!!!");
 			tw->setCurrentWidget(doc->widget());
 		}
 	}
@@ -253,32 +233,21 @@ void Viewer::prevDoc() {
 	}
 }
 
+QWidget* Viewer::curDoc() const {
+	return vInt_->curView_;
+}
+
 
 void Viewer::curIndexChanged(int i) {
-//	JUFFENTRY;
 	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
 	if ( tw ) {
 		QWidget* w = tw->widget(i);
-		Log::debug(i);
 		if ( w )
 			w->setFocus();
 		
 		vInt_->curView_ = w;
 		emit curDocChanged(w);
 	}
-}
-
-void Viewer::docActivated() {
-//	JUFFENTRY;
-	
-/*	Document* doc = qobject_cast<Document*>(sender());
-	
-	if ( doc ) {
-		Log::debug("OK!!!");
-		Log::debug(doc->fileName());
-		vInt_->curView_ = doc->widget();
-		emit curDocChanged(doc->widget());
-	}*/
 }
 
 void Viewer::onFileNameRequested(int index, QString& name) {
@@ -303,23 +272,7 @@ void Viewer::onTabCloseRequested(int index) {
 
 int Viewer::curPanel() const {
 	JUFFENTRY;
-/*	QWidget* w1 = vInt_->tw1_->currentWidget();
-	QWidget* w2 = vInt_->tw2_->currentWidget();
-	if ( w1 && w1->hasFocus() ) {
-		return 1;
-	}
-	else if ( w2 && w2->hasFocus() ) {
-		return 2;
-	}
-	else {
-		return 0;
-	}*/
 	return 0;
-}
-
-QWidget* Viewer::curView() const {
-//	JUFFENTRY;
-	return vInt_->curView_;
 }
 
 void Viewer::getViewsList(int panel, QWidgetList& list) const {

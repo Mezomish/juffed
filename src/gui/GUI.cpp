@@ -236,12 +236,10 @@ QMenu* GUI::toolsMenu() const {
 void GUI::setToolBars(QToolBar* tb) {
 	//	clear current toolbars
 	foreach (QToolBar* tb, toolBars_) {
-		Log::debug("ToolBar removed");
 		mw_->removeToolBar(tb);
 	}
 	toolBars_.clear();
 	
-	Log::debug("ToolBar added");
 	mw_->addToolBar(tb);
 	tb->show();
 }
@@ -249,14 +247,12 @@ void GUI::setToolBars(QToolBar* tb) {
 void GUI::setToolBars(ToolBarList list) {
 	//	clear current toolbars
 	foreach (QToolBar* tb, toolBars_) {
-		Log::debug("ToolBar removed");
 		mw_->removeToolBar(tb);
 	}
 	toolBars_.clear();
 	
 	toolBars_ = list;
 	foreach (QToolBar* tb, list) {
-		Log::debug("ToolBar added");
 		mw_->addToolBar(tb);
 		tb->show();
 	}
@@ -285,8 +281,6 @@ void GUI::setDocks(const QWidgetList& list) {
 		}
 		else {
 			QString title = w->windowTitle();
-	//		if ( title.isEmpty() )
-	//			title = plugin->name();
 			QDockWidget* dock = new QDockWidget(title);
 			dock->setObjectName(title);
 			dock->setWidget(w);
@@ -339,16 +333,6 @@ void GUI::settings() {
 
 void GUI::applySettings() {
 	JUFFENTRY;
-
-//	jInt_->handler_->applySettings();
-//	jInt_->viewer_->applySettings();
-
-//	setupToolBarStyle();	
-//	IconManager::instance()->loadTheme(MainSettings::iconTheme());
-//	createCommands();
-//	initCharsetsMenu();
-
-//	initPlugins();
 
 	emit settingsApplied();
 }

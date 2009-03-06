@@ -438,7 +438,7 @@ void Manager::applySettings() {
 
 Document* Manager::curDoc() const {
 	JUFFENTRY;
-	QWidget* w = mInt_->viewer_->curView();
+	QWidget* w = mInt_->viewer_->curDoc();
 	if ( !w )
 		JUFFDEBUG("widget is 0");
 	return mInt_->getDocByView(w);

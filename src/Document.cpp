@@ -82,9 +82,9 @@ QString Document::type() const {
 void Document::checkLastModified() {
 	QFileInfo fi(fileName_);
 	if ( fi.exists() ) {
-		if (fi.lastModified() > lastModified_) {
-			if (checkingMutex_.tryLock()) {
-				QString question = tr("The file was modified by external program.") + "\n";
+		if ( fi.lastModified() > lastModified_ ) {
+			if ( checkingMutex_.tryLock() ) {
+				QString question = tr("The file '%1' was modified by external program.").arg(getDocTitle(fileName_)) + "\n";
 				question += tr("What do you want to do?");
 				QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, 
 							QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, widget());

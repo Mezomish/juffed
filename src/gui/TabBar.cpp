@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QClipboard>
 #include <QtGui/QMenu>
 #include <QtGui/QMouseEvent>
+#include <QtGui/QWheelEvent>
 
 //	local headers
 #include "Log.h"
@@ -62,6 +63,15 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 #endif
 
 	QTabBar::mouseReleaseEvent(e);
+}
+
+void TabBar::wheelEvent(QWheelEvent* e) {
+	if ( e->delta() < 0 ) {
+		emit requestNextDoc();
+	}
+	else {
+		emit requestPrevDoc();
+	}
 }
 
 void TabBar::copyFileName() {

@@ -30,6 +30,10 @@ Q_OBJECT
 public:
 	TabWidget(QWidget* parent);
 
+public slots:
+	void nextWidget();
+	void prevWidget();
+
 signals:
 	void tabCloseRequested(int);
 	void requestFileName(int, QString&);

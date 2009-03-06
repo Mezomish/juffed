@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "TabWidget.h"
 
+#include "Log.h"
+
 TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	tabBar_ = new TabBar(this);
 	setTabBar(tabBar_);
@@ -26,4 +28,18 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	
 	connect(tabBar_, SIGNAL(tabCloseRequested(int)), this, SIGNAL(tabCloseRequested(int)));
 	connect(tabBar_, SIGNAL(requestFileName(int, QString&)), this, SIGNAL(requestFileName(int, QString&)));
+	connect(tabBar_, SIGNAL(requestNextDoc()), this, SLOT(nextWidget()));
+	connect(tabBar_, SIGNAL(requestPrevDoc()), this, SLOT(prevWidget()));
+}
+
+void TabWidget::nextWidget() {
+	int index = currentIndex();
+	if ( index + 1 < count() )
+		setCurrentIndex(index + 1);
+}
+
+void TabWidget::prevWidget() {
+	int index = currentIndex();
+	if ( index - 1 >= 0 )
+		setCurrentIndex(index - 1);
 }

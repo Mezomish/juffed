@@ -32,6 +32,8 @@ public:
 signals:
 	void tabCloseRequested(int);
 	void requestFileName(int, QString&);
+	void requestNextDoc();
+	void requestPrevDoc();
 	
 protected slots:
 	void copyFileName();
@@ -41,6 +43,7 @@ protected slots:
 protected:
 	virtual void mousePressEvent(QMouseEvent*);
 	virtual void mouseReleaseEvent(QMouseEvent*);
+	virtual void wheelEvent(QWheelEvent*);
 
 private:
 	QMenu* tabMenu_;

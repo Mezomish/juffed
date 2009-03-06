@@ -49,6 +49,7 @@ Document::~Document() {
 
 bool Document::save(const QString&, QString&) {
 	lastModified_ = QFileInfo(fileName_).lastModified();
+	return true;
 }
 
 bool Document::isNull() const {

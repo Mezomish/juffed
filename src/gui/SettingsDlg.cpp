@@ -191,15 +191,6 @@ void SettingsDlg::init() {
 	pageMain_->ui.saveSessionChk->setChecked(MainSettings::saveSessionOnClose());
 	pageMain_->ui.syncOpenDlgChk->setChecked(MainSettings::syncOpenDialogToCurDoc());
 	pageMain_->ui.makeBackupChk->setChecked(MainSettings::makeBackupOnSave());
-	int autoSaveInterval = MainSettings::autoSaveInterval();
-	if (autoSaveInterval > 0) {
-		pageMain_->ui.autoSaveChk->setChecked(true);
-		pageMain_->ui.autoSaveIntervalSpin->setValue(autoSaveInterval);
-	}
-	else {
-		pageMain_->ui.autoSaveChk->setChecked(false);
-		pageMain_->ui.autoSaveIntervalSpin->setValue(-autoSaveInterval);
-	}
 	pageMain_->ui.singleInstanceChk->setChecked(MainSettings::singleInstance());
 #ifndef Q_OS_UNIX
 	pageMain_->ui.singleInstanceChk->hide();
@@ -270,11 +261,6 @@ void SettingsDlg::apply() {
 	MainSettings::setSaveSessionOnClose(pageMain_->ui.saveSessionChk->isChecked());
 	MainSettings::setSyncOpenDialogToCurDoc(pageMain_->ui.syncOpenDlgChk->isChecked());
 	MainSettings::setMakeBackupOnSave(pageMain_->ui.makeBackupChk->isChecked());
-	int asInterval = pageMain_->ui.autoSaveIntervalSpin->value();
-	if (pageMain_->ui.autoSaveChk->isChecked())
-		MainSettings::setAutoSaveInterval(asInterval);
-	else		
-		MainSettings::setAutoSaveInterval(-asInterval);
 	MainSettings::setSingleInstance(pageMain_->ui.singleInstanceChk->isChecked());
 
 	//	Editor page

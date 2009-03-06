@@ -23,7 +23,6 @@ public:
 	static QString recentFiles();
 	static int recentFilesCount();
 	static bool makeBackupOnSave();
-	static int autoSaveInterval();
 	static bool closeTabsInOrderOfUse();
 	static bool singleInstance();
 	static QByteArray mwState();
@@ -42,7 +41,6 @@ public:
 	static void setSaveSessionOnClose(bool save);
 	static void setRecentFiles(const QString& files);
 	static void setMakeBackupOnSave(bool bkp);
-	static void setAutoSaveInterval(int interval);
 	static void setSingleInstance(bool single);
 	static void setMwState(const QByteArray&);
 };

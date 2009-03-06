@@ -211,9 +211,11 @@ void Viewer::nextDoc() {
 		tw = vInt_->tw2_;
 	
 	if ( tw ) {
-		int index = tw->currentIndex();
 		int n = tw->count();
-		tw->setCurrentIndex( (index + 1) % n);
+		int newIndex = tw->currentIndex() + 1;
+		if ( newIndex >= n )
+			newIndex -= n;
+		tw->setCurrentIndex( newIndex );
 	}
 }
 
@@ -227,9 +229,11 @@ void Viewer::prevDoc() {
 		tw = vInt_->tw2_;
 	
 	if ( tw ) {
-		int index = tw->currentIndex();
 		int n = tw->count();
-		tw->setCurrentIndex( (index + n - 1) % n);
+		int newIndex = tw->currentIndex() - 1;
+		if ( newIndex < 0 )
+			newIndex += n;
+		tw->setCurrentIndex( newIndex );
 	}
 }
 

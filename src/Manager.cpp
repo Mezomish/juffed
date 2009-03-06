@@ -1292,11 +1292,11 @@ void Manager::closeDoc(const QString& fileName) {
 	
 	if ( mInt_->docs1_.contains(fileName) ) {
 		Document* doc = mInt_->docs1_[fileName];
-		closeWithConfirmations(doc);
+		closeWithConfirmation(doc);
 	}
 	else if ( mInt_->docs2_.contains(fileName) ) {
 		Document* doc = mInt_->docs2_[fileName];
-		closeWithConfirmations(doc);
+		closeWithConfirmation(doc);
 	}
 }
 

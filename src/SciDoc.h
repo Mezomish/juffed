@@ -83,6 +83,9 @@ public:
 	void prevMarker();
 	void removeAllMarkers();
 
+public slots:
+	void unindent();
+
 private:
 	void readDoc();
 

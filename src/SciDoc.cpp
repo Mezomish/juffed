@@ -115,6 +115,11 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	setSyntax(lexName);
 	
 	applySettings();
+	
+	QAction* unindentAct = new QAction(this);
+	unindentAct->setShortcut(QKeySequence("Shift+Tab"));
+	connect(unindentAct, SIGNAL(activated()), this, SLOT(unindent()));
+	widget()->addAction(unindentAct);
 }
 
 SciDoc::~SciDoc() {
@@ -196,6 +201,33 @@ void SciDoc::paste() {
 	else
 		docInt_->edit2_->paste();
 }
+
+void SciDoc::unindent() {
+	JUFFENTRY;
+	
+	int line1(-1), line2(-1), col1(-1), col2(-1);
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	if ( edit->hasSelectedText() ) {
+		edit->getSelection(&line1, &col1, &line2, &col2);
+		if ( col2 == 0 )
+			--line2;
+		
+		if (line1 <= line2 && line1 >= 0) {
+			for (int l = line1; l <= line2; ++l)
+				edit->unindent(l);
+		}
+	}
+	else {
+		edit->getCursorPosition(&line1, &col1);
+		if ( line1 >= 0 )
+			edit->unindent(line1);
+	}
+}
+
+
 
 void prepareForFind(QsciScintilla* edit, const QString& s, const DocFindFlags& flags) {
 	QString str(s);

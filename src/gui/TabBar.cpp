@@ -29,6 +29,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	local headers
 #include "Log.h"
 
+namespace Juff {
+namespace GUI {
+
 TabBar::TabBar(QWidget* parent) : QTabBar(parent), index_(-1) {
 	tabMenu_ = new QMenu();
 	tabMenu_->addAction(tr("Copy file name to clipboard"), this, SLOT(copyFileName()));
@@ -99,3 +102,6 @@ void TabBar::copyDirPath() {
 		QApplication::clipboard()->setText(name);
 	}
 }
+
+}	//	namespace GUI
+}	//	namespace Juff

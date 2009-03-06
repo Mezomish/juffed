@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/orx
 modify it under the terms of the GNU General Public License 

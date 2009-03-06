@@ -25,7 +25,6 @@ class QMainWindow;
 	
 #include <QtCore/QMap>
 #include <QtCore/QString>
-//#include <QtGui/QMainWindow>
 
 #include "Juff.h"
 #include "SettingsDlg.h"
@@ -47,8 +46,6 @@ public:
 	QString lastFindText() const;
 	DocFindFlags lastFlags() const;
 
-//	void removeToolBars();
-//	void addToolBar(QToolBar*);
 	void show();
 	void setCentralWidget(QWidget*);
 	void setToolBars(QToolBar*);
@@ -56,9 +53,7 @@ public:
 	void setMenus(const MenuList&);
 	void setDocks(const QWidgetList&);
 
-//	QMenu* fileMenu() const;
 	QMenu* toolsMenu() const;
-//	QToolBar* toolBar() const;
 
 	void setToolBarIconSize(int);
 	void setToolButtonStyle(Qt::ToolButtonStyle);
@@ -87,7 +82,6 @@ private:
 	ToolBarList toolBars_;
 	QWidgetList docks_;
 	QMainWindow* mw_;
-//	QToolBar* mainToolBar_;
 
 	SettingsDlg* settDlg_;
 	DocFindFlags lastFlags_;

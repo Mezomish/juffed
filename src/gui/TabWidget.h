@@ -25,6 +25,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	local headers
 #include "TabBar.h"
 
+namespace Juff {
+namespace GUI {
+
 class TabWidget : public QTabWidget {
 Q_OBJECT
 public:
@@ -41,5 +44,8 @@ signals:
 private:
 	TabBar* tabBar_;
 };
+
+}	//	namespace GUI
+}	//	namespace Juff
 
 #endif

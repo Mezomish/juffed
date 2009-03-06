@@ -20,6 +20,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Log.h"
 
+namespace Juff {
+namespace GUI {
+
 TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	tabBar_ = new TabBar(this);
 	setTabBar(tabBar_);
@@ -43,3 +46,6 @@ void TabWidget::prevWidget() {
 	if ( index - 1 >= 0 )
 		setCurrentIndex(index - 1);
 }
+
+}	//	namespace GUI
+}	//	namespace Juff

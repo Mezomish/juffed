@@ -21,9 +21,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	Qt headers
 #include <QtGui/QKeyEvent>
 
-//	local headers
-//#include "types.h"
-
 namespace Juff {
 namespace GUI {
 

@@ -53,7 +53,6 @@ SessionDlg::SessionDlg(QWidget* parent) : QDialog(parent), result_(0) {
 			QStringList items;
 			items << session;
 			QTreeWidgetItem* it = new QTreeWidgetItem(items);
-//				it->setHeight(20);
 			ui.sessionTree->addTopLevelItem(it);
 		}
 	}

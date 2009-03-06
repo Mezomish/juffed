@@ -29,7 +29,7 @@ FILE ( READ "${CMAKE_SOURCE_DIR}/version" JUFFED_VERSION )
 STRING ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
 
 # flag indicating that this is an SVN snapshot release
-SET ( SVN 1)
+SET ( SVN 1 )
 
 IF ( SVN )
 	# SVN revision
@@ -173,7 +173,7 @@ SET (QT_USE_QTXML TRUE)
 INCLUDE (${QT_USE_FILE})
 
 #Configure AppInfo.h
-configure_file ("${CMAKE_SOURCE_DIR}/src/AppInfo.nix.h.cmake" "${CMAKE_SOURCE_DIR}/src/AppInfo.nix.h" @ONLY)
+configure_file ("${CMAKE_SOURCE_DIR}/src/AppInfo.nix.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.nix.h" @ONLY)
 
 # qt4 actions
 QT4_WRAP_UI ( juffed_UIS_H ${juffed_UIS} )
@@ -195,7 +195,6 @@ INCLUDE_DIRECTORIES(
 	${QT_INCLUDES}
 	${CMAKE_BINARY_DIR}
 	${LIBQSCINTILLA2_INCLUDE_DIR}
-	.
 	src
 	./include
 )

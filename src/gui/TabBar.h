@@ -23,6 +23,9 @@ class QMenu;
 
 #include <QtGui/QTabBar>
 
+namespace Juff {
+namespace GUI {
+
 class TabBar : public QTabBar {
 Q_OBJECT
 public:
@@ -49,5 +52,8 @@ private:
 	QMenu* tabMenu_;
 	int index_;
 };
+
+}	//	namespace GUI
+}	//	namespace Juff
 
 #endif

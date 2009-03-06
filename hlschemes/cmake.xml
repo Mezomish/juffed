@@ -8,7 +8,7 @@
 	<style name="variable" color="#000066" />
 	<style name="function" color="#999900" bold="true" />
 	<style name="number" color="#006600" bold="true" />
-	<style name="label" color="#003333" />
+	<style name="label" color="#006600" />
 	<style name="blockif" color="#990099" bold="true" />
 	<style name="blockmacro" color="#990099" bold="true" />
 	<style name="blockwhile" color="#990099" bold="true" />

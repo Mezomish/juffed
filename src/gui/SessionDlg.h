@@ -46,7 +46,6 @@ private slots:
 private:
 	Ui::SessionDlg ui;
 	int result_;
-//	static QStringList sessionList_;
 };
 
 }	//	namespace GUI

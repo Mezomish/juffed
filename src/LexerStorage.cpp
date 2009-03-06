@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	Lexers
 #include <Qsci/qscilexerbash.h>
 #include <Qsci/qscilexerbatch.h>
+#include <Qsci/qscilexercmake.h>
 #include <Qsci/qscilexercpp.h>
 #include <Qsci/qscilexercsharp.h>
 #include <Qsci/qscilexercss.h>
@@ -211,6 +212,23 @@ void LSInterior::readCustomStyle(const QString& name) {
 			<< Rule(styles["string"], QList<int>() << QsciLexerCPP::DoubleQuotedString)
 			<< Rule(styles["unclosedString"], QList<int>() << QsciLexerCPP::UnclosedString);
 		schemes_[name] = cppSch;
+	}
+	else if ( name.compare("CMake") == 0 ) {
+		Scheme cmakeSch;
+		cmakeSch.defaultStyle = styles["default"];
+		cmakeSch.rules << Rule(styles["comment"], QList<int>() << QsciLexerCMake::Comment)
+			<< Rule(styles["string"], QList<int>() << QsciLexerCMake::String)
+			<< Rule(styles["variable"], QList<int>() << QsciLexerCMake::Variable)
+			<< Rule(styles["stringvariable"], QList<int>() << QsciLexerCMake::StringVariable)
+			<< Rule(styles["function"], QList<int>() << QsciLexerCMake::Function)
+			<< Rule(styles["number"], QList<int>() << QsciLexerCMake::Number)
+			<< Rule(styles["label"], QList<int>() << QsciLexerCMake::Label)
+			<< Rule(styles["blockif"], QList<int>() << QsciLexerCMake::BlockIf)
+			<< Rule(styles["blockwhile"], QList<int>() << QsciLexerCMake::BlockWhile)
+			<< Rule(styles["blockforeach"], QList<int>() << QsciLexerCMake::BlockForeach)
+			<< Rule(styles["blockmacro"], QList<int>() << QsciLexerCMake::BlockMacro)
+			<< Rule(styles["keywordset3"], QList<int>() << QsciLexerCMake::KeywordSet3);
+		schemes_[name] = cmakeSch;
 	}
 	else if(name.compare("Makefile") == 0) {
 		Scheme mkSch;
@@ -441,6 +459,9 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		if (name.compare("C++") == 0) {
 			newLexer = new QsciLexerCPP();
 		}
+		else if ( name.compare("CMake") == 0 ) {
+			newLexer = new QsciLexerCMake();
+		}
 		else if (name.compare("Java") == 0) {
 			newLexer = new QsciLexerJava();
 		}
@@ -593,6 +614,9 @@ QString LexerStorage::lexerName(const QString& fileName) const {
 	else if (fileName.contains("Makefile")) {
 		name = "Makefile";
 	}
+	else if ( fileName.contains("CMakeLists") ) {
+		name = "CMake";
+	}
 
 	return name;
 }
@@ -609,7 +633,7 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 
 void LexerStorage::getLexersList(QStringList& list) {
 	list.clear();
-	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CSS" << "D" << "Diff" << "HTML" 
+	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" << "D" << "Diff" << "HTML" 
 				<< "IDL" << "Java" << "JavaScript" << "Lua" << "Makefile" << "Perl" 
 				<< "Python" << "PHP" << "Ruby" << "SQL" << "XML";
 }

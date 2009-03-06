@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="CMake" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false" >
+	<style name="comment" color="#668999" bgColor="#f0f6f0" italic="true"/>
+	<style name="string" color="#bb0033" />
+	<style name="stringvariable" color="#006600" />
+	<style name="variable" color="#000066" />
+	<style name="function" color="#999900" bold="true" />
+	<style name="number" color="#006600" bold="true" />
+	<style name="label" color="#003333" />
+	<style name="blockif" color="#990099" bold="true" />
+	<style name="blockmacro" color="#990099" bold="true" />
+	<style name="blockwhile" color="#990099" bold="true" />
+	<style name="blockforeach" color="#990099" bold="true" />
+	<style name="keywordset3" color="#009999" bold="true" />
+</scheme>
+</JuffScheme>

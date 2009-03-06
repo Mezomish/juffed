@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License 
@@ -28,21 +28,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class TabWidget : public QTabWidget {
 Q_OBJECT
 public:
-	TabWidget(QWidget* parent) : QTabWidget(parent) {
-		tabBar_ = new TabBar(this);
-		setTabBar(tabBar_);
-		tabBar()->setFocusPolicy(Qt::NoFocus); 
-		setAcceptDrops(true);
-		
-		connect(tabBar_, SIGNAL(tabCloseRequested(int)), this, SIGNAL(tabCloseRequested(int)));
-		connect(tabBar_, SIGNAL(requestFileName(int, QString&)), this, SIGNAL(requestFileName(int, QString&)));
-	}
+	TabWidget(QWidget* parent);
 
 signals:
 	void tabCloseRequested(int);
 	void requestFileName(int, QString&);
 
-protected:
+private:
 	TabBar* tabBar_;
 };
 

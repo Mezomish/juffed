@@ -115,6 +115,8 @@ SET ( juffed_SRCS
 	src/gui/MW.cpp
 	src/gui/SessionDlg.cpp
 	src/gui/SettingsDlg.cpp
+	src/gui/TabBar.cpp
+	src/gui/TabWidget.cpp
 	src/gui/Viewer.cpp
 )
 
@@ -143,6 +145,8 @@ SET ( juffed_MOC_HDRS
 	src/gui/MW.h
 	src/gui/SessionDlg.h
 	src/gui/SettingsDlg.h
+	src/gui/TabBar.h
+	src/gui/TabWidget.h
 	src/gui/Viewer.h
 )
 

@@ -52,6 +52,8 @@ public:
 
 signals:
 	void curDocChanged(QWidget*);
+	void requestDocName(QWidget*, QString&);
+	void requestDocClose(QWidget*);
 
 public slots:
 	void nextDoc();
@@ -60,6 +62,8 @@ public slots:
 private slots:
 	void curIndexChanged(int);
 	void docActivated();
+	void onFileNameRequested(int, QString&);
+	void onTabCloseRequested(int);
 
 private:
 	class Interior;

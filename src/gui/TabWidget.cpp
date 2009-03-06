@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License 
@@ -16,35 +16,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _TAB_BAR_H_
-#define _TAB_BAR_H_
+#include "TabWidget.h"
 
-class QMenu;
-
-#include <QtGui/QTabBar>
-
-class TabBar : public QTabBar {
-Q_OBJECT
-public:
-	TabBar(QWidget* parent);
-	virtual ~TabBar();
-
-signals:
-	void tabCloseRequested(int);
-	void requestFileName(int, QString&);
+TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
+	tabBar_ = new TabBar(this);
+	setTabBar(tabBar_);
+	tabBar()->setFocusPolicy(Qt::NoFocus); 
+	setAcceptDrops(true);
 	
-protected slots:
-	void copyFileName();
-	void copyFilePath();
-	void copyDirPath();
-
-protected:
-	virtual void mousePressEvent(QMouseEvent*);
-	virtual void mouseReleaseEvent(QMouseEvent*);
-
-private:
-	QMenu* tabMenu_;
-	int index_;
-};
-
-#endif
+	connect(tabBar_, SIGNAL(tabCloseRequested(int)), this, SIGNAL(tabCloseRequested(int)));
+	connect(tabBar_, SIGNAL(requestFileName(int, QString&)), this, SIGNAL(requestFileName(int, QString&)));
+}

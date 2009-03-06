@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Functions.h"
 #include "Log.h"
 #include "MainSettings.h"
+#include "TabWidget.h"
 
 namespace Juff {
 namespace GUI {
@@ -38,8 +39,8 @@ public:
 		
 //		QVBoxLayout* vBox = new QVBoxLayout();
 		widget_ = new QSplitter(Qt::Horizontal);
-		tw1_ = new QTabWidget();
-		tw2_ = new QTabWidget();
+		tw1_ = new TabWidget(0);
+		tw2_ = new TabWidget(0);
 		widget_->addWidget(tw1_);
 		widget_->addWidget(tw2_);
 		
@@ -89,6 +90,11 @@ Viewer::Viewer() : QObject() {
 	
 	connect(vInt_->tw1_, SIGNAL(currentChanged(int)), this, SLOT(curIndexChanged(int)));
 	connect(vInt_->tw2_, SIGNAL(currentChanged(int)), this, SLOT(curIndexChanged(int)));
+
+	connect(vInt_->tw1_, SIGNAL(requestFileName(int, QString&)), SLOT(onFileNameRequested(int, QString&)));
+	connect(vInt_->tw1_, SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
+	connect(vInt_->tw2_, SIGNAL(requestFileName(int, QString&)), SLOT(onFileNameRequested(int, QString&)));
+	connect(vInt_->tw2_, SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
 }
 
 Viewer::~Viewer() {
@@ -273,6 +279,26 @@ void Viewer::docActivated() {
 		vInt_->curView_ = doc->widget();
 		emit curDocChanged(doc->widget());
 	}*/
+}
+
+void Viewer::onFileNameRequested(int index, QString& name) {
+	JUFFENTRY;
+	
+	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
+	if ( tw ) {
+		QWidget* w = tw->widget(index);
+		emit requestDocName(w, name);
+	}
+}
+
+void Viewer::onTabCloseRequested(int index) {
+	JUFFENTRY;
+	
+	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
+	if ( tw ) {
+		QWidget* w = tw->widget(index);
+		emit requestDocClose(w);
+	}
 }
 
 int Viewer::curPanel() const {

@@ -282,6 +282,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	
 	
 	connect(mInt_->viewer_, SIGNAL(curDocChanged(QWidget*)), SLOT(onCurDocChanged(QWidget*)));
+	connect(mInt_->viewer_, SIGNAL(requestDocName(QWidget*, QString&)), SLOT(onDocNameRequested(QWidget*, QString&)));
+	connect(mInt_->viewer_, SIGNAL(requestDocClose(QWidget*)), SLOT(onDocCloseRequested(QWidget*)));
 	connect(gui, SIGNAL(settingsApplied()), SLOT(applySettings()));
 	
 	mInt_->pluginManager_->loadPlugins();
@@ -295,6 +297,44 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 }
 
 Manager::~Manager() {
+}
+
+bool Manager::closeWithConfirmation(Document* doc) {
+	if ( !doc || doc->isNull() )
+		return true;
+	
+	bool result = true;
+	if ( doc->isModified() ) {
+		//	TODO : move this question to GUI
+		QString str = tr("The document ") + doc->fileName();
+		str += tr(" has been modified.\nDo you want to save your changes?");
+		int ret = QMessageBox::warning(mInt_->viewer_->widget(), tr("Close document"),
+					str, QMessageBox::Save | QMessageBox::Discard
+					| QMessageBox::Cancel, QMessageBox::Save);
+		switch (ret) {
+		case QMessageBox::Save:
+			if ( fileSave() ) {
+				closeDoc(doc);
+			}
+			else {
+				result = false;
+			}
+			break;
+
+		case QMessageBox::Discard:
+			closeDoc(doc);
+			break;
+		
+		case QMessageBox::Cancel:
+			result = false;
+			break;
+		}
+	}
+	else {
+		closeDoc(doc);
+	}
+
+	return result;
 }
 
 bool Manager::confirmExit() {
@@ -656,41 +696,9 @@ void Manager::fileReload() {
 bool Manager::fileClose() {
 	JUFFENTRY;
 	
-	bool result = true;
 	Document* doc = curDoc();
+	bool result = closeWithConfirmation(doc);
 	
-	if ( !doc->isNull() ) {
-		if ( doc->isModified() ) {
-			Log::debug("Modified. Ask for permission");
-
-			//	TODO : move this question to GUI
-			QString str = tr("The document ") + doc->fileName();
-			str += tr(" has been modified.\nDo you want to save your changes?");
-			int ret = QMessageBox::warning(mInt_->viewer_->widget(), tr("Close document"),
-						str, QMessageBox::Save | QMessageBox::Discard
-						| QMessageBox::Cancel, QMessageBox::Save);
-			switch (ret) {
-			case QMessageBox::Save:
-				if ( fileSave() ) {
-					closeDoc(doc);
-				}
-				else {
-					result = false;
-				}
-				break;
-
-			case QMessageBox::Discard:
-				closeDoc(doc);
-				break;
-			case QMessageBox::Cancel:
-				result = false;
-				break;
-			}
-		}
-		else {
-			closeDoc(doc);
-		}
-	}
 
 	if ( curDoc()->isNull() )
 		mInt_->gui_->updateTitle("", mInt_->sessionName_, false);
@@ -1142,6 +1150,19 @@ void Manager::onCurDocChanged(QWidget* w) {
 	mInt_->gui_->setToolBars(toolBars);
 	mInt_->gui_->setMenus(menus);
 	mInt_->gui_->setDocks(docks);
+}
+
+void Manager::onDocCloseRequested(QWidget* w) {
+	JUFFENTRY;
+	
+	Document* doc = mInt_->getDocByView(w);
+	closeWithConfirmation(doc);
+}
+
+void Manager::onDocNameRequested(QWidget* w, QString& fileName) {
+	JUFFENTRY;
+	Document* doc = mInt_->getDocByView(w);
+	fileName = doc->isNull() ? "" : doc->fileName();
 }
 
 

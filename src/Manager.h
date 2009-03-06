@@ -58,7 +58,7 @@ public:
 	virtual void insertText(const QString&);
 
 	virtual void activateDoc(const QString&);
-	virtual void closeDoc(const QString&);
+	virtual void closeDoc(const QString& fileName);
 
 	void restoreSession();
 	
@@ -110,6 +110,10 @@ private slots:
 	void applySettings();
 	void onCloseEvent(bool&);
 	
+	//	slots for signals from Viewer
+	void onDocCloseRequested(QWidget*);
+	void onDocNameRequested(QWidget*, QString&);
+	
 	Document* curDoc() const;
 
 private:
@@ -136,6 +140,15 @@ private:
 	*	Closes given doc
 	*/
 	void closeDoc(Document*);
+	
+	/**
+	*	closeWithConfirmation()
+	*
+	*	Asks for confirmation if document was modified.
+	*	Returns 'false' if the process was interrupted by user 
+	*	or returns 'true' if it wasn't.
+	*/
+	bool closeWithConfirmation(Document*);
 
 	/**
 	*/

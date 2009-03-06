@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License 
@@ -50,11 +50,11 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 #if QT_VERSION >= 0x040300
 	//	The QTabBar::tabAt() function was introduced 
 	//	in Qt 4.3, that's why we need this #if ...
-	if (e->button() & Qt::MidButton) {
+	if ( e->button() & Qt::MidButton ) {
 		int index = tabAt(e->pos());
 		emit tabCloseRequested(index);
 	}
-	else if (e->button() & Qt::RightButton) {
+	else if ( e->button() & Qt::RightButton ) {
 		index_ = tabAt(e->pos());
 		tabMenu_->popup(e->globalPos());
 	}
@@ -67,7 +67,7 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 void TabBar::copyFileName() {
 	QString fileName;
 	requestFileName(index_, fileName);
-	if (!fileName.isEmpty()) {
+	if ( !fileName.isEmpty() ) {
 		QString name = QFileInfo(fileName).fileName();
 		QApplication::clipboard()->setText(name);
 	}
@@ -76,7 +76,7 @@ void TabBar::copyFileName() {
 void TabBar::copyFilePath() {
 	QString fileName;
 	requestFileName(index_, fileName);
-	if (!fileName.isEmpty()) {
+	if ( !fileName.isEmpty() ) {
 		QApplication::clipboard()->setText(fileName);
 	}
 }
@@ -84,7 +84,7 @@ void TabBar::copyFilePath() {
 void TabBar::copyDirPath() {
 	QString fileName;
 	requestFileName(index_, fileName);
-	if (!fileName.isEmpty()) {
+	if ( !fileName.isEmpty() ) {
 		QString name = QFileInfo(fileName).absolutePath();
 		QApplication::clipboard()->setText(name);
 	}

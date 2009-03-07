@@ -80,6 +80,9 @@ QString Document::type() const {
 }
 
 void Document::checkLastModified() {
+	if ( !widget() || !widget()->isVisible() )
+		return;
+	
 	QFileInfo fi(fileName_);
 	if ( fi.exists() ) {
 		if ( fi.lastModified() > lastModified_ ) {

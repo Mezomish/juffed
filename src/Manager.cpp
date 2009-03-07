@@ -1024,7 +1024,7 @@ void Manager::docModified(bool mod) {
 }
 
 void Manager::onCursorPositionChanged(int line, int col) {
-	mInt_->posL_->setText(tr("Row: %1, Col: %2").arg(line+1).arg(col+1));
+	mInt_->posL_->setText(tr(" Row: %1, Col: %2 ").arg(line+1).arg(col+1));
 }
 	
 void Manager::docFileNameChanged(const QString& oldName) {

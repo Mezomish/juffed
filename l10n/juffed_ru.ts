@@ -181,14 +181,47 @@ whole indent instead of removind single whitespace</source>
     </message>
 </context>
 <context>
+    <name>Juff::Document</name>
+    <message>
+        <location filename="../src/Document.cpp" line="87"/>
+        <source>The file &apos;%1&apos; was modified by external program.</source>
+        <translation>Файл &apos;%1&apos; был изменён другой программой.</translation>
+    </message>
+    <message>
+        <location filename="../src/Document.cpp" line="88"/>
+        <source>What do you want to do?</source>
+        <translation>Что вы хотите сделать?</translation>
+    </message>
+    <message>
+        <location filename="../src/Document.cpp" line="89"/>
+        <source>Warning</source>
+        <translation>Внимание</translation>
+    </message>
+    <message>
+        <location filename="../src/Document.cpp" line="93"/>
+        <source>Save current</source>
+        <translation>Сохранить текущий</translation>
+    </message>
+    <message>
+        <location filename="../src/Document.cpp" line="96"/>
+        <source>Reload from disk</source>
+        <translation>Обновить с диска</translation>
+    </message>
+    <message>
+        <location filename="../src/Document.cpp" line="99"/>
+        <source>Ignore</source>
+        <translation>Игнорировать</translation>
+    </message>
+</context>
+<context>
     <name>Juff::GUI::FindDlg</name>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="79"/>
+        <location filename="../src/gui/FindDlg.cpp" line="76"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="83"/>
+        <location filename="../src/gui/FindDlg.cpp" line="80"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>
@@ -196,47 +229,47 @@ whole indent instead of removind single whitespace</source>
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="92"/>
+        <location filename="../src/gui/GUI.cpp" line="95"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="133"/>
+        <location filename="../src/gui/GUI.cpp" line="142"/>
         <source>Open files</source>
         <translation>Открыть файлы</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="137"/>
+        <location filename="../src/gui/GUI.cpp" line="146"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="143"/>
+        <location filename="../src/gui/GUI.cpp" line="152"/>
         <source>Save as a copy</source>
         <translation>Сохранить как копию</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="155"/>
+        <location filename="../src/gui/GUI.cpp" line="164"/>
         <source>Save</source>
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="168"/>
+        <location filename="../src/gui/GUI.cpp" line="177"/>
         <source>Save session as</source>
         <translation>Сохранить сеанс как</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="168"/>
+        <location filename="../src/gui/GUI.cpp" line="177"/>
         <source>Session name</source>
         <translation>Имя сеанса</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="309"/>
+        <location filename="../src/gui/GUI.cpp" line="312"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="338"/>
+        <location filename="../src/gui/GUI.cpp" line="345"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
@@ -244,62 +277,67 @@ whole indent instead of removind single whitespace</source>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="420"/>
+        <location filename="../src/Manager.cpp" line="500"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Файл &apos;%1&apos; открыт только для чтения.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="421"/>
+        <location filename="../src/Manager.cpp" line="501"/>
         <source>What do you want to do?</source>
         <translation>Что вы хотите сделать?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="422"/>
+        <location filename="../src/Manager.cpp" line="502"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="423"/>
+        <location filename="../src/Manager.cpp" line="503"/>
         <source>Overwrite</source>
         <translation>Переписать</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="424"/>
+        <location filename="../src/Manager.cpp" line="504"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="438"/>
+        <location filename="../src/Manager.cpp" line="518"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Невозможно изменить права: Доступ запрещён</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="624"/>
+        <location filename="../src/Manager.cpp" line="309"/>
         <source>The document </source>
         <translation>Документ </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="625"/>
+        <location filename="../src/Manager.cpp" line="310"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> был изменён.
 Желаете сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="626"/>
+        <location filename="../src/Manager.cpp" line="311"/>
         <source>Close document</source>
         <translation>Закрыть документ</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="934"/>
+        <location filename="../src/Manager.cpp" line="990"/>
         <source>Go to line</source>
         <translation>Перейти к строке</translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="1095"/>
+        <source> Row: %1, Col: %2 </source>
+        <translation>Стр: %1, Стлб: %2</translation>
     </message>
 </context>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="549"/>
+        <location filename="../src/SciDoc.cpp" line="439"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Не могу открыть файл для записи</translation>
     </message>
@@ -307,17 +345,17 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDocHandler</name>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="60"/>
+        <location filename="../src/SciDocHandler.cpp" line="67"/>
         <source>Show line numbers</source>
         <translation>Показывать номера строк</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="66"/>
+        <location filename="../src/SciDocHandler.cpp" line="73"/>
         <source>Wrap words</source>
         <translation>Переносить слова</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="82"/>
+        <location filename="../src/SciDocHandler.cpp" line="89"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
@@ -333,57 +371,57 @@ Do you want to save your changes?</source>
 <context>
     <name>MainSettingsPage</name>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="48"/>
+        <location filename="../src/gui/MainSettingsPage.ui" line="46"/>
         <source>Show session dialog</source>
         <translation>Показывать диалог выбора сеанса</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="41"/>
+        <location filename="../src/gui/MainSettingsPage.ui" line="39"/>
         <source>Open empty session</source>
         <translation>Начать новый сеанс</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="83"/>
+        <location filename="../src/gui/MainSettingsPage.ui" line="79"/>
         <source>On program start</source>
         <translation>При запуске программы</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="131"/>
         <source>Auto save every</source>
-        <translation>Автоматически сохранять каждые</translation>
+        <translation type="obsolete">Автоматически сохранять каждые</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="154"/>
         <source> minute(s)</source>
-        <translation> минут(ы)</translation>
+        <translation type="obsolete"> минут(ы)</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="106"/>
+        <location filename="../src/gui/MainSettingsPage.ui" line="102"/>
         <source>Use existing instance of application when open files</source>
         <translation>Использовать уже запущенное приложение для открытия файлов</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="109"/>
+        <location filename="../src/gui/MainSettingsPage.ui" line="105"/>
         <source>Open files in existing instance</source>
         <translation>Открывать в существующем приложении</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="116"/>
+        <location filename="../src/gui/MainSettingsPage.ui" line="112"/>
         <source>Make backup copy when save file</source>
         <translation>Резервная копия при сохранении файла</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="92"/>
+        <location filename="../src/gui/MainSettingsPage.ui" line="88"/>
         <source>Save session when close</source>
         <translation>Сохранять сеанс при выходе</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="68"/>
+        <location filename="../src/gui/MainSettingsPage.ui" line="66"/>
         <source>Open last saved session</source>
         <translation>Открывать последний сохранённый сеанс</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="99"/>
+        <location filename="../src/gui/MainSettingsPage.ui" line="95"/>
         <source>Sync &apos;Open&apos; dialog to current doc&apos;s dir</source>
         <translation>Использовать каталог текущего документа при открытия файла</translation>
     </message>
@@ -404,86 +442,86 @@ Do you want to save your changes?</source>
         <translation>Без имени</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="418"/>
+        <location filename="../src/SciDoc.cpp" line="330"/>
         <source>Confirmation</source>
         <translation>Подтверждение</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="419"/>
+        <location filename="../src/SciDoc.cpp" line="331"/>
         <source>Replace this text?</source>
         <translation>Заменить этот текст?</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="93"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="95"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="62"/>
+        <location filename="../src/gui/GUI.cpp" line="65"/>
         <source>Simple text editor with syntax highlighting</source>
         <translation>Простой текстовый редактор с подсветкой синтаксиса</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="65"/>
+        <location filename="../src/gui/GUI.cpp" line="68"/>
         <source>Polish translation</source>
         <translation>Польская локализация</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="66"/>
+        <location filename="../src/gui/GUI.cpp" line="69"/>
         <source>German translation</source>
         <translation>Немецкая локализация</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="67"/>
+        <location filename="../src/gui/GUI.cpp" line="70"/>
         <source>French translation</source>
         <translation>Французская локализация</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="68"/>
+        <location filename="../src/gui/GUI.cpp" line="71"/>
         <source>Brazilian Portuguese translation</source>
         <translation>Бразильская (Португальская) локализация</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="58"/>
+        <location filename="../src/Manager.cpp" line="60"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="59"/>
+        <location filename="../src/Manager.cpp" line="61"/>
         <source>&amp;Edit</source>
         <translation>&amp;Правка</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="60"/>
+        <location filename="../src/Manager.cpp" line="62"/>
         <source>&amp;Charset</source>
         <translation>&amp;Кодировка</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="64"/>
+        <location filename="../src/Manager.cpp" line="66"/>
         <source>Recent files</source>
         <translation>Последние файлы</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="190"/>
+        <location filename="../src/Manager.cpp" line="214"/>
         <source>Session</source>
         <translation>Сеанс</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="349"/>
+        <location filename="../src/SciDoc.cpp" line="263"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Поиск достиг начала файла.
 Продолжить с конца?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="354"/>
+        <location filename="../src/SciDoc.cpp" line="268"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Поиск достиг конца файла.
 Продолжить с начала?</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="77"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="79"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>
@@ -508,144 +546,174 @@ Continue from the beginning?</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="62"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="63"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="63"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="64"/>
         <source>Close all</source>
         <translation>Закрыть все</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="64"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="66"/>
         <source>Exit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="66"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="68"/>
         <source>New session</source>
         <translation>Новый сеанс</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="67"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="69"/>
         <source>Open session</source>
         <translation>Открыть сеанс</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="68"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="70"/>
         <source>Save session</source>
         <translation>Сохранить сеанс</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="69"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="71"/>
         <source>Save session as</source>
         <translation>Сохранить сеанс как</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="71"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="73"/>
         <source>Undo</source>
         <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="72"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="74"/>
         <source>Redo</source>
         <translation>Повторить</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="73"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="75"/>
         <source>Cut</source>
         <translation>Вырезать</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="74"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="76"/>
         <source>Copy</source>
         <translation>Копировать</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="75"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="77"/>
         <source>Paste</source>
         <translation>Вставить</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="78"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="80"/>
         <source>Find next</source>
         <translation>Найти следующий</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="79"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="81"/>
         <source>Find previous</source>
         <translation>Найти предыдущий</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="80"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="82"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="81"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="83"/>
         <source>Go to line</source>
         <translation>Перейти к строке</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="83"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="85"/>
         <source>Zoom in</source>
         <translation>Увеличить шрифт</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="84"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="86"/>
         <source>Zoom out</source>
         <translation>Уменьшить шрифт</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="85"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="87"/>
         <source>Zoom 100%</source>
         <translation>Шрифт 100%</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="87"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="89"/>
         <source>Add/Remove marker</source>
         <translation>Добавить/Удалить маркер</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="88"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="90"/>
         <source>Next marker</source>
         <translation>Следующий маркер</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="89"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="91"/>
         <source>Previous marker</source>
         <translation>Предыдущий маркер</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="90"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="92"/>
         <source>Remove all markers</source>
         <translation>Удалить все маркеры</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="92"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="94"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="94"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="96"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="96"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="98"/>
         <source>N/A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="34"/>
+        <location filename="../src/SciDocHandler.cpp" line="35"/>
         <source>&amp;Markers</source>
         <translation>&amp;Маркеры</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="41"/>
+        <location filename="../src/SciDocHandler.cpp" line="42"/>
         <source>&amp;Syntax</source>
         <translation>&amp;Синтаксис</translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="81"/>
+        <source>Cursor position</source>
+        <translation>Позиция курсора</translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="82"/>
+        <source>File full name</source>
+        <translation>Полное имя файла</translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="83"/>
+        <source>Character set</source>
+        <translation>Кодировка</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="46"/>
+        <source>Syntax highlighting scheme</source>
+        <translation>Подсветка синтаксиса</translation>
+    </message>
+    <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="62"/>
+        <source>Reload</source>
+        <translation>Обновить</translation>
+    </message>
+    <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="65"/>
+        <source>Print</source>
+        <translation>Печать</translation>
     </message>
 </context>
 <context>
@@ -719,17 +787,17 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/TabBar.cpp" line="33"/>
         <source>Copy file name to clipboard</source>
-        <translation>Копировать имя файла в буфер обмена</translation>
+        <translation type="obsolete">Копировать имя файла в буфер обмена</translation>
     </message>
     <message>
         <location filename="../src/TabBar.cpp" line="34"/>
         <source>Copy full file path to clipboard</source>
-        <translation>Копировать полный путь к файлу в буфер обмена</translation>
+        <translation type="obsolete">Копировать полный путь к файлу в буфер обмена</translation>
     </message>
     <message>
         <location filename="../src/TabBar.cpp" line="35"/>
         <source>Copy file directory path to clipboard</source>
-        <translation>Копировать путь к каталогу файла в буфер обмена</translation>
+        <translation type="obsolete">Копировать путь к каталогу файла в буфер обмена</translation>
     </message>
 </context>
 <context>

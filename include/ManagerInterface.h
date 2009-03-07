@@ -111,6 +111,13 @@ public:
 	*	Closes the document with file name \par fileName.
 	*/
 	virtual void closeDoc(const QString& fileName) = 0;
+	
+	/**
+	*	saveDoc()
+	*
+	*	Saves the document with file name \par fileName.
+	*/
+	virtual void saveDoc(const QString& fileName) = 0;
 };
 
 #endif

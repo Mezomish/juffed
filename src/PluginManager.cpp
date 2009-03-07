@@ -175,7 +175,8 @@ void PluginManager::loadPlugins() {
 ToolBarList PluginManager::getToolBars(const QString& engine) {
 	ToolBarList list;
 	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
-		list << plugin->toolBar();
+		if ( plugin->toolBar() )
+			list << plugin->toolBar();
 	}
 	return list;
 }

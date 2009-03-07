@@ -88,10 +88,13 @@ QStringList IconManager::themeList() const {
 	QStringList list = iconDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		QString fullDirPath = iconDir.absolutePath() + "/" + *it;
-		QStringList items = QDir(fullDirPath).entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-		if ( !items.contains("16x16") && !items.contains("24x24") 
-				&& !items.contains("32x32") && !items.contains("48x48"))
+		if ( !QFile::exists(fullDirPath + "/scalable/actions/document-open.png") 
+				&& !QFile::exists(fullDirPath + "/24x24/actions/document-open.png") 
+				&& !QFile::exists(fullDirPath + "/16x16/actions/document-open.png") 
+		) 
+		{
 			list.erase(it);
+		}
 	}
 	return list;
 }

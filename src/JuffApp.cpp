@@ -82,6 +82,15 @@ bool JuffApp::sentFilesToExistingInstance() {
 void JuffApp::init(int& argc, char** argv) {
 	JUFFENTRY;
 		
+	//	translator
+	QString lng = QLocale::system().name().left(2);
+	if ( translator_.load("juffed_" + lng, AppInfo::translationPath()) ) {
+		if ( !translator_.isEmpty() ) {
+			installTranslator(&translator_);
+			JUFFDEBUG("-----===== TRANSLATOR INSTALLED =====-----");
+		}
+	}
+	
 	gui_ = new Juff::GUI::GUI();
 	manager_ = new Juff::Manager(gui_);
 	
@@ -92,13 +101,6 @@ void JuffApp::init(int& argc, char** argv) {
 		listener_->start();
 	}
 
-	//	translator
-	QString lng = QLocale::system().name().left(2);
-	if ( translator_.load("juffed_" + lng, AppInfo::translationPath()) ) {
-		if ( !translator_.isEmpty() )
-			installTranslator(&translator_);
-	}
-	
 	gui_->show();
 	
 	bool openFiles = false;

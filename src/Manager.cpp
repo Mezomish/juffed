@@ -1300,6 +1300,26 @@ void Manager::closeDoc(const QString& fileName) {
 	}
 }
 
+void Manager::saveDoc(const QString& fileName) {
+	Document* doc = 0;
+	if ( mInt_->docs1_.contains(fileName) ) {
+		doc = mInt_->docs1_[fileName];
+	}
+	else if ( mInt_->docs2_.contains(fileName) ) {
+		doc = mInt_->docs2_[fileName];
+	}
+	
+	if ( Juff::isNoname(fileName) ) {
+		//	document doesn't have a file name. Call "Save as"
+		
+		fileSaveAs();
+	}
+	else {
+		if ( saveDoc(doc, fileName) ) {
+			doc->setModified(false);
+		}
+	}
+}
 
 
 

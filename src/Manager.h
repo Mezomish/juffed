@@ -45,6 +45,7 @@ public:
 	void addDocHandler(DocHandler* handler);
 
 
+	//	inherited methods from ManagerInterface
 	virtual void getDocList(QStringList&) const;
 	virtual void getCurDocName(QString&) const;
 	virtual void getDocText(const QString&, QString&);
@@ -59,7 +60,9 @@ public:
 
 	virtual void activateDoc(const QString&);
 	virtual void closeDoc(const QString& fileName);
-
+	virtual void saveDoc(const QString& fileName);
+	//
+	
 	void restoreSession();
 	
 public slots:

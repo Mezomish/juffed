@@ -88,7 +88,7 @@ QStringList IconManager::themeList() const {
 	QStringList list = iconDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
 		QString fullDirPath = iconDir.absolutePath() + "/" + *it;
-		if ( !QFile::exists(fullDirPath + "/scalable/actions/document-open.png") 
+		if ( !QFile::exists(fullDirPath + "/32x32/actions/document-open.png") 
 				&& !QFile::exists(fullDirPath + "/24x24/actions/document-open.png") 
 				&& !QFile::exists(fullDirPath + "/16x16/actions/document-open.png") 
 		) 

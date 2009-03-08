@@ -1287,16 +1287,16 @@ void Manager::activateDoc(const QString& fileName) {
 	}
 }
 
-void Manager::closeDoc(const QString& fileName) {
+bool Manager::closeDoc(const QString& fileName) {
 	JUFFENTRY;
 	
 	if ( mInt_->docs1_.contains(fileName) ) {
 		Document* doc = mInt_->docs1_[fileName];
-		closeWithConfirmation(doc);
+		return closeWithConfirmation(doc);
 	}
 	else if ( mInt_->docs2_.contains(fileName) ) {
 		Document* doc = mInt_->docs2_[fileName];
-		closeWithConfirmation(doc);
+		return closeWithConfirmation(doc);
 	}
 }
 

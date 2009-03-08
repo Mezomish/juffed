@@ -427,7 +427,7 @@ bool SciDoc::save(const QString& fileName, QString& error) {
 	JUFFENTRY;
 	
 	QFile file(fileName);
-	if (file.open(QIODevice::WriteOnly)) {
+	if ( file.open(QIODevice::WriteOnly) ) {
 		QString text("");
 		text = docInt_->edit1_->text();
 		file.write(docInt_->codec_->fromUnicode(text));

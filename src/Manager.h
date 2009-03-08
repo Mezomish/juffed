@@ -59,7 +59,7 @@ public:
 	virtual void insertText(const QString&);
 
 	virtual void activateDoc(const QString&);
-	virtual void closeDoc(const QString& fileName);
+	virtual bool closeDoc(const QString& fileName);
 	virtual void saveDoc(const QString& fileName);
 	//
 	

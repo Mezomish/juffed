@@ -110,7 +110,7 @@ public:
 	*
 	*	Closes the document with file name \par fileName.
 	*/
-	virtual void closeDoc(const QString& fileName) = 0;
+	virtual bool closeDoc(const QString& fileName) = 0;
 	
 	/**
 	*	saveDoc()

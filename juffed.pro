@@ -117,4 +117,5 @@ TRANSLATIONS += l10n/juffed_de.ts \
                 l10n/juffed_pl.ts \
                 l10n/juffed_pt.ts \
                 l10n/juffed_ru.ts \
-                l10n/juffed_sp.ts
+                l10n/juffed_sp.ts \
+                l10n/juffed_zh_CN.ts \

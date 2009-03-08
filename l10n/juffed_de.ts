@@ -182,32 +182,32 @@ anstelle von nur einer Leerstelle</translation>
 <context>
     <name>Juff::Document</name>
     <message>
-        <location filename="../src/Document.cpp" line="87"/>
+        <location filename="../src/Document.cpp" line="90"/>
         <source>The file &apos;%1&apos; was modified by external program.</source>
         <translation>Die Datei &apos;%1&apos; wurde von einem externen Programm geändert.</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="88"/>
+        <location filename="../src/Document.cpp" line="91"/>
         <source>What do you want to do?</source>
         <translation>Was wollen Sie tun?</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="89"/>
+        <location filename="../src/Document.cpp" line="92"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="93"/>
+        <location filename="../src/Document.cpp" line="96"/>
         <source>Save current</source>
         <translation>Speichere aktuelles</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="96"/>
+        <location filename="../src/Document.cpp" line="99"/>
         <source>Reload from disk</source>
         <translation>Erneut laden</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="99"/>
+        <location filename="../src/Document.cpp" line="102"/>
         <source>Ignore</source>
         <translation>Ignorieren</translation>
     </message>

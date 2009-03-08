@@ -182,32 +182,32 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
 <context>
     <name>Juff::Document</name>
     <message>
-        <location filename="../src/Document.cpp" line="87"/>
+        <location filename="../src/Document.cpp" line="90"/>
         <source>The file &apos;%1&apos; was modified by external program.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="88"/>
+        <location filename="../src/Document.cpp" line="91"/>
         <source>What do you want to do?</source>
         <translation type="unfinished">Co chcesz zrobić?</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="89"/>
+        <location filename="../src/Document.cpp" line="92"/>
         <source>Warning</source>
         <translation type="unfinished">Uwaga</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="93"/>
+        <location filename="../src/Document.cpp" line="96"/>
         <source>Save current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="96"/>
+        <location filename="../src/Document.cpp" line="99"/>
         <source>Reload from disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="99"/>
+        <location filename="../src/Document.cpp" line="102"/>
         <source>Ignore</source>
         <translation type="unfinished"></translation>
     </message>

@@ -1298,6 +1298,9 @@ bool Manager::closeDoc(const QString& fileName) {
 		Document* doc = mInt_->docs2_[fileName];
 		return closeWithConfirmation(doc);
 	}
+	else {
+		return true;
+	}
 }
 
 void Manager::saveDoc(const QString& fileName) {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="ru_RU">
-<defaultcodec></defaultcodec>
 <context>
     <name>AboutDlg</name>
     <message>
@@ -183,32 +182,32 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
 <context>
     <name>Juff::Document</name>
     <message>
-        <location filename="../src/Document.cpp" line="87"/>
+        <location filename="../src/Document.cpp" line="90"/>
         <source>The file &apos;%1&apos; was modified by external program.</source>
         <translation>Le fichier &apos;%1&apos; a été modifié par un programme externe.</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="88"/>
+        <location filename="../src/Document.cpp" line="91"/>
         <source>What do you want to do?</source>
         <translation>Que voulez-vous faire?</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="89"/>
+        <location filename="../src/Document.cpp" line="92"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="93"/>
+        <location filename="../src/Document.cpp" line="96"/>
         <source>Save current</source>
         <translation>Enregistrer l&apos;actif</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="96"/>
+        <location filename="../src/Document.cpp" line="99"/>
         <source>Reload from disk</source>
         <translation>Recharger de par le disque</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="99"/>
+        <location filename="../src/Document.cpp" line="102"/>
         <source>Ignore</source>
         <translation>Ignorer</translation>
     </message>

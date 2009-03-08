@@ -83,11 +83,10 @@ void JuffApp::init(int& argc, char** argv) {
 	JUFFENTRY;
 		
 	//	translator
-	QString lng = QLocale::system().name().left(2);
+	QString lng = QLocale::system().name();
 	if ( translator_.load("juffed_" + lng, AppInfo::translationPath()) ) {
 		if ( !translator_.isEmpty() ) {
 			installTranslator(&translator_);
-			JUFFDEBUG("-----===== TRANSLATOR INSTALLED =====-----");
 		}
 	}
 	

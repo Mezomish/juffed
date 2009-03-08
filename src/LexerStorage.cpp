@@ -550,14 +550,10 @@ LexerStorage::~LexerStorage() {
 
 QString LexerStorage::lexerName(const QString& fileName) const {
 	QString ext = QFileInfo(fileName).suffix().toLower();
+	QString baseName = QFileInfo(fileName).fileName();
 	QString name = "none";
 
-	if (ext.isEmpty()) {
-		if (fileName.contains("Makefile")) {
-			name = "Makefile";
-		}
-	}
-	else if (lsInt_->cppExtList_.contains(ext)) {
+	if (lsInt_->cppExtList_.contains(ext)) {
 		name = "C++";
 	}
 	else if (ext.compare("diff") == 0 || ext.compare("patch") == 0) {
@@ -611,10 +607,10 @@ QString LexerStorage::lexerName(const QString& fileName) const {
 	else if (ext.compare("lua") == 0 || ext.compare("tasklua") == 0) {
 		name = "Lua";
 	}
-	else if (fileName.contains("Makefile")) {
+	else if ( baseName.contains("Makefile") ) {
 		name = "Makefile";
 	}
-	else if ( fileName.contains("CMakeLists") ) {
+	else if ( baseName.compare("CMakeLists.txt") == 0 || ext.compare("cmake") == 0 ) {
 		name = "CMake";
 	}
 

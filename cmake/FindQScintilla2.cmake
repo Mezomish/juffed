@@ -26,12 +26,15 @@ if (QT4_FOUND)
     else (LIBQSCINTILLA2_LIBRARY AND LIBQSCINTILLA2_INCLUDE_DIR)
 
         find_path(LIBQSCINTILLA2_INCLUDE_DIR qsciscintilla.h
+            PATHS
             ${QT_INCLUDE_DIR}/Qsci
+            ${CMAKE_INSTALL_PREFIX}/include/Qsci
         )
 
         find_library(LIBQSCINTILLA2_LIBRARY NAMES qscintilla2 libqscintilla2
             PATHS
             ${QT_LIBRARY_DIR}
+            ${CMAKE_INSTALL_PREFIX}/lib
         )
 
         include(FindPackageHandleStandardArgs)

@@ -46,6 +46,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class MainSettingsPage : public QWidget{
 public:
 	MainSettingsPage() : QWidget() {
+		JUFFENTRY;
 		ui.setupUi(this);
 	}
 	Ui::MainSettingsPage ui;
@@ -56,6 +57,7 @@ public:
 class ViewSettingsPage : public QWidget {
 public:
 	ViewSettingsPage() : QWidget() {
+		JUFFENTRY;
 		ui.setupUi(this);
 	}
 	Ui::ViewSettingsPage ui;
@@ -66,6 +68,8 @@ public:
 class EditorSettingsPage : public QWidget {
 public:
 	EditorSettingsPage() : QWidget () {
+		JUFFENTRY;
+	
 		ui.setupUi(this);
 
 		//	Creating ColorButton extensions. We shouldn't delete them
@@ -152,23 +156,26 @@ SettingsDlg::~SettingsDlg() {
 }
 
 void SettingsDlg::init() {
+	JUFFENTRY;
+	
 	//	icon themes
+	QStringList themes = IconManager::instance()->themeList();
 	pageView_->ui.iconThemeCmb->clear();
 	pageView_->ui.iconThemeCmb->addItem("<default>");
-/*	QDir iconsDir(AppInfo::configDir() + "/icons");
-	if (iconsDir.exists()) {
-		pageView_->ui.iconThemeCmb->addItems(iconsDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot));
-	}*/
-	pageView_->ui.iconThemeCmb->addItems(IconManager::instance()->themeList());
+	pageView_->ui.iconThemeCmb->addItems(themes);
 	
-	int tabPos = MainSettings::tabPosition();
 	QString iconTheme = MainSettings::iconTheme();
-	int style = MainSettings::toolButtonStyle();
-	pageView_->ui.tabPositionCmb->setCurrentIndex(tabPos);
-	if (iconTheme.isEmpty())
+	if ( iconTheme.isEmpty() || !themes.contains(iconTheme) ) {
 		pageView_->ui.iconThemeCmb->setCurrentIndex(pageView_->ui.iconThemeCmb->findText("<default>"));
-	else
+	}
+	else {
 		pageView_->ui.iconThemeCmb->setCurrentIndex(pageView_->ui.iconThemeCmb->findText(iconTheme));
+	}
+
+	int tabPos = MainSettings::tabPosition();
+	pageView_->ui.tabPositionCmb->setCurrentIndex(tabPos);
+	
+	int style = MainSettings::toolButtonStyle();
 	pageView_->ui.toolButtonStyleCmb->setCurrentIndex(style);
 	pageView_->ui.iconSizeCmb->setCurrentIndex(MainSettings::iconSize());
 	

@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "CharsetsSettings.h"
 
 CharsetsSettingsPage::CharsetsSettingsPage(QWidget* parent) : QWidget(parent) {
+	JUFFENTRY;
 	ui.setupUi(this);
 
 	connect(ui.checkAllBtn, SIGNAL(clicked()), SLOT(selectAll()));
@@ -31,6 +32,7 @@ CharsetsSettingsPage::~CharsetsSettingsPage() {
 }
 
 void CharsetsSettingsPage::init() {
+	JUFFENTRY;
 	ui.charsetsList->clear();
 	foreach (QString charset, CharsetsSettings::getCharsetsList()) {
 		QListWidgetItem* item = new QListWidgetItem(charset, ui.charsetsList);

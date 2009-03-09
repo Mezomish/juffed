@@ -95,6 +95,8 @@ void IconManager::setCurrentIconTheme(const QString& theme, int size) {
 }
 
 QStringList IconManager::themeList() const {
+	JUFFENTRY;
+	
 	QDir iconDir("/usr/share/icons");
 	QStringList list = iconDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
 	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {

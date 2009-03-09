@@ -98,19 +98,20 @@ QStringList IconManager::themeList() const {
 	JUFFENTRY;
 	
 	QDir iconDir("/usr/share/icons");
-	QStringList list = iconDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
-	for (QStringList::iterator it = list.begin(); it != list.end(); ++it) {
+	QStringList dirList = iconDir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+	QStringList thList;
+	for (QStringList::iterator it = dirList.begin(); it != dirList.end(); ++it) {
 		QString fullDirPath = iconDir.absolutePath() + "/" + *it;
-		if ( !QFile::exists(fullDirPath + "/32x32/actions/document-open.png") 
-				&& !QFile::exists(fullDirPath + "/24x24/actions/document-open.png") 
-				&& !QFile::exists(fullDirPath + "/16x16/actions/document-open.png") 
-				&& !QFile::exists(fullDirPath + "/scalable/actions/document-open.svg") 
+		if ( QFile::exists(fullDirPath + "/32x32/actions/document-open.png") 
+				|| QFile::exists(fullDirPath + "/24x24/actions/document-open.png") 
+				|| QFile::exists(fullDirPath + "/16x16/actions/document-open.png") 
+				|| QFile::exists(fullDirPath + "/scalable/actions/document-open.svg") 
 		) 
 		{
-			list.erase(it);
+			thList << *it;
 		}
 	}
-	return list;
+	return thList;
 }
 
 QIcon IconManager::getIcon(Juff::CommandID id) {

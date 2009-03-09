@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "CharsetsSettingsPage.h"
 
 #include "CharsetsSettings.h"
+#include "Log.h"
 
 CharsetsSettingsPage::CharsetsSettingsPage(QWidget* parent) : QWidget(parent) {
 	JUFFENTRY;

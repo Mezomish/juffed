@@ -20,7 +20,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QtCore/QDir>
 #include <QtCore/QMap>
-#include <QtCore/QPair>
 #include <QtCore/QString>
 
 #include "Log.h"
@@ -29,34 +28,45 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class IMInterior {
 public:
 	IMInterior() : default_(true) {
-		idIconMap_[Juff::ID_FILE_NEW] = QPair<QString, QString>("actions/document-new.png", "fileNew.png");
-		idIconMap_[Juff::ID_FILE_OPEN] = QPair<QString, QString>("actions/document-open.png", "fileOpen.png");
-		idIconMap_[Juff::ID_FILE_SAVE] = QPair<QString, QString>("actions/document-save.png", "fileSave.png");
-		idIconMap_[Juff::ID_FILE_SAVE_AS] = QPair<QString, QString>("actions/document-save-as.png", "fileSaveAs.png");
-		idIconMap_[Juff::ID_FILE_CLOSE] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_FILE_CLOSE_ALL] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_EXIT] = QPair<QString, QString>("actions/exit.png", "exit.png");
-		idIconMap_[Juff::ID_FILE_RELOAD] = QPair<QString, QString>("actions/view-refresh.png", "");
-		idIconMap_[Juff::ID_FILE_PRINT] = QPair<QString, QString>("actions/document-print.png", "filePrint.png");
-		//
-		idIconMap_[Juff::ID_EDIT_CUT] = QPair<QString, QString>("actions/edit-cut.png", "editCut.png");
-		idIconMap_[Juff::ID_EDIT_COPY] = QPair<QString, QString>("actions/edit-copy.png", "editCopy.png");
-		idIconMap_[Juff::ID_EDIT_PASTE] = QPair<QString, QString>("actions/edit-paste.png", "editPaste.png");
-		idIconMap_[Juff::ID_EDIT_UNDO] = QPair<QString, QString>("actions/edit-undo.png", "editUndo.png");
-		idIconMap_[Juff::ID_EDIT_REDO] = QPair<QString, QString>("actions/edit-redo.png", "editRedo.png");
-		idIconMap_[Juff::ID_ZOOM_IN] = QPair<QString, QString>("actions/zoom-in.png", "zoomIn.png");
-		idIconMap_[Juff::ID_ZOOM_OUT] = QPair<QString, QString>("actions/zoom-out.png", "zoomOut.png");
-		idIconMap_[Juff::ID_ZOOM_100] = QPair<QString, QString>("actions/zoom-original.png", "zoom100.png");
-		//
-		idIconMap_[Juff::ID_FIND] = QPair<QString, QString>("actions/edit-find.png", "find.png");
-		idIconMap_[Juff::ID_FIND_NEXT] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_FIND_PREV] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_GOTO_LINE] = QPair<QString, QString>("", "");
-		idIconMap_[Juff::ID_REPLACE] = QPair<QString, QString>("actions/edit-find-replace.png", "replace.png");
-		//
-		idIconMap_[Juff::ID_SETTINGS] = QPair<QString, QString>("actions/configure.png", "settings.png");
-		idIconMap_[Juff::ID_ABOUT] = QPair<QString, QString>("apps/help.png", "about.png");
-
+		defaultIcons_[Juff::ID_FILE_NEW]		= "fileNew.png";
+		defaultIcons_[Juff::ID_FILE_OPEN]		= "fileOpen.png";
+		defaultIcons_[Juff::ID_FILE_SAVE]		= "fileSave.png";
+		defaultIcons_[Juff::ID_FILE_SAVE_AS]	= "fileSaveAs.png";
+		defaultIcons_[Juff::ID_FILE_PRINT]		= "filePrint.png";
+		defaultIcons_[Juff::ID_EXIT]			= "exit.png";
+		defaultIcons_[Juff::ID_EDIT_CUT] 		= "editCut.png";
+		defaultIcons_[Juff::ID_EDIT_COPY]		= "editCopy.png";
+		defaultIcons_[Juff::ID_EDIT_PASTE]		= "editPaste.png";
+		defaultIcons_[Juff::ID_EDIT_UNDO]		= "editUndo.png";
+		defaultIcons_[Juff::ID_EDIT_REDO]		= "editRedo.png";
+		defaultIcons_[Juff::ID_ZOOM_IN]			= "zoomIn.png";
+		defaultIcons_[Juff::ID_ZOOM_OUT]		= "zoomOut.png";
+		defaultIcons_[Juff::ID_ZOOM_100]		= "zoom100.png";
+		defaultIcons_[Juff::ID_FIND]			= "find.png";
+		defaultIcons_[Juff::ID_REPLACE]			= "replace.png";
+		defaultIcons_[Juff::ID_SETTINGS]		= "settings.png";
+		defaultIcons_[Juff::ID_ABOUT]			= "about.png";
+		
+		icons_[Juff::ID_FILE_NEW]		= "actions/document-new";
+		icons_[Juff::ID_FILE_OPEN]		= "actions/document-open";
+		icons_[Juff::ID_FILE_SAVE]		= "actions/document-save";
+		icons_[Juff::ID_FILE_SAVE_AS]	= "actions/document-save-as";
+		icons_[Juff::ID_FILE_PRINT]		= "actions/document-print";
+		icons_[Juff::ID_FILE_RELOAD]	= "actions/view-refresh";
+		icons_[Juff::ID_EXIT]			= "actions/exit";
+		icons_[Juff::ID_EDIT_CUT] 		= "actions/edit-cut";
+		icons_[Juff::ID_EDIT_COPY]		= "actions/edit-copy";
+		icons_[Juff::ID_EDIT_PASTE]		= "actions/edit-paste";
+		icons_[Juff::ID_EDIT_UNDO]		= "actions/edit-undo";
+		icons_[Juff::ID_EDIT_REDO]		= "actions/edit-redo";
+		icons_[Juff::ID_ZOOM_IN]		= "actions/zoom-in";
+		icons_[Juff::ID_ZOOM_OUT]		= "actions/zoom-out";
+		icons_[Juff::ID_ZOOM_100]		= "actions/zoom-original";
+		icons_[Juff::ID_FIND]			= "actions/edit-find";
+		icons_[Juff::ID_REPLACE]		= "actions/edit-find-replace";
+		icons_[Juff::ID_SETTINGS]		= "actions/configure";
+		icons_[Juff::ID_ABOUT]			= "apps/help";
+		
 		theme_ = "<default>";
 		size_ = 1;
 		
@@ -69,12 +79,13 @@ public:
 	typedef QMap<QString, QIcon> IconMap;
 	IconMap iconMap_;
 	bool default_;
-	QMap<Juff::CommandID, QPair<QString, QString> > idIconMap_;
 	
 	QString theme_;
 	int size_;
 	typedef QVector< QVector<int> > SzSeq;
 	SzSeq sizeSeq_;
+	QMap<Juff::CommandID, QString> defaultIcons_;
+	QMap<Juff::CommandID, QString> icons_;
 };
 
 
@@ -91,6 +102,7 @@ QStringList IconManager::themeList() const {
 		if ( !QFile::exists(fullDirPath + "/32x32/actions/document-open.png") 
 				&& !QFile::exists(fullDirPath + "/24x24/actions/document-open.png") 
 				&& !QFile::exists(fullDirPath + "/16x16/actions/document-open.png") 
+				&& !QFile::exists(fullDirPath + "/scalable/actions/document-open.svg") 
 		) 
 		{
 			list.erase(it);
@@ -100,23 +112,40 @@ QStringList IconManager::themeList() const {
 }
 
 QIcon IconManager::getIcon(Juff::CommandID id) {
-	QString iconDir("/usr/share/icons");
+	JUFFENTRY;
+	JUFFDEBUG((int)id);
 	
-	QString iconFileName = imInt_->idIconMap_[id].first;
-	if ( iconFileName.isEmpty() )
-		return QIcon();
+	if ( !imInt_->icons_.contains(id) ) {
+		return getDefaultIcon(id);
+	}
+	
+	QString iconDir("/usr/share/icons");
+	QString iconFileName = imInt_->icons_[id];
+	if ( imInt_->theme_.compare("<default>") == 0 ) {
+		return getDefaultIcon(id);
+	}
 	else {
-		if ( imInt_->theme_.compare("<default>") == 0 ) {
-			return getDefaultIcon(id);
+		for (int i = 0; i < 4; ++i) {
+			int sz = imInt_->sizeSeq_[imInt_->size_][i];
+			QString fileName = iconDir + "/" + imInt_->theme_ + "/" + 
+							QString("%1x%2/").arg(sz).arg(sz) + iconFileName + ".png";
+			JUFFDEBUG(fileName);
+			if ( QFileInfo(fileName).exists() ) {
+				JUFFDEBUG("PNG icon found");
+				return QIcon(fileName);
+			}
+		}
+		//	If we are here then we didn't find a PNG icon. 
+		//	Try to find SVG.
+		QString svgIconFileName = iconDir + "/" + imInt_->theme_ + "/scalable/" + 
+							iconFileName + ".svg";
+		JUFFDEBUG(svgIconFileName);
+		if ( QFileInfo(svgIconFileName).exists() ) {
+			JUFFDEBUG("SVG icon found");
+			return QIcon(svgIconFileName);
 		}
 		else {
-			for (int i = 0; i < 4; ++i) {
-				int sz = imInt_->sizeSeq_[imInt_->size_][i];
-				QString fileName = iconDir + "/" + imInt_->theme_ + "/" + 
-								QString("%1x%2/").arg(sz).arg(sz) + iconFileName;
-				if ( QFileInfo(fileName).exists() )
-					return QIcon(fileName);
-			}
+			JUFFDEBUG("Not found. Returning default icon");
 			return getDefaultIcon(id);
 		}
 	}
@@ -124,15 +153,21 @@ QIcon IconManager::getIcon(Juff::CommandID id) {
 
 QIcon IconManager::getDefaultIcon(Juff::CommandID id) {
 	JUFFENTRY;
-
-	QString iconFileName = imInt_->idIconMap_[id].second;
-	for (int i = 0; i < 4; ++i) {
-		int sz = imInt_->sizeSeq_[imInt_->size_][i];
-		QString fileName = QString(":%1/").arg(sz) + iconFileName;
-		if ( QFileInfo(fileName).exists() ) {
-			return QIcon(fileName);
+	JUFFDEBUG((int)id);
+	
+	if ( imInt_->defaultIcons_.contains(id) ) {
+		QString iconFileName = imInt_->defaultIcons_[id];
+		for (int i = 0; i < 4; ++i) {
+			int sz = imInt_->sizeSeq_[imInt_->size_][i];
+			QString fileName = QString(":%1/").arg(sz) + iconFileName;
+			JUFFDEBUG(fileName);
+			if ( QFileInfo(fileName).exists() ) {
+				return QIcon(fileName);
+			}
 		}
 	}
+
+	JUFFDEBUG("empty icon");
 	return QIcon();
 }
 

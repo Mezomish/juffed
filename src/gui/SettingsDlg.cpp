@@ -159,6 +159,7 @@ void SettingsDlg::init() {
 	JUFFENTRY;
 	
 	//	icon themes
+	JUFFDEBUG("Initialization: icon theme");
 	QStringList themes = IconManager::instance()->themeList();
 	pageView_->ui.iconThemeCmb->clear();
 	pageView_->ui.iconThemeCmb->addItem("<default>");
@@ -172,6 +173,7 @@ void SettingsDlg::init() {
 		pageView_->ui.iconThemeCmb->setCurrentIndex(pageView_->ui.iconThemeCmb->findText(iconTheme));
 	}
 
+	JUFFDEBUG("Initialization: GUI settings");
 	int tabPos = MainSettings::tabPosition();
 	pageView_->ui.tabPositionCmb->setCurrentIndex(tabPos);
 	
@@ -181,6 +183,7 @@ void SettingsDlg::init() {
 	
 
 	//	Main page
+	JUFFDEBUG("Initialization: main page");
 	int startupVariant = MainSettings::startupVariant();
 	switch (startupVariant) {
 		case 1:
@@ -205,6 +208,7 @@ void SettingsDlg::init() {
 #endif
 	
 	//	Editor page
+	JUFFDEBUG("Initialization: editor page");
 	pageEditor_->ui.fontCmb->setCurrentFont(TextDocSettings::font());
 	pageEditor_->ui.fontSizeSpin->setValue(TextDocSettings::font().pointSize());
 //	pageEditor_->ui.widthAdjustChk->setChecked(TextDocSettings::widthAdjust());

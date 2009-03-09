@@ -142,6 +142,7 @@ private:
 };
 
 AboutDlg::AboutDlg(QWidget* parent /*= 0*/, Qt::WindowFlags f /*= 0*/) : QDialog(parent, f) {
+	JUFFENTRY;
 	dlgInt_ = new Interior(this);
 }
 

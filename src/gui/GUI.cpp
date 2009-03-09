@@ -99,15 +99,19 @@ GUI::GUI() : QObject() {
 	st->registerCommand(ID_SETTINGS, 		this, SLOT(settings()));
 	st->registerCommand(ID_ABOUT, 			this, SLOT(about()));
 	st->registerCommand(ID_ABOUT_QT,		this, SLOT(aboutQt()));
+	JUFFDEBUG("Filling the 'help' menu");
 	helpMenu_->addAction(st->action(ID_ABOUT));
 	helpMenu_->addAction(st->action(ID_ABOUT_QT));
 	
+	JUFFDEBUG("Filling the 'tools' menu");
 	toolsMenu_->addAction(st->action(ID_SETTINGS));
 	
+	JUFFDEBUG("Creating settings dialog");
 	settDlg_ = new SettingsDlg(mw_);
 	settDlg_->hide();
 	connect(settDlg_, SIGNAL(applied()), SLOT(applySettings()));
 	
+	JUFFDEBUG("Creating about dialog");
 	aboutDlg_ = createAboutDlg(mw_);
 }
 

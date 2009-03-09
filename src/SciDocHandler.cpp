@@ -62,6 +62,8 @@ public:
 };
 
 SciDocHandler::SciDocHandler() : DocHandler() {	
+	JUFFENTRY;
+	
 	docInt_ = new Interior();
 	
 		QAction* showLineNumsAct = new QAction(tr("Show line numbers"), 0);

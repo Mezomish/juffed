@@ -98,6 +98,7 @@ public:
 /////////////////////////////////////////////////////////////
 
 SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
+	JUFFENTRY;
 
 	setWindowTitle(tr("Settings"));
 

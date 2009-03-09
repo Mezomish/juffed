@@ -144,6 +144,8 @@ public:
 };
 
 Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
+	JUFFENTRY;
+	
 	mInt_ = new Interior(this, gui);
 	gui->updateTitle("", "", false);
 	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));

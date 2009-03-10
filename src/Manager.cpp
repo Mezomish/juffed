@@ -768,7 +768,7 @@ void Manager::writePanelViews(QFile& file, int panel) {
 	mInt_->viewer_->getViewsList(panel, views);
 	foreach (QWidget* w, views) {
 		Document* doc = mInt_->getDocByView(w);
-		if ( doc && !doc->isNull() ) {
+		if ( doc && !doc->isNull() && !isNoname(doc->fileName()) ) {
 			int scrPos = doc->curScrollPos();
 			int line = doc->curLine();
 			file.write(QString("%1:%2:%3\n")

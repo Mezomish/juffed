@@ -48,10 +48,10 @@ public:
 
 	void show();
 	void setCentralWidget(QWidget*);
-	void setToolBars(QToolBar*);
-	void setToolBars(ToolBarList);
-	void setMenus(const MenuList&);
-	void setDocks(const QWidgetList&);
+	void addToolBar(QToolBar*);
+	void addToolBars(const ToolBarList&);
+	void addDocks(const QWidgetList&);
+	void setMainMenus(const MenuList&);
 
 	QMenu* toolsMenu() const;
 
@@ -80,7 +80,6 @@ private:
 	QMenu* helpMenu_;
 
 	ToolBarList toolBars_;
-	QWidgetList docks_;
 	QMainWindow* mw_;
 
 	SettingsDlg* settDlg_;

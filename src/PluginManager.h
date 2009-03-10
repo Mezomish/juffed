@@ -53,6 +53,7 @@ public:
 	QWidgetList getDocks(const QString& engine);
 
 	void emitInfoSignal(InfoEvent, const Param&, const Param& = Param());
+	void activatePlugins(const QString& type);
 
 private:
 	class Interior;

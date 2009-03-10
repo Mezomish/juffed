@@ -33,16 +33,33 @@ namespace Log {
 
 //#define JUFF_DEBUG
 
+#ifdef JUFF_FULL_DEBUG
+
+#define JUFFENTRY Log::debug(QString("Entering %1 (%2:%3)").arg(__FUNCTION__).arg(__FILE__).arg(__LINE__))
+#define JUFFDTOR Log::debug(QString("Destructor: %1").arg(__FUNCTION__))
+#define JUFFDEBUG(x) Log::debug(QString("DEBUG (%1:%2): %3").arg(__FILE__).arg(__LINE__).arg(x))
+#define JUFFDEBUG2(x) Log::debug(QString("DEBUG2 (%1:%2): %3").arg(__FILE__).arg(__LINE__).arg(x))
+
+#else	//	JUFF_FULL_DEBUG
+
+//-----------------
 #ifdef JUFF_DEBUG
 
 #define JUFFENTRY Log::debug(QString("Entering %1 (%2:%3)").arg(__FUNCTION__).arg(__FILE__).arg(__LINE__))
 #define JUFFDTOR Log::debug(QString("Destructor: %1").arg(__FUNCTION__))
 #define JUFFDEBUG(x) Log::debug(QString("DEBUG (%1:%2): %3").arg(__FILE__).arg(__LINE__).arg(x))
-#else
+
+#else	//	JUFF_DEBUG
 
 #define JUFFENTRY ;
 #define JUFFDTOR ;
 #define JUFFDEBUG(x) ;
-#endif
 
-#endif
+#endif	//	JUFF_DEBUG
+//-----------------
+
+#define JUFFDEBUG2(x) ;
+
+#endif	//	JUFF_FULL_DEBUG
+
+#endif	//	_LOG_H_

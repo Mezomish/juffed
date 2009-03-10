@@ -56,6 +56,7 @@ QIcon CommandStorage::getIcon(CommandID id) {
 QString CommandStorage::getName(CommandID id) {
 	switch (id) {
 		case ID_FILE_NEW :		return QObject::tr("New");
+		case ID_FILE_NEW_RICH :	return QObject::tr("New Rich text");
 		case ID_FILE_OPEN :		return QObject::tr("Open");
 		case ID_FILE_SAVE :		return QObject::tr("Save");
 		case ID_FILE_SAVE_AS :	return QObject::tr("Save as");
@@ -102,6 +103,7 @@ QString CommandStorage::getName(CommandID id) {
 QKeySequence CommandStorage::getShortcut(CommandID id) {
 	switch (id) {
 		case ID_FILE_NEW :		return QKeySequence("Ctrl+N");
+		case ID_FILE_NEW_RICH :	return QKeySequence("Ctrl+M");
 		case ID_FILE_OPEN :		return QKeySequence("Ctrl+O");
 		case ID_FILE_SAVE :		return QKeySequence("Ctrl+S");
 		case ID_FILE_SAVE_AS :	return QKeySequence("");

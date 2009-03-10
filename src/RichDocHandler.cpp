@@ -57,4 +57,8 @@ MenuList RichDocHandler::menus() const {
 	return menus_;
 }
 
+QWidgetList RichDocHandler::statusWidgets() const {
+	return QWidgetList();
+}
+
 }	//	namespace Juff

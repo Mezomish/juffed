@@ -186,8 +186,9 @@ QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
 # definitions for the project
 ADD_DEFINITIONS(
 	-Wall 
-	-DQT_NO_DEBUG
+#	-DQT_NO_DEBUG
 	-DJUFF_DEBUG
+	-DJUFF_FULL_DEBUG
 	${QT_DEFINITIONS}
 )
 

@@ -51,6 +51,16 @@ public:
 	virtual QMenu* menu() const { return 0; }
 
 	/**
+	*	subMenus()
+	*
+	*	Returns list of menus that should be added to menu
+	*	with ID \par id.
+	*	Reimplement this method if you need to add items to main
+	*	or context menu.
+	*/
+	virtual Juff::MenuList subMenus(Juff::MenuID id) const = 0;
+	
+	/**
 	*	toolBar()
 	*
 	*	Returns the QToolBarof the plugin. 
@@ -73,6 +83,13 @@ public:
 	*	Reimplement this method if you have dock window(s).
 	*/
 	virtual QWidgetList dockList() const { return QWidgetList(); }
+	
+	/**
+	*	dockPosition()
+	*
+	*	Returns the default position of plugin's dock widget \par w.
+	*/
+	virtual Qt::DockWidgetArea dockPosition(QWidget* w) const = 0;
 	
 	/**
 	*	onInfoEvent()

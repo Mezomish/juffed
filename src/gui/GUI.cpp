@@ -237,32 +237,34 @@ QMenu* GUI::toolsMenu() const {
 	return toolsMenu_;
 }
 
-void GUI::setToolBars(QToolBar* tb) {
+void GUI::addToolBar(QToolBar* tb) {
 	//	clear current toolbars
-	foreach (QToolBar* tb, toolBars_) {
+/*	foreach (QToolBar* tb, toolBars_) {
 		mw_->removeToolBar(tb);
 	}
-	toolBars_.clear();
+	toolBars_.clear();*/
 	
 	mw_->addToolBar(tb);
-	tb->show();
+	tb->hide();
+	toolBars_ << tb;
 }
 
-void GUI::setToolBars(ToolBarList list) {
+void GUI::addToolBars(const ToolBarList& list) {
 	//	clear current toolbars
-	foreach (QToolBar* tb, toolBars_) {
+/*	foreach (QToolBar* tb, toolBars_) {
 		mw_->removeToolBar(tb);
 	}
-	toolBars_.clear();
+	toolBars_.clear();*/
 	
-	toolBars_ = list;
+//	toolBars_ << list;
 	foreach (QToolBar* tb, list) {
-		mw_->addToolBar(tb);
-		tb->show();
+//		mw_->addToolBar(tb);
+//		tb->hide();
+		addToolBar(tb);
 	}
 }
 
-void GUI::setMenus(const MenuList& menus) {
+void GUI::setMainMenus(const MenuList& menus) {
 	//	clear current menus
 	mw_->menuBar()->clear();
 
@@ -274,23 +276,14 @@ void GUI::setMenus(const MenuList& menus) {
 	mw_->menuBar()->addMenu(helpMenu_);
 }
 
-void GUI::setDocks(const QWidgetList& list) {
-	foreach(QWidget* dockW, docks_) {
-		dockW->parentWidget()->hide();
-	}
-	
+void GUI::addDocks(const QWidgetList& list) {
 	foreach (QWidget* w, list) {
-		if ( docks_.contains(w) ) {
-			w->parentWidget()->show();
-		}
-		else {
-			QString title = w->windowTitle();
-			QDockWidget* dock = new QDockWidget(title);
-			dock->setObjectName(title);
-			dock->setWidget(w);
-			mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
-			docks_.append(w);
-		}
+		QString title = w->windowTitle();
+		QDockWidget* dock = new QDockWidget(title);
+		dock->setObjectName(title);
+		dock->setWidget(w);
+		mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
+		dock->hide();
 	}
 }
 

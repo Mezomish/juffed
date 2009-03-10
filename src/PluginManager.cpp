@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QMap>
 #include <QtCore/QPluginLoader>
 #include <QtGui/QMainWindow>
+#include <QtGui/QToolBar>
 
 #include "AppInfo.h"
 //#include "EventProxy.h"
@@ -36,6 +37,7 @@ public:
 	Interior() {
 		gui_ = 0;
 		managerInt_ = 0;
+		curType_ = "";
 	}
 	~Interior() {
 	}
@@ -61,6 +63,11 @@ public:
 	GUI::GUI* gui_;
 	QStringList engines_;
 	ManagerInterface* managerInt_;
+	
+	QString curType_;
+	QMap<QString, QWidgetList> docks_;
+	QMap<QString, MenuList> menus_;
+	QMap<QString, ToolBarList> toolBars_;
 };
 
 
@@ -95,7 +102,7 @@ void PluginManager::loadPlugin(const QString& path) {
 		Log::debug("Plugin was NOT loaded");
 		return;
 	}
-
+	
 	QObject *obj = loader.instance();
 	if ( obj ) {
 		JuffPlugin* plugin = qobject_cast<JuffPlugin*>(obj);
@@ -139,9 +146,17 @@ void PluginManager::loadPlugin(const QString& path) {
 	//					jInt_->panelsMenu_->addAction(dock->toggleViewAction());
 	//				}
 				}*/
+				QString type = plugin->targetEngine();
+				QWidgetList docks = plugin->dockList();
+				if ( !docks.isEmpty() ) {
+					pmInt_->docks_[type] << docks;
+				}
+				QToolBar* toolBar = plugin->toolBar();
+				if ( toolBar ) {
+					pmInt_->toolBars_[type] << toolBar;
+				}
 			}
 			else {
-				delete plugin;
 				loader.unload();
 			}
 		}
@@ -163,6 +178,20 @@ void PluginManager::loadPlugins() {
 		QString path = gPluginDir.absoluteFilePath(fileName);
 		loadPlugin(path);
 	}
+	
+	QWidgetList allDocks;
+	foreach (QString type, pmInt_->docks_.keys()) {
+		allDocks << pmInt_->docks_[type];
+	}
+	pmInt_->gui_->addDocks(allDocks);
+	
+	ToolBarList allToolBars;
+	foreach (QString type, pmInt_->toolBars_.keys()) {
+		allToolBars << pmInt_->toolBars_[type];
+	}
+	pmInt_->gui_->addToolBars(allToolBars);
+	
+	activatePlugins("all");
 }
 
 /*void PluginManager::addToolBars(const QString& engine) {
@@ -196,6 +225,55 @@ QWidgetList PluginManager::getDocks(const QString& engine) {
 		list << plugin->dockList();
 	}
 	return list;
+}
+
+void PluginManager::activatePlugins(const QString& type) {
+	JUFFENTRY;
+	
+	if ( type == pmInt_->curType_ )
+		return;
+	
+	//	hide currently opened controls
+	if ( !pmInt_->curType_.isEmpty() ) {
+		//	docks
+		if ( pmInt_->docks_.contains(pmInt_->curType_) ) {
+			foreach (QWidget* w, pmInt_->docks_[pmInt_->curType_]) {
+				w->parentWidget()->hide();
+			}
+		}
+		//	toolbars
+		if ( pmInt_->toolBars_.contains(pmInt_->curType_) ) {
+			foreach (QToolBar* tb, pmInt_->toolBars_[pmInt_->curType_]) {
+				tb->hide();
+			}
+		}
+	}
+	
+	//	requested type
+	if ( pmInt_->docks_.contains(type) ) {
+		foreach (QWidget* w, pmInt_->docks_[type]) {
+			w->parentWidget()->show();
+		}
+	}
+	if ( pmInt_->toolBars_.contains(type) ) {
+		foreach (QToolBar* tb, pmInt_->toolBars_[type]) {
+			tb->show();
+		}
+	}
+	
+	//	'all'
+	if ( pmInt_->docks_.contains("all") ) {
+		foreach (QWidget* w, pmInt_->docks_["all"]) {
+			w->parentWidget()->show();
+		}
+	}
+	if ( pmInt_->toolBars_.contains("all") ) {
+		foreach (QToolBar* tb, pmInt_->toolBars_["all"]) {
+			tb->show();
+		}
+	}
+	
+	pmInt_->curType_ = type;
 }
 
 

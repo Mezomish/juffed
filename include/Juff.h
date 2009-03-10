@@ -68,6 +68,9 @@ enum CommandID {
 	ID_SETTINGS,
 	ID_ABOUT,
 	ID_ABOUT_QT,
+	//
+	//
+	ID_FILE_NEW_RICH,
 };
 
 enum InfoEvent {
@@ -94,6 +97,14 @@ enum DocCommand {
 	REMOVE_SELECTED_TEXT,
 	REPLACE_SELECTED_TEXT,
 	INSERT_TEXT,
+};
+
+enum MenuID {
+	ID_FILE,
+	ID_EDIT,
+	ID_VIEW,
+	ID_FORMAT,
+	ID_TOOLS,
 };
 
 

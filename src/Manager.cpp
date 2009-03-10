@@ -157,15 +157,15 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	//	engines
 /*	SimpleDocHandler* simpleDH = new SimpleDocHandler();
 	addDocHandler(simpleDH);
-	
+*/	
 	RichDocHandler* richDH = new RichDocHandler();
-	addDocHandler(richDH);*/
+	addDocHandler(richDH);
 	
 	SciDocHandler* sciDH = new SciDocHandler();
 	addDocHandler(sciDH);
 	
 	//	TODO : add a proper engines list initialization
-	mInt_->pluginManager_ = new PluginManager(QStringList() << /*"simple" << "rich" <<*/ "sci", this, gui);
+	mInt_->pluginManager_ = new PluginManager(QStringList() << /*"simple" <<*/ "rich" << "sci", this, gui);
 	
 
 
@@ -180,6 +180,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	st->registerCommand(ID_FILE_CLOSE_ALL,	this, SLOT(fileCloseAll()));
 	st->registerCommand(ID_FILE_PRINT,		this, SLOT(filePrint()));
 	st->registerCommand(ID_EXIT,			this, SLOT(exit()));
+	//
+	st->registerCommand(ID_FILE_NEW_RICH,	this, SLOT(fileNewRich()));
 	//
 	st->registerCommand(ID_SESSION_NEW,		this, SLOT(sessionNew()));
 	st->registerCommand(ID_SESSION_OPEN,	this, SLOT(sessionOpen()));
@@ -204,6 +206,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 
 	//	add commands to menu
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW_RICH));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_OPEN));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_AS));
@@ -252,8 +255,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	tb->addAction(st->action(ID_EDIT_COPY));
 	tb->addAction(st->action(ID_EDIT_PASTE));
 
-
-	gui->setToolBars(tb);
+	gui->addToolBar(tb);
+	tb->show();
 
 	//	recent files
 	QAction* saveAct = CommandStorage::instance()->action(ID_FILE_SAVE);
@@ -265,24 +268,6 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->viewer_->widget()->addAction(st->action(ID_DOC_NEXT));
 	mInt_->viewer_->widget()->addAction(st->action(ID_DOC_PREV));
 
-/*	
-	//	plugins panels and toolbars
-	jInt_->panelsMenu_ = new QMenu(tr("Dock windows"));
-	jInt_->toolbarsMenu_ = new QMenu(tr("Toolbars"));
-	QMenu* tMenu = jInt_->mainMenuItems_.value(tr("&Tools"), 0);
-	QAction* settAct = CommandStorage::instance()->action(ID_SETTINGS);
-	if (tMenu != 0 && settAct != 0) {
-		tMenu->insertMenu(settAct, jInt_->toolbarsMenu_);
-		tMenu->insertMenu(settAct, jInt_->panelsMenu_);
-		tMenu->insertSeparator(settAct);
-	}*/
-
-
-
-	MenuList menus;
-	menus << mInt_->fileMenu_ << mInt_->editMenu_;
-	
-	
 	connect(mInt_->viewer_, SIGNAL(curDocChanged(QWidget*)), SLOT(onCurDocChanged(QWidget*)));
 	connect(mInt_->viewer_, SIGNAL(requestDocName(QWidget*, QString&)), SLOT(onDocNameRequested(QWidget*, QString&)));
 	connect(mInt_->viewer_, SIGNAL(requestDocClose(QWidget*)), SLOT(onDocCloseRequested(QWidget*)));
@@ -290,10 +275,12 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	
 	mInt_->pluginManager_->loadPlugins();
 	
+	//	menus
+	MenuList menus;
+	menus << mInt_->fileMenu_ << mInt_->editMenu_;
 	initCharsetMenu();
 	menus << mInt_->charsetMenu_;
-
-	gui->setMenus(menus);
+	gui->setMainMenus(menus);
 
 	applySettings();
 }
@@ -475,14 +462,9 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 			connect(doc, SIGNAL(fileNameChanged(const QString&)), SLOT(docFileNameChanged(const QString&)));
 			connect(doc, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(onCursorPositionChanged(int, int)));
 			
-			if ( doc->type() == "sci" ) {
-				mInt_->docs1_[fName] = doc;
-				mInt_->viewer_->addDoc(doc, 1);
-			}
-			else {
-				mInt_->docs2_[fName] = doc;
-				mInt_->viewer_->addDoc(doc, 2);
-			}
+			mInt_->docs1_[fName] = doc;
+			mInt_->viewer_->addDoc(doc, 1);
+
 			mInt_->pluginManager_->emitInfoSignal(INFO_DOC_CREATED, Param(fName));
 		}
 	}
@@ -834,7 +816,6 @@ bool Manager::saveSess(const QString& name) {
 	JUFFDEBUG(sessName);
 	QFile sess(AppInfo::configDirPath() + "/sessions/" + sessName);
 	if ( sess.open(QIODevice::WriteOnly | QIODevice::Truncate) ) {
-		JUFFDEBUG("AA");
 		writePanelViews(sess, 1);
 		sess.close();
 		return true;
@@ -1056,13 +1037,6 @@ void Manager::docFileNameChanged(const QString& oldName) {
 void Manager::onCurDocChanged(QWidget* w) {
 	JUFFENTRY;
 
-	ToolBarList toolBars;
-	MenuList menus;
-	QWidgetList docks;
-
-	toolBars << mInt_->mainTB_;
-	menus << mInt_->fileMenu_ << mInt_->editMenu_;
-	
 	if ( w ) {
 		Document* doc = mInt_->getDocByView(w);
 		if ( !doc->isNull() ) {
@@ -1070,20 +1044,6 @@ void Manager::onCurDocChanged(QWidget* w) {
 			DocHandler* handler = mInt_->handlers_[type];
 			if ( handler ) {
 				handler->docActivated(doc);
-				
-				//	toolbars
-				toolBars << handler->toolBars();
-				toolBars << mInt_->pluginManager_->getToolBars(type);
-				toolBars << mInt_->pluginManager_->getToolBars("all");
-				
-				//	menus
-				menus << handler->menus();
-				menus << mInt_->pluginManager_->getMenus(type);
-				menus << mInt_->pluginManager_->getMenus("all");
-				
-				//	docks
-				docks << mInt_->pluginManager_->getDocks(type);
-				docks << mInt_->pluginManager_->getDocks("all");
 			}
 			else {
 				Log::debug("<no type>");
@@ -1117,6 +1077,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 			doc->updateActivated();
 			mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, doc->isModified());
 			mInt_->pluginManager_->emitInfoSignal(INFO_DOC_ACTIVATED, doc->fileName());
+			mInt_->pluginManager_->activatePlugins(type);
 		}
 		else {
 			mInt_->gui_->updateTitle("", "", false);
@@ -1144,14 +1105,8 @@ void Manager::onCurDocChanged(QWidget* w) {
 			}
 		}
 		mInt_->docOldType_ = "";
+		mInt_->pluginManager_->activatePlugins("all");
 	}
-
-	menus << mInt_->charsetMenu_;
-	
-	
-	mInt_->gui_->setToolBars(toolBars);
-	mInt_->gui_->setMenus(menus);
-	mInt_->gui_->setDocks(docks);
 }
 
 void Manager::onDocCloseRequested(QWidget* w) {

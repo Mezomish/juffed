@@ -90,11 +90,38 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class LSInterior {
 public:
 	LSInterior() {
-		cppExtList_ << "cpp" << "cxx" << "c++" << "c" << "cc" << "h" << "hpp" << "hxx" << "h++";
-		bashExtList_ << "sh" << "run";
-		htmlExtList_ << "html" << "htm" << "xhtml" << "dhtml";
-		perlExtList_ << "pl" << "pm" << "cgi";
-		phpExtList_ << "php" << "php3" << "php4" << "php5";
+		
+		//	TODO : make all these patterns configurable
+
+		//	file name patterns
+		fileNamePatterns["Bash"]	= "*.sh|*.run";
+		fileNamePatterns["Batch"]	= "*.bat";
+		fileNamePatterns["C++"]		= "*.h|*.hpp|*.hxx|*.h++|*.c|*.cc|*.cpp|*.cxx|*.c++";
+		fileNamePatterns["C#"]		= "*.cs";
+		fileNamePatterns["CMake"]	= "CMakeLists.txt|*.cmake";
+		fileNamePatterns["CSS"]		= "*.css";
+		fileNamePatterns["D"]		= "*.d|*.di";
+		fileNamePatterns["Diff"]	= "*.diff|*.patch";
+		fileNamePatterns["HTML"]	= "*.htm*|*.[xd]htm*";
+		fileNamePatterns["IDL"]		= "*.idl";
+		fileNamePatterns["Java"]	= "*.java";
+		fileNamePatterns["JavaScript"]	= "*.js";
+		fileNamePatterns["Lua"]		= "*.lua|*.tasklua";
+		fileNamePatterns["Makefile"]	= "*Makefile*";
+		fileNamePatterns["Perl"]	= "*.p[lm]";
+		fileNamePatterns["Python"]	= "*.py";
+		fileNamePatterns["PHP"]		= "*.php*";
+		fileNamePatterns["Ruby"]	= "*.rb";
+		fileNamePatterns["SQL"]		= "*.sql";
+		fileNamePatterns["XML"]		= "*.xml";
+		//	1st line patterns
+		frstLinePatterns["Bash"]	= "*bash*|*/sh*";
+		frstLinePatterns["Diff"]	= "Index: *";
+		frstLinePatterns["HTML"]	= "<!doctype html*|<html*";
+		frstLinePatterns["Perl"]	= "*perl*";
+		frstLinePatterns["Python"]	= "*python*";
+		frstLinePatterns["PHP"]		= "<?php*|<? *|<?";
+		frstLinePatterns["XML"]		= "<!doctype*|<?xml*";
 	}
 	~LSInterior() {
 	}
@@ -103,14 +130,10 @@ public:
 	void readCustomStyle(const QString& name);
 	void applyCustomStyle(const QString& name, const QFont& font);
 	
-	QStringList cppExtList_;
-	QStringList bashExtList_;
-	QStringList htmlExtList_;
-	QStringList perlExtList_;
-	QStringList phpExtList_;
-	
 	QMap<QString, QsciLexer*> lexers_;
 	SchemeMap schemes_;
+	QMap<QString, QString> fileNamePatterns;
+	QMap<QString, QString> frstLinePatterns;
 };
 
 bool stringToBool(const QString& str) {
@@ -548,70 +571,47 @@ LexerStorage::~LexerStorage() {
 	delete lsInt_;
 }
 
-QString LexerStorage::lexerName(const QString& fileName) const {
-	QString ext = QFileInfo(fileName).suffix().toLower();
-	QString baseName = QFileInfo(fileName).fileName();
+QString LexerStorage::lexerName(const QString& fName) const {
+	QFileInfo fi(fName);
+	QString fileName = fi.fileName();
+	QString ext = fi.suffix().toLower();
 	QString name = "none";
 
-	if (lsInt_->cppExtList_.contains(ext)) {
-		name = "C++";
+	//	try to guess lexer using file name
+	QStringList keys = lsInt_->fileNamePatterns.keys();
+	foreach(QString key, keys) {
+		QStringList patterns = lsInt_->fileNamePatterns[key].split("|");
+		foreach (QString pattern, patterns) {
+			QRegExp rx(pattern);
+			rx.setPatternSyntax(QRegExp::Wildcard);
+			rx.setCaseSensitivity(Qt::CaseInsensitive);
+			if ( rx.exactMatch(fileName) ) {
+				return key;
+			}
+		}
 	}
-	else if (ext.compare("diff") == 0 || ext.compare("patch") == 0) {
-		name = "Diff";
-	}
-	else if (ext.compare("java") == 0) {
-		name = "Java";
-	}
-	else if (ext.compare("cs") == 0) {
-		name = "C#";
-	}
-	else if (ext.compare("py") == 0) {
-		name = "Python";
-	}
-	else if (lsInt_->phpExtList_.contains(ext)) {
-		name = "PHP";
-	}
-	else if (ext.compare("rb") == 0) {
-		name = "Ruby";
-	}
-	else if (lsInt_->perlExtList_.contains(ext)) {
-		name = "Perl";
-	}
-	else if (lsInt_->bashExtList_.contains(ext)) {
-		name = "Bash";
-	}
-	else if (ext.compare("bat") == 0) {
-		name = "Batch";
-	}
-	else if (lsInt_->htmlExtList_.contains(ext)) {
-		name = "HTML";
-	}
-	else if (ext.compare("css") == 0) {
-		name = "CSS";
-	}
-	else if (ext.compare("xml") == 0) {
-		name = "XML";
-	}
-	else if (ext.compare("sql") == 0) {
-		name = "SQL";
-	}
-	else if (ext.compare("js") == 0) {
-		name = "JavaScript";
-	}
-	else if (ext.compare("idl") == 0) {
-		name = "IDL";
-	}
-	else if (ext.compare("d") == 0 || ext.compare("di") == 0) {
-		name = "D";
-	}
-	else if (ext.compare("lua") == 0 || ext.compare("tasklua") == 0) {
-		name = "Lua";
-	}
-	else if ( baseName.contains("Makefile") ) {
-		name = "Makefile";
-	}
-	else if ( baseName.compare("CMakeLists.txt") == 0 || ext.compare("cmake") == 0 ) {
-		name = "CMake";
+
+	//	file name didn't match to any pattern - try to 
+	//	analize file's 1st line
+	
+	QFile file(fName);
+	if ( file.open(QIODevice::ReadOnly) ) {
+		QString line = QString::fromLatin1(file.readLine().constData()).simplified();
+		JUFFDEBUG(line);
+		
+		keys = lsInt_->frstLinePatterns.keys();
+		foreach(QString key, keys) {
+			QStringList patterns = lsInt_->frstLinePatterns[key].split("|");
+			foreach (QString pattern, patterns) {
+				QRegExp rx(pattern);
+				rx.setPatternSyntax(QRegExp::Wildcard);
+				rx.setCaseSensitivity(Qt::CaseInsensitive);
+				if ( rx.exactMatch(line) ) {
+					return key;
+				}
+			}
+		}
+		file.close();
 	}
 
 	return name;

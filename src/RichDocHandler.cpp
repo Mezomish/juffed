@@ -27,15 +27,15 @@ namespace Juff {
 
 RichDocHandler::RichDocHandler() {
 	QToolBar* tb = new QToolBar("RichEditToolBar");
-	tb->addAction("B");
-	tb->addAction("I");
-	tb->addAction("U");
+	tb->addAction("B", this, SLOT(bold()));
+	tb->addAction("I", this, SLOT(italic()));
+	tb->addAction("U", this, SLOT(underline()));
 	toolBars_.append(tb);
 	
 	QMenu* formatMenu = new QMenu(tr("Format"));
-	formatMenu->addAction("Bold");
-	formatMenu->addAction("Italic");
-	formatMenu->addAction("Underline");
+	formatMenu->addAction("Bold", this, SLOT(bold()));
+	formatMenu->addAction("Italic", this, SLOT(italic()));
+	formatMenu->addAction("Underline", this, SLOT(underline()));
 	menus_.append(formatMenu);
 }
 
@@ -59,6 +59,34 @@ MenuList RichDocHandler::menus() const {
 
 QWidgetList RichDocHandler::statusWidgets() const {
 	return QWidgetList();
+}
+
+
+void RichDocHandler::bold() {
+	JUFFENTRY;
+
+	Juff::RichDoc* doc = qobject_cast<Juff::RichDoc*>(emit getCurDoc());
+	if ( doc && !doc->isNull() ) {
+		doc->bold();
+	}
+}
+
+void RichDocHandler::italic() {
+	JUFFENTRY;
+
+	Juff::RichDoc* doc = qobject_cast<Juff::RichDoc*>(emit getCurDoc());
+	if ( doc && !doc->isNull() ) {
+		doc->italic();
+	}
+}
+
+void RichDocHandler::underline() {
+	JUFFENTRY;
+
+	Juff::RichDoc* doc = qobject_cast<Juff::RichDoc*>(emit getCurDoc());
+	if ( doc && !doc->isNull() ) {
+		doc->underline();
+	}
 }
 
 }	//	namespace Juff

@@ -26,6 +26,7 @@ namespace Juff {
 class Document;
 
 class RichDocHandler : public DocHandler {
+Q_OBJECT
 public:
 	RichDocHandler();
 
@@ -36,6 +37,11 @@ public:
 	virtual QWidgetList statusWidgets() const;
 
 	virtual void docActivated(Document*) {}
+
+protected slots:
+	void bold();
+	void italic();
+	void underline();
 
 private:
 	ToolBarList toolBars_;

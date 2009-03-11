@@ -65,4 +65,91 @@ void RichDoc::print() {
 void RichDoc::reload() { 
 }
 
+void RichDoc::bold() {
+	JUFFENTRY;
+	QTextCursor cur = docInt_->w_->textCursor();
+	QTextCharFormat fmt = cur.charFormat();
+	QTextCharFormat boldFmt;
+	
+	int pos = cur.position();
+	int start = cur.selectionStart();
+	int end = cur.selectionEnd();
+
+	//	If the cursor at the beginning of the selection, then
+	//	'fmt' contains the format of the previous symbol, but we 
+	//	don't need it since we don't change it. Get the format of the
+	//	last symbol of the selection.
+	if ( pos == start) {
+		cur.setPosition(end);
+		fmt = cur.charFormat();
+		cur.setPosition(start, QTextCursor::KeepAnchor);
+	}
+	
+	if ( fmt.fontWeight() == QFont::Bold) {
+		boldFmt.setFontWeight(QFont::Normal);
+	}
+	else {
+		boldFmt.setFontWeight(QFont::Bold);
+	}
+	cur.mergeCharFormat(boldFmt);
+}
+
+void RichDoc::italic() {
+	JUFFENTRY;
+	QTextCursor cur = docInt_->w_->textCursor();
+	QTextCharFormat fmt = cur.charFormat();
+	QTextCharFormat italicFmt;
+	
+	int pos = cur.position();
+	int start = cur.selectionStart();
+	int end = cur.selectionEnd();
+	
+	//	If the cursor at the beginning of the selection, then
+	//	'fmt' contains the format of the previous symbol, but we 
+	//	don't need it since we don't change it. Get the format of the
+	//	last symbol of the selection.
+	if ( pos == start) {
+		cur.setPosition(end);
+		fmt = cur.charFormat();
+		cur.setPosition(start, QTextCursor::KeepAnchor);
+	}
+	
+	if ( fmt.fontItalic() ) {
+		italicFmt.setFontItalic(false);
+	}
+	else {
+		italicFmt.setFontItalic(true);
+	}
+	cur.mergeCharFormat(italicFmt);
+}
+
+void RichDoc::underline() {
+	JUFFENTRY;
+	QTextCursor cur = docInt_->w_->textCursor();
+	QTextCharFormat fmt = cur.charFormat();
+	QTextCharFormat ulFmt;
+	
+	int pos = cur.position();
+	int start = cur.selectionStart();
+	int end = cur.selectionEnd();
+	
+	//	If the cursor at the beginning of the selection, then
+	//	'fmt' contains the format of the previous symbol, but we 
+	//	don't need it since we don't change it. Get the format of the
+	//	last symbol of the selection.
+	if ( pos == start) {
+		cur.setPosition(end);
+		fmt = cur.charFormat();
+		cur.setPosition(start, QTextCursor::KeepAnchor);
+	}
+	
+	if ( fmt.underlineStyle() == QTextCharFormat::NoUnderline ) {
+		ulFmt.setUnderlineStyle(QTextCharFormat::SingleUnderline);
+	}
+	else {
+		ulFmt.setUnderlineStyle(QTextCharFormat::NoUnderline);
+	}
+	cur.mergeCharFormat(ulFmt);
+}
+
 }	//	namespace Juff

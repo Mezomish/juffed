@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 namespace Juff {
 
 class RichDoc : public Document {
+Q_OBJECT
 public:
 	RichDoc(const QString&);
 	virtual ~RichDoc();
@@ -34,6 +35,10 @@ public:
 	virtual bool save(const QString&, QString&);
 	virtual void print();
 	virtual void reload();
+
+	void bold();
+	void italic();
+	void underline();
 
 private:
 	class Interior;

@@ -25,6 +25,12 @@ namespace Juff {
 
 class JuffScintilla;
 
+enum EolMode {
+	EolWin,
+	EolUnix,
+	EolMac,
+};
+
 class SciDoc : public Document {
 Q_OBJECT
 public:
@@ -69,6 +75,8 @@ public:
 
 	QString syntax() const;
 	void setSyntax(const QString& lexName);
+	EolMode eolMode() const;
+	void setEolMode(EolMode eol);
 	IntList markers() const;
 	QString getLine(int) const;
 

@@ -86,6 +86,10 @@ QString CommandStorage::getName(CommandID id) {
 		case ID_ZOOM_IN :		return QObject::tr("Zoom in");
 		case ID_ZOOM_OUT :		return QObject::tr("Zoom out");
 		case ID_ZOOM_100 :		return QObject::tr("Zoom 100%");
+
+		case ID_EOL_WIN :		return QObject::tr("Win");
+		case ID_EOL_MAC :		return QObject::tr("Mac");
+		case ID_EOL_UNIX :		return QObject::tr("Unix");
 			
 		case ID_MARKER_TOGGLE :	return QObject::tr("Add/Remove marker");
 		case ID_MARKER_NEXT :	return QObject::tr("Next marker");

@@ -55,6 +55,7 @@ private slots:
 	void removeAllMarkers();
 	void gotoMarker();
 	void syntaxSelected();
+	void eolSelected();
 
 private:
 	void initSyntaxMenu();

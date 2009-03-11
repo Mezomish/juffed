@@ -105,6 +105,26 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	if ( !isNoname(fileName) ) {
 		readDoc();
 		docInt_->edit1_->setModified(false);
+		
+		//	line ending
+		QFile file(fileName);
+		if ( file.open(QIODevice::ReadOnly) ) {
+			QString line = QString::fromLocal8Bit(file.readLine().constData());
+			QRegExp re(".*(\r?\n?)");
+			if ( re.exactMatch(line) ) {
+				QString ending = re.cap(1);
+				if ( ending == "\r\n" ) {
+					docInt_->edit1_->setEolMode(QsciScintilla::EolWindows);
+				}
+				else if ( ending == "\r" ) {
+					docInt_->edit1_->setEolMode(QsciScintilla::EolMac);
+				}
+				else {
+					docInt_->edit1_->setEolMode(QsciScintilla::EolUnix);
+				}	
+			}
+			file.close();
+		}
 	}
 
 	connect(docInt_->edit1_, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
@@ -775,6 +795,25 @@ void SciDoc::setSyntax(const QString& lexName) {
 	docInt_->edit2_->recolor();
 }
 
+EolMode SciDoc::eolMode() const {
+	if ( docInt_->edit1_->eolMode() == QsciScintilla::EolWindows ) {
+		return EolWin;
+	}
+	else if ( docInt_->edit1_->eolMode() == QsciScintilla::EolMac ) {
+		return EolMac;
+	}
+	else {
+		return EolUnix;
+	}
+}
+
+void SciDoc::setEolMode(EolMode eol) {
+	switch ( eol ) {
+		case EolWin: docInt_->edit1_->convertEols(QsciScintilla::EolWindows); break;
+		case EolMac: docInt_->edit1_->convertEols(QsciScintilla::EolMac); break;
+		case EolUnix: docInt_->edit1_->convertEols(QsciScintilla::EolUnix); break;
+	}
+}
 
 
 

@@ -42,28 +42,54 @@ public:
 		syntaxMenu_ = new QMenu(QObject::tr("&Syntax"));
 		syntaxActGr_ = new QActionGroup(0);
 		
+		eolMenu_ = new QMenu(QObject::tr("End of line"));
+		
 		syntaxL_ = new QLabel("");
 		syntaxL_->setToolTip(QObject::tr("Syntax highlighting scheme"));
-		statusWidgets_ << syntaxL_;
+		
+		eolL_ = new QLabel("");
+		eolL_->setToolTip(QObject::tr("End of line"));
+		
+		statusWidgets_ << syntaxL_ << eolL_;;
+		
+		
+		CommandStorage* st = CommandStorage::instance();
+		QList<QAction*> eolActList;
+		eolActGr_ = new QActionGroup(0);
+		eolActList << st->action(ID_EOL_WIN) << st->action(ID_EOL_MAC) << st->action(ID_EOL_UNIX);
+		foreach (QAction* act, eolActList) {
+			eolMenu_->addAction(act);
+			eolActGr_->addAction(act);
+			act->setCheckable(true);
+		}
 	}
 	
 	~Interior() {
 		delete syntaxActGr_;
+		delete eolActGr_;
 	}
 	
 	QMenu* markersMenu_;
 	QMenu* syntaxMenu_;
+	QMenu* eolMenu_;
 	ToolBarList toolBars_;
 	MenuList menus_;
 	QMap<QString, QAction*> syntaxActions_;
 	QActionGroup* syntaxActGr_;
+	QActionGroup* eolActGr_;
 	QWidgetList statusWidgets_;
 	QLabel* syntaxL_;
+	QLabel* eolL_;
 };
 
 SciDocHandler::SciDocHandler() : DocHandler() {	
 	JUFFENTRY;
 	
+	CommandStorage* st = CommandStorage::instance();
+	st->registerCommand(ID_EOL_WIN, this, SLOT(eolSelected()));
+	st->registerCommand(ID_EOL_MAC, this, SLOT(eolSelected()));
+	st->registerCommand(ID_EOL_UNIX, this, SLOT(eolSelected()));
+		
 	docInt_ = new Interior();
 	
 		QAction* showLineNumsAct = new QAction(tr("Show line numbers"), 0);
@@ -83,7 +109,6 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 		CommandStorage::instance()->registerCommand(ID_MARKER_PREV, this, SLOT(prevMarker()));
 		CommandStorage::instance()->registerCommand(ID_MARKER_REMOVE_ALL, this, SLOT(removeAllMarkers()));
 
-		CommandStorage* st = CommandStorage::instance();
 		st->registerCommand(ID_ZOOM_IN, this, SLOT(zoomIn()));
 		st->registerCommand(ID_ZOOM_OUT, this, SLOT(zoomOut()));
 		st->registerCommand(ID_ZOOM_100, this, SLOT(zoom100()));
@@ -97,7 +122,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 		
 		connect(docInt_->markersMenu_, SIGNAL(aboutToShow()), SLOT(initMarkersMenu()));
 
-		docInt_->menus_ << viewMenu << docInt_->syntaxMenu_ << docInt_->markersMenu_;
+		docInt_->menus_ << viewMenu << docInt_->syntaxMenu_ << docInt_->markersMenu_ << docInt_->eolMenu_;
 
 		initSyntaxMenu();
 
@@ -208,6 +233,15 @@ void SciDocHandler::docActivated(Document* d) {
 		QAction* act = docInt_->syntaxActions_[syntax];
 		if ( act ) {
 			act->setChecked(true);
+		}
+		
+		EolMode eol = doc->eolMode();
+		CommandID id = (eol == EolWin ? ID_EOL_WIN : ( eol == EolMac ? ID_EOL_MAC : ID_EOL_UNIX) );
+		foreach (QAction* act, docInt_->eolActGr_->actions()) {
+			if ( (CommandID)(act->data().toInt()) == id ) {
+				act->setChecked(true);
+				docInt_->eolL_->setText(act->text());
+			}
 		}
 	}
 }
@@ -332,5 +366,20 @@ void SciDocHandler::syntaxSelected() {
 	}
 }
 
+void SciDocHandler::eolSelected() {
+	JUFFENTRY;
+
+	QAction* a = qobject_cast<QAction*>(sender());
+	if (a != 0) {
+		Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
+		if ( doc && !doc->isNull() ) {
+			QString label = a->text();
+			docInt_->eolL_->setText(label);
+			CommandID id = (CommandID)(a->data().toInt());
+			EolMode mode = ( id == ID_EOL_WIN ? EolWin : (id == ID_EOL_MAC ? EolMac : EolUnix) );
+			doc->setEolMode(mode);
+		}
+	}
+}
 
 }	//	namespace Juff

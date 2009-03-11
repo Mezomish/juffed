@@ -84,10 +84,14 @@ PluginManager::~PluginManager() {
 }
 
 void PluginManager::emitInfoSignal(InfoEvent evt, const Param& param1, const Param& param2) {
+	JUFFENTRY;
+	
 	foreach (QString engine, pmInt_->engines_) {
 		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
 			if ( plugin ) {
+				JUFFDEBUG(QString("Sending to plugin '%1'").arg(plugin->name()));
 				plugin->onInfoEvent(evt, param1, param2);
+				JUFFDEBUG("Processed successfully");
 			}
 		}
 	}

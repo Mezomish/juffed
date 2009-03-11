@@ -37,6 +37,7 @@ public:
 	virtual ToolBarList toolBars() const;
 	virtual MenuList menus() const;
 	virtual QWidgetList statusWidgets() const;
+	virtual QString fileFilters() const;
 
 	virtual void docActivated(Document*);
 

@@ -682,13 +682,22 @@ void Manager::fileOpen() {
 	JUFFENTRY;
 	QString startDir = MainSettings::lastOpenDir();
 
+	Document* doc = curDoc();
+	
 	if ( MainSettings::syncOpenDialogToCurDoc() ) {
-		Document* doc = curDoc();
 		if ( !doc->isNull() && !isNoname(doc->fileName()) )
 			startDir = QFileInfo(doc->fileName()).absolutePath();
 	}
 
-	QString filters = "All files (*)";	//	TODO : modify the filters
+	QString filters = "All files (*)";
+	QString type = doc->type();
+	DocHandler* handler = 0;
+	if ( mInt_->handlers_.contains(type) ) {
+		handler = mInt_->handlers_[type];
+	}
+	if ( handler ) {
+		filters = handler->fileFilters();
+	}
 	QStringList files = mInt_->gui_->getOpenFileNames(startDir, filters);
 	QString fileName = "";
 	foreach (fileName, files) {

@@ -38,6 +38,8 @@ public:
 	virtual ToolBarList toolBars() const = 0;
 	virtual MenuList menus() const = 0;
 	virtual QWidgetList statusWidgets() const = 0;
+	virtual QString fileFilters() const = 0;
+
 	virtual void docActivated(Document*) = 0;
 
 signals:

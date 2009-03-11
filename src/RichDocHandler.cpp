@@ -61,6 +61,10 @@ QWidgetList RichDocHandler::statusWidgets() const {
 	return QWidgetList();
 }
 
+QString RichDocHandler::fileFilters() const {
+	return "HTML files (*.html, *.htm);;All files (*)";
+}
+
 
 void RichDocHandler::bold() {
 	JUFFENTRY;

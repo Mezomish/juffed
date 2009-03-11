@@ -177,6 +177,28 @@ QWidgetList SciDocHandler::statusWidgets() const {
 	return docInt_->statusWidgets_;
 }
 
+QString SciDocHandler::fileFilters() const {
+	QString filters = "All files (*)";
+	filters += ";;Batch files (*.bat)";
+	filters += ";;Shell scripts (*.sh *.run)";
+	filters += ";;C/C++ files (*.c *.cpp *.cxx)";
+	filters += ";;C# (*.cs)";
+	filters += ";;D (*.d)";
+	filters += ";;Diff/Patch files (*.diff *.patch)";
+	filters += ";;Header files (*.h *.hpp)";
+	filters += ";;HTML/CSS/JS (*.htm *.html *.xhtml *.dhtml *.css *js)";
+	filters += ";;IDL (*.idl)";
+	filters += ";;Lua (*.lua)";
+	filters += ";;Makefiles (*Makefile*)";
+	filters += ";;Perl (*.pl)";
+	filters += ";;PHP (*.php*)";
+	filters += ";;Python (*.py)";
+	filters += ";;Ruby (*.rb)";
+	filters += ";;SQL (*.sql)";
+	filters += ";;XML (*.xml)";
+	return filters;
+}
+
 void SciDocHandler::docActivated(Document* d) {
 	SciDoc* doc = qobject_cast<SciDoc*>(d);
 	if ( doc ) {

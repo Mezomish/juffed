@@ -26,6 +26,7 @@ public:
 	static bool closeTabsInOrderOfUse();
 	static bool singleInstance();
 	static QByteArray mwState();
+	static QString toolBar();
 	
 	static void setLastOpenDir(const QString& dir);
 	static void setLastSaveDir(const QString& dir);

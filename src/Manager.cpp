@@ -136,7 +136,7 @@ public:
 		gui_ = gui;
 		pluginManager_ = 0;
 		
-		mainTB_ = new QToolBar("MainTB");
+		mainTB_ = createMainToolBar();
 		fileMenu_ = new QMenu(QObject::tr("&File"));
 		editMenu_ = new QMenu(QObject::tr("&Edit"));
 		charsetMenu_ = new QMenu(QObject::tr("&Charset"));
@@ -215,6 +215,63 @@ public:
 		MainSettings::setRecentFiles(recentFiles_.join(";"));
 	}
 	
+	QToolBar* createMainToolBar() const {
+		QToolBar* tb = new QToolBar("Main");
+
+		CommandStorage* st = CommandStorage::instance();
+		QString tbStr = MainSettings::toolBar();
+		if ( tbStr.isEmpty() ) {
+			tb->addAction(st->action(ID_FILE_NEW));
+			tb->addAction(st->action(ID_FILE_OPEN));
+			tb->addAction(st->action(ID_FILE_SAVE));
+			tb->addAction(st->action(ID_SEPARATOR));
+			tb->addAction(st->action(ID_FILE_PRINT));
+			tb->addAction(st->action(ID_SEPARATOR));
+			tb->addAction(st->action(ID_EDIT_UNDO));
+			tb->addAction(st->action(ID_EDIT_REDO));
+			tb->addAction(st->action(ID_SEPARATOR));
+			tb->addAction(st->action(ID_EDIT_CUT));
+			tb->addAction(st->action(ID_EDIT_COPY));
+			tb->addAction(st->action(ID_EDIT_PASTE));
+		}
+		else {
+			QStringList items = tbStr.split('|');
+			foreach (QString item, items) {
+				CommandID id = ID_NONE;
+				if ( item == "sep" )
+					id = ID_SEPARATOR;
+				else if ( item == "new" )
+					id = ID_FILE_NEW;
+				else if ( item == "open" )
+					id = ID_FILE_OPEN;
+				else if ( item == "save" )
+					id = ID_FILE_SAVE;
+				else if ( item == "prn" )
+					id = ID_FILE_PRINT;
+				else if ( item == "undo" )
+					id = ID_EDIT_UNDO;
+				else if ( item == "redo" )
+					id = ID_EDIT_REDO;
+				else if ( item == "cut" )
+					id = ID_EDIT_CUT;
+				else if ( item == "copy" )
+					id = ID_EDIT_COPY;
+				else if ( item == "paste" )
+					id = ID_EDIT_PASTE;
+				else if ( item == "find" )
+					id = ID_FIND;
+				else if ( item == "repl" )
+					id = ID_REPLACE;
+				
+				if ( id != ID_NONE )
+					tb->addAction(st->action(id));
+			}
+		}
+		
+		
+		return tb;
+	}
+	
 	QMap<QString, DocHandler*> handlers_;
 	QMap<QString, QWidgetList> statusWidgets_;
 	QString docOldType_;
@@ -241,12 +298,6 @@ public:
 Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	JUFFENTRY;
 	
-	mInt_ = new Interior(this, gui);
-	gui->updateTitle("", "", false);
-	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));
-	connect(gui, SIGNAL(docOpenRequested(const QString&)), this, SLOT(openDoc(const QString&)));
-	gui->setCentralWidget(mInt_->viewer_->widget());
-
 	//	register commands
 	CommandStorage* st = CommandStorage::instance();
 	st->registerCommand(ID_FILE_NEW,		this, SLOT(fileNew()));
@@ -277,10 +328,16 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	st->registerCommand(ID_FIND_PREV, 		this, SLOT(findPrev()));
 	st->registerCommand(ID_REPLACE, 		this, SLOT(replace()));
 	st->registerCommand(ID_GOTO_LINE, 		this, SLOT(gotoLine()));
-	//
+	
+	mInt_ = new Interior(this, gui);
+	gui->updateTitle("", "", false);
+	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));
+	connect(gui, SIGNAL(docOpenRequested(const QString&)), this, SLOT(openDoc(const QString&)));
+	gui->setCentralWidget(mInt_->viewer_->widget());
+
 	st->registerCommand(ID_DOC_NEXT,		mInt_->viewer_,		SLOT(nextDoc()));
 	st->registerCommand(ID_DOC_PREV,		mInt_->viewer_,		SLOT(prevDoc()));
-	
+
 
 	//	add commands to menu
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW));
@@ -318,24 +375,6 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->editMenu_->addAction(st->action(ID_GOTO_LINE));
 
 
-	//	add commands to toolbar
-	QToolBar* tb = mInt_->mainTB_;
-	tb->addAction(st->action(ID_FILE_NEW));
-	tb->addAction(st->action(ID_FILE_OPEN));
-	tb->addAction(st->action(ID_FILE_SAVE));
-	tb->addAction(st->action(ID_SEPARATOR));
-	tb->addAction(st->action(ID_FILE_PRINT));
-	tb->addAction(st->action(ID_SEPARATOR));
-	tb->addAction(st->action(ID_EDIT_UNDO));
-	tb->addAction(st->action(ID_EDIT_REDO));
-	tb->addAction(st->action(ID_SEPARATOR));
-	tb->addAction(st->action(ID_EDIT_CUT));
-	tb->addAction(st->action(ID_EDIT_COPY));
-	tb->addAction(st->action(ID_EDIT_PASTE));
-
-	gui->addToolBar(tb);
-//	tb->show();
-
 
 	//	TODO : add a proper engines loading
 	//	engines
@@ -354,6 +393,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 
 	ToolBarList sciToolBars = sciDH->toolBars();
 	ToolBarList richToolBars = richDH->toolBars();
+	mInt_->gui_->addToolBar(mInt_->mainTB_);
 	mInt_->gui_->addToolBars(sciToolBars);
 	mInt_->gui_->addToolBars(richToolBars);
 	mInt_->guiManager_.addToolBars("sci", sciToolBars);

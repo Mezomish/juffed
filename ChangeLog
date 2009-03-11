@@ -1,6 +1,10 @@
 ++++++++++++++++++++++++
 Version 0.5-svn:
 ++++++++++++++++++++++++
+2009-03-11:
+* Added: guessing file's syntax by its 1st line.
+* Added: customizing the main toolbar in config file.
+
 2009-03-10:
 * Added: basic code for Rich text engine.
 

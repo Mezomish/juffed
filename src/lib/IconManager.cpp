@@ -46,6 +46,9 @@ public:
 		defaultIcons_[Juff::ID_REPLACE]			= "replace.png";
 		defaultIcons_[Juff::ID_SETTINGS]		= "settings.png";
 		defaultIcons_[Juff::ID_ABOUT]			= "about.png";
+		defaultIcons_[Juff::ID_EOL_UNIX]		= "tux.png";
+		defaultIcons_[Juff::ID_EOL_MAC]			= "mac.png";
+		defaultIcons_[Juff::ID_EOL_WIN]			= "win.png";
 		
 		icons_[Juff::ID_FILE_NEW]		= "actions/document-new";
 		icons_[Juff::ID_FILE_OPEN]		= "actions/document-open";

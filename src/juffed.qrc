@@ -18,6 +18,9 @@
         <file alias="32/zoomIn.png">icons/32x32/zoomIn.png</file>
         <file alias="32/zoomOut.png">icons/32x32/zoomOut.png</file>
         <file alias="32/zoom100.png">icons/32x32/zoom100.png</file>
+        <file alias="16/tux.png">icons/16x16/tux.png</file>
+        <file alias="16/mac.png">icons/16x16/mac.png</file>
+        <file alias="16/win.png">icons/16x16/win.png</file>
         <file alias="juffed.png">juffed.png</file>
     </qresource>
 </RCC>

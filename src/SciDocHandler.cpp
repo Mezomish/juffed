@@ -56,7 +56,7 @@ public:
 		CommandStorage* st = CommandStorage::instance();
 		QList<QAction*> eolActList;
 		eolActGr_ = new QActionGroup(0);
-		eolActList << st->action(ID_EOL_WIN) << st->action(ID_EOL_MAC) << st->action(ID_EOL_UNIX);
+		eolActList << st->action(ID_EOL_UNIX) << st->action(ID_EOL_WIN) << st->action(ID_EOL_MAC);
 		foreach (QAction* act, eolActList) {
 			eolMenu_->addAction(act);
 			eolActGr_->addAction(act);

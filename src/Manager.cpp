@@ -246,7 +246,7 @@ public:
 					id = ID_FILE_OPEN;
 				else if ( item == "save" )
 					id = ID_FILE_SAVE;
-				else if ( item == "prn" )
+				else if ( item == "print" )
 					id = ID_FILE_PRINT;
 				else if ( item == "undo" )
 					id = ID_EDIT_UNDO;
@@ -260,7 +260,7 @@ public:
 					id = ID_EDIT_PASTE;
 				else if ( item == "find" )
 					id = ID_FIND;
-				else if ( item == "repl" )
+				else if ( item == "replace" )
 					id = ID_REPLACE;
 				
 				if ( id != ID_NONE )

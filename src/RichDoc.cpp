@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "RichDoc.h"
 
+#include <QtCore/QFile>
 #include <QtGui/QTextEdit>
 
 namespace Juff {
@@ -55,8 +56,22 @@ bool RichDoc::isModified() const {
 void RichDoc::setModified(bool) {
 }
 
-bool RichDoc::save(const QString&, QString&) {
-	return true;
+bool RichDoc::save(const QString& fileName, QString& error) {
+	JUFFENTRY;
+	
+	QFile file(fileName);
+	if ( file.open(QIODevice::WriteOnly) ) {
+		QString text("");
+		text = docInt_->w_->toHtml();
+		file.write(text.toUtf8());
+		file.close();
+		Document::save(fileName, error);
+		return true;
+	}
+	else {
+		error = tr("Can't open file for writing");
+		return false;
+	}
 }
 
 void RichDoc::print() { 

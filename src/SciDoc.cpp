@@ -809,9 +809,20 @@ EolMode SciDoc::eolMode() const {
 
 void SciDoc::setEolMode(EolMode eol) {
 	switch ( eol ) {
-		case EolWin: docInt_->edit1_->convertEols(QsciScintilla::EolWindows); break;
-		case EolMac: docInt_->edit1_->convertEols(QsciScintilla::EolMac); break;
-		case EolUnix: docInt_->edit1_->convertEols(QsciScintilla::EolUnix); break;
+		case EolWin: 
+			docInt_->edit1_->convertEols(QsciScintilla::EolWindows);
+			docInt_->edit1_->setEolMode(QsciScintilla::EolWindows); 
+			break;
+		
+		case EolMac: 
+			docInt_->edit1_->convertEols(QsciScintilla::EolMac); 
+			docInt_->edit1_->setEolMode(QsciScintilla::EolMac); 
+			break;
+		
+		case EolUnix: 
+			docInt_->edit1_->convertEols(QsciScintilla::EolUnix); 
+			docInt_->edit1_->setEolMode(QsciScintilla::EolUnix); 
+			break;
 	}
 }
 

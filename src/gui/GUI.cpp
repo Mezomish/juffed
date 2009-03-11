@@ -118,9 +118,21 @@ GUI::GUI() : QObject() {
 }
 
 GUI::~GUI() {
+	JUFFDTOR;
+	saveState();
 	delete aboutDlg_;
 	delete settDlg_;
 	delete mw_;
+}
+
+void GUI::saveState() {
+	QByteArray state = mw_->saveState();
+	MainSettings::setMwState(state);
+}
+
+void GUI::restoreState() {
+	//	restore the position of toolbars and docks
+	mw_->restoreState(MainSettings::mwState());
 }
 
 void GUI::show() {
@@ -247,6 +259,8 @@ void GUI::addToolBar(QToolBar* tb) {
 	toolBars_.clear();*/
 	
 	mw_->addToolBar(tb);
+	if ( !tb->windowTitle().isEmpty() )
+		tb->setObjectName(tb->windowTitle());
 	tb->hide();
 	toolBars_ << tb;
 }

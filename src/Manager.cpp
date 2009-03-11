@@ -373,7 +373,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->editMenu_->addAction(st->action(ID_REPLACE));
 	mInt_->editMenu_->addAction(st->action(ID_SEPARATOR));
 	mInt_->editMenu_->addAction(st->action(ID_GOTO_LINE));
-
+	//
 
 
 	//	TODO : add a proper engines loading
@@ -405,7 +405,9 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 		mInt_->fileMenu_->insertMenu(saveAct, mInt_->recentFilesMenu_);
 		initRecentFilesMenu();
 	}
+	//
 
+	
 	mInt_->viewer_->widget()->addAction(st->action(ID_DOC_NEXT));
 	mInt_->viewer_->widget()->addAction(st->action(ID_DOC_PREV));
 
@@ -426,13 +428,17 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	initCharsetMenu();
 	menus << mInt_->charsetMenu_;
 	gui->setMainMenus(menus);
-
-	mInt_->guiManager_.setType("all");
+	//
 	
+	mInt_->guiManager_.setType("all");
 	applySettings();
+
+	//	restore toolbars and docks positions
+	mInt_->gui_->restoreState();
 }
 
 Manager::~Manager() {
+	JUFFDTOR;
 }
 
 bool Manager::closeWithConfirmation(Document* doc) {

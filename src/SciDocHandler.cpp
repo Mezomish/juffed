@@ -240,7 +240,8 @@ void SciDocHandler::docActivated(Document* d) {
 		foreach (QAction* act, docInt_->eolActGr_->actions()) {
 			if ( (CommandID)(act->data().toInt()) == id ) {
 				act->setChecked(true);
-				docInt_->eolL_->setText(act->text());
+				//	status bar
+				docInt_->eolL_->setPixmap(IconManager::instance()->getIcon(id).pixmap(16, 16));
 			}
 		}
 	}
@@ -373,11 +374,11 @@ void SciDocHandler::eolSelected() {
 	if (a != 0) {
 		Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 		if ( doc && !doc->isNull() ) {
-			QString label = a->text();
-			docInt_->eolL_->setText(label);
 			CommandID id = (CommandID)(a->data().toInt());
 			EolMode mode = ( id == ID_EOL_WIN ? EolWin : (id == ID_EOL_MAC ? EolMac : EolUnix) );
 			doc->setEolMode(mode);
+			//	status bar
+			docInt_->eolL_->setPixmap(IconManager::instance()->getIcon(id).pixmap(16, 16));
 		}
 	}
 }

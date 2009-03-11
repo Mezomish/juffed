@@ -196,6 +196,15 @@ public:
 		}
 		return NullDoc::instance();
 	}
+	DocHandler* getHandlerByDoc(Document* doc) {
+		if ( doc && !doc->isNull() ) {
+			QString type = doc->type();
+			if ( handlers_.contains(type) ) {
+				return handlers_[type];
+			}
+		}
+		return 0;
+	}
 	
 	void addToRecentFiles(const QString& fileName) {
 		recentFiles_.removeAll(fileName);
@@ -690,14 +699,11 @@ void Manager::fileOpen() {
 	}
 
 	QString filters = "All files (*)";
-	QString type = doc->type();
-	DocHandler* handler = 0;
-	if ( mInt_->handlers_.contains(type) ) {
-		handler = mInt_->handlers_[type];
-	}
+	DocHandler* handler = mInt_->getHandlerByDoc(doc);
 	if ( handler ) {
 		filters = handler->fileFilters();
 	}
+	
 	QStringList files = mInt_->gui_->getOpenFileNames(startDir, filters);
 	QString fileName = "";
 	foreach (fileName, files) {
@@ -760,7 +766,12 @@ bool Manager::fileSaveAs() {
 	Document* doc = curDoc();
 	
 	if ( !doc->isNull() ) {
-		QString filters = "All files (*)";	//	TODO : modify the filters
+		QString filters = "All files (*)";
+		DocHandler* handler = mInt_->getHandlerByDoc(doc);
+		if ( handler ) {
+			filters = handler->fileFilters();
+		}
+		
 		bool asCopy = false;
 		QString fName = mInt_->gui_->getSaveFileName(doc->fileName(), filters, asCopy);
 		if ( !fName.isEmpty() ) {

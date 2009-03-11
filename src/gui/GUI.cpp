@@ -65,10 +65,12 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	QString text = QString("   %1   \n\n   Copyright (c) 2007-2009 Mikhail Murzin   ").arg(QObject::tr("Simple text editor with syntax highlighting"));
 	QString auth("<br>&nbsp;Mikhail Murzin a.k.a. Mezomish<br>&nbsp;&nbsp;<a href='mailto:mezomish@gmail.com'>mezomish@gmail.com</a>");
 	QList<Helper> helpers;
-	helpers << Helper("Jarek", "ajep9691@wp.pl", QObject::tr("Polish translation"))
+	helpers << Helper("Eugene Pivnev", "ti.eugene@gmail.com", QObject::tr("Packaging"))
+			<< Helper("Jarek", "ajep9691@wp.pl", QObject::tr("Polish translation"))
 			<< Helper("Michael Gangolf", "miga@migaweb.de", QObject::tr("German translation"))
 			<< Helper("Marc Dumoulin", "shadosan@gmail.com", QObject::tr("French translation"))
-			<< Helper("Giuliano S. Nascimento", "giusoft.tecnologia@gmail.com", QObject::tr("Brazilian Portuguese translation"));
+			<< Helper("Giuliano S. Nascimento", "giusoft.tecnologia@gmail.com", QObject::tr("Brazilian Portuguese translation"))
+			<< Helper("YANG Weichun", "htyoung@163.com", QObject::tr("Chinese Simplified translation"));
 
 	QString thanks;
 	foreach(Helper helper, helpers) {

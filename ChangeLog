@@ -1,5 +1,41 @@
+++++++++++++++++++++++++
+Version 0.5-svn:
+++++++++++++++++++++++++
+2009-03-10:
+* Added: basic code for Rich text engine.
+
+2009-03-09:
+* Added: using of SVG icons.
+
+2009-03-06:
+* Added: scrolling docs with mouse wheel over the tab bar.
+* Added: unindention of current line if selection is empty (Sci engine).
+* Added: CMake syntax highlighting.
+
+2009-03-04:
+* Removed "Print selected lines" menu item. Now it prints selected
+  lines if there is a selection or prints the whole text if there isn't.
+
+Initial commit:
+* Added: different text engines.
+* Added: splittable document view for Scintilla text engine.
+* Added: using installed system icon themes.
+* Moved to CMake building system.
+
+
+===============================
+Version 0.4.1
+===============================
+2008-10-17:
+* Added: 'Replace' action to main menu
+* Added: storing the 'replace to' text
+
+2008-10-15 15:13:37 -0400 (Срд, 15 Окт 2008) | 1 line
+* Moved sessions actions from 'File' menu to submenu
+
 2008-10-13:
 * Added: selection of EOL mode (Win/Unix/Mac)
+
 
 === Branch 0.4 splitted ===
 

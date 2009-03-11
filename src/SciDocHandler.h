@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "DocHandler.h"
 #include "Document.h"
+#include "SciDoc.h"
 
 namespace Juff {
 
@@ -59,6 +60,8 @@ private slots:
 
 private:
 	void initSyntaxMenu();
+	void changeCurEol(SciDoc*, CommandID);
+	void changeCurEol(SciDoc*, CommandID, EolMode);
 
 	class Interior;
 	Interior* docInt_;

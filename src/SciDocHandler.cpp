@@ -42,13 +42,13 @@ public:
 		syntaxMenu_ = new QMenu(QObject::tr("&Syntax"));
 		syntaxActGr_ = new QActionGroup(0);
 		
-		eolMenu_ = new QMenu(QObject::tr("End of line"));
+		eolMenu_ = new QMenu(QObject::tr("Line endings"));
 		
 		syntaxL_ = new QLabel("");
 		syntaxL_->setToolTip(QObject::tr("Syntax highlighting scheme"));
 		
 		eolL_ = new QLabel("");
-		eolL_->setToolTip(QObject::tr("End of line"));
+		eolL_->setToolTip(QObject::tr("Line endings"));
 		
 		statusWidgets_ << syntaxL_ << eolL_;;
 		
@@ -237,11 +237,10 @@ void SciDocHandler::docActivated(Document* d) {
 		
 		EolMode eol = doc->eolMode();
 		CommandID id = (eol == EolWin ? ID_EOL_WIN : ( eol == EolMac ? ID_EOL_MAC : ID_EOL_UNIX) );
+		changeCurEol(doc, id, eol);
 		foreach (QAction* act, docInt_->eolActGr_->actions()) {
 			if ( (CommandID)(act->data().toInt()) == id ) {
 				act->setChecked(true);
-				//	status bar
-				docInt_->eolL_->setPixmap(IconManager::instance()->getIcon(id).pixmap(16, 16));
 			}
 		}
 	}
@@ -375,12 +374,35 @@ void SciDocHandler::eolSelected() {
 		Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 		if ( doc && !doc->isNull() ) {
 			CommandID id = (CommandID)(a->data().toInt());
-			EolMode mode = ( id == ID_EOL_WIN ? EolWin : (id == ID_EOL_MAC ? EolMac : EolUnix) );
-			doc->setEolMode(mode);
-			//	status bar
-			docInt_->eolL_->setPixmap(IconManager::instance()->getIcon(id).pixmap(16, 16));
+			changeCurEol(doc, id);
 		}
 	}
 }
+
+void SciDocHandler::changeCurEol(SciDoc* doc, CommandID id) {
+	EolMode mode = ( id == ID_EOL_WIN ? EolWin : (id == ID_EOL_MAC ? EolMac : EolUnix) );
+	changeCurEol(doc, id, mode);
+}
+
+void SciDocHandler::changeCurEol(SciDoc* doc, CommandID id, EolMode mode) {
+	doc->setEolMode(mode);
+	//	status bar
+	docInt_->eolL_->setPixmap(IconManager::instance()->getIcon(id).pixmap(16, 16));
+	QString toolTip = QObject::tr("Line endings");
+	switch (mode) {
+		case EolUnix :
+			toolTip += ": " + QObject::tr("Unix");
+			break;
+		case EolMac :
+			toolTip += ": " + QObject::tr("Mac");
+			break;
+		case EolWin :
+			toolTip += ": " + QObject::tr("Win");
+			break;
+	}
+	docInt_->eolL_->setPixmap(IconManager::instance()->getIcon(id).pixmap(16, 16));
+	docInt_->eolL_->setToolTip(toolTip);
+}
+
 
 }	//	namespace Juff

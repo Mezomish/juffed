@@ -49,6 +49,86 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 namespace Juff {
 
+class GUIManager {
+public:
+	void addMenu(const QString& type, QMenu* menu) {
+		if ( !menus_.contains(type) )
+			menus_[type] = MenuList();
+		menus_[type] << menu;
+		menu->menuAction()->setVisible(false);
+	}
+	void addMenus(const QString& type, const MenuList menus) {
+		if ( !menus_.contains(type) )
+			menus_[type] = MenuList();
+		menus_[type] << menus;
+		foreach (QMenu* menu, menus)
+			menu->menuAction()->setVisible(false);
+	}
+	void addToolBar(const QString& type, QToolBar* tb) {
+		if ( !toolBars_.contains(type) )
+			toolBars_[type] = ToolBarList();
+		toolBars_[type] << tb;
+		tb->hide();
+	}
+	void addToolBars(const QString& type, const ToolBarList toolBars) {
+		if ( !toolBars_.contains(type) )
+			toolBars_[type] = ToolBarList();
+		toolBars_[type] << toolBars;
+		foreach(QToolBar* tb, toolBars)
+			tb->hide();
+	}
+
+	void setType(const QString& type) {
+		if ( type == curType_ )
+			return;
+		
+		//	hide toolbars and menus of the current type
+		if ( toolBars_.contains(curType_) ) {
+			foreach (QToolBar* tb, toolBars_[curType_]) {
+				tb->hide();
+			}
+		}
+		if ( menus_.contains(curType_) ) {
+			foreach (QMenu* menu, menus_[curType_]) {
+				menu->menuAction()->setVisible(false);
+			}
+		}
+		
+		//	show toolbars and menus of new type
+		if ( toolBars_.contains(type) ) {
+			foreach (QToolBar* tb, toolBars_[type]) {
+				tb->show();
+			}
+		}
+		if ( menus_.contains(curType_) ) {
+			foreach (QMenu* menu, menus_[type]) {
+				menu->menuAction()->setVisible(true);
+			}
+		}
+		
+		if ( type != "all" ) {
+			//	show toolbars and menus of 'all' type
+			if ( toolBars_.contains("all") ) {
+				foreach (QToolBar* tb, toolBars_["all"]) {
+					tb->show();
+				}
+			}
+			if ( menus_.contains(curType_) ) {
+				foreach (QMenu* menu, menus_["all"]) {
+					menu->menuAction()->setVisible(true);
+				}
+			}
+		}
+		
+		curType_ = type;
+	}
+	
+private:	
+	QMap<QString, ToolBarList> toolBars_;
+	QMap<QString, MenuList> menus_;
+	QString curType_;
+};
+
 class Manager::Interior {
 public:
 	Interior(Manager* m, GUI::GUI* gui) {
@@ -60,6 +140,11 @@ public:
 		fileMenu_ = new QMenu(QObject::tr("&File"));
 		editMenu_ = new QMenu(QObject::tr("&Edit"));
 		charsetMenu_ = new QMenu(QObject::tr("&Charset"));
+		
+		guiManager_.addToolBar("all", mainTB_);
+		guiManager_.addMenu("all", fileMenu_);
+		guiManager_.addMenu("all", editMenu_);
+		guiManager_.addMenu("all", charsetMenu_);
 		
 		chActGr_ = new QActionGroup(m);
 		
@@ -141,6 +226,7 @@ public:
 	QLabel* posL_;
 	QLabel* nameL_;
 	QLabel* charsetL_;
+	GUIManager guiManager_;
 };
 
 Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
@@ -151,23 +237,6 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));
 	connect(gui, SIGNAL(docOpenRequested(const QString&)), this, SLOT(openDoc(const QString&)));
 	gui->setCentralWidget(mInt_->viewer_->widget());
-
-	
-	//	TODO : add a proper engines loading
-	//	engines
-/*	SimpleDocHandler* simpleDH = new SimpleDocHandler();
-	addDocHandler(simpleDH);
-*/	
-	RichDocHandler* richDH = new RichDocHandler();
-	addDocHandler(richDH);
-	
-	SciDocHandler* sciDH = new SciDocHandler();
-	addDocHandler(sciDH);
-	
-	//	TODO : add a proper engines list initialization
-	mInt_->pluginManager_ = new PluginManager(QStringList() << /*"simple" <<*/ "rich" << "sci", this, gui);
-	
-
 
 	//	register commands
 	CommandStorage* st = CommandStorage::instance();
@@ -181,7 +250,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	st->registerCommand(ID_FILE_PRINT,		this, SLOT(filePrint()));
 	st->registerCommand(ID_EXIT,			this, SLOT(exit()));
 	//
-//	st->registerCommand(ID_FILE_NEW_RICH,	this, SLOT(fileNewRich()));
+	st->registerCommand(ID_FILE_NEW_RICH,	this, SLOT(fileNewRich()));
 	//
 	st->registerCommand(ID_SESSION_NEW,		this, SLOT(sessionNew()));
 	st->registerCommand(ID_SESSION_OPEN,	this, SLOT(sessionOpen()));
@@ -206,7 +275,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 
 	//	add commands to menu
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW));
-//	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW_RICH));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW_RICH));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_OPEN));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_AS));
@@ -256,8 +325,31 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	tb->addAction(st->action(ID_EDIT_PASTE));
 
 	gui->addToolBar(tb);
-	tb->show();
+//	tb->show();
 
+
+	//	TODO : add a proper engines loading
+	//	engines
+/*	SimpleDocHandler* simpleDH = new SimpleDocHandler();
+	addDocHandler(simpleDH);
+*/	
+	RichDocHandler* richDH = new RichDocHandler();
+	addDocHandler(richDH);
+	
+	SciDocHandler* sciDH = new SciDocHandler();
+	addDocHandler(sciDH);
+	
+	//	TODO : add a proper engines list initialization
+	mInt_->pluginManager_ = new PluginManager(QStringList() << /*"simple" <<*/ "rich" << "sci", this, gui);
+	mInt_->pluginManager_->loadPlugins();
+
+	ToolBarList sciToolBars = sciDH->toolBars();
+	ToolBarList richToolBars = richDH->toolBars();
+	mInt_->gui_->addToolBars(sciToolBars);
+	mInt_->gui_->addToolBars(richToolBars);
+	mInt_->guiManager_.addToolBars("sci", sciToolBars);
+	mInt_->guiManager_.addToolBars("rich", richToolBars);
+	
 	//	recent files
 	QAction* saveAct = CommandStorage::instance()->action(ID_FILE_SAVE);
 	if ( mInt_->fileMenu_ && saveAct ) {
@@ -273,15 +365,21 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	connect(mInt_->viewer_, SIGNAL(requestDocClose(QWidget*)), SLOT(onDocCloseRequested(QWidget*)));
 	connect(gui, SIGNAL(settingsApplied()), SLOT(applySettings()));
 	
-	mInt_->pluginManager_->loadPlugins();
 	
 	//	menus
+	MenuList sciMenus = sciDH->menus();
+	MenuList richMenus = richDH->menus();
+	mInt_->guiManager_.addMenus("sci", sciMenus);
+	mInt_->guiManager_.addMenus("rich", richMenus);
+
 	MenuList menus;
-	menus << mInt_->fileMenu_ << mInt_->editMenu_;
+	menus << mInt_->fileMenu_ << mInt_->editMenu_ << sciMenus << richMenus;
 	initCharsetMenu();
 	menus << mInt_->charsetMenu_;
 	gui->setMainMenus(menus);
 
+	mInt_->guiManager_.setType("all");
+	
 	applySettings();
 }
 
@@ -1077,7 +1175,9 @@ void Manager::onCurDocChanged(QWidget* w) {
 			doc->updateActivated();
 			mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, doc->isModified());
 			mInt_->pluginManager_->emitInfoSignal(INFO_DOC_ACTIVATED, doc->fileName());
+
 			mInt_->pluginManager_->activatePlugins(type);
+			mInt_->guiManager_.setType(type);
 		}
 		else {
 			mInt_->gui_->updateTitle("", "", false);
@@ -1106,6 +1206,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 		}
 		mInt_->docOldType_ = "";
 		mInt_->pluginManager_->activatePlugins("all");
+		mInt_->guiManager_.setType("all");
 	}
 }
 

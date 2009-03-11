@@ -32,7 +32,7 @@ RichDocHandler::RichDocHandler() {
 	tb->addAction("U");
 	toolBars_.append(tb);
 	
-	QMenu* formatMenu = new QMenu("Format");
+	QMenu* formatMenu = new QMenu(tr("Format"));
 	formatMenu->addAction("Bold");
 	formatMenu->addAction("Italic");
 	formatMenu->addAction("Underline");

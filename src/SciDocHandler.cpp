@@ -34,11 +34,6 @@ public:
 	Interior() {
 		markersMenu_ = new QMenu(QObject::tr("&Markers"));
 
-	//	initMarkersMenu();
-		
-//		QAction* act = new QAction(tr("Toggle marker"), 0);
-
-
 		syntaxMenu_ = new QMenu(QObject::tr("&Syntax"));
 		syntaxActGr_ = new QActionGroup(0);
 		
@@ -51,7 +46,6 @@ public:
 		eolL_->setToolTip(QObject::tr("Line endings"));
 		
 		statusWidgets_ << syntaxL_ << eolL_;;
-		
 		
 		CommandStorage* st = CommandStorage::instance();
 		QList<QAction*> eolActList;
@@ -89,50 +83,49 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	st->registerCommand(ID_EOL_WIN, this, SLOT(eolSelected()));
 	st->registerCommand(ID_EOL_MAC, this, SLOT(eolSelected()));
 	st->registerCommand(ID_EOL_UNIX, this, SLOT(eolSelected()));
+	st->registerCommand(ID_MARKER_TOGGLE, this, SLOT(toggleMarker()));
+	st->registerCommand(ID_MARKER_NEXT, this, SLOT(nextMarker()));
+	st->registerCommand(ID_MARKER_PREV, this, SLOT(prevMarker()));
+	st->registerCommand(ID_MARKER_REMOVE_ALL, this, SLOT(removeAllMarkers()));
+	st->registerCommand(ID_ZOOM_IN, this, SLOT(zoomIn()));
+	st->registerCommand(ID_ZOOM_OUT, this, SLOT(zoomOut()));
+	st->registerCommand(ID_ZOOM_100, this, SLOT(zoom100()));
 		
 	docInt_ = new Interior();
 	
-		QAction* showLineNumsAct = new QAction(tr("Show line numbers"), 0);
-		showLineNumsAct->setShortcut(QKeySequence("F11"));
-		showLineNumsAct->setCheckable(true);
-		showLineNumsAct->setChecked(TextDocSettings::showLineNumbers());
-		connect(showLineNumsAct, SIGNAL(activated()), this, SLOT(showLineNums()));
-		
-		QAction* wordWrapAct = new QAction(tr("Wrap words"), 0);
-		wordWrapAct->setShortcut(QKeySequence("F10"));
-		wordWrapAct->setCheckable(true);
-		wordWrapAct->setChecked(TextDocSettings::widthAdjust());
-		connect(wordWrapAct, SIGNAL(activated()), this, SLOT(wordWrap()));
-
-		CommandStorage::instance()->registerCommand(ID_MARKER_TOGGLE, this, SLOT(toggleMarker()));
-		CommandStorage::instance()->registerCommand(ID_MARKER_NEXT, this, SLOT(nextMarker()));
-		CommandStorage::instance()->registerCommand(ID_MARKER_PREV, this, SLOT(prevMarker()));
-		CommandStorage::instance()->registerCommand(ID_MARKER_REMOVE_ALL, this, SLOT(removeAllMarkers()));
-
-		st->registerCommand(ID_ZOOM_IN, this, SLOT(zoomIn()));
-		st->registerCommand(ID_ZOOM_OUT, this, SLOT(zoomOut()));
-		st->registerCommand(ID_ZOOM_100, this, SLOT(zoom100()));
-
-		QMenu* viewMenu = new QMenu(tr("&View"));
-		viewMenu->addAction(showLineNumsAct);
-		viewMenu->addAction(wordWrapAct);
-		viewMenu->addAction(st->action(ID_ZOOM_IN));
-		viewMenu->addAction(st->action(ID_ZOOM_OUT));
-		viewMenu->addAction(st->action(ID_ZOOM_100));
-		
-		connect(docInt_->markersMenu_, SIGNAL(aboutToShow()), SLOT(initMarkersMenu()));
-
-		docInt_->menus_ << viewMenu << docInt_->syntaxMenu_ << docInt_->markersMenu_ << docInt_->eolMenu_;
-
-		initSyntaxMenu();
+	QAction* showLineNumsAct = new QAction(tr("Show line numbers"), 0);
+	showLineNumsAct->setShortcut(QKeySequence("F11"));
+	showLineNumsAct->setCheckable(true);
+	showLineNumsAct->setChecked(TextDocSettings::showLineNumbers());
+	connect(showLineNumsAct, SIGNAL(activated()), this, SLOT(showLineNums()));
+	
+	QAction* wordWrapAct = new QAction(tr("Wrap words"), 0);
+	wordWrapAct->setShortcut(QKeySequence("F10"));
+	wordWrapAct->setCheckable(true);
+	wordWrapAct->setChecked(TextDocSettings::widthAdjust());
+	connect(wordWrapAct, SIGNAL(activated()), this, SLOT(wordWrap()));
 
 
-		QToolBar* zoomTB = new QToolBar("Zoom");
-		zoomTB->addAction(st->action(ID_ZOOM_IN));
-		zoomTB->addAction(st->action(ID_ZOOM_OUT));
-		zoomTB->addAction(st->action(ID_ZOOM_100));
-		
-		docInt_->toolBars_ << zoomTB;
+	QMenu* viewMenu = new QMenu(tr("&View"));
+	viewMenu->addAction(showLineNumsAct);
+	viewMenu->addAction(wordWrapAct);
+	viewMenu->addAction(st->action(ID_ZOOM_IN));
+	viewMenu->addAction(st->action(ID_ZOOM_OUT));
+	viewMenu->addAction(st->action(ID_ZOOM_100));
+	
+	connect(docInt_->markersMenu_, SIGNAL(aboutToShow()), SLOT(initMarkersMenu()));
+
+	docInt_->menus_ << viewMenu << docInt_->syntaxMenu_ << docInt_->markersMenu_ << docInt_->eolMenu_;
+
+	initSyntaxMenu();
+
+
+	QToolBar* zoomTB = new QToolBar("Zoom");
+	zoomTB->addAction(st->action(ID_ZOOM_IN));
+	zoomTB->addAction(st->action(ID_ZOOM_OUT));
+	zoomTB->addAction(st->action(ID_ZOOM_100));
+	
+	docInt_->toolBars_ << zoomTB;
 }
 
 SciDocHandler::~SciDocHandler() {
@@ -167,17 +160,14 @@ void SciDocHandler::initMarkersMenu() {
 }
 
 void SciDocHandler::initSyntaxMenu() {
-//	if (fmtMenu != 0) {
-//		fmtMenu->addMenu(jInt_->syntaxMenu_);
-		QStringList sList;
-		LexerStorage::instance()->getLexersList(sList);
-		foreach (QString s, sList) {
-			QAction* a = docInt_->syntaxMenu_->addAction(s, this, SLOT(syntaxSelected()));
-			a->setCheckable(true);
-			docInt_->syntaxActions_[s] = a;
-			docInt_->syntaxActGr_->addAction(a);
-		}	
-//	}
+	QStringList sList;
+	LexerStorage::instance()->getLexersList(sList);
+	foreach (QString s, sList) {
+		QAction* a = docInt_->syntaxMenu_->addAction(s, this, SLOT(syntaxSelected()));
+		a->setCheckable(true);
+		docInt_->syntaxActions_[s] = a;
+		docInt_->syntaxActGr_->addAction(a);
+	}	
 }
 
 QString SciDocHandler::type() const {
@@ -357,8 +347,6 @@ void SciDocHandler::syntaxSelected() {
 		Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 		if ( doc && !doc->isNull() ) {
 			doc->setSyntax(a->text());
-//			displaySyntax(a->text());
-//			changeCurrentSyntaxAction(a);
 		}
 		else {
 			a->setChecked(false);

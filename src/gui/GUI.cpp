@@ -252,12 +252,6 @@ QMenu* GUI::toolsMenu() const {
 }
 
 void GUI::addToolBar(QToolBar* tb) {
-	//	clear current toolbars
-/*	foreach (QToolBar* tb, toolBars_) {
-		mw_->removeToolBar(tb);
-	}
-	toolBars_.clear();*/
-	
 	mw_->addToolBar(tb);
 	if ( !tb->windowTitle().isEmpty() )
 		tb->setObjectName(tb->windowTitle());
@@ -266,16 +260,7 @@ void GUI::addToolBar(QToolBar* tb) {
 }
 
 void GUI::addToolBars(const ToolBarList& list) {
-	//	clear current toolbars
-/*	foreach (QToolBar* tb, toolBars_) {
-		mw_->removeToolBar(tb);
-	}
-	toolBars_.clear();*/
-	
-//	toolBars_ << list;
 	foreach (QToolBar* tb, list) {
-//		mw_->addToolBar(tb);
-//		tb->hide();
 		addToolBar(tb);
 	}
 }

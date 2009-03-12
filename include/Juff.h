@@ -10,13 +10,6 @@ class QToolBar;
 
 namespace Juff {
 
-/*enum Action {
-	ACT_FILE_NEW,
-	ACT_FILE_OPEN,
-	ACT_FILE_SAVE,
-	ACT_FILE_SAVE_AS,
-};*/
-
 enum CommandID {
 	ID_NONE,
 	ID_SEPARATOR,

@@ -118,43 +118,19 @@ void PluginManager::loadPlugin(const QString& path) {
 //			if (pluginExists(plugin->name()))
 //				return;
 
-//			if ( pmInt_->eventProxy_)
-//				plugin->setEventProxy(pmInt_->eventProxy_);
-//			pmInt_->pluginList_.append(plugin);
 			if ( pmInt_->addPlugin(plugin) ) {
 
 				qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
-//				plugin->setEventProxy(pmInt_->eventProxy_);
-//				plugin->setEventProxy(this);
 
 				///////////////////////////////
 				////	GUI
-				//	toolbar
-//				if ( QToolBar* tb = plugin->toolBar() )
-//					pmInt_->mw_->addToolBar(tb);
-
-				//	dock windows
-/*				QWidgetList docks = plugin->dockList();
-				Log::debug(docks.count());
-				foreach(QWidget* w, docks) {
-					QString title = w->windowTitle();
-					if ( title.isEmpty() )
-						title = plugin->name();
-					QDockWidget* dock = new QDockWidget(title);
-					dock->setObjectName(title);
-					dock->setWidget(w);
-					pmInt_->gui_->mw()->addDockWidget(Qt::LeftDockWidgetArea, dock);
-
-					//	panels toggle actions
-	//				if (jInt_->panelsMenu_ != 0) {
-	//					jInt_->panelsMenu_->addAction(dock->toggleViewAction());
-	//				}
-				}*/
 				QString type = plugin->targetEngine();
+				//	docks
 				QWidgetList docks = plugin->dockList();
 				if ( !docks.isEmpty() ) {
 					pmInt_->docks_[type] << docks;
 				}
+				//	toolbar
 				QToolBar* toolBar = plugin->toolBar();
 				if ( toolBar ) {
 					pmInt_->toolBars_[type] << toolBar;
@@ -197,13 +173,6 @@ void PluginManager::loadPlugins() {
 	
 	activatePlugins("all");
 }
-
-/*void PluginManager::addToolBars(const QString& engine) {
-	JUFFENTRY;
-	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
-		pmInt_->gui_->addToolBar(plugin->toolBar());
-	}
-}*/
 
 ToolBarList PluginManager::getToolBars(const QString& engine) {
 	ToolBarList list;

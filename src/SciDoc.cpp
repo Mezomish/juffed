@@ -106,7 +106,7 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 		readDoc();
 		docInt_->edit1_->setModified(false);
 		
-		//	line ending
+		//	line endings
 		QFile file(fileName);
 		if ( file.open(QIODevice::ReadOnly) ) {
 			QString line = QString::fromLocal8Bit(file.readLine().constData());
@@ -541,9 +541,6 @@ void SciDoc::applySettings() {
 void SciDoc::updateActivated() {
 	wrapText(TextDocSettings::widthAdjust());
 	showLineNumbers(TextDocSettings::showLineNumbers());
-	
-	//	request for menu to update it
-//	emit getMarkersMenu();
 }
 
 

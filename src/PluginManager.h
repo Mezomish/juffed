@@ -26,7 +26,6 @@ class QMainWindow;
 #include <QtCore/QStringList>
 #include <QtGui/QWidgetList>
 
-//#include "EventProxy.h"
 #include "Juff.h"
 #include "ManagerInterface.h"
 #include "Parameter.h"

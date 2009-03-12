@@ -1398,19 +1398,6 @@ void Manager::insertText(const QString& text) {
 	}
 }
 
-void Manager::activateDoc(const QString& fileName) {
-	JUFFENTRY;
-	
-	if ( mInt_->docs1_.contains(fileName) ) {
-		Document* doc = mInt_->docs1_[fileName];
-		mInt_->viewer_->activateDoc(doc);
-	}
-	else if ( mInt_->docs2_.contains(fileName) ) {
-		Document* doc = mInt_->docs2_[fileName];
-		mInt_->viewer_->activateDoc(doc);
-	}
-}
-
 bool Manager::closeDoc(const QString& fileName) {
 	JUFFENTRY;
 	

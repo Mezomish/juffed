@@ -58,7 +58,6 @@ public:
 	virtual void removeSelectedText();
 	virtual void insertText(const QString&);
 
-	virtual void activateDoc(const QString&);
 	virtual bool closeDoc(const QString& fileName);
 	virtual void saveDoc(const QString& fileName);
 	//
@@ -69,7 +68,7 @@ public slots:
 	/**
 	*	Opens a new doc or activates already opened one
 	*/
-	void openDoc(const QString& fileName);
+	virtual void openDoc(const QString& fileName);
 
 
 private slots:

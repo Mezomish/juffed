@@ -103,7 +103,7 @@ public:
 	*
 	*	Activates the document with file name \par fileName.
 	*/
-	virtual void activateDoc(const QString& fileName) = 0;
+	virtual void openDoc(const QString& fileName) = 0;
 	
 	/**
 	*	closeDoc()

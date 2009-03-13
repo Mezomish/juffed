@@ -194,32 +194,43 @@ void SciDoc::setModified(bool mod) {
 }
 
 void SciDoc::undo() {
-	docInt_->edit1_->undo();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->undo();
 }
 
 void SciDoc::redo() {
-	docInt_->edit1_->redo();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->redo();
 }
 
 void SciDoc::cut() {
-	if ( docInt_->edit1_->hasFocus() )
-		docInt_->edit1_->cut();
-	else
-		docInt_->edit2_->cut();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+
+	edit->cut();
 }
 
 void SciDoc::copy() {
-	if ( docInt_->edit1_->hasFocus() )
-		docInt_->edit1_->copy();
-	else
-		docInt_->edit2_->copy();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+
+	edit->copy();
 }
 
 void SciDoc::paste() {
-	if ( docInt_->edit1_->hasFocus() )
-		docInt_->edit1_->paste();
-	else
-		docInt_->edit2_->paste();
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+
+	edit->paste();
 }
 
 void SciDoc::unindent() {

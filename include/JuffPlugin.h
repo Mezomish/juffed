@@ -54,11 +54,11 @@ public:
 	*	subMenus()
 	*
 	*	Returns list of menus that should be added to menu
-	*	with ID \par id.
+	*	with given MenuID.
 	*	Reimplement this method if you need to add items to main
 	*	or context menu.
 	*/
-	virtual Juff::MenuList subMenus(Juff::MenuID id) const = 0;
+	virtual Juff::MenuList subMenus(Juff::MenuID) const { return Juff::MenuList(); }
 	
 	/**
 	*	toolBar()
@@ -77,14 +77,6 @@ public:
 	virtual Juff::ActionList contextMenuActions() const { return Juff::ActionList(); }
 	
 	/**
-	*	settingsPage()
-	*
-	*	Returns the settings page of the plugin. 
-	*	Reimplement this method if your plugin has settings page.
-	*/
-	virtual QWidget* settingsPage() const { return 0; }
-
-	/**
 	*	dockList()
 	*
 	*	Returns the list of dock windows of the plugin. 
@@ -93,11 +85,19 @@ public:
 	virtual QWidgetList dockList() const { return QWidgetList(); }
 	
 	/**
+	*	settingsPage()
+	*
+	*	Returns the settings page of the plugin. 
+	*	Reimplement this method if your plugin has settings page.
+	*/
+	virtual QWidget* settingsPage() const { return 0; }
+
+	/**
 	*	dockPosition()
 	*
-	*	Returns the default position of plugin's dock widget \par w.
+	*	Returns the default position of plugin's dock widget.
 	*/
-	virtual Qt::DockWidgetArea dockPosition(QWidget* w) const = 0;
+	virtual Qt::DockWidgetArea dockPosition(QWidget*) const { return Qt::LeftDockWidgetArea; }
 	
 	/**
 	*	onInfoEvent()

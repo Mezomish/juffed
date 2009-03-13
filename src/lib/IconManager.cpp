@@ -118,8 +118,7 @@ QStringList IconManager::themeList() const {
 }
 
 QIcon IconManager::getIcon(Juff::CommandID id) {
-	JUFFENTRY;
-	JUFFDEBUG((int)id);
+//	JUFFENTRY;
 	
 	if ( !imInt_->icons_.contains(id) ) {
 		return getDefaultIcon(id);
@@ -135,9 +134,7 @@ QIcon IconManager::getIcon(Juff::CommandID id) {
 			int sz = imInt_->sizeSeq_[imInt_->size_][i];
 			QString fileName = iconDir + "/" + imInt_->theme_ + "/" + 
 							QString("%1x%2/").arg(sz).arg(sz) + iconFileName + ".png";
-			JUFFDEBUG(fileName);
 			if ( QFileInfo(fileName).exists() ) {
-				JUFFDEBUG("PNG icon found");
 				return QIcon(fileName);
 			}
 		}
@@ -145,35 +142,29 @@ QIcon IconManager::getIcon(Juff::CommandID id) {
 		//	Try to find SVG.
 		QString svgIconFileName = iconDir + "/" + imInt_->theme_ + "/scalable/" + 
 							iconFileName + ".svg";
-		JUFFDEBUG(svgIconFileName);
 		if ( QFileInfo(svgIconFileName).exists() ) {
-			JUFFDEBUG("SVG icon found");
 			return QIcon(svgIconFileName);
 		}
 		else {
-			JUFFDEBUG("Not found. Returning default icon");
 			return getDefaultIcon(id);
 		}
 	}
 }
 
 QIcon IconManager::getDefaultIcon(Juff::CommandID id) {
-	JUFFENTRY;
-	JUFFDEBUG((int)id);
+//	JUFFENTRY;
 	
 	if ( imInt_->defaultIcons_.contains(id) ) {
 		QString iconFileName = imInt_->defaultIcons_[id];
 		for (int i = 0; i < 4; ++i) {
 			int sz = imInt_->sizeSeq_[imInt_->size_][i];
 			QString fileName = QString(":%1/").arg(sz) + iconFileName;
-			JUFFDEBUG(fileName);
 			if ( QFileInfo(fileName).exists() ) {
 				return QIcon(fileName);
 			}
 		}
 	}
 
-	JUFFDEBUG("empty icon");
 	return QIcon();
 }
 

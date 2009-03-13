@@ -18,7 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDocHandler.h"
 
-#include <QtGui/QLabel>
+//#include <QtGui/QLabel>
 #include <QtGui/QMenu>
 #include <QtGui/QToolBar>
 
@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "LexerStorage.h"
 #include "SciDoc.h"
 #include "TextDocSettings.h"
+#include "gui/StatusLabel.h"
 
 namespace Juff {
 
@@ -39,10 +40,12 @@ public:
 		
 		eolMenu_ = new QMenu(QObject::tr("Line endings"));
 		
-		syntaxL_ = new QLabel("");
+		syntaxL_ = new GUI::StatusLabel("");
+		syntaxL_->setMenu(syntaxMenu_);
 		syntaxL_->setToolTip(QObject::tr("Syntax highlighting scheme"));
 		
-		eolL_ = new QLabel("");
+		eolL_ = new GUI::StatusLabel("");
+		eolL_->setMenu(eolMenu_);
 		eolL_->setToolTip(QObject::tr("Line endings"));
 		
 		statusWidgets_ << syntaxL_ << eolL_;;
@@ -73,8 +76,8 @@ public:
 	QActionGroup* eolActGr_;
 	QWidgetList statusWidgets_;
 	ActionList contextMenuActions_;
-	QLabel* syntaxL_;
-	QLabel* eolL_;
+	GUI::StatusLabel* syntaxL_;
+	GUI::StatusLabel* eolL_;
 };
 
 SciDocHandler::SciDocHandler() : DocHandler() {	

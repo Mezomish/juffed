@@ -115,6 +115,7 @@ SET ( juffed_SRCS
 	src/gui/MW.cpp
 	src/gui/SessionDlg.cpp
 	src/gui/SettingsDlg.cpp
+	src/gui/StatusLabel.cpp
 	src/gui/TabBar.cpp
 	src/gui/TabWidget.cpp
 	src/gui/Viewer.cpp

@@ -23,7 +23,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QActionGroup>
 #include <QtGui/QApplication>
 #include <QtGui/QInputDialog>
-#include <QtGui/QLabel>
 #include <QtGui/QMenu>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPushButton>
@@ -35,13 +34,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "DocHandler.h"
 #include "Document.h"
 #include "Functions.h"
+#include "MainSettings.h"
 #include "NullDoc.h"
 #include "Parameter.h"
 #include "PluginManager.h"
 #include "RichDocHandler.h"
-#include "MainSettings.h"
 #include "SimpleDocHandler.h"
 #include "SciDocHandler.h"
+#include "gui/StatusLabel.h"
 #include "gui/Viewer.h"
 #include "gui/GUI.h"
 
@@ -177,12 +177,13 @@ public:
 			}
 		}
 		
-		posL_ = new QLabel("");
-		nameL_ = new QLabel("");
-		charsetL_ = new QLabel("");
+		posL_ = new GUI::StatusLabel("");
+		nameL_ = new GUI::StatusLabel("");
+		charsetL_ = new GUI::StatusLabel("");
 		posL_->setToolTip(QObject::tr("Cursor position"));
 		nameL_->setToolTip(QObject::tr("File full name"));
 		charsetL_->setToolTip(QObject::tr("Character set"));
+		charsetL_->setMenu(charsetMenu_);
 		
 		gui_->addStatusWidget(posL_);
 		gui_->addStatusWidget(nameL_);
@@ -312,9 +313,9 @@ public:
 	QActionGroup* chActGr_;
 	QMenu* recentFilesMenu_;
 	QStringList recentFiles_;
-	QLabel* posL_;
-	QLabel* nameL_;
-	QLabel* charsetL_;
+	GUI::StatusLabel* posL_;
+	GUI::StatusLabel* nameL_;
+	GUI::StatusLabel* charsetL_;
 	GUIManager guiManager_;
 };
 

@@ -33,28 +33,34 @@ NullDoc::~NullDoc() {
 }
 
 bool NullDoc::save(const QString&, QString&) { 
+	JUFFENTRY;
 	scream();
 	return false;
 }
 
 void NullDoc::print() { 
+	JUFFENTRY;
 	scream();
 }
 
 void NullDoc::reload() { 
+	JUFFENTRY;
 	scream();
 }
 
 bool NullDoc::isModified() const {
+	JUFFENTRY;
 	scream();
 	return false;
 }
 
 void NullDoc::setModified(bool) {
+	JUFFENTRY;
 	scream();
 }
 
 QWidget* NullDoc::widget() {
+	JUFFENTRY;
 	scream();
 	return NULL;
 }

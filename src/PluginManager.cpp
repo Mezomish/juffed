@@ -25,7 +25,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QToolBar>
 
 #include "AppInfo.h"
-//#include "EventProxy.h"
 #include "gui/GUI.h"
 #include "JuffPlugin.h"
 #include "Log.h"
@@ -35,9 +34,9 @@ namespace Juff {
 class PluginManager::Interior {
 public:
 	Interior() {
-		gui_ = 0;
 		managerInt_ = 0;
-		curType_ = "";
+		gui_ = 0;
+		curEngine_ = "";
 	}
 	~Interior() {
 	}
@@ -59,15 +58,17 @@ public:
 		}
 	}
 	
-	QMap<QString, PluginList> plugins_;
-	GUI::GUI* gui_;
-	QStringList engines_;
 	ManagerInterface* managerInt_;
+	GUI::GUI* gui_;
+	QMap<QString, PluginList> plugins_;
+
+	QStringList engines_;
+	QString curEngine_;
 	
-	QString curType_;
+	//	stores and manages dock windows (shows and hides when active engine is changed
 	QMap<QString, QWidgetList> docks_;
-	QMap<QString, MenuList> menus_;
-	QMap<QString, ToolBarList> toolBars_;
+	
+	//	stores all plugins' context menu actions
 	QMap<QString, ActionList> contextMenuActions_;
 };
 
@@ -90,9 +91,9 @@ void PluginManager::emitInfoSignal(InfoEvent evt, const Param& param1, const Par
 	foreach (QString engine, pmInt_->engines_) {
 		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
 			if ( plugin ) {
-				JUFFDEBUG(QString("Sending to plugin '%1'").arg(plugin->name()));
+				JUFFDEBUG(QString("Sending event '%1' to plugin '%2'").arg((int)evt).arg(plugin->name()));
 				plugin->onInfoEvent(evt, param1, param2);
-				JUFFDEBUG("Processed successfully");
+				JUFFDEBUG("Event processed");
 			}
 		}
 	}
@@ -101,10 +102,9 @@ void PluginManager::emitInfoSignal(InfoEvent evt, const Param& param1, const Par
 void PluginManager::loadPlugin(const QString& path) {
 	JUFFENTRY;
 
-	Log::debug(path);
 	QPluginLoader loader(path);
 	if ( !loader.load() ) {
-		Log::debug("Plugin was NOT loaded");
+		Log::debug(QString("Plugin '%1' was NOT loaded").arg(path));
 		return;
 	}
 	
@@ -121,7 +121,7 @@ void PluginManager::loadPlugin(const QString& path) {
 
 			if ( pmInt_->addPlugin(plugin) ) {
 
-				qDebug(qPrintable(QString("Plugin '%1' loaded").arg(plugin->name())));
+				qDebug(qPrintable(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name())));
 
 				///////////////////////////////
 				////	GUI
@@ -130,11 +130,6 @@ void PluginManager::loadPlugin(const QString& path) {
 				QWidgetList docks = plugin->dockList();
 				if ( !docks.isEmpty() ) {
 					pmInt_->docks_[type] << docks;
-				}
-				//	toolbar
-				QToolBar* toolBar = plugin->toolBar();
-				if ( toolBar ) {
-					pmInt_->toolBars_[type] << toolBar;
 				}
 				
 				//	context menu actions
@@ -168,26 +163,15 @@ void PluginManager::loadPlugins() {
 		allDocks << pmInt_->docks_[type];
 	}
 	pmInt_->gui_->addDocks(allDocks);
-	
-	ToolBarList allToolBars;
-	foreach (QString type, pmInt_->toolBars_.keys()) {
-		allToolBars << pmInt_->toolBars_[type];
-	}
-	pmInt_->gui_->addToolBars(allToolBars);
-	
-	activatePlugins("all");
 }
 
-ToolBarList PluginManager::getToolBars(const QString& engine) {
-	ToolBarList list;
-	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
-		if ( plugin->toolBar() )
-			list << plugin->toolBar();
-	}
-	return list;
-}
+
+
+////////////////////////////////////////////////////////////
+//	GUI controls
 
 MenuList PluginManager::getMenus(const QString& engine) {
+	JUFFENTRY;
 	MenuList menus;
 	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
 		if ( plugin->menu() )
@@ -196,7 +180,24 @@ MenuList PluginManager::getMenus(const QString& engine) {
 	return menus;
 }
 
+MenuList PluginManager::getMenuActions(const QString& engine, MenuID id) {
+	JUFFENTRY;
+	MenuList list;
+	return list;
+}
+
+ToolBarList PluginManager::getToolBars(const QString& engine) {
+	JUFFENTRY;
+	ToolBarList list;
+	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+		if ( plugin->toolBar() )
+			list << plugin->toolBar();
+	}
+	return list;
+}
+
 QWidgetList PluginManager::getDocks(const QString& engine) {
+	JUFFENTRY;
 	QWidgetList list;
 	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
 		list << plugin->dockList();
@@ -211,53 +212,39 @@ ActionList PluginManager::getContextMenuActions(const QString& engine) {
 		return ActionList();
 }
 
-void PluginManager::activatePlugins(const QString& type) {
+
+
+void PluginManager::setActiveEngine(const QString& type) {
 	JUFFENTRY;
 	
-	if ( type == pmInt_->curType_ )
+	if ( type == pmInt_->curEngine_ )
 		return;
-	
+
 	//	hide currently opened controls
-	if ( !pmInt_->curType_.isEmpty() ) {
+	if ( !pmInt_->curEngine_.isEmpty() ) {
 		//	docks
-		if ( pmInt_->docks_.contains(pmInt_->curType_) ) {
-			foreach (QWidget* w, pmInt_->docks_[pmInt_->curType_]) {
+		if ( pmInt_->docks_.contains(pmInt_->curEngine_) ) {
+			foreach (QWidget* w, pmInt_->docks_[pmInt_->curEngine_]) {
 				w->parentWidget()->hide();
 			}
 		}
-		//	toolbars
-		if ( pmInt_->toolBars_.contains(pmInt_->curType_) ) {
-			foreach (QToolBar* tb, pmInt_->toolBars_[pmInt_->curType_]) {
-				tb->hide();
-			}
-		}
 	}
-	
+
 	//	requested type
 	if ( pmInt_->docks_.contains(type) ) {
 		foreach (QWidget* w, pmInt_->docks_[type]) {
 			w->parentWidget()->show();
 		}
 	}
-	if ( pmInt_->toolBars_.contains(type) ) {
-		foreach (QToolBar* tb, pmInt_->toolBars_[type]) {
-			tb->show();
-		}
-	}
-	
+
 	//	'all'
 	if ( pmInt_->docks_.contains("all") ) {
 		foreach (QWidget* w, pmInt_->docks_["all"]) {
 			w->parentWidget()->show();
 		}
 	}
-	if ( pmInt_->toolBars_.contains("all") ) {
-		foreach (QToolBar* tb, pmInt_->toolBars_["all"]) {
-			tb->show();
-		}
-	}
-	
-	pmInt_->curType_ = type;
+
+	pmInt_->curEngine_ = type;
 }
 
 

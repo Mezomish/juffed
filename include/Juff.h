@@ -98,11 +98,11 @@ enum DocCommand {
 };
 
 enum MenuID {
-	ID_FILE,
-	ID_EDIT,
-	ID_VIEW,
-	ID_FORMAT,
-	ID_TOOLS,
+	ID_MENU_FILE,
+	ID_MENU_EDIT,
+	ID_MENU_VIEW,
+	ID_MENU_FORMAT,
+	ID_MENU_TOOLS,
 };
 
 

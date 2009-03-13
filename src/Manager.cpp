@@ -77,6 +77,12 @@ public:
 		foreach(QToolBar* tb, toolBars)
 			tb->hide();
 	}
+	void addAction(const QString& type, QAction* act) {
+		if ( !actions_.contains(type) )
+			actions_[type] = ActionList();
+		actions_[type] << act;
+		act->setVisible(false);
+	}
 
 	void setType(const QString& type) {
 		if ( type == curType_ )
@@ -93,6 +99,11 @@ public:
 				menu->menuAction()->setVisible(false);
 			}
 		}
+		if ( actions_.contains(curType_) ) {
+			foreach (QAction* act, actions_[curType_] ) {
+				act->setVisible(false);
+			}
+		}
 		
 		//	show toolbars and menus of new type
 		if ( toolBars_.contains(type) ) {
@@ -100,9 +111,14 @@ public:
 				tb->show();
 			}
 		}
-		if ( menus_.contains(curType_) ) {
+		if ( menus_.contains(type) ) {
 			foreach (QMenu* menu, menus_[type]) {
 				menu->menuAction()->setVisible(true);
+			}
+		}
+		if ( actions_.contains(type) ) {
+			foreach (QAction* act, actions_[type] ) {
+				act->setVisible(true);
 			}
 		}
 		
@@ -113,9 +129,14 @@ public:
 					tb->show();
 				}
 			}
-			if ( menus_.contains(curType_) ) {
+			if ( menus_.contains("all") ) {
 				foreach (QMenu* menu, menus_["all"]) {
 					menu->menuAction()->setVisible(true);
+				}
+			}
+			if ( actions_.contains("all") ) {
+				foreach (QAction* act, actions_["all"] ) {
+					act->setVisible(true);
 				}
 			}
 		}
@@ -126,6 +147,7 @@ public:
 private:	
 	QMap<QString, ToolBarList> toolBars_;
 	QMap<QString, MenuList> menus_;
+	QMap<QString, ActionList> actions_;
 	QString curType_;
 };
 
@@ -139,16 +161,11 @@ public:
 		mainTB_ = createMainToolBar();
 		fileMenu_ = new QMenu(QObject::tr("&File"));
 		editMenu_ = new QMenu(QObject::tr("&Edit"));
+		formatMenu_ = new QMenu(QObject::tr("Fo&rmat"));
 		charsetMenu_ = new QMenu(QObject::tr("&Charset"));
-		
-		guiManager_.addToolBar("all", mainTB_);
-		guiManager_.addMenu("all", fileMenu_);
-		guiManager_.addMenu("all", editMenu_);
-		guiManager_.addMenu("all", charsetMenu_);
+		recentFilesMenu_ = new QMenu(QObject::tr("Recent files"));
 		
 		chActGr_ = new QActionGroup(m);
-		
-		recentFilesMenu_ = new QMenu(QObject::tr("Recent files"));
 		
 		QString recentFiles = MainSettings::recentFiles();
 		if ( !recentFiles.isEmpty() ) {
@@ -284,6 +301,7 @@ public:
 	QToolBar* mainTB_;
 	QMenu* fileMenu_;
 	QMenu* editMenu_;
+	QMenu* formatMenu_;
 	QMenu* charsetMenu_;
 	QMap<QString, QAction*> charsetActions_;
 	QActionGroup* chActGr_;
@@ -390,12 +408,16 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	
 	SciDocHandler* sciDH = new SciDocHandler();
 	addDocHandler(sciDH);
-	
+
+	//	toolbars
 	ToolBarList sciToolBars = sciDH->toolBars();
 	ToolBarList richToolBars = richDH->toolBars();
+	sciToolBars << mInt_->pluginManager_->getToolBars("sci");
+	richToolBars << mInt_->pluginManager_->getToolBars("rich");
 	mInt_->gui_->addToolBar(mInt_->mainTB_);
 	mInt_->gui_->addToolBars(sciToolBars);
 	mInt_->gui_->addToolBars(richToolBars);
+	mInt_->guiManager_.addToolBar("all", mInt_->mainTB_);
 	mInt_->guiManager_.addToolBars("sci", sciToolBars);
 	mInt_->guiManager_.addToolBars("rich", richToolBars);
 	
@@ -405,6 +427,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 		mInt_->fileMenu_->insertMenu(saveAct, mInt_->recentFilesMenu_);
 		initRecentFilesMenu();
 	}
+	//	format menu
+	mInt_->formatMenu_->addMenu(mInt_->charsetMenu_);
 	//
 
 	
@@ -418,19 +442,21 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	
 	
 	//	menus
+	MenuList standardMenus;
+	standardMenus << mInt_->fileMenu_ << mInt_->editMenu_ << mInt_->formatMenu_;
 	MenuList sciMenus = sciDH->menus();
 	MenuList richMenus = richDH->menus();
+	mInt_->guiManager_.addMenus("all", standardMenus);
 	mInt_->guiManager_.addMenus("sci", sciMenus);
 	mInt_->guiManager_.addMenus("rich", richMenus);
 
 	MenuList menus;
-	menus << mInt_->fileMenu_ << mInt_->editMenu_ << sciMenus << richMenus;
-	initCharsetMenu();
-	menus << mInt_->charsetMenu_;
+	menus << standardMenus << sciMenus << richMenus;
 	gui->setMainMenus(menus);
 	//
 	
 	mInt_->guiManager_.setType("all");
+	mInt_->pluginManager_->setActiveEngine("all");
 	applySettings();
 
 	//	restore toolbars and docks positions
@@ -555,7 +581,11 @@ void Manager::addDocHandler(DocHandler* handler) {
 		w->hide();
 	}
 	handler->addContextMenuActions(mInt_->pluginManager_->getContextMenuActions(type));
-	
+
+	foreach(QAction* act, handler->menuActions(ID_MENU_FORMAT)) {
+		mInt_->formatMenu_->addAction(act);
+		mInt_->guiManager_.addAction(type, act);
+	}
 	connect(handler, SIGNAL(getCurDoc()), SLOT(curDoc()));
 }
 
@@ -1243,7 +1273,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 			mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, doc->isModified());
 			mInt_->pluginManager_->emitInfoSignal(INFO_DOC_ACTIVATED, doc->fileName());
 
-			mInt_->pluginManager_->activatePlugins(type);
+			mInt_->pluginManager_->setActiveEngine(type);
 			mInt_->guiManager_.setType(type);
 		}
 		else {
@@ -1272,7 +1302,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 			}
 		}
 		mInt_->docOldType_ = "";
-		mInt_->pluginManager_->activatePlugins("all");
+		mInt_->pluginManager_->setActiveEngine("all");
 		mInt_->guiManager_.setType("all");
 	}
 }

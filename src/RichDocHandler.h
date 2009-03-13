@@ -29,13 +29,14 @@ class RichDocHandler : public DocHandler {
 Q_OBJECT
 public:
 	RichDocHandler();
+	virtual ~RichDocHandler();
 
 	virtual QString type() const;
-	virtual Document* createDoc(const QString&);
-	virtual ToolBarList toolBars() const;
-	virtual MenuList menus() const;
-	virtual QWidgetList statusWidgets() const;
 	virtual QString fileFilters() const;
+	virtual Document* createDoc(const QString&);
+
+	virtual ActionList menuActions(MenuID) const;
+	virtual ToolBarList toolBars() const;
 
 	virtual void docActivated(Document*) {}
 
@@ -46,7 +47,9 @@ protected slots:
 
 private:
 	ToolBarList toolBars_;
-	MenuList menus_;
+	QAction* boldAct_;
+	QAction* italicAct_;
+	QAction* ulAct_;
 };
 
 }

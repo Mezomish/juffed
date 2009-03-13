@@ -46,4 +46,20 @@ void DocHandler::setDocType(Document* doc, const QString& type) {
 	doc->type_ = type;
 }
 
+MenuList DocHandler::menus() const {
+	return MenuList();
+}
+
+ActionList DocHandler::menuActions(MenuID) const {
+	return ActionList();
+}
+
+ToolBarList DocHandler::toolBars() const {
+	return ToolBarList();
+}
+
+QWidgetList DocHandler::statusWidgets() const {
+	return QWidgetList();
+}
+
 }	//	namespace Juff

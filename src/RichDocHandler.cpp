@@ -31,12 +31,17 @@ RichDocHandler::RichDocHandler() {
 	tb->addAction("I", this, SLOT(italic()));
 	tb->addAction("U", this, SLOT(underline()));
 	toolBars_.append(tb);
-	
-	QMenu* formatMenu = new QMenu(tr("Format"));
-	formatMenu->addAction("Bold", this, SLOT(bold()));
-	formatMenu->addAction("Italic", this, SLOT(italic()));
-	formatMenu->addAction("Underline", this, SLOT(underline()));
-	menus_.append(formatMenu);
+
+	boldAct_ = new QAction("Bold", this);
+	italicAct_ = new QAction("Italic", this);
+	ulAct_ = new QAction("Underline", this);
+
+	connect(boldAct_, SIGNAL(activated()), SLOT(bold()));
+	connect(italicAct_, SIGNAL(activated()), SLOT(italic()));
+	connect(ulAct_, SIGNAL(activated()), SLOT(underline()));
+}
+
+RichDocHandler::~RichDocHandler() {
 }
 
 QString RichDocHandler::type() const {
@@ -49,16 +54,20 @@ Document* RichDocHandler::createDoc(const QString& fileName) {
 	return doc;
 }
 
+ActionList RichDocHandler::menuActions(MenuID id) const {
+	ActionList list;
+	switch ( id ) {
+		case ID_MENU_FORMAT :
+			list << boldAct_ << italicAct_ << ulAct_;
+			break;
+		
+		default: ;
+	}
+	return list;
+}
+
 ToolBarList RichDocHandler::toolBars() const {
 	return toolBars_;
-}
-
-MenuList RichDocHandler::menus() const {
-	return menus_;
-}
-
-QWidgetList RichDocHandler::statusWidgets() const {
-	return QWidgetList();
 }
 
 QString RichDocHandler::fileFilters() const {

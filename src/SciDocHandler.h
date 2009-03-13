@@ -34,11 +34,14 @@ public:
 	virtual ~SciDocHandler();
 
 	virtual QString type() const;
-	virtual Document* createDoc(const QString&);
-	virtual ToolBarList toolBars() const;
-	virtual MenuList menus() const;
-	virtual QWidgetList statusWidgets() const;
 	virtual QString fileFilters() const;
+	virtual Document* createDoc(const QString&);
+
+	virtual MenuList menus() const;
+	virtual ActionList menuActions(MenuID) const;
+	virtual ToolBarList toolBars() const;
+	virtual QWidgetList statusWidgets() const;
+
 	virtual void addContextMenuActions(const ActionList&);
 
 	virtual void docActivated(Document*);

@@ -113,10 +113,12 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	viewMenu->addAction(st->action(ID_ZOOM_IN));
 	viewMenu->addAction(st->action(ID_ZOOM_OUT));
 	viewMenu->addAction(st->action(ID_ZOOM_100));
+	viewMenu->addSeparator();
+	viewMenu->addMenu(docInt_->syntaxMenu_);
 	
 	connect(docInt_->markersMenu_, SIGNAL(aboutToShow()), SLOT(initMarkersMenu()));
 
-	docInt_->menus_ << viewMenu << docInt_->syntaxMenu_ << docInt_->markersMenu_ << docInt_->eolMenu_;
+	docInt_->menus_ << viewMenu /*<< docInt_->syntaxMenu_*/ << docInt_->markersMenu_;/* << docInt_->eolMenu_;*/
 
 	initSyntaxMenu();
 
@@ -171,31 +173,9 @@ void SciDocHandler::initSyntaxMenu() {
 	}	
 }
 
+
 QString SciDocHandler::type() const {
 	return "sci";
-}
-
-Document* SciDocHandler::createDoc(const QString& fileName) {
-	Document* doc = new SciDoc(fileName);
-	setDocType(doc, type());
-	doc->addContextMenuActions(docInt_->contextMenuActions_);
-	return doc;
-}
-
-void SciDocHandler::addContextMenuActions(const ActionList& list) {
-	docInt_->contextMenuActions_ << list;
-}
-
-ToolBarList SciDocHandler::toolBars() const {
-	return docInt_->toolBars_;
-}
-
-MenuList SciDocHandler::menus() const {
-	return docInt_->menus_;
-}
-
-QWidgetList SciDocHandler::statusWidgets() const {
-	return docInt_->statusWidgets_;
 }
 
 QString SciDocHandler::fileFilters() const {
@@ -218,6 +198,48 @@ QString SciDocHandler::fileFilters() const {
 	filters += ";;SQL (*.sql)";
 	filters += ";;XML (*.xml)";
 	return filters;
+}
+
+Document* SciDocHandler::createDoc(const QString& fileName) {
+	Document* doc = new SciDoc(fileName);
+	setDocType(doc, type());
+	doc->addContextMenuActions(docInt_->contextMenuActions_);
+	return doc;
+}
+
+
+
+////////////////////////////////////////////////////////////
+//	GUI controls
+
+MenuList SciDocHandler::menus() const {
+	return docInt_->menus_;
+}
+
+ActionList SciDocHandler::menuActions(MenuID id) const {
+	ActionList list;
+	switch ( id ) {
+		case ID_MENU_FORMAT :
+			list << docInt_->eolMenu_->menuAction();
+			break;
+		
+		default: ;
+	}
+	return list;
+}
+
+ToolBarList SciDocHandler::toolBars() const {
+	return docInt_->toolBars_;
+}
+
+QWidgetList SciDocHandler::statusWidgets() const {
+	return docInt_->statusWidgets_;
+}
+
+//
+
+void SciDocHandler::addContextMenuActions(const ActionList& list) {
+	docInt_->contextMenuActions_ << list;
 }
 
 void SciDocHandler::docActivated(Document* d) {
@@ -243,6 +265,9 @@ void SciDocHandler::docActivated(Document* d) {
 }
 
 
+
+////////////////////////////////////////////////////////////
+//	Engine-specific slots
 
 void SciDocHandler::showLineNums() {
 	JUFFENTRY;
@@ -295,7 +320,6 @@ void SciDocHandler::zoom100() {
 		doc->zoom100();
 	}
 }
-
 
 void SciDocHandler::toggleMarker() {
 	JUFFENTRY;

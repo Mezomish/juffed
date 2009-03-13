@@ -47,13 +47,41 @@ public:
 	void loadPlugin(const QString&);
 	void loadPlugins();
 
+	/**
+	*	getMenus()
+	*
+	*	Returns list of menus
+	*/
 	MenuList getMenus(const QString& engine);
+
+	/**
+	*	getMenuActions()
+	*
+	*	Returns list of menu actions added by plugins to
+	*	menu with MenuID \par id.
+	*/
+	MenuList getMenuActions(const QString& engine, MenuID id);
+
+	/**
+	*	getToolBars()
+	*
+	*	Returns list of toolbars added by plugins.
+	*/
 	ToolBarList getToolBars(const QString& engine);
+	
+	/**
+	*	getDocks()
+	*
+	*	Returns list of dock widgets added by plugins
+	*/
 	QWidgetList getDocks(const QString& engine);
+	
+	/**
+	*/
 	ActionList getContextMenuActions(const QString& engine);
 
 	void emitInfoSignal(InfoEvent, const Param&, const Param& = Param());
-	void activatePlugins(const QString& type);
+	void setActiveEngine(const QString& type);
 
 private:
 	class Interior;

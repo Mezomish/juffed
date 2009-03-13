@@ -288,6 +288,11 @@ public:
 		
 		return tb;
 	}
+
+	void displayFileName(const QString& fileName) {
+		nameL_->setText(QString(" %1 ").arg(fileName));
+//		nameL_->setToolTip(fileName);
+	}
 	
 	QMap<QString, DocHandler*> handlers_;
 	QMap<QString, QWidgetList> statusWidgets_;
@@ -856,6 +861,7 @@ bool Manager::fileSaveAs() {
 				if ( !asCopy ) {
 					doc->setFileName(fName);
 					doc->setModified(false);
+					mInt_->displayFileName(fName);
 				}
 				return true;
 			}
@@ -1245,7 +1251,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 			}
 
 			//	status bar
-			mInt_->nameL_->setText(QString(" %1 ").arg(doc->fileName()));
+			mInt_->displayFileName(doc->fileName());
 			mInt_->charsetL_->setText(QString(" %1 ").arg(doc->charset()));
 			int line = -1, col = -1;
 			doc->getCursorPos(line, col);
@@ -1280,7 +1286,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 			mInt_->gui_->updateTitle("", "", false);
 			
 			//	status bar
-			mInt_->nameL_->setText("  ");
+			mInt_->displayFileName("");
 			mInt_->charsetL_->setText("  ");
 			mInt_->posL_->setText("  ");
 			if ( mInt_->statusWidgets_.contains(mInt_->docOldType_) ) {
@@ -1293,7 +1299,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 	}
 	else {
 		//	status bar
-		mInt_->nameL_->setText("  ");
+		mInt_->displayFileName("");
 		mInt_->charsetL_->setText("  ");
 		mInt_->posL_->setText("  ");
 		if ( mInt_->statusWidgets_.contains(mInt_->docOldType_) ) {

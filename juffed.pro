@@ -8,12 +8,10 @@ DEPENDPATH += . \
               include \
               l10n \
               src \
-              plugins/example \
               src/gui \
               src/lib \
-              bu/CMakeFiles/CompilerIdC \
-              bu/CMakeFiles/CompilerIdCXX
-INCLUDEPATH += . src include src/gui plugins/example bu
+
+INCLUDEPATH += . src include
 
 # Input
 HEADERS += include/AppInfo.h \
@@ -50,7 +48,6 @@ HEADERS += include/AppInfo.h \
            src/SocketListener.h \
            src/TabBar.h \
            src/TabWidget.h \
-           plugins/example/Plugin.h \
            src/gui/AboutDlg.h \
            src/gui/CharsetsSettingsPage.h \
            src/gui/ColorButton.h \
@@ -62,15 +59,17 @@ HEADERS += include/AppInfo.h \
            src/gui/SessionDlg.h \
            src/gui/SettingsDlg.h \
            src/gui/Viewer.h \
-           src/gui/juffed.xpm
+           src/gui/juffed.xpm \
+		   
 FORMS += src/gui/AutocompleteSettingsPage.ui \
          src/gui/CharsetsSettingsPage.ui \
          src/gui/EditorSettingsPage.ui \
          src/gui/FindDlg.ui \
          src/gui/MainSettingsPage.ui \
          src/gui/SessionDlg.ui \
-         src/gui/ViewSettingsPage.ui
-SOURCES += bu/qrc_juffed.cxx \
+         src/gui/ViewSettingsPage.ui \
+		 
+SOURCES += \
            src/AutocompleteSettings.cpp \
            src/DocHandler.cpp \
            src/Document.cpp \
@@ -89,7 +88,6 @@ SOURCES += bu/qrc_juffed.cxx \
            src/SocketListener.cpp \
            src/TabBar.cpp \
            src/TabWidget.cpp \
-           plugins/example/Plugin.cpp \
            src/gui/AboutDlg.cpp \
            src/gui/CharsetsSettingsPage.cpp \
            src/gui/ColorButton.cpp \
@@ -110,8 +108,7 @@ SOURCES += bu/qrc_juffed.cxx \
            src/lib/PluginSettings.cpp \
            src/lib/Settings.cpp \
            src/lib/TextDocSettings.cpp \
-           bu/CMakeFiles/CompilerIdC/CMakeCCompilerId.c \
-           bu/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp
+
 TRANSLATIONS += l10n/juffed_de.ts \
                 l10n/juffed_fr.ts \
                 l10n/juffed_pl.ts \

@@ -376,6 +376,10 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	//
 
 
+	//	TODO : add a proper engines list initialization
+	mInt_->pluginManager_ = new PluginManager(QStringList() << /*"simple" <<*/ "rich" << "sci", this, gui);
+	mInt_->pluginManager_->loadPlugins();
+
 	//	TODO : add a proper engines loading
 	//	engines
 /*	SimpleDocHandler* simpleDH = new SimpleDocHandler();
@@ -387,10 +391,6 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	SciDocHandler* sciDH = new SciDocHandler();
 	addDocHandler(sciDH);
 	
-	//	TODO : add a proper engines list initialization
-	mInt_->pluginManager_ = new PluginManager(QStringList() << /*"simple" <<*/ "rich" << "sci", this, gui);
-	mInt_->pluginManager_->loadPlugins();
-
 	ToolBarList sciToolBars = sciDH->toolBars();
 	ToolBarList richToolBars = richDH->toolBars();
 	mInt_->gui_->addToolBar(mInt_->mainTB_);
@@ -554,6 +554,7 @@ void Manager::addDocHandler(DocHandler* handler) {
 		mInt_->gui_->addStatusWidget(w);
 		w->hide();
 	}
+	handler->addContextMenuActions(mInt_->pluginManager_->getContextMenuActions(type));
 	
 	connect(handler, SIGNAL(getCurDoc()), SLOT(curDoc()));
 }

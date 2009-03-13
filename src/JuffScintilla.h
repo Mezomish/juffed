@@ -37,6 +37,7 @@ public:
 
 	bool find(const QString& s, const DocFindFlags& flags);
 	void replaceSelected(const QString& targetText, bool backwards);
+	void addContextMenuActions(const ActionList&);
 	
 protected:
 	virtual void dragEnterEvent(QDragEnterEvent* e);

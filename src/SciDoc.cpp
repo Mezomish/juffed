@@ -543,6 +543,10 @@ void SciDoc::updateActivated() {
 	showLineNumbers(TextDocSettings::showLineNumbers());
 }
 
+void SciDoc::addContextMenuActions(const ActionList& list) {
+	docInt_->edit1_->addContextMenuActions(list);
+	docInt_->edit2_->addContextMenuActions(list);
+}
 
 
 int SciDoc::lineCount() const {

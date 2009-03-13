@@ -69,6 +69,14 @@ public:
 	virtual QToolBar* toolBar() const { return 0; }
 
 	/**
+	*	contextMenuActions()
+	*
+	*	Returns list of actions to be added to document's context menu.
+	*	Reimplement this method if your plugin adds some.
+	*/
+	virtual Juff::ActionList contextMenuActions() const { return Juff::ActionList(); }
+	
+	/**
 	*	settingsPage()
 	*
 	*	Returns the settings page of the plugin. 

@@ -18,23 +18,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "JuffScintilla.h"
 
+#include "CommandStorage.h"
+
 namespace Juff {
 
 JuffScintilla::JuffScintilla() : QsciScintilla() {
 	contextMenu_ = new QMenu();
-/*	contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_CUT));
-	contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_COPY));
-	contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_PASTE));
+	CommandStorage* st = CommandStorage::instance();
+	contextMenu_->addAction(st->action(ID_EDIT_CUT));
+	contextMenu_->addAction(st->action(ID_EDIT_COPY));
+	contextMenu_->addAction(st->action(ID_EDIT_PASTE));
 	contextMenu_->addSeparator();
-	contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_UNDO));
-	contextMenu_->addAction(CommandStorage::instance()->action(ID_EDIT_REDO));
+	contextMenu_->addAction(st->action(ID_EDIT_UNDO));
+	contextMenu_->addAction(st->action(ID_EDIT_REDO));
 	contextMenu_->addSeparator();
-	contextMenu_->addAction(CommandStorage::instance()->action(ID_FIND));
-	contextMenu_->addAction(CommandStorage::instance()->action(ID_FIND_NEXT));
-	contextMenu_->addAction(CommandStorage::instance()->action(ID_FIND_PREV));
-	contextMenu_->addAction(CommandStorage::instance()->action(ID_REPLACE));
-//	contextMenu_->addSeparator();
-//	contextMenu_->addAction(CommandStorage::instance()->action(ID_GOTO_LINE));*/
+	contextMenu_->addAction(st->action(ID_FIND));
+	contextMenu_->addAction(st->action(ID_FIND_NEXT));
+	contextMenu_->addAction(st->action(ID_FIND_PREV));
+	contextMenu_->addAction(st->action(ID_REPLACE));
+	contextMenu_->addSeparator();
+	contextMenu_->addAction(st->action(ID_GOTO_LINE));
 }
 
 JuffScintilla::~JuffScintilla() {
@@ -163,6 +166,12 @@ void JuffScintilla::contextMenuEvent(QContextMenuEvent* e) {
 void JuffScintilla::focusInEvent(QFocusEvent* e) {
 	parentWidget()->setFocusProxy(this);
 	QsciScintilla::focusInEvent(e);
+}
+
+void JuffScintilla::addContextMenuActions(const ActionList& list) {
+	foreach (QAction* a, list) {
+		contextMenu_->addAction(a);
+	}
 }
 
 }	//	namespace Juff

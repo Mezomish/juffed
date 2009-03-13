@@ -72,6 +72,7 @@ public:
 
 	virtual void applySettings();
 	virtual void updateActivated();
+	virtual void addContextMenuActions(const ActionList&);
 
 	QString syntax() const;
 	void setSyntax(const QString& lexName);

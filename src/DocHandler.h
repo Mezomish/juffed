@@ -39,6 +39,7 @@ public:
 	virtual MenuList menus() const = 0;
 	virtual QWidgetList statusWidgets() const = 0;
 	virtual QString fileFilters() const = 0;
+	virtual void addContextMenuActions(const ActionList&) {}
 
 	virtual void docActivated(Document*) = 0;
 

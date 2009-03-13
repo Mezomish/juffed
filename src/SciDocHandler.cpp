@@ -72,6 +72,7 @@ public:
 	QActionGroup* syntaxActGr_;
 	QActionGroup* eolActGr_;
 	QWidgetList statusWidgets_;
+	ActionList contextMenuActions_;
 	QLabel* syntaxL_;
 	QLabel* eolL_;
 };
@@ -177,7 +178,12 @@ QString SciDocHandler::type() const {
 Document* SciDocHandler::createDoc(const QString& fileName) {
 	Document* doc = new SciDoc(fileName);
 	setDocType(doc, type());
+	doc->addContextMenuActions(docInt_->contextMenuActions_);
 	return doc;
+}
+
+void SciDocHandler::addContextMenuActions(const ActionList& list) {
+	docInt_->contextMenuActions_ << list;
 }
 
 ToolBarList SciDocHandler::toolBars() const {

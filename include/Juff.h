@@ -3,6 +3,7 @@
 
 class QMenu;
 class QToolBar;
+class QAction;
 	
 #include <QtCore/QList>
 
@@ -120,6 +121,7 @@ typedef struct _DocFindFlags {
 
 typedef QList<QMenu*> MenuList;
 typedef QList<QToolBar*> ToolBarList;
+typedef QList<QAction*> ActionList;
 typedef QList<int> IntList;
 }	//	namespace Juff
 

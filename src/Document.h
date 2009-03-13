@@ -84,6 +84,7 @@ public:
 	virtual bool isNull() const;
 	
 	virtual void updateActivated() {}
+	virtual void addContextMenuActions(const ActionList&) {}
 
 signals:
 	void modified(bool);

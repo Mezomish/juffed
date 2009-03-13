@@ -68,6 +68,7 @@ public:
 	QMap<QString, QWidgetList> docks_;
 	QMap<QString, MenuList> menus_;
 	QMap<QString, ToolBarList> toolBars_;
+	QMap<QString, ActionList> contextMenuActions_;
 };
 
 
@@ -135,6 +136,9 @@ void PluginManager::loadPlugin(const QString& path) {
 				if ( toolBar ) {
 					pmInt_->toolBars_[type] << toolBar;
 				}
+				
+				//	context menu actions
+				pmInt_->contextMenuActions_[type] << plugin->contextMenuActions();
 			}
 			else {
 				loader.unload();
@@ -198,6 +202,13 @@ QWidgetList PluginManager::getDocks(const QString& engine) {
 		list << plugin->dockList();
 	}
 	return list;
+}
+
+ActionList PluginManager::getContextMenuActions(const QString& engine) {
+	if ( pmInt_->contextMenuActions_.contains(engine) )
+		return pmInt_->contextMenuActions_[engine];
+	else
+		return ActionList();
 }
 
 void PluginManager::activatePlugins(const QString& type) {

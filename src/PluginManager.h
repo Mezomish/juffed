@@ -50,6 +50,7 @@ public:
 	MenuList getMenus(const QString& engine);
 	ToolBarList getToolBars(const QString& engine);
 	QWidgetList getDocks(const QString& engine);
+	ActionList getContextMenuActions(const QString& engine);
 
 	void emitInfoSignal(InfoEvent, const Param&, const Param& = Param());
 	void activatePlugins(const QString& type);

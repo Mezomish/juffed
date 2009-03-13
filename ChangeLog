@@ -1,6 +1,15 @@
 ++++++++++++++++++++++++
 Version 0.5-svn:
 ++++++++++++++++++++++++
+2009-03-13:
+* Reorganized main menu
+* Fixed: bug with wrong view focus when doing undo/redo/cut/copy/paste
+* Fixed: file name in status bar didn't change after 'Save as'
+* Added: clickable status bar (charset, syntax, EOL)
+
+2009-03-12:
+* Added: context menu to plugins API
+
 2009-03-11:
 * Added: guessing file's syntax by its 1st line.
 * Added: customizing the main toolbar in config file.

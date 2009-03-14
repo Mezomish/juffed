@@ -38,7 +38,7 @@ Document::Document(const QString& fName) : QObject() {
 	}
 	modCheckTimer_ = new QTimer(this);
 	connect(modCheckTimer_, SIGNAL(timeout()), SLOT(checkLastModified()));
-	if ( !isNoname(fName) ) {
+	if ( !fName.isEmpty() && !isNoname(fName) ) {
 		lastModified_ = QFileInfo(fName).lastModified();
 		modCheckTimer_->start(1000);
 	}
@@ -80,7 +80,7 @@ QString Document::type() const {
 }
 
 void Document::checkLastModified() {
-	if ( !widget() || !widget()->isVisible() || isNull() )
+	if ( isNull() || !widget() || !widget()->isVisible() )
 		return;
 	
 	QFileInfo fi(fileName_);

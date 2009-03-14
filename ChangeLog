@@ -1,6 +1,10 @@
 ++++++++++++++++++++++++
 Version 0.5-svn:
 ++++++++++++++++++++++++
+2009-03-14:
+* Added: tooltip for tabs with full file names
+* Fixed: bug with checking for external changes for NullDoc
+
 2009-03-13:
 * Reorganized main menu
 * Fixed: bug with wrong view focus when doing undo/redo/cut/copy/paste

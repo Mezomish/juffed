@@ -114,16 +114,17 @@ void Viewer::addDoc(Document* doc, int panel) {
 	
 	vInt_->fileNamesMap_[w] = doc->fileName();
 
+	QTabWidget* tw = 0;
 	if ( panel == 1 ) {
-		vInt_->tw1_->addTab(w, getDocTitle(doc->fileName()));
-		vInt_->tw1_->setCurrentWidget(w);
-		vInt_->tw1_->show();
+		tw = vInt_->tw1_;
 	}
 	else {
-		vInt_->tw2_->addTab(w, getDocTitle(doc->fileName()));
-		vInt_->tw2_->setCurrentWidget(w);
-		vInt_->tw2_->show();
+		tw = vInt_->tw2_;
 	}
+	tw->addTab(w, getDocTitle(doc->fileName()));
+	tw->setCurrentWidget(w);
+	tw->show();
+	tw->setTabToolTip(tw->indexOf(w), doc->fileName());
 	
 	w->setFocus();
 	

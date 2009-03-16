@@ -25,54 +25,54 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class ManagerInterface {
 public:
 	/**
-	*	docList()
+	* docList()
 	*
-	*	Returns the list of currently opened docs
+	* Returns the list of currently opened docs
 	*/
 	virtual void getDocList(QStringList&) const = 0;
 
 	/**
-	*	curDocName()
+	* curDocName()
 	*
-	*	Returns the fileName of the current doc or 
-	*	empty string if no documents are opened.
+	* Returns the fileName of the current doc or 
+	* empty string if no documents are opened.
 	*/
 	virtual void getCurDocName(QString&) const = 0;
 
 	/**
-	*	getDocText()
+	* getDocText()
 	*
-	*	Returns the \par text of the document with name \par fileName
+	* Returns the \par text of the document with name \par fileName
 	*/
 	virtual void getDocText(const QString& fileName, QString& text) = 0;
 
 	/**
-	*	getCursorPos()
+	* getCursorPos()
 	*
-	*	Returns the current documen's cursor position or (-1, -1)
-	*	if no documents are opened.
+	* Returns the current documen's cursor position or (-1, -1)
+	* if no documents are opened.
 	*/
 	virtual void getCursorPos(int& line, int& column) = 0;
 
 	/**
-	*	getSelection()
+	* getSelection()
 	*
-	*	Returns the current document's selection borders or (-1, -1, -1, -1)
-	*	if no documents are opened.
+	* Returns the current document's selection borders or (-1, -1, -1, -1)
+	* if no documents are opened.
 	*/
 	virtual void getSelection(int& line1, int& column1, int& line2, int& column2) = 0;
 	
 	/**
-	*	getSelectedText()
+	* getSelectedText()
 	*
-	*	Returns the currently selected \par text.
+	* Returns the currently selected \par text.
 	*/
 	virtual void getSelectedText(QString& text) = 0;
 
 	/**
-	*	setCursorPos()
+	* setCursorPos()
 	*
-	*	Sets the current document's cursor position to ( \par line, \par col ).
+	  Sets the current document's cursor position to ( \par line, \par col ).
 	*/
 	virtual void setCursorPos(int line, int col) = 0;
 	

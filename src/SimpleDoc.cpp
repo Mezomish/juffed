@@ -92,7 +92,7 @@ bool SimpleDoc::save(const QString& fileName, QString& error) {
 	Log::debug(fileName);
 	
 	QFile file(name);
-	if (file.open(QIODevice::WriteOnly)) {
+	if ( file.open(QIODevice::WriteOnly) ) {
 		QString text("");
 //		if (tdView != 0) {
 //			tdView->getText(text);

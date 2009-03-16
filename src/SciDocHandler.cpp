@@ -84,16 +84,16 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	JUFFENTRY;
 	
 	CommandStorage* st = CommandStorage::instance();
-	st->registerCommand(ID_EOL_WIN, this, SLOT(eolSelected()));
-	st->registerCommand(ID_EOL_MAC, this, SLOT(eolSelected()));
-	st->registerCommand(ID_EOL_UNIX, this, SLOT(eolSelected()));
-	st->registerCommand(ID_MARKER_TOGGLE, this, SLOT(toggleMarker()));
-	st->registerCommand(ID_MARKER_NEXT, this, SLOT(nextMarker()));
-	st->registerCommand(ID_MARKER_PREV, this, SLOT(prevMarker()));
-	st->registerCommand(ID_MARKER_REMOVE_ALL, this, SLOT(removeAllMarkers()));
-	st->registerCommand(ID_ZOOM_IN, this, SLOT(zoomIn()));
-	st->registerCommand(ID_ZOOM_OUT, this, SLOT(zoomOut()));
-	st->registerCommand(ID_ZOOM_100, this, SLOT(zoom100()));
+	st->registerCommand(ID_EOL_WIN,             this, SLOT(eolSelected()));
+	st->registerCommand(ID_EOL_MAC,             this, SLOT(eolSelected()));
+	st->registerCommand(ID_EOL_UNIX,            this, SLOT(eolSelected()));
+	st->registerCommand(ID_MARKER_TOGGLE,       this, SLOT(toggleMarker()));
+	st->registerCommand(ID_MARKER_NEXT,         this, SLOT(nextMarker()));
+	st->registerCommand(ID_MARKER_PREV,         this, SLOT(prevMarker()));
+	st->registerCommand(ID_MARKER_REMOVE_ALL,   this, SLOT(removeAllMarkers()));
+	st->registerCommand(ID_ZOOM_IN,             this, SLOT(zoomIn()));
+	st->registerCommand(ID_ZOOM_OUT,            this, SLOT(zoomOut()));
+	st->registerCommand(ID_ZOOM_100,            this, SLOT(zoom100()));
 		
 	docInt_ = new Interior();
 	
@@ -277,7 +277,7 @@ void SciDocHandler::showLineNums() {
 	
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
-	if ( doc && !doc->isNull() && act) {
+	if ( doc && !doc->isNull() && act ) {
 		TextDocSettings::setShowLineNumbers(act->isChecked());
 		doc->showLineNumbers(act->isChecked());
 	}
@@ -288,7 +288,7 @@ void SciDocHandler::wordWrap() {
 
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
-	if ( doc && !doc->isNull() && act) {
+	if ( doc && !doc->isNull() && act ) {
 		TextDocSettings::setWidthAdjust(act->isChecked());
 		doc->wrapText(act->isChecked());
 	}
@@ -299,7 +299,7 @@ void SciDocHandler::zoomIn() {
 	
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
-	if ( doc && !doc->isNull() && act) {
+	if ( doc && !doc->isNull() && act ) {
 		doc->zoomIn();
 	}
 }
@@ -309,7 +309,7 @@ void SciDocHandler::zoomOut() {
 	
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
-	if ( doc && !doc->isNull() && act) {
+	if ( doc && !doc->isNull() && act ) {
 		doc->zoomOut();
 	}
 }
@@ -319,7 +319,7 @@ void SciDocHandler::zoom100() {
 	
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
-	if ( doc && !doc->isNull() && act) {
+	if ( doc && !doc->isNull() && act ) {
 		doc->zoom100();
 	}
 }
@@ -410,7 +410,7 @@ void SciDocHandler::changeCurEol(SciDoc* doc, CommandID id, EolMode mode) {
 	//	status bar
 	docInt_->eolL_->setPixmap(IconManager::instance()->getIcon(id).pixmap(16, 16));
 	QString toolTip = QObject::tr("Line endings");
-	switch (mode) {
+	switch ( mode ) {
 		case EolUnix :
 			toolTip += ": " + QObject::tr("Unix");
 			break;

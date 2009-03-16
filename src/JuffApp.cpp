@@ -105,7 +105,7 @@ void JuffApp::init(int& argc, char** argv) {
 	bool openFiles = false;
 	for (int i = 1; i < argc; ++i) {
 		QString argument = QString::fromLocal8Bit(argv[i]);
-		if (argument[0] == '-') {
+		if ( argument[0] == '-' ) {
 			//	TODO : command line options
 		}
 		else {
@@ -126,10 +126,10 @@ bool JuffApp::findExistingInstance(int& sock) {
 	//	Trying to connect to existing socket
 	int s = socket(AF_UNIX, SOCK_STREAM, 0);
 	sockaddr addr;
-    memset(&addr, 0, sizeof(struct sockaddr));
-    
+	memset(&addr, 0, sizeof(struct sockaddr));
+
 	addr.sa_family = AF_UNIX;
-    strncpy(addr.sa_data, AppInfo::socketPath().toLocal8Bit().constData(), sizeof(addr.sa_data) - 1);
+	strncpy(addr.sa_data, AppInfo::socketPath().toLocal8Bit().constData(), sizeof(addr.sa_data) - 1);
 	
 	int res = ::connect(s, &addr, sizeof(addr));
 	sock = s;
@@ -147,20 +147,18 @@ bool JuffApp::findExistingInstance(int& sock) {
 bool JuffApp::sendFileNames(int sock, const QString& list) {
 #ifdef Q_OS_UNIX
 
-	bool res = true;
+	bool result = true;
 	if ( !list.isEmpty() ) {
 		QByteArray buf = list.toLocal8Bit();
-		int res = write(sock, buf.constData(), buf.size());
-		if ( res == -1 )
-			res = false;
+		if ( write(sock, buf.constData(), buf.size()) == -1 )
+			result = false;
 	}
 	else {
 		char nf[] = "--newfile";
-		int res = write(sock, nf, strlen(nf));
-		if (res == -1)
-			res = false;
+		if ( write(sock, nf, strlen(nf)) == -1 )
+			result = false;
 	}
-	return res;
+	return result;
 	
 #else	
 
@@ -178,7 +176,7 @@ void JuffApp::checkForFirstRun() {
 	//	sessions
 	QString configPath = AppInfo::configDirPath();
 	QDir sessionDir(configPath + "/sessions/");
-	if (!sessionDir.exists())
+	if ( !sessionDir.exists() )
 		sessionDir.mkpath(configPath + "/sessions/");
 }
 
@@ -187,10 +185,11 @@ void JuffApp::copyToLocalDir(const QString& subDirName) {
 	QString localPath = AppInfo::configDirPath() + "/" + subDirName;
 
 	QDir localDir(localPath);
-	if ( !localDir.exists() )
+	if ( !localDir.exists() ) {
 		localDir.mkpath(localPath);
+	}
 	foreach (QString file, dir.entryList(QDir::Files)) {
-		if (!QFileInfo(localPath + "/" + file).exists()) {
+		if ( !QFileInfo(localPath + "/" + file).exists() ) {
 			QFile::copy(dir.absolutePath() + "/" + file, localPath + "/" + file);
 		}
 	}

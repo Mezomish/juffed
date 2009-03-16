@@ -23,7 +23,7 @@ namespace Juff {
 Juff::Document* NullDoc::doc_ = NULL;
 
 Juff::Document* NullDoc::instance() {
-	if (doc_ == NULL) {
+	if ( doc_ == NULL ) {
 		doc_ = new NullDoc();
 	}
 	return doc_;

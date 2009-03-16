@@ -67,8 +67,9 @@ bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
 				int index(-1);
 				QRegExp regExp(str);
 				regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-				if (flags.isRegExp)
+				if (flags.isRegExp) {
 					index = line.indexOf(regExp);
+				}
 				else {
 					if (!flags.matchCase) {
 						str = str.toLower();
@@ -144,8 +145,9 @@ void JuffScintilla::replaceSelected(const QString& targetText, bool backwards) {
 	int r, c;
 	getCursorPosition(&r, &c);
 	insert(targetText);
-	if ( !backwards )
+	if ( !backwards ) {
 		setCursorPosition(r, c + targetText.length());
+	}
 	endUndoAction();
 }
 

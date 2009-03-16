@@ -94,13 +94,13 @@ void RichDoc::bold() {
 	//	'fmt' contains the format of the previous symbol, but we 
 	//	don't need it since we don't change it. Get the format of the
 	//	last symbol of the selection.
-	if ( pos == start) {
+	if ( pos == start ) {
 		cur.setPosition(end);
 		fmt = cur.charFormat();
 		cur.setPosition(start, QTextCursor::KeepAnchor);
 	}
 	
-	if ( fmt.fontWeight() == QFont::Bold) {
+	if ( fmt.fontWeight() == QFont::Bold ) {
 		boldFmt.setFontWeight(QFont::Normal);
 	}
 	else {
@@ -123,7 +123,7 @@ void RichDoc::italic() {
 	//	'fmt' contains the format of the previous symbol, but we 
 	//	don't need it since we don't change it. Get the format of the
 	//	last symbol of the selection.
-	if ( pos == start) {
+	if ( pos == start ) {
 		cur.setPosition(end);
 		fmt = cur.charFormat();
 		cur.setPosition(start, QTextCursor::KeepAnchor);
@@ -152,7 +152,7 @@ void RichDoc::underline() {
 	//	'fmt' contains the format of the previous symbol, but we 
 	//	don't need it since we don't change it. Get the format of the
 	//	last symbol of the selection.
-	if ( pos == start) {
+	if ( pos == start ) {
 		cur.setPosition(end);
 		fmt = cur.charFormat();
 		cur.setPosition(start, QTextCursor::KeepAnchor);

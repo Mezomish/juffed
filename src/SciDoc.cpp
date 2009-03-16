@@ -83,6 +83,7 @@ public:
 		edit->markerDefine(QsciScintilla::Background, 2);
 		edit->setMarkerForegroundColor(QColor(100, 100, 100));
 		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
+		edit->setWhitespaceVisibility(QsciScintilla::WsVisible);
 		
 		return edit;
 	}
@@ -247,14 +248,16 @@ void SciDoc::unindent() {
 			--line2;
 		
 		if (line1 <= line2 && line1 >= 0) {
-			for (int l = line1; l <= line2; ++l)
+			for (int l = line1; l <= line2; ++l) {
 				edit->unindent(l);
+			}
 		}
 	}
 	else {
 		edit->getCursorPosition(&line1, &col1);
-		if ( line1 >= 0 )
+		if ( line1 >= 0 ) {
 			edit->unindent(line1);
+		}
 	}
 }
 
@@ -262,25 +265,25 @@ void SciDoc::unindent() {
 
 void prepareForFind(QsciScintilla* edit, const QString& s, const DocFindFlags& flags) {
 	QString str(s);
-	if ( flags.backwards ) {
-		if ( edit->hasSelectedText() ) {
-			int fromRow, fromCol, toRow, toCol;
-			edit->getSelection(&fromRow, &fromCol, &toRow, &toCol);
-			if ( fromRow == toRow ) {
-				QString selection = edit->selectedText();
-				if ( flags.isRegExp ) {
-					QRegExp r(str);
-					r.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-					if ( r.exactMatch(selection) )
-						edit->setCursorPosition(fromRow, fromCol);
+	if ( flags.backwards && edit->hasSelectedText() ) {
+		int fromRow, fromCol, toRow, toCol;
+		edit->getSelection(&fromRow, &fromCol, &toRow, &toCol);
+		if ( fromRow == toRow ) {
+			QString selection = edit->selectedText();
+			if ( flags.isRegExp ) {
+				QRegExp r(str);
+				r.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
+				if ( r.exactMatch(selection) ) {
+					edit->setCursorPosition(fromRow, fromCol);
 				}
-				else {
-					if ( !flags.matchCase ) {
-						str = str.toLower();
-						selection = selection.toLower();
-					}
-					if ( selection.compare(str) == 0 )
-						edit->setCursorPosition(fromRow, fromCol);
+			}
+			else {
+				if ( !flags.matchCase ) {
+					str = str.toLower();
+					selection = selection.toLower();
+				}
+				if ( selection.compare(str) == 0 ) {
+					edit->setCursorPosition(fromRow, fromCol);
 				}
 			}
 		}
@@ -359,10 +362,11 @@ enum Answer { Yes, No, All, Cancel };
 Answer confirm(QWidget* w) {
 	Answer answer = No;
 	QMessageBox::StandardButton btn = QMessageBox::question(w, QObject::tr("Confirmation"), 
-					QObject::tr("Replace this text?"), 
-					QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll | QMessageBox::Cancel, 
-					QMessageBox::Yes);
-		switch (btn) {
+			QObject::tr("Replace this text?"), 
+			QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll | QMessageBox::Cancel, 
+			QMessageBox::Yes);
+
+	switch (btn) {
 		case QMessageBox::Yes:
 			answer = Yes;
 				break;
@@ -508,7 +512,7 @@ void SciDoc::applySettings() {
 	docInt_->edit1_->setIndentationsUseTabs(!TextDocSettings::replaceTabsWithSpaces());
 
 	int lInd = TextDocSettings::lineLengthIndicator();
-	if (lInd > 0) {
+	if ( lInd > 0 ) {
 		docInt_->edit1_->setEdgeMode(QsciScintilla::EdgeLine);
 		docInt_->edit1_->setEdgeColumn(lInd);	
 		docInt_->edit2_->setEdgeMode(QsciScintilla::EdgeLine);
@@ -696,7 +700,7 @@ void SciDoc::setScrollPos(int pos) {
 IntList SciDoc::markers() const {
 	IntList list;
 	int line = 0;
-	while ((line = docInt_->edit1_->markerFindNext(line, 2)) >= 0) {
+	while ( (line = docInt_->edit1_->markerFindNext(line, 2)) >= 0 ) {
 		list << line++;
 	}
 	return list;
@@ -710,7 +714,7 @@ void SciDoc::toggleMarker() {
 	int line, col;
 	edit->getCursorPosition(&line, &col);
 	
-	if ( edit->markersAtLine(line) & 2) {
+	if ( edit->markersAtLine(line) & 2 ) {
 		edit->markerDelete(line, 1);
 		edit->markerDelete(line, 2);
 	}
@@ -752,12 +756,12 @@ void SciDoc::prevMarker() {
 	edit->getCursorPosition(&row, &col);
 
 	int mLine = edit->markerFindPrevious(row - 1 , 2);
-	if (mLine >= 0) {
+	if ( mLine >= 0 ) {
 		gotoLine(mLine);
 	}
 	else {
 		mLine = edit->markerFindPrevious(lineCount() - 1, 2);
-		if (mLine >= 0) {
+		if ( mLine >= 0 ) {
 			gotoLine(mLine);
 		}
 	}
@@ -778,7 +782,7 @@ void SciDoc::setCharset(const QString& charset) {
 	JUFFENTRY;
 	
 	QTextCodec* codec = QTextCodec::codecForName(charset.toAscii());
-	if (codec != 0) {
+	if ( codec != 0 ) {
 		docInt_->codec_ = codec;
 		docInt_->charsetName_ = charset;
 		readDoc();

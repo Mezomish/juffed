@@ -40,26 +40,26 @@ SocketListener::SocketListener(QObject* parent) : QThread(parent) {
 	//	is if connection to existing socket failed. That's
 	//	why if the socket path still exists, it isn't accociated
 	//	with any sockets
-	if (QFile::exists(AppInfo::socketPath()))
+	if ( QFile::exists(AppInfo::socketPath()) )
 		QFile::remove(AppInfo::socketPath());
 	
 	socket_ = socket(AF_UNIX, SOCK_STREAM, 0);
-	if (socket_ == -1) {
+	if ( socket_ == -1 ) {
 		//	error
 		Log::debug("Failed to create socket");
 	}
 	else {
 		//	Socket was created successfully.
 		//	Trying to bind it.
-	    struct sockaddr_un addr;
-	    memset(&addr, 0, sizeof(struct sockaddr_un));
+		struct sockaddr_un addr;
+		memset(&addr, 0, sizeof(struct sockaddr_un));
 
-	    addr.sun_family = AF_UNIX;
-	    strncpy(addr.sun_path, AppInfo::socketPath().toLocal8Bit().constData(), sizeof(addr.sun_path) - 1);
+		addr.sun_family = AF_UNIX;
+		strncpy(addr.sun_path, AppInfo::socketPath().toLocal8Bit().constData(), sizeof(addr.sun_path) - 1);
 
-	    int res = bind(socket_, (struct sockaddr *) &addr, sizeof(struct sockaddr_un));
+		int res = bind(socket_, (struct sockaddr *) &addr, sizeof(struct sockaddr_un));
 
-		if (res == -1) {
+		if ( res == -1 ) {
 			//	error
 			Log::debug("Failed to bind socket");
 		}
@@ -67,11 +67,9 @@ SocketListener::SocketListener(QObject* parent) : QThread(parent) {
 			//	Socket was binded successfully. Now it 
 			//	starts listening and accepting connections
 			int res = listen(socket_, 0);
-			if (res == -1) {
+			if ( res == -1 ) {
 				//	error
 				Log::debug("Failed to start listening");
-			}
-			else {
 			}
 		}
 	}
@@ -93,10 +91,10 @@ void SocketListener::run() {
 	//	connection. If accept function fails 10 
 	//	times, thread exits
 	int fails = 0;
-	while( true ) {
+	while ( true ) {
 		Log::debug("Listening...");
 		int connected_sock = accept(socket_, &cl_addr, &addr_len);
-		if (connected_sock == -1) {
+		if ( connected_sock == -1 ) {
 			//	error
 			Log::debug("Accept failed");
 			++fails;
@@ -109,9 +107,9 @@ void SocketListener::run() {
 			int count = list.count();
 			for (int i = 0; i < count; ++i) {
 				QString arg = list[i];
-				if (arg[0] == '-') {
+				if ( arg[0] == '-' ) {
 					//	command line options
-					if (arg.compare("--newfile") == 0) {
+					if ( arg.compare("--newfile") == 0 ) {
 						emit newFileRequested();
 					}
 				}

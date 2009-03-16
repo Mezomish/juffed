@@ -1,3 +1,21 @@
+/*
+JuffEd - A simple text editor
+Copyright 2007-2009 Mikhail Murzin
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License 
+version 2 as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
 #ifndef _JUFF_COMMAND_STORAGE_H_
 #define _JUFF_COMMAND_STORAGE_H_
 
@@ -16,24 +34,16 @@ class QAction;
 namespace Juff {
 
 /**
-*	Command
+* Command
 *
-*	This struct represents a command action and contains 
-*	all necessary information about it.
+* This struct represents a command action and contains 
+* all necessary information about it.
 */
 struct Command {
 	Command() {
 		id = ID_NONE;
 		receiver = NULL;
 	}
-/*	Command(CommandID ID, QString nm, QIcon icn, QKeySequence seq, QObject* rcvr, const QString& slt) {
-		id = ID;
-		name = nm;
-		icon = icn;
-		shortcut = seq;
-		receiver = rcvr;
-		slot = slt;
-	}*/
 	Command(CommandID ID, QString nm, QKeySequence seq, QObject* rcvr, const QString& slt) {
 		id = ID;
 		name = nm;
@@ -43,68 +53,68 @@ struct Command {
 		slot = slt;
 	}
 
-	CommandID id;			//	command ID (see enum Juff::CommandID
-	QString name;			//	command name (e.g. "New", "Open", etc.)
-	QIcon icon;				//	command icon
-	QKeySequence shortcut;	//	command shortcut (can be combination of two, see QKeySequence reference)
-	QObject* receiver;		//	object that receives activation signal
-	QString slot;			//	slot of receiving object that is activated by the action
+	CommandID id;           //  command ID (see enum Juff::CommandID
+	QString name;           //  command name (e.g. "New", "Open", etc.)
+	QIcon icon;             //  command icon
+	QKeySequence shortcut;  //  command shortcut (can be combination of two, see QKeySequence reference)
+	QObject* receiver;      //  object that receives activation signal
+	QString slot;           //  slot of receiving object that is activated by the action
 };
 
 /**
-*	CommandStorage
+* CommandStorage
 *
-*	Singleton class that contains, stores 
-*	and manages application's actions.
+* Singleton class that contains, stores 
+* and manages application's actions.
 */
 class CommandStorage {
 public:
 	/**
-	*	instance()
+	* instance()
 	*
-	*	Singleton instance getter
+	* Singleton instance getter
 	*/
 	static CommandStorage* instance();
 
 	/**
-	*	registerCommand()
+	* registerCommand()
 	*
-	*	Registers a command and stores it. After registering 
-	*	the command can be accessed through \ref action() function.
+	* Registers a command and stores it. After registering 
+	* the command can be accessed through \ref action() function.
 	*/
 	void registerCommand(CommandID id, QObject* receiver, const QString& slot);
 
 	/**
-	*	registerExtCommand()
+	* registerExtCommand()
 	*
-	*	Registers an "extended" command.
+	* Registers an "extended" command.
 	*/
 	void registerExtCommand(int, QAction*);
 
 	/**
-	*	action()
+	* action()
 	*
-	*	Returns action with requested ID.
+	* Returns action with requested ID.
 	*
-	*	PARAMS:	id			- requested command ID
+	* PARAMS:	id          - requested command ID
 	*
-	*	RETURN:	command		- if the command with that ID exists
-	*			0			- otherwise
+	* RETURN:   command     - if the command with that ID exists
+	*           0           - otherwise
 	*/
 	QAction* action(int id);
 
 	/**
-	*	updateIcons()
+	* updateIcons()
 	*
-	*	Updates actions' icons according to the current icon theme
+	* Updates actions' icons according to the current icon theme
 	*/
 	void updateIcons();
 	
 private:
 	/**
-	*	CommandStorage()
+	* CommandStorage()
 	*
-	*	Constructor
+	* Constructor
 	*/
 	CommandStorage() { }
 	

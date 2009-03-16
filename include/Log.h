@@ -1,6 +1,6 @@
 /*
 JuffEd - A simple text editor
-Copyright 2007-2008 Mikhail Murzin
+Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License 
@@ -30,8 +30,6 @@ namespace Log {
 	void debug(int, bool canBeSkipped = false);
 	void debug(const QRect&, bool canBeSkipped = false);
 };
-
-//#define JUFF_DEBUG
 
 #ifdef JUFF_FULL_DEBUG
 

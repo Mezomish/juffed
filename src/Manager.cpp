@@ -227,7 +227,7 @@ public:
 	void addToRecentFiles(const QString& fileName) {
 		recentFiles_.removeAll(fileName);
 		recentFiles_.push_front(fileName);
-		if (recentFiles_.count() > MainSettings::recentFilesCount())
+		if ( recentFiles_.count() > MainSettings::recentFilesCount() )
 			recentFiles_.removeLast();
 
 		MainSettings::setRecentFiles(recentFiles_.join(";"));
@@ -324,34 +324,34 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	
 	//	register commands
 	CommandStorage* st = CommandStorage::instance();
-	st->registerCommand(ID_FILE_NEW,		this, SLOT(fileNew()));
-	st->registerCommand(ID_FILE_OPEN,		this, SLOT(fileOpen()));
-	st->registerCommand(ID_FILE_SAVE, 		this, SLOT(fileSave()));
-	st->registerCommand(ID_FILE_SAVE_AS,	this, SLOT(fileSaveAs()));
-	st->registerCommand(ID_FILE_RELOAD,		this, SLOT(fileReload()));
-	st->registerCommand(ID_FILE_CLOSE,		this, SLOT(fileClose()));
-	st->registerCommand(ID_FILE_CLOSE_ALL,	this, SLOT(fileCloseAll()));
-	st->registerCommand(ID_FILE_PRINT,		this, SLOT(filePrint()));
-	st->registerCommand(ID_EXIT,			this, SLOT(exit()));
+	st->registerCommand(ID_FILE_NEW,        this, SLOT(fileNew()));
+	st->registerCommand(ID_FILE_OPEN,       this, SLOT(fileOpen()));
+	st->registerCommand(ID_FILE_SAVE,       this, SLOT(fileSave()));
+	st->registerCommand(ID_FILE_SAVE_AS,    this, SLOT(fileSaveAs()));
+	st->registerCommand(ID_FILE_RELOAD,     this, SLOT(fileReload()));
+	st->registerCommand(ID_FILE_CLOSE,      this, SLOT(fileClose()));
+	st->registerCommand(ID_FILE_CLOSE_ALL,  this, SLOT(fileCloseAll()));
+	st->registerCommand(ID_FILE_PRINT,      this, SLOT(filePrint()));
+	st->registerCommand(ID_EXIT,            this, SLOT(exit()));
 	//
-	st->registerCommand(ID_FILE_NEW_RICH,	this, SLOT(fileNewRich()));
+	st->registerCommand(ID_FILE_NEW_RICH,   this, SLOT(fileNewRich()));
 	//
-	st->registerCommand(ID_SESSION_NEW,		this, SLOT(sessionNew()));
-	st->registerCommand(ID_SESSION_OPEN,	this, SLOT(sessionOpen()));
-	st->registerCommand(ID_SESSION_SAVE,	this, SLOT(sessionSave()));
-	st->registerCommand(ID_SESSION_SAVE_AS,	this, SLOT(sessionSaveAs()));
+	st->registerCommand(ID_SESSION_NEW,     this, SLOT(sessionNew()));
+	st->registerCommand(ID_SESSION_OPEN,    this, SLOT(sessionOpen()));
+	st->registerCommand(ID_SESSION_SAVE,    this, SLOT(sessionSave()));
+	st->registerCommand(ID_SESSION_SAVE_AS, this, SLOT(sessionSaveAs()));
 	//
-	st->registerCommand(ID_EDIT_UNDO,		this, SLOT(editUndo()));
-	st->registerCommand(ID_EDIT_REDO,		this, SLOT(editRedo()));
-	st->registerCommand(ID_EDIT_CUT, 		this, SLOT(editCut()));
-	st->registerCommand(ID_EDIT_COPY,		this, SLOT(editCopy()));
-	st->registerCommand(ID_EDIT_PASTE,		this, SLOT(editPaste()));
+	st->registerCommand(ID_EDIT_UNDO,       this, SLOT(editUndo()));
+	st->registerCommand(ID_EDIT_REDO,       this, SLOT(editRedo()));
+	st->registerCommand(ID_EDIT_CUT,        this, SLOT(editCut()));
+	st->registerCommand(ID_EDIT_COPY,       this, SLOT(editCopy()));
+	st->registerCommand(ID_EDIT_PASTE,      this, SLOT(editPaste()));
 	//
-	st->registerCommand(ID_FIND,			this, SLOT(find()));
-	st->registerCommand(ID_FIND_NEXT,		this, SLOT(findNext()));
-	st->registerCommand(ID_FIND_PREV, 		this, SLOT(findPrev()));
-	st->registerCommand(ID_REPLACE, 		this, SLOT(replace()));
-	st->registerCommand(ID_GOTO_LINE, 		this, SLOT(gotoLine()));
+	st->registerCommand(ID_FIND,            this, SLOT(find()));
+	st->registerCommand(ID_FIND_NEXT,       this, SLOT(findNext()));
+	st->registerCommand(ID_FIND_PREV,       this, SLOT(findPrev()));
+	st->registerCommand(ID_REPLACE,         this, SLOT(replace()));
+	st->registerCommand(ID_GOTO_LINE,       this, SLOT(gotoLine()));
 	
 	mInt_ = new Interior(this, gui);
 	gui->updateTitle("", "", false);
@@ -359,8 +359,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	connect(gui, SIGNAL(docOpenRequested(const QString&)), this, SLOT(openDoc(const QString&)));
 	gui->setCentralWidget(mInt_->viewer_->widget());
 
-	st->registerCommand(ID_DOC_NEXT,		mInt_->viewer_,		SLOT(nextDoc()));
-	st->registerCommand(ID_DOC_PREV,		mInt_->viewer_,		SLOT(prevDoc()));
+	st->registerCommand(ID_DOC_NEXT,        mInt_->viewer_, SLOT(nextDoc()));
+	st->registerCommand(ID_DOC_PREV,        mInt_->viewer_, SLOT(prevDoc()));
 
 
 	//	add commands to menu
@@ -483,25 +483,26 @@ bool Manager::closeWithConfirmation(Document* doc) {
 		QString str = tr("The document ") + doc->fileName();
 		str += tr(" has been modified.\nDo you want to save your changes?");
 		int ret = QMessageBox::warning(mInt_->viewer_->widget(), tr("Close document"),
-					str, QMessageBox::Save | QMessageBox::Discard
-					| QMessageBox::Cancel, QMessageBox::Save);
-		switch (ret) {
-		case QMessageBox::Save:
-			if ( fileSave() ) {
-				closeDoc(doc);
-			}
-			else {
-				result = false;
-			}
-			break;
+				str, QMessageBox::Save | QMessageBox::Discard
+				| QMessageBox::Cancel, QMessageBox::Save);
 
-		case QMessageBox::Discard:
-			closeDoc(doc);
-			break;
-		
-		case QMessageBox::Cancel:
-			result = false;
-			break;
+		switch (ret) {
+			case QMessageBox::Save:
+				if ( fileSave() ) {
+					closeDoc(doc);
+				}
+				else {
+					result = false;
+				}
+				break;
+
+			case QMessageBox::Discard:
+				closeDoc(doc);
+				break;
+
+			case QMessageBox::Cancel:
+				result = false;
+				break;
 		}
 	}
 	else {
@@ -556,7 +557,7 @@ void Manager::initCharsetMenu() {
 void Manager::initRecentFilesMenu() {
 	JUFFENTRY;
 
-	if (mInt_->recentFilesMenu_ == 0)
+	if ( mInt_->recentFilesMenu_ == 0 )
 		return;
 
 	mInt_->recentFilesMenu_->clear();
@@ -681,10 +682,10 @@ bool Manager::saveDoc(Document* doc, const QString& fileName) {
 		do {
 			msgBox.exec();
 			QAbstractButton* btn = msgBox.clickedButton();
-			if (btn == owrBtn) {
+			if ( btn == owrBtn ) {
 				//	Try to change permissions and save
 				QFile::Permissions perm = QFile::permissions(name);
-				if (QFile::setPermissions(name, perm | QFile::WriteUser)) {
+				if ( QFile::setPermissions(name, perm | QFile::WriteUser) ) {
 					resolved = true;
 				}
 				else {
@@ -693,7 +694,7 @@ bool Manager::saveDoc(Document* doc, const QString& fileName) {
 					return false;
 				}
 			}
-			else if (btn == savBtn) {
+			else if ( btn == savBtn ) {
 				//	Choose file name
 				if ( fileSaveAs() )
 					return true;
@@ -701,7 +702,7 @@ bool Manager::saveDoc(Document* doc, const QString& fileName) {
 			else {
 				return false;
 			}
-		} while (!resolved);
+		} while ( !resolved );
 	}
 
 	//	make a backup copy if it is necessary
@@ -1042,25 +1043,25 @@ void Manager::restoreSession() {
 
 	int startupVariant = MainSettings::startupVariant();
 	switch ( startupVariant ) {
-	case 1:
-		{
-			QString sessName = MainSettings::lastSessionName();
-			if ( openSess(sessName) ) {
-				mInt_->sessionName_ = sessName;
-				Document* doc = curDoc();
-				QString fileName = doc->isNull() ? "" : doc->fileName();
-				mInt_->gui_->updateTitle(fileName, sessName, false);
+		case 1:
+			{
+				QString sessName = MainSettings::lastSessionName();
+				if ( openSess(sessName) ) {
+					mInt_->sessionName_ = sessName;
+					Document* doc = curDoc();
+					QString fileName = doc->isNull() ? "" : doc->fileName();
+					mInt_->gui_->updateTitle(fileName, sessName, false);
+				}
 			}
-		}
-		break;
-	
-	case 2:
-		sessionNew();
-		break;
+			break;
 		
-	case 0: 
-	default:
-		sessionOpen();
+		case 2:
+			sessionNew();
+			break;
+			
+		case 0: 
+		default:
+			sessionOpen();
 	}
 }
 
@@ -1172,8 +1173,8 @@ void Manager::gotoLine() {
 	if ( !doc->isNull() ) {
 		bool ok = false;
 		int line = QInputDialog::getInteger(doc->widget(), tr("Go to line"), 
-					tr("Go to line") + QString(" (1 - %1):").arg(doc->lineCount()), 
-					1, 1, doc->lineCount(), 1, &ok);
+				tr("Go to line") + QString(" (1 - %1):").arg(doc->lineCount()), 
+				1, 1, doc->lineCount(), 1, &ok);
 		if ( ok )
 			doc->gotoLine(line - 1);
 	}
@@ -1187,8 +1188,6 @@ void Manager::charsetSelected() {
 		Document* doc = curDoc();
 		if ( doc && !doc->isNull() ) {
 			doc->setCharset(a->text());
-		}
-		else {
 		}
 	}
 }

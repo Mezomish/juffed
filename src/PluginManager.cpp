@@ -85,19 +85,65 @@ PluginManager::~PluginManager() {
 	delete pmInt_;
 }
 
-void PluginManager::emitInfoSignal(InfoEvent evt, const Param& param1, const Param& param2) {
+////////////////////////////////////////////////////////////
+//	Plugins Events
+
+void PluginManager::notifyDocCreated(const QString& fileName) {
 	JUFFENTRY;
-	
 	foreach (QString engine, pmInt_->engines_) {
 		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
 			if ( plugin ) {
-				JUFFDEBUG(QString("Sending event '%1' to plugin '%2'").arg((int)evt).arg(plugin->name()));
-				plugin->onInfoEvent(evt, param1, param2);
-				JUFFDEBUG("Event processed");
+				plugin->onDocCreated(fileName);
 			}
 		}
 	}
 }
+
+void PluginManager::notifyDocActivated(const QString& fileName) {
+	JUFFENTRY;
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			if ( plugin ) {
+				plugin->onDocActivated(fileName);
+			}
+		}
+	}
+}
+
+void PluginManager::notifyDocModified(const QString& fileName, bool modified) {
+	JUFFENTRY;
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			if ( plugin ) {
+				plugin->onDocModified(fileName, modified);
+			}
+		}
+	}
+}
+
+void PluginManager::notifyDocClosed(const QString& fileName) {
+	JUFFENTRY;
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			if ( plugin ) {
+				plugin->onDocClosed(fileName);
+			}
+		}
+	}
+}
+
+void PluginManager::notifyDocRenamed(const QString& oldFileName, const QString& newFileName) {
+	JUFFENTRY;
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			if ( plugin ) {
+				plugin->onDocRenamed(oldFileName, newFileName);
+			}
+		}
+	}
+}
+////////////////////////////////////////////////////////////
+
 
 void PluginManager::loadPlugin(const QString& path) {
 	JUFFENTRY;

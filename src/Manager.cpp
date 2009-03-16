@@ -655,7 +655,7 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 			mInt_->docs1_[fName] = doc;
 			mInt_->viewer_->addDoc(doc, 1);
 
-			mInt_->pluginManager_->emitInfoSignal(INFO_DOC_CREATED, Param(fName));
+			mInt_->pluginManager_->notifyDocCreated(fName);
 		}
 	}
 }
@@ -736,7 +736,7 @@ void Manager::closeDoc(Document* doc) {
 	mInt_->docs1_.remove(doc->fileName());
 	mInt_->docs2_.remove(doc->fileName());
 	mInt_->viewer_->removeDoc(doc);
-	mInt_->pluginManager_->emitInfoSignal(INFO_DOC_CLOSED, doc->fileName());
+	mInt_->pluginManager_->notifyDocClosed(doc->fileName());
 	delete doc;
 }
 
@@ -1204,7 +1204,7 @@ void Manager::docModified(bool mod) {
 		Log::debug(doc->fileName() + (mod ? "isModified()" : " not modified"));
 		mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, mod);
 		mInt_->viewer_->setDocModified(doc, mod);
-		mInt_->pluginManager_->emitInfoSignal(INFO_DOC_MODIFIED, doc->fileName(), mod);
+		mInt_->pluginManager_->notifyDocModified(doc->fileName(), mod);
 	}
 }
 
@@ -1231,7 +1231,7 @@ void Manager::docFileNameChanged(const QString& oldName) {
 		}
 		mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, doc->isModified());
 		mInt_->viewer_->updateDocTitle(doc);
-		mInt_->pluginManager_->emitInfoSignal(INFO_DOC_NAME_CHANGED, oldName, doc->fileName());
+		mInt_->pluginManager_->notifyDocRenamed(oldName, doc->fileName());
 	}
 }
 
@@ -1278,7 +1278,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 
 			doc->updateActivated();
 			mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, doc->isModified());
-			mInt_->pluginManager_->emitInfoSignal(INFO_DOC_ACTIVATED, doc->fileName());
+			mInt_->pluginManager_->notifyDocActivated(doc->fileName());
 
 			mInt_->pluginManager_->setActiveEngine(type);
 			mInt_->guiManager_.setType(type);

@@ -99,14 +99,52 @@ public:
 	*/
 	virtual Qt::DockWidgetArea dockPosition(QWidget*) const { return Qt::LeftDockWidgetArea; }
 	
+	/////////////////////////////
+	//	Info Events
+	/////////////////////////////
 	/**
-	*	onInfoEvent()
+	*	onDocCreated()
 	*
-	*	This method is called once some event happened (see Juff.h, enum InfoEvent).
-	*	Reimplement this method if you need those notifications.
+	*	This method is called once new doc is created or opened.
+	*	Parameter \par fileName contains document's file name.
 	*/
-	virtual void onInfoEvent(Juff::InfoEvent, const Juff::Param&, const Juff::Param&) {}
-
+	virtual void onDocCreated(const QString& fileName) {}
+	
+	/**
+	*	onDocActivated()
+	*
+	*	This method is called once document was activated. 
+	*	Parameter \par fileName contains document's file name.
+	*/
+	virtual void onDocActivated(const QString& fileName) {}
+	
+	/**
+	*	onDocModified()
+	*
+	*	This method is called once document's modification status
+	*	was changed. Parameter \par fileName contains document's file name, 
+	*	parameter \par modified contains new modification status.
+	*/
+	virtual void onDocModified(const QString& fileName, bool modified) {}
+	
+	/**
+	*	onDocClosed()
+	*
+	*	This method is called once document was closed. 
+	*	Parameter \par fileName contains document's file name.
+	*/
+	virtual void onDocClosed(const QString& fileName) {}
+	
+	/**
+	*	onDocRenamed()
+	*
+	*	This method is called once document was renamed.
+	*	Parameter \par oldFileName contains document's old file name,
+	*	parameter \par newFileName contains document's new file name.
+	*/
+	virtual void onDocRenamed(const QString& oldFileName, const QString& newFileName) {}
+	
+	
 protected:
 	///	trivial accessor
 	ManagerInterface* manager() const { return manager_; }

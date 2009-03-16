@@ -80,8 +80,13 @@ public:
 	*/
 	ActionList getContextMenuActions(const QString& engine);
 
-	void emitInfoSignal(InfoEvent, const Param&, const Param& = Param());
 	void setActiveEngine(const QString& type);
+	
+	virtual void notifyDocCreated(const QString&);
+	virtual void notifyDocActivated(const QString&);
+	virtual void notifyDocModified(const QString&, bool);
+	virtual void notifyDocClosed(const QString&);
+	virtual void notifyDocRenamed(const QString&, const QString&);
 
 private:
 	class Interior;

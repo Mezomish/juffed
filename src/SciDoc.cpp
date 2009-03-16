@@ -83,7 +83,7 @@ public:
 		edit->markerDefine(QsciScintilla::Background, 2);
 		edit->setMarkerForegroundColor(QColor(100, 100, 100));
 		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
-		edit->setWhitespaceVisibility(QsciScintilla::WsVisible);
+//		edit->setWhitespaceVisibility(QsciScintilla::WsVisible);
 		
 		return edit;
 	}

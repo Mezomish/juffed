@@ -25,7 +25,7 @@ bool AutocompleteSettings::useApis() {
 	return Settings::boolValue("autocomplete", "useApis", true);
 }
 bool AutocompleteSettings::replaceWord() {
-	return Settings::boolValue("autocomplete", "replaceWord", true);
+	return Settings::boolValue("autocomplete", "replaceWord", false);
 }
 int AutocompleteSettings::threshold() {
 	return Settings::intValue("autocomplete", "threshold", 2);

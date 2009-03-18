@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDoc.h"
 
+#include "AutocompleteSettings.h"
 #include "CommandStorage.h"
 #include "Functions.h"
 #include "Log.h"
@@ -507,50 +508,47 @@ void SciDoc::applySettings() {
 	JUFFDEBUG(font.pointSize());
 
 	LexerStorage::instance()->updateLexer(docInt_->syntax_, font);
-
-	docInt_->edit1_->setTabWidth(TextDocSettings::tabStopWidth());
-	docInt_->edit1_->setIndentationsUseTabs(!TextDocSettings::replaceTabsWithSpaces());
-
-	int lInd = TextDocSettings::lineLengthIndicator();
-	if ( lInd > 0 ) {
-		docInt_->edit1_->setEdgeMode(QsciScintilla::EdgeLine);
-		docInt_->edit1_->setEdgeColumn(lInd);	
-		docInt_->edit2_->setEdgeMode(QsciScintilla::EdgeLine);
-		docInt_->edit2_->setEdgeColumn(lInd);	
-	}
-	else {
-		docInt_->edit1_->setEdgeMode(QsciScintilla::EdgeNone);
-		docInt_->edit2_->setEdgeMode(QsciScintilla::EdgeNone);
-	}
-	
 	showLineNumbers(TextDocSettings::showLineNumbers());
 
-	docInt_->edit1_->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
-	docInt_->edit1_->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
-	docInt_->edit1_->setIndentationGuides(TextDocSettings::showIndents());
-	docInt_->edit1_->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
-	docInt_->edit1_->setMarkerBackgroundColor(TextDocSettings::markersColor());
-	docInt_->edit2_->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
-	docInt_->edit2_->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
-	docInt_->edit2_->setIndentationGuides(TextDocSettings::showIndents());
-	docInt_->edit2_->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
-	docInt_->edit2_->setMarkerBackgroundColor(TextDocSettings::markersColor());
+	QsciScintilla* edits[] = { docInt_->edit1_, docInt_->edit2_ };
+	for (int i = 0; i < 2; ++i ) {
+		QsciScintilla* edit = edits[i];
 
-	//	autocompletion
-/*	docInt_->edit1_->setAutoCompletionThreshold(AutocompleteSettings::threshold());
-	docInt_->edit1_->setAutoCompletionReplaceWord(AutocompleteSettings::replaceWord());
-	if (AutocompleteSettings::useDocument()) {
-		if (AutocompleteSettings::useApis())
-			docInt_->edit1_->setAutoCompletionSource(QsciScintilla::AcsAll);
-		else
-			docInt_->edit1_->setAutoCompletionSource(QsciScintilla::AcsDocument);
+
+		edit->setTabWidth(TextDocSettings::tabStopWidth());
+		edit->setIndentationsUseTabs(!TextDocSettings::replaceTabsWithSpaces());
+
+		int lInd = TextDocSettings::lineLengthIndicator();
+		if ( lInd > 0 ) {
+			edit->setEdgeMode(QsciScintilla::EdgeLine);
+			edit->setEdgeColumn(lInd);	
+		}
+		else {
+			edit->setEdgeMode(QsciScintilla::EdgeNone);
+		}
+		
+		edit->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
+		edit->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
+		edit->setIndentationGuides(TextDocSettings::showIndents());
+		edit->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
+		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
+
+		//	autocompletion
+		edit->setAutoCompletionThreshold(AutocompleteSettings::threshold());
+		edit->setAutoCompletionReplaceWord(AutocompleteSettings::replaceWord());
+		if ( AutocompleteSettings::useDocument() ) {
+			if ( AutocompleteSettings::useApis() )
+				edit->setAutoCompletionSource(QsciScintilla::AcsAll);
+			else
+				edit->setAutoCompletionSource(QsciScintilla::AcsDocument);
+		}
+		else {
+			if ( AutocompleteSettings::useApis() )
+				edit->setAutoCompletionSource(QsciScintilla::AcsAPIs);
+			else
+				edit->setAutoCompletionSource(QsciScintilla::AcsNone);
+		}
 	}
-	else {
-		if (AutocompleteSettings::useApis())
-			docInt_->edit1_->setAutoCompletionSource(QsciScintilla::AcsAPIs);
-		else
-			docInt_->edit1_->setAutoCompletionSource(QsciScintilla::AcsNone);
-	}*/
 }
 
 void SciDoc::updateActivated() {

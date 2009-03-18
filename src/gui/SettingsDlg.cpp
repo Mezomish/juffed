@@ -39,7 +39,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //#include "PluginManager.h"
 #include "PluginSettings.h"
 #include "TextDocSettings.h"
-//#include "AutocompleteSettings.h"
+#include "AutocompleteSettings.h"
 
 #include "ui_MainSettingsPage.h"
 
@@ -84,7 +84,7 @@ public:
 	ColorButton* markersColorBtn_;
 };
 
-/*#include "ui_AutocompleteSettingsPage.h"
+#include "ui_AutocompleteSettingsPage.h"
 
 class AutocompleteSettingsPage : public QWidget {
 public:
@@ -93,7 +93,7 @@ public:
 	}
 	
 	Ui::AutocompletePage ui;
-};*/
+};
 
 #include "CharsetsSettingsPage.h"
 //#include "PluginPage.h"
@@ -119,11 +119,11 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	pageView_ = new ViewSettingsPage();
 	pageEditor_ = new EditorSettingsPage();
 	pageCharsets_ = new CharsetsSettingsPage();
-//	pageAC_ = new AutocompleteSettingsPage();
+	pageAC_ = new AutocompleteSettingsPage();
 	mp_->addPage(tr("General"), pageMain_);
 	mp_->addPage(tr("View"), pageView_);
 	mp_->addPage(tr("Editor"), pageEditor_);
-//	mp_->addPage(tr("Autocompletion"), pageAC_);
+	mp_->addPage(tr("Autocompletion"), pageAC_);
 	mp_->addPage(tr("Charsets"), pageCharsets_);
 
 	//	plugins
@@ -149,7 +149,7 @@ SettingsDlg::~SettingsDlg() {
 	delete pageCharsets_;
 	delete pageEditor_;
 	delete pageMain_;
-//	delete pageAC_;
+	delete pageAC_;
 	delete pageView_;
 //	delete pluginsMainPage_;
 	delete mp_;
@@ -229,11 +229,11 @@ void SettingsDlg::init() {
 	pageEditor_->ui.unindentChk->setChecked(TextDocSettings::backspaceUnindents());
 
 	//	Autocomplete
-/*	pageAC_->ui.useDocumentChk->setChecked(AutocompleteSettings::useDocument());
+	pageAC_->ui.useDocumentChk->setChecked(AutocompleteSettings::useDocument());
 	pageAC_->ui.useApiChk->setChecked(AutocompleteSettings::useApis());
 	pageAC_->ui.replaceWordChk->setChecked(AutocompleteSettings::replaceWord());
 	pageAC_->ui.thresholdSpin->setValue(AutocompleteSettings::threshold());
-*/	
+	
 	//	charsets page
 	pageCharsets_->init();
 }
@@ -297,11 +297,11 @@ void SettingsDlg::apply() {
 	TextDocSettings::setShowIndents(pageEditor_->ui.showIndentsChk->isChecked());
 
 	//	Autocomplete
-/*	AutocompleteSettings::setUseDocument(pageAC_->ui.useDocumentChk->isChecked());
+	AutocompleteSettings::setUseDocument(pageAC_->ui.useDocumentChk->isChecked());
 	AutocompleteSettings::setUseApis(pageAC_->ui.useApiChk->isChecked());
 	AutocompleteSettings::setReplaceWord(pageAC_->ui.replaceWordChk->isChecked());
 	AutocompleteSettings::setThreshold(pageAC_->ui.thresholdSpin->value());
-*/
+
 	//	charsets
 	pageCharsets_->applySettings();
 

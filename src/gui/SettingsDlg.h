@@ -29,7 +29,7 @@ class MainSettingsPage;
 class ViewSettingsPage;
 class EditorSettingsPage;
 class CharsetsSettingsPage;
-//class AutocompleteSettingsPage;
+class AutocompleteSettingsPage;
 //class PluginPage;
 
 class SettingsDlg : public QDialog {
@@ -61,7 +61,7 @@ private:
 	ViewSettingsPage* pageView_;
 	EditorSettingsPage* pageEditor_;
 	CharsetsSettingsPage* pageCharsets_;
-//	AutocompleteSettingsPage* pageAC_;
+	AutocompleteSettingsPage* pageAC_;
 //	QWidget* pluginsMainPage_;
 //	QMap<QString, PluginPage*> pluginPages_;
 };

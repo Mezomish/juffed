@@ -69,6 +69,7 @@ SET(DATA_INSTALL_DIR
 # input files
 
 SET ( libjuffed_SRCS
+	src/lib/AutocompleteSettings.cpp
 	src/lib/CharsetsSettings.cpp
 	src/lib/CommandStorage.cpp
 	src/lib/IconManager.cpp

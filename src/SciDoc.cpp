@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDoc.h"
 
+#include "AppInfo.h"
 #include "AutocompleteSettings.h"
 #include "CommandStorage.h"
 #include "Functions.h"
@@ -26,9 +27,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "JuffScintilla.h"
 #include "TextDocSettings.h"
 
-#include <Qsci/qsciscintilla.h>
+#include <Qsci/qsciapis.h>
+#include <Qsci/qscilexer.h>
 #include <Qsci/qsciprinter.h>
+#include <Qsci/qsciscintilla.h>
 
+#include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
@@ -806,6 +810,22 @@ void SciDoc::setSyntax(const QString& lexName) {
 	docInt_->edit1_->recolor();
 	docInt_->edit2_->setLexer(lexer);
 	docInt_->edit2_->recolor();
+}
+
+void SciDoc::loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer) {
+	QDir dir(AppInfo::configDirPath() + "/apis");
+	QString fileName = lexName.toLower() + ".api";
+	fileName.replace(QString("+"), "plus").replace(QString("#"), "sharp");
+	if ( dir.entryList(QDir::Files).contains(fileName) ) {
+		QsciAPIs* apis = new QsciAPIs(lexer);
+		if ( apis->load(dir.absoluteFilePath(fileName)) ) {
+			apis->prepare();
+			lexer->setAPIs(apis);
+		}
+		else {
+			delete apis;
+		}
+	}
 }
 
 EolMode SciDoc::eolMode() const {

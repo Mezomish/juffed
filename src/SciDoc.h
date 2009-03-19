@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Document.h"
 
+class QsciLexer;
+
 namespace Juff {
 
 class JuffScintilla;
@@ -98,6 +100,7 @@ public slots:
 
 private:
 	void readDoc();
+	void loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer);
 
 	bool doReplace(JuffScintilla* edit, const QString& str1, const QString& str2, const DocFindFlags& flags, bool& replaceAll);
 	JuffScintilla* getActiveEdit() const;

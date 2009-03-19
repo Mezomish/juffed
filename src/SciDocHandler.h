@@ -49,6 +49,7 @@ public:
 private slots:
 	void showLineNums();
 	void wordWrap();
+	void showHiddenSymbols();
 	void zoomIn();
 	void zoomOut();
 	void zoom100();

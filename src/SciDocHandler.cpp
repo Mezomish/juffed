@@ -64,6 +64,7 @@ public:
 	~Interior() {
 		delete syntaxActGr_;
 		delete eolActGr_;
+		delete showHiddenAct_;
 	}
 	
 	QMenu* markersMenu_;
@@ -78,6 +79,7 @@ public:
 	ActionList contextMenuActions_;
 	GUI::StatusLabel* syntaxL_;
 	GUI::StatusLabel* eolL_;
+	QAction* showHiddenAct_;
 };
 
 SciDocHandler::SciDocHandler() : DocHandler() {	
@@ -109,10 +111,15 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	wordWrapAct->setChecked(TextDocSettings::widthAdjust());
 	connect(wordWrapAct, SIGNAL(activated()), this, SLOT(wordWrap()));
 
+	docInt_->showHiddenAct_ = new QAction(tr("Show hidden symbols"), 0);
+	docInt_->showHiddenAct_->setCheckable(true);
+	docInt_->showHiddenAct_->setChecked(false);
+	connect(docInt_->showHiddenAct_, SIGNAL(activated()), this, SLOT(showHiddenSymbols()));
 
 	QMenu* viewMenu = new QMenu(tr("&View"));
 	viewMenu->addAction(showLineNumsAct);
 	viewMenu->addAction(wordWrapAct);
+	viewMenu->addAction(docInt_->showHiddenAct_);
 	viewMenu->addAction(st->action(ID_ZOOM_IN));
 	viewMenu->addAction(st->action(ID_ZOOM_OUT));
 	viewMenu->addAction(st->action(ID_ZOOM_100));
@@ -264,6 +271,8 @@ void SciDocHandler::docActivated(Document* d) {
 				act->setChecked(true);
 			}
 		}
+		
+		doc->showHiddenSymbols(docInt_->showHiddenAct_->isChecked());
 	}
 }
 
@@ -291,6 +300,16 @@ void SciDocHandler::wordWrap() {
 	if ( doc && !doc->isNull() && act ) {
 		TextDocSettings::setWidthAdjust(act->isChecked());
 		doc->wrapText(act->isChecked());
+	}
+}
+
+void SciDocHandler::showHiddenSymbols() {
+	JUFFENTRY;
+	
+	QAction* act = qobject_cast<QAction*>(sender());
+	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
+	if ( doc && !doc->isNull() && act ) {
+		doc->showHiddenSymbols(act->isChecked());
 	}
 }
 

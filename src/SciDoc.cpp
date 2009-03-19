@@ -455,6 +455,13 @@ void SciDoc::wrapText(bool wrap) {
 	TextDocSettings::setWidthAdjust(wrap);
 }
 
+void SciDoc::showHiddenSymbols(bool show) {
+	docInt_->edit1_->setWhitespaceVisibility(show ? QsciScintilla::WsVisible : QsciScintilla::WsInvisible);
+	docInt_->edit1_->setWrapVisualFlags(show ? QsciScintilla::WrapFlagByBorder : QsciScintilla::WrapFlagNone);
+	docInt_->edit2_->setWhitespaceVisibility(show ? QsciScintilla::WsVisible : QsciScintilla::WsInvisible);
+	docInt_->edit2_->setWrapVisualFlags(show ? QsciScintilla::WrapFlagByBorder : QsciScintilla::WrapFlagNone);
+}
+
 
 
 

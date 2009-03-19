@@ -430,15 +430,8 @@ bool SciDoc::doReplace(JuffScintilla* edit, const QString& str1, const QString& 
 void SciDoc::showLineNumbers(bool show) {
 	JUFFENTRY;
 	
-	if ( show ) {
-		QString str = QString("00%1").arg(lineCount());
-		docInt_->edit1_->setMarginWidth(1, str);
-		docInt_->edit2_->setMarginWidth(1, str);
-	}
-	else {
-		docInt_->edit1_->setMarginWidth(1, 0);
-		docInt_->edit2_->setMarginWidth(1, 0);
-	}
+	docInt_->edit1_->showLineNumbers(show);
+	docInt_->edit2_->showLineNumbers(show);
 }
 
 void SciDoc::wrapText(bool wrap) {

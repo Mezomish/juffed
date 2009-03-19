@@ -38,6 +38,8 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	contextMenu_->addAction(st->action(ID_REPLACE));
 	contextMenu_->addSeparator();
 	contextMenu_->addAction(st->action(ID_GOTO_LINE));
+	
+	connect(this, SIGNAL(textChanged()), this, SLOT(updateLineNumbers()));
 }
 
 JuffScintilla::~JuffScintilla() {
@@ -175,5 +177,21 @@ void JuffScintilla::addContextMenuActions(const ActionList& list) {
 		contextMenu_->addAction(a);
 	}
 }
+
+void JuffScintilla::showLineNumbers(bool show) {
+	showLineNumbers_ = show;
+	updateLineNumbers();
+}
+
+void JuffScintilla::updateLineNumbers() {
+	if ( showLineNumbers_ ) {
+		QString str = QString("00%1").arg(lines());
+		setMarginWidth(1, str);
+	}
+	else {
+		setMarginWidth(1, 0);
+	}
+}
+
 
 }	//	namespace Juff

@@ -38,7 +38,11 @@ public:
 	bool find(const QString& s, const DocFindFlags& flags);
 	void replaceSelected(const QString& targetText, bool backwards);
 	void addContextMenuActions(const ActionList&);
-	
+	void showLineNumbers(bool);
+
+protected slots:
+	void updateLineNumbers();
+
 protected:
 	virtual void dragEnterEvent(QDragEnterEvent* e);
 	virtual void dropEvent(QDropEvent* e);
@@ -47,6 +51,7 @@ protected:
 
 private:
 	QMenu* contextMenu_;
+	bool showLineNumbers_;
 };
 
 }	//	namespace Juff

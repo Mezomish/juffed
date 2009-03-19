@@ -123,7 +123,6 @@ private:
 	QKeySequence getShortcut(CommandID);
 	
 	static CommandStorage* st_;			///< storage instance
-//	QMap<CommandID, QAction*> cmds_;	///< map for storing action
 	QMap<int, QAction*> cmds_;	///< map for storing action
 };
 

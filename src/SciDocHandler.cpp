@@ -18,7 +18,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDocHandler.h"
 
-//#include <QtGui/QLabel>
 #include <QtGui/QMenu>
 #include <QtGui/QToolBar>
 
@@ -128,7 +127,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	
 	connect(docInt_->markersMenu_, SIGNAL(aboutToShow()), SLOT(initMarkersMenu()));
 
-	docInt_->menus_ << viewMenu /*<< docInt_->syntaxMenu_*/ << docInt_->markersMenu_;/* << docInt_->eolMenu_;*/
+	docInt_->menus_ << viewMenu << docInt_->markersMenu_;
 
 	initSyntaxMenu();
 
@@ -192,11 +191,11 @@ QString SciDocHandler::fileFilters() const {
 	QString filters = "All files (*)";
 	filters += ";;Batch files (*.bat)";
 	filters += ";;Shell scripts (*.sh *.run)";
-	filters += ";;C/C++ files (*.c *.cpp *.cxx)";
+	filters += ";;C/C++ source files (*.c *.cc *.cpp *.cxx)";
+	filters += ";;C/C++ header files (*.h *.hpp)";
 	filters += ";;C# (*.cs)";
 	filters += ";;D (*.d)";
 	filters += ";;Diff/Patch files (*.diff *.patch)";
-	filters += ";;Header files (*.h *.hpp)";
 	filters += ";;HTML/CSS/JS (*.htm *.html *.xhtml *.dhtml *.css *js)";
 	filters += ";;IDL (*.idl)";
 	filters += ";;Lua (*.lua)";

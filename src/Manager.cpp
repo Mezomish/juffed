@@ -292,7 +292,6 @@ public:
 
 	void displayFileName(const QString& fileName) {
 		nameL_->setText(QString(" %1 ").arg(fileName));
-//		nameL_->setToolTip(fileName);
 	}
 	
 	QMap<QString, DocHandler*> handlers_;

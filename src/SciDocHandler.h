@@ -25,8 +25,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 namespace Juff {
 
-//class Document;
-
 class SciDocHandler : public DocHandler {
 Q_OBJECT
 public:

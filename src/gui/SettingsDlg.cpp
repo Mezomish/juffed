@@ -211,8 +211,6 @@ void SettingsDlg::init() {
 	JUFFDEBUG("Initialization: editor page");
 	pageEditor_->ui.fontCmb->setCurrentFont(TextDocSettings::font());
 	pageEditor_->ui.fontSizeSpin->setValue(TextDocSettings::font().pointSize());
-//	pageEditor_->ui.widthAdjustChk->setChecked(TextDocSettings::widthAdjust());
-//	pageEditor_->ui.showLineNumbersChk->setChecked(TextDocSettings::showLineNumbers());
 	int chars = TextDocSettings::lineLengthIndicator();
 	if (chars > 0) {
 		pageEditor_->ui.showLineLengthChk->setChecked(true);
@@ -279,8 +277,6 @@ void SettingsDlg::apply() {
 	QFont font(pageEditor_->ui.fontCmb->currentFont());
 	font.setPointSize(pageEditor_->ui.fontSizeSpin->value());
 	TextDocSettings::setFont(font);
-//	TextDocSettings::setWidthAdjust(pageEditor_->ui.widthAdjustChk->isChecked());
-//	TextDocSettings::setShowLineNumbers(pageEditor_->ui.showLineNumbersChk->isChecked());
 
 	if (pageEditor_->ui.showLineLengthChk->isChecked()) {
 		TextDocSettings::setLineLengthIndicator(pageEditor_->ui.lineLengthSpin->value());

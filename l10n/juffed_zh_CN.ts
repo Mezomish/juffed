@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="1.1" language="zh_CN">
-<defaultcodec></defaultcodec>
 <context>
     <name>AboutDlg</name>
     <message>
@@ -301,47 +300,47 @@ newly created/opened docs</source>
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="95"/>
+        <location filename="../src/gui/GUI.cpp" line="97"/>
         <source>&amp;Tools</source>
         <translation>&amp;工具</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="142"/>
+        <location filename="../src/gui/GUI.cpp" line="160"/>
         <source>Open files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="146"/>
+        <location filename="../src/gui/GUI.cpp" line="164"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="152"/>
+        <location filename="../src/gui/GUI.cpp" line="170"/>
         <source>Save as a copy</source>
         <translation>存一个copy</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="164"/>
+        <location filename="../src/gui/GUI.cpp" line="182"/>
         <source>Save</source>
         <translation>存盘</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="177"/>
+        <location filename="../src/gui/GUI.cpp" line="195"/>
         <source>Save session as</source>
         <translation>另存会话</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="177"/>
+        <location filename="../src/gui/GUI.cpp" line="195"/>
         <source>Session name</source>
         <translation>会话名字</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="312"/>
+        <location filename="../src/gui/GUI.cpp" line="310"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="345"/>
+        <location filename="../src/gui/GUI.cpp" line="343"/>
         <source>About Qt</source>
         <translation>关于QT</translation>
     </message>
@@ -349,66 +348,74 @@ newly created/opened docs</source>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="309"/>
+        <location filename="../src/Manager.cpp" line="483"/>
         <source>The document </source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="310"/>
+        <location filename="../src/Manager.cpp" line="484"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation>已经被修改。你需要保存修改吗?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="311"/>
+        <location filename="../src/Manager.cpp" line="485"/>
         <source>Close document</source>
         <translation>关闭文档</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="500"/>
+        <location filename="../src/Manager.cpp" line="675"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>%1 文件只读</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="501"/>
+        <location filename="../src/Manager.cpp" line="676"/>
         <source>What do you want to do?</source>
         <translation>你想做什么？</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="502"/>
+        <location filename="../src/Manager.cpp" line="677"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="503"/>
+        <location filename="../src/Manager.cpp" line="678"/>
         <source>Overwrite</source>
         <translation>覆盖</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="504"/>
+        <location filename="../src/Manager.cpp" line="679"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="518"/>
+        <location filename="../src/Manager.cpp" line="693"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>不能修改属性：访问拒绝</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="990"/>
+        <location filename="../src/Manager.cpp" line="1176"/>
         <source>Go to line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1095"/>
+        <location filename="../src/Manager.cpp" line="1258"/>
         <source> Row: %1, Col: %2 </source>
         <translation>行: %1, 列l: %2</translation>
     </message>
 </context>
 <context>
+    <name>Juff::RichDoc</name>
+    <message>
+        <location filename="../src/RichDoc.cpp" line="72"/>
+        <source>Can&apos;t open file for writing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="439"/>
+        <location filename="../src/SciDoc.cpp" line="475"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -416,17 +423,17 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDocHandler</name>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="67"/>
+        <location filename="../src/SciDocHandler.cpp" line="100"/>
         <source>Show line numbers</source>
         <translation>显示行号</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="73"/>
+        <location filename="../src/SciDocHandler.cpp" line="106"/>
         <source>Wrap words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="89"/>
+        <location filename="../src/SciDocHandler.cpp" line="113"/>
         <source>&amp;View</source>
         <translation>&amp;显示</translation>
     </message>
@@ -791,12 +798,12 @@ Do you want to save your changes?</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../include/Functions.h" line="15"/>
+        <location filename="../include/Functions.h" line="33"/>
         <source>Noname</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="95"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="100"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -806,105 +813,100 @@ Do you want to save your changes?</source>
         <translation>带高亮的文本编辑器</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="68"/>
+        <location filename="../src/gui/GUI.cpp" line="69"/>
         <source>Polish translation</source>
         <translation>波兰语翻译</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="69"/>
+        <location filename="../src/gui/GUI.cpp" line="70"/>
         <source>German translation</source>
         <translation>德文翻译</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="330"/>
+        <location filename="../src/SciDoc.cpp" line="365"/>
         <source>Confirmation</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="331"/>
+        <location filename="../src/SciDoc.cpp" line="366"/>
         <source>Replace this text?</source>
         <translation>替换这些文字</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="70"/>
+        <location filename="../src/gui/GUI.cpp" line="71"/>
         <source>French translation</source>
         <translation>法语翻译</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="71"/>
+        <location filename="../src/gui/GUI.cpp" line="72"/>
         <source>Brazilian Portuguese translation</source>
         <translation>巴西葡萄牙语翻译</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="60"/>
+        <location filename="../src/Manager.cpp" line="162"/>
         <source>&amp;File</source>
         <translation>&amp;文件</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="61"/>
+        <location filename="../src/Manager.cpp" line="163"/>
         <source>&amp;Edit</source>
         <translation>&amp;编辑</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="62"/>
+        <location filename="../src/Manager.cpp" line="165"/>
         <source>&amp;Charset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="66"/>
+        <location filename="../src/Manager.cpp" line="166"/>
         <source>Recent files</source>
         <translation>最近的文件</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="81"/>
+        <location filename="../src/Manager.cpp" line="183"/>
         <source>Cursor position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="82"/>
+        <location filename="../src/Manager.cpp" line="184"/>
         <source>File full name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="83"/>
-        <source>Character set</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/Manager.cpp" line="214"/>
+        <location filename="../src/Manager.cpp" line="378"/>
         <source>Session</source>
         <translation>会话</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="263"/>
+        <location filename="../src/SciDoc.cpp" line="298"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>已经到文件头,
 继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="268"/>
+        <location filename="../src/SciDoc.cpp" line="303"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>已经到文件底,继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="79"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="80"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="35"/>
+        <location filename="../src/SciDocHandler.cpp" line="36"/>
         <source>&amp;Markers</source>
         <translation>&amp;标记</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="42"/>
+        <location filename="../src/SciDocHandler.cpp" line="38"/>
         <source>&amp;Syntax</source>
         <translation>&amp;语法</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="46"/>
+        <location filename="../src/SciDocHandler.cpp" line="45"/>
         <source>Syntax highlighting scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -914,158 +916,203 @@ Continue from the beginning?</source>
         <translation>新文件</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="59"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="60"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="60"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="61"/>
         <source>Save</source>
         <translation>存盘</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="61"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="62"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="62"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="63"/>
         <source>Reload</source>
         <translation>重新载入</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="63"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="64"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="64"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="65"/>
         <source>Close all</source>
         <translation>关闭所有</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="65"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="66"/>
         <source>Print</source>
         <translation>打印</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="66"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="67"/>
         <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="68"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="69"/>
         <source>New session</source>
         <translation>新会话</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="69"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="70"/>
         <source>Open session</source>
         <translation>打开会话</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="70"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="71"/>
         <source>Save session</source>
         <translation>存会话</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="71"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="72"/>
         <source>Save session as</source>
         <translation>另存会话</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="73"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="74"/>
         <source>Undo</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="74"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="75"/>
         <source>Redo</source>
         <translation>重做</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="75"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="76"/>
         <source>Cut</source>
         <translation>剪切</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="76"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="77"/>
         <source>Copy</source>
         <translation>复制</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="77"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="78"/>
         <source>Paste</source>
         <translation>粘贴i</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="80"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="81"/>
         <source>Find next</source>
         <translation>查找下一个</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="81"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="82"/>
         <source>Find previous</source>
         <translation>查找前一个</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="82"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="83"/>
         <source>Replace</source>
         <translation>替换</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="83"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="84"/>
         <source>Go to line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="85"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="86"/>
         <source>Zoom in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="86"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="87"/>
         <source>Zoom out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="87"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="88"/>
         <source>Zoom 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="89"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="94"/>
         <source>Add/Remove marker</source>
         <translation>加/减 标记</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="90"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="95"/>
         <source>Next marker</source>
         <translation>下一个标记</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="91"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="96"/>
         <source>Previous marker</source>
         <translation>前一个标记</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="92"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="97"/>
         <source>Remove all markers</source>
         <translation>移除所有标记</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="94"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="99"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="96"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="101"/>
         <source>About Qt</source>
         <translation>关于QT</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="98"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="103"/>
         <source>N/A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="164"/>
+        <source>Fo&amp;rmat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="412"/>
+        <source>Line endings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="92"/>
+        <source>Unix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="91"/>
+        <source>Mac</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="90"/>
+        <source>Win</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="68"/>
+        <source>Packaging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="73"/>
+        <source>Chinese Simplified translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="59"/>
+        <source>New Rich text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="185"/>
+        <source>Current character set</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1095,42 +1142,42 @@ Continue from the beginning?</source>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="102"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="107"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="105"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="110"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="106"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="111"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="107"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="112"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="118"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="123"/>
         <source>General</source>
         <translation>通常</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="120"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="125"/>
         <source>Editor</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="122"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="127"/>
         <source>Charsets</source>
         <translation>编码</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="119"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="124"/>
         <source>View</source>
         <translation>显示</translation>
     </message>
@@ -1140,9 +1187,9 @@ Continue from the beginning?</source>
         <translation type="obsolete">插件</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="120"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="126"/>
         <source>Autocompletion</source>
-        <translation type="obsolete">自动添加</translation>
+        <translation type="unfinished">自动添加</translation>
     </message>
 </context>
 <context>

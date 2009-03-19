@@ -182,7 +182,7 @@ public:
 		charsetL_ = new GUI::StatusLabel("");
 		posL_->setToolTip(QObject::tr("Cursor position"));
 		nameL_->setToolTip(QObject::tr("File full name"));
-		charsetL_->setToolTip(QObject::tr("Character set"));
+		charsetL_->setToolTip(QObject::tr("Current character set"));
 		charsetL_->setMenu(charsetMenu_);
 		
 		gui_->addStatusWidget(posL_);

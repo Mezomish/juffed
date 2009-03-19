@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="ru_RU">
+<!DOCTYPE TS><TS version="1.1" language="pl">
 <defaultcodec></defaultcodec>
 <context>
     <name>AboutDlg</name>
@@ -275,61 +275,79 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
     </message>
 </context>
 <context>
+    <name>Juff::GUI::TabBar</name>
+    <message>
+        <location filename="../src/gui/TabBar.cpp" line="37"/>
+        <source>Copy file name to clipboard</source>
+        <translation>Kopiuj nazwę pliku do schowka</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/TabBar.cpp" line="38"/>
+        <source>Copy full file path to clipboard</source>
+        <translation>Kopiuj pełną ścieżkę pliku do schowka</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/TabBar.cpp" line="39"/>
+        <source>Copy file directory path to clipboard</source>
+        <translation>Kopiuj ścieżkę katalogu do schowka</translation>
+    </message>
+</context>
+<context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="675"/>
+        <location filename="../src/Manager.cpp" line="674"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Plik &apos;%1&apos; jest plikiem tylko do odczytu. </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="676"/>
+        <location filename="../src/Manager.cpp" line="675"/>
         <source>What do you want to do?</source>
         <translation>Co chcesz zrobić?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="677"/>
+        <location filename="../src/Manager.cpp" line="676"/>
         <source>Warning</source>
         <translation>Uwaga</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="678"/>
+        <location filename="../src/Manager.cpp" line="677"/>
         <source>Overwrite</source>
         <translation>Nadpisz</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="679"/>
+        <location filename="../src/Manager.cpp" line="678"/>
         <source>Save as</source>
         <translation>Zapisz jako</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="693"/>
+        <location filename="../src/Manager.cpp" line="692"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Nie można zmienić uprawnień: Brak dostępu</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="483"/>
+        <location filename="../src/Manager.cpp" line="482"/>
         <source>The document </source>
         <translation>Dokument </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="484"/>
+        <location filename="../src/Manager.cpp" line="483"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> został zmodyfikowany.
 Czy chcesz zachować swoje zmiany?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="485"/>
+        <location filename="../src/Manager.cpp" line="484"/>
         <source>Close document</source>
         <translation>Zamknij dokument</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1176"/>
+        <location filename="../src/Manager.cpp" line="1175"/>
         <source>Go to line</source>
         <translation>Idź do linii</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1258"/>
+        <location filename="../src/Manager.cpp" line="1257"/>
         <source> Row: %1, Col: %2 </source>
         <translation> Rząd: %1, Kolumna: %2 </translation>
     </message>
@@ -345,7 +363,7 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="475"/>
+        <location filename="../src/SciDoc.cpp" line="480"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -353,19 +371,24 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>Juff::SciDocHandler</name>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="100"/>
+        <location filename="../src/SciDocHandler.cpp" line="101"/>
         <source>Show line numbers</source>
         <translation>Pokaż numery linii</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="106"/>
+        <location filename="../src/SciDocHandler.cpp" line="107"/>
         <source>Wrap words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="113"/>
+        <location filename="../src/SciDocHandler.cpp" line="118"/>
         <source>&amp;View</source>
         <translation>&amp;Widok</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="113"/>
+        <source>Show invisible symbols</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -394,12 +417,10 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Na starcie programu</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="131"/>
         <source>Auto save every</source>
         <translation type="obsolete">Autozapis co</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="154"/>
         <source> minute(s)</source>
         <translation type="obsolete"> minut (a,ty)</translation>
     </message>
@@ -450,12 +471,12 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Bez nazwy</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="365"/>
+        <location filename="../src/SciDoc.cpp" line="369"/>
         <source>Confirmation</source>
         <translation>Potwierdzenie</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="366"/>
+        <location filename="../src/SciDoc.cpp" line="370"/>
         <source>Replace this text?</source>
         <translation>Zastąpić ten tekst?</translation>
     </message>
@@ -510,19 +531,19 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Ostatnio otwarte pliki</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="378"/>
+        <location filename="../src/Manager.cpp" line="377"/>
         <source>Session</source>
         <translation>Sesja</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="298"/>
+        <location filename="../src/SciDoc.cpp" line="302"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Wyszukiwanie osiągnęło początek pliku.
 Rozpocząć od końca?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="303"/>
+        <location filename="../src/SciDoc.cpp" line="307"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Wyszukiwanie osiągnęło koniec pliku.
@@ -684,12 +705,12 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="36"/>
+        <location filename="../src/SciDocHandler.cpp" line="35"/>
         <source>&amp;Markers</source>
         <translation>&amp;Znaczniki</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="38"/>
+        <location filename="../src/SciDocHandler.cpp" line="37"/>
         <source>&amp;Syntax</source>
         <translation>&amp;Składnia</translation>
     </message>
@@ -704,7 +725,7 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="45"/>
+        <location filename="../src/SciDocHandler.cpp" line="44"/>
         <source>Syntax highlighting scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -724,7 +745,7 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="412"/>
+        <location filename="../src/SciDocHandler.cpp" line="430"/>
         <source>Line endings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -838,17 +859,14 @@ Rozpocząć od początku?</translation>
 <context>
     <name>TabBar</name>
     <message>
-        <location filename="../src/TabBar.cpp" line="33"/>
         <source>Copy file name to clipboard</source>
         <translation type="obsolete">Kopiuj nazwę pliku do schowka</translation>
     </message>
     <message>
-        <location filename="../src/TabBar.cpp" line="34"/>
         <source>Copy full file path to clipboard</source>
         <translation type="obsolete">Kopiuj pełną ścieżkę pliku do schowka</translation>
     </message>
     <message>
-        <location filename="../src/TabBar.cpp" line="35"/>
         <source>Copy file directory path to clipboard</source>
         <translation type="obsolete">Kopiuj ścieżkę katalogu do schowka</translation>
     </message>

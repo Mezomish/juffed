@@ -275,61 +275,79 @@ whole indent instead of removind single whitespace</source>
     </message>
 </context>
 <context>
+    <name>Juff::GUI::TabBar</name>
+    <message>
+        <location filename="../src/gui/TabBar.cpp" line="37"/>
+        <source>Copy file name to clipboard</source>
+        <translation>Копировать имя файла в буфер обмена</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/TabBar.cpp" line="38"/>
+        <source>Copy full file path to clipboard</source>
+        <translation>Копировать полный путь к файлу в буфер обмена</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/TabBar.cpp" line="39"/>
+        <source>Copy file directory path to clipboard</source>
+        <translation>Копировать путь к каталогу файла в буфер обмена</translation>
+    </message>
+</context>
+<context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="675"/>
+        <location filename="../src/Manager.cpp" line="674"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Файл &apos;%1&apos; открыт только для чтения.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="676"/>
+        <location filename="../src/Manager.cpp" line="675"/>
         <source>What do you want to do?</source>
         <translation>Что вы хотите сделать?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="677"/>
+        <location filename="../src/Manager.cpp" line="676"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="678"/>
+        <location filename="../src/Manager.cpp" line="677"/>
         <source>Overwrite</source>
         <translation>Переписать</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="679"/>
+        <location filename="../src/Manager.cpp" line="678"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="693"/>
+        <location filename="../src/Manager.cpp" line="692"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Невозможно изменить права: Доступ запрещён</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="483"/>
+        <location filename="../src/Manager.cpp" line="482"/>
         <source>The document </source>
         <translation>Документ </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="484"/>
+        <location filename="../src/Manager.cpp" line="483"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> был изменён.
 Желаете сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="485"/>
+        <location filename="../src/Manager.cpp" line="484"/>
         <source>Close document</source>
         <translation>Закрыть документ</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1176"/>
+        <location filename="../src/Manager.cpp" line="1175"/>
         <source>Go to line</source>
         <translation>Перейти к строке</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1258"/>
+        <location filename="../src/Manager.cpp" line="1257"/>
         <source> Row: %1, Col: %2 </source>
         <translation>Стр: %1, Стлб: %2</translation>
     </message>
@@ -345,7 +363,7 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="475"/>
+        <location filename="../src/SciDoc.cpp" line="480"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Не могу открыть файл для записи</translation>
     </message>
@@ -353,19 +371,24 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDocHandler</name>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="100"/>
+        <location filename="../src/SciDocHandler.cpp" line="101"/>
         <source>Show line numbers</source>
         <translation>Показывать номера строк</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="106"/>
+        <location filename="../src/SciDocHandler.cpp" line="107"/>
         <source>Wrap words</source>
         <translation>Переносить слова</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="113"/>
+        <location filename="../src/SciDocHandler.cpp" line="118"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="113"/>
+        <source>Show invisible symbols</source>
+        <translation>Отображать невидимые символы</translation>
     </message>
 </context>
 <context>
@@ -394,12 +417,10 @@ Do you want to save your changes?</source>
         <translation>При запуске программы</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="131"/>
         <source>Auto save every</source>
         <translation type="obsolete">Автоматически сохранять каждые</translation>
     </message>
     <message>
-        <location filename="../src/gui/MainSettingsPage.ui" line="154"/>
         <source> minute(s)</source>
         <translation type="obsolete"> минут(ы)</translation>
     </message>
@@ -450,12 +471,12 @@ Do you want to save your changes?</source>
         <translation>Без имени</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="365"/>
+        <location filename="../src/SciDoc.cpp" line="369"/>
         <source>Confirmation</source>
         <translation>Подтверждение</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="366"/>
+        <location filename="../src/SciDoc.cpp" line="370"/>
         <source>Replace this text?</source>
         <translation>Заменить этот текст?</translation>
     </message>
@@ -510,19 +531,19 @@ Do you want to save your changes?</source>
         <translation>Последние файлы</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="378"/>
+        <location filename="../src/Manager.cpp" line="377"/>
         <source>Session</source>
         <translation>Сеанс</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="298"/>
+        <location filename="../src/SciDoc.cpp" line="302"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Поиск достиг начала файла.
 Продолжить с конца?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="303"/>
+        <location filename="../src/SciDoc.cpp" line="307"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Поиск достиг конца файла.
@@ -684,12 +705,12 @@ Continue from the beginning?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="36"/>
+        <location filename="../src/SciDocHandler.cpp" line="35"/>
         <source>&amp;Markers</source>
         <translation>&amp;Маркеры</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="38"/>
+        <location filename="../src/SciDocHandler.cpp" line="37"/>
         <source>&amp;Syntax</source>
         <translation>&amp;Синтаксис</translation>
     </message>
@@ -704,12 +725,11 @@ Continue from the beginning?</source>
         <translation>Полное имя файла</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="185"/>
         <source>Character set</source>
         <translation type="obsolete">Кодировка</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="45"/>
+        <location filename="../src/SciDocHandler.cpp" line="44"/>
         <source>Syntax highlighting scheme</source>
         <translation>Подсветка синтаксиса</translation>
     </message>
@@ -729,7 +749,7 @@ Continue from the beginning?</source>
         <translation>Фор&amp;мат</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="412"/>
+        <location filename="../src/SciDocHandler.cpp" line="430"/>
         <source>Line endings</source>
         <translation>Окончания строк</translation>
     </message>
@@ -843,17 +863,14 @@ Continue from the beginning?</source>
 <context>
     <name>TabBar</name>
     <message>
-        <location filename="../src/TabBar.cpp" line="33"/>
         <source>Copy file name to clipboard</source>
         <translation type="obsolete">Копировать имя файла в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../src/TabBar.cpp" line="34"/>
         <source>Copy full file path to clipboard</source>
         <translation type="obsolete">Копировать полный путь к файлу в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../src/TabBar.cpp" line="35"/>
         <source>Copy file directory path to clipboard</source>
         <translation type="obsolete">Копировать путь к каталогу файла в буфер обмена</translation>
     </message>

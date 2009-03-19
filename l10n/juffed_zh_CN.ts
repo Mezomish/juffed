@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="zh_CN">
+<!DOCTYPE TS><TS version="1.1" language="zh">
+<defaultcodec></defaultcodec>
 <context>
     <name>AboutDlg</name>
     <message>
@@ -72,17 +73,14 @@
 <context>
     <name>DocHandler</name>
     <message>
-        <location filename="../src/DocHandler.cpp" line="479"/>
         <source>Open file</source>
         <translation type="obsolete">打开文件</translation>
     </message>
     <message>
-        <location filename="../src/DocHandler.cpp" line="761"/>
         <source>Save session as</source>
         <translation type="obsolete">另存会话</translation>
     </message>
     <message>
-        <location filename="../src/DocHandler.cpp" line="761"/>
         <source>Session name</source>
         <translation type="obsolete">会话名字</translation>
     </message>
@@ -90,32 +88,26 @@
 <context>
     <name>Document</name>
     <message>
-        <location filename="../src/Document.cpp" line="103"/>
         <source>Warning</source>
         <translation type="obsolete">Avertissement</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="107"/>
         <source>Save current</source>
         <translation type="obsolete">Enregistrer l&apos;actif</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="110"/>
         <source>Reload from disk</source>
         <translation type="obsolete">Recharger de par le disque</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="113"/>
         <source>Ignore</source>
         <translation type="obsolete">Ignorer</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="101"/>
         <source>The file was modified by external program.</source>
         <translation type="obsolete">Le fichier a été modifié par un programme externe.</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="102"/>
         <source>What do you want to do?</source>
         <translation type="obsolete">Que voulez-vous faire?</translation>
     </message>
@@ -148,7 +140,6 @@
         <translation>符号</translation>
     </message>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="54"/>
         <source>Show line numbers</source>
         <translation type="obsolete">显示行号</translation>
     </message>
@@ -183,7 +174,6 @@
         <translation>其他</translation>
     </message>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="172"/>
         <source>Adjust text by width</source>
         <translation type="obsolete">调整字符显示</translation>
     </message>
@@ -197,7 +187,6 @@ whole indent instead of removind single whitespace</source>
 删除掉最后一个空格</translation>
     </message>
     <message>
-        <location filename="../src/EditorSettingsPage.ui" line="168"/>
         <source>Sets the default view of 
 newly created/opened docs</source>
         <translation type="obsolete">设置打开/创建文件的默认显示</translation>
@@ -249,7 +238,6 @@ newly created/opened docs</source>
 <context>
     <name>Juff::Document</name>
     <message>
-        <location filename="../src/Document.cpp" line="101"/>
         <source>The file was modified by external program.</source>
         <translation type="obsolete">这个文件被外部修改了。</translation>
     </message>
@@ -346,60 +334,78 @@ newly created/opened docs</source>
     </message>
 </context>
 <context>
+    <name>Juff::GUI::TabBar</name>
+    <message>
+        <location filename="../src/gui/TabBar.cpp" line="37"/>
+        <source>Copy file name to clipboard</source>
+        <translation>复制文件名字到剪贴板</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/TabBar.cpp" line="38"/>
+        <source>Copy full file path to clipboard</source>
+        <translation>复制文件全路径到剪贴板</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/TabBar.cpp" line="39"/>
+        <source>Copy file directory path to clipboard</source>
+        <translation>复制文件文件夹路径到剪贴板</translation>
+    </message>
+</context>
+<context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="483"/>
+        <location filename="../src/Manager.cpp" line="482"/>
         <source>The document </source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="484"/>
+        <location filename="../src/Manager.cpp" line="483"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation>已经被修改。你需要保存修改吗?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="485"/>
+        <location filename="../src/Manager.cpp" line="484"/>
         <source>Close document</source>
         <translation>关闭文档</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="675"/>
+        <location filename="../src/Manager.cpp" line="674"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>%1 文件只读</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="676"/>
+        <location filename="../src/Manager.cpp" line="675"/>
         <source>What do you want to do?</source>
         <translation>你想做什么？</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="677"/>
+        <location filename="../src/Manager.cpp" line="676"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="678"/>
+        <location filename="../src/Manager.cpp" line="677"/>
         <source>Overwrite</source>
         <translation>覆盖</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="679"/>
+        <location filename="../src/Manager.cpp" line="678"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="693"/>
+        <location filename="../src/Manager.cpp" line="692"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>不能修改属性：访问拒绝</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1176"/>
+        <location filename="../src/Manager.cpp" line="1175"/>
         <source>Go to line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1258"/>
+        <location filename="../src/Manager.cpp" line="1257"/>
         <source> Row: %1, Col: %2 </source>
         <translation>行: %1, 列l: %2</translation>
     </message>
@@ -415,7 +421,7 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="475"/>
+        <location filename="../src/SciDoc.cpp" line="480"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -423,19 +429,24 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDocHandler</name>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="100"/>
+        <location filename="../src/SciDocHandler.cpp" line="101"/>
         <source>Show line numbers</source>
         <translation>显示行号</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="106"/>
+        <location filename="../src/SciDocHandler.cpp" line="107"/>
         <source>Wrap words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="113"/>
+        <location filename="../src/SciDocHandler.cpp" line="118"/>
         <source>&amp;View</source>
         <translation>&amp;显示</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="113"/>
+        <source>Show invisible symbols</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -449,282 +460,226 @@ Do you want to save your changes?</source>
 <context>
     <name>JuffEd</name>
     <message>
-        <location filename="../src/JuffEd.cpp" line="431"/>
         <source>About Qt</source>
         <translation type="obsolete">关于QT</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="380"/>
         <source>New</source>
         <translation type="obsolete">新文件</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="381"/>
         <source>Open</source>
         <translation type="obsolete">打开</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="382"/>
         <source>Save</source>
         <translation type="obsolete">存盘</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="383"/>
         <source>Save as</source>
         <translation type="obsolete">另存为</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="384"/>
         <source>Reload</source>
         <translation type="obsolete">重新载入</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="387"/>
         <source>Close</source>
         <translation type="obsolete">关闭</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="388"/>
         <source>Close all</source>
         <translation type="obsolete">关闭所有</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="389"/>
         <source>Exit</source>
         <translation type="obsolete">退出</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="391"/>
         <source>Cut</source>
         <translation type="obsolete">剪切</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="392"/>
         <source>Copy</source>
         <translation type="obsolete">复制</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="393"/>
         <source>Paste</source>
         <translation type="obsolete">粘贴i</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="394"/>
         <source>Undo</source>
         <translation type="obsolete">取消</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="395"/>
         <source>Redo</source>
         <translation type="obsolete">重做</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="396"/>
         <source>Find</source>
         <translation type="obsolete">查找</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="397"/>
         <source>Find next</source>
         <translation type="obsolete">查找下一个</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="398"/>
         <source>Find previous</source>
         <translation type="obsolete">查找前一个</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="400"/>
         <source>Go to line</source>
         <translation type="obsolete">转到行</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="403"/>
         <source>Show line numbers</source>
         <translation type="obsolete">显示行号</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="404"/>
         <source>Adjust text by width</source>
         <translation type="obsolete">调整字符宽</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="415"/>
         <source>Add/Remove marker</source>
         <translation type="obsolete">加/减 标记</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="418"/>
         <source>Remove all markers</source>
         <translation type="obsolete">移除所有标记</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="420"/>
         <source>Previous</source>
         <translation type="obsolete">往后</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="421"/>
         <source>Next</source>
         <translation type="obsolete">向前</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="423"/>
         <source>Settings</source>
         <translation type="obsolete">设置</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="425"/>
         <source>New session</source>
         <translation type="obsolete">新会话</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="426"/>
         <source>Open session</source>
         <translation type="obsolete">打开会话</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="427"/>
         <source>Save session</source>
         <translation type="obsolete">存会话</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="428"/>
         <source>Save session as</source>
         <translation type="obsolete">另存会话</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="430"/>
         <source>About</source>
         <translation type="obsolete">关于</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="567"/>
         <source>&amp;File</source>
         <translation type="obsolete">&amp;文件</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="482"/>
         <source>&amp;Edit</source>
         <translation type="obsolete">&amp;编辑</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="482"/>
         <source>&amp;View</source>
         <translation type="obsolete">&amp;显示</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="640"/>
         <source>&amp;Markers</source>
         <translation type="obsolete">&amp;标记</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="586"/>
         <source>&amp;Tools</source>
         <translation type="obsolete">&amp;工具</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="483"/>
         <source>&amp;Help</source>
         <translation type="obsolete">&amp;帮助</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="520"/>
         <source>Charset</source>
         <translation type="obsolete">编码</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="565"/>
         <source>Recent files</source>
         <translation type="obsolete">最近的文件</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="853"/>
         <source>Row: %1, Col: %2</source>
         <translation type="obsolete">行: %1, 列l: %2</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="416"/>
         <source>Next marker</source>
         <translation type="obsolete">下一个标记</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="417"/>
         <source>Previous marker</source>
         <translation type="obsolete">前一个标记</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="528"/>
         <source>Syntax</source>
         <translation type="obsolete">语法</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="401"/>
         <source>Unindent</source>
         <translation type="obsolete">未索引</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="405"/>
         <source>Show hidden symbols</source>
         <translation type="obsolete">显示隐藏的字符</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="385"/>
         <source>Print</source>
         <translation type="obsolete">打印</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="386"/>
         <source>Print selected lines</source>
         <translation type="obsolete">打印选中行</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="585"/>
         <source>Toolbars</source>
         <translation type="obsolete">工具栏</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="875"/>
         <source>Noname</source>
         <translation type="obsolete">未命名</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="584"/>
         <source>Dock windows</source>
         <translation type="obsolete">多窗口</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="407"/>
         <source>Increase font</source>
         <translation type="obsolete">放大字体</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="408"/>
         <source>Decrease font</source>
         <translation type="obsolete">缩小字体</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="409"/>
         <source>Normal size</source>
         <translation type="obsolete">正常尺寸</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="521"/>
         <source>Format</source>
         <translation type="obsolete">格式</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="542"/>
         <source>End of line</source>
         <translation type="obsolete">行结束类型</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="399"/>
         <source>Replace</source>
         <translation type="obsolete">替换</translation>
     </message>
     <message>
-        <location filename="../src/JuffEd.cpp" line="575"/>
         <source>Session</source>
         <translation type="obsolete">会话</translation>
     </message>
@@ -747,12 +702,10 @@ Do you want to save your changes?</source>
         <translation>打开空的记录层</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="131"/>
         <source>Auto save every</source>
         <translation type="obsolete">自动存盘每</translation>
     </message>
     <message>
-        <location filename="../src/MainSettingsPage.ui" line="154"/>
         <source> minute(s)</source>
         <translation type="obsolete">分钟</translation>
     </message>
@@ -823,12 +776,12 @@ Do you want to save your changes?</source>
         <translation>德文翻译</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="365"/>
+        <location filename="../src/SciDoc.cpp" line="369"/>
         <source>Confirmation</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="366"/>
+        <location filename="../src/SciDoc.cpp" line="370"/>
         <source>Replace this text?</source>
         <translation>替换这些文字</translation>
     </message>
@@ -873,19 +826,19 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="378"/>
+        <location filename="../src/Manager.cpp" line="377"/>
         <source>Session</source>
         <translation>会话</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="298"/>
+        <location filename="../src/SciDoc.cpp" line="302"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>已经到文件头,
 继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="303"/>
+        <location filename="../src/SciDoc.cpp" line="307"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>已经到文件底,继续搜索吗?</translation>
@@ -896,17 +849,17 @@ Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="36"/>
+        <location filename="../src/SciDocHandler.cpp" line="35"/>
         <source>&amp;Markers</source>
         <translation>&amp;标记</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="38"/>
+        <location filename="../src/SciDocHandler.cpp" line="37"/>
         <source>&amp;Syntax</source>
         <translation>&amp;语法</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="45"/>
+        <location filename="../src/SciDocHandler.cpp" line="44"/>
         <source>Syntax highlighting scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1076,7 +1029,7 @@ Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="412"/>
+        <location filename="../src/SciDocHandler.cpp" line="430"/>
         <source>Line endings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1182,7 +1135,6 @@ Continue from the beginning?</source>
         <translation>显示</translation>
     </message>
     <message>
-        <location filename="../src/SettingsDlg.cpp" line="239"/>
         <source>Plugins</source>
         <translation type="obsolete">插件</translation>
     </message>
@@ -1195,17 +1147,14 @@ Continue from the beginning?</source>
 <context>
     <name>TabBar</name>
     <message>
-        <location filename="../src/TabBar.cpp" line="33"/>
         <source>Copy file name to clipboard</source>
         <translation type="obsolete">复制文件名字到剪贴板</translation>
     </message>
     <message>
-        <location filename="../src/TabBar.cpp" line="34"/>
         <source>Copy full file path to clipboard</source>
         <translation type="obsolete">复制文件全路径到剪贴板</translation>
     </message>
     <message>
-        <location filename="../src/TabBar.cpp" line="35"/>
         <source>Copy file directory path to clipboard</source>
         <translation type="obsolete">复制文件文件夹路径到剪贴板</translation>
     </message>
@@ -1213,63 +1162,51 @@ Continue from the beginning?</source>
 <context>
     <name>TextDoc</name>
     <message>
-        <location filename="../src/TextDoc.cpp" line="149"/>
         <source>Save as</source>
         <translation type="obsolete">另存为</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="103"/>
         <source>Save as a copy</source>
         <translation type="obsolete">存一个copy</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="115"/>
         <source>Save</source>
         <translation type="obsolete">存盘</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="247"/>
         <source>The document </source>
         <translation type="obsolete">文档</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="248"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation type="obsolete">已经被修改。你需要保存修改吗?</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="249"/>
         <source>Close document</source>
         <translation type="obsolete">关闭文档</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="342"/>
         <source>Go to line</source>
         <translation type="obsolete">跳转到行</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="434"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation type="obsolete">%1 文件只读</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="146"/>
         <source>What do you want to do?</source>
         <translation type="obsolete">你想做什么?</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="434"/>
         <source>Warning</source>
         <translation type="obsolete">警告</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="148"/>
         <source>Overwrite</source>
         <translation type="obsolete">覆盖</translation>
     </message>
     <message>
-        <location filename="../src/TextDoc.cpp" line="163"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation type="obsolete">不能修改属性：访问拒绝</translation>
     </message>
@@ -1277,20 +1214,17 @@ Do you want to save your changes?</source>
 <context>
     <name>TextDocView</name>
     <message>
-        <location filename="../src/TextDocView.cpp" line="607"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation type="obsolete">已经到文件头,
 继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="612"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation type="obsolete">已经到文件底,继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/TextDocView.cpp" line="616"/>
         <source>Find</source>
         <translation type="obsolete">搜索</translation>
     </message>

@@ -47,6 +47,14 @@ public:
 	virtual void getDocText(const QString& fileName, QString& text) = 0;
 
 	/**
+	* getDocText()
+	*
+	* Returns one line of \par text of the document with name \par fileName.
+	* Parameter \par contains line index (starting with 0).
+	*/
+	virtual void getDocText(const QString& fileName, int line, QString& text) = 0;
+
+	/**
 	* getCursorPos()
 	*
 	* Returns the current documen's cursor position or (-1, -1)

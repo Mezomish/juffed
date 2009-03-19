@@ -1368,6 +1368,20 @@ void Manager::getDocText(const QString& fileName, QString& text) {
 	}
 }
 
+void Manager::getDocText(const QString& fileName, int line, QString& text) {
+	JUFFENTRY;
+	
+	if ( mInt_->docs1_.contains(fileName) ) {
+		text = mInt_->docs1_[fileName]->text(line);
+	}
+	else if ( mInt_->docs2_.contains(fileName) ) {
+		text = mInt_->docs2_[fileName]->text(line);
+	}
+	else {
+		text = QString();
+	}
+}
+
 void Manager::getCursorPos(int& line, int& col) {
 	JUFFENTRY;
 	

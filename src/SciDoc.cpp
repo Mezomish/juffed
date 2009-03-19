@@ -615,6 +615,10 @@ QString SciDoc::text() const {
 	return docInt_->edit1_->text(); 
 }
 
+QString SciDoc::text(int line) const { 
+	return docInt_->edit1_->text(line); 
+}
+
 QString SciDoc::selectedText() const {
 	JuffScintilla* edit = getActiveEdit();
 	if ( !edit )

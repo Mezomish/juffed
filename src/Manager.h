@@ -49,6 +49,7 @@ public:
 	virtual void getDocList(QStringList&) const;
 	virtual void getCurDocName(QString&) const;
 	virtual void getDocText(const QString&, QString&);
+	virtual void getDocText(const QString&, int, QString&);
 	virtual void getCursorPos(int&, int&);
 	virtual void getSelection(int&, int&, int&, int&);
 	virtual void getSelectedText(QString&);

@@ -1,6 +1,13 @@
 ++++++++++++++++++++++++
 Version 0.5-svn:
 ++++++++++++++++++++++++
+2009-03-18:
+* Added: hidden symbols visibility
+* Added: autocompletion
+
+2009-03-15:
+* Fixed: highlighting for doxygen single line comment (C++)
+
 2009-03-14:
 * Added: tooltip for tabs with full file names
 * Fixed: bug with checking for external changes for NullDoc

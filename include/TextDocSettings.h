@@ -30,6 +30,7 @@ public:
 	static int tabStopWidth();
 	static bool widthAdjust();
 	static bool showLineNumbers();
+	static bool showInvisibleSymbols();
 	static int lineLengthIndicator();
 	static bool showIndents();
 	static bool highlightCurrentLine();
@@ -41,6 +42,7 @@ public:
 	static void setFont(const QFont& font);
 	static void setWidthAdjust(bool adj);
 	static void setShowLineNumbers(bool show);
+	static void setShowInvisibleSymbols(bool show);
 	static void setTabStopWidth(int w);
 	static void setLineLengthIndicator(int ind);
 	static void setShowIndents(bool show);

@@ -85,7 +85,7 @@ public:
 
 	void showLineNumbers(bool);
 	void wrapText(bool);
-	void showHiddenSymbols(bool);
+	void showInvisibleSymbols(bool);
 	void zoomIn();
 	void zoomOut();
 	void zoom100();

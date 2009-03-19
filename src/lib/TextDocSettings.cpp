@@ -36,6 +36,9 @@ bool TextDocSettings::widthAdjust() {
 bool TextDocSettings::showLineNumbers() { 
 	return Settings::boolValue("editor", "showLineNumbers", true); 
 }
+bool TextDocSettings::showInvisibleSymbols() { 
+	return Settings::boolValue("editor", "showInvisibleSymbols", false); 
+}
 int TextDocSettings::lineLengthIndicator() { 
 	return Settings::intValue("editor", "lineLengthIndicator", 80); 
 }
@@ -71,6 +74,9 @@ void TextDocSettings::setWidthAdjust(bool adj) {
 }
 void TextDocSettings::setShowLineNumbers(bool show) { 
 	Settings::setValue("editor", "showLineNumbers", show); 
+}
+void TextDocSettings::setShowInvisibleSymbols(bool show) { 
+	Settings::setValue("editor", "showInvisibleSymbols", show); 
 }
 void TextDocSettings::setTabStopWidth(int w) { 
 	Settings::setValue("editor", "tabStopWidth", w); 

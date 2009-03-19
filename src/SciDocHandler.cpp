@@ -63,7 +63,7 @@ public:
 	~Interior() {
 		delete syntaxActGr_;
 		delete eolActGr_;
-		delete showHiddenAct_;
+		delete showInvisibleAct_;
 	}
 	
 	QMenu* markersMenu_;
@@ -78,7 +78,7 @@ public:
 	ActionList contextMenuActions_;
 	GUI::StatusLabel* syntaxL_;
 	GUI::StatusLabel* eolL_;
-	QAction* showHiddenAct_;
+	QAction* showInvisibleAct_;
 };
 
 SciDocHandler::SciDocHandler() : DocHandler() {	
@@ -110,15 +110,15 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	wordWrapAct->setChecked(TextDocSettings::widthAdjust());
 	connect(wordWrapAct, SIGNAL(activated()), this, SLOT(wordWrap()));
 
-	docInt_->showHiddenAct_ = new QAction(tr("Show hidden symbols"), 0);
-	docInt_->showHiddenAct_->setCheckable(true);
-	docInt_->showHiddenAct_->setChecked(false);
-	connect(docInt_->showHiddenAct_, SIGNAL(activated()), this, SLOT(showHiddenSymbols()));
+	docInt_->showInvisibleAct_ = new QAction(tr("Show invisible symbols"), 0);
+	docInt_->showInvisibleAct_->setCheckable(true);
+	docInt_->showInvisibleAct_->setChecked(TextDocSettings::showInvisibleSymbols());
+	connect(docInt_->showInvisibleAct_, SIGNAL(activated()), this, SLOT(showInvisibleSymbols()));
 
 	QMenu* viewMenu = new QMenu(tr("&View"));
 	viewMenu->addAction(showLineNumsAct);
 	viewMenu->addAction(wordWrapAct);
-	viewMenu->addAction(docInt_->showHiddenAct_);
+	viewMenu->addAction(docInt_->showInvisibleAct_);
 	viewMenu->addAction(st->action(ID_ZOOM_IN));
 	viewMenu->addAction(st->action(ID_ZOOM_OUT));
 	viewMenu->addAction(st->action(ID_ZOOM_100));
@@ -271,7 +271,7 @@ void SciDocHandler::docActivated(Document* d) {
 			}
 		}
 		
-		doc->showHiddenSymbols(docInt_->showHiddenAct_->isChecked());
+		doc->showInvisibleSymbols(docInt_->showInvisibleAct_->isChecked());
 	}
 }
 
@@ -302,13 +302,13 @@ void SciDocHandler::wordWrap() {
 	}
 }
 
-void SciDocHandler::showHiddenSymbols() {
+void SciDocHandler::showInvisibleSymbols() {
 	JUFFENTRY;
 	
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 	if ( doc && !doc->isNull() && act ) {
-		doc->showHiddenSymbols(act->isChecked());
+		doc->showInvisibleSymbols(act->isChecked());
 	}
 }
 

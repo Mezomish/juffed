@@ -35,6 +35,9 @@ Plugin::Plugin() : QObject(), JuffPlugin() {
 	//	create widget that will be embedded into dock 
 	//	and put controls to it
 	widget_ = new QWidget();
+	//	set widget title
+	widget_->setWindowTitle("HTML View");
+	//	add text browser on it
 	view_ = new QTextBrowser();
 	QVBoxLayout* vBox = new QVBoxLayout();
 	vBox->addWidget(view_);

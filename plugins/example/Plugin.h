@@ -8,7 +8,7 @@ class QTextBrowser;
 
 #include <QtCore/QObject>
 
-#include "JuffPlugin.h"
+#include "juffed/JuffPlugin.h"
 
 //	Change this : your class name
 class Plugin : public QObject, public JuffPlugin {

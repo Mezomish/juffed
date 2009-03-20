@@ -249,3 +249,11 @@ CONFIGURE_FILE(
 ADD_CUSTOM_TARGET(uninstall
   "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 
+ADD_CUSTOM_TARGET ( install-dev
+	"install" -d ${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME} &&
+	cp -R "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h" ${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME}
+)
+
+ADD_CUSTOM_TARGET ( uninstall-dev
+	rm -rf ${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME}
+)

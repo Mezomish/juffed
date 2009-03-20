@@ -1,6 +1,18 @@
 ++++++++++++++++++++++++
 Version 0.5-svn:
 ++++++++++++++++++++++++
+2009-03-19:
+* Fixed: updating line numbers bar to appropriate width
+* Fixed: loading autocompletion APIs from files
+* Added: storing the invisible symbols visibility to config
+* Added: request for particular line of text to ManagerInterface (plugins API)
+* Added: getCurrentDocText() function to ManagerInterface (plugins API)
+* Added: notifying plugins about context menu event
+* Updated plugin example
+* Changed the program description
+* Added: TCL and Pascal lexers
+* Changed icon
+
 2009-03-18:
 * Added: hidden symbols visibility
 * Added: autocompletion

@@ -10,7 +10,6 @@ Version 0.5-svn:
 * Added: notifying plugins about context menu event
 * Updated plugin example
 * Changed the program description
-* Added: TCL and Pascal lexers
 * Changed icon
 
 2009-03-18:

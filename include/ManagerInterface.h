@@ -40,6 +40,21 @@ public:
 	virtual void getCurDocName(QString&) const = 0;
 
 	/**
+	* getCurrentDocText()
+	*
+	* Returns the \par text of the current document.
+	*/
+	virtual void getCurrentDocText(QString& text) = 0;
+
+	/**
+	* getCurrentDocText()
+	*
+	* Returns one line of \par text of the current document.
+	* Parameter \par contains line index (starting with 0).
+	*/
+	virtual void getCurrentDocText(int line, QString& text) = 0;
+
+	/**
 	* getDocText()
 	*
 	* Returns the \par text of the document with name \par fileName

@@ -9,7 +9,7 @@ class QTextBrowser;
 #include <QtCore/QObject>
 
 //	Change this: your path to JuffPlugin.h
-#include "../../src/JuffPlugin.h"
+#include "JuffPlugin.h"
 
 //	Change this : your class name
 class Plugin : public QObject, public JuffPlugin {
@@ -19,32 +19,22 @@ public:
 	Plugin();
 	virtual ~Plugin();
 
-	//	initialization/deinitialization
-	virtual void init(QObject* handler);
-	virtual void deinit(QObject* handler);
-
 	//	plugin name
 	virtual QString name() const;
 	//	plugin description
 	virtual QString description() const;
+	//	engine that the plugin is created for
+	virtual QString targetEngine() const;
 
 	//	controls
-	//	plugin toolbar
-	virtual QToolBar* toolBar() const;
 	//	plugin menu that will be added to main menubar
 	virtual QMenu* menu() const;
+	//	plugin toolbar
+	virtual QToolBar* toolBar() const;
 	//	widget that will be put to dock
-	virtual QWidget* dockWidget(Qt::DockWidgetArea&) const;
-	//	plugin settings widget
-	virtual QWidget* settingsPage() const;
-	//	apply settings
-	virtual void applySettings();
-
-signals:
-	void textRequest(QString&);
-	void requestCursorPos(int&, int&);
-	void insertText(const QString&);
-	void moveCursor(int, int);
+	virtual QWidgetList dockList() const;
+	//	some actions that we want to add to context menu
+	virtual Juff::ActionList contextMenuActions() const;
 
 public slots:
 	void view();

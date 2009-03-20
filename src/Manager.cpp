@@ -451,6 +451,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	standardMenus << mInt_->fileMenu_ << mInt_->editMenu_ << mInt_->formatMenu_;
 	MenuList sciMenus = sciDH->menus();
 	MenuList richMenus = richDH->menus();
+	sciMenus << mInt_->pluginManager_->getMenus("sci");
+	richMenus << mInt_->pluginManager_->getMenus("rich");
 	mInt_->guiManager_.addMenus("all", standardMenus);
 	mInt_->guiManager_.addMenus("sci", sciMenus);
 	mInt_->guiManager_.addMenus("rich", richMenus);
@@ -1381,6 +1383,27 @@ void Manager::getDocText(const QString& fileName, int line, QString& text) {
 		text = QString();
 	}
 }
+
+void Manager::getCurrentDocText(QString& text) {
+	Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		getDocText(doc->fileName(), text);
+	}
+	else {
+		text = "";
+	}
+}
+
+void Manager::getCurrentDocText(int line, QString& text) {
+	Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		getDocText(doc->fileName(), line, text);
+	}
+	else {
+		text = "";
+	}
+}
+
 
 void Manager::getCursorPos(int& line, int& col) {
 	JUFFENTRY;

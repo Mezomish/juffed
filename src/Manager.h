@@ -48,6 +48,8 @@ public:
 	//	inherited methods from ManagerInterface
 	virtual void getDocList(QStringList&) const;
 	virtual void getCurDocName(QString&) const;
+	virtual void getCurrentDocText(QString&);
+	virtual void getCurrentDocText(int, QString&);
 	virtual void getDocText(const QString&, QString&);
 	virtual void getDocText(const QString&, int, QString&);
 	virtual void getCursorPos(int&, int&);

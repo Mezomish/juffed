@@ -5,10 +5,9 @@
 class QAction;
 class QMenu;
 class QTextBrowser;
-	
+
 #include <QtCore/QObject>
 
-//	Change this: your path to JuffPlugin.h
 #include "JuffPlugin.h"
 
 //	Change this : your class name
@@ -19,19 +18,28 @@ public:
 	Plugin();
 	virtual ~Plugin();
 
+	/*
+	* You MUST reimplement the following 3 methods 
+	* since they are pure virtual in JuffPlugin class.
+	*/
 	//	plugin name
 	virtual QString name() const;
 	//	plugin description
 	virtual QString description() const;
-	//	engine that the plugin is created for
+	//	engine that the plugin is created for. You can specify
+	//	"sci", "rich" or "all".
 	virtual QString targetEngine() const;
 
+	/*
+	* Reimplementation of the following methods is optional. 
+	* Do it if you have your own controls or event handlers.
+	*/
 	//	controls
 	//	plugin menu that will be added to main menubar
 	virtual QMenu* menu() const;
 	//	plugin toolbar
 	virtual QToolBar* toolBar() const;
-	//	widget that will be put to dock
+	//	widgets to be put to docks
 	virtual QWidgetList dockList() const;
 	//	some actions that we want to add to context menu
 	virtual Juff::ActionList contextMenuActions() const;

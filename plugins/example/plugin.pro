@@ -5,6 +5,7 @@ DESTDIR		= ..
 TARGET		= plugin
 LIBS		+= -ljuff
 INCLUDEPATH	+= ../../include
+DEFINES		+= JUFF_DEBUG
 
 HEADERS		= Plugin.h
 

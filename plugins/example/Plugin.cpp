@@ -7,8 +7,6 @@
 #include <QtGui/QToolBar>
 #include <QtGui/QVBoxLayout>
 
-//#include "Juff.h"
-
 Plugin::Plugin() : QObject(), JuffPlugin() {
 	//	create actions and connect them to slots
 	viewAction_ = new QAction("View HTML", this);
@@ -43,7 +41,10 @@ Plugin::Plugin() : QObject(), JuffPlugin() {
 	widget_->setLayout(vBox);
 }
 
-Plugin::~Plugin() { 
+Plugin::~Plugin() {
+	delete menu_;
+	delete toolBar_;
+	delete widget_;
 }
 
 QString Plugin::name() const {
@@ -63,6 +64,7 @@ QString Plugin::targetEngine() const {
 QToolBar* Plugin::toolBar() const {
 	return toolBar_;
 }
+
 QMenu* Plugin::menu() const {
 	//	return you own menu (if you have one) here
 	return menu_;
@@ -73,8 +75,6 @@ Juff::ActionList Plugin::contextMenuActions() const {
 	list << dateAction_;
 	return list;
 }
-
-
 
 QWidgetList Plugin::dockList() const {
 	QWidgetList list;

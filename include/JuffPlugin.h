@@ -126,7 +126,7 @@ public:
 	* This method is called once new doc is created or opened.
 	* Parameter \par fileName contains document's file name.
 	*/
-	virtual void onDocCreated(const QString& fileName) {}
+	virtual void onDocCreated(const QString& fileName) { Q_UNUSED(fileName); }
 	
 	/**
 	* onDocActivated()
@@ -134,7 +134,7 @@ public:
 	* This method is called once document was activated. 
 	* Parameter \par fileName contains document's file name.
 	*/
-	virtual void onDocActivated(const QString& fileName) {}
+	virtual void onDocActivated(const QString& fileName) { Q_UNUSED(fileName); }
 	
 	/**
 	* onDocModified()
@@ -143,7 +143,7 @@ public:
 	* was changed. Parameter \par fileName contains document's file name, 
 	* parameter \par modified contains new modification status.
 	*/
-	virtual void onDocModified(const QString& fileName, bool modified) {}
+	virtual void onDocModified(const QString& fileName, bool modified) { Q_UNUSED(fileName); Q_UNUSED(modified); }
 	
 	/**
 	* onDocClosed()
@@ -151,7 +151,7 @@ public:
 	* This method is called once document was closed. 
 	* Parameter \par fileName contains document's file name.
 	*/
-	virtual void onDocClosed(const QString& fileName) {}
+	virtual void onDocClosed(const QString& fileName) { Q_UNUSED(fileName); }
 	
 	/**
 	* onDocRenamed()
@@ -160,7 +160,7 @@ public:
 	* Parameter \par oldFileName contains document's old file name,
 	* parameter \par newFileName contains document's new file name.
 	*/
-	virtual void onDocRenamed(const QString& oldFileName, const QString& newFileName) {}
+	virtual void onDocRenamed(const QString& oldFileName, const QString& newFileName) { Q_UNUSED(newFileName); Q_UNUSED(oldFileName); }
 	
 	/**
 	*	onContextMenuCalled()
@@ -169,7 +169,7 @@ public:
 	* displayed. Parameters \par line, \par col contain cursor position
 	* (starting with 0, 0).
 	*/
-	virtual void onContextMenuCalled(int line, int col) { }
+	virtual void onContextMenuCalled(int line, int col) { Q_UNUSED(line); Q_UNUSED(col); }
 	
 protected:
 	///	trivial accessor

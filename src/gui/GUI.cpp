@@ -42,8 +42,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 
-#include "juffed.xpm"
-
 namespace Juff {
 namespace GUI {
 
@@ -84,7 +82,7 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	dlg->setThanks(thanks);
 	dlg->setLicense(License::licenseText, false);
 	dlg->resize(500, 300);
-	dlg->setIcon(QIcon(juffed_px));
+	dlg->setIcon(QIcon(":juffed.png"));
 	
 	return dlg;
 }

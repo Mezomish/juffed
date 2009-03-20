@@ -33,10 +33,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <Qsci/qscilexerjavascript.h>
 #include <Qsci/qscilexerlua.h>
 #include <Qsci/qscilexermakefile.h>
+#include <Qsci/qscilexerpascal.h>
 #include <Qsci/qscilexerperl.h>
 #include <Qsci/qscilexerpython.h>
 #include <Qsci/qscilexerruby.h>
 #include <Qsci/qscilexersql.h>
+#include <Qsci/qscilexertcl.h>
 
 //	Qt headers
 #include <QtCore/QFileInfo>
@@ -108,10 +110,12 @@ public:
 		fileNamePatterns["JavaScript"]  = "*.js";
 		fileNamePatterns["Lua"]         = "*.lua|*.tasklua";
 		fileNamePatterns["Makefile"]    = "*Makefile*";
+		fileNamePatterns["Pascal"]        = "*.pas";
 		fileNamePatterns["Perl"]        = "*.p[lm]";
 		fileNamePatterns["Python"]      = "*.py";
 		fileNamePatterns["PHP"]         = "*.php*";
 		fileNamePatterns["Ruby"]        = "*.rb";
+		fileNamePatterns["TCL"]         = "*.tcl";
 		fileNamePatterns["SQL"]         = "*.sql";
 		fileNamePatterns["XML"]         = "*.xml";
 		//	1st line patterns
@@ -491,6 +495,9 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if ( name.compare("Diff") == 0 ) {
 			newLexer = new QsciLexerDiff();
 		}
+		else if ( name.compare("Pascal") == 0 ) {
+			newLexer = new QsciLexerPascal();
+		}
 		else if ( name.compare("Python") == 0 ) {
 			newLexer = new QsciLexerPython();
 		}
@@ -532,6 +539,9 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		}
 		else if ( name.compare("Lua") == 0 ) {
 			newLexer = new QsciLexerLua();
+		}
+		else if ( name.compare("TCL") == 0 ) {
+			newLexer = new QsciLexerTCL();
 		}
 		else if ( name.compare("none") == 0 ) {
 			newLexer = new QsciLexerPython();
@@ -623,9 +633,10 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 
 void LexerStorage::getLexersList(QStringList& list) {
 	list.clear();
-	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" << "D" 
-			<< "Diff" << "HTML" << "IDL" << "Java" << "JavaScript" << "Lua" 
-			<< "Makefile" << "Perl" << "Python" << "PHP" << "Ruby" << "SQL" << "XML";
+	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" 
+			<< "D" << "Diff" << "HTML" << "IDL" << "Java" << "JavaScript" 
+			<< "Lua" << "Makefile" << "Pascal" << "Perl" << "Python" << "PHP" 
+			<< "Ruby" << "SQL" << "TCL" << "XML";
 }
 
 void LexerStorage::updateLexer(const QString& name, const QFont& font) {

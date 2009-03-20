@@ -29,7 +29,7 @@ FILE ( READ "${CMAKE_SOURCE_DIR}/version" JUFFED_VERSION )
 STRING ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
 
 # flag indicating that this is an SVN snapshot release
-SET ( SVN 1 )
+SET ( SVN 0 )
 
 IF ( SVN )
 	# SVN revision

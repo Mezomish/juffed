@@ -21,6 +21,7 @@
         <file alias="16/tux.png">icons/16x16/tux.png</file>
         <file alias="16/mac.png">icons/16x16/mac.png</file>
         <file alias="16/win.png">icons/16x16/win.png</file>
-        <file alias="juffed.png">juffed.png</file>
+        <file alias="juffed_32.png">juffed_32.png</file>
+        <file alias="juffed_48.png">juffed_48.png</file>
     </qresource>
 </RCC>

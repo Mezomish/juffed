@@ -40,14 +40,14 @@ public:
 		tb_ = new QTextBrowser(this);
 		tb_->setOpenExternalLinks(true);
 	}
-	
+
 	void setText(const QString& text, bool html = true) {
 		if (html)
 			tb_->setHtml(text);
 		else
 			tb_->setText(text);
 	}
-	
+
 private:
 	virtual void resizeEvent(QResizeEvent* e) {
 		QSize sz = e->size();
@@ -65,7 +65,7 @@ public:
 		nameL_ = new QLabel();
 		hBox->addWidget(iconL_);
 		hBox->addWidget(nameL_);
-		
+
 		closeBtn_ = new QPushButton(AboutDlg::tr("Close"));
 		parent->connect(closeBtn_, SIGNAL(clicked()), parent, SLOT(accept()));
 		QHBoxLayout* hBox2 = new QHBoxLayout();
@@ -131,7 +131,7 @@ public:
 		}
 		return licensePage_;
 	}
-	
+
 private:
 	QTabWidget* tabWidget_;
 	QLabel* aboutPage_;
@@ -160,24 +160,24 @@ void AboutDlg::setProgramName(const QString& name) {
 	QString labelText = QString("&nbsp;&nbsp;<b>%1</b>").arg(name);
 	dlgInt_->nameL_->setText(labelText);
 }
-	
+
 void AboutDlg::setIcon(const QIcon& icon) {
-    QSize size = icon.actualSize(QSize(64, 64));
-    dlgInt_->iconL_->setPixmap(icon.pixmap(size));
+	QSize size = icon.actualSize(QSize(64, 64));
+	dlgInt_->iconL_->setPixmap(icon.pixmap(size));
 }
-	
+
 void AboutDlg::setText(const QString& text) {
 	dlgInt_->aboutPage()->setText(text);
 }
-	
+
 void AboutDlg::setAuthors(const QString& authors) {
 	dlgInt_->authorsPage()->setText(authors);
 }
-	
+
 void AboutDlg::setThanks(const QString& thanks) {
 	dlgInt_->thanksPage()->setText(thanks);
 }
-	
+
 void AboutDlg::setLicense(const QString& str, bool isFileName) {
 	if (isFileName) {
 		QFile file(str);

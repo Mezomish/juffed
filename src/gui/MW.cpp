@@ -31,7 +31,7 @@ namespace GUI {
 MW::MW() : QMainWindow() {
 	setAcceptDrops(true);
 	setGeometry(MainSettings::windowRect());
-	setWindowIcon(QIcon(":juffed.png"));
+	setWindowIcon(QIcon(":juffed_32.png"));
 }
 
 void MW::closeEvent(QCloseEvent* e) {

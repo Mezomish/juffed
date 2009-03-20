@@ -82,7 +82,7 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	dlg->setThanks(thanks);
 	dlg->setLicense(License::licenseText, false);
 	dlg->resize(500, 300);
-	dlg->setIcon(QIcon(":juffed.png"));
+	dlg->setIcon(QIcon(":juffed_48.png"));
 	
 	return dlg;
 }

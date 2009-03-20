@@ -80,6 +80,7 @@ private:
 
 	QMenu* fileMenu_;
 	QMenu* toolsMenu_;
+	QMenu* docksMenu_;
 	QMenu* helpMenu_;
 
 	ToolBarList toolBars_;

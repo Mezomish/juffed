@@ -94,6 +94,8 @@ GUI::GUI() : QObject() {
 	
 	toolsMenu_ = new QMenu(tr("&Tools"));
 	helpMenu_ = new QMenu(tr("Help"));
+	docksMenu_ = new QMenu(tr("Dock windows"));
+	toolsMenu_->addMenu(docksMenu_);
 
 	CommandStorage* st = CommandStorage::instance();
 	st->registerCommand(ID_SETTINGS,    this, SLOT(settings()));
@@ -282,7 +284,8 @@ void GUI::addDocks(const QWidgetList& list) {
 		dock->setObjectName(title);
 		dock->setWidget(w);
 		mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
-		dock->hide();
+		
+		docksMenu_->addAction(dock->toggleViewAction());
 	}
 }
 

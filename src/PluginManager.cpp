@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QDir>
 #include <QtCore/QMap>
 #include <QtCore/QPluginLoader>
+#include <QtGui/QAction>
+#include <QtGui/QDockWidget>
 #include <QtGui/QMainWindow>
 #include <QtGui/QToolBar>
 
@@ -191,9 +193,6 @@ void PluginManager::loadPlugin(const QString& path) {
 				QWidgetList docks = plugin->dockList();
 				if ( !docks.isEmpty() ) {
 					pmInt_->docks_[type] << docks;
-					foreach(QWidget* dock, docks) {
-						pmInt_->dockVisible_[dock] = true;
-					}
 				}
 				
 				//	context menu actions
@@ -284,30 +283,38 @@ void PluginManager::setActiveEngine(const QString& type) {
 	if ( type == pmInt_->curEngine_ )
 		return;
 
+	//	remembering the visibility of docks of type 'all'
+	if ( pmInt_->docks_.contains("all") ) {
+		foreach (QWidget* w, pmInt_->docks_["all"]) {
+			pmInt_->dockVisible_[w] = w->parentWidget()->isVisible();
+		}
+	}
+	
 	//	hide currently opened controls
-	if ( !pmInt_->curEngine_.isEmpty() ) {
+	if ( !pmInt_->curEngine_.isEmpty() && pmInt_->curEngine_ != "all" ) {
 		//	docks
 		if ( pmInt_->docks_.contains(pmInt_->curEngine_) ) {
 			foreach (QWidget* w, pmInt_->docks_[pmInt_->curEngine_]) {
-				pmInt_->dockVisible_[w] = w->parentWidget()->isVisible();
-				w->parentWidget()->hide();
+				QDockWidget* dock = qobject_cast<QDockWidget*>(w->parentWidget());
+				if ( dock ) {
+					pmInt_->dockVisible_[w] = dock->isVisible();
+					dock->hide();
+					dock->toggleViewAction()->setVisible(false);
+				}
 			}
 		}
 	}
 
-	//	requested type
+	//	show controls of requested type
 	if ( pmInt_->docks_.contains(type) ) {
 		foreach (QWidget* w, pmInt_->docks_[type]) {
-			if ( pmInt_->dockVisible_[w] )
-				w->parentWidget()->show();
-		}
-	}
-
-	//	'all'
-	if ( pmInt_->docks_.contains("all") ) {
-		foreach (QWidget* w, pmInt_->docks_["all"]) {
-			if ( pmInt_->dockVisible_[w] )
-				w->parentWidget()->show();
+			QDockWidget* dock = qobject_cast<QDockWidget*>(w->parentWidget());
+			if ( dock ) {
+				if ( pmInt_->dockVisible_.contains(w) && pmInt_->dockVisible_[w] ) {
+					dock->show();
+				}
+				dock->toggleViewAction()->setVisible(true);
+			}
 		}
 	}
 

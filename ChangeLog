@@ -1,6 +1,17 @@
-++++++++++++++++++++++++
++++++++++++++++++++++++++++++++
 Version 0.5-svn:
-++++++++++++++++++++++++
++++++++++++++++++++++++++++++++
+
+2009-03-20:
+* Added: dev files installation (for plugin developers)
+* Added: list of dock windows
+* Added: remembering of dock visibility when switching documents 
+  of different types
+
+-------------------------------
+0.5 beta 1
+-------------------------------
+
 2009-03-19:
 * Fixed: updating line numbers bar to appropriate width
 * Fixed: loading autocompletion APIs from files

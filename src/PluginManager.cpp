@@ -70,6 +70,8 @@ public:
 	
 	//	stores all plugins' context menu actions
 	QMap<QString, ActionList> contextMenuActions_;
+	
+	QMap<QWidget*, bool> dockVisible_;
 };
 
 
@@ -189,6 +191,9 @@ void PluginManager::loadPlugin(const QString& path) {
 				QWidgetList docks = plugin->dockList();
 				if ( !docks.isEmpty() ) {
 					pmInt_->docks_[type] << docks;
+					foreach(QWidget* dock, docks) {
+						pmInt_->dockVisible_[dock] = true;
+					}
 				}
 				
 				//	context menu actions
@@ -284,6 +289,7 @@ void PluginManager::setActiveEngine(const QString& type) {
 		//	docks
 		if ( pmInt_->docks_.contains(pmInt_->curEngine_) ) {
 			foreach (QWidget* w, pmInt_->docks_[pmInt_->curEngine_]) {
+				pmInt_->dockVisible_[w] = w->parentWidget()->isVisible();
 				w->parentWidget()->hide();
 			}
 		}
@@ -292,14 +298,16 @@ void PluginManager::setActiveEngine(const QString& type) {
 	//	requested type
 	if ( pmInt_->docks_.contains(type) ) {
 		foreach (QWidget* w, pmInt_->docks_[type]) {
-			w->parentWidget()->show();
+			if ( pmInt_->dockVisible_[w] )
+				w->parentWidget()->show();
 		}
 	}
 
 	//	'all'
 	if ( pmInt_->docks_.contains("all") ) {
 		foreach (QWidget* w, pmInt_->docks_["all"]) {
-			w->parentWidget()->show();
+			if ( pmInt_->dockVisible_[w] )
+				w->parentWidget()->show();
 		}
 	}
 

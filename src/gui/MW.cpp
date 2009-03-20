@@ -68,7 +68,7 @@ void MW::dropEvent(QDropEvent* e) {
 		foreach (QUrl url, urls) {
 			QString name = url.path();
 
-#ifdef Q_OS_WIN32			
+#ifdef Q_OS_WIN32
 			//	hack to protect of strings with filenames like /C:/doc/file.txt
 			if ( name[0] == '/' )
 				name.remove(0, 1);

@@ -28,47 +28,47 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class IMInterior {
 public:
 	IMInterior() : default_(true) {
-		defaultIcons_[Juff::ID_FILE_NEW]		= "fileNew.png";
-		defaultIcons_[Juff::ID_FILE_OPEN]		= "fileOpen.png";
-		defaultIcons_[Juff::ID_FILE_SAVE]		= "fileSave.png";
-		defaultIcons_[Juff::ID_FILE_SAVE_AS]	= "fileSaveAs.png";
-		defaultIcons_[Juff::ID_FILE_PRINT]		= "filePrint.png";
-		defaultIcons_[Juff::ID_EXIT]			= "exit.png";
-		defaultIcons_[Juff::ID_EDIT_CUT] 		= "editCut.png";
-		defaultIcons_[Juff::ID_EDIT_COPY]		= "editCopy.png";
-		defaultIcons_[Juff::ID_EDIT_PASTE]		= "editPaste.png";
-		defaultIcons_[Juff::ID_EDIT_UNDO]		= "editUndo.png";
-		defaultIcons_[Juff::ID_EDIT_REDO]		= "editRedo.png";
-		defaultIcons_[Juff::ID_ZOOM_IN]			= "zoomIn.png";
-		defaultIcons_[Juff::ID_ZOOM_OUT]		= "zoomOut.png";
-		defaultIcons_[Juff::ID_ZOOM_100]		= "zoom100.png";
-		defaultIcons_[Juff::ID_FIND]			= "find.png";
-		defaultIcons_[Juff::ID_REPLACE]			= "replace.png";
-		defaultIcons_[Juff::ID_SETTINGS]		= "settings.png";
-		defaultIcons_[Juff::ID_ABOUT]			= "about.png";
-		defaultIcons_[Juff::ID_EOL_UNIX]		= "tux.png";
-		defaultIcons_[Juff::ID_EOL_MAC]			= "mac.png";
-		defaultIcons_[Juff::ID_EOL_WIN]			= "win.png";
+		defaultIcons_[Juff::ID_FILE_NEW]        = "fileNew.png";
+		defaultIcons_[Juff::ID_FILE_OPEN]       = "fileOpen.png";
+		defaultIcons_[Juff::ID_FILE_SAVE]       = "fileSave.png";
+		defaultIcons_[Juff::ID_FILE_SAVE_AS]    = "fileSaveAs.png";
+		defaultIcons_[Juff::ID_FILE_PRINT]      = "filePrint.png";
+		defaultIcons_[Juff::ID_EXIT]            = "exit.png";
+		defaultIcons_[Juff::ID_EDIT_CUT]        = "editCut.png";
+		defaultIcons_[Juff::ID_EDIT_COPY]       = "editCopy.png";
+		defaultIcons_[Juff::ID_EDIT_PASTE]      = "editPaste.png";
+		defaultIcons_[Juff::ID_EDIT_UNDO]       = "editUndo.png";
+		defaultIcons_[Juff::ID_EDIT_REDO]       = "editRedo.png";
+		defaultIcons_[Juff::ID_ZOOM_IN]         = "zoomIn.png";
+		defaultIcons_[Juff::ID_ZOOM_OUT]        = "zoomOut.png";
+		defaultIcons_[Juff::ID_ZOOM_100]        = "zoom100.png";
+		defaultIcons_[Juff::ID_FIND]            = "find.png";
+		defaultIcons_[Juff::ID_REPLACE]         = "replace.png";
+		defaultIcons_[Juff::ID_SETTINGS]        = "settings.png";
+		defaultIcons_[Juff::ID_ABOUT]           = "about.png";
+		defaultIcons_[Juff::ID_EOL_UNIX]        = "tux.png";
+		defaultIcons_[Juff::ID_EOL_MAC]         = "mac.png";
+		defaultIcons_[Juff::ID_EOL_WIN]         = "win.png";
 		
-		icons_[Juff::ID_FILE_NEW]		= "actions/document-new";
-		icons_[Juff::ID_FILE_OPEN]		= "actions/document-open";
-		icons_[Juff::ID_FILE_SAVE]		= "actions/document-save";
-		icons_[Juff::ID_FILE_SAVE_AS]	= "actions/document-save-as";
-		icons_[Juff::ID_FILE_PRINT]		= "actions/document-print";
-		icons_[Juff::ID_FILE_RELOAD]	= "actions/view-refresh";
-		icons_[Juff::ID_EXIT]			= "actions/exit";
-		icons_[Juff::ID_EDIT_CUT] 		= "actions/edit-cut";
-		icons_[Juff::ID_EDIT_COPY]		= "actions/edit-copy";
-		icons_[Juff::ID_EDIT_PASTE]		= "actions/edit-paste";
-		icons_[Juff::ID_EDIT_UNDO]		= "actions/edit-undo";
-		icons_[Juff::ID_EDIT_REDO]		= "actions/edit-redo";
-		icons_[Juff::ID_ZOOM_IN]		= "actions/zoom-in";
-		icons_[Juff::ID_ZOOM_OUT]		= "actions/zoom-out";
-		icons_[Juff::ID_ZOOM_100]		= "actions/zoom-original";
-		icons_[Juff::ID_FIND]			= "actions/edit-find";
-		icons_[Juff::ID_REPLACE]		= "actions/edit-find-replace";
-		icons_[Juff::ID_SETTINGS]		= "actions/configure";
-		icons_[Juff::ID_ABOUT]			= "apps/help";
+		icons_[Juff::ID_FILE_NEW]               = "actions/document-new";
+		icons_[Juff::ID_FILE_OPEN]              = "actions/document-open";
+		icons_[Juff::ID_FILE_SAVE]              = "actions/document-save";
+		icons_[Juff::ID_FILE_SAVE_AS]           = "actions/document-save-as";
+		icons_[Juff::ID_FILE_PRINT]             = "actions/document-print";
+		icons_[Juff::ID_FILE_RELOAD]            = "actions/view-refresh";
+		icons_[Juff::ID_EXIT]                   = "actions/exit";
+		icons_[Juff::ID_EDIT_CUT]               = "actions/edit-cut";
+		icons_[Juff::ID_EDIT_COPY]              = "actions/edit-copy";
+		icons_[Juff::ID_EDIT_PASTE]             = "actions/edit-paste";
+		icons_[Juff::ID_EDIT_UNDO]              = "actions/edit-undo";
+		icons_[Juff::ID_EDIT_REDO]              = "actions/edit-redo";
+		icons_[Juff::ID_ZOOM_IN]                = "actions/zoom-in";
+		icons_[Juff::ID_ZOOM_OUT]               = "actions/zoom-out";
+		icons_[Juff::ID_ZOOM_100]               = "actions/zoom-original";
+		icons_[Juff::ID_FIND]                   = "actions/edit-find";
+		icons_[Juff::ID_REPLACE]                = "actions/edit-find-replace";
+		icons_[Juff::ID_SETTINGS]               = "actions/configure";
+		icons_[Juff::ID_ABOUT]                  = "apps/help";
 		
 		theme_ = "<default>";
 		size_ = 1;
@@ -108,9 +108,7 @@ QStringList IconManager::themeList() const {
 		if ( QFile::exists(fullDirPath + "/32x32/actions/document-open.png") 
 				|| QFile::exists(fullDirPath + "/24x24/actions/document-open.png") 
 				|| QFile::exists(fullDirPath + "/16x16/actions/document-open.png") 
-				|| QFile::exists(fullDirPath + "/scalable/actions/document-open.svg") 
-		) 
-		{
+				|| QFile::exists(fullDirPath + "/scalable/actions/document-open.svg") ) {
 			thList << *it;
 		}
 	}
@@ -118,8 +116,6 @@ QStringList IconManager::themeList() const {
 }
 
 QIcon IconManager::getIcon(Juff::CommandID id) {
-//	JUFFENTRY;
-	
 	if ( !imInt_->icons_.contains(id) ) {
 		return getDefaultIcon(id);
 	}
@@ -141,7 +137,7 @@ QIcon IconManager::getIcon(Juff::CommandID id) {
 		//	If we are here then we didn't find a PNG icon. 
 		//	Try to find SVG.
 		QString svgIconFileName = iconDir + "/" + imInt_->theme_ + "/scalable/" + 
-							iconFileName + ".svg";
+				iconFileName + ".svg";
 		if ( QFileInfo(svgIconFileName).exists() ) {
 			return QIcon(svgIconFileName);
 		}
@@ -152,8 +148,6 @@ QIcon IconManager::getIcon(Juff::CommandID id) {
 }
 
 QIcon IconManager::getDefaultIcon(Juff::CommandID id) {
-//	JUFFENTRY;
-	
 	if ( imInt_->defaultIcons_.contains(id) ) {
 		QString iconFileName = imInt_->defaultIcons_[id];
 		for (int i = 0; i < 4; ++i) {

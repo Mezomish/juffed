@@ -32,6 +32,7 @@ class TabWidget : public QTabWidget {
 Q_OBJECT
 public:
 	TabWidget(QWidget* parent);
+	virtual ~TabWidget();
 
 public slots:
 	void nextWidget();

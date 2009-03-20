@@ -28,15 +28,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #endif
 
 //	local headers
-/*#ifdef Q_OS_WIN
-#include "AppInfo.win.h"
-#else*/
 #include "AppInfo.h"
-//#endif
 
 namespace Log {
-	
-	static bool logFileErrorShowed = false;
 
 	void printToLog(int n, bool canBeSkipped) {
 		printToLog(QString::number(n), canBeSkipped);
@@ -66,6 +60,7 @@ namespace Log {
 				}
 			}
 #else
+			Q_UNUSED(canBeSkipped);
 			qDebug(qPrintable(QString("Can't open log file: ") + log.errorString()));
 			qDebug(qPrintable(QString("Log string: ") + str));
 #endif

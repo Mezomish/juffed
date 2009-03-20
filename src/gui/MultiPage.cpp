@@ -47,6 +47,10 @@ public:
 		hbox->addWidget(panel_);
 		mp->setLayout(hbox);
 	}
+	~MultiPageInterior() {
+		delete tree_;
+		delete panel_;
+	}
 
 	QTreeWidget* tree_;
 	QWidget* panel_;
@@ -73,7 +77,7 @@ void MultiPage::addPage(const QString& title, QWidget* w) {
 	w->setParent(mpInt_->panel_);
 	mpInt_->pages_[it] = w;
 	w->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-	if (pageCount() == 1)
+	if ( pageCount() == 1 )
 		selectPage(0);
 	else
 		selectPage(currentIndex());
@@ -82,14 +86,14 @@ void MultiPage::addPage(const QString& title, QWidget* w) {
 void MultiPage::addChildPage(const QString& parentTitle, const QString& pageTitle, QWidget* w) {
 	JUFFENTRY;
 	QList<QTreeWidgetItem*> items = mpInt_->tree_->findItems(parentTitle, Qt::MatchFixedString);
-	if (!items.isEmpty()) {
+	if ( !items.isEmpty() ) {
 		QTreeWidgetItem* p = items[0];
 
 		QTreeWidgetItem* it = new QTreeWidgetItem(p, QStringList(pageTitle));
 		w->setParent(mpInt_->panel_);
 		mpInt_->pages_[it] = w;
 		w->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-		if (pageCount() == 1)
+		if ( pageCount() == 1 )
 			selectPage(0);
 		else
 			selectPage(currentIndex());
@@ -116,13 +120,15 @@ int MultiPage::currentIndex() const {
 }
 
 void MultiPage::changeCurrentItem(QTreeWidgetItem* it, QTreeWidgetItem*) {
-	if (it != 0) {
+	if ( it ) {
 		QWidget* page = mpInt_->pages_[it];
-		if (page != 0) {
-			foreach (QWidget* w, mpInt_->pages_.values())
+		if ( page )  {
+			foreach (QWidget* w, mpInt_->pages_.values()) {
 				w->hide();
-			while (mpInt_->panelLayout_->count() > 0)
+			}
+			while ( mpInt_->panelLayout_->count() > 0 ) {
 				mpInt_->panelLayout_->removeItem(mpInt_->panelLayout_->itemAt(0));
+			}
 			mpInt_->panelLayout_->addWidget(page);
 			page->show();
 		}

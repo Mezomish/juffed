@@ -35,6 +35,10 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	connect(tabBar_, SIGNAL(requestPrevDoc()), this, SLOT(prevWidget()));
 }
 
+TabWidget::~TabWidget() {
+	delete tabBar_;
+}
+
 void TabWidget::nextWidget() {
 	int index = currentIndex();
 	if ( index + 1 < count() )

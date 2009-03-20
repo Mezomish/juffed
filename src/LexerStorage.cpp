@@ -90,38 +90,38 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class LSInterior {
 public:
 	LSInterior() {
-		
+
 		//	TODO : make all these patterns configurable
 
 		//	file name patterns
-		fileNamePatterns["Bash"]	= "*.sh|*.run";
-		fileNamePatterns["Batch"]	= "*.bat";
-		fileNamePatterns["C++"]		= "*.h|*.hpp|*.hxx|*.h++|*.c|*.cc|*.cpp|*.cxx|*.c++";
-		fileNamePatterns["C#"]		= "*.cs";
-		fileNamePatterns["CMake"]	= "CMakeLists.txt|*.cmake";
-		fileNamePatterns["CSS"]		= "*.css";
-		fileNamePatterns["D"]		= "*.d|*.di";
-		fileNamePatterns["Diff"]	= "*.diff|*.patch";
-		fileNamePatterns["HTML"]	= "*.htm*|*.[xd]htm*";
-		fileNamePatterns["IDL"]		= "*.idl";
-		fileNamePatterns["Java"]	= "*.java";
-		fileNamePatterns["JavaScript"]	= "*.js";
-		fileNamePatterns["Lua"]		= "*.lua|*.tasklua";
-		fileNamePatterns["Makefile"]	= "*Makefile*";
-		fileNamePatterns["Perl"]	= "*.p[lm]";
-		fileNamePatterns["Python"]	= "*.py";
-		fileNamePatterns["PHP"]		= "*.php*";
-		fileNamePatterns["Ruby"]	= "*.rb";
-		fileNamePatterns["SQL"]		= "*.sql";
-		fileNamePatterns["XML"]		= "*.xml";
+		fileNamePatterns["Bash"]        = "*.sh|*.run";
+		fileNamePatterns["Batch"]       = "*.bat";
+		fileNamePatterns["C++"]         = "*.h|*.hpp|*.hxx|*.h++|*.c|*.cc|*.cpp|*.cxx|*.c++";
+		fileNamePatterns["C#"]          = "*.cs";
+		fileNamePatterns["CMake"]       = "CMakeLists.txt|*.cmake";
+		fileNamePatterns["CSS"]         = "*.css";
+		fileNamePatterns["D"]           = "*.d|*.di";
+		fileNamePatterns["Diff"]        = "*.diff|*.patch";
+		fileNamePatterns["HTML"]        = "*.htm*|*.[xd]htm*";
+		fileNamePatterns["IDL"]         = "*.idl";
+		fileNamePatterns["Java"]        = "*.java";
+		fileNamePatterns["JavaScript"]  = "*.js";
+		fileNamePatterns["Lua"]         = "*.lua|*.tasklua";
+		fileNamePatterns["Makefile"]    = "*Makefile*";
+		fileNamePatterns["Perl"]        = "*.p[lm]";
+		fileNamePatterns["Python"]      = "*.py";
+		fileNamePatterns["PHP"]         = "*.php*";
+		fileNamePatterns["Ruby"]        = "*.rb";
+		fileNamePatterns["SQL"]         = "*.sql";
+		fileNamePatterns["XML"]         = "*.xml";
 		//	1st line patterns
-		frstLinePatterns["Bash"]	= "*bash*|*/sh*";
-		frstLinePatterns["Diff"]	= "Index: *";
-		frstLinePatterns["HTML"]	= "<!doctype html*|<html*";
-		frstLinePatterns["Perl"]	= "*perl*";
-		frstLinePatterns["Python"]	= "*python*";
-		frstLinePatterns["PHP"]		= "<?php*|<? *|<?";
-		frstLinePatterns["XML"]		= "<!doctype*|<?xml*";
+		frstLinePatterns["Bash"]        = "*bash*|*/sh*";
+		frstLinePatterns["Diff"]        = "Index: *";
+		frstLinePatterns["HTML"]        = "<!doctype html*|<html*";
+		frstLinePatterns["Perl"]        = "*perl*";
+		frstLinePatterns["Python"]      = "*python*";
+		frstLinePatterns["PHP"]         = "<?php*|<? *|<?";
+		frstLinePatterns["XML"]         = "<!doctype*|<?xml*";
 	}
 	~LSInterior() {
 	}

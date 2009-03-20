@@ -19,7 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _JUFF_PLUGIN_H_
 #define _JUFF_PLUGIN_H_
 
-//#include "Functions.h"
 #include "Juff.h"
 #include "Parameter.h"
 #include "ManagerInterface.h"

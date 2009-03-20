@@ -34,7 +34,7 @@ PluginPage::PluginPage(const QString& pluginName, QWidget* page) :
 	connect(usePluginChk_, SIGNAL(toggled(bool)), SLOT(enablePage(bool)));
 	vBox->addWidget(usePluginChk_);
 
-	if (page != 0)
+	if ( page )
 		vBox->addWidget(page);
 	vBox->addStretch();
 	
@@ -51,9 +51,10 @@ bool PluginPage::pageEnabled() const {
 
 void PluginPage::enablePage(bool e) {
 	enabled_ = e;
-	if (sender() == 0)
+	if ( !sender() ) {
 		usePluginChk_->setChecked(e);
-	if (page_ != 0) {
+	}
+	if ( page_ ) {
 		page_->setEnabled(e);
 	}
 }

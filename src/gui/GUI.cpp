@@ -95,12 +95,12 @@ GUI::GUI() : QObject() {
 	connect(mw_, SIGNAL(docOpenRequested(const QString&)), this, SIGNAL(docOpenRequested(const QString&)));
 	
 	toolsMenu_ = new QMenu(tr("&Tools"));
-	helpMenu_ = new QMenu("?");
+	helpMenu_ = new QMenu(tr("Help"));
 
 	CommandStorage* st = CommandStorage::instance();
-	st->registerCommand(ID_SETTINGS, 		this, SLOT(settings()));
-	st->registerCommand(ID_ABOUT, 			this, SLOT(about()));
-	st->registerCommand(ID_ABOUT_QT,		this, SLOT(aboutQt()));
+	st->registerCommand(ID_SETTINGS,    this, SLOT(settings()));
+	st->registerCommand(ID_ABOUT,       this, SLOT(about()));
+	st->registerCommand(ID_ABOUT_QT,    this, SLOT(aboutQt()));
 	JUFFDEBUG("Filling the 'help' menu");
 	helpMenu_->addAction(st->action(ID_ABOUT));
 	helpMenu_->addAction(st->action(ID_ABOUT_QT));
@@ -342,8 +342,6 @@ void GUI::about() {
 void GUI::aboutQt() {
 	QMessageBox::aboutQt(mw_, tr("About Qt"));
 }
-
-
 
 }	//	namespace GUI
 }	//	namespace Juff

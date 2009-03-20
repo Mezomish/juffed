@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QMessageBox>
 
 namespace Juff {
-//namespace Data {
 
 Document::Document(const QString& fName) : QObject() {
 	if ( fName.isEmpty() ) {
@@ -90,17 +89,20 @@ void Document::checkLastModified() {
 				QString question = tr("The file '%1' was modified by external program.").arg(getDocTitle(fileName_)) + "\n";
 				question += tr("What do you want to do?");
 				QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, 
-							QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, widget());
+						QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, widget());
 				QAbstractButton* btn = msgBox.button(QMessageBox::Save);
-				if (btn != 0)
+				if ( btn ) {
 					btn->setText(tr("Save current"));
+				}
 				btn = msgBox.button(QMessageBox::Open);
-				if (btn != 0)
+				if ( btn ) {
 					btn->setText(tr("Reload from disk"));
+				}
 				btn = msgBox.button(QMessageBox::Cancel);
-				if (btn != 0)
+				if ( btn ) {
 					btn->setText(tr("Ignore"));
-					
+				}
+
 				int res = msgBox.exec();
 				switch (res) {
 					case QMessageBox::Open:

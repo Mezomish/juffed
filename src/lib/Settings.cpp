@@ -41,12 +41,12 @@ int Settings::count() {
 
 void Settings::read() {
 	QSettings sett(QSettings::IniFormat, QSettings::UserScope, 
-					QCoreApplication::organizationName(), QCoreApplication::applicationName());
+			QCoreApplication::organizationName(), QCoreApplication::applicationName());
 
 	QStringList groups = sett.childGroups();
 	foreach (QString grp, groups) {
 		sett.beginGroup(grp);
-		if (!settData_->data_.contains(grp))
+		if ( !settData_->data_.contains(grp) )
 			settData_->data_[grp] = Section();
 
 		QStringList groupKeys = sett.childKeys();
@@ -60,7 +60,7 @@ void Settings::read() {
 
 void Settings::write() {
 	QSettings sett(QSettings::IniFormat, QSettings::UserScope, 
-					QCoreApplication::organizationName(), QCoreApplication::applicationName());
+			QCoreApplication::organizationName(), QCoreApplication::applicationName());
 
 	QStringList groups = settData_->data_.keys();
 	foreach (QString grp, groups) {

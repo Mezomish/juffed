@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QWidget>
 
 namespace Juff {
-	
+
 class Document;
 
 namespace GUI {
@@ -31,7 +31,7 @@ class Viewer : public QObject {
 Q_OBJECT
 public:
 	Viewer();
-	~Viewer();
+	virtual ~Viewer();
 	
 	QWidget* widget();
 

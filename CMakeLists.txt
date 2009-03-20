@@ -126,17 +126,13 @@ SET ( juffed_MOC_HDRS
 	src/DocHandler.h
 	src/Document.h
 	src/JuffApp.h
-	src/LexerStorage.h
 	src/Manager.h
 	src/JuffScintilla.h
-	src/NullDoc.h
 	src/PluginManager.h
 	src/RichDoc.h
 	src/RichDocHandler.h
 	src/SciDoc.h
 	src/SciDocHandler.h
-	src/SimpleDoc.h
-	src/SimpleDocHandler.h
 	src/SocketListener.h
 	src/gui/AboutDlg.h
 	src/gui/CharsetsSettingsPage.h

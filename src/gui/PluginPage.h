@@ -28,7 +28,7 @@ Q_OBJECT
 public:
 	PluginPage(const QString& pluginName, QWidget* page);
 	virtual ~PluginPage();
-	
+
 	bool pageEnabled() const;
 	QString name() const { return name_; }
 

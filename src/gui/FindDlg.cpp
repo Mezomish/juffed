@@ -60,7 +60,7 @@ FindDlg::~FindDlg() {
 
 DocFindFlags FindDlg::flags() const {
 	return DocFindFlags(uiFind.replaceChk->isChecked(), uiFind.matchCaseChk->isChecked(), 
-						uiFind.backwardChk->isChecked(), uiFind.regexpChk->isChecked());
+			uiFind.backwardChk->isChecked(), uiFind.regexpChk->isChecked());
 }
 
 void FindDlg::keyPressEvent(QKeyEvent* e) {

@@ -364,7 +364,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 
 	//	add commands to menu
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW));
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW_RICH));
+//	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW_RICH));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_OPEN));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_AS));

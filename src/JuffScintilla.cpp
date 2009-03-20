@@ -56,32 +56,32 @@ bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
 	if (row < 0 || col < 0)
 		return false;
 
-	if (!flags.backwards) {
+	if ( !flags.backwards ) {
 		foreach (QString line, lines) {
-			if (lineIndex < row) {
+			if ( lineIndex < row ) {
 			}
 			else {
-				int indent(0);			
-				if (lineIndex == row) {
+				int indent(0);
+				if ( lineIndex == row ) {
 					line = line.right(line.length() - col);
 					indent = col;
 				}
 				int index(-1);
 				QRegExp regExp(str);
 				regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-				if (flags.isRegExp) {
+				if ( flags.isRegExp ) {
 					index = line.indexOf(regExp);
 				}
 				else {
-					if (!flags.matchCase) {
+					if ( !flags.matchCase ) {
 						str = str.toLower();
 						line = line.toLower();
 					}
 					index = line.indexOf(str);
 				}
 
-				if (index >= 0) {
-					if (flags.isRegExp) {
+				if ( index >= 0 ) {
+					if ( flags.isRegExp ) {
 						this->setSelection(lineIndex, index + indent, lineIndex, index + indent + regExp.matchedLength());
 						this->ensureCursorVisible();
 					}
@@ -99,30 +99,30 @@ bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
 		QStringList::iterator it = lines.end();
 		it--;
 		int lineIndex = lines.count() - 1;
-		while (lineIndex >= 0) {
-			if (lineIndex > row) {
+		while ( lineIndex >= 0 ) {
+			if ( lineIndex > row ) {
 			}
 			else {
 				QString line = *it;
-				if (lineIndex == row) {
+				if ( lineIndex == row ) {
 					line = line.left(col);
 				}
 
 				int index(-1);
 				QRegExp regExp(str);
 				regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-				if (flags.isRegExp)
+				if ( flags.isRegExp )
 					index = line.lastIndexOf(regExp);
 				else {
-					if (!flags.matchCase) {
+					if ( !flags.matchCase ) {
 						str = str.toLower();
 						line = line.toLower();
 					}
 					index = line.lastIndexOf(str);
 				}
 
-				if (index >= 0) {
-					if (flags.isRegExp) {
+				if ( index >= 0 ) {
+					if ( flags.isRegExp ) {
 						this->setSelection(lineIndex, index, lineIndex, index + regExp.matchedLength());
 						this->ensureCursorVisible();
 					}

@@ -136,6 +136,8 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	connect(docInt_->edit1_, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
 	connect(docInt_->edit1_, SIGNAL(cursorPositionChanged(int, int)), this, SIGNAL(cursorPositionChanged(int, int)));
 	connect(docInt_->edit2_, SIGNAL(cursorPositionChanged(int, int)), this, SIGNAL(cursorPositionChanged(int, int)));
+	connect(docInt_->edit1_, SIGNAL(contextMenuCalled(int, int)), this, SIGNAL(contextMenuCalled(int, int)));
+	connect(docInt_->edit2_, SIGNAL(contextMenuCalled(int, int)), this, SIGNAL(contextMenuCalled(int, int)));
 
 	QString lexName = LexerStorage::instance()->lexerName(fileName);
 	setSyntax(lexName);

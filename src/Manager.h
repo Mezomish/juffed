@@ -111,6 +111,7 @@ private slots:
 
 	void docModified(bool);
 	void onCursorPositionChanged(int, int);
+	void onContextMenuCalled(int, int);
 	void docFileNameChanged(const QString&);
 	void applySettings();
 	void onCloseEvent(bool&);

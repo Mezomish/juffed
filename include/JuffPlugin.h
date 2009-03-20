@@ -162,6 +162,14 @@ public:
 	*/
 	virtual void onDocRenamed(const QString& oldFileName, const QString& newFileName) {}
 	
+	/**
+	*	onContextMenuCalled()
+	*
+	* This method is called once document's context menu is about to be
+	* displayed. Parameters \par line, \par col contain cursor position
+	* (starting with 0, 0).
+	*/
+	virtual void onContextMenuCalled(int line, int col) { }
 	
 protected:
 	///	trivial accessor

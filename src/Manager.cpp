@@ -653,6 +653,7 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 			connect(doc, SIGNAL(modified(bool)), SLOT(docModified(bool)));
 			connect(doc, SIGNAL(fileNameChanged(const QString&)), SLOT(docFileNameChanged(const QString&)));
 			connect(doc, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(onCursorPositionChanged(int, int)));
+			connect(doc, SIGNAL(contextMenuCalled(int, int)), this, SLOT(onContextMenuCalled(int, int)));
 			
 			mInt_->docs1_[fName] = doc;
 			mInt_->viewer_->addDoc(doc, 1);
@@ -1211,7 +1212,11 @@ void Manager::docModified(bool mod) {
 void Manager::onCursorPositionChanged(int line, int col) {
 	mInt_->posL_->setText(tr(" Row: %1, Col: %2 ").arg(line+1).arg(col+1));
 }
-	
+
+void Manager::onContextMenuCalled(int line, int col) {
+	mInt_->pluginManager_->notifyContextMenuCalled(line, col);
+}
+
 void Manager::docFileNameChanged(const QString& oldName) {
 	JUFFENTRY;
 

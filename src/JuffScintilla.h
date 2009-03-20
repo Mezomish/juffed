@@ -40,6 +40,9 @@ public:
 	void addContextMenuActions(const ActionList&);
 	void showLineNumbers(bool);
 
+signals:
+	void contextMenuCalled(int, int);
+
 protected slots:
 	void updateLineNumbers();
 

@@ -87,6 +87,7 @@ public:
 	virtual void notifyDocModified(const QString&, bool);
 	virtual void notifyDocClosed(const QString&);
 	virtual void notifyDocRenamed(const QString&, const QString&);
+	virtual void notifyContextMenuCalled(int, int);
 
 private:
 	class Interior;

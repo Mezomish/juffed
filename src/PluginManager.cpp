@@ -142,6 +142,19 @@ void PluginManager::notifyDocRenamed(const QString& oldFileName, const QString& 
 		}
 	}
 }
+
+void PluginManager::notifyContextMenuCalled(int line, int col) {
+	JUFFENTRY;
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			if ( plugin ) {
+				plugin->onContextMenuCalled(line, col);
+			}
+		}
+	}
+}
+
+
 ////////////////////////////////////////////////////////////
 
 

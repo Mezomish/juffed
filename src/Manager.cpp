@@ -1467,6 +1467,16 @@ void Manager::removeSelectedText() {
 	}
 }
 
+void Manager::replaceSelectedText(const QString& text) {
+	JUFFENTRY;
+	
+	Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->removeSelectedText();
+		doc->insertText(text);
+	}
+}
+
 void Manager::insertText(const QString& text) {
 	JUFFENTRY;
 	

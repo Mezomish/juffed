@@ -59,6 +59,7 @@ public:
 	virtual void setCursorPos(int, int);
 	virtual void setSelection(int, int, int, int);
 	virtual void removeSelectedText();
+	virtual void replaceSelectedText(const QString&);
 	virtual void insertText(const QString&);
 
 	virtual bool closeDoc(const QString& fileName);

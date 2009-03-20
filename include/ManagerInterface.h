@@ -25,6 +25,28 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class ManagerInterface {
 public:
 	/**
+	*	openDoc()
+	*
+	*	Opens the document with file name \par fileName or
+	*	activates it if already opened.
+	*/
+	virtual void openDoc(const QString& fileName) = 0;
+
+	/**
+	*	closeDoc()
+	*
+	*	Closes the document with file name \par fileName.
+	*/
+	virtual bool closeDoc(const QString& fileName) = 0;
+
+	/**
+	*	saveDoc()
+	*
+	*	Saves the document with file name \par fileName.
+	*/
+	virtual void saveDoc(const QString& fileName) = 0;
+
+	/**
 	* docList()
 	*
 	* Returns the list of currently opened docs
@@ -84,7 +106,7 @@ public:
 	* if no documents are opened.
 	*/
 	virtual void getSelection(int& line1, int& column1, int& line2, int& column2) = 0;
-	
+
 	/**
 	* getSelectedText()
 	*
@@ -98,7 +120,7 @@ public:
 	  Sets the current document's cursor position to ( \par line, \par col ).
 	*/
 	virtual void setCursorPos(int line, int col) = 0;
-	
+
 	/**
 	*	setSelection()
 	*
@@ -106,41 +128,27 @@ public:
 	*	to ( \par line2, \par column2).
 	*/
 	virtual void setSelection(int line1, int column1, int line2, int column2) = 0;
-	
+
 	/**
 	*	removeSelectedText()
 	*
 	*	Removes current document's selected text.
 	*/
 	virtual void removeSelectedText() = 0;
-	
+
+	/**
+	*	replaceSelectedText()
+	*
+	*	Replaces current document's selected text with \par text.
+	*/
+	virtual void replaceSelectedText(const QString& text) = 0;
+
 	/**
 	*	insertText()
 	*
 	*	Inserts the text \par text to the current cursor position.
 	*/
 	virtual void insertText(const QString& text) = 0;
-
-	/**
-	*	activateDoc()
-	*
-	*	Activates the document with file name \par fileName.
-	*/
-	virtual void openDoc(const QString& fileName) = 0;
-	
-	/**
-	*	closeDoc()
-	*
-	*	Closes the document with file name \par fileName.
-	*/
-	virtual bool closeDoc(const QString& fileName) = 0;
-	
-	/**
-	*	saveDoc()
-	*
-	*	Saves the document with file name \par fileName.
-	*/
-	virtual void saveDoc(const QString& fileName) = 0;
 };
 
 #endif

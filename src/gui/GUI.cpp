@@ -1,5 +1,5 @@
 /*
-JuffEd - A simple text editor
+JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
@@ -62,7 +62,7 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	AboutDlg* dlg = new AboutDlg(parent);
 	dlg->setWindowTitle(QObject::tr("About"));
 	dlg->setProgramName(AppInfo::name() + " v" + AppInfo::version());
-	QString text = QString("   %1   \n\n   Copyright (c) 2007-2009 Mikhail Murzin   ").arg(QObject::tr("Simple text editor with syntax highlighting"));
+	QString text = QString("   %1   \n\n   Copyright (c) 2007-2009 Mikhail Murzin   ").arg(QObject::tr("Advanced text editor"));
 	QString auth("<br>&nbsp;Mikhail Murzin a.k.a. Mezomish<br>&nbsp;&nbsp;<a href='mailto:mezomish@gmail.com'>mezomish@gmail.com</a>");
 	QList<Helper> helpers;
 	helpers << Helper("Eugene Pivnev", "ti.eugene@gmail.com", QObject::tr("Packaging"))

@@ -1,5 +1,5 @@
 /*
-JuffEd - A simple text editor
+JuffEd - An advanced text editor
 Copyright 2007-2009 Murzin Mikhail
 
 This program is free software; you can redistribute it and/or

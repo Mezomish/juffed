@@ -183,22 +183,22 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
 <context>
     <name>Juff::Document</name>
     <message>
-        <location filename="../src/Document.cpp" line="90"/>
+        <location filename="../src/Document.cpp" line="89"/>
         <source>The file &apos;%1&apos; was modified by external program.</source>
         <translation>Plik &apos;%1&apos; został zmodyfikowany przez zewnętrzny program.</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="91"/>
+        <location filename="../src/Document.cpp" line="90"/>
         <source>What do you want to do?</source>
         <translation>Co chcesz zrobić?</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="92"/>
+        <location filename="../src/Document.cpp" line="91"/>
         <source>Warning</source>
         <translation>Uwaga</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="96"/>
+        <location filename="../src/Document.cpp" line="95"/>
         <source>Save current</source>
         <translation>Zapisz bieżący</translation>
     </message>
@@ -208,7 +208,7 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
         <translation>Wczytaj ponownie z dysku</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="102"/>
+        <location filename="../src/Document.cpp" line="103"/>
         <source>Ignore</source>
         <translation>Ignoruj</translation>
     </message>
@@ -273,6 +273,11 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="98"/>
+        <source>Help</source>
+        <translation>Pomoc</translation>
+    </message>
 </context>
 <context>
     <name>Juff::GUI::TabBar</name>
@@ -295,59 +300,59 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="674"/>
+        <location filename="../src/Manager.cpp" line="677"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Plik &apos;%1&apos; jest plikiem tylko do odczytu. </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="675"/>
+        <location filename="../src/Manager.cpp" line="678"/>
         <source>What do you want to do?</source>
         <translation>Co chcesz zrobić?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="676"/>
+        <location filename="../src/Manager.cpp" line="679"/>
         <source>Warning</source>
         <translation>Uwaga</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="677"/>
+        <location filename="../src/Manager.cpp" line="680"/>
         <source>Overwrite</source>
         <translation>Nadpisz</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="678"/>
+        <location filename="../src/Manager.cpp" line="681"/>
         <source>Save as</source>
         <translation>Zapisz jako</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="692"/>
+        <location filename="../src/Manager.cpp" line="695"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Nie można zmienić uprawnień: Brak dostępu</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="482"/>
+        <location filename="../src/Manager.cpp" line="484"/>
         <source>The document </source>
         <translation>Dokument </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="483"/>
+        <location filename="../src/Manager.cpp" line="485"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> został zmodyfikowany.
 Czy chcesz zachować swoje zmiany?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="484"/>
+        <location filename="../src/Manager.cpp" line="486"/>
         <source>Close document</source>
         <translation>Zamknij dokument</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1175"/>
+        <location filename="../src/Manager.cpp" line="1178"/>
         <source>Go to line</source>
         <translation>Idź do linii</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1257"/>
+        <location filename="../src/Manager.cpp" line="1264"/>
         <source> Row: %1, Col: %2 </source>
         <translation> Rząd: %1, Kolumna: %2 </translation>
     </message>
@@ -363,7 +368,7 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="480"/>
+        <location filename="../src/SciDoc.cpp" line="482"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -471,12 +476,12 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Bez nazwy</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="369"/>
+        <location filename="../src/SciDoc.cpp" line="371"/>
         <source>Confirmation</source>
         <translation>Potwierdzenie</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="370"/>
+        <location filename="../src/SciDoc.cpp" line="372"/>
         <source>Replace this text?</source>
         <translation>Zastąpić ten tekst?</translation>
     </message>
@@ -488,7 +493,7 @@ Czy chcesz zachować swoje zmiany?</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="65"/>
         <source>Simple text editor with syntax highlighting</source>
-        <translation>Prosty edytor tekstu ze składnią podświetlania</translation>
+        <translation type="obsolete">Prosty edytor tekstu ze składnią podświetlania</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="69"/>
@@ -536,14 +541,14 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Sesja</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="302"/>
+        <location filename="../src/SciDoc.cpp" line="304"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Wyszukiwanie osiągnęło początek pliku.
 Rozpocząć od końca?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="307"/>
+        <location filename="../src/SciDoc.cpp" line="309"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Wyszukiwanie osiągnęło koniec pliku.
@@ -783,6 +788,11 @@ Rozpocząć od początku?</translation>
         <location filename="../src/Manager.cpp" line="185"/>
         <source>Current character set</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="65"/>
+        <source>Advanced text editor</source>
+        <translation>Zaawansowany edytor tekstu</translation>
     </message>
 </context>
 <context>

@@ -183,22 +183,22 @@ anstelle von nur einer Leerstelle</translation>
 <context>
     <name>Juff::Document</name>
     <message>
-        <location filename="../src/Document.cpp" line="90"/>
+        <location filename="../src/Document.cpp" line="89"/>
         <source>The file &apos;%1&apos; was modified by external program.</source>
         <translation>Die Datei &apos;%1&apos; wurde von einem externen Programm geändert.</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="91"/>
+        <location filename="../src/Document.cpp" line="90"/>
         <source>What do you want to do?</source>
         <translation>Was wollen Sie tun?</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="92"/>
+        <location filename="../src/Document.cpp" line="91"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="96"/>
+        <location filename="../src/Document.cpp" line="95"/>
         <source>Save current</source>
         <translation>Speichere aktuelles</translation>
     </message>
@@ -208,7 +208,7 @@ anstelle von nur einer Leerstelle</translation>
         <translation>Erneut laden</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="102"/>
+        <location filename="../src/Document.cpp" line="103"/>
         <source>Ignore</source>
         <translation>Ignorieren</translation>
     </message>
@@ -273,6 +273,11 @@ anstelle von nur einer Leerstelle</translation>
         <source>About Qt</source>
         <translation>Über QT</translation>
     </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="98"/>
+        <source>Help</source>
+        <translation>Hilfe</translation>
+    </message>
 </context>
 <context>
     <name>Juff::GUI::TabBar</name>
@@ -295,54 +300,54 @@ anstelle von nur einer Leerstelle</translation>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="674"/>
+        <location filename="../src/Manager.cpp" line="677"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Datei &apos;%1&apos; ist schreibgeschützt.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="675"/>
+        <location filename="../src/Manager.cpp" line="678"/>
         <source>What do you want to do?</source>
         <translation>Was wollen Sie tun?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="676"/>
+        <location filename="../src/Manager.cpp" line="679"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="677"/>
+        <location filename="../src/Manager.cpp" line="680"/>
         <source>Overwrite</source>
         <translation>Überschreiben</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="678"/>
+        <location filename="../src/Manager.cpp" line="681"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="692"/>
+        <location filename="../src/Manager.cpp" line="695"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Einstellung können nicht geändert werden: Zugriff verweigert</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="482"/>
+        <location filename="../src/Manager.cpp" line="484"/>
         <source>The document </source>
         <translation>Dokument </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="483"/>
+        <location filename="../src/Manager.cpp" line="485"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> wurde geändert.
 Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="484"/>
+        <location filename="../src/Manager.cpp" line="486"/>
         <source>Close document</source>
         <translation>Dokument schließen</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1175"/>
+        <location filename="../src/Manager.cpp" line="1178"/>
         <source>Go to line</source>
         <translation>Gehe zu Zeile</translation>
     </message>
@@ -351,7 +356,7 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">Zeile: %1, Spalte: %2</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1257"/>
+        <location filename="../src/Manager.cpp" line="1264"/>
         <source> Row: %1, Col: %2 </source>
         <translation> Zeile: %1, Spalte: %2 </translation>
     </message>
@@ -367,7 +372,7 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="480"/>
+        <location filename="../src/SciDoc.cpp" line="482"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Datei kann nicht zum Schreiben geöffnet werden </translation>
     </message>
@@ -475,12 +480,12 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="369"/>
+        <location filename="../src/SciDoc.cpp" line="371"/>
         <source>Confirmation</source>
         <translation>Bestätigung</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="370"/>
+        <location filename="../src/SciDoc.cpp" line="372"/>
         <source>Replace this text?</source>
         <translation>Text ersetzen?</translation>
     </message>
@@ -492,7 +497,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="65"/>
         <source>Simple text editor with syntax highlighting</source>
-        <translation>Ein einfacher Texteditor mit Syntaxherforhebung</translation>
+        <translation type="obsolete">Ein einfacher Texteditor mit Syntaxherforhebung</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="69"/>
@@ -540,14 +545,14 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>Sitzung</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="302"/>
+        <location filename="../src/SciDoc.cpp" line="304"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Die Suche hat den Dateianfang erreicht.
 Am Ende fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="307"/>
+        <location filename="../src/SciDoc.cpp" line="309"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Die Suche hat das Dateiende erreicht.
@@ -787,6 +792,11 @@ Am Anfang fortsetzen?</translation>
         <location filename="../src/Manager.cpp" line="185"/>
         <source>Current character set</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/GUI.cpp" line="65"/>
+        <source>Advanced text editor</source>
+        <translation>Ein erweiterte Texteditor</translation>
     </message>
 </context>
 <context>

@@ -40,6 +40,7 @@ SocketListener::SocketListener(QObject* parent) : QThread(parent) {
 	//	is if connection to existing socket failed. That's
 	//	why if the socket path still exists, it isn't accociated
 	//	with any sockets
+#ifdef Q_OS_UNIX
 	if ( QFile::exists(AppInfo::socketPath()) )
 		QFile::remove(AppInfo::socketPath());
 	
@@ -73,6 +74,7 @@ SocketListener::SocketListener(QObject* parent) : QThread(parent) {
 			}
 		}
 	}
+#endif	//	Q_OS_UNIX
 }
 
 SocketListener::~SocketListener() {

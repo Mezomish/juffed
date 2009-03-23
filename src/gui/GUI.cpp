@@ -164,8 +164,11 @@ QString GUI::getSaveFileName(const QString& curFileName, const QString& filters,
 	QFileDialog saveDlg(mw_, tr("Save as"));
 	saveDlg.setConfirmOverwrite(true);
 	saveDlg.setAcceptMode(QFileDialog::AcceptSave);
+#if QT_VERSION >= 0x040400
 	saveDlg.setNameFilter(filters);
-
+#else
+	saveDlg.setFilter(filters);
+#endif
 	QLayout* layout = saveDlg.layout();
 	QCheckBox* saveAsCopyChk = new QCheckBox(tr("Save as a copy"));
 	saveAsCopyChk->setChecked(asCopy);

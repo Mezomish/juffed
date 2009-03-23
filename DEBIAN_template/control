@@ -6,7 +6,7 @@ Architecture: @ARCH
 Depends: libqt4-core (>= 4.2), libqt4-gui (>= 4.2), libqscintilla2-3 (>= 2.1)
 Installed-Size: @SIZE
 Maintainer: Mikhail Murzin <mezomish@gmail.com>
-Description: Simple multi-document text editor (Qt4)
+Description: Advanced text editor (Qt4)
  
  Some of the features:
   * multi-document interface (tabs);

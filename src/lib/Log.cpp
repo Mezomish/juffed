@@ -32,6 +32,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 namespace Log {
 
+#ifdef Q_OS_WIN
+	static bool logFileErrorShowed = false;
+#endif
+
 	void printToLog(int n, bool canBeSkipped) {
 		printToLog(QString::number(n), canBeSkipped);
 	}

@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QTabWidget>
 #include <QtGui/QVBoxLayout>
 
-#include "Document.h"
+#include "../Document.h"
 #include "Functions.h"
 #include "Log.h"
 #include "MainSettings.h"

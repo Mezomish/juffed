@@ -203,6 +203,11 @@ void JuffScintilla::focusInEvent(QFocusEvent* e) {
 	QsciScintilla::focusInEvent(e);
 }
 
+void JuffScintilla::focusOutEvent(QFocusEvent* e) {
+	cancelList();
+	QsciScintilla::focusOutEvent(e);
+}
+
 void JuffScintilla::addContextMenuActions(const ActionList& list) {
 	foreach (QAction* a, list) {
 		contextMenu_->addAction(a);

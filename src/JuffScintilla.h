@@ -51,6 +51,7 @@ protected:
 	virtual void dropEvent(QDropEvent* e);
 	virtual void contextMenuEvent(QContextMenuEvent* e);
 	virtual void focusInEvent(QFocusEvent* e);
+	virtual void focusOutEvent(QFocusEvent* e);
 
 private:
 	QMenu* contextMenu_;

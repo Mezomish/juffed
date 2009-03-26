@@ -18,11 +18,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Document.h"
 
+#include "CommandStorage.h"
 #include "Log.h"
 #include "Functions.h"
 
 #include <QtCore/QFileInfo>
 #include <QtGui/QAbstractButton>
+#include <QtGui/QAction>
 #include <QtGui/QMessageBox>
 
 namespace Juff {
@@ -93,10 +95,16 @@ void Document::checkLastModified() {
 				QAbstractButton* btn = msgBox.button(QMessageBox::Save);
 				if ( btn ) {
 					btn->setText(tr("Save current"));
+					QAction* saveAct = CommandStorage::instance()->action(Juff::ID_FILE_SAVE);
+					if ( saveAct )
+						btn->setIcon(saveAct->icon());
 				}
 				btn = msgBox.button(QMessageBox::Open);
 				if ( btn ) {
 					btn->setText(tr("Reload from disk"));
+					QAction* saveAct = CommandStorage::instance()->action(Juff::ID_FILE_RELOAD);
+					if ( saveAct )
+						btn->setIcon(saveAct->icon());
 				}
 				btn = msgBox.button(QMessageBox::Cancel);
 				if ( btn ) {

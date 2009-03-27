@@ -791,12 +791,18 @@ void Manager::fileOpen() {
 	}
 	
 	QStringList files = mInt_->gui_->getOpenFileNames(startDir, filters);
-	QString fileName = "";
-	foreach (fileName, files) {
-		openDoc(fileName);
-	}
-	if ( !fileName.isEmpty() )
+	if ( files.count() > 0 ) {
+		
+		//	close the current document if it is alone and not modified
+		if ( docCount() == 1 && doc && isNoname(doc->fileName()) && !doc->isModified() )
+			fileClose();
+	
+		QString fileName = "";
+		foreach (fileName, files) {
+			openDoc(fileName);
+		}
 		MainSettings::setLastOpenDir(QFileInfo(fileName).absolutePath());
+	}
 }
 
 void Manager::fileRecent() {
@@ -1340,6 +1346,9 @@ void Manager::onDocNameRequested(QWidget* w, QString& fileName) {
 
 
 
+int Manager::docCount() const {
+	return mInt_->docs1_.count() + mInt_->docs2_.count();
+}
 
 void Manager::getDocList(QStringList& list) const {
 	JUFFENTRY;

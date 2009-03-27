@@ -46,6 +46,7 @@ public:
 
 
 	//	inherited methods from ManagerInterface
+	virtual int docCount() const;
 	virtual void getDocList(QStringList&) const;
 	virtual void getCurDocName(QString&) const;
 	virtual void getCurrentDocText(QString&);

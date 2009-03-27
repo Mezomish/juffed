@@ -47,6 +47,13 @@ public:
 	virtual void saveDoc(const QString& fileName) = 0;
 
 	/**
+	* docCount()
+	*
+	* Returns the number of currently opened docs
+	*/
+	virtual int docCount() const = 0;
+
+	/**
 	* docList()
 	*
 	* Returns the list of currently opened docs

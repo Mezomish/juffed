@@ -108,9 +108,13 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	showLineNumbers(TextDocSettings::showLineNumbers());
 	showInvisibleSymbols(TextDocSettings::showInvisibleSymbols());
 
-	if ( !isNoname(fileName) ) {
+	if ( !fileName.isEmpty() && !isNoname(fileName) ) {
 		readDoc();
 		docInt_->edit1_->setModified(false);
+
+		//	syntax highlighting
+		QString lexName = LexerStorage::instance()->lexerName(fileName);
+		setSyntax(lexName);
 		
 		//	line endings
 		QFile file(fileName);
@@ -132,16 +136,16 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 			file.close();
 		}
 	}
+	else {
+		setSyntax("none");
+	}
 
 	connect(docInt_->edit1_, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
 	connect(docInt_->edit1_, SIGNAL(cursorPositionChanged(int, int)), this, SIGNAL(cursorPositionChanged(int, int)));
 	connect(docInt_->edit2_, SIGNAL(cursorPositionChanged(int, int)), this, SIGNAL(cursorPositionChanged(int, int)));
 	connect(docInt_->edit1_, SIGNAL(contextMenuCalled(int, int)), this, SIGNAL(contextMenuCalled(int, int)));
 	connect(docInt_->edit2_, SIGNAL(contextMenuCalled(int, int)), this, SIGNAL(contextMenuCalled(int, int)));
-
-	QString lexName = LexerStorage::instance()->lexerName(fileName);
-	setSyntax(lexName);
-	
+		
 	applySettings();
 	
 	QAction* unindentAct = new QAction(this);

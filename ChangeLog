@@ -2,6 +2,18 @@
 Version 0.5-svn:
 +++++++++++++++++++++++++++++++
 
+2009-03-27:
+* Fixed: trying to read a file with empty name when creating a new doc
+* Added: replacing the not modified empty doc with opened one 
+  if it was the only one before opening
+
+2009-03-26:
+* Fixed: hiding autocompletion list when switching the document
+* Added: icons to external modification dialog buttons
+
+2009-03-23:
+* Fixed: compilation issues on Windows
+
 2009-03-20:
 * Added: dev files installation (for plugin developers)
 * Added: list of dock windows

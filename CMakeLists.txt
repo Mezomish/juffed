@@ -24,10 +24,6 @@ SET ( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 SET ( JUFFED "juffed" CACHE STRING "Name of the executeable" )
 
 
-#Version
-FILE ( READ "${CMAKE_SOURCE_DIR}/version" JUFFED_VERSION )
-STRING ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
-
 # flag indicating that this is an SVN snapshot release
 SET ( SVN 1 )
 
@@ -47,9 +43,16 @@ IF ( SVN )
 		OUTPUT_VARIABLE DATE
 	)
 	STRING ( STRIP "${DATE}" DATE )
-	SET ( JUFFED_VERSION ${JUFFED_VERSION}-svn${DATE}-r${REV} )
+	
+	SET ( VERSION_SUFFIX "-0svn${DATE}-r${REV}" )
+ELSE ( SVN )
+	SET ( VERSION_SUFFIX "" )
 ENDIF ( SVN )
 
+#Version
+CONFIGURE_FILE ( "${CMAKE_CURRENT_SOURCE_DIR}/cmake/version.in" "${CMAKE_CURRENT_SOURCE_DIR}/version" @ONLY )
+FILE ( READ "${CMAKE_SOURCE_DIR}/version" JUFFED_VERSION )
+STRING ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
 SET ( VERSION ${JUFFED_VERSION} )
 
 # Install Directories

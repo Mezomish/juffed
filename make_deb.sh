@@ -60,7 +60,9 @@ done
 rm -rf ${TEMP_DIR}
 mkdir -p ${TEMP_DIR}/usr
 
-make FAKE_ROOT=${TEMP_DIR} install || exit_with_error
+cd build
+make DESTDIR="../${TEMP_DIR}" install || exit_with_error
+cd ..
 strip ${TEMP_DIR}/usr/bin/juffed
 
 cp -R DEBIAN_template ${TEMP_DIR}/DEBIAN

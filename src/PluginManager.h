@@ -60,7 +60,7 @@ public:
 	*	Returns list of menu actions added by plugins to
 	*	menu with MenuID \par id.
 	*/
-	MenuList getMenuActions(const QString& engine, MenuID id);
+	ActionList getMainMenuActions(const QString& engine, MenuID id);
 
 	/**
 	*	getToolBars()

@@ -243,9 +243,12 @@ MenuList PluginManager::getMenus(const QString& engine) {
 	return menus;
 }
 
-MenuList PluginManager::getMenuActions(const QString& engine, MenuID id) {
+ActionList PluginManager::getMainMenuActions(const QString& engine, MenuID id) {
 	JUFFENTRY;
-	MenuList list;
+	ActionList list;
+	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+		list << plugin->mainMenuActions(id);
+	}
 	return list;
 }
 

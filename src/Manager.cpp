@@ -77,6 +77,13 @@ public:
 		foreach(QToolBar* tb, toolBars)
 			tb->hide();
 	}
+	void addActions(const QString& type, const ActionList& list) {
+		if ( !actions_.contains(type) )
+			actions_[type] = ActionList();
+		actions_[type] << list;
+		foreach(QAction* act, list)
+			act->setVisible(false);
+	}
 	void addAction(const QString& type, QAction* act) {
 		if ( !actions_.contains(type) )
 			actions_[type] = ActionList();
@@ -425,7 +432,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->guiManager_.addToolBar("all", mInt_->mainTB_);
 	mInt_->guiManager_.addToolBars("sci", sciToolBars);
 	mInt_->guiManager_.addToolBars("rich", richToolBars);
-	
+
+
 	//	recent files
 	QAction* saveAct = CommandStorage::instance()->action(ID_FILE_SAVE);
 	if ( mInt_->fileMenu_ && saveAct ) {
@@ -457,11 +465,40 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->guiManager_.addMenus("sci", sciMenus);
 	mInt_->guiManager_.addMenus("rich", richMenus);
 
+	//	add main menu actions from plugins
+	MenuID ids[] = { ID_MENU_FILE, ID_MENU_EDIT, ID_MENU_FORMAT, ID_MENU_TOOLS, ID_MENU_NONE };
+	QString engines[] = { "sci", "rich", "all", "" };
+	int ei = 0;
+	while ( !engines[ei].isEmpty() ) {
+		QString engine = engines[ei];
+		int i = 0;
+		while ( ids[i] != ID_MENU_NONE ) {
+			MenuID id = ids[i];
+			QMenu* menu = 0;
+			switch ( id ) {
+				case ID_MENU_FILE : menu = mInt_->fileMenu_; break;
+				case ID_MENU_EDIT : menu = mInt_->editMenu_; break;
+				case ID_MENU_FORMAT : menu = mInt_->formatMenu_; break;
+				case ID_MENU_TOOLS : menu = mInt_->gui_->toolsMenu(); break;
+				default: ;
+			}
+			if ( menu ) {
+				ActionList actions = mInt_->pluginManager_->getMainMenuActions(engine, id);
+				mInt_->guiManager_.addActions(engine, actions);
+				foreach (QAction* act, actions)
+					menu->addAction(act);
+			}
+			++i;
+		}
+		++ei;
+	}
+	//
 	MenuList menus;
 	menus << standardMenus << sciMenus << richMenus;
 	gui->setMainMenus(menus);
 	//
-	
+
+
 	mInt_->guiManager_.setType("all");
 	mInt_->pluginManager_->setActiveEngine("all");
 	applySettings();

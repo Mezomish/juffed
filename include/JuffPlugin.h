@@ -68,14 +68,13 @@ public:
 	virtual QMenu* menu() const { return 0; }
 
 	/**
-	* subMenus()
+	* mainMenuActions()
 	*
-	* Returns list of menus that should be added to menu
+	* Returns list of actions that should be added to menu
 	* with given MenuID.
-	* Reimplement this method if you need to add items to main
-	* or context menu.
+	* Reimplement this method if you need to add items to main menu.
 	*/
-	virtual Juff::MenuList subMenus(Juff::MenuID) const { return Juff::MenuList(); }
+	virtual Juff::ActionList mainMenuActions(Juff::MenuID) const { return Juff::ActionList(); }
 	
 	/**
 	* toolBar()

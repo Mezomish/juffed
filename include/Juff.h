@@ -116,6 +116,7 @@ enum DocCommand {
 };
 
 enum MenuID {
+	ID_MENU_NONE,
 	ID_MENU_FILE,
 	ID_MENU_EDIT,
 	ID_MENU_VIEW,

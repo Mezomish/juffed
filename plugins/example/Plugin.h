@@ -8,7 +8,7 @@ class QTextBrowser;
 
 #include <QtCore/QObject>
 
-#include "juffed/JuffPlugin.h"
+#include <juffed/JuffPlugin.h>
 
 //	Change this : your class name
 class Plugin : public QObject, public JuffPlugin {
@@ -43,6 +43,8 @@ public:
 	virtual QWidgetList dockList() const;
 	//	some actions that we want to add to context menu
 	virtual Juff::ActionList contextMenuActions() const;
+	//	some actions that we want to add to main menu
+	virtual Juff::ActionList mainMenuActions(Juff::MenuID) const;
 
 public slots:
 	void view();
@@ -57,6 +59,11 @@ private:
 	QToolBar* toolBar_;
 	QWidget* widget_;
 	QTextBrowser* view_;
+
+	QAction* fileAct_;
+	QAction* editAct_;
+	QAction* formatAct_;
+	QAction* toolsAct_;
 };
 
 #endif

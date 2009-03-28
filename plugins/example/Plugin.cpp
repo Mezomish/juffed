@@ -42,12 +42,21 @@ Plugin::Plugin() : QObject(), JuffPlugin() {
 	QVBoxLayout* vBox = new QVBoxLayout();
 	vBox->addWidget(view_);
 	widget_->setLayout(vBox);
+	
+	fileAct_ = new QAction("File menu dummy", 0);
+	editAct_ = new QAction("Edit menu dummy", 0);
+	formatAct_ = new QAction("Format menu dummy", 0);
+	toolsAct_ = new QAction("Tools menu dummy", 0);
 }
 
 Plugin::~Plugin() {
 	delete menu_;
 	delete toolBar_;
 	delete widget_;
+	delete fileAct_;
+	delete editAct_;
+	delete formatAct_;
+	delete toolsAct_;
 }
 
 QString Plugin::name() const {
@@ -76,6 +85,18 @@ QMenu* Plugin::menu() const {
 Juff::ActionList Plugin::contextMenuActions() const {
 	Juff::ActionList list;
 	list << dateAction_;
+	return list;
+}
+
+Juff::ActionList Plugin::mainMenuActions(Juff::MenuID id) const {
+	Juff::ActionList list;
+	switch ( id ) {
+		case Juff::ID_MENU_FILE   : list << fileAct_; break;
+		case Juff::ID_MENU_EDIT   : list << editAct_; break;
+		case Juff::ID_MENU_FORMAT : list << formatAct_ ; break;
+		case Juff::ID_MENU_TOOLS  : list << toolsAct_; break;
+		default: ;
+	}
 	return list;
 }
 

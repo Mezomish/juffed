@@ -24,6 +24,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class ManagerInterface {
 public:
+
+	////////////////////////////////////////////////////////
+	//	Documents manipulation functions
+	////////////////////////////////////////////////////////
+
 	/**
 	*	openDoc()
 	*
@@ -45,6 +50,12 @@ public:
 	*	Saves the document with file name \par fileName.
 	*/
 	virtual void saveDoc(const QString& fileName) = 0;
+
+
+
+	////////////////////////////////////////////////////////
+	//	Getting information functions
+	////////////////////////////////////////////////////////
 
 	/**
 	* docCount()
@@ -120,6 +131,12 @@ public:
 	* Returns the currently selected \par text.
 	*/
 	virtual void getSelectedText(QString& text) = 0;
+
+
+
+	////////////////////////////////////////////////////////
+	//	Current document text manipulation functions
+	////////////////////////////////////////////////////////
 
 	/**
 	* setCursorPos()

@@ -682,6 +682,16 @@ void SciDoc::removeSelectedText() {
 	edit->removeSelectedText();
 }
 
+void SciDoc::replaceSelectedText(const QString& text) {
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+
+	edit->beginUndoAction();
+	removeSelectedText();
+	insertText(text);
+	edit->endUndoAction();
+}
 
 int SciDoc::curScrollPos() const {
 	JuffScintilla* edit = getActiveEdit();

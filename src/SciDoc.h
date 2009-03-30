@@ -65,6 +65,7 @@ public:
 	virtual void setSelection(int, int, int, int);
 	virtual void insertText(const QString&);
 	virtual void removeSelectedText();
+	virtual void replaceSelectedText(const QString&);
 	virtual int curLine() const;
 	virtual int curScrollPos() const;
 	virtual void setScrollPos(int);

@@ -1520,8 +1520,7 @@ void Manager::replaceSelectedText(const QString& text) {
 	
 	Document* doc = curDoc();
 	if ( !doc->isNull() ) {
-		doc->removeSelectedText();
-		doc->insertText(text);
+		doc->replaceSelectedText(text);
 	}
 }
 

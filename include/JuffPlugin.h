@@ -38,6 +38,12 @@ public:
 		manager_ = m;
 	}
 
+
+
+	////////////////////////////////////////////////////////
+	//	Plugin information functions
+	////////////////////////////////////////////////////////
+
 	/**
 	* name()
 	*
@@ -58,7 +64,13 @@ public:
 	* Returns the engine this plugin is intended for.
 	*/
 	virtual QString targetEngine() const = 0;
-	
+
+
+
+	////////////////////////////////////////////////////////
+	//	Plugin controls functions
+	////////////////////////////////////////////////////////
+
 	/**
 	* menu()
 	*
@@ -114,10 +126,13 @@ public:
 	* Returns the default position of plugin's dock widget.
 	*/
 	virtual Qt::DockWidgetArea dockPosition(QWidget*) const { return Qt::LeftDockWidgetArea; }
-	
-	/////////////////////////////
+
+
+
+	////////////////////////////////////////////////////////
 	// Info Events
-	/////////////////////////////
+	////////////////////////////////////////////////////////
+
 	/**
 	* onDocCreated()
 	*
@@ -161,6 +176,13 @@ public:
 	virtual void onDocRenamed(const QString& oldFileName, const QString& newFileName) { Q_UNUSED(newFileName); Q_UNUSED(oldFileName); }
 	
 	/**
+	* onDocSaved()
+	*
+	* This method is called once document with file name \par fileName was saved.
+	*/
+	virtual void onDocSaved(const QString& fileName) { Q_UNUSED(fileName); }
+	
+	/**
 	*	onContextMenuCalled()
 	*
 	* This method is called once document's context menu is about to be
@@ -168,9 +190,10 @@ public:
 	* (starting with 0, 0).
 	*/
 	virtual void onContextMenuCalled(int line, int col) { Q_UNUSED(line); Q_UNUSED(col); }
-	
+
+
 protected:
-	///	trivial accessor
+	///	trivial accessor to Manager
 	ManagerInterface* manager() const { return manager_; }
 	
 private:

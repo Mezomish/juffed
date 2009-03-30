@@ -762,6 +762,8 @@ bool Manager::saveDoc(Document* doc, const QString& fileName) {
 		return false;
 	}
 
+	mInt_->pluginManager_->notifyDocSaved(name);
+
 	return true;
 }
 

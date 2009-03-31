@@ -29,9 +29,6 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	contextMenu_->addAction(st->action(ID_EDIT_COPY));
 	contextMenu_->addAction(st->action(ID_EDIT_PASTE));
 	contextMenu_->addSeparator();
-	contextMenu_->addAction(st->action(ID_EDIT_UNDO));
-	contextMenu_->addAction(st->action(ID_EDIT_REDO));
-	contextMenu_->addSeparator();
 	contextMenu_->addAction(st->action(ID_FIND));
 	contextMenu_->addAction(st->action(ID_FIND_NEXT));
 	contextMenu_->addAction(st->action(ID_FIND_PREV));

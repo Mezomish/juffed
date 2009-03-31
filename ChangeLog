@@ -3,6 +3,8 @@ Version 0.5-svn:
 +++++++++++++++++++++++++++++++
 2009-03-30:
 * Added: notification about document saving to plugins API
+* Fixed: made replaceSelectedText() function atomic for Undo/Redo actions
+* Fixed: installing headers when installing the program
 
 2009-03-28:
 * Added: adding actions to main menu sub-menus by plugins

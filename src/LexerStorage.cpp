@@ -479,6 +479,7 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		QsciLexer* newLexer = 0;
 		if ( name.compare("C++") == 0 ) {
 			newLexer = new QsciLexerCPP();
+			((QsciLexerCPP*)newLexer)->setFoldComments(true);
 		}
 		else if ( name.compare("CMake") == 0 ) {
 			newLexer = new QsciLexerCMake();

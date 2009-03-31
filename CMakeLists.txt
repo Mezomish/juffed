@@ -169,6 +169,25 @@ SET ( juffed_TS
 	l10n/juffed_zh_CN.ts
 )
 
+SET ( juffed_includes
+	include/AppInfo.h
+	include/AutocompleteSettings.h
+	include/CharsetsSettings.h
+	include/CommandStorage.h
+	include/Functions.h
+	include/IconManager.h
+	include/Juff.h
+	include/JuffPlugin.h
+	include/License.h
+	include/Log.h
+	include/MainSettings.h
+	include/ManagerInterface.h
+	include/Parameter.h
+	include/PluginSettings.h
+	include/Settings.h
+	include/TextDocSettings.h
+)
+
 FIND_PACKAGE ( Qt4 REQUIRED )
 FIND_PACKAGE ( QScintilla2 REQUIRED)
 SET (QT_USE_QTXML TRUE)
@@ -252,6 +271,7 @@ INSTALL ( DIRECTORY hlschemes DESTINATION ${DATA_INSTALL_DIR} PATTERN ".svn" EXC
 INSTALL ( DIRECTORY apis DESTINATION ${DATA_INSTALL_DIR} PATTERN "*.svn" EXCLUDE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ )
 INSTALL ( FILES juffed.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/pixmaps )
 INSTALL ( FILES juffed.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications )
+INSTALL ( FILES ${juffed_includes} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME} )
 
 # uninstall 
 CONFIGURE_FILE(
@@ -259,12 +279,3 @@ CONFIGURE_FILE(
 
 ADD_CUSTOM_TARGET(uninstall
   "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
-
-ADD_CUSTOM_TARGET ( install-dev
-	"install" -d ${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME} &&
-	cp -R "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h" ${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME}
-)
-
-ADD_CUSTOM_TARGET ( uninstall-dev
-	rm -rf ${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME}
-)

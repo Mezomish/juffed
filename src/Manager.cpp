@@ -57,7 +57,7 @@ public:
 		gui_ = gui;
 		pluginManager_ = 0;
 		
-		mainTB_ = createMainToolBar();
+		mainTB_ = new QToolBar("Main");
 		fileMenu_ = new QMenu(QObject::tr("&File"));
 		editMenu_ = new QMenu(QObject::tr("&Edit"));
 		formatMenu_ = new QMenu(QObject::tr("Fo&rmat"));
@@ -131,63 +131,6 @@ public:
 
 		MainSettings::setRecentFiles(recentFiles_.join(";"));
 	}
-	
-	QToolBar* createMainToolBar() const {
-		QToolBar* tb = new QToolBar("Main");
-
-		CommandStorage* st = CommandStorage::instance();
-		QString tbStr = MainSettings::toolBar();
-		if ( tbStr.isEmpty() ) {
-			tb->addAction(st->action(ID_FILE_NEW));
-			tb->addAction(st->action(ID_FILE_OPEN));
-			tb->addAction(st->action(ID_FILE_SAVE));
-			tb->addAction(st->action(ID_SEPARATOR));
-			tb->addAction(st->action(ID_FILE_PRINT));
-			tb->addAction(st->action(ID_SEPARATOR));
-			tb->addAction(st->action(ID_EDIT_UNDO));
-			tb->addAction(st->action(ID_EDIT_REDO));
-			tb->addAction(st->action(ID_SEPARATOR));
-			tb->addAction(st->action(ID_EDIT_CUT));
-			tb->addAction(st->action(ID_EDIT_COPY));
-			tb->addAction(st->action(ID_EDIT_PASTE));
-		}
-		else {
-			QStringList items = tbStr.split('|');
-			foreach (QString item, items) {
-				CommandID id = ID_NONE;
-				if ( item == "sep" )
-					id = ID_SEPARATOR;
-				else if ( item == "new" )
-					id = ID_FILE_NEW;
-				else if ( item == "open" )
-					id = ID_FILE_OPEN;
-				else if ( item == "save" )
-					id = ID_FILE_SAVE;
-				else if ( item == "print" )
-					id = ID_FILE_PRINT;
-				else if ( item == "undo" )
-					id = ID_EDIT_UNDO;
-				else if ( item == "redo" )
-					id = ID_EDIT_REDO;
-				else if ( item == "cut" )
-					id = ID_EDIT_CUT;
-				else if ( item == "copy" )
-					id = ID_EDIT_COPY;
-				else if ( item == "paste" )
-					id = ID_EDIT_PASTE;
-				else if ( item == "find" )
-					id = ID_FIND;
-				else if ( item == "replace" )
-					id = ID_REPLACE;
-				
-				if ( id != ID_NONE )
-					tb->addAction(st->action(id));
-			}
-		}
-		
-		
-		return tb;
-	}
 
 	void displayFileName(const QString& fileName) {
 		nameL_->setText(QString(" %1 ").arg(fileName));
@@ -218,83 +161,16 @@ public:
 
 Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	JUFFENTRY;
-	
-	//	register commands
-	CommandStorage* st = CommandStorage::instance();
-	st->registerCommand(ID_FILE_NEW,        this, SLOT(fileNew()));
-	st->registerCommand(ID_FILE_OPEN,       this, SLOT(fileOpen()));
-	st->registerCommand(ID_FILE_SAVE,       this, SLOT(fileSave()));
-	st->registerCommand(ID_FILE_SAVE_AS,    this, SLOT(fileSaveAs()));
-	st->registerCommand(ID_FILE_RELOAD,     this, SLOT(fileReload()));
-	st->registerCommand(ID_FILE_CLOSE,      this, SLOT(fileClose()));
-	st->registerCommand(ID_FILE_CLOSE_ALL,  this, SLOT(fileCloseAll()));
-	st->registerCommand(ID_FILE_PRINT,      this, SLOT(filePrint()));
-	st->registerCommand(ID_EXIT,            this, SLOT(exit()));
-	//
-	st->registerCommand(ID_FILE_NEW_RICH,   this, SLOT(fileNewRich()));
-	//
-	st->registerCommand(ID_SESSION_NEW,     this, SLOT(sessionNew()));
-	st->registerCommand(ID_SESSION_OPEN,    this, SLOT(sessionOpen()));
-	st->registerCommand(ID_SESSION_SAVE,    this, SLOT(sessionSave()));
-	st->registerCommand(ID_SESSION_SAVE_AS, this, SLOT(sessionSaveAs()));
-	//
-	st->registerCommand(ID_EDIT_UNDO,       this, SLOT(editUndo()));
-	st->registerCommand(ID_EDIT_REDO,       this, SLOT(editRedo()));
-	st->registerCommand(ID_EDIT_CUT,        this, SLOT(editCut()));
-	st->registerCommand(ID_EDIT_COPY,       this, SLOT(editCopy()));
-	st->registerCommand(ID_EDIT_PASTE,      this, SLOT(editPaste()));
-	//
-	st->registerCommand(ID_FIND,            this, SLOT(find()));
-	st->registerCommand(ID_FIND_NEXT,       this, SLOT(findNext()));
-	st->registerCommand(ID_FIND_PREV,       this, SLOT(findPrev()));
-	st->registerCommand(ID_REPLACE,         this, SLOT(replace()));
-	st->registerCommand(ID_GOTO_LINE,       this, SLOT(gotoLine()));
-	
+
 	mInt_ = new Interior(this, gui);
+
+	registerCommands();
+	initMainMenu();
+	initMainToolBar();
+
+
 	gui->updateTitle("", "", false);
-	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));
-	connect(gui, SIGNAL(docOpenRequested(const QString&)), this, SLOT(openDoc(const QString&)));
 	gui->setCentralWidget(mInt_->viewer_->widget());
-
-	st->registerCommand(ID_DOC_NEXT,        mInt_->viewer_, SLOT(nextDoc()));
-	st->registerCommand(ID_DOC_PREV,        mInt_->viewer_, SLOT(prevDoc()));
-
-
-	//	add commands to menu
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW));
-//	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW_RICH));
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_OPEN));
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE));
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_AS));
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_RELOAD));
-	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE));
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE_ALL));
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_PRINT));
-	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
-	QMenu* sessMenu = new QMenu(QObject::tr("Session"));
-	sessMenu->addAction(st->action(ID_SESSION_NEW));
-	sessMenu->addAction(st->action(ID_SESSION_OPEN));
-	sessMenu->addAction(st->action(ID_SESSION_SAVE));
-	sessMenu->addAction(st->action(ID_SESSION_SAVE_AS));
-	mInt_->fileMenu_->addMenu(sessMenu);
-	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
-	mInt_->fileMenu_->addAction(st->action(ID_EXIT));
-	
-	mInt_->editMenu_->addAction(st->action(ID_EDIT_UNDO));
-	mInt_->editMenu_->addAction(st->action(ID_EDIT_REDO));
-	mInt_->editMenu_->addAction(st->action(ID_SEPARATOR));
-	mInt_->editMenu_->addAction(st->action(ID_EDIT_CUT));
-	mInt_->editMenu_->addAction(st->action(ID_EDIT_COPY));
-	mInt_->editMenu_->addAction(st->action(ID_EDIT_PASTE));
-	mInt_->editMenu_->addAction(st->action(ID_SEPARATOR));
-	mInt_->editMenu_->addAction(st->action(ID_FIND));
-	mInt_->editMenu_->addAction(st->action(ID_FIND_NEXT));
-	mInt_->editMenu_->addAction(st->action(ID_FIND_PREV));
-	mInt_->editMenu_->addAction(st->action(ID_REPLACE));
-	mInt_->editMenu_->addAction(st->action(ID_SEPARATOR));
-	mInt_->editMenu_->addAction(st->action(ID_GOTO_LINE));
-	//
 
 
 	//	TODO : add a proper engines list initialization
@@ -323,14 +199,16 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->formatMenu_->addMenu(mInt_->charsetMenu_);
 	//
 
-	
-	mInt_->viewer_->widget()->addAction(st->action(ID_DOC_NEXT));
-	mInt_->viewer_->widget()->addAction(st->action(ID_DOC_PREV));
+
+	mInt_->viewer_->widget()->addAction(CommandStorage::instance()->action(ID_DOC_NEXT));
+	mInt_->viewer_->widget()->addAction(CommandStorage::instance()->action(ID_DOC_PREV));
 
 	connect(mInt_->viewer_, SIGNAL(curDocChanged(QWidget*)), SLOT(onCurDocChanged(QWidget*)));
 	connect(mInt_->viewer_, SIGNAL(requestDocName(QWidget*, QString&)), SLOT(onDocNameRequested(QWidget*, QString&)));
 	connect(mInt_->viewer_, SIGNAL(requestDocClose(QWidget*)), SLOT(onDocCloseRequested(QWidget*)));
 	connect(gui, SIGNAL(settingsApplied()), SLOT(applySettings()));
+	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));
+	connect(gui, SIGNAL(docOpenRequested(const QString&)), this, SLOT(openDoc(const QString&)));
 
 
 
@@ -347,6 +225,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->gui_->addMenus("all", standardMenus);
 	mInt_->gui_->addMenus("sci", sciMenus);
 	mInt_->gui_->addMenus("rich", richMenus);
+	mInt_->gui_->addToolBars("sci", sciDH->toolBars());
+	mInt_->gui_->addToolBars("rich", richDH->toolBars());
 
 	MenuID ids[] = { ID_MENU_FILE, ID_MENU_EDIT, ID_MENU_FORMAT, ID_MENU_TOOLS, ID_MENU_NONE };
 	QString engines[] = { "sci", "rich", "all", "" };
@@ -399,6 +279,131 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 
 Manager::~Manager() {
 	JUFFDTOR;
+}
+
+void Manager::registerCommands() {
+	CommandStorage* st = CommandStorage::instance();
+	st->registerCommand(ID_FILE_NEW,        this, SLOT(fileNew()));
+	st->registerCommand(ID_FILE_OPEN,       this, SLOT(fileOpen()));
+	st->registerCommand(ID_FILE_SAVE,       this, SLOT(fileSave()));
+	st->registerCommand(ID_FILE_SAVE_AS,    this, SLOT(fileSaveAs()));
+	st->registerCommand(ID_FILE_RELOAD,     this, SLOT(fileReload()));
+	st->registerCommand(ID_FILE_CLOSE,      this, SLOT(fileClose()));
+	st->registerCommand(ID_FILE_CLOSE_ALL,  this, SLOT(fileCloseAll()));
+	st->registerCommand(ID_FILE_PRINT,      this, SLOT(filePrint()));
+	st->registerCommand(ID_EXIT,            this, SLOT(exit()));
+	//
+	st->registerCommand(ID_FILE_NEW_RICH,   this, SLOT(fileNewRich()));
+	//
+	st->registerCommand(ID_SESSION_NEW,     this, SLOT(sessionNew()));
+	st->registerCommand(ID_SESSION_OPEN,    this, SLOT(sessionOpen()));
+	st->registerCommand(ID_SESSION_SAVE,    this, SLOT(sessionSave()));
+	st->registerCommand(ID_SESSION_SAVE_AS, this, SLOT(sessionSaveAs()));
+	//
+	st->registerCommand(ID_EDIT_UNDO,       this, SLOT(editUndo()));
+	st->registerCommand(ID_EDIT_REDO,       this, SLOT(editRedo()));
+	st->registerCommand(ID_EDIT_CUT,        this, SLOT(editCut()));
+	st->registerCommand(ID_EDIT_COPY,       this, SLOT(editCopy()));
+	st->registerCommand(ID_EDIT_PASTE,      this, SLOT(editPaste()));
+	//
+	st->registerCommand(ID_FIND,            this, SLOT(find()));
+	st->registerCommand(ID_FIND_NEXT,       this, SLOT(findNext()));
+	st->registerCommand(ID_FIND_PREV,       this, SLOT(findPrev()));
+	st->registerCommand(ID_REPLACE,         this, SLOT(replace()));
+	st->registerCommand(ID_GOTO_LINE,       this, SLOT(gotoLine()));
+	//
+	st->registerCommand(ID_DOC_NEXT,        mInt_->viewer_, SLOT(nextDoc()));
+	st->registerCommand(ID_DOC_PREV,        mInt_->viewer_, SLOT(prevDoc()));
+}
+
+void Manager::initMainMenu() {
+	CommandStorage* st = CommandStorage::instance();
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW_RICH));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_OPEN));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_AS));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_RELOAD));
+	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE_ALL));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_PRINT));
+	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
+	QMenu* sessMenu = new QMenu(QObject::tr("Session"));
+	sessMenu->addAction(st->action(ID_SESSION_NEW));
+	sessMenu->addAction(st->action(ID_SESSION_OPEN));
+	sessMenu->addAction(st->action(ID_SESSION_SAVE));
+	sessMenu->addAction(st->action(ID_SESSION_SAVE_AS));
+	mInt_->fileMenu_->addMenu(sessMenu);
+	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
+	mInt_->fileMenu_->addAction(st->action(ID_EXIT));
+	
+	mInt_->editMenu_->addAction(st->action(ID_EDIT_UNDO));
+	mInt_->editMenu_->addAction(st->action(ID_EDIT_REDO));
+	mInt_->editMenu_->addAction(st->action(ID_SEPARATOR));
+	mInt_->editMenu_->addAction(st->action(ID_EDIT_CUT));
+	mInt_->editMenu_->addAction(st->action(ID_EDIT_COPY));
+	mInt_->editMenu_->addAction(st->action(ID_EDIT_PASTE));
+	mInt_->editMenu_->addAction(st->action(ID_SEPARATOR));
+	mInt_->editMenu_->addAction(st->action(ID_FIND));
+	mInt_->editMenu_->addAction(st->action(ID_FIND_NEXT));
+	mInt_->editMenu_->addAction(st->action(ID_FIND_PREV));
+	mInt_->editMenu_->addAction(st->action(ID_REPLACE));
+	mInt_->editMenu_->addAction(st->action(ID_SEPARATOR));
+	mInt_->editMenu_->addAction(st->action(ID_GOTO_LINE));
+}
+
+void Manager::initMainToolBar() {
+	QToolBar* tb = mInt_->mainTB_;
+	CommandStorage* st = CommandStorage::instance();
+	QString tbStr = MainSettings::toolBar();
+	if ( tbStr.isEmpty() ) {
+		tb->addAction(st->action(ID_FILE_NEW));
+		tb->addAction(st->action(ID_FILE_OPEN));
+		tb->addAction(st->action(ID_FILE_SAVE));
+		tb->addAction(st->action(ID_SEPARATOR));
+		tb->addAction(st->action(ID_FILE_PRINT));
+		tb->addAction(st->action(ID_SEPARATOR));
+		tb->addAction(st->action(ID_EDIT_UNDO));
+		tb->addAction(st->action(ID_EDIT_REDO));
+		tb->addAction(st->action(ID_SEPARATOR));
+		tb->addAction(st->action(ID_EDIT_CUT));
+		tb->addAction(st->action(ID_EDIT_COPY));
+		tb->addAction(st->action(ID_EDIT_PASTE));
+	}
+	else {
+		QStringList items = tbStr.split('|');
+		foreach (QString item, items) {
+			CommandID id = ID_NONE;
+			if ( item == "sep" )
+				id = ID_SEPARATOR;
+			else if ( item == "new" )
+				id = ID_FILE_NEW;
+			else if ( item == "open" )
+				id = ID_FILE_OPEN;
+			else if ( item == "save" )
+				id = ID_FILE_SAVE;
+			else if ( item == "print" )
+				id = ID_FILE_PRINT;
+			else if ( item == "undo" )
+				id = ID_EDIT_UNDO;
+			else if ( item == "redo" )
+				id = ID_EDIT_REDO;
+			else if ( item == "cut" )
+				id = ID_EDIT_CUT;
+			else if ( item == "copy" )
+				id = ID_EDIT_COPY;
+			else if ( item == "paste" )
+				id = ID_EDIT_PASTE;
+			else if ( item == "find" )
+				id = ID_FIND;
+			else if ( item == "replace" )
+				id = ID_REPLACE;
+			
+			if ( id != ID_NONE )
+				tb->addAction(st->action(id));
+		}
+	}
 }
 
 bool Manager::closeWithConfirmation(Document* doc) {

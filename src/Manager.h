@@ -168,12 +168,24 @@ private:
 
 	/**
 	*/
+	void registerCommands();
+
+	/**
+	*/
+	void initMainMenu();
+
+	/**
+	*/
+	void initMainToolBar();
+
+	/**
+	*/
 	void initCharsetMenu();
-	
+
 	/**
 	*/
 	void initRecentFilesMenu();
-	
+
 	class Interior;
 	Interior* mInt_;
 };

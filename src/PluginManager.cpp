@@ -72,8 +72,6 @@ public:
 	
 	//	stores all plugins' context menu actions
 	QMap<QString, ActionList> contextMenuActions_;
-	
-	QMap<QWidget*, bool> dockVisible_;
 };
 
 
@@ -197,16 +195,8 @@ void PluginManager::loadPlugin(const QString& path) {
 
 				qDebug(qPrintable(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name())));
 
-				///////////////////////////////
-				////	GUI
-				QString type = plugin->targetEngine();
-				//	docks
-				QWidgetList docks = plugin->dockList();
-				if ( !docks.isEmpty() ) {
-					pmInt_->docks_[type] << docks;
-				}
-				
 				//	context menu actions
+				QString type = plugin->targetEngine();
 				pmInt_->contextMenuActions_[type] << plugin->contextMenuActions();
 			}
 			else {
@@ -232,11 +222,9 @@ void PluginManager::loadPlugins() {
 		loadPlugin(path);
 	}
 	
-	QWidgetList allDocks;
 	foreach (QString type, pmInt_->docks_.keys()) {
-		allDocks << pmInt_->docks_[type];
+		pmInt_->gui_->addDocks(type, pmInt_->docks_[type]);
 	}
-	pmInt_->gui_->addDocks(allDocks);
 }
 
 
@@ -287,52 +275,6 @@ ActionList PluginManager::getContextMenuActions(const QString& engine) {
 		return pmInt_->contextMenuActions_[engine];
 	else
 		return ActionList();
-}
-
-
-
-void PluginManager::setActiveEngine(const QString& type) {
-	JUFFENTRY;
-	
-	if ( type == pmInt_->curEngine_ )
-		return;
-
-	//	remembering the visibility of docks of type 'all'
-	if ( pmInt_->docks_.contains("all") ) {
-		foreach (QWidget* w, pmInt_->docks_["all"]) {
-			pmInt_->dockVisible_[w] = w->parentWidget()->isVisible();
-		}
-	}
-	
-	//	hide currently opened controls
-	if ( !pmInt_->curEngine_.isEmpty() && pmInt_->curEngine_ != "all" ) {
-		//	docks
-		if ( pmInt_->docks_.contains(pmInt_->curEngine_) ) {
-			foreach (QWidget* w, pmInt_->docks_[pmInt_->curEngine_]) {
-				QDockWidget* dock = qobject_cast<QDockWidget*>(w->parentWidget());
-				if ( dock ) {
-					pmInt_->dockVisible_[w] = dock->isVisible();
-					dock->hide();
-					dock->toggleViewAction()->setVisible(false);
-				}
-			}
-		}
-	}
-
-	//	show controls of requested type
-	if ( pmInt_->docks_.contains(type) ) {
-		foreach (QWidget* w, pmInt_->docks_[type]) {
-			QDockWidget* dock = qobject_cast<QDockWidget*>(w->parentWidget());
-			if ( dock ) {
-				if ( pmInt_->dockVisible_.contains(w) && pmInt_->dockVisible_[w] ) {
-					dock->show();
-				}
-				dock->toggleViewAction()->setVisible(true);
-			}
-		}
-	}
-
-	pmInt_->curEngine_ = type;
 }
 
 

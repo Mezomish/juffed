@@ -46,117 +46,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "gui/GUI.h"
 
 #include "Log.h"
+#include "gui/GUIManager.h"
 
 namespace Juff {
-
-class GUIManager {
-public:
-	void addMenu(const QString& type, QMenu* menu) {
-		if ( !menus_.contains(type) )
-			menus_[type] = MenuList();
-		menus_[type] << menu;
-		menu->menuAction()->setVisible(false);
-	}
-	void addMenus(const QString& type, const MenuList menus) {
-		if ( !menus_.contains(type) )
-			menus_[type] = MenuList();
-		menus_[type] << menus;
-		foreach (QMenu* menu, menus)
-			menu->menuAction()->setVisible(false);
-	}
-	void addToolBar(const QString& type, QToolBar* tb) {
-		if ( !toolBars_.contains(type) )
-			toolBars_[type] = ToolBarList();
-		toolBars_[type] << tb;
-		tb->hide();
-	}
-	void addToolBars(const QString& type, const ToolBarList toolBars) {
-		if ( !toolBars_.contains(type) )
-			toolBars_[type] = ToolBarList();
-		toolBars_[type] << toolBars;
-		foreach(QToolBar* tb, toolBars)
-			tb->hide();
-	}
-	void addActions(const QString& type, const ActionList& list) {
-		if ( !actions_.contains(type) )
-			actions_[type] = ActionList();
-		actions_[type] << list;
-		foreach(QAction* act, list)
-			act->setVisible(false);
-	}
-	void addAction(const QString& type, QAction* act) {
-		if ( !actions_.contains(type) )
-			actions_[type] = ActionList();
-		actions_[type] << act;
-		act->setVisible(false);
-	}
-
-	void setType(const QString& type) {
-		if ( type == curType_ )
-			return;
-		
-		//	hide toolbars and menus of the current type
-		if ( toolBars_.contains(curType_) ) {
-			foreach (QToolBar* tb, toolBars_[curType_]) {
-				tb->hide();
-			}
-		}
-		if ( menus_.contains(curType_) ) {
-			foreach (QMenu* menu, menus_[curType_]) {
-				menu->menuAction()->setVisible(false);
-			}
-		}
-		if ( actions_.contains(curType_) ) {
-			foreach (QAction* act, actions_[curType_] ) {
-				act->setVisible(false);
-			}
-		}
-		
-		//	show toolbars and menus of new type
-		if ( toolBars_.contains(type) ) {
-			foreach (QToolBar* tb, toolBars_[type]) {
-				tb->show();
-			}
-		}
-		if ( menus_.contains(type) ) {
-			foreach (QMenu* menu, menus_[type]) {
-				menu->menuAction()->setVisible(true);
-			}
-		}
-		if ( actions_.contains(type) ) {
-			foreach (QAction* act, actions_[type] ) {
-				act->setVisible(true);
-			}
-		}
-		
-		if ( type != "all" ) {
-			//	show toolbars and menus of 'all' type
-			if ( toolBars_.contains("all") ) {
-				foreach (QToolBar* tb, toolBars_["all"]) {
-					tb->show();
-				}
-			}
-			if ( menus_.contains("all") ) {
-				foreach (QMenu* menu, menus_["all"]) {
-					menu->menuAction()->setVisible(true);
-				}
-			}
-			if ( actions_.contains("all") ) {
-				foreach (QAction* act, actions_["all"] ) {
-					act->setVisible(true);
-				}
-			}
-		}
-		
-		curType_ = type;
-	}
-	
-private:	
-	QMap<QString, ToolBarList> toolBars_;
-	QMap<QString, MenuList> menus_;
-	QMap<QString, ActionList> actions_;
-	QString curType_;
-};
 
 class Manager::Interior {
 public:
@@ -322,7 +214,6 @@ public:
 	GUI::StatusLabel* posL_;
 	GUI::StatusLabel* nameL_;
 	GUI::StatusLabel* charsetL_;
-	GUIManager guiManager_;
 };
 
 Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
@@ -421,18 +312,6 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	SciDocHandler* sciDH = new SciDocHandler();
 	addDocHandler(sciDH);
 
-	//	toolbars
-	ToolBarList sciToolBars = sciDH->toolBars();
-	ToolBarList richToolBars = richDH->toolBars();
-	sciToolBars << mInt_->pluginManager_->getToolBars("sci");
-	richToolBars << mInt_->pluginManager_->getToolBars("rich");
-	mInt_->gui_->addToolBar(mInt_->mainTB_);
-	mInt_->gui_->addToolBars(sciToolBars);
-	mInt_->gui_->addToolBars(richToolBars);
-	mInt_->guiManager_.addToolBar("all", mInt_->mainTB_);
-	mInt_->guiManager_.addToolBars("sci", sciToolBars);
-	mInt_->guiManager_.addToolBars("rich", richToolBars);
-
 
 	//	recent files
 	QAction* saveAct = CommandStorage::instance()->action(ID_FILE_SAVE);
@@ -452,8 +331,12 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	connect(mInt_->viewer_, SIGNAL(requestDocName(QWidget*, QString&)), SLOT(onDocNameRequested(QWidget*, QString&)));
 	connect(mInt_->viewer_, SIGNAL(requestDocClose(QWidget*)), SLOT(onDocCloseRequested(QWidget*)));
 	connect(gui, SIGNAL(settingsApplied()), SLOT(applySettings()));
-	
-	
+
+
+
+	//////////////////
+	//	GUI Controls
+
 	//	menus
 	MenuList standardMenus;
 	standardMenus << mInt_->fileMenu_ << mInt_->editMenu_ << mInt_->formatMenu_;
@@ -461,16 +344,28 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	MenuList richMenus = richDH->menus();
 	sciMenus << mInt_->pluginManager_->getMenus("sci");
 	richMenus << mInt_->pluginManager_->getMenus("rich");
-	mInt_->guiManager_.addMenus("all", standardMenus);
-	mInt_->guiManager_.addMenus("sci", sciMenus);
-	mInt_->guiManager_.addMenus("rich", richMenus);
+	mInt_->gui_->addMenus("all", standardMenus);
+	mInt_->gui_->addMenus("sci", sciMenus);
+	mInt_->gui_->addMenus("rich", richMenus);
 
-	//	add main menu actions from plugins
 	MenuID ids[] = { ID_MENU_FILE, ID_MENU_EDIT, ID_MENU_FORMAT, ID_MENU_TOOLS, ID_MENU_NONE };
 	QString engines[] = { "sci", "rich", "all", "" };
 	int ei = 0;
 	while ( !engines[ei].isEmpty() ) {
 		QString engine = engines[ei];
+
+		//	toolbars
+		ToolBarList toolBars;
+		if ( engine == "all" )
+			toolBars << mInt_->mainTB_;
+		toolBars << mInt_->pluginManager_->getToolBars(engine);
+		mInt_->gui_->addToolBars(engine, toolBars);
+
+		//	docks
+		QWidgetList docks = mInt_->pluginManager_->getDocks(engine);
+		mInt_->gui_->addDocks(engine, docks);
+
+		//	items to main menus
 		int i = 0;
 		while ( ids[i] != ID_MENU_NONE ) {
 			MenuID id = ids[i];
@@ -484,7 +379,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 			}
 			if ( menu ) {
 				ActionList actions = mInt_->pluginManager_->getMainMenuActions(engine, id);
-				mInt_->guiManager_.addActions(engine, actions);
+				mInt_->gui_->addActions(engine, actions);
 				foreach (QAction* act, actions)
 					menu->addAction(act);
 			}
@@ -493,14 +388,9 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 		++ei;
 	}
 	//
-	MenuList menus;
-	menus << standardMenus << sciMenus << richMenus;
-	gui->setMainMenus(menus);
-	//
 
 
-	mInt_->guiManager_.setType("all");
-	mInt_->pluginManager_->setActiveEngine("all");
+	mInt_->gui_->setCurType("all");
 	applySettings();
 
 	//	restore toolbars and docks positions
@@ -629,7 +519,7 @@ void Manager::addDocHandler(DocHandler* handler) {
 
 	foreach(QAction* act, handler->menuActions(ID_MENU_FORMAT)) {
 		mInt_->formatMenu_->addAction(act);
-		mInt_->guiManager_.addAction(type, act);
+		mInt_->gui_->addAction(type, act);
 	}
 	connect(handler, SIGNAL(getCurDoc()), SLOT(curDoc()));
 }
@@ -1330,8 +1220,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 			mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, doc->isModified());
 			mInt_->pluginManager_->notifyDocActivated(doc->fileName());
 
-			mInt_->pluginManager_->setActiveEngine(type);
-			mInt_->guiManager_.setType(type);
+			mInt_->gui_->setCurType(type);
 		}
 		else {
 			mInt_->gui_->updateTitle("", "", false);
@@ -1359,8 +1248,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 			}
 		}
 		mInt_->docOldType_ = "";
-		mInt_->pluginManager_->setActiveEngine("all");
-		mInt_->guiManager_.setType("all");
+		mInt_->gui_->setCurType("all");
 	}
 }
 

@@ -108,6 +108,10 @@ GUI::GUI() : QObject() {
 	JUFFDEBUG("Filling the 'tools' menu");
 	toolsMenu_->addAction(st->action(ID_SETTINGS));
 	
+	mw_->menuBar()->addMenu(toolsMenu_);
+	mw_->menuBar()->addMenu(helpMenu_);
+
+
 	JUFFDEBUG("Creating settings dialog");
 	settDlg_ = new SettingsDlg(mw_);
 	settDlg_->hide();
@@ -151,9 +155,7 @@ void GUI::setToolBarIconSize(int sz) {
 }
 
 void GUI::setToolButtonStyle(Qt::ToolButtonStyle style) {
-	foreach (QToolBar* tb, toolBars_) {
-		tb->setToolButtonStyle(style);
-	}
+	mw_->setToolButtonStyle(style);
 }
 
 QStringList GUI::getOpenFileNames(const QString& dir, const QString& filters) {
@@ -250,37 +252,36 @@ DocFindFlags GUI::lastFlags() const {
 	return lastFlags_;
 }
 
-QMenu* GUI::toolsMenu() const {
-	return toolsMenu_;
+
+void GUI::addMenu(const QString& type, QMenu* menu) {
+	guiManager_.addMenu(type, menu);
+	mw_->menuBar()->insertMenu(toolsMenu_->menuAction(), menu);
 }
 
-void GUI::addToolBar(QToolBar* tb) {
+void GUI::addMenus(const QString& type, const Juff::MenuList menus) {
+	guiManager_.addMenus(type, menus);
+	foreach (QMenu* menu, menus) {
+		mw_->menuBar()->insertMenu(toolsMenu_->menuAction(), menu);
+	}
+}
+
+void GUI::addToolBar(const QString& type, QToolBar* tb) {
 	mw_->addToolBar(tb);
 	if ( !tb->windowTitle().isEmpty() )
 		tb->setObjectName(tb->windowTitle());
-	tb->hide();
-	toolBars_ << tb;
+	guiManager_.addToolBar(type, tb);
 }
 
-void GUI::addToolBars(const ToolBarList& list) {
-	foreach (QToolBar* tb, list) {
-		addToolBar(tb);
+void GUI::addToolBars(const QString& type, const Juff::ToolBarList toolBars) {
+	foreach (QToolBar* tb, toolBars) {
+		mw_->addToolBar(tb);
+		if ( !tb->windowTitle().isEmpty() )
+			tb->setObjectName(tb->windowTitle());
 	}
+	guiManager_.addToolBars(type, toolBars);
 }
 
-void GUI::setMainMenus(const MenuList& menus) {
-	//	clear current menus
-	mw_->menuBar()->clear();
-
-	foreach (QMenu* menu, menus) {
-		mw_->menuBar()->addMenu(menu);
-	}
-
-	mw_->menuBar()->addMenu(toolsMenu_);
-	mw_->menuBar()->addMenu(helpMenu_);
-}
-
-void GUI::addDocks(const QWidgetList& list) {
+void GUI::addDocks(const QString& type, const QWidgetList& list) {
 	foreach (QWidget* w, list) {
 		QString title = w->windowTitle();
 		QDockWidget* dock = new QDockWidget(title);
@@ -290,7 +291,32 @@ void GUI::addDocks(const QWidgetList& list) {
 		
 		docksMenu_->addAction(dock->toggleViewAction());
 	}
+
+	//	Note: we call this after creating a dock and embedding 
+	//	a widget into it because we call widget's parentWidget() 
+	//	when adding a dock to GUIManager's control.
+	guiManager_.addDocks(type, list);
 }
+
+void GUI::addAction(const QString& type, QAction* act) {
+	guiManager_.addAction(type, act);
+}
+
+void GUI::addActions(const QString& type, const Juff::ActionList& list) {
+	guiManager_.addActions(type, list);
+}
+
+void GUI::setCurType(const QString& type) {
+	guiManager_.setCurType(type);
+}
+
+
+
+QMenu* GUI::toolsMenu() const {
+	return toolsMenu_;
+}
+
+
 
 void GUI::updateTitle(const QString& fileName, const QString& session, bool modified) {
 	QString title("JuffEd");

@@ -26,6 +26,7 @@ class QMainWindow;
 #include <QtCore/QMap>
 #include <QtCore/QString>
 
+#include "GUIManager.h"
 #include "Juff.h"
 #include "SettingsDlg.h"
 
@@ -48,10 +49,15 @@ public:
 
 	void show();
 	void setCentralWidget(QWidget*);
-	void addToolBar(QToolBar*);
-	void addToolBars(const ToolBarList&);
-	void addDocks(const QWidgetList&);
-	void setMainMenus(const MenuList&);
+
+	void addMenu(const QString& type, QMenu* menu);
+	void addMenus(const QString& type, const Juff::MenuList menus);
+	void addToolBar(const QString& type, QToolBar* tb);
+	void addToolBars(const QString& type, const Juff::ToolBarList toolBars);
+	void addDocks(const QString&, const QWidgetList&);
+	void addAction(const QString& type, QAction* act);
+	void addActions(const QString& type, const Juff::ActionList& list);
+	void setCurType(const QString&);
 
 	QMenu* toolsMenu() const;
 
@@ -83,8 +89,8 @@ private:
 	QMenu* docksMenu_;
 	QMenu* helpMenu_;
 
-	ToolBarList toolBars_;
 	QMainWindow* mw_;
+	GUIManager guiManager_;
 
 	SettingsDlg* settDlg_;
 	DocFindFlags lastFlags_;

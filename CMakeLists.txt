@@ -115,6 +115,7 @@ SET ( juffed_SRCS
 	src/gui/ColorButton.cpp
 	src/gui/FindDlg.cpp
 	src/gui/GUI.cpp
+	src/gui/GUIManager.cpp
 	src/gui/MultiPage.cpp
 	src/gui/MW.cpp
 	src/gui/SessionDlg.cpp

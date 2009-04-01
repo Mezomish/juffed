@@ -80,8 +80,7 @@ public:
 	*/
 	ActionList getContextMenuActions(const QString& engine);
 
-	void setActiveEngine(const QString& type);
-	
+
 	virtual void notifyDocCreated(const QString&);
 	virtual void notifyDocActivated(const QString&);
 	virtual void notifyDocModified(const QString&, bool);

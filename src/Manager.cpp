@@ -215,7 +215,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	//////////////////
 	//	GUI Controls
 
-	//	menus
+	//	menus from engines
 	MenuList standardMenus;
 	standardMenus << mInt_->fileMenu_ << mInt_->editMenu_ << mInt_->formatMenu_;
 	MenuList sciMenus = sciDH->menus();
@@ -225,9 +225,12 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->gui_->addMenus("all", standardMenus);
 	mInt_->gui_->addMenus("sci", sciMenus);
 	mInt_->gui_->addMenus("rich", richMenus);
+	//	toolbars from engines
+	mInt_->gui_->addToolBar("all", mInt_->mainTB_);
 	mInt_->gui_->addToolBars("sci", sciDH->toolBars());
 	mInt_->gui_->addToolBars("rich", richDH->toolBars());
 
+	//	controls from plugins
 	MenuID ids[] = { ID_MENU_FILE, ID_MENU_EDIT, ID_MENU_FORMAT, ID_MENU_TOOLS, ID_MENU_NONE };
 	QString engines[] = { "sci", "rich", "all", "" };
 	int ei = 0;
@@ -235,11 +238,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 		QString engine = engines[ei];
 
 		//	toolbars
-		ToolBarList toolBars;
-		if ( engine == "all" )
-			toolBars << mInt_->mainTB_;
-		toolBars << mInt_->pluginManager_->getToolBars(engine);
-		mInt_->gui_->addToolBars(engine, toolBars);
+		mInt_->gui_->addToolBars(engine, mInt_->pluginManager_->getToolBars(engine));
 
 		//	docks
 		QWidgetList docks = mInt_->pluginManager_->getDocks(engine);
@@ -319,7 +318,7 @@ void Manager::registerCommands() {
 void Manager::initMainMenu() {
 	CommandStorage* st = CommandStorage::instance();
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW));
-	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW_RICH));
+//	mInt_->fileMenu_->addAction(st->action(ID_FILE_NEW_RICH));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_OPEN));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_AS));
@@ -406,6 +405,45 @@ void Manager::initMainToolBar() {
 	}
 }
 
+void Manager::initCharsetMenu() {
+	JUFFENTRY;
+
+	mInt_->charsetMenu_->clear();
+	mInt_->charsetActions_.clear();
+	foreach (QAction* a, mInt_->chActGr_->actions())
+		mInt_->chActGr_->removeAction(a);
+
+
+	QStringList charsets = CharsetsSettings::getCharsetsList();
+	foreach (QString charset, charsets) {
+		if ( CharsetsSettings::charsetEnabled(charset) ) {
+			QAction* action = mInt_->charsetMenu_->addAction(charset, this, SLOT(charsetSelected()));
+			action->setCheckable(true);
+			mInt_->charsetActions_[charset] = action;
+			mInt_->chActGr_->addAction(action);
+		}
+	}
+}
+
+void Manager::initRecentFilesMenu() {
+	JUFFENTRY;
+
+	if ( mInt_->recentFilesMenu_ == 0 )
+		return;
+
+	mInt_->recentFilesMenu_->clear();
+	
+	foreach (QString fileName, mInt_->recentFiles_) {
+		mInt_->recentFilesMenu_->addAction(fileName, this, SLOT(fileRecent()));
+	}
+	
+	if ( mInt_->recentFiles_.count() == 0 )
+		mInt_->recentFilesMenu_->setEnabled(false);
+	else
+		mInt_->recentFilesMenu_->setEnabled(true);
+}
+
+
 bool Manager::closeWithConfirmation(Document* doc) {
 	if ( !doc || doc->isNull() )
 		return true;
@@ -465,44 +503,6 @@ void Manager::exit() {
 
 	if ( confirmExit() )
 		qApp->quit();
-}
-
-void Manager::initCharsetMenu() {
-	JUFFENTRY;
-
-	mInt_->charsetMenu_->clear();
-	mInt_->charsetActions_.clear();
-	foreach (QAction* a, mInt_->chActGr_->actions())
-		mInt_->chActGr_->removeAction(a);
-
-
-	QStringList charsets = CharsetsSettings::getCharsetsList();
-	foreach (QString charset, charsets) {
-		if ( CharsetsSettings::charsetEnabled(charset) ) {
-			QAction* action = mInt_->charsetMenu_->addAction(charset, this, SLOT(charsetSelected()));
-			action->setCheckable(true);
-			mInt_->charsetActions_[charset] = action;
-			mInt_->chActGr_->addAction(action);
-		}
-	}
-}
-
-void Manager::initRecentFilesMenu() {
-	JUFFENTRY;
-
-	if ( mInt_->recentFilesMenu_ == 0 )
-		return;
-
-	mInt_->recentFilesMenu_->clear();
-	
-	foreach (QString fileName, mInt_->recentFiles_) {
-		mInt_->recentFilesMenu_->addAction(fileName, this, SLOT(fileRecent()));
-	}
-	
-	if ( mInt_->recentFiles_.count() == 0 )
-		mInt_->recentFilesMenu_->setEnabled(false);
-	else
-		mInt_->recentFilesMenu_->setEnabled(true);
 }
 
 void Manager::addDocHandler(DocHandler* handler) {

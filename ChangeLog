@@ -1,6 +1,10 @@
 +++++++++++++++++++++++++++++++
 Version 0.5-svn:
 +++++++++++++++++++++++++++++++
+2009-03-31:
+* Added: folding for C++ multi-line comments
+* Removed: Undo/Redo actions from context menu
+
 2009-03-30:
 * Added: notification about document saving to plugins API
 * Fixed: made replaceSelectedText() function atomic for Undo/Redo actions

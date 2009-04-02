@@ -43,14 +43,17 @@ void GUIManager::addToolBar(const QString& type, QToolBar* tb) {
 		toolBars_[type] = Juff::ToolBarList();
 	toolBars_[type] << tb;
 	tb->hide();
+	tb->toggleViewAction()->setVisible(false);
 }
 
 void GUIManager::addToolBars(const QString& type, const Juff::ToolBarList toolBars) {
 	if ( !toolBars_.contains(type) )
 		toolBars_[type] = Juff::ToolBarList();
 	toolBars_[type] << toolBars;
-	foreach(QToolBar* tb, toolBars)
+	foreach(QToolBar* tb, toolBars) {
 		tb->hide();
+		tb->toggleViewAction()->setVisible(false);
+	}
 }
 
 void GUIManager::addDocks(const QString& type, const QWidgetList& list) {
@@ -91,11 +94,18 @@ void GUIManager::setCurType(const QString& type) {
 			dockVisible_[w] = w->parentWidget()->isVisible();
 		}
 	}
+	if ( toolBars_.contains("all") ) {
+		foreach (QToolBar* tb, toolBars_["all"]) {
+			tbVisible_[tb] = tb->isVisible();
+		}
+	}
 	
 	//	hide controls of the current type
 	if ( toolBars_.contains(curType_) ) {
 		foreach (QToolBar* tb, toolBars_[curType_]) {
+			tbVisible_[tb] = tb->isVisible();
 			tb->hide();
+			tb->toggleViewAction()->setVisible(false);
 		}
 	}
 	if ( menus_.contains(curType_) ) {
@@ -122,7 +132,10 @@ void GUIManager::setCurType(const QString& type) {
 	//	show controls of the new type
 	if ( toolBars_.contains(type) ) {
 		foreach (QToolBar* tb, toolBars_[type]) {
-			tb->show();
+			if ( !tbVisible_.contains(tb) || tbVisible_[tb] ) {
+				tb->show();
+			}
+			tb->toggleViewAction()->setVisible(true);
 		}
 	}
 	if ( menus_.contains(type) ) {
@@ -151,7 +164,13 @@ void GUIManager::setCurType(const QString& type) {
 		//	show controls of 'all' type
 		if ( toolBars_.contains("all") ) {
 			foreach (QToolBar* tb, toolBars_["all"]) {
-				tb->show();
+				if ( tbVisible_.contains(tb) )
+					tb->setVisible(tbVisible_[tb]);
+				else {
+					tb->setVisible(true);
+					tbVisible_[tb] = true;
+				}
+				tb->toggleViewAction()->setVisible(true);
 			}
 		}
 		if ( menus_.contains("all") ) {

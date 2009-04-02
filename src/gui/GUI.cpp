@@ -94,7 +94,9 @@ GUI::GUI() : QObject() {
 	
 	toolsMenu_ = new QMenu(tr("&Tools"));
 	helpMenu_ = new QMenu(tr("Help"));
+	toolBarsMenu_ = new QMenu(tr("Toolbars"));
 	docksMenu_ = new QMenu(tr("Dock windows"));
+	toolsMenu_->addMenu(toolBarsMenu_);
 	toolsMenu_->addMenu(docksMenu_);
 
 	CommandStorage* st = CommandStorage::instance();
@@ -267,6 +269,7 @@ void GUI::addMenus(const QString& type, const Juff::MenuList menus) {
 
 void GUI::addToolBar(const QString& type, QToolBar* tb) {
 	mw_->addToolBar(tb);
+	toolBarsMenu_->addAction(tb->toggleViewAction());
 	if ( !tb->windowTitle().isEmpty() )
 		tb->setObjectName(tb->windowTitle());
 	guiManager_.addToolBar(type, tb);
@@ -275,6 +278,7 @@ void GUI::addToolBar(const QString& type, QToolBar* tb) {
 void GUI::addToolBars(const QString& type, const Juff::ToolBarList toolBars) {
 	foreach (QToolBar* tb, toolBars) {
 		mw_->addToolBar(tb);
+		toolBarsMenu_->addAction(tb->toggleViewAction());
 		if ( !tb->windowTitle().isEmpty() )
 			tb->setObjectName(tb->windowTitle());
 	}

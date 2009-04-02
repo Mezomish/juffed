@@ -59,6 +59,7 @@ private:
 	QMap<QString, QWidgetList> docks_;
 	QString curType_;
 	QMap<QWidget*, bool> dockVisible_;
+	QMap<QToolBar*, bool> tbVisible_;
 };
 
 #endif

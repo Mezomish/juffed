@@ -124,9 +124,8 @@ void Viewer::addDoc(Document* doc, int panel) {
 	tw->addTab(w, getDocTitle(doc->fileName()));
 	tw->setCurrentWidget(w);
 	tw->show();
+	doc->init();
 	tw->setTabToolTip(tw->indexOf(w), doc->fileName());
-	
-	w->setFocus();
 	
 	if ( tw->count() == 1 ) {
 		vInt_->curView_ = w;
@@ -206,6 +205,7 @@ void Viewer::activateDoc(Document* doc) {
 		QTabWidget* tw = vInt_->getTabWidget(doc, index);
 		if ( tw ) {
 			tw->setCurrentWidget(doc->widget());
+			doc->widget()->setFocus();
 		}
 	}
 }
@@ -252,12 +252,10 @@ QWidget* Viewer::curDoc() const {
 
 
 void Viewer::curIndexChanged(int i) {
+	JUFFENTRY;
 	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
 	if ( tw ) {
 		QWidget* w = tw->widget(i);
-		if ( w )
-			w->setFocus();
-		
 		vInt_->curView_ = w;
 		emit curDocChanged(w);
 	}

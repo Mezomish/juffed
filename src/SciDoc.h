@@ -39,6 +39,7 @@ public:
 	SciDoc(const QString&);
 	virtual ~SciDoc();
 	
+	virtual void init();
 	virtual QWidget* widget();
 	virtual bool isModified() const;
 	virtual void setModified(bool);

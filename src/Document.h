@@ -41,6 +41,7 @@ public:
 	QString fileName() const;
 	QString type() const;
 
+	virtual void init() {}
 	virtual bool isModified() const = 0;
 	virtual void setModified(bool) = 0;
 	virtual QWidget* widget() = 0;

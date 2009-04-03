@@ -60,8 +60,6 @@ public:
 		spl_->addWidget(edit2_);
 		
 		spl_->setSizes(QList<int>() << 0 << spl_->height());
-		spl_->setFocusProxy(edit2_);
-		edit2_->setFocus();
 	}
 	
 	
@@ -152,6 +150,11 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	unindentAct->setShortcut(QKeySequence("Shift+Tab"));
 	connect(unindentAct, SIGNAL(activated()), this, SLOT(unindent()));
 	widget()->addAction(unindentAct);
+}
+
+void SciDoc::init() {
+	docInt_->spl_->setFocusProxy(docInt_->edit2_);
+	docInt_->edit2_->setFocus();
 }
 
 SciDoc::~SciDoc() {
@@ -603,7 +606,7 @@ void SciDoc::gotoLine(int line) {
 	JuffScintilla* edit = getActiveEdit();
 	if ( !edit )
 		return;
-	
+
 	edit->setCursorPosition(line, 0);
 }
 

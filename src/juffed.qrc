@@ -18,9 +18,47 @@
         <file alias="32/zoomIn.png">icons/32x32/zoomIn.png</file>
         <file alias="32/zoomOut.png">icons/32x32/zoomOut.png</file>
         <file alias="32/zoom100.png">icons/32x32/zoom100.png</file>
+
+        <file alias="24/editCopy.png">icons/24x24/edit-copy.png</file>
+        <file alias="24/editCut.png">icons/24x24/edit-cut.png</file>
+        <file alias="24/editPaste.png">icons/24x24/edit-paste.png</file>
+        <file alias="24/editRedo.png">icons/24x24/edit-redo.png</file>
+        <file alias="24/editUndo.png">icons/24x24/edit-undo.png</file>
+        <file alias="24/exit.png">icons/24x24/system-log-out.png</file>
+        <file alias="24/fileNew.png">icons/24x24/document-new.png</file>
+        <file alias="24/fileOpen.png">icons/24x24/document-open.png</file>
+        <file alias="24/fileSave.png">icons/24x24/document-save.png</file>
+        <file alias="24/filePrint.png">icons/24x24/document-print.png</file>
+        <file alias="24/fileSaveAs.png">icons/24x24/document-save-as.png</file>
+        <file alias="24/find.png">icons/24x24/edit-find.png</file>
+        <file alias="24/replace.png">icons/24x24/edit-find-replace.png</file>
+        <file alias="24/settings.png">icons/24x24/preferences-system.png</file>
+        <file alias="24/zoomIn.png">icons/24x24/zoomIn.png</file>
+        <file alias="24/zoomOut.png">icons/24x24/zoomOut.png</file>
+        <file alias="24/zoom100.png">icons/24x24/zoom100.png</file>
+
+        <file alias="16/editCopy.png">icons/16x16/edit-copy.png</file>
+        <file alias="16/editCut.png">icons/16x16/edit-cut.png</file>
+        <file alias="16/editPaste.png">icons/16x16/edit-paste.png</file>
+        <file alias="16/editRedo.png">icons/16x16/edit-redo.png</file>
+        <file alias="16/editUndo.png">icons/16x16/edit-undo.png</file>
+        <file alias="16/exit.png">icons/16x16/system-log-out.png</file>
+        <file alias="16/fileNew.png">icons/16x16/document-new.png</file>
+        <file alias="16/fileOpen.png">icons/16x16/document-open.png</file>
+        <file alias="16/fileSave.png">icons/16x16/document-save.png</file>
+        <file alias="16/filePrint.png">icons/16x16/document-print.png</file>
+        <file alias="16/fileSaveAs.png">icons/16x16/document-save-as.png</file>
+        <file alias="16/find.png">icons/16x16/edit-find.png</file>
+        <file alias="16/replace.png">icons/16x16/edit-find-replace.png</file>
+        <file alias="16/settings.png">icons/16x16/preferences-system.png</file>
+        <file alias="16/zoomIn.png">icons/16x16/zoomIn.png</file>
+        <file alias="16/zoomOut.png">icons/16x16/zoomOut.png</file>
+        <file alias="16/zoom100.png">icons/16x16/zoom100.png</file>
+
         <file alias="16/tux.png">icons/16x16/tux.png</file>
         <file alias="16/mac.png">icons/16x16/mac.png</file>
         <file alias="16/win.png">icons/16x16/win.png</file>
+
         <file alias="juffed_32.png">juffed_32.png</file>
         <file alias="juffed_48.png">juffed_48.png</file>
     </qresource>

@@ -25,7 +25,7 @@ SET ( JUFFED "juffed" CACHE STRING "Name of the executeable" )
 
 
 # flag indicating that this is an SVN snapshot release
-SET ( SVN 1 )
+SET ( SVN 0 )
 
 IF ( SVN )
 	# SVN revision

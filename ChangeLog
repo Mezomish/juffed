@@ -1,10 +1,20 @@
-+++++++++++++++++++++++++++++++
-Version 0.5-svn:
-+++++++++++++++++++++++++++++++
+-------------------------------
+0.5 beta 2
+-------------------------------
+2009-04-03:
+* Changelog updated
+* Changed version to 0.5-beta2
+
 2009-04-02:
 * Fixed: moving the cursor to the end of inserted text (when using 
   insertText() method) if the text was a single line
 * Added: toolbars list to 'Tools" menu
+* Added: icons of sizes 16 and 24 to the default icon theme
+* Fixed: bug with not working actions when there is one document opened/last 
+  document closed (on Qt version 4.3 and earlier)
+* Fixed: bug with opening a session (on Windows)
+* Fixed: building issue on Windows (linking problem)
+* Fixed: (hopefully) bug with lost focus in new documents
 
 2009-03-31:
 * Added: folding for C++ multi-line comments

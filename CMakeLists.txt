@@ -224,6 +224,9 @@ INCLUDE_DIRECTORIES(
 
 
 IF ( MINGW )
+	ADD_DEFINITIONS(
+		-DQSCINTILLA_DLL
+	)
 	# resource compilation for MinGW
 	ADD_CUSTOM_COMMAND ( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/juffed_ico.o
 		COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR}/src -i${CMAKE_CURRENT_SOURCE_DIR}/src/juffed.rc 

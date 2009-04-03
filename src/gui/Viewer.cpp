@@ -128,6 +128,10 @@ void Viewer::addDoc(Document* doc, int panel) {
 	
 	w->setFocus();
 	
+	if ( tw->count() == 1 ) {
+		vInt_->curView_ = w;
+		emit curDocChanged(w);
+	}
 }
 
 void Viewer::setDocModified(Document* doc, bool modified) {
@@ -188,6 +192,10 @@ void Viewer::removeDoc(Document* doc) {
 				vInt_->curView_ = tw->currentWidget();
 				emit curDocChanged(vInt_->curView_);
 			}
+		}
+		if ( tw->count() == 0 ) {
+			vInt_->curView_ = 0;
+			emit curDocChanged(0);
 		}
 	}
 }

@@ -933,7 +933,11 @@ bool Manager::openSess(const QString& name) {
 		QString fileName("");
 		while ( !sess.atEnd() ) {
 			QString lineStr = sess.readLine().simplified();
+#ifdef Q_OS_WIN
 			fileName = lineStr.section(':', -4, -3);
+#else
+			fileName = lineStr.section(':', -3, -3);
+#endif
 			JUFFDEBUG(fileName);
 			int scrPos = lineStr.section(':', -2, -2).toInt();
 			int line = lineStr.section(':', -1, -1).toInt();

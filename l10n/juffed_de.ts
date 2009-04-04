@@ -397,7 +397,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="113"/>
         <source>Show invisible symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Unsichtbare Symbole anzeigen</translation>
     </message>
 </context>
 <context>
@@ -418,7 +418,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="39"/>
         <source>Open empty session</source>
-        <translation>Öffne leere Sitzung</translation>
+        <translation>öffne leere Sitzung</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="79"/>
@@ -436,7 +436,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="102"/>
         <source>Use existing instance of application when open files</source>
-        <translation>Öffne Dateien in aktueller Instanz</translation>
+        <translation>öffne Dateien in aktueller Instanz</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="105"/>
@@ -726,12 +726,12 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="183"/>
         <source>Cursor position</source>
-        <translation type="unfinished"></translation>
+        <translation>Schreibmarkenposition</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="184"/>
         <source>File full name</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollständiger Dateiname</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="44"/>
@@ -776,27 +776,27 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="68"/>
         <source>Packaging</source>
-        <translation type="unfinished"></translation>
+        <translation>Paket</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="73"/>
-        <source>Chinese Simplified translation</source>
-        <translation type="unfinished"></translation>
+        <source>vereinfachte chinesische Übersetzung</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="59"/>
         <source>New Rich text</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Rich text Dokument</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="185"/>
         <source>Current character set</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählter Zeichensatz</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="65"/>
         <source>Advanced text editor</source>
-        <translation>Ein erweiterte Texteditor</translation>
+        <translation>Ein erweiterter Texteditor</translation>
     </message>
 </context>
 <context>

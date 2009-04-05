@@ -398,6 +398,7 @@ void SciDocHandler::syntaxSelected() {
 		Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 		if ( doc && !doc->isNull() ) {
 			doc->setSyntax(a->text());
+			docInt_->syntaxL_->setText(a->text());
 		}
 		else {
 			a->setChecked(false);

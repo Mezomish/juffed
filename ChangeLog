@@ -1,5 +1,6 @@
 2009-04-05:
 * Fixed: updating syntax name in statusbar
+* Fixed: updating cursor position in statusbar when typing in upper edit area
 
 -------------------------------
 0.5 beta 2

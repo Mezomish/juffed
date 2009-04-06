@@ -101,6 +101,9 @@ public:
 public slots:
 	void unindent();
 
+private slots:
+	void onCursorMove(int, int);
+
 private:
 	void readDoc();
 	void loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer);

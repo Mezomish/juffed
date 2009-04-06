@@ -23,6 +23,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 namespace Juff {
 
 JuffScintilla::JuffScintilla() : QsciScintilla() {
+	rLine1_ = -1;
+	rCol1_ = -1;
+	rLine2_ = -1;
+	rCol2_ = -1;
+
 	contextMenu_ = new QMenu();
 	CommandStorage* st = CommandStorage::instance();
 	contextMenu_->addAction(st->action(ID_EDIT_CUT));
@@ -203,6 +208,94 @@ void JuffScintilla::focusInEvent(QFocusEvent* e) {
 void JuffScintilla::focusOutEvent(QFocusEvent* e) {
 	cancelList();
 	QsciScintilla::focusOutEvent(e);
+}
+
+void JuffScintilla::cancelRectInput() {
+	rLine1_ = -1;
+	rCol1_ = -1;
+	rLine2_ = -1;
+	rCol2_ = -1;
+	SendScintilla(SCI_CANCEL);
+}
+
+void JuffScintilla::keyPressEvent(QKeyEvent* e) {
+	int line, col;
+	getCursorPosition(&line, &col);
+
+	if ( hasSelectedText() && SendScintilla(SCI_SELECTIONISRECTANGLE) ) {
+		int line1, col1, line2, col2;
+		getSelection(&line1, &col1, &line2, &col2);
+		rLine1_ = qMin(line1, line2);
+		rCol1_ = qMin(col1, col2);
+		rLine2_ = qMax(line1, line2);
+		rCol2_ = qMax(col1, col2);
+
+		switch ( e->key() ) {
+			case Qt::Key_Escape :
+				setSelection(line, col, line, col);
+				cancelRectInput();
+				break;
+
+			case Qt::Key_Left:
+			case Qt::Key_Right:
+			case Qt::Key_Up:
+			case Qt::Key_Down:
+				if ( !(e->modifiers() & Qt::AltModifier) ) {
+					setSelection(line, col, line, col);
+					cancelRectInput();
+				}
+				else {
+					QsciScintilla::keyPressEvent(e);
+				}
+				break;
+
+			case Qt::Key_Backspace:
+				if ( rCol1_ == rCol2_ )
+					break;
+
+				if ( col == rCol1_ ) {
+					SendScintilla(SCI_SETSELECTIONMODE, 1);
+					setSelection(rLine1_, rCol1_ , rLine2_, rCol2_);
+				}
+				
+				beginUndoAction();
+				//	select the last character of each line and remove it
+				SendScintilla(SCI_SETSELECTIONMODE, 1);
+				setSelection(rLine1_, rCol2_ - 1, rLine2_, rCol2_);
+				removeSelectedText();
+				
+				--rCol2_;
+				
+				//	place new selection
+				SendScintilla(SCI_SETSELECTIONMODE, 1);
+				setSelection(rLine1_, rCol1_, rLine2_, rCol2_);
+				endUndoAction();
+				break;
+
+			case Qt::Key_Delete :
+				cancelRectInput();
+				QsciScintilla::keyPressEvent(e);
+				break;
+
+			default:
+				beginUndoAction();
+				if ( rCol1_ != rCol2_ ) {
+					//	TODO : probably need to remove selected text, but only once
+				}
+				QString t = e->text();
+				for ( int i = line2; i >= line1; --i ) {
+					insertAt(t, i, rCol2_ );
+				}
+				if ( e->key() != Qt::Key_Enter && e->key() != Qt::Key_Return ) {
+					SendScintilla(SCI_SETSELECTIONMODE, 1);
+					setSelection(rLine1_, rCol1_, rLine2_, rCol2_ + t.length());
+				}
+				endUndoAction();
+		}
+	}
+	else {
+		QsciScintilla::keyPressEvent(e);
+	}
 }
 
 void JuffScintilla::addContextMenuActions(const ActionList& list) {

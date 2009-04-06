@@ -52,10 +52,14 @@ protected:
 	virtual void contextMenuEvent(QContextMenuEvent* e);
 	virtual void focusInEvent(QFocusEvent* e);
 	virtual void focusOutEvent(QFocusEvent* e);
+	virtual void keyPressEvent(QKeyEvent*);
 
 private:
+	void cancelRectInput();
+
 	QMenu* contextMenu_;
 	bool showLineNumbers_;
+	int rLine1_, rCol1_, rLine2_, rCol2_;
 };
 
 }	//	namespace Juff

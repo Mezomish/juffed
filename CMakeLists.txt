@@ -25,9 +25,9 @@ SET ( JUFFED "juffed" CACHE STRING "Name of the executeable" )
 
 
 # flag indicating that this is an SVN snapshot release
-SET ( SVN 0 )
+SET ( DEV 1 )
 
-IF ( SVN )
+IF ( DEV )
 	# SVN revision
 	EXECUTE_PROCESS ( 
 		COMMAND svn info ${CMAKE_SOURCE_DIR}
@@ -37,17 +37,10 @@ IF ( SVN )
 	)
 	STRING ( STRIP "${REV}" REV )
 
-	# Date
-	EXECUTE_PROCESS ( 
-		COMMAND date +%Y%m%d
-		OUTPUT_VARIABLE DATE
-	)
-	STRING ( STRIP "${DATE}" DATE )
-	
-	SET ( VERSION_SUFFIX "-0svn${DATE}-r${REV}" )
-ELSE ( SVN )
+	SET ( VERSION_SUFFIX ".99.${REV}" )
+ELSE ( DEV )
 	SET ( VERSION_SUFFIX "" )
-ENDIF ( SVN )
+ENDIF ( DEV )
 
 #Version
 CONFIGURE_FILE ( "${CMAKE_CURRENT_SOURCE_DIR}/cmake/version.in" "${CMAKE_CURRENT_SOURCE_DIR}/version" @ONLY )

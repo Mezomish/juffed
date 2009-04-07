@@ -110,7 +110,7 @@ QKeySequence CommandStorage::getShortcut(CommandID id) {
 		case ID_FILE_NEW_RICH :     return QKeySequence("Ctrl+M");
 		case ID_FILE_OPEN :         return QKeySequence("Ctrl+O");
 		case ID_FILE_SAVE :         return QKeySequence("Ctrl+S");
-		case ID_FILE_SAVE_AS :      return QKeySequence("");
+		case ID_FILE_SAVE_AS :      return QKeySequence("Shift+Ctrl+S");
 		case ID_FILE_RELOAD :       return QKeySequence("F5");
 		case ID_FILE_CLOSE :        return QKeySequence("Ctrl+W");
 		case ID_FILE_PRINT :        return QKeySequence("Ctrl+P");

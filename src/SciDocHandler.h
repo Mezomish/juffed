@@ -61,6 +61,10 @@ private slots:
 	void syntaxSelected();
 	void eolSelected();
 
+	void startMacroRecord();
+	void stopMacroRecord();
+	void runMacro();
+
 private:
 	void initSyntaxMenu();
 	void changeCurEol(SciDoc*, CommandID);

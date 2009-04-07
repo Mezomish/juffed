@@ -526,6 +526,11 @@ void Manager::addDocHandler(DocHandler* handler) {
 		mInt_->formatMenu_->addAction(act);
 		mInt_->gui_->addAction(type, act);
 	}
+	QMenu* toolsMenu = mInt_->gui_->toolsMenu();
+	foreach(QAction* act, handler->menuActions(ID_MENU_TOOLS)) {
+		toolsMenu->addAction(act);
+		mInt_->gui_->addAction(type, act);
+	}
 	connect(handler, SIGNAL(getCurDoc()), SLOT(curDoc()));
 }
 

@@ -18,8 +18,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDocHandler.h"
 
+#include <QtGui/QApplication>
+#include <QtGui/QInputDialog>
 #include <QtGui/QMenu>
+#include <QtGui/QMessageBox>
 #include <QtGui/QToolBar>
+
+#include <Qsci/qscimacro.h>
 
 #include "CommandStorage.h"
 #include "LexerStorage.h"
@@ -46,7 +51,13 @@ public:
 		eolL_ = new GUI::StatusLabel("");
 		eolL_->setMenu(eolMenu_);
 		eolL_->setToolTip(QObject::tr("Line endings"));
-		
+
+		macrosMenu_ = new QMenu(tr("Macro"));
+		startMacroAct_ = new QAction(QIcon(":record.png"), "Start recording", 0);
+		stopMacroAct_ = new QAction(QIcon(":stop.png"), "Stop recording", 0);
+		macrosMenu_->addAction(startMacroAct_);
+		macrosMenu_->addAction(stopMacroAct_);
+
 		statusWidgets_ << syntaxL_ << eolL_;;
 		
 		CommandStorage* st = CommandStorage::instance();
@@ -58,17 +69,24 @@ public:
 			eolActGr_->addAction(act);
 			act->setCheckable(true);
 		}
+		
+		macro_ = 0;
 	}
 	
 	~Interior() {
 		delete syntaxActGr_;
 		delete eolActGr_;
 		delete showInvisibleAct_;
+		if ( macro_ )
+			delete macro_;	//	in case we closed the app without stopping macro recording
 	}
 	
 	QMenu* markersMenu_;
 	QMenu* syntaxMenu_;
 	QMenu* eolMenu_;
+	QMenu* macrosMenu_;
+	QAction* startMacroAct_;
+	QAction* stopMacroAct_;
 	ToolBarList toolBars_;
 	MenuList menus_;
 	QMap<QString, QAction*> syntaxActions_;
@@ -79,6 +97,8 @@ public:
 	GUI::StatusLabel* syntaxL_;
 	GUI::StatusLabel* eolL_;
 	QAction* showInvisibleAct_;
+	QsciMacro* macro_;
+	QMap<QString, QString> macros_;
 };
 
 SciDocHandler::SciDocHandler() : DocHandler() {	
@@ -95,9 +115,9 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	st->registerCommand(ID_ZOOM_IN,             this, SLOT(zoomIn()));
 	st->registerCommand(ID_ZOOM_OUT,            this, SLOT(zoomOut()));
 	st->registerCommand(ID_ZOOM_100,            this, SLOT(zoom100()));
-		
+
 	docInt_ = new Interior();
-	
+
 	QAction* showLineNumsAct = new QAction(tr("Show line numbers"), 0);
 	showLineNumsAct->setShortcut(QKeySequence("F11"));
 	showLineNumsAct->setCheckable(true);
@@ -124,13 +144,16 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	viewMenu->addAction(st->action(ID_ZOOM_100));
 	viewMenu->addSeparator();
 	viewMenu->addMenu(docInt_->syntaxMenu_);
-	
+
 	connect(docInt_->markersMenu_, SIGNAL(aboutToShow()), SLOT(initMarkersMenu()));
 
 	docInt_->menus_ << viewMenu << docInt_->markersMenu_;
 
 	initSyntaxMenu();
 
+	connect(docInt_->startMacroAct_, SIGNAL(activated()), this, SLOT(startMacroRecord()));
+	connect(docInt_->stopMacroAct_, SIGNAL(activated()), this, SLOT(stopMacroRecord()));
+	docInt_->stopMacroAct_->setEnabled(false);
 
 	QToolBar* zoomTB = new QToolBar("Zoom");
 	zoomTB->addAction(st->action(ID_ZOOM_IN));
@@ -231,7 +254,11 @@ ActionList SciDocHandler::menuActions(MenuID id) const {
 		case ID_MENU_FORMAT :
 			list << docInt_->eolMenu_->menuAction();
 			break;
-		
+
+		case ID_MENU_TOOLS :
+			list << docInt_->macrosMenu_->menuAction();
+			break;
+
 		default: ;
 	}
 	return list;
@@ -444,5 +471,55 @@ void SciDocHandler::changeCurEol(SciDoc* doc, CommandID id, EolMode mode) {
 	docInt_->eolL_->setToolTip(toolTip);
 }
 
+
+void SciDocHandler::startMacroRecord() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+	if ( doc ) {
+		docInt_->macro_ = doc->newMacro();
+		if ( docInt_->macro_ ) {
+			docInt_->macro_->startRecording();
+			docInt_->startMacroAct_->setEnabled(false);
+			docInt_->stopMacroAct_->setEnabled(true);
+		}
+	}
+}
+
+void SciDocHandler::stopMacroRecord() {
+	if ( docInt_->macro_ ) {
+		docInt_->macro_->endRecording();
+		docInt_->startMacroAct_->setEnabled(true);
+		docInt_->stopMacroAct_->setEnabled(false);
+		QString mcr = docInt_->macro_->save();
+		delete docInt_->macro_;
+		docInt_->macro_ = 0;
+		bool done = false;
+		do {
+			QString name = QInputDialog::getText(QApplication::activeWindow(), tr("Macro name"), tr("Macro name"));
+			if ( !name.isEmpty() ) {
+				if ( docInt_->macros_.contains(name) ) {
+					QMessageBox::warning(QApplication::activeWindow(), tr("Warning"), tr("Macro with name '%1' already exists").arg(name));
+				}
+				else {
+					docInt_->macrosMenu_->addAction(name, this, SLOT(runMacro()));
+					docInt_->macros_[name] = mcr;
+					done = true;
+				}
+			}
+			else {
+				//	saving cancelled
+				done = true;
+			}
+		} while ( !done );
+	}
+}
+
+void SciDocHandler::runMacro() {
+	QAction* a = qobject_cast<QAction*>(sender());
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( a && doc && docInt_->macros_.contains(a->text()) ) {
+		doc->runMacro(docInt_->macros_[a->text()]);
+	}
+}
 
 }	//	namespace Juff

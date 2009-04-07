@@ -29,6 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <Qsci/qsciapis.h>
 #include <Qsci/qscilexer.h>
+#include <Qsci/qscimacro.h>
 #include <Qsci/qsciprinter.h>
 #include <Qsci/qsciscintilla.h>
 
@@ -895,7 +896,24 @@ void SciDoc::setEolMode(EolMode eol) {
 	}
 }
 
+QsciMacro* SciDoc::newMacro() {
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return 0;
+	
+	return new QsciMacro(edit);
+}
 
+void SciDoc::runMacro(const QString& mcr) {
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+
+	QsciMacro macro(edit);
+	if ( macro.load(mcr) ) {
+		macro.play();
+	}
+}
 
 }
 

@@ -24,7 +24,11 @@ SET ( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 SET ( JUFFED "juffed" CACHE STRING "Name of the executeable" )
 
 
-# flag indicating that this is an SVN snapshot release
+#Version
+FILE ( READ "${CMAKE_SOURCE_DIR}/version" JUFFED_VERSION )
+STRING ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
+
+# flag indicating that this is a development version
 SET ( DEV 1 )
 
 IF ( DEV )
@@ -37,15 +41,9 @@ IF ( DEV )
 	)
 	STRING ( STRIP "${REV}" REV )
 
-	SET ( VERSION_SUFFIX ".99.${REV}" )
-ELSE ( DEV )
-	SET ( VERSION_SUFFIX "" )
+	SET ( JUFFED_VERSION "${JUFFED_VERSION}.${REV}" )
 ENDIF ( DEV )
 
-#Version
-CONFIGURE_FILE ( "${CMAKE_CURRENT_SOURCE_DIR}/cmake/version.in" "${CMAKE_CURRENT_SOURCE_DIR}/version" @ONLY )
-FILE ( READ "${CMAKE_SOURCE_DIR}/version" JUFFED_VERSION )
-STRING ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
 SET ( VERSION ${JUFFED_VERSION} )
 
 # Install Directories

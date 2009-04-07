@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 //	Qt headers
 #include <QtGui/QKeyEvent>
+#include <QtGui/QLineEdit>
 
 namespace Juff {
 namespace GUI {
@@ -30,6 +31,7 @@ bool FindDlg::matchCase_ = true;
 bool FindDlg::backward_ = false;
 bool FindDlg::regExpMode_ = false;
 QStringList FindDlg::strings_;
+QStringList FindDlg::replaces_;
 
 FindDlg::FindDlg(QWidget* parent) : 
 	QDialog(parent) {
@@ -38,8 +40,11 @@ FindDlg::FindDlg(QWidget* parent) :
 
 	foreach (QString str, strings_)
 		uiFind.findCmb->addItem(str);
+	foreach (QString repl, replaces_)
+		uiFind.replaceCmb->addItem(repl);
+
 	uiFind.findCmb->setEditText(lastString_);
-	uiFind.replaceToEd->setText(lastReplaceText_);
+	uiFind.replaceCmb->setEditText(lastReplaceText_);
 	uiFind.matchCaseChk->setChecked(matchCase_);
 	uiFind.backwardChk->setChecked(backward_);
 	uiFind.replaceChk->setChecked(false);
@@ -56,7 +61,8 @@ FindDlg::FindDlg(QWidget* parent) :
 FindDlg::~FindDlg() {
 	lastString_ = uiFind.findCmb->currentText();
 	strings_.prepend(lastString_);
-	lastReplaceText_ = uiFind.replaceToEd->text();
+	lastReplaceText_ = uiFind.replaceCmb->currentText();
+	replaces_.prepend(lastReplaceText_);
 	matchCase_ = uiFind.matchCaseChk->isChecked();
 	backward_ = uiFind.backwardChk->isChecked();
 	regExpMode_ = uiFind.regexpChk->isChecked();
@@ -78,6 +84,8 @@ void FindDlg::setReplaceMode(bool replaceMode) {
 	if (replaceMode) {
 		uiFind.findBtn->setText(tr("Replace"));
 		setWindowTitle(tr("Replace"));
+		uiFind.replaceCmb->setFocus();
+		uiFind.replaceCmb->lineEdit()->selectAll();
 	}
 	else {
 		uiFind.findBtn->setText(tr("Find"));

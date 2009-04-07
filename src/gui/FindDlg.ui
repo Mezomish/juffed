@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>380</width>
-    <height>177</height>
+    <width>410</width>
+    <height>197</height>
    </rect>
   </property>
   <property name="sizePolicy" >
@@ -25,14 +25,7 @@
    <property name="spacing" >
     <number>5</number>
    </property>
-   <item row="2" column="2" >
-    <widget class="QLineEdit" name="replaceToEd" >
-     <property name="enabled" >
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2" >
+   <item row="7" column="2" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -45,7 +38,7 @@
      </property>
     </spacer>
    </item>
-   <item row="2" column="1" >
+   <item row="3" column="1" >
     <widget class="QCheckBox" name="replaceChk" >
      <property name="text" >
       <string>Replace</string>
@@ -55,14 +48,14 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="2" >
+   <item row="4" column="2" >
     <widget class="QCheckBox" name="matchCaseChk" >
      <property name="text" >
       <string>Match case</string>
      </property>
     </widget>
    </item>
-   <item rowspan="4" row="1" column="3" >
+   <item rowspan="5" row="1" column="3" >
     <layout class="QVBoxLayout" >
      <property name="spacing" >
       <number>6</number>
@@ -109,14 +102,14 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="2" >
+   <item row="5" column="2" >
     <widget class="QCheckBox" name="backwardChk" >
      <property name="text" >
       <string>Backward</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="2" >
+   <item row="6" column="2" >
     <widget class="QCheckBox" name="regexpChk" >
      <property name="text" >
       <string>Regular expression</string>
@@ -130,11 +123,22 @@
      </property>
     </widget>
    </item>
+   <item row="3" column="2" >
+    <widget class="QComboBox" name="replaceCmb" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+     <property name="editable" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
+  <tabstop>findCmb</tabstop>
   <tabstop>replaceChk</tabstop>
-  <tabstop>replaceToEd</tabstop>
+  <tabstop>replaceCmb</tabstop>
   <tabstop>matchCaseChk</tabstop>
   <tabstop>backwardChk</tabstop>
   <tabstop>regexpChk</tabstop>
@@ -146,16 +150,16 @@
   <connection>
    <sender>replaceChk</sender>
    <signal>toggled(bool)</signal>
-   <receiver>replaceToEd</receiver>
+   <receiver>replaceCmb</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel" >
-     <x>48</x>
-     <y>110</y>
+     <x>50</x>
+     <y>57</y>
     </hint>
     <hint type="destinationlabel" >
-     <x>156</x>
-     <y>111</y>
+     <x>176</x>
+     <y>58</y>
     </hint>
    </hints>
   </connection>

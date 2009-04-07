@@ -76,7 +76,7 @@ DocFindFlags FindDlg::flags() const {
 }
 
 void FindDlg::keyPressEvent(QKeyEvent* e) {
-	if (e->key() == Qt::Key_F && e->modifiers() & Qt::ControlModifier) {
+	if ( ( e->key() == Qt::Key_F || e->key() == Qt::Key_R ) && e->modifiers() & Qt::ControlModifier) {
 		uiFind.replaceChk->toggle();
 	}
 	QDialog::keyPressEvent(e);

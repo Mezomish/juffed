@@ -34,7 +34,7 @@ public:
 	FindDlg(QWidget*);
 	virtual ~FindDlg();
 
-	QString text() const { return uiFind.findWhatEd->text(); }
+	QString text() const { return uiFind.findCmb->currentText(); }
 	QString replaceTo() const { return uiFind.replaceToEd->text(); }
 	DocFindFlags flags() const;
 	bool isReplaceMode() const { return uiFind.replaceChk->isChecked(); }
@@ -60,6 +60,7 @@ private:
 	static bool matchCase_;
 	static bool backward_;
 	static bool regExpMode_;
+	static QStringList strings_;
 };
 
 }	//	namespace GUI

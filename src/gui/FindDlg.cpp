@@ -29,21 +29,24 @@ QString FindDlg::lastReplaceText_ = "";
 bool FindDlg::matchCase_ = true;
 bool FindDlg::backward_ = false;
 bool FindDlg::regExpMode_ = false;
+QStringList FindDlg::strings_;
 
 FindDlg::FindDlg(QWidget* parent) : 
 	QDialog(parent) {
 
 	uiFind.setupUi(this);
 
-	uiFind.findWhatEd->setText(lastString_);
+	foreach (QString str, strings_)
+		uiFind.findCmb->addItem(str);
+	uiFind.findCmb->setEditText(lastString_);
 	uiFind.replaceToEd->setText(lastReplaceText_);
 	uiFind.matchCaseChk->setChecked(matchCase_);
 	uiFind.backwardChk->setChecked(backward_);
 	uiFind.replaceChk->setChecked(false);
 	uiFind.regexpChk->setChecked(regExpMode_);
 
-	uiFind.findWhatEd->setFocus();
-	uiFind.findWhatEd->selectAll();
+	uiFind.findCmb->setFocus();
+	uiFind.findCmb->lineEdit()->selectAll();
 
 	connect(uiFind.findBtn, SIGNAL(clicked()), SLOT(accept()));
 	connect(uiFind.cancelBtn, SIGNAL(clicked()), SLOT(reject()));
@@ -51,7 +54,8 @@ FindDlg::FindDlg(QWidget* parent) :
 }
 
 FindDlg::~FindDlg() {
-	lastString_ = uiFind.findWhatEd->text();
+	lastString_ = uiFind.findCmb->currentText();
+	strings_.prepend(lastString_);
 	lastReplaceText_ = uiFind.replaceToEd->text();
 	matchCase_ = uiFind.matchCaseChk->isChecked();
 	backward_ = uiFind.backwardChk->isChecked();

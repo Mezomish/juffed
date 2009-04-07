@@ -371,7 +371,20 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["phpSingleString"], QList<int>() << QsciLexerHTML::PHPSingleQuotedString)
 				<< Rule(styles["phpDoubleString"], QList<int>() << QsciLexerHTML::PHPDoubleQuotedString)
 				<< Rule(styles["phpComment"], QList<int>() << QsciLexerHTML::PHPComment << QsciLexerHTML::PHPCommentLine)
-				<< Rule(styles["phpNumber"], QList<int>() << QsciLexerHTML::PHPNumber);
+				<< Rule(styles["phpNumber"], QList<int>() << QsciLexerHTML::PHPNumber)
+				<< Rule(styles["tag"], QList<int>() << QsciLexerHTML::Tag)
+				<< Rule(styles["attribute"], QList<int>() << QsciLexerHTML::Attribute)
+				<< Rule(styles["comment"], QList<int>() << QsciLexerHTML::HTMLComment)
+				<< Rule(styles["value"], QList<int>() << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString << QsciLexerHTML::HTMLValue << QsciLexerHTML::HTMLNumber << QsciLexerHTML::OtherInTag)
+				<< Rule(styles["entity"], QList<int>() << QsciLexerHTML::Entity)
+				<< Rule(styles["singleString"], QList<int>() << QsciLexerHTML::HTMLSingleQuotedString)
+				<< Rule(styles["doubleString"], QList<int>() << QsciLexerHTML::HTMLDoubleQuotedString)
+				<< Rule(styles["jsKeyword"], QList<int>() << QsciLexerHTML::JavaScriptKeyword)
+				<< Rule(styles["jsSingleString"], QList<int>() << QsciLexerHTML::JavaScriptSingleQuotedString)
+				<< Rule(styles["jsDoubleString"], QList<int>() << QsciLexerHTML::JavaScriptDoubleQuotedString)
+				<< Rule(styles["jsComment"], QList<int>() << QsciLexerHTML::JavaScriptComment << QsciLexerHTML::JavaScriptCommentLine)
+				<< Rule(styles["jsNumber"], QList<int>() << QsciLexerHTML::JavaScriptNumber)
+				<< Rule(styles["jsSymbol"], QList<int>() << QsciLexerHTML::JavaScriptSymbol);
 		schemes_[name] = phpSch;
 	}
 	else if ( name.compare("JavaScript") == 0 ) {

@@ -9,14 +9,6 @@
 	<style name="entity" color="#0000ff" bold="false" italic="false" />
 	<style name="singleString" color="#cc0000" bold="false" italic="false" />
 	<style name="doubleString" color="#cc0000" bold="false" italic="false" />
-	<!-- PHP -->
-	<style name="phpKeyword" color="#000099" bold="true" italic="false" />
-	<style name="phpOperator" color="#336633" bold="false" italic="false" />
-	<style name="phpVariable" color="#990099" bold="false" italic="false" />
-	<style name="phpSingleString" color="#cc0000" bold="false" italic="false" />
-	<style name="phpDoubleString" color="#cc0000" bold="false" italic="false" />
-	<style name="phpComment" color="#999999" bold="false" italic="true" />
-	<style name="phpNumber" color="#0000ff" bold="false" italic="false" />
 	<!-- JavaScript -->
 	<style name="jsComment" color="#999999" bold="false" italic="true" />
 	<style name="jsNumber" color="#0000ff" bold="false" italic="true" />

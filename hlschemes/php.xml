@@ -10,5 +10,20 @@
 	<style name="phpDoubleString" color="#cc0000" bold="false" italic="false" />
 	<style name="phpComment" color="#999999" bold="false" italic="true" />
 	<style name="phpNumber" color="#0000ff" bold="false" italic="false" />
+	<!-- HTML -->
+	<style name="tag" color="#000066" bold="true" italic="false" />
+	<style name="attribute" color="#006600" bold="false" italic="false" />
+	<style name="comment" color="#999999" bold="false" italic="true" />
+	<style name="value" color="#990033" bold="false" italic="false" />
+	<style name="entity" color="#0000ff" bold="false" italic="false" />
+	<style name="singleString" color="#cc0000" bold="false" italic="false" />
+	<style name="doubleString" color="#cc0000" bold="false" italic="false" />
+	<!-- JavaScript -->
+	<style name="jsComment" color="#999999" bold="false" italic="true" />
+	<style name="jsNumber" color="#0000ff" bold="false" italic="true" />
+	<style name="jsKeyword" color="#000099" bold="true" italic="true" />
+	<style name="jsSingleString" color="#cc0000" bold="false" italic="true" />
+	<style name="jsDoubleString" color="#cc0000" bold="false" italic="true" />
+	<style name="jsSymbol" color="#806080" bold="false" italic="false" />
 </scheme>
 </JuffScheme>

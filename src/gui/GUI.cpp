@@ -103,11 +103,11 @@ GUI::GUI() : QObject() {
 	st->registerCommand(ID_SETTINGS,    this, SLOT(settings()));
 	st->registerCommand(ID_ABOUT,       this, SLOT(about()));
 	st->registerCommand(ID_ABOUT_QT,    this, SLOT(aboutQt()));
-	JUFFDEBUG("Filling the 'help' menu");
+//	JUFFDEBUG("Filling the 'help' menu");
 	helpMenu_->addAction(st->action(ID_ABOUT));
 	helpMenu_->addAction(st->action(ID_ABOUT_QT));
 	
-	JUFFDEBUG("Filling the 'tools' menu");
+//	JUFFDEBUG("Filling the 'tools' menu");
 	toolsMenu_->addAction(st->action(ID_SETTINGS));
 	
 	mw_->menuBar()->addMenu(toolsMenu_);
@@ -357,6 +357,10 @@ void GUI::setAdditionalStatusWidgets(const QWidgetList& list) {
 		mw_->statusBar()->addWidget(w);
 		w->show();
 	}
+}
+
+void GUI::addPluginSettingsPage(const QString& name, QWidget* w) {
+	settDlg_->addPluginSettingsPage(name, w);
 }
 
 void GUI::settings() {

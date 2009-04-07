@@ -552,6 +552,8 @@ void Manager::applySettings() {
 	}
 	
 	initCharsetMenu();
+	
+	mInt_->pluginManager_->applySettings();
 }
 
 Document* Manager::curDoc() const {

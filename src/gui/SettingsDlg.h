@@ -30,7 +30,7 @@ class ViewSettingsPage;
 class EditorSettingsPage;
 class CharsetsSettingsPage;
 class AutocompleteSettingsPage;
-//class PluginPage;
+class PluginPage;
 
 class SettingsDlg : public QDialog {
 Q_OBJECT
@@ -39,8 +39,8 @@ public:
 	virtual ~SettingsDlg();
 
 	int exec();
-//	void addPluginsSettings();
-//	bool isPluginEnabled(const QString&);
+	bool isPluginEnabled(const QString&);
+	void addPluginSettingsPage(const QString&, QWidget*);
 
 signals:
 	void applied();
@@ -62,8 +62,8 @@ private:
 	EditorSettingsPage* pageEditor_;
 	CharsetsSettingsPage* pageCharsets_;
 	AutocompleteSettingsPage* pageAC_;
-//	QWidget* pluginsMainPage_;
-//	QMap<QString, PluginPage*> pluginPages_;
+	QWidget* pluginsMainPage_;
+	QMap<QString, PluginPage*> pluginPages_;
 };
 
 #endif

@@ -32,8 +32,9 @@ class MultiPageInterior {
 public:
 	MultiPageInterior(QWidget* mp) {
 		tree_ = new QTreeWidget();
-		tree_->setFixedWidth(150);
+		tree_->setFixedWidth(180);
 		tree_->header()->hide();
+		tree_->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 //		tree_->setRootIsDecorated(false);
 		
 		panel_ = new QWidget();
@@ -97,6 +98,7 @@ void MultiPage::addChildPage(const QString& parentTitle, const QString& pageTitl
 			selectPage(0);
 		else
 			selectPage(currentIndex());
+		p->setExpanded(true);
 	}
 }
 
@@ -106,6 +108,17 @@ int MultiPage::pageCount() const {
 
 QWidget* MultiPage::currentPage() const {
 	return mpInt_->pages_[mpInt_->tree_->currentItem()];
+}
+
+QWidget* MultiPage::page(const QString& title) const {
+	QList<QTreeWidgetItem*> items = mpInt_->tree_->findItems(title, Qt::MatchFixedString);
+	if ( items.count() > 0 ) {
+		QTreeWidgetItem* item = items[0];
+		if ( mpInt_->pages_.contains(item) ) {
+			return mpInt_->pages_[item];
+		}
+	}
+	return 0;
 }
 
 void MultiPage::selectPage(int page) {
@@ -133,4 +146,20 @@ void MultiPage::changeCurrentItem(QTreeWidgetItem* it, QTreeWidgetItem*) {
 			page->show();
 		}
 	}
+}
+
+QStringList MultiPage::getChildrenTitles(const QString& parentTitle) {
+	QStringList list;
+	QList<QTreeWidgetItem*> items = mpInt_->tree_->findItems(parentTitle, Qt::MatchFixedString);
+	if ( items.count() > 0 ) {
+		QTreeWidgetItem* pluginsItem = items[0];
+		int n = pluginsItem->childCount();
+		for (int i = 0; i < n; ++i ) {
+			QTreeWidgetItem* it = pluginsItem->child(i);
+			if ( it ) {
+				list << it->text(0);
+			}
+		}
+	}
+	return list;
 }

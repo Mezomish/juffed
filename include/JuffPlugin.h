@@ -119,6 +119,13 @@ public:
 	* Reimplement this method if your plugin has settings page.
 	*/
 	virtual QWidget* settingsPage() const { return 0; }
+	
+	/**
+	* applySettings()
+	*
+	* Called when 'Apply' or "OK' button in 'Settings' dialog was pressed.
+	*/
+	virtual void applySettings() { }
 
 	/**
 	* dockPosition()

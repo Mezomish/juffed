@@ -35,8 +35,10 @@ public:
 	void addChildPage(const QString& parentTitle, const QString& pageTitle, QWidget*);
 	int pageCount() const;
 	QWidget* currentPage() const;
+	QWidget* page(const QString&) const;
 	int currentIndex() const;
 	void selectPage(int);
+	QStringList getChildrenTitles(const QString&);
 
 protected slots:
 	void changeCurrentItem(QTreeWidgetItem*, QTreeWidgetItem* = 0);

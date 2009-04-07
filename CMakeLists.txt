@@ -111,6 +111,7 @@ SET ( juffed_SRCS
 	src/gui/GUIManager.cpp
 	src/gui/MultiPage.cpp
 	src/gui/MW.cpp
+	src/gui/PluginPage.cpp
 	src/gui/SessionDlg.cpp
 	src/gui/SettingsDlg.cpp
 	src/gui/StatusLabel.cpp
@@ -138,6 +139,7 @@ SET ( juffed_MOC_HDRS
 	src/gui/GUI.h
 	src/gui/MultiPage.h
 	src/gui/MW.h
+	src/gui/PluginPage.h
 	src/gui/SessionDlg.h
 	src/gui/SettingsDlg.h
 	src/gui/TabBar.h

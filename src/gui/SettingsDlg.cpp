@@ -36,7 +36,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "IconManager.h"
 #include "MultiPage.h"
 #include "MainSettings.h"
-//#include "PluginManager.h"
+#include "PluginManager.h"
 #include "PluginSettings.h"
 #include "TextDocSettings.h"
 #include "AutocompleteSettings.h"
@@ -96,8 +96,8 @@ public:
 };
 
 #include "CharsetsSettingsPage.h"
-//#include "PluginPage.h"
-//#include "JuffPlugin.h"
+#include "PluginPage.h"
+#include "JuffPlugin.h"
 
 /////////////////////////////////////////////////////////////
 
@@ -127,8 +127,8 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	mp_->addPage(tr("Charsets"), pageCharsets_);
 
 	//	plugins
-//	pluginsMainPage_ = new QWidget();
-//	mp_->addPage(tr("Plugins"), pluginsMainPage_);
+	pluginsMainPage_ = new QWidget();
+	mp_->addPage(tr("Plugins"), pluginsMainPage_);
 
 	// layouts
 	QHBoxLayout* btnLayout = new QHBoxLayout();
@@ -151,7 +151,7 @@ SettingsDlg::~SettingsDlg() {
 	delete pageMain_;
 	delete pageAC_;
 	delete pageView_;
-//	delete pluginsMainPage_;
+	delete pluginsMainPage_;
 	delete mp_;
 }
 
@@ -236,17 +236,12 @@ void SettingsDlg::init() {
 	pageCharsets_->init();
 }
 
-/*void SettingsDlg::addPluginsSettings() {
-	PluginList plugins = PluginManager::instance()->plugins();
-	foreach (JuffPlugin* plugin, plugins) {
-		if (plugin != 0) {
-			PluginPage* plPage = new PluginPage(plugin->name(), plugin->settingsPage());
-			mp_->addChildPage(tr("Plugins"), plugin->name(), plPage);
-			pluginPages_[plugin->name()] = plPage;
-			plPage->enablePage(PluginSettings::pluginEnabled(plugin->name()));
-		}
-	}
-}*/
+void SettingsDlg::addPluginSettingsPage(const QString& name, QWidget* page) {
+	PluginPage* plPage = new PluginPage(name, page);
+	mp_->addChildPage(tr("Plugins"), name, plPage);
+	pluginPages_[name] = plPage;
+	plPage->enablePage(PluginSettings::pluginEnabled(name));
+}
 
 int SettingsDlg::exec() {
 	init();
@@ -302,17 +297,16 @@ void SettingsDlg::apply() {
 	pageCharsets_->applySettings();
 
 	//	plugins
-/*	PluginList plugins = PluginManager::instance()->plugins();
-	foreach (JuffPlugin* plugin, plugins) {
-		if (plugin != 0) {
-			QString name = plugin->name();
-			PluginPage* page = pluginPages_[name];
-			if (page != 0) {
-				PluginSettings::setPluginEnabled(plugin->name(), page->pageEnabled());
-			}
+	QStringList plugins = pluginPages_.keys();
+	foreach (QString plName, plugins) {
+		Log::debug(plName);
+		PluginPage* page = pluginPages_[plName];
+		if ( page ) {
+			Log::debug(QString("Plugin '%1' was %2").arg(plName).arg( page->pageEnabled() ? "ENABLED" : "DISABLED" ));
+			PluginSettings::setPluginEnabled(plName, page->pageEnabled());
 		}
-	}*/
-	
+	}
+
 	emit applied();
 }
 
@@ -321,10 +315,10 @@ void SettingsDlg::ok() {
 	accept();
 }
 
-/*bool SettingsDlg::isPluginEnabled(const QString& pluginName) {
+bool SettingsDlg::isPluginEnabled(const QString& pluginName) {
 	PluginPage* page = pluginPages_.value(pluginName, 0);
 	if (page != 0)
 		return page->pageEnabled();
 	else
 		return false;
-}*/
+}

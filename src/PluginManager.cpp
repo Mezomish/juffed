@@ -30,6 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "gui/GUI.h"
 #include "JuffPlugin.h"
 #include "Log.h"
+#include "PluginSettings.h"
 
 namespace Juff {
 
@@ -170,6 +171,16 @@ void PluginManager::notifyContextMenuCalled(int line, int col) {
 
 ////////////////////////////////////////////////////////////
 
+bool PluginManager::pluginExists(const QString& name) {
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			if ( plugin && plugin->name() == name ) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
 
 void PluginManager::loadPlugin(const QString& path) {
 	JUFFENTRY;
@@ -184,13 +195,19 @@ void PluginManager::loadPlugin(const QString& path) {
 	if ( obj ) {
 		JuffPlugin* plugin = qobject_cast<JuffPlugin*>(obj);
 		if ( plugin ) {
-			plugin->setManager(pmInt_->managerInt_);
-			
+
+			//	Check if we need to load it
+			if ( !PluginSettings::pluginEnabled(plugin->name()) ) {
+				pmInt_->gui_->addPluginSettingsPage(plugin->name(), 0);
+				return;
+			}
+
 			//	Check if plugin with the same name was already loaded.
 			//	If is was then exit.
-//			if (pluginExists(plugin->name()))
-//				return;
+			if ( pluginExists(plugin->name()) )
+				return;
 
+			plugin->setManager(pmInt_->managerInt_);
 			if ( pmInt_->addPlugin(plugin) ) {
 
 				qDebug(qPrintable(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name())));
@@ -198,6 +215,9 @@ void PluginManager::loadPlugin(const QString& path) {
 				//	context menu actions
 				QString type = plugin->targetEngine();
 				pmInt_->contextMenuActions_[type] << plugin->contextMenuActions();
+				
+				//	settings page
+				pmInt_->gui_->addPluginSettingsPage(plugin->name(), plugin->settingsPage());
 			}
 			else {
 				loader.unload();
@@ -224,6 +244,14 @@ void PluginManager::loadPlugins() {
 	
 	foreach (QString type, pmInt_->docks_.keys()) {
 		pmInt_->gui_->addDocks(type, pmInt_->docks_[type]);
+	}
+}
+
+void PluginManager::applySettings() {
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			plugin->applySettings();
+		}
 	}
 }
 

@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QtGui/QCheckBox>
 #include <QtGui/QVBoxLayout>
+#include "Log.h"
 
 PluginPage::PluginPage(const QString& pluginName, QWidget* page) : 
 	QWidget(), 
@@ -28,15 +29,19 @@ PluginPage::PluginPage(const QString& pluginName, QWidget* page) :
 
 	page_ = page;
 
-	QVBoxLayout* vBox = new QVBoxLayout();
+	QVBoxLayout* vBox = new QVBoxLayout(this);
 
 	usePluginChk_ = new QCheckBox(tr("Enabled"));
 	connect(usePluginChk_, SIGNAL(toggled(bool)), SLOT(enablePage(bool)));
 	vBox->addWidget(usePluginChk_);
+	vBox->setMargin(0);
 
-	if ( page )
+	if ( page ) {
 		vBox->addWidget(page);
-	vBox->addStretch();
+	}
+	else {
+		vBox->addStretch();
+	}
 	
 	setLayout(vBox);
 }

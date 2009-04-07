@@ -46,6 +46,8 @@ public:
 
 	void loadPlugin(const QString&);
 	void loadPlugins();
+	bool pluginExists(const QString&);
+	void applySettings();
 
 	/**
 	*	getMenus()

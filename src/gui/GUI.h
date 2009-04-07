@@ -67,6 +67,7 @@ public:
 	void displayError(const QString&);
 	void addStatusWidget(QWidget*);
 	void setAdditionalStatusWidgets(const QWidgetList&);
+	void addPluginSettingsPage(const QString&, QWidget*);
 	
 	void saveState();
 	void restoreState();

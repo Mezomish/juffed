@@ -915,5 +915,21 @@ void SciDoc::runMacro(const QString& mcr) {
 	}
 }
 
+void SciDoc::goToMatchingBrace() {
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->moveToMatchingBrace();
+}
+
+void SciDoc::selectToMatchingBrace() {
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->selectToMatchingBrace();
+}
+
 }
 

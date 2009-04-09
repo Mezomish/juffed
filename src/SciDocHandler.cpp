@@ -58,6 +58,11 @@ public:
 		macrosMenu_->addAction(startMacroAct_);
 		macrosMenu_->addAction(stopMacroAct_);
 
+		goToMatchingBraceAct_ = new QAction(tr("Match brace"), 0);
+		goToMatchingBraceAct_->setShortcut(QKeySequence("Ctrl+E"));
+		selToMatchingBraceAct_ = new QAction(tr("Select to matching brace"), 0);
+		selToMatchingBraceAct_->setShortcut(QKeySequence("Shift+Ctrl+E"));
+
 		statusWidgets_ << syntaxL_ << eolL_;;
 		
 		CommandStorage* st = CommandStorage::instance();
@@ -79,6 +84,8 @@ public:
 		delete showInvisibleAct_;
 		if ( macro_ )
 			delete macro_;	//	in case we closed the app without stopping macro recording
+		delete goToMatchingBraceAct_;
+		delete selToMatchingBraceAct_;
 	}
 	
 	QMenu* markersMenu_;
@@ -97,11 +104,13 @@ public:
 	GUI::StatusLabel* syntaxL_;
 	GUI::StatusLabel* eolL_;
 	QAction* showInvisibleAct_;
+	QAction* goToMatchingBraceAct_;
+	QAction* selToMatchingBraceAct_;
 	QsciMacro* macro_;
 	QMap<QString, QString> macros_;
 };
 
-SciDocHandler::SciDocHandler() : DocHandler() {	
+SciDocHandler::SciDocHandler() : DocHandler() {
 	JUFFENTRY;
 	
 	CommandStorage* st = CommandStorage::instance();
@@ -154,6 +163,9 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	connect(docInt_->startMacroAct_, SIGNAL(activated()), this, SLOT(startMacroRecord()));
 	connect(docInt_->stopMacroAct_, SIGNAL(activated()), this, SLOT(stopMacroRecord()));
 	docInt_->stopMacroAct_->setEnabled(false);
+	
+	connect(docInt_->goToMatchingBraceAct_, SIGNAL(activated()), this, SLOT(goToMatchingBrace()));
+	connect(docInt_->selToMatchingBraceAct_, SIGNAL(activated()), this, SLOT(selectToMatchingBrace()));
 
 	QToolBar* zoomTB = new QToolBar("Zoom");
 	zoomTB->addAction(st->action(ID_ZOOM_IN));
@@ -251,6 +263,11 @@ MenuList SciDocHandler::menus() const {
 ActionList SciDocHandler::menuActions(MenuID id) const {
 	ActionList list;
 	switch ( id ) {
+		case ID_MENU_EDIT :
+			list << docInt_->goToMatchingBraceAct_;
+			list << docInt_->selToMatchingBraceAct_;
+			break;
+
 		case ID_MENU_FORMAT :
 			list << docInt_->eolMenu_->menuAction();
 			break;
@@ -521,5 +538,22 @@ void SciDocHandler::runMacro() {
 		doc->runMacro(docInt_->macros_[a->text()]);
 	}
 }
+
+void SciDocHandler::goToMatchingBrace() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc  ) {
+		doc->goToMatchingBrace();
+	}
+}
+
+void SciDocHandler::selectToMatchingBrace() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc  ) {
+		doc->selectToMatchingBrace();
+	}
+}
+
 
 }	//	namespace Juff

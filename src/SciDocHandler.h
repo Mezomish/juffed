@@ -65,6 +65,9 @@ private slots:
 	void stopMacroRecord();
 	void runMacro();
 
+	void goToMatchingBrace();
+	void selectToMatchingBrace();
+
 private:
 	void initSyntaxMenu();
 	void changeCurEol(SciDoc*, CommandID);

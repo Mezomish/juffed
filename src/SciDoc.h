@@ -102,6 +102,9 @@ public:
 	QsciMacro* newMacro();
 	void runMacro(const QString&);
 
+	void goToMatchingBrace();
+	void selectToMatchingBrace();
+
 public slots:
 	void unindent();
 

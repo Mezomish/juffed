@@ -523,12 +523,17 @@ void Manager::addDocHandler(DocHandler* handler) {
 	}
 	handler->addContextMenuActions(mInt_->pluginManager_->getContextMenuActions(type));
 
-	foreach(QAction* act, handler->menuActions(ID_MENU_FORMAT)) {
+	QAction* act = 0;
+	foreach(act, handler->menuActions(ID_MENU_EDIT)) {
+		mInt_->editMenu_->addAction(act);
+		mInt_->gui_->addAction(type, act);
+	}
+	foreach(act, handler->menuActions(ID_MENU_FORMAT)) {
 		mInt_->formatMenu_->addAction(act);
 		mInt_->gui_->addAction(type, act);
 	}
 	QMenu* toolsMenu = mInt_->gui_->toolsMenu();
-	foreach(QAction* act, handler->menuActions(ID_MENU_TOOLS)) {
+	foreach(act, handler->menuActions(ID_MENU_TOOLS)) {
 		toolsMenu->addAction(act);
 		mInt_->gui_->addAction(type, act);
 	}

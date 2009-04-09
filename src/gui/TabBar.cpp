@@ -37,6 +37,8 @@ TabBar::TabBar(QWidget* parent) : QTabBar(parent), index_(-1) {
 	tabMenu_->addAction(tr("Copy file name to clipboard"), this, SLOT(copyFileName()));
 	tabMenu_->addAction(tr("Copy full file path to clipboard"), this, SLOT(copyFilePath()));
 	tabMenu_->addAction(tr("Copy file directory path to clipboard"), this, SLOT(copyDirPath()));
+	tabMenu_->addSeparator();
+	tabMenu_->addAction(tr("Close"), this, SLOT(closeTab()));
 }
 
 TabBar::~TabBar() {
@@ -101,6 +103,10 @@ void TabBar::copyDirPath() {
 		QString name = QFileInfo(fileName).absolutePath();
 		QApplication::clipboard()->setText(name);
 	}
+}
+
+void TabBar::closeTab() {
+	emit tabCloseRequested(index_);
 }
 
 }	//	namespace GUI

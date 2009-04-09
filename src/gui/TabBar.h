@@ -42,6 +42,7 @@ protected slots:
 	void copyFileName();
 	void copyFilePath();
 	void copyDirPath();
+	void closeTab();
 
 protected:
 	virtual void mousePressEvent(QMouseEvent*);

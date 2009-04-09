@@ -126,16 +126,19 @@ enum MenuID {
 
 
 typedef struct _DocFindFlags {
-	_DocFindFlags(bool Replace = false, bool MatchCase = false, bool Backwards = false, bool IsRegExp = false) {
+	_DocFindFlags(bool Replace = false, bool MatchCase = false, bool Backwards = false, 
+			bool IsRegExp = false, bool WholeWords = false) {
 		replace = Replace;
 		matchCase = MatchCase;
 		backwards = Backwards;
 		isRegExp = IsRegExp;
+		wholeWords = WholeWords;
 	}
 	bool replace;
 	bool matchCase;
 	bool backwards;
 	bool isRegExp;
+	bool wholeWords;
 } DocFindFlags;
 
 typedef QList<QMenu*> MenuList;

@@ -38,12 +38,12 @@ public:
 	QString replaceTo() const { return uiFind.replaceCmb->currentText(); }
 	DocFindFlags flags() const;
 	bool isReplaceMode() const { return uiFind.replaceChk->isChecked(); }
-	bool isRegexpMode() const { return uiFind.regexpChk->isChecked(); }
 
 	static QString lastText() { return lastString_; }
 	static QString lastReplaceText() { return lastReplaceText_; }
 	static bool lastMatchCase() { return matchCase_; }
 	static bool lastRegExpMode() { return regExpMode_; }
+	static bool lastWholeWords() { return wholeWords_; }
 
 public slots:
 	void setReplaceMode(bool);
@@ -60,6 +60,7 @@ private:
 	static bool matchCase_;
 	static bool backward_;
 	static bool regExpMode_;
+	static bool wholeWords_;
 	static QStringList strings_;
 	static QStringList replaces_;
 };

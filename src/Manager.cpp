@@ -1107,7 +1107,7 @@ void Manager::findNext() {
 		}
 		else {
 			DocFindFlags flags = mInt_->gui_->lastFlags();
-			doc->find(lastText, DocFindFlags(false, flags.matchCase, false, flags.isRegExp));
+			doc->find(lastText, DocFindFlags(false, flags.matchCase, false, flags.isRegExp, flags.wholeWords));
 		}
 	}
 }
@@ -1123,7 +1123,7 @@ void Manager::findPrev() {
 		}
 		else {
 			DocFindFlags flags = mInt_->gui_->lastFlags();
-			doc->find(lastText, DocFindFlags(false, flags.matchCase, true, flags.isRegExp));
+			doc->find(lastText, DocFindFlags(false, flags.matchCase, true, flags.isRegExp, flags.wholeWords));
 		}
 	}
 }

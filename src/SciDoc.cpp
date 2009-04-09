@@ -333,11 +333,11 @@ bool continueOverTheEnd(QsciScintilla* edit, bool back) {
 
 void SciDoc::find(const QString& str, const DocFindFlags& flags) {
 	JUFFENTRY;
-	
+
 	JuffScintilla* edit = getActiveEdit();
 	if ( !edit )
 		return;
-	
+
 	prepareForFind(edit, str, flags);
 
 	bool found = edit->find(str, flags);
@@ -350,13 +350,13 @@ void SciDoc::find(const QString& str, const DocFindFlags& flags) {
 
 void SciDoc::replace(const QString& str1, const QString& str2, const DocFindFlags& flags) {
 	JUFFENTRY;
-	
+
 	JuffScintilla* edit = getActiveEdit();
 	if ( !edit )
 		return;
-	
+
 	prepareForFind(edit, str1, flags);
-	
+
 	bool cancelled = false;
 	bool replaceAll = false;
 	while ( edit->find(str1, flags) ) {

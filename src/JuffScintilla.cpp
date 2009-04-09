@@ -69,9 +69,14 @@ bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
 					indent = col;
 				}
 				int index(-1);
-				QRegExp regExp(str);
+				QRegExp regExp;
+				if ( flags.wholeWords ) {
+					regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
+				}
+				else
+					regExp = QRegExp(str);
 				regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-				if ( flags.isRegExp ) {
+				if ( flags.isRegExp || flags.wholeWords ) {
 					index = line.indexOf(regExp);
 				}
 				else {
@@ -111,9 +116,13 @@ bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
 				}
 
 				int index(-1);
-				QRegExp regExp(str);
+				QRegExp regExp;
+				if ( flags.wholeWords )
+					regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
+				else
+					regExp = QRegExp(str);
 				regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-				if ( flags.isRegExp )
+				if ( flags.isRegExp || flags.wholeWords )
 					index = line.lastIndexOf(regExp);
 				else {
 					if ( !flags.matchCase ) {

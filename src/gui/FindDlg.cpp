@@ -32,6 +32,7 @@ QString FindDlg::lastReplaceText_ = "";
 bool FindDlg::matchCase_ = true;
 bool FindDlg::backward_ = false;
 bool FindDlg::regExpMode_ = false;
+bool FindDlg::wholeWords_ = false;
 QStringList FindDlg::strings_;
 QStringList FindDlg::replaces_;
 
@@ -51,6 +52,7 @@ FindDlg::FindDlg(QWidget* parent) :
 	uiFind.backwardChk->setChecked(backward_);
 	uiFind.replaceChk->setChecked(false);
 	uiFind.regexpChk->setChecked(regExpMode_);
+	uiFind.wholeWordsChk->setChecked(wholeWords_);
 
 	uiFind.findCmb->setFocus();
 	uiFind.findCmb->lineEdit()->selectAll();
@@ -68,11 +70,12 @@ FindDlg::~FindDlg() {
 	matchCase_ = uiFind.matchCaseChk->isChecked();
 	backward_ = uiFind.backwardChk->isChecked();
 	regExpMode_ = uiFind.regexpChk->isChecked();
+	wholeWords_ = uiFind.wholeWordsChk->isChecked();
 }
 
 DocFindFlags FindDlg::flags() const {
 	return DocFindFlags(uiFind.replaceChk->isChecked(), uiFind.matchCaseChk->isChecked(), 
-			uiFind.backwardChk->isChecked(), uiFind.regexpChk->isChecked());
+			uiFind.backwardChk->isChecked(), uiFind.regexpChk->isChecked(), uiFind.wholeWordsChk->isChecked());
 }
 
 void FindDlg::keyPressEvent(QKeyEvent* e) {

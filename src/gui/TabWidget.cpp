@@ -20,8 +20,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Log.h"
 
+#include <QtGui/QPushButton>
+
 namespace Juff {
 namespace GUI {
+
+class Button : public QPushButton {
+public:
+	Button(const QIcon& icon) : QPushButton(icon, "") {
+		setMinimumSize(sz, sz);
+		setMaximumSize(sz, sz);
+	}
+	virtual QSize sizeHint () const {
+		return QSize(sz, sz);
+	}
+	static const int sz;
+};
+
+const int Button::sz = 24;
 
 TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	tabBar_ = new TabBar(this);
@@ -33,6 +49,12 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	connect(tabBar_, SIGNAL(requestFileName(int, QString&)), this, SIGNAL(requestFileName(int, QString&)));
 	connect(tabBar_, SIGNAL(requestNextDoc()), this, SLOT(nextWidget()));
 	connect(tabBar_, SIGNAL(requestPrevDoc()), this, SLOT(prevWidget()));
+	
+	QPushButton* b = new Button(QIcon(":window-close.png"));
+	b->setToolTip(tr("Close current document"));
+	setCornerWidget(b, Qt::TopRightCorner);
+	connect(b, SIGNAL(clicked()), SLOT(closeBtnPressed()));
+	//	this button will be deleted automatically by tab widget
 }
 
 TabWidget::~TabWidget() {
@@ -53,6 +75,12 @@ void TabWidget::prevWidget() {
 
 void TabWidget::mouseDoubleClickEvent(QMouseEvent*) {
 	emit newFileRequested();
+}
+
+void TabWidget::closeBtnPressed() {
+	int index = currentIndex();
+	if ( index >= 0 )
+		emit tabCloseRequested(index);
 }
 
 

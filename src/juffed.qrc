@@ -58,6 +58,7 @@
         <file alias="16/tux.png">icons/16x16/tux.png</file>
         <file alias="16/mac.png">icons/16x16/mac.png</file>
         <file alias="16/win.png">icons/16x16/win.png</file>
+        <file alias="window-close.png">icons/16x16/window-close.png</file>
 
         <file alias="record.png">icons/24x24/media-record.png</file>
         <file alias="stop.png">icons/24x24/media-playback-stop.png</file>

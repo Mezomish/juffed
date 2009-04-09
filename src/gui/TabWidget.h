@@ -46,6 +46,9 @@ signals:
 protected:
 	virtual void mouseDoubleClickEvent(QMouseEvent*);
 
+protected slots:
+	void closeBtnPressed();
+
 private:
 	TabBar* tabBar_;
 };

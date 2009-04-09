@@ -19,10 +19,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AutocompleteSettings.h"
 
 bool AutocompleteSettings::useDocument() {
-	return Settings::boolValue("autocomplete", "useDocument", true);
+	return Settings::boolValue("autocomplete", "useDocument", false);
 }
 bool AutocompleteSettings::useApis() {
-	return Settings::boolValue("autocomplete", "useApis", true);
+	return Settings::boolValue("autocomplete", "useApis", false);
 }
 bool AutocompleteSettings::replaceWord() {
 	return Settings::boolValue("autocomplete", "replaceWord", false);

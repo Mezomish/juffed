@@ -26,11 +26,13 @@ public:
 	static bool useDocument();
 	static bool useApis();
 	static bool replaceWord();
+	static bool caseSensitive();
 	static int threshold();
 
 	static void setUseDocument(bool);
 	static void setUseApis(bool);
 	static void setReplaceWord(bool);
+	static void setCaseSensitive(bool);
 	static void setThreshold(int);
 };
 

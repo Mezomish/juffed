@@ -27,6 +27,9 @@ bool AutocompleteSettings::useApis() {
 bool AutocompleteSettings::replaceWord() {
 	return Settings::boolValue("autocomplete", "replaceWord", false);
 }
+bool AutocompleteSettings::caseSensitive() {
+	return Settings::boolValue("autocomplete", "caseSensitive", false);
+}
 int AutocompleteSettings::threshold() {
 	return Settings::intValue("autocomplete", "threshold", 2);
 }
@@ -40,6 +43,9 @@ void AutocompleteSettings::setUseApis(bool use) {
 }
 void AutocompleteSettings::setReplaceWord(bool replace) {
 	Settings::setValue("autocomplete", "replaceWord", replace);
+}
+void AutocompleteSettings::setCaseSensitive(bool cs) {
+	Settings::setValue("autocomplete", "caseSensitive", cs);
 }
 void AutocompleteSettings::setThreshold(int thr) {
 	Settings::setValue("autocomplete", "threshold", thr);

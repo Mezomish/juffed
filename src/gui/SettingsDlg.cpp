@@ -230,6 +230,7 @@ void SettingsDlg::init() {
 	pageAC_->ui.useDocumentChk->setChecked(AutocompleteSettings::useDocument());
 	pageAC_->ui.useApiChk->setChecked(AutocompleteSettings::useApis());
 	pageAC_->ui.replaceWordChk->setChecked(AutocompleteSettings::replaceWord());
+	pageAC_->ui.matchCaseChk->setChecked(AutocompleteSettings::caseSensitive());
 	pageAC_->ui.thresholdSpin->setValue(AutocompleteSettings::threshold());
 	
 	//	charsets page
@@ -291,6 +292,7 @@ void SettingsDlg::apply() {
 	AutocompleteSettings::setUseDocument(pageAC_->ui.useDocumentChk->isChecked());
 	AutocompleteSettings::setUseApis(pageAC_->ui.useApiChk->isChecked());
 	AutocompleteSettings::setReplaceWord(pageAC_->ui.replaceWordChk->isChecked());
+	AutocompleteSettings::setCaseSensitive(pageAC_->ui.matchCaseChk->isChecked());
 	AutocompleteSettings::setThreshold(pageAC_->ui.thresholdSpin->value());
 
 	//	charsets

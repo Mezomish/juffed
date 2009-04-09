@@ -551,6 +551,7 @@ void SciDoc::applySettings() {
 		//	autocompletion
 		edit->setAutoCompletionThreshold(AutocompleteSettings::threshold());
 		edit->setAutoCompletionReplaceWord(AutocompleteSettings::replaceWord());
+		edit->setAutoCompletionCaseSensitivity(AutocompleteSettings::caseSensitive());
 		if ( AutocompleteSettings::useDocument() ) {
 			if ( AutocompleteSettings::useApis() )
 				edit->setAutoCompletionSource(QsciScintilla::AcsAll);

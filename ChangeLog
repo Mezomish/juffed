@@ -4,6 +4,15 @@
 * Added: 'Close' action to tab's context menu
 * Added: actions 'Match brace' and 'Select to matching brace'
 
+2009-04-07:
+* Added: plugins settings and enabling/disabling them in 'Settings' dialog
+
+2009-04-06:
+* Added: block text entering
+* Added: basci macros support
+* Added: combo-boxes instead of line edits to 'Find/Replace' dialog
+
+
 ===============================
 Version 0.6
 ===============================

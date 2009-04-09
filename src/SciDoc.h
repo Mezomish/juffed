@@ -93,12 +93,12 @@ public:
 	void zoomIn();
 	void zoomOut();
 	void zoom100();
-	
+
 	void toggleMarker();
 	void nextMarker();
 	void prevMarker();
 	void removeAllMarkers();
-	
+
 	QsciMacro* newMacro();
 	void runMacro(const QString&);
 

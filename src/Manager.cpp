@@ -273,6 +273,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->gui_->setCurType("all");
 	applySettings();
 
+	mInt_->mainTB_->show();
 	//	restore toolbars and docks positions
 	mInt_->gui_->restoreState();
 }
@@ -1011,6 +1012,8 @@ void Manager::restoreSession() {
 					QString fileName = doc->isNull() ? "" : doc->fileName();
 					mInt_->gui_->updateTitle(fileName, sessName, false);
 				}
+				if ( docCount() == 0 )
+					fileNew();
 			}
 			break;
 		

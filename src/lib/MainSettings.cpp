@@ -25,7 +25,7 @@ QString MainSettings::lastOpenDir() {
 }
 
 bool MainSettings::syncOpenDialogToCurDoc() {
-	return Settings::boolValue("main", "syncOpenDialogToCurDoc", false);
+	return Settings::boolValue("main", "syncOpenDialogToCurDoc", true);
 }
 
 QString MainSettings::lastSaveDir() { 
@@ -88,7 +88,7 @@ bool MainSettings::closeTabsInOrderOfUse() {
 }
 
 bool MainSettings::singleInstance() { 
-	return Settings::boolValue("main", "singleInstance", false); 
+	return Settings::boolValue("main", "singleInstance", true); 
 }
 
 QByteArray MainSettings::mwState() {

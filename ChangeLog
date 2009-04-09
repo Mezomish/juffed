@@ -1,10 +1,34 @@
+2009-04-08:
+* Added: opening a new doc by double-clicking on tabbar's empty space
+* Added: close button to the corner of tabbar
+* Added: 'Close' action to tab's context menu
+* Added: actions 'Match brace' and 'Select to matching brace'
+
+===============================
+Version 0.6
+===============================
+
+2009-04-07:
+* Added: HTML highlighting to PHP scheme
+* Added: company "SoftIcon" to 'About' dialog
+* Fixed: troubles with log file on Windows
+* Fixed: hidden main toolbar when starting without a config file
+* Fixed: empty session at the first run
+
+2009-04-06:
+* Fixed: shortcut for 'Save as' action
+
 2009-04-05:
 * Fixed: updating syntax name in statusbar
 * Fixed: updating cursor position in statusbar when typing in upper edit area
 
+2009-04-04:
+* German localization updated
+
 -------------------------------
 0.5 beta 2
 -------------------------------
+
 2009-04-03:
 * Changelog updated
 * Changed version to 0.5-beta2

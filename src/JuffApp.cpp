@@ -178,6 +178,11 @@ void JuffApp::checkForFirstRun() {
 	QDir sessionDir(configPath + "/sessions/");
 	if ( !sessionDir.exists() )
 		sessionDir.mkpath(configPath + "/sessions/");
+
+	//	create the log file
+	QFile file(AppInfo::logFile());
+	file.open(QIODevice::WriteOnly);
+	file.close();
 }
 
 void JuffApp::copyToLocalDir(const QString& subDirName) {

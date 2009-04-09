@@ -41,6 +41,10 @@ public slots:
 signals:
 	void tabCloseRequested(int);
 	void requestFileName(int, QString&);
+	void newFileRequested();
+
+protected:
+	virtual void mouseDoubleClickEvent(QMouseEvent*);
 
 private:
 	TabBar* tabBar_;

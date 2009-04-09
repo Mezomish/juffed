@@ -51,5 +51,10 @@ void TabWidget::prevWidget() {
 		setCurrentIndex(index - 1);
 }
 
+void TabWidget::mouseDoubleClickEvent(QMouseEvent*) {
+	emit newFileRequested();
+}
+
+
 }	//	namespace GUI
 }	//	namespace Juff

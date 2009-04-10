@@ -393,7 +393,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 		jsSch.rules << Rule(styles["keyword"], QList<int>() << QsciLexerCPP::Keyword)
 				<< Rule(styles["singleString"], QList<int>() << QsciLexerCPP::SingleQuotedString)
 				<< Rule(styles["doubleString"], QList<int>() << QsciLexerCPP::DoubleQuotedString)
-				<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine)
+				<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine << QsciLexerCPP::CommentDoc << QsciLexerCPP::CommentLineDoc)
 				<< Rule(styles["number"], QList<int>() << QsciLexerCPP::Number)
 				<< Rule(styles["identifier"], QList<int>() << QsciLexerCPP::Identifier);
 		schemes_[name] = jsSch;

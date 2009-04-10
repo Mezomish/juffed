@@ -101,6 +101,7 @@ public:
 	QLabel* aboutPage() {
 		if (aboutPage_ == 0) {
 			aboutPage_ = new QLabel(0);
+			aboutPage_->setTextFormat(Qt::RichText);
 			aboutPage_->setWordWrap(true);
 			aboutPage_->setAlignment(Qt::AlignCenter);
 			tabWidget_->addTab(aboutPage_, AboutDlg::tr("About"));
@@ -144,6 +145,7 @@ private:
 AboutDlg::AboutDlg(QWidget* parent /*= 0*/, Qt::WindowFlags f /*= 0*/) : QDialog(parent, f) {
 	JUFFENTRY;
 	dlgInt_ = new Interior(this);
+	connect(dlgInt_->aboutPage(), SIGNAL(linkActivated(const QString&)), SLOT(gotoUrl(const QString&)));
 }
 
 AboutDlg::~AboutDlg() {
@@ -154,6 +156,10 @@ AboutDlg::~AboutDlg() {
 
 void AboutDlg::gotoUrl(const QUrl& url) {
 	QDesktopServices::openUrl(url);
+}
+
+void AboutDlg::gotoUrl(const QString& url) {
+	QDesktopServices::openUrl(QUrl(url));
 }
 
 void AboutDlg::setProgramName(const QString& name) {

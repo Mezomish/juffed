@@ -64,6 +64,7 @@ public:
 
 private slots:
 	void gotoUrl(const QUrl&);
+	void gotoUrl(const QString&);
 	
 private:
 	class Interior;

@@ -48,6 +48,7 @@ protected:
 	virtual void mousePressEvent(QMouseEvent*);
 	virtual void mouseReleaseEvent(QMouseEvent*);
 	virtual void wheelEvent(QWheelEvent*);
+	virtual void mouseDoubleClickEvent(QMouseEvent*);
 
 private:
 	QMenu* tabMenu_;

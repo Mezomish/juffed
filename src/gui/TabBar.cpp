@@ -88,6 +88,18 @@ void TabBar::copyFileName() {
 	}
 }
 
+void TabBar::mouseDoubleClickEvent(QMouseEvent* e) {
+
+#if QT_VERSION >= 0x040300
+	//	The QTabBar::tabAt() function was introduced 
+	//	in Qt 4.3, that's why we need this #if ...
+	int index = tabAt(e->pos());
+	emit tabCloseRequested(index);
+#endif
+
+	QTabBar::mouseDoubleClickEvent(e);
+}
+
 void TabBar::copyFilePath() {
 	QString fileName;
 	requestFileName(index_, fileName);

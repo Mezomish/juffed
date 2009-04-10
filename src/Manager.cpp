@@ -1150,6 +1150,7 @@ void Manager::charsetSelected() {
 		Document* doc = curDoc();
 		if ( doc && !doc->isNull() ) {
 			doc->setCharset(a->text());
+			mInt_->charsetL_->setText(a->text());
 		}
 	}
 }

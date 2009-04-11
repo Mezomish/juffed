@@ -790,7 +790,7 @@ bool Manager::fileSave() {
 			return fileSaveAs();
 		}
 		else {
-			if ( saveDoc(doc, doc->charset(), doc->fileName()) ) {
+			if ( saveDoc(doc, doc->fileName(), doc->charset()) ) {
 				doc->setModified(false);
 				return true;
 			}
@@ -1486,7 +1486,7 @@ void Manager::saveDoc(const QString& fileName) {
 		fileSaveAs();
 	}
 	else {
-		if ( saveDoc(doc, doc->charset(), fileName) ) {
+		if ( saveDoc(doc, fileName, doc->charset()) ) {
 			doc->setModified(false);
 		}
 	}

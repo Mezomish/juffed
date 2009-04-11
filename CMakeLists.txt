@@ -66,6 +66,7 @@ SET ( libjuffed_SRCS
 	src/lib/AutocompleteSettings.cpp
 	src/lib/CharsetsSettings.cpp
 	src/lib/CommandStorage.cpp
+	src/lib/FileTypeSettings.cpp
 	src/lib/IconManager.cpp
 	src/lib/Log.cpp
 	src/lib/MainSettings.cpp
@@ -78,6 +79,7 @@ SET ( juffed_UIS
 	src/gui/AutocompleteSettingsPage.ui
 	src/gui/CharsetsSettingsPage.ui
 	src/gui/EditorSettingsPage.ui
+	src/gui/FileTypesPage.ui
 	src/gui/FindDlg.ui
 	src/gui/MainSettingsPage.ui
 	src/gui/SessionDlg.ui
@@ -104,6 +106,7 @@ SET ( juffed_SRCS
 	src/gui/AboutDlg.cpp
 	src/gui/CharsetsSettingsPage.cpp
 	src/gui/ColorButton.cpp
+	src/gui/FileTypesPage.cpp
 	src/gui/FindDlg.cpp
 	src/gui/GUI.cpp
 	src/gui/GUIManager.cpp
@@ -133,6 +136,7 @@ SET ( juffed_MOC_HDRS
 	src/gui/AboutDlg.h
 	src/gui/CharsetsSettingsPage.h
 	src/gui/ColorButton.h
+	src/gui/FileTypesPage.h
 	src/gui/FindDlg.h
 	src/gui/GUI.h
 	src/gui/MultiPage.h

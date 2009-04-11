@@ -16,33 +16,20 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _LEXER_STORAGE_H_
-#define _LEXER_STORAGE_H_
+#ifndef _FILE_TYPE_SETTINGS_H_
+#define _FILE_TYPE_SETTINGS_H_
 
-class LSInterior;
-class QsciLexer;
+#include "Settings.h"
 
-class QFont;
-class QString;
-class QStringList;
-
-class LexerStorage {
+class FileTypeSettings : public Settings {
 public:
-	~LexerStorage();
-	QString lexerName(const QString& fileName) const;
-	QsciLexer* lexer(const QString& name, const QFont&);
-	void updateLexer(const QString& name, const QFont& font);
-	
-	void getLexersList(QStringList&) const;
+	static QStringList getTypeList();
+	static QStringList getFileNamePatterns(const QString&);
+	static QStringList getFirstLinePatterns(const QString&);
 
-	static LexerStorage* instance();
-
-protected:
-	LexerStorage();
-	
-private:
-	static LexerStorage* instance_;
-	LSInterior* lsInt_;
+	static void setTypeList(const QStringList&);
+	static void setFileNamePatterns(const QString&, const QStringList&);
+	static void setFirstLinePatterns(const QString&, const QStringList&);
 };
 
 #endif

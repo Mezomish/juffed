@@ -33,12 +33,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <Qsci/qscilexerjavascript.h>
 #include <Qsci/qscilexerlua.h>
 #include <Qsci/qscilexermakefile.h>
-//#include <Qsci/qscilexerpascal.h>
 #include <Qsci/qscilexerperl.h>
 #include <Qsci/qscilexerpython.h>
 #include <Qsci/qscilexerruby.h>
 #include <Qsci/qscilexersql.h>
-//#include <Qsci/qscilexertcl.h>
 
 //	Qt headers
 #include <QtCore/QFileInfo>
@@ -50,11 +48,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtXml/QDomNode>
 
 //	local headers
-#ifdef Q_OS_WIN
-#include "AppInfo.win.h"
-#else
 #include "AppInfo.h"
-#endif
+#include "FileTypeSettings.h"
 
 #include "Log.h"
 
@@ -65,7 +60,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 			bold = b;
 			italic = i;
 		}
-				
+
 		bool bold;
 		bool italic;
 		QColor color;
@@ -92,40 +87,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class LSInterior {
 public:
 	LSInterior() {
-
-		//	TODO : make all these patterns configurable
-
-		//	file name patterns
-		fileNamePatterns["Bash"]        = "*.sh|*.run";
-		fileNamePatterns["Batch"]       = "*.bat";
-		fileNamePatterns["C++"]         = "*.h|*.hpp|*.hxx|*.h++|*.c|*.cc|*.cpp|*.cxx|*.c++";
-		fileNamePatterns["C#"]          = "*.cs";
-		fileNamePatterns["CMake"]       = "CMakeLists.txt|*.cmake";
-		fileNamePatterns["CSS"]         = "*.css";
-		fileNamePatterns["D"]           = "*.d|*.di";
-		fileNamePatterns["Diff"]        = "*.diff|*.patch";
-		fileNamePatterns["HTML"]        = "*.htm*|*.[xd]htm*";
-		fileNamePatterns["IDL"]         = "*.idl";
-		fileNamePatterns["Java"]        = "*.java";
-		fileNamePatterns["JavaScript"]  = "*.js";
-		fileNamePatterns["Lua"]         = "*.lua|*.tasklua";
-		fileNamePatterns["Makefile"]    = "*Makefile*";
-//		fileNamePatterns["Pascal"]        = "*.pas";
-		fileNamePatterns["Perl"]        = "*.p[lm]";
-		fileNamePatterns["Python"]      = "*.py";
-		fileNamePatterns["PHP"]         = "*.php*";
-		fileNamePatterns["Ruby"]        = "*.rb";
-//		fileNamePatterns["TCL"]         = "*.tcl";
-		fileNamePatterns["SQL"]         = "*.sql";
-		fileNamePatterns["XML"]         = "*.xml";
-		//	1st line patterns
-		frstLinePatterns["Bash"]        = "*bash*|*/sh*";
-		frstLinePatterns["Diff"]        = "Index: *";
-		frstLinePatterns["HTML"]        = "<!doctype html*|<html*";
-		frstLinePatterns["Perl"]        = "*perl*";
-		frstLinePatterns["Python"]      = "*python*";
-		frstLinePatterns["PHP"]         = "<?php*|<? *|<?";
-		frstLinePatterns["XML"]         = "<!doctype*|<?xml*";
 	}
 	~LSInterior() {
 	}
@@ -136,8 +97,6 @@ public:
 	
 	QMap<QString, QsciLexer*> lexers_;
 	SchemeMap schemes_;
-	QMap<QString, QString> fileNamePatterns;
-	QMap<QString, QString> frstLinePatterns;
 };
 
 bool stringToBool(const QString& str) {
@@ -509,9 +468,6 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if ( name.compare("Diff") == 0 ) {
 			newLexer = new QsciLexerDiff();
 		}
-//		else if ( name.compare("Pascal") == 0 ) {
-//			newLexer = new QsciLexerPascal();
-//		}
 		else if ( name.compare("Python") == 0 ) {
 			newLexer = new QsciLexerPython();
 		}
@@ -554,9 +510,6 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if ( name.compare("Lua") == 0 ) {
 			newLexer = new QsciLexerLua();
 		}
-//		else if ( name.compare("TCL") == 0 ) {
-//			newLexer = new QsciLexerTCL();
-//		}
 		else if ( name.compare("none") == 0 ) {
 			newLexer = new QsciLexerPython();
 		}
@@ -596,36 +549,39 @@ QString LexerStorage::lexerName(const QString& fName) const {
 	QString name = "none";
 
 	//	try to guess lexer using file name
-	QStringList keys = lsInt_->fileNamePatterns.keys();
-	foreach(QString key, keys) {
-		QStringList patterns = lsInt_->fileNamePatterns[key].split("|");
+	QStringList types = FileTypeSettings::getTypeList();
+	if ( types.isEmpty() ) {
+		getLexersList(types);
+		types.removeAll("none");
+	}
+	foreach(QString type, types ) {
+		Log::debug(type);
+		QStringList patterns = FileTypeSettings::getFileNamePatterns(type);
 		foreach (QString pattern, patterns) {
 			QRegExp rx(pattern);
 			rx.setPatternSyntax(QRegExp::Wildcard);
 			rx.setCaseSensitivity(Qt::CaseInsensitive);
 			if ( rx.exactMatch(fileName) ) {
-				return key;
+				return type;
 			}
 		}
 	}
 
 	//	file name didn't match to any pattern - try to 
 	//	analize file's 1st line
-	
+
 	QFile file(fName);
 	if ( file.open(QIODevice::ReadOnly) ) {
 		QString line = QString::fromLatin1(file.readLine().constData()).simplified();
-		JUFFDEBUG(line);
-		
-		keys = lsInt_->frstLinePatterns.keys();
-		foreach(QString key, keys) {
-			QStringList patterns = lsInt_->frstLinePatterns[key].split("|");
+
+		foreach(QString type, types) {
+			QStringList patterns = FileTypeSettings::getFirstLinePatterns(type);
 			foreach (QString pattern, patterns) {
 				QRegExp rx(pattern);
 				rx.setPatternSyntax(QRegExp::Wildcard);
 				rx.setCaseSensitivity(Qt::CaseInsensitive);
 				if ( rx.exactMatch(line) ) {
-					return key;
+					return type;
 				}
 			}
 		}
@@ -645,7 +601,7 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 	return lex;
 }
 
-void LexerStorage::getLexersList(QStringList& list) {
+void LexerStorage::getLexersList(QStringList& list) const {
 	list.clear();
 	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" 
 			<< "D" << "Diff" << "HTML" << "IDL" << "Java" << "JavaScript" 
@@ -662,7 +618,7 @@ void LexerStorage::updateLexer(const QString& name, const QFont& font) {
 		lsInt_->applyCustomStyle(name, font);
 	}
 }
-	
+
 LexerStorage* LexerStorage::instance() {
 	if ( instance_ == 0 )
 		instance_ = new LexerStorage();

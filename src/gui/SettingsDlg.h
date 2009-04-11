@@ -31,6 +31,7 @@ class EditorSettingsPage;
 class CharsetsSettingsPage;
 class AutocompleteSettingsPage;
 class PluginPage;
+class FileTypesPage;
 
 class SettingsDlg : public QDialog {
 Q_OBJECT
@@ -62,6 +63,7 @@ private:
 	EditorSettingsPage* pageEditor_;
 	CharsetsSettingsPage* pageCharsets_;
 	AutocompleteSettingsPage* pageAC_;
+	FileTypesPage* fileTypesPage_;
 	QWidget* pluginsMainPage_;
 	QMap<QString, PluginPage*> pluginPages_;
 };

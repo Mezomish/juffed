@@ -16,33 +16,29 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _LEXER_STORAGE_H_
-#define _LEXER_STORAGE_H_
+#ifndef _FILE_TYPES_PAGE_H_
+#define _FILE_TYPES_PAGE_H_
 
-class LSInterior;
-class QsciLexer;
+#include "ui_FileTypesPage.h"
 
-class QFont;
-class QString;
-class QStringList;
-
-class LexerStorage {
+class FileTypesPage : public QWidget {
+Q_OBJECT
 public:
-	~LexerStorage();
-	QString lexerName(const QString& fileName) const;
-	QsciLexer* lexer(const QString& name, const QFont&);
-	void updateLexer(const QString& name, const QFont& font);
-	
-	void getLexersList(QStringList&) const;
+	FileTypesPage();
 
-	static LexerStorage* instance();
+	void apply();
 
-protected:
-	LexerStorage();
-	
+protected slots:
+	void typeChanged(const QString&);
+	void addFileNamePattern();
+	void removeFileNamePattern();
+	void addFirstLinePattern();
+	void removeFirstLinePattern();
+
 private:
-	static LexerStorage* instance_;
-	LSInterior* lsInt_;
+	Ui::FileTypesPage ui;
+	QMap<QString, QStringList> fileNamePatterns_;
+	QMap<QString, QStringList> firstLinePatterns_;
 };
 
 #endif

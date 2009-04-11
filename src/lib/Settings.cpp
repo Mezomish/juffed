@@ -76,9 +76,9 @@ void Settings::write() {
 bool Settings::valueExists(const QString& section, const QString& key) {
 	return settData_->data_[section].contains(key);
 }
-	
-QVariant Settings::value(const QString& section, const QString& key) {
-	return settData_->data_[section][key];
+
+QVariant Settings::value(const QString& section, const QString& key, const QVariant& defValue /*= QVariant()*/) {
+	return settData_->data_[section].value(key, defValue);
 }
 
 QString Settings::stringValue(const QString& section, const QString& key, const QString& def) {

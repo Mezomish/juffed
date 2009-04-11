@@ -43,7 +43,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "ui_MainSettingsPage.h"
 
-class MainSettingsPage : public QWidget{
+class MainSettingsPage : public QWidget {
 public:
 	MainSettingsPage() : QWidget() {
 		JUFFENTRY;
@@ -95,6 +95,7 @@ public:
 	Ui::AutocompletePage ui;
 };
 
+#include "FileTypesPage.h"
 #include "CharsetsSettingsPage.h"
 #include "PluginPage.h"
 #include "JuffPlugin.h"
@@ -120,11 +121,13 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	pageEditor_ = new EditorSettingsPage();
 	pageCharsets_ = new CharsetsSettingsPage();
 	pageAC_ = new AutocompleteSettingsPage();
+	fileTypesPage_ = new FileTypesPage();
 	mp_->addPage(tr("General"), pageMain_);
 	mp_->addPage(tr("View"), pageView_);
 	mp_->addPage(tr("Editor"), pageEditor_);
 	mp_->addPage(tr("Autocompletion"), pageAC_);
 	mp_->addPage(tr("Charsets"), pageCharsets_);
+	mp_->addPage(tr("File types"), fileTypesPage_);
 
 	//	plugins
 	pluginsMainPage_ = new QWidget();
@@ -150,6 +153,7 @@ SettingsDlg::~SettingsDlg() {
 	delete pageEditor_;
 	delete pageMain_;
 	delete pageAC_;
+	delete fileTypesPage_;
 	delete pageView_;
 	delete pluginsMainPage_;
 	delete mp_;
@@ -308,6 +312,8 @@ void SettingsDlg::apply() {
 			PluginSettings::setPluginEnabled(plName, page->pageEnabled());
 		}
 	}
+
+	fileTypesPage_->apply();
 
 	emit applied();
 }

@@ -37,8 +37,8 @@ protected:
 	static QString stringValue(const QString& section, const QString& key, const QString& def = "");
 	static int intValue(const QString& section, const QString& key, int def = 0);
 	static bool boolValue(const QString& section, const QString& key, bool def = false);
-	static QVariant value(const QString& section, const QString& key);
-	
+	static QVariant value(const QString& section, const QString& key, const QVariant& defValue = QVariant());
+
 	static void setValue(const QString& section, const QString& key, const QVariant& value);
 
 	static QStringList sectionList();

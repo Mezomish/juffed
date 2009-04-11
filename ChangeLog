@@ -1,3 +1,19 @@
+2009-04-11:
+* Added: page for file types configuration to 'Settings' dialog
+* Hopefully fixed bug with lost focus after closing a document
+* Added: Doxygen comments to JavaScript lexer
+* Added: selection of a charset in 'Save' dialog
+
+2009-04-10:
+* Added: link to home page to 'About' dialog
+
+2009-04-09:
+* Added: 'Whole words only' to find options
+* Added: 'Case sensitive' option for auto-completion
+* Fixed: bug with comments in JavaScript highlighting
+* Added: closing file by double-clicking on tab
+* Fixed: updating charset name in statusbar
+
 2009-04-08:
 * Added: opening a new doc by double-clicking on tabbar's empty space
 * Added: close button to the corner of tabbar
@@ -14,7 +30,7 @@
 
 
 ===============================
-Version 0.6
+Version 0.6.0
 ===============================
 
 2009-04-07:

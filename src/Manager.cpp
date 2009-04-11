@@ -689,6 +689,11 @@ void Manager::closeDoc(Document* doc) {
 	mInt_->viewer_->removeDoc(doc);
 	mInt_->pluginManager_->notifyDocClosed(doc->fileName());
 	delete doc;
+	
+	Document* d = curDoc();
+	if ( d && !d->isNull() ) {
+		d->widget()->setFocus();
+	}
 }
 
 bool Manager::closeAllDocs() {

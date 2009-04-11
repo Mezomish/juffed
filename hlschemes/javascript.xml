@@ -3,6 +3,8 @@
 <JuffScheme>
 <scheme name="JavaScript" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
 	<style name="comment" color="#999999" bold="false" italic="true" />
+	<style name="commentdoc" color="#999999" />
+	<style name="commentdockeyword" color="#000060" bgColor="#f0f0f6" />
 	<style name="number" color="#0000ff" bold="false" italic="true" />
 	<style name="keyword" color="#000099" bold="true" italic="true" />
 	<style name="singleString" color="#cc0000" bold="false" italic="true" />

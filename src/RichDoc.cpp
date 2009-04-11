@@ -56,7 +56,7 @@ bool RichDoc::isModified() const {
 void RichDoc::setModified(bool) {
 }
 
-bool RichDoc::save(const QString& fileName, QString& error) {
+bool RichDoc::save(const QString& fileName, const QString&, QString& error) {
 	JUFFENTRY;
 	
 	QFile file(fileName);
@@ -65,7 +65,7 @@ bool RichDoc::save(const QString& fileName, QString& error) {
 		text = docInt_->w_->toHtml();
 		file.write(text.toUtf8());
 		file.close();
-		Document::save(fileName, error);
+		Document::save(fileName, "", error);
 		return true;
 	}
 	else {

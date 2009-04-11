@@ -131,9 +131,9 @@ private:
 	void createDoc(const QString& type, const QString& fileName);
 
 	/**
-	*	Saves given doc with a given file name
+	*	Saves given doc with a given file name and given charset
 	*/
-	bool saveDoc(Document* doc, const QString& fileName);
+	bool saveDoc(Document* doc, const QString& fileName, const QString& charset);
 
 	/**
 	*/

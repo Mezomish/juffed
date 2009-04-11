@@ -47,7 +47,7 @@ public:
 	virtual QWidget* widget() = 0;
 
 	virtual void setFileName(const QString& fileName);
-	virtual bool save(const QString&, QString& err);
+	virtual bool save(const QString&, const QString&, QString& err);
 	virtual void print() = 0;
 	virtual void reload() = 0;
 

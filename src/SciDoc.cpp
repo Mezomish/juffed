@@ -474,16 +474,22 @@ void SciDoc::showInvisibleSymbols(bool show) {
 
 
 
-bool SciDoc::save(const QString& fileName, QString& error) {
+bool SciDoc::save(const QString& fileName, const QString& charset, QString& error) {
 	JUFFENTRY;
 	
 	QFile file(fileName);
 	if ( file.open(QIODevice::WriteOnly) ) {
 		QString text("");
 		text = docInt_->edit1_->text();
-		file.write(docInt_->codec_->fromUnicode(text));
+		QTextCodec* codec = QTextCodec::codecForName(charset.toAscii());
+		if ( !charset.isEmpty() && codec ) {
+			file.write(codec->fromUnicode(text));
+		}
+		else {
+			file.write(docInt_->codec_->fromUnicode(text));
+		}
 		file.close();
-		Document::save(fileName, error);
+		Document::save(fileName, charset, error);
 		return true;
 	}
 	else {

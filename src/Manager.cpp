@@ -609,7 +609,7 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 	}
 }
 
-bool Manager::saveDoc(Document* doc, const QString& fileName) {
+bool Manager::saveDoc(Document* doc, const QString& fileName, const QString& charset) {
 	JUFFENTRY;
 
 	if ( !doc || doc->isNull() )
@@ -665,7 +665,7 @@ bool Manager::saveDoc(Document* doc, const QString& fileName) {
 	MainSettings::setLastSaveDir(QFileInfo(name).absolutePath());
 	
 	QString err;
-	if ( !doc->save(name, err) ) {
+	if ( !doc->save(name, charset, err) ) {
 		Log::debug("Not saved...");
 		mInt_->gui_->displayError(err);
 		return false;
@@ -790,7 +790,7 @@ bool Manager::fileSave() {
 			return fileSaveAs();
 		}
 		else {
-			if ( saveDoc(doc, doc->fileName()) ) {
+			if ( saveDoc(doc, doc->charset(), doc->fileName()) ) {
 				doc->setModified(false);
 				return true;
 			}
@@ -818,11 +818,14 @@ bool Manager::fileSaveAs() {
 		}
 		
 		bool asCopy = false;
-		QString fName = mInt_->gui_->getSaveFileName(doc->fileName(), filters, asCopy);
+		QString charset = doc->charset();
+		QString fName = mInt_->gui_->getSaveFileName(doc->fileName(), filters, asCopy, charset);
 		if ( !fName.isEmpty() ) {
-			if ( saveDoc(doc, fName) ) {
+			if ( saveDoc(doc, fName, charset) ) {
 				if ( !asCopy ) {
 					doc->setFileName(fName);
+					doc->setCharset(charset);
+					mInt_->charsetL_->setText(charset);
 					doc->setModified(false);
 					mInt_->displayFileName(fName);
 				}
@@ -1483,7 +1486,7 @@ void Manager::saveDoc(const QString& fileName) {
 		fileSaveAs();
 	}
 	else {
-		if ( saveDoc(doc, fileName) ) {
+		if ( saveDoc(doc, doc->charset(), fileName) ) {
 			doc->setModified(false);
 		}
 	}

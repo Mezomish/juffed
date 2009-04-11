@@ -32,7 +32,7 @@ Juff::Document* NullDoc::instance() {
 NullDoc::~NullDoc() {
 }
 
-bool NullDoc::save(const QString&, QString&) { 
+bool NullDoc::save(const QString&, const QString&, QString&) { 
 	JUFFENTRY;
 	scream();
 	return false;

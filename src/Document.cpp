@@ -48,7 +48,7 @@ Document::Document(const QString& fName) : QObject() {
 Document::~Document() {
 }
 
-bool Document::save(const QString&, QString&) {
+bool Document::save(const QString&, const QString&, QString&) {
 	lastModified_ = QFileInfo(fileName_).lastModified();
 	return true;
 }
@@ -123,7 +123,7 @@ void Document::checkLastModified() {
 					{
 						//	Save
 						QString err;
-						save(fileName_, err);
+						save(fileName_, charset(), err);
 						lastModified_ = QFileInfo(fileName_).lastModified();
 					}
 						break;

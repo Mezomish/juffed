@@ -32,7 +32,7 @@ public:
 	virtual QWidget* widget();
 	virtual bool isModified() const;
 	virtual void setModified(bool);
-	virtual bool save(const QString&, QString&);
+	virtual bool save(const QString&, const QString&, QString&);
 	virtual void print();
 	virtual void reload();
 

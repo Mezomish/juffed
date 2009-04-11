@@ -40,7 +40,7 @@ public:
 	virtual ~GUI();
 
 	QStringList getOpenFileNames(const QString& startDir, const QString& filters);
-	QString getSaveFileName(const QString& curFileName, const QString& filters, bool& asCopy);
+	QString getSaveFileName(const QString& curFileName, const QString& filters, bool& asCopy, QString& charset);
 	QString getOpenSessionName(bool&);
 	QString getSaveSessionName(const QString& session);
 	bool getFindParams(QString&, QString&, DocFindFlags&);

@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "AboutDlg.h"
 #include "AppInfo.h"
+#include "CharsetsSettings.h"
 #include "CommandStorage.h"
 #include "FindDlg.h"
 #include "Functions.h"
@@ -167,7 +168,7 @@ QStringList GUI::getOpenFileNames(const QString& dir, const QString& filters) {
 	return QFileDialog::getOpenFileNames(mw_, tr("Open files"), dir, filters);
 }
 
-QString GUI::getSaveFileName(const QString& curFileName, const QString& filters, bool& asCopy) {
+QString GUI::getSaveFileName(const QString& curFileName, const QString& filters, bool& asCopy, QString& charset) {
 	QFileDialog saveDlg(mw_, tr("Save as"));
 	saveDlg.setConfirmOverwrite(true);
 	saveDlg.setAcceptMode(QFileDialog::AcceptSave);
@@ -177,9 +178,32 @@ QString GUI::getSaveFileName(const QString& curFileName, const QString& filters,
 	saveDlg.setFilter(filters);
 #endif
 	QLayout* layout = saveDlg.layout();
+
+	//	charsets
+	layout->addWidget(new QLabel(tr("Charset")));
+	QComboBox* cmb = new QComboBox();
+	bool found = false;
+	QStringList charsets = CharsetsSettings::getCharsetsList();
+	foreach (QString chs, charsets) {
+		if ( CharsetsSettings::charsetEnabled(chs) ) {
+			cmb->addItem(chs);
+			if ( charset == chs ) {
+				cmb->setCurrentIndex(cmb->count() - 1);
+				found = true;
+			}
+		}
+	}
+	if ( !found ) {
+		cmb->addItem(charset);
+		cmb->setCurrentIndex(cmb->count() - 1);
+	}
+	layout->addWidget(cmb);
+
+	//	save as a copy
 	QCheckBox* saveAsCopyChk = new QCheckBox(tr("Save as a copy"));
 	saveAsCopyChk->setChecked(asCopy);
 	layout->addWidget(saveAsCopyChk);
+
 
 	if ( !Juff::isNoname(curFileName) ) {
 		QFileInfo fi(curFileName);
@@ -195,6 +219,7 @@ QString GUI::getSaveFileName(const QString& curFileName, const QString& filters,
 	if (saveDlg.exec() == QDialog::Accepted) {
 		fName = saveDlg.selectedFiles()[0];
 		asCopy = saveAsCopyChk->isChecked();
+		charset = cmb->currentText();
 	}
 	
 	return fName;

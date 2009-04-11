@@ -45,7 +45,7 @@ public:
 	virtual bool isModified() const;
 	virtual void setModified(bool);
 	virtual void setFileName(const QString& fileName);
-	virtual bool save(const QString&, QString&);
+	virtual bool save(const QString&, const QString&, QString&);
 	virtual void print();
 	virtual void reload();
 

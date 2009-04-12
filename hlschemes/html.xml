@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="HTML" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+<scheme name="HTML">
 	<style name="tag" color="#000066" bold="true" italic="false" />
 	<style name="attribute" color="#006600" bold="false" italic="false" />
 	<style name="comment" color="#999999" bold="false" italic="true" />

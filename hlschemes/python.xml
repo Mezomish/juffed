@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="Python" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+<scheme name="Python">
 	<style name="comment" color="#108040" italic="true" />
 	<style name="keyword" color="#e43434" bold="true" />
 	<style name="number" color="#0000ff" />
@@ -13,5 +13,6 @@
 	<style name="tripleDouble" color="#0000ff" />
 	<style name="decorator" color="#f48397" bold="true" />
 	<style name="unclosedString" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
+	<style name="identifier" />
 </scheme>
 </JuffScheme>

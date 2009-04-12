@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="Perl" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+<scheme name="Perl">
 	<style name="comment" color="#8080a0" bold="false" italic="true" />
 	<style name="keyword" color="#990033" bold="true" italic="false" />
 	<style name="operator" color="#000099" bold="false" italic="false" />

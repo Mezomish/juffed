@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="Bash" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+<scheme name="Bash">
 	<style name="comment" color="#999999" bold="false" italic="true" />
 	<style name="keyword" color="#660066" bold="true" italic="false" />
 	<style name="singleString" color="#aa0000" bold="false" italic="false" />
@@ -11,5 +11,6 @@
 	<style name="operator" color="#009900" bold="false" italic="false" />
 	<style name="scalar" color="#309030" bold="false" italic="false" />
 	<style name="error" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
+	<style name="identifier" />
 </scheme>
 </JuffScheme>

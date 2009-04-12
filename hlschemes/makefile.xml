@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="Makefile" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+<scheme name="Makefile">
 	<style name="variable" color="#aa00aa" bold="false" italic="false" />
 	<style name="target" color="#0000ff" bold="false" italic="false" />
 	<style name="comment" color="#609060" bold="false" italic="false" />

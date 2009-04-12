@@ -50,6 +50,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	local headers
 #include "AppInfo.h"
 #include "FileTypeSettings.h"
+#include "TextDocSettings.h"
 
 #include "Log.h"
 
@@ -112,10 +113,10 @@ void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 	
 //	QString defColorStr = schEl.attribute("defaultColor", "#ff00ff");
 //	QString defBgColorStr = schEl.attribute("defaultBgColor", "#ffff00");
-	QString defColorStr = schEl.attribute("defaultColor", "#000000");
-	QString defBgColorStr = schEl.attribute("defaultBgColor", "#ffffff");
-	QString defBoldStr = schEl.attribute("defaultBold", "true");
-	QString defItalicStr = schEl.attribute("defaultItalic", "true");
+	QString defColorStr = schEl.attribute("defaultColor", TextDocSettings::defaultFontColor().name());
+	QString defBgColorStr = schEl.attribute("defaultBgColor", TextDocSettings::defaultBgColor().name());
+	QString defBoldStr = schEl.attribute("defaultBold", "false");
+	QString defItalicStr = schEl.attribute("defaultItalic", "false");
 	
 	Style defaultStyle(stringToColor(defColorStr), stringToColor(defBgColorStr), 
 			stringToBool(defBoldStr), stringToBool(defItalicStr));

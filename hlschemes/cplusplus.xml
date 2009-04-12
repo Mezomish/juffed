@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="C++" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false" >
+<scheme name="C++">
 	<style name="preprocessor" color="#00aa00" />
 	<style name="keyword" color="#000099" />
 	<style name="number" color="#009900" bold="true" />

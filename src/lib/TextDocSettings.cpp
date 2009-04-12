@@ -64,6 +64,17 @@ QColor TextDocSettings::curLineColor() {
 	QColor c = Settings::value("editor", "curLineColor").value<QColor>();
 	return c.isValid() ? c : deflt;
 }
+QColor TextDocSettings::defaultFontColor() {
+	QColor deflt(0, 0, 0);
+	QColor c = Settings::value("editor", "defaultFontColor").value<QColor>();
+	return c.isValid() ? c : deflt;
+}
+QColor TextDocSettings::defaultBgColor() {
+	QColor deflt(255, 255, 255);
+	QColor c = Settings::value("editor", "defaultBgColor").value<QColor>();
+	return c.isValid() ? c : deflt;
+}
+
 
 
 void TextDocSettings::setFont(const QFont& font) { 
@@ -101,4 +112,10 @@ void TextDocSettings::setMarkersColor(const QColor& color) {
 }
 void TextDocSettings::setCurLineColor(const QColor& color) { 
 	Settings::setValue("editor", "curLineColor", color); 
+}
+void TextDocSettings::setDefaultFontColor(const QColor& color) {
+	Settings::setValue("editor", "defaultFontColor", color); 
+}
+void TextDocSettings::setDefaultBgColor(const QColor& color) {
+	Settings::setValue("editor", "defaultBgColor", color); 
 }

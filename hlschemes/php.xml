@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="PHP" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+<scheme name="PHP">
 	<!-- PHP -->
 	<style name="phpKeyword" color="#000099" bold="true" italic="false" />
 	<style name="phpOperator" color="#336633" bold="false" italic="false" />

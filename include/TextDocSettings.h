@@ -38,7 +38,9 @@ public:
 	static bool backspaceUnindents();
 	static QColor markersColor();
 	static QColor curLineColor();
-	
+	static QColor defaultFontColor();
+	static QColor defaultBgColor();
+
 	static void setFont(const QFont& font);
 	static void setWidthAdjust(bool adj);
 	static void setShowLineNumbers(bool show);
@@ -51,6 +53,8 @@ public:
 	static void setBackspaceUnindents(bool unindents);
 	static void setMarkersColor(const QColor& color);
 	static void setCurLineColor(const QColor& color);
+	static void setDefaultFontColor(const QColor&);
+	static void setDefaultBgColor(const QColor&);
 };
 
 #endif

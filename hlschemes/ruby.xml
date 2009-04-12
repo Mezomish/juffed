@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="Ruby" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+<scheme name="Ruby">
 	<style name="comment" color="#8080a0" bgColor="#f0f0f0" bold="false" italic="true" />
 	<style name="number" color="#0000ff" bold="false" italic="false" />
 	<style name="keyword" color="#990033" bold="false" italic="false" />

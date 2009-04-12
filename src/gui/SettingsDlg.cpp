@@ -77,11 +77,15 @@ public:
 		//	parent buttons are deleted
 		curLineColorBtn_ = new ColorButton(ui.curLineColorBtn, TextDocSettings::curLineColor());
 		markersColorBtn_ = new ColorButton(ui.markerColorBtn, TextDocSettings::markersColor());
+		fontColorBtn_ = new ColorButton(ui.fontColorBtn, TextDocSettings::defaultFontColor());
+		bgColorBtn_ = new ColorButton(ui.bgColorBtn, TextDocSettings::defaultBgColor());
 	}
 	
 	Ui::EditorSettingsPage ui;
 	ColorButton* curLineColorBtn_;
 	ColorButton* markersColorBtn_;
+	ColorButton* fontColorBtn_;
+	ColorButton* bgColorBtn_;
 };
 
 #include "ui_AutocompleteSettingsPage.h"
@@ -287,6 +291,8 @@ void SettingsDlg::apply() {
 	TextDocSettings::setHighlightCurrentLine(pageEditor_->ui.hlCurLineChk->isChecked());
 	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
 	TextDocSettings::setCurLineColor(pageEditor_->curLineColorBtn_->color());
+	TextDocSettings::setDefaultFontColor(pageEditor_->fontColorBtn_->color());
+	TextDocSettings::setDefaultBgColor(pageEditor_->bgColorBtn_->color());
 	TextDocSettings::setReplaceTabsWithSpaces(pageEditor_->ui.replaceTabsChk->isChecked());
 	TextDocSettings::setBackspaceUnindents(pageEditor_->ui.unindentChk->isChecked());
 	TextDocSettings::setTabStopWidth(pageEditor_->ui.tabStopWidthSpin->value());

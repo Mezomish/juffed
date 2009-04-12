@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="Batch" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false">
+<scheme name="Batch">
 	<style name="comment" color="#999999" bgColor="#f0f0f0" bold="false" italic="true" />
 	<style name="keyword" color="#0000a0" bold="true" italic="false" />
 	<style name="variable" color="#e06030" bold="true" italic="false" />

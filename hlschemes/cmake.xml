@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="CMake" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false" >
+<scheme name="CMake">
 	<style name="comment" color="#668999" bgColor="#f0f6f0" italic="true"/>
 	<style name="string" color="#bb0033" />
 	<style name="stringvariable" color="#006600" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE JuffScheme>
 <JuffScheme>
-<scheme name="Java" defaultColor="#000000" defaultBgColor="#ffffff" defaultBold="false" defaultItalic="false" >
+<scheme name="Java">
 	<style name="keyword" color="#660033" bold="true" />
 	<style name="number" color="#003300" />
 	<style name="string" color="#0000bb" />

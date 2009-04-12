@@ -27,11 +27,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "JuffScintilla.h"
 #include "TextDocSettings.h"
 
-#include <Qsci/qsciapis.h>
-#include <Qsci/qscilexer.h>
-#include <Qsci/qscimacro.h>
-#include <Qsci/qsciprinter.h>
-#include <Qsci/qsciscintilla.h>
+#include <qsciapis.h>
+#include <qscilexer.h>
+#include <qscimacro.h>
+#include <qsciprinter.h>
+#include <qsciscintilla.h>
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>

@@ -19,24 +19,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "LexerStorage.h"
 
 //	Lexers
-#include <Qsci/qscilexerbash.h>
-#include <Qsci/qscilexerbatch.h>
-#include <Qsci/qscilexercmake.h>
-#include <Qsci/qscilexercpp.h>
-#include <Qsci/qscilexercsharp.h>
-#include <Qsci/qscilexercss.h>
-#include <Qsci/qscilexerd.h>
-#include <Qsci/qscilexerdiff.h>
-#include <Qsci/qscilexerhtml.h>
-#include <Qsci/qscilexeridl.h>
-#include <Qsci/qscilexerjava.h>
-#include <Qsci/qscilexerjavascript.h>
-#include <Qsci/qscilexerlua.h>
-#include <Qsci/qscilexermakefile.h>
-#include <Qsci/qscilexerperl.h>
-#include <Qsci/qscilexerpython.h>
-#include <Qsci/qscilexerruby.h>
-#include <Qsci/qscilexersql.h>
+#include <qscilexerbash.h>
+#include <qscilexerbatch.h>
+#include <qscilexercmake.h>
+#include <qscilexercpp.h>
+#include <qscilexercsharp.h>
+#include <qscilexercss.h>
+#include <qscilexerd.h>
+#include <qscilexerdiff.h>
+#include <qscilexerhtml.h>
+#include <qscilexeridl.h>
+#include <qscilexerjava.h>
+#include <qscilexerjavascript.h>
+#include <qscilexerlua.h>
+#include <qscilexermakefile.h>
+#include <qscilexerperl.h>
+#include <qscilexerpython.h>
+#include <qscilexerruby.h>
+#include <qscilexersql.h>
 
 //	Qt headers
 #include <QtCore/QFileInfo>

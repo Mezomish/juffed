@@ -33,6 +33,7 @@ SET ( DEV 1 )
 
 IF ( DEV )
 	# SVN revision
+	EXECUTE_PROCESS ( COMMAND export LC_ALL=C ) 
 	EXECUTE_PROCESS ( 
 		COMMAND svn info ${CMAKE_SOURCE_DIR}
 		COMMAND grep Revision
@@ -45,6 +46,7 @@ IF ( DEV )
 ENDIF ( DEV )
 
 SET ( VERSION ${JUFFED_VERSION} )
+MESSAGE ( "${JUFFED} version: ${VERSION}" )
 
 # Install Directories
 SET(BIN_INSTALL_DIR

@@ -112,6 +112,7 @@ private slots:
 	void onCursorMove(int, int);
 
 private:
+	void guessCharset();
 	void readDoc();
 	void loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer);
 

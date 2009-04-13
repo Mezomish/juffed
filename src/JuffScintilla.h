@@ -53,6 +53,7 @@ protected:
 	virtual void focusInEvent(QFocusEvent* e);
 	virtual void focusOutEvent(QFocusEvent* e);
 	virtual void keyPressEvent(QKeyEvent*);
+	virtual void wheelEvent(QWheelEvent*);
 
 private:
 	void cancelRectInput();

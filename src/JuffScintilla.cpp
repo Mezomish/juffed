@@ -219,6 +219,20 @@ void JuffScintilla::focusOutEvent(QFocusEvent* e) {
 	QsciScintilla::focusOutEvent(e);
 }
 
+void JuffScintilla::wheelEvent(QWheelEvent* e) {
+	if ( e->modifiers() & Qt::ControlModifier ) {
+		if ( e->delta() < 0 ) {
+			zoomIn();
+		}
+		else if ( e->delta() > 0 ) {
+			zoomOut();
+		}
+	}
+	else {
+		QsciScintilla::wheelEvent(e);
+	}
+}
+
 void JuffScintilla::cancelRectInput() {
 	rLine1_ = -1;
 	rCol1_ = -1;

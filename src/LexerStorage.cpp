@@ -558,7 +558,6 @@ QString LexerStorage::lexerName(const QString& fName) const {
 		types.removeAll("none");
 	}
 	foreach(QString type, types ) {
-		Log::debug(type);
 		QStringList patterns = FileTypeSettings::getFileNamePatterns(type);
 		foreach (QString pattern, patterns) {
 			QRegExp rx(pattern);
@@ -617,6 +616,10 @@ void LexerStorage::updateLexer(const QString& name, const QFont& font) {
 		QsciLexer* lex = lsInt_->lexers_[name];
 		lex->setFont(font);
 		lex->refreshProperties();
+		if ( lsInt_->schemes_.contains(name) ) {
+			lex->setDefaultPaper(lsInt_->schemes_[name].defaultStyle.bgColor);
+			lex->setDefaultColor(lsInt_->schemes_[name].defaultStyle.color);
+		}
 
 		lsInt_->applyCustomStyle(name, font);
 	}

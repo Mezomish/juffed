@@ -98,6 +98,7 @@ public:
 	
 	QMap<QString, QsciLexer*> lexers_;
 	SchemeMap schemes_;
+	QMap<QString, QColor> curLineColors_;
 };
 
 bool stringToBool(const QString& str) {
@@ -110,18 +111,16 @@ QColor stringToColor(const QString& str) {
 
 void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 	QDomNode styleNode = schEl.firstChild();
-	
-//	QString defColorStr = schEl.attribute("defaultColor", "#ff00ff");
-//	QString defBgColorStr = schEl.attribute("defaultBgColor", "#ffff00");
-	QString defColorStr = schEl.attribute("defaultColor", TextDocSettings::defaultFontColor().name());
-	QString defBgColorStr = schEl.attribute("defaultBgColor", TextDocSettings::defaultBgColor().name());
+
+	QString defColorStr = schEl.attribute("defaultColor", "");
+	QString defBgColorStr = schEl.attribute("defaultBgColor", "");
 	QString defBoldStr = schEl.attribute("defaultBold", "false");
 	QString defItalicStr = schEl.attribute("defaultItalic", "false");
 	
 	Style defaultStyle(stringToColor(defColorStr), stringToColor(defBgColorStr), 
 			stringToBool(defBoldStr), stringToBool(defItalicStr));
 	styles["default"] = defaultStyle;
-	
+
 	while ( !styleNode.isNull() ) {
 		QDomElement styleEl = styleNode.toElement();
 		if ( styleEl.tagName().toLower().compare("style") == 0 ) {
@@ -180,6 +179,12 @@ void LSInterior::readCustomStyle(const QString& name) {
 		if( !schEl.isNull() ) {
 			if ( schEl.tagName().toLower().compare("scheme") == 0 ) {
 				parseScheme(schEl, styles);
+
+				if ( schEl.hasAttribute("curLineColor") && schEl.hasAttribute("name") ) {
+					QColor curLineColor = stringToColor(schEl.attribute("curLineColor"));
+					QString schName = schEl.attribute("name");
+					curLineColors_[schName] = curLineColor;
+				}
 			}
 		}
 		schNode = schNode.nextSibling();
@@ -411,8 +416,8 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 		lex->setFont(font, -1);
 
 		if ( name.compare("none") == 0 ) {
-			lex->setColor(Qt::black, -1);
-			lex->setPaper(Qt::white, -1);
+			lex->setDefaultPaper(TextDocSettings::defaultBgColor());
+			lex->setDefaultColor(TextDocSettings::defaultFontColor());
 		}
 		else {
 			if ( schemes_.contains(name) ) {
@@ -422,16 +427,32 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 				f.setStyle(scheme.defaultStyle.italic ? QFont::StyleItalic : QFont::StyleNormal);
 				f.setWeight(scheme.defaultStyle.bold ? QFont::Bold : QFont::Normal);
 				lex->setFont(f, -1);
-				lex->setColor(scheme.defaultStyle.color, -1);
-				lex->setPaper(scheme.defaultStyle.bgColor, -1);
+				if ( scheme.defaultStyle.color.isValid() ) {
+					lex->setColor(scheme.defaultStyle.color, -1);
+					lex->setDefaultColor(scheme.defaultStyle.color);
+				}
+				else {
+					lex->setColor(TextDocSettings::defaultFontColor(), -1);
+					lex->setDefaultColor(TextDocSettings::defaultFontColor());
+				}
+				if ( scheme.defaultStyle.bgColor.isValid() ) {
+					lex->setPaper(scheme.defaultStyle.bgColor, -1);
+					lex->setDefaultPaper(scheme.defaultStyle.bgColor);
+				}
+				else {
+					lex->setPaper(TextDocSettings::defaultBgColor(), -1);
+					lex->setDefaultPaper(TextDocSettings::defaultBgColor());
+				}
 
 				foreach (Rule const& rule, scheme.rules) {
 					foreach (int element, rule.hlElements) {
 						QFont f(font);
 						f.setStyle(rule.style.italic ? QFont::StyleItalic : QFont::StyleNormal);
 						f.setWeight(rule.style.bold ? QFont::Bold : QFont::Normal);
-						lex->setColor(rule.style.color, element);
-						lex->setPaper(rule.style.bgColor, element);
+						if ( rule.style.color.isValid() )
+							lex->setColor(rule.style.color, element);
+						if ( rule.style.bgColor.isValid() )
+							lex->setPaper(rule.style.bgColor, element);
 						lex->setFont(f, element);
 					}
 				}
@@ -603,6 +624,10 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 	return lex;
 }
 
+QColor LexerStorage::curLineColor(const QString& name) const {
+	return lsInt_->curLineColors_.value(name, TextDocSettings::curLineColor());
+}
+
 void LexerStorage::getLexersList(QStringList& list) const {
 	list.clear();
 	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" 
@@ -616,10 +641,6 @@ void LexerStorage::updateLexer(const QString& name, const QFont& font) {
 		QsciLexer* lex = lsInt_->lexers_[name];
 		lex->setFont(font);
 		lex->refreshProperties();
-		if ( lsInt_->schemes_.contains(name) ) {
-			lex->setDefaultPaper(lsInt_->schemes_[name].defaultStyle.bgColor);
-			lex->setDefaultColor(lsInt_->schemes_[name].defaultStyle.color);
-		}
 
 		lsInt_->applyCustomStyle(name, font);
 	}

@@ -26,11 +26,14 @@ class QFont;
 class QString;
 class QStringList;
 
+#include <QtGui/QColor>
+
 class LexerStorage {
 public:
 	~LexerStorage();
 	QString lexerName(const QString& fileName) const;
 	QsciLexer* lexer(const QString& name, const QFont&);
+	QColor curLineColor(const QString&) const;
 	void updateLexer(const QString& name, const QFont& font);
 	
 	void getLexersList(QStringList&) const;

@@ -72,7 +72,6 @@ public:
 	JuffScintilla* createEdit() {
 		JuffScintilla* edit = new JuffScintilla();
 		edit->setUtf8(true);
-		edit->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
 		edit->setIndentationGuidesForegroundColor(QColor(250, 200, 200));
 		edit->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 		edit->setAutoIndent(true);
@@ -166,8 +165,9 @@ SciDoc::~SciDoc() {
 void SciDoc::setFileName(const QString& fileName) {
 	Document::setFileName(fileName);
 	QString lexName = LexerStorage::instance()->lexerName(fileName);
-	if ( lexName != docInt_->syntax_ )
+	if ( lexName != docInt_->syntax_ ) {
 		setSyntax(lexName);
+	}
 }
 
 void SciDoc::print() {
@@ -582,14 +582,14 @@ void SciDoc::applySettings() {
 		int lInd = TextDocSettings::lineLengthIndicator();
 		if ( lInd > 0 ) {
 			edit->setEdgeMode(QsciScintilla::EdgeLine);
-			edit->setEdgeColumn(lInd);	
+			edit->setEdgeColumn(lInd);
 		}
 		else {
 			edit->setEdgeMode(QsciScintilla::EdgeNone);
 		}
 		
 		edit->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
-		edit->setCaretLineBackgroundColor(TextDocSettings::curLineColor());
+		edit->setCaretLineBackgroundColor(LexerStorage::instance()->curLineColor(docInt_->syntax_));
 		edit->setIndentationGuides(TextDocSettings::showIndents());
 		edit->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
 		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
@@ -884,9 +884,14 @@ void SciDoc::setSyntax(const QString& lexName) {
 
 	QFont font = TextDocSettings::font();
 	docInt_->syntax_ = lexName;
+
+	QColor curLineColor = LexerStorage::instance()->curLineColor(lexName);
+	docInt_->edit1_->setCaretLineBackgroundColor(curLineColor);
+	docInt_->edit2_->setCaretLineBackgroundColor(curLineColor);
+
 	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName, font);
 	LexerStorage::instance()->updateLexer(lexName, font);
-	
+
 	//	find autocompletion API
 	loadAutocompletionAPI(lexName, lexer);
 	

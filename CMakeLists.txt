@@ -33,7 +33,7 @@ SET ( DEV 1 )
 
 IF ( DEV )
 	# SVN revision
-	EXECUTE_PROCESS ( COMMAND export LC_ALL=C ) 
+	SET ( ENV{LC_MESSAGES} "C" )
 	EXECUTE_PROCESS ( 
 		COMMAND svn info ${CMAKE_SOURCE_DIR}
 		COMMAND grep Revision

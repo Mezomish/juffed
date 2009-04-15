@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "ui_FindDlg.h"
 
 #include <QtGui/QDialog>
+#include <QtGui/QLineEdit>
 #include <QtGui/QTextDocument>
 
 namespace Juff {
@@ -31,10 +32,11 @@ namespace GUI {
 class FindDlg : public QDialog {
 Q_OBJECT
 public:
-	FindDlg(QWidget*);
+	FindDlg(QWidget*, bool);
 	virtual ~FindDlg();
 
 	QString text() const { return uiFind.findCmb->currentText(); }
+	void setText(const QString& t) { uiFind.findCmb->lineEdit()->setText(t); }
 	QString replaceTo() const { return uiFind.replaceCmb->currentText(); }
 	DocFindFlags flags() const;
 	bool isReplaceMode() const { return uiFind.replaceChk->isChecked(); }

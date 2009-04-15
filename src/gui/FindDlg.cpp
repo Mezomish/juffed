@@ -36,7 +36,7 @@ bool FindDlg::wholeWords_ = false;
 QStringList FindDlg::strings_;
 QStringList FindDlg::replaces_;
 
-FindDlg::FindDlg(QWidget* parent) : 
+FindDlg::FindDlg(QWidget* parent, bool repl) : 
 	QDialog(parent) {
 
 	uiFind.setupUi(this);
@@ -54,12 +54,13 @@ FindDlg::FindDlg(QWidget* parent) :
 	uiFind.regexpChk->setChecked(regExpMode_);
 	uiFind.wholeWordsChk->setChecked(wholeWords_);
 
-	uiFind.findCmb->setFocus();
-	uiFind.findCmb->lineEdit()->selectAll();
-
 	connect(uiFind.findBtn, SIGNAL(clicked()), SLOT(accept()));
 	connect(uiFind.cancelBtn, SIGNAL(clicked()), SLOT(reject()));
 	connect(uiFind.replaceChk, SIGNAL(toggled(bool)), SLOT(setReplaceMode(bool)));
+
+	setReplaceMode(repl);
+	uiFind.findCmb->setFocus();
+	uiFind.findCmb->lineEdit()->selectAll();
 }
 
 FindDlg::~FindDlg() {

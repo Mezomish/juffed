@@ -257,8 +257,8 @@ QString GUI::getOpenSessionName(bool& accepted) {
 bool GUI::getFindParams(QString& str1, QString& str2, DocFindFlags& flags) {
 	JUFFENTRY;
 	
-	FindDlg dlg(mw_);
-	dlg.setReplaceMode(flags.replace);
+	FindDlg dlg(mw_, flags.replace);
+	dlg.setText(str1);
 	if ( dlg.exec() == QDialog::Accepted ) {
 		str1 = dlg.text();
 		flags = dlg.flags();

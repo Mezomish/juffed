@@ -885,12 +885,12 @@ void SciDoc::setSyntax(const QString& lexName) {
 	QFont font = TextDocSettings::font();
 	docInt_->syntax_ = lexName;
 
+	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName, font);
+	LexerStorage::instance()->updateLexer(lexName, font);
+
 	QColor curLineColor = LexerStorage::instance()->curLineColor(lexName);
 	docInt_->edit1_->setCaretLineBackgroundColor(curLineColor);
 	docInt_->edit2_->setCaretLineBackgroundColor(curLineColor);
-
-	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName, font);
-	LexerStorage::instance()->updateLexer(lexName, font);
 
 	//	find autocompletion API
 	loadAutocompletionAPI(lexName, lexer);

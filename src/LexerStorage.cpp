@@ -60,7 +60,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 
 	struct Style {
-		Style(const QColor& c = Qt::black, const QColor& bgc = Qt::white, bool b = false, bool i = false) {
+		Style(const QColor& c = QColor(), const QColor& bgc = QColor(), bool b = false, bool i = false) {
 			color = c;
 			bgColor = bgc;
 			bold = b;
@@ -495,6 +495,11 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 						lex->setFont(f, element);
 					}
 				}
+			}
+			else {
+				lex->setDefaultPaper(TextDocSettings::defaultBgColor());
+				lex->setDefaultColor(TextDocSettings::defaultFontColor());
+				lex->setPaper(TextDocSettings::defaultBgColor(), -1);
 			}
 		}
 		lex->refreshProperties();

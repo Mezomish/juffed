@@ -429,6 +429,8 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 		if ( name.compare("none") == 0 ) {
 			lex->setDefaultPaper(TextDocSettings::defaultBgColor());
 			lex->setDefaultColor(TextDocSettings::defaultFontColor());
+			lex->setColor(TextDocSettings::defaultFontColor(), -1);
+			lex->setPaper(TextDocSettings::defaultBgColor(), -1);
 		}
 		else {
 			if ( schemes_.contains(name) ) {

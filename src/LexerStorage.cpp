@@ -39,6 +39,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <qscilexersql.h>
 #include <qscilexertex.h>
 
+#ifdef JUFF_TCL_LEXER
+#include <qscilexertcl.h>
+#endif
+
 //	Qt headers
 #include <QtCore/QFileInfo>
 #include <QtCore/QMap>
@@ -419,6 +423,28 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["text"], QList<int>() << QsciLexerTeX::Text);
 		schemes_[name] = texSch;
 	}
+#ifdef JUFF_TCL_LEXER
+	else if ( name.compare("TCL") == 0 ) {
+		Scheme tclSch;
+		tclSch.defaultStyle = styles["default"];
+		tclSch.rules 
+				<< Rule(styles["number"], QList<int>() << QsciLexerTCL::Number)
+				<< Rule(styles["keyword"], QList<int>() << QsciLexerTCL::QuotedKeyword << QsciLexerTCL::ExpandKeyword << QsciLexerTCL::KeywordSet6 << QsciLexerTCL::KeywordSet7 << QsciLexerTCL::KeywordSet8 << QsciLexerTCL::KeywordSet9)
+				<< Rule(styles["string"], QList<int>() << QsciLexerTCL::QuotedString)
+				<< Rule(styles["operator"], QList<int>() << QsciLexerTCL::Operator)
+				<< Rule(styles["identifier"], QList<int>() << QsciLexerTCL::Identifier)
+				<< Rule(styles["substitution"], QList<int>() << QsciLexerTCL::Substitution)
+				<< Rule(styles["substitutionbrace"], QList<int>() << QsciLexerTCL::SubstitutionBrace)
+				<< Rule(styles["modifier"], QList<int>() << QsciLexerTCL::Modifier)
+				<< Rule(styles["tclkeyword"], QList<int>() << QsciLexerTCL::TCLKeyword)
+				<< Rule(styles["tkkeyword"], QList<int>() << QsciLexerTCL::TkKeyword)
+				<< Rule(styles["itclkeyword"], QList<int>() << QsciLexerTCL::ITCLKeyword)
+				<< Rule(styles["tkcommand"], QList<int>() << QsciLexerTCL::TkCommand)
+				<< Rule(styles["comment"], QList<int>() << QsciLexerTCL::CommentBox << QsciLexerTCL::CommentBlock << QsciLexerTCL::Comment << QsciLexerTCL::CommentLine);
+		schemes_[name] = tclSch;
+	}
+#endif	//	JUFF_TCL_LEXER
+
 }
 
 void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
@@ -553,7 +579,12 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if ( name.compare("none") == 0 ) {
 			newLexer = new QsciLexerPython();
 		}
-	
+#ifdef JUFF_TCL_LEXER
+		else if ( name.compare("TCL") == 0 ) {
+			newLexer = new QsciLexerTCL();
+		}
+#endif
+
 		if ( newLexer != 0 ) {
 			lexers_[name] = newLexer;
 			if ( !name.isEmpty() && name.compare("none") != 0 ) {
@@ -649,7 +680,11 @@ void LexerStorage::getLexersList(QStringList& list) const {
 	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" 
 			<< "D" << "Diff" << "HTML" << "IDL" << "Java" << "JavaScript" 
 			<< "Lua" << "Makefile" << "Perl" << "Python" << "PHP" 
-			<< "Ruby" << "SQL" << "TeX" << "XML";
+			<< "Ruby" << "SQL"
+#ifdef JUFF_TCL_LEXER
+			<< "TCL";
+#endif	//	JUFF_TCL_LEXER
+			<< "TeX" << "XML";
 }
 
 void LexerStorage::updateLexer(const QString& name, const QFont& font) {

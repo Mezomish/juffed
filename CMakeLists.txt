@@ -212,6 +212,14 @@ ADD_DEFINITIONS(
 	${QT_DEFINITIONS}
 )
 
+# find TCL lexer
+find_path ( QSCI_TCL_LEXER qscilexertcl.h ${LIBQSCINTILLA2_INCLUDE_DIR} )
+if ( QSCI_TCL_LEXER )
+	ADD_DEFINITIONS (
+		-DTCL_LEXER
+	)
+endif ( QSCI_TCL_LEXER )
+
 # include directories
 INCLUDE_DIRECTORIES(
 	${QT_INCLUDES}

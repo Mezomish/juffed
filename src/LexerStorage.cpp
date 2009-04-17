@@ -682,7 +682,7 @@ void LexerStorage::getLexersList(QStringList& list) const {
 			<< "Lua" << "Makefile" << "Perl" << "Python" << "PHP" 
 			<< "Ruby" << "SQL"
 #ifdef JUFF_TCL_LEXER
-			<< "TCL";
+			<< "TCL"
 #endif	//	JUFF_TCL_LEXER
 			<< "TeX" << "XML";
 }

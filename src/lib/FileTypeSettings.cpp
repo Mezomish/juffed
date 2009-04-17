@@ -70,6 +70,8 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 			list << "*.rb";
 		else if ( type == "SQL") 
 			list << "*.sql";
+		else if ( type == "TeX") 
+			list << "*.tex";
 		else if ( type == "XML") 
 			list << "*.xml";
 
@@ -96,6 +98,8 @@ QStringList FileTypeSettings::getFirstLinePatterns(const QString& type) {
 			list << "*python*";
 		else if ( type == "PHP") 
 			list << "<?php*" << "<? *" << "<?";
+		else if ( type == "TeX") 
+			list << "\\documentclass";
 		else if ( type == "XML") 
 			list << "<!doctype*" << "<?xml*";
 

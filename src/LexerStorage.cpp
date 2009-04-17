@@ -37,6 +37,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <qscilexerpython.h>
 #include <qscilexerruby.h>
 #include <qscilexersql.h>
+#include <qscilexertex.h>
 
 //	Qt headers
 #include <QtCore/QFileInfo>
@@ -408,6 +409,16 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["error"], QList<int>() << QsciLexerRuby::Error);
 		schemes_[name] = rbSch;
 	}
+	else if ( name.compare("TeX") == 0 ) {
+		Scheme texSch;
+		texSch.defaultStyle = styles["default"];
+		texSch.rules << Rule(styles["special"], QList<int>() << QsciLexerTeX::Special)
+				<< Rule(styles["group"], QList<int>() << QsciLexerTeX::Group)
+				<< Rule(styles["symbol"], QList<int>() << QsciLexerTeX::Symbol)
+				<< Rule(styles["command"], QList<int>() << QsciLexerTeX::Command)
+				<< Rule(styles["text"], QList<int>() << QsciLexerTeX::Text);
+		schemes_[name] = texSch;
+	}
 }
 
 void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
@@ -534,6 +545,9 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if ( name.compare("Lua") == 0 ) {
 			newLexer = new QsciLexerLua();
 		}
+		else if ( name.compare("TeX") == 0 ) {
+			newLexer = new QsciLexerTeX();
+		}
 		else if ( name.compare("none") == 0 ) {
 			newLexer = new QsciLexerPython();
 		}
@@ -632,8 +646,8 @@ void LexerStorage::getLexersList(QStringList& list) const {
 	list.clear();
 	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" 
 			<< "D" << "Diff" << "HTML" << "IDL" << "Java" << "JavaScript" 
-			<< "Lua" << "Makefile" << /*"Pascal" <<*/ "Perl" << "Python" << "PHP" 
-			<< "Ruby" << "SQL" << /*"TCL" <<*/ "XML";
+			<< "Lua" << "Makefile" << "Perl" << "Python" << "PHP" 
+			<< "Ruby" << "SQL" << "TeX" << "XML";
 }
 
 void LexerStorage::updateLexer(const QString& name, const QFont& font) {

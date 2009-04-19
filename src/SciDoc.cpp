@@ -1059,7 +1059,65 @@ void SciDoc::toggleLineComment() {
 			edit->setCursorPosition(line1, col1 + comment.length());
 		}
 	}
+}
 
+void SciDoc::toggleBlockComment() {
+	JUFFENTRY;
+
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+
+	QString commBeg, commEnd;
+	if ( docInt_->syntax_ == "C++" ) {
+		commBeg = "/*";
+		commEnd = "*/";
+	}
+	else if ( docInt_->syntax_ == "HTML" || docInt_->syntax_ == "XML" ) {
+		commBeg = "<!--";
+		commEnd = "-->";
+	}
+	else if ( docInt_->syntax_ == "Python" ) {
+		commBeg = "'''";
+		commEnd = "'''";
+	}
+	//	TODO : need to add more syntaxes
+
+	if ( commBeg.isEmpty() || commEnd.isEmpty() )
+		return;
+
+	if ( edit->hasSelectedText() ) {
+		int line1, col1, line2, col2, curLine, curCol;
+		edit->getSelection(&line1, &col1, &line2, &col2);
+		edit->getCursorPosition(&curLine, &curCol);
+		
+		QString str1 = edit->selectedText();
+		bool toComment = true;
+		if ( str1.startsWith(commBeg) && str1.endsWith(commEnd) )
+			toComment = false;
+
+		QString str2;
+		if ( toComment )
+			str2 = commBeg + str1 + commEnd;
+		else {
+			str2 = str1;
+			str2.chop(commEnd.length());
+			str2.remove(0, commBeg.length());
+		}
+		replaceSelectedText(str2);
+		if ( line1 == line2 ) {
+			if ( curCol == col1 )
+				edit->setCursorPosition(curLine, curCol);
+			else
+				edit->setCursorPosition(curLine, curCol + (commBeg.length() + commEnd.length()) * (toComment ? 1 : -1));
+		}
+		else {
+			if ( curLine == line2 && curCol == col2)
+				edit->setCursorPosition(curLine, curCol + commEnd.length() * (toComment ? 1 : -1) );
+			else
+				edit->setCursorPosition(curLine, curCol);
+		}
+	}
 }
 
 }

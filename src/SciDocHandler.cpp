@@ -65,6 +65,8 @@ public:
 
 		lineCommentAct_ = new QAction(tr("Comment line(s)"), 0);
 		lineCommentAct_->setShortcut(QKeySequence("Ctrl+/"));
+		blockCommentAct_ = new QAction(tr("Comment block"), 0);
+		blockCommentAct_->setShortcut(QKeySequence("Shift+Ctrl+/"));
 
 		statusWidgets_ << syntaxL_ << eolL_;;
 		
@@ -110,6 +112,7 @@ public:
 	QAction* goToMatchingBraceAct_;
 	QAction* selToMatchingBraceAct_;
 	QAction* lineCommentAct_;
+	QAction* blockCommentAct_;
 	QsciMacro* macro_;
 	QMap<QString, QString> macros_;
 };
@@ -172,6 +175,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	connect(docInt_->selToMatchingBraceAct_, SIGNAL(activated()), this, SLOT(selectToMatchingBrace()));
 
 	connect(docInt_->lineCommentAct_, SIGNAL(activated()), this, SLOT(toggleLineComment()));
+	connect(docInt_->blockCommentAct_, SIGNAL(activated()), this, SLOT(toggleBlockComment()));
 
 	QToolBar* zoomTB = new QToolBar("Zoom");
 	zoomTB->addAction(st->action(ID_ZOOM_IN));
@@ -273,6 +277,7 @@ ActionList SciDocHandler::menuActions(MenuID id) const {
 			list << docInt_->goToMatchingBraceAct_;
 			list << docInt_->selToMatchingBraceAct_;
 			list << docInt_->lineCommentAct_;
+			list << docInt_->blockCommentAct_;
 			break;
 
 		case ID_MENU_FORMAT :
@@ -567,6 +572,14 @@ void SciDocHandler::toggleLineComment() {
 
 	if ( doc  ) {
 		doc->toggleLineComment();
+	}
+}
+
+void SciDocHandler::toggleBlockComment() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc  ) {
+		doc->toggleBlockComment();
 	}
 }
 

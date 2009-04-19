@@ -69,6 +69,7 @@ private slots:
 	void selectToMatchingBrace();
 
 	void toggleLineComment();
+	void toggleBlockComment();
 
 private:
 	void initSyntaxMenu();

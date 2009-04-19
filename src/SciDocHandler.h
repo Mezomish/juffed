@@ -68,6 +68,8 @@ private slots:
 	void goToMatchingBrace();
 	void selectToMatchingBrace();
 
+	void toggleLineComment();
+
 private:
 	void initSyntaxMenu();
 	void changeCurEol(SciDoc*, CommandID);

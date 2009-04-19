@@ -104,6 +104,7 @@ public:
 
 	void goToMatchingBrace();
 	void selectToMatchingBrace();
+	void toggleLineComment();
 
 public slots:
 	void unindent();
@@ -117,6 +118,8 @@ private:
 	void loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer);
 
 	bool doReplace(JuffScintilla* edit, const QString& str1, const QString& str2, const DocFindFlags& flags, bool& replaceAll);
+	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
+	void uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 	JuffScintilla* getActiveEdit() const;
 
 	class Interior;

@@ -63,6 +63,9 @@ public:
 		selToMatchingBraceAct_ = new QAction(tr("Select to matching brace"), 0);
 		selToMatchingBraceAct_->setShortcut(QKeySequence("Shift+Ctrl+E"));
 
+		lineCommentAct_ = new QAction(tr("Comment line(s)"), 0);
+		lineCommentAct_->setShortcut(QKeySequence("Ctrl+/"));
+
 		statusWidgets_ << syntaxL_ << eolL_;;
 		
 		CommandStorage* st = CommandStorage::instance();
@@ -106,6 +109,7 @@ public:
 	QAction* showInvisibleAct_;
 	QAction* goToMatchingBraceAct_;
 	QAction* selToMatchingBraceAct_;
+	QAction* lineCommentAct_;
 	QsciMacro* macro_;
 	QMap<QString, QString> macros_;
 };
@@ -166,6 +170,8 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	
 	connect(docInt_->goToMatchingBraceAct_, SIGNAL(activated()), this, SLOT(goToMatchingBrace()));
 	connect(docInt_->selToMatchingBraceAct_, SIGNAL(activated()), this, SLOT(selectToMatchingBrace()));
+
+	connect(docInt_->lineCommentAct_, SIGNAL(activated()), this, SLOT(toggleLineComment()));
 
 	QToolBar* zoomTB = new QToolBar("Zoom");
 	zoomTB->addAction(st->action(ID_ZOOM_IN));
@@ -266,6 +272,7 @@ ActionList SciDocHandler::menuActions(MenuID id) const {
 		case ID_MENU_EDIT :
 			list << docInt_->goToMatchingBraceAct_;
 			list << docInt_->selToMatchingBraceAct_;
+			list << docInt_->lineCommentAct_;
 			break;
 
 		case ID_MENU_FORMAT :
@@ -552,6 +559,14 @@ void SciDocHandler::selectToMatchingBrace() {
 
 	if ( doc  ) {
 		doc->selectToMatchingBrace();
+	}
+}
+
+void SciDocHandler::toggleLineComment() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc  ) {
+		doc->toggleLineComment();
 	}
 }
 

@@ -983,5 +983,84 @@ void SciDoc::selectToMatchingBrace() {
 	edit->selectToMatchingBrace();
 }
 
+void SciDoc::commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment) {
+	QString str2 = comment + str1;
+	edit->setSelection(line, 0, line + 1, 0);
+	replaceSelectedText(str2);
+}
+
+void SciDoc::uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment) {
+	int pos = str1.indexOf(comment);
+	QString str2 = str1;
+	str2.replace(pos, comment.length(), "");
+	edit->setSelection(line, 0, line + 1, 0);
+	replaceSelectedText(str2);
+}
+
+void SciDoc::toggleLineComment() {
+	JUFFENTRY;
+
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+
+	QString comment;
+	if ( docInt_->syntax_ == "C++" )
+		comment = "//";
+	else if ( docInt_->syntax_ == "Bash" || docInt_->syntax_ == "Python" || docInt_->syntax_ == "CMake" || docInt_->syntax_ == "Makefile" )
+		comment = "#";
+	//	TODO : need to add more syntaxes
+
+	if ( comment.isEmpty() )
+		return;
+
+	if ( edit->hasSelectedText() ) {
+		int line1, col1, line2, col2, curLine, curCol;
+		edit->getSelection(&line1, &col1, &line2, &col2);
+		edit->getCursorPosition(&curLine, &curCol);
+
+		QString str1 = text(line1);
+		QString ln = str1.simplified();
+		bool toComment = true;
+		if ( ln.startsWith(comment) ) {
+			toComment = false;
+		}
+
+		if ( col2 == 0 )
+			--line2;
+
+		edit->beginUndoAction();
+		for ( int line = line1; line <= line2; ++line ) {
+			str1 = text(line);
+			if ( toComment ) {
+				if ( !str1.simplified().startsWith(comment) )
+					commentLine(edit, line, str1, comment);
+			}
+			else {
+				if ( str1.simplified().startsWith(comment) )
+					uncommentLine(edit, line, str1, comment);
+			}
+		}
+		edit->endUndoAction();
+		edit->setCursorPosition(curLine, curCol + comment.length() * (toComment ? 1 : -1) );
+	}
+	else {
+		int line1, col1;
+		edit->getCursorPosition(&line1, &col1);
+		QString str1 = text(line1);
+
+		QString ln = str1.simplified();
+		if ( ln.startsWith(comment) ) {
+			uncommentLine(edit, line1, str1, comment);
+			edit->setCursorPosition(line1, col1 - comment.length());
+		}
+		else {
+			commentLine(edit, line1, str1, comment);
+			edit->setCursorPosition(line1, col1 + comment.length());
+		}
+	}
+
+}
+
 }
 

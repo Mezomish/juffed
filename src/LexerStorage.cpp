@@ -41,7 +41,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #ifdef JUFF_TCL_LEXER
 #include <qscilexertcl.h>
-#endif
+#endif	//	JUFF_TCL_LEXER
+
+#ifdef JUFF_PASCAL_LEXER
+#include <qscilexerpascal.h>
+#endif	//	JUFF_LEXER_PASCAL
 
 //	Qt headers
 #include <QtCore/QFileInfo>
@@ -445,6 +449,25 @@ void LSInterior::readCustomStyle(const QString& name) {
 	}
 #endif	//	JUFF_TCL_LEXER
 
+#ifdef JUFF_PASCAL_LEXER
+	else if ( name.compare("Pascal") == 0 ) {
+		Scheme pasSch;
+		pasSch.defaultStyle = styles["default"];
+		pasSch.rules 
+				<< Rule(styles["comment"], QList<int>() << QsciLexerPascal::Comment << QsciLexerPascal::CommentLine)
+				<< Rule(styles["commentdoc"], QList<int>() << QsciLexerPascal::CommentDoc)
+				<< Rule(styles["number"], QList<int>() << QsciLexerPascal::Number)
+				<< Rule(styles["keyword"], QList<int>() << QsciLexerPascal::Keyword)
+				<< Rule(styles["string"], QList<int>() << QsciLexerPascal::SingleQuotedString)
+				<< Rule(styles["preprocessor"], QList<int>() << QsciLexerPascal::PreProcessor)
+				<< Rule(styles["operator"], QList<int>() << QsciLexerPascal::Operator)
+				<< Rule(styles["identifier"], QList<int>() << QsciLexerPascal::Identifier)
+				<< Rule(styles["asm"], QList<int>() << QsciLexerPascal::Asm);
+		schemes_[name] = pasSch;
+	}
+#endif	//	JUFF_PASCAL_LEXER
+
+
 }
 
 void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
@@ -590,6 +613,12 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		}
 #endif
 
+#ifdef JUFF_PASCAL_LEXER
+		else if ( name.compare("Pascal") == 0 ) {
+			newLexer = new QsciLexerPascal();
+		}
+#endif
+
 		if ( newLexer != 0 ) {
 			lexers_[name] = newLexer;
 			if ( !name.isEmpty() && name.compare("none") != 0 ) {
@@ -684,11 +713,19 @@ void LexerStorage::getLexersList(QStringList& list) const {
 	list.clear();
 	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" 
 			<< "D" << "Diff" << "HTML" << "IDL" << "Java" << "JavaScript" 
-			<< "Lua" << "Makefile" << "Perl" << "Python" << "PHP" 
+			<< "Lua" << "Makefile" 
+
+#ifdef JUFF_PASCAL_LEXER
+			<< "Pascal"
+#endif	//	JUFF_PASCAL_LEXER
+
+			<< "Perl" << "Python" << "PHP" 
 			<< "Ruby" << "SQL"
+
 #ifdef JUFF_TCL_LEXER
 			<< "TCL"
 #endif	//	JUFF_TCL_LEXER
+
 			<< "TeX" << "XML";
 }
 

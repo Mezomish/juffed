@@ -220,6 +220,14 @@ if ( QSCI_TCL_LEXER )
 	)
 endif ( QSCI_TCL_LEXER )
 
+# find Pascal lexer
+find_path ( QSCI_PASCAL_LEXER qscilexerpascal.h ${LIBQSCINTILLA2_INCLUDE_DIR} )
+if ( QSCI_PASCAL_LEXER )
+	ADD_DEFINITIONS (
+		-DJUFF_PASCAL_LEXER
+	)
+endif ( QSCI_PASCAL_LEXER )
+
 # include directories
 INCLUDE_DIRECTORIES(
 	${QT_INCLUDES}

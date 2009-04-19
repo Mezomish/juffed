@@ -1,3 +1,31 @@
+2009-04-18:
+* Added: Pascal lexer (if supported)
+* Added: commenting a line (or several lines) by a hotkey (for some languages)
+* Added: commenting a block by a hotkey (for some languages)
+
+2009-04-17:
+* Added: TeX syntax highlighting
+* Fixed: background color for default syntax highlighting
+* Added: TCL lexer (if supported)
+* Fixed: default colors for lexers that doesn't have scheme customization file
+
+2009-04-15:
+* Added: setting a currently selected text as a 'find/replace what' string
+* Fixed: configuring in non-English locales
+
+2009-04-14:
+* Fixed: updating background color and default font color when changing a syntax scheme
+* Fixed: custom colors for background and current line
+
+2009-04-13:
+* Added: basic charset auto-detection (for Unix)
+* Fixed: configuring development versions on systems with non-English locales
+
+2009-04-12:
+* Added: changing default font and background colors
+* Fixed: bug with freezing when replacing an empty string
+* Added: zoom in/zoom out with ctrl+mouse wheel
+
 2009-04-11:
 * Added: page for file types configuration to 'Settings' dialog
 * Hopefully fixed bug with lost focus after closing a document

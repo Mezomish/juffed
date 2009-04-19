@@ -1042,7 +1042,10 @@ void SciDoc::toggleLineComment() {
 			}
 		}
 		edit->endUndoAction();
-		edit->setCursorPosition(curLine, curCol + comment.length() * (toComment ? 1 : -1) );
+		if ( curCol > 0 )
+			edit->setCursorPosition(curLine, curCol + comment.length() * (toComment ? 1 : -1) );
+		else
+			edit->setCursorPosition(curLine, curCol);
 	}
 	else {
 		int line1, col1;

@@ -3,7 +3,7 @@ JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
 
 This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
+modify it under the terms of the GNU General Public License
 version 2 as published by the Free Software Foundation.
 
 This program is distributed in the hope that it will be useful,
@@ -41,35 +41,35 @@ public:
 
 		syntaxMenu_ = new QMenu(QObject::tr("&Syntax"));
 		syntaxActGr_ = new QActionGroup(0);
-		
+
 		eolMenu_ = new QMenu(QObject::tr("Line endings"));
-		
+
 		syntaxL_ = new GUI::StatusLabel("");
 		syntaxL_->setMenu(syntaxMenu_);
 		syntaxL_->setToolTip(QObject::tr("Syntax highlighting scheme"));
-		
+
 		eolL_ = new GUI::StatusLabel("");
 		eolL_->setMenu(eolMenu_);
 		eolL_->setToolTip(QObject::tr("Line endings"));
 
-		macrosMenu_ = new QMenu(tr("Macro"));
+		macrosMenu_ = new QMenu(QObject::tr("Macro"));
 		startMacroAct_ = new QAction(QIcon(":record.png"), "Start recording", 0);
 		stopMacroAct_ = new QAction(QIcon(":stop.png"), "Stop recording", 0);
 		macrosMenu_->addAction(startMacroAct_);
 		macrosMenu_->addAction(stopMacroAct_);
 
-		goToMatchingBraceAct_ = new QAction(tr("Go to matching brace"), 0);
+		goToMatchingBraceAct_ = new QAction(QObject::tr("Go to matching brace"), 0);
 		goToMatchingBraceAct_->setShortcut(QKeySequence("Ctrl+E"));
-		selToMatchingBraceAct_ = new QAction(tr("Select to matching brace"), 0);
+		selToMatchingBraceAct_ = new QAction(QObject::tr("Select to matching brace"), 0);
 		selToMatchingBraceAct_->setShortcut(QKeySequence("Shift+Ctrl+E"));
 
-		lineCommentAct_ = new QAction(tr("Comment line(s)"), 0);
+		lineCommentAct_ = new QAction(QObject::tr("Comment line(s)"), 0);
 		lineCommentAct_->setShortcut(QKeySequence("Ctrl+/"));
-		blockCommentAct_ = new QAction(tr("Comment block"), 0);
+		blockCommentAct_ = new QAction(QObject::tr("Comment block"), 0);
 		blockCommentAct_->setShortcut(QKeySequence("Shift+Ctrl+/"));
 
 		statusWidgets_ << syntaxL_ << eolL_;;
-		
+
 		CommandStorage* st = CommandStorage::instance();
 		QList<QAction*> eolActList;
 		eolActGr_ = new QActionGroup(0);
@@ -79,7 +79,7 @@ public:
 			eolActGr_->addAction(act);
 			act->setCheckable(true);
 		}
-		
+
 		macro_ = 0;
 	}
 
@@ -326,7 +326,7 @@ void SciDocHandler::docActivated(Document* d) {
 				act->setChecked(true);
 			}
 		}
-		
+
 		doc->showInvisibleSymbols(docInt_->showInvisibleAct_->isChecked());
 	}
 }

@@ -2,31 +2,6 @@
 <!DOCTYPE TS><TS version="1.1">
 <context>
     <name></name>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="55"/>
-        <source>Macro</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="61"/>
-        <source>Go to matching brace</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="63"/>
-        <source>Select to matching brace</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="66"/>
-        <source>Comment line(s)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="68"/>
-        <source>Comment block</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>AboutDlg</name>
@@ -874,6 +849,31 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/gui/GUI.cpp" line="73"/>
         <source>Application icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="55"/>
+        <source>Macro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="61"/>
+        <source>Go to matching brace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="63"/>
+        <source>Select to matching brace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="66"/>
+        <source>Comment line(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="68"/>
+        <source>Comment block</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -6,27 +6,27 @@
     <message>
         <location filename="../src/SciDocHandler.cpp" line="55"/>
         <source>Macro</source>
-        <translation>Макрос</translation>
+        <translation type="obsolete">Макрос</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="61"/>
         <source>Go to matching brace</source>
-        <translation>Перейти к парной скобке</translation>
+        <translation type="obsolete">Перейти к парной скобке</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="63"/>
         <source>Select to matching brace</source>
-        <translation>Выделить до парной скобки</translation>
+        <translation type="obsolete">Выделить до парной скобки</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="66"/>
         <source>Comment line(s)</source>
-        <translation>Закомментировать строку(и)</translation>
+        <translation type="obsolete">Закомментировать строку(и)</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="68"/>
         <source>Comment block</source>
-        <translation>Закомментировать блок</translation>
+        <translation type="obsolete">Закомментировать блок</translation>
     </message>
 </context>
 <context>
@@ -898,6 +898,31 @@ Continue from the beginning?</source>
         <location filename="../src/gui/GUI.cpp" line="73"/>
         <source>Application icon</source>
         <translation>Иконка приложения</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="55"/>
+        <source>Macro</source>
+        <translation>Макрос</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="61"/>
+        <source>Go to matching brace</source>
+        <translation>Перейти к парной скобке</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="63"/>
+        <source>Select to matching brace</source>
+        <translation>Выделить до парной скобки</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="66"/>
+        <source>Comment line(s)</source>
+        <translation>Закомментировать строку(и)</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="68"/>
+        <source>Comment block</source>
+        <translation>Закомментировать блок</translation>
     </message>
 </context>
 <context>

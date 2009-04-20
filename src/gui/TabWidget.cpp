@@ -55,7 +55,7 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	connect(tabBar_, SIGNAL(requestPrevDoc()), this, SLOT(prevWidget()));
 	
 	QPushButton* b = new Button(QIcon(":window-close.png"));
-	b->setToolTip(tr("Close current document"));
+	b->setToolTip(tr("Close document"));
 	setCornerWidget(b, Qt::TopRightCorner);
 	connect(b, SIGNAL(clicked()), SLOT(closeBtnPressed()));
 	//	this button will be deleted automatically by tab widget

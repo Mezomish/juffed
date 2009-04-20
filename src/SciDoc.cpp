@@ -52,23 +52,23 @@ public:
 		syntax_ = "none";
 		codec_ = QTextCodec::codecForLocale();
 		charsetName_ = codec_->name();
-		
+
 		edit1_ = createEdit();
 		edit2_ = createEdit();
 		edit2_->setDocument(edit1_->document());
-		
+
 		spl_ = new QSplitter(Qt::Vertical);
 		spl_->addWidget(edit1_);
 		spl_->addWidget(edit2_);
-		
+
 		spl_->setSizes(QList<int>() << 0 << spl_->height());
 	}
-	
-	
+
+
 	~Interior() {
 		delete spl_;
 	}
-	
+
 	JuffScintilla* createEdit() {
 		JuffScintilla* edit = new JuffScintilla();
 		edit->setUtf8(true);
@@ -77,7 +77,7 @@ public:
 		edit->setAutoIndent(true);
 		edit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 		edit->setMatchedBraceBackgroundColor(QColor(255, 255, 120));
-		
+
 		edit->setMarginLineNumbers(1, true);
 		edit->setMarginWidth(2, 12);
 		//	set the 1st margin accept markers 
@@ -87,7 +87,7 @@ public:
 		edit->markerDefine(QsciScintilla::Background, 2);
 		edit->setMarkerForegroundColor(QColor(100, 100, 100));
 		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
-		
+
 		return edit;
 	}
 

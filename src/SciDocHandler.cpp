@@ -58,7 +58,7 @@ public:
 		macrosMenu_->addAction(startMacroAct_);
 		macrosMenu_->addAction(stopMacroAct_);
 
-		goToMatchingBraceAct_ = new QAction(tr("Match brace"), 0);
+		goToMatchingBraceAct_ = new QAction(tr("Go to matching brace"), 0);
 		goToMatchingBraceAct_->setShortcut(QKeySequence("Ctrl+E"));
 		selToMatchingBraceAct_ = new QAction(tr("Select to matching brace"), 0);
 		selToMatchingBraceAct_->setShortcut(QKeySequence("Shift+Ctrl+E"));
@@ -82,7 +82,7 @@ public:
 		
 		macro_ = 0;
 	}
-	
+
 	~Interior() {
 		delete syntaxActGr_;
 		delete eolActGr_;
@@ -92,7 +92,7 @@ public:
 		delete goToMatchingBraceAct_;
 		delete selToMatchingBraceAct_;
 	}
-	
+
 	QMenu* markersMenu_;
 	QMenu* syntaxMenu_;
 	QMenu* eolMenu_;
@@ -119,7 +119,7 @@ public:
 
 SciDocHandler::SciDocHandler() : DocHandler() {
 	JUFFENTRY;
-	
+
 	CommandStorage* st = CommandStorage::instance();
 	st->registerCommand(ID_EOL_WIN,             this, SLOT(eolSelected()));
 	st->registerCommand(ID_EOL_MAC,             this, SLOT(eolSelected()));
@@ -139,7 +139,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	showLineNumsAct->setCheckable(true);
 	showLineNumsAct->setChecked(TextDocSettings::showLineNumbers());
 	connect(showLineNumsAct, SIGNAL(activated()), this, SLOT(showLineNums()));
-	
+
 	QAction* wordWrapAct = new QAction(tr("Wrap words"), 0);
 	wordWrapAct->setShortcut(QKeySequence("F10"));
 	wordWrapAct->setCheckable(true);
@@ -170,7 +170,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	connect(docInt_->startMacroAct_, SIGNAL(activated()), this, SLOT(startMacroRecord()));
 	connect(docInt_->stopMacroAct_, SIGNAL(activated()), this, SLOT(stopMacroRecord()));
 	docInt_->stopMacroAct_->setEnabled(false);
-	
+
 	connect(docInt_->goToMatchingBraceAct_, SIGNAL(activated()), this, SLOT(goToMatchingBrace()));
 	connect(docInt_->selToMatchingBraceAct_, SIGNAL(activated()), this, SLOT(selectToMatchingBrace()));
 
@@ -181,7 +181,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	zoomTB->addAction(st->action(ID_ZOOM_IN));
 	zoomTB->addAction(st->action(ID_ZOOM_OUT));
 	zoomTB->addAction(st->action(ID_ZOOM_100));
-	
+
 	docInt_->toolBars_ << zoomTB;
 }
 
@@ -224,7 +224,7 @@ void SciDocHandler::initSyntaxMenu() {
 		a->setCheckable(true);
 		docInt_->syntaxActions_[s] = a;
 		docInt_->syntaxActGr_->addAction(a);
-	}	
+	}
 }
 
 
@@ -317,7 +317,7 @@ void SciDocHandler::docActivated(Document* d) {
 		if ( act ) {
 			act->setChecked(true);
 		}
-		
+
 		EolMode eol = doc->eolMode();
 		CommandID id = (eol == EolWin ? ID_EOL_WIN : ( eol == EolMac ? ID_EOL_MAC : ID_EOL_UNIX) );
 		changeCurEol(doc, id, eol);
@@ -338,7 +338,7 @@ void SciDocHandler::docActivated(Document* d) {
 
 void SciDocHandler::showLineNums() {
 	JUFFENTRY;
-	
+
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 	if ( doc && !doc->isNull() && act ) {
@@ -360,7 +360,7 @@ void SciDocHandler::wordWrap() {
 
 void SciDocHandler::showInvisibleSymbols() {
 	JUFFENTRY;
-	
+
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 	if ( doc && !doc->isNull() && act ) {
@@ -370,7 +370,7 @@ void SciDocHandler::showInvisibleSymbols() {
 
 void SciDocHandler::zoomIn() {
 	JUFFENTRY;
-	
+
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 	if ( doc && !doc->isNull() && act ) {
@@ -380,7 +380,7 @@ void SciDocHandler::zoomIn() {
 
 void SciDocHandler::zoomOut() {
 	JUFFENTRY;
-	
+
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 	if ( doc && !doc->isNull() && act ) {
@@ -390,7 +390,7 @@ void SciDocHandler::zoomOut() {
 
 void SciDocHandler::zoom100() {
 	JUFFENTRY;
-	
+
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 	if ( doc && !doc->isNull() && act ) {

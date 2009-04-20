@@ -56,16 +56,16 @@ public:
 		viewer_ = new GUI::Viewer();
 		gui_ = gui;
 		pluginManager_ = 0;
-		
+
 		mainTB_ = new QToolBar("Main");
 		fileMenu_ = new QMenu(QObject::tr("&File"));
 		editMenu_ = new QMenu(QObject::tr("&Edit"));
 		formatMenu_ = new QMenu(QObject::tr("Fo&rmat"));
 		charsetMenu_ = new QMenu(QObject::tr("&Charset"));
 		recentFilesMenu_ = new QMenu(QObject::tr("Recent files"));
-		
+
 		chActGr_ = new QActionGroup(m);
-		
+
 		QString recentFiles = MainSettings::recentFiles();
 		if ( !recentFiles.isEmpty() ) {
 			QStringList fileList = recentFiles.split(";");
@@ -75,7 +75,7 @@ public:
 				addToRecentFiles(fileName);
 			}
 		}
-		
+
 		posL_ = new GUI::StatusLabel("");
 		nameL_ = new GUI::StatusLabel("");
 		charsetL_ = new GUI::StatusLabel("");
@@ -83,7 +83,7 @@ public:
 		nameL_->setToolTip(QObject::tr("File full name"));
 		charsetL_->setToolTip(QObject::tr("Current character set"));
 		charsetL_->setMenu(charsetMenu_);
-		
+
 		gui_->addStatusWidget(posL_);
 		gui_->addStatusWidget(nameL_);
 		gui_->addStatusWidget(charsetL_);
@@ -99,7 +99,7 @@ public:
 		if ( pluginManager_ )
 			delete pluginManager_;
 	}
-	
+
 	Document* getDocByView(QWidget* w) {
 		if ( w ) {
 			foreach (Document* doc, docs1_) {
@@ -122,7 +122,7 @@ public:
 		}
 		return 0;
 	}
-	
+
 	void addToRecentFiles(const QString& fileName) {
 		recentFiles_.removeAll(fileName);
 		recentFiles_.push_front(fileName);

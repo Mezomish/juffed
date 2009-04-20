@@ -581,9 +581,14 @@ void Manager::openDoc(const QString& fileName) {
 		mInt_->viewer_->activateDoc(mInt_->docs2_[fileName]);
 	}
 	else {
-		createDoc("sci", fileName);
-		mInt_->addToRecentFiles(fileName);
-		initRecentFilesMenu();
+		if ( QFileInfo(fileName).isFile() ) {
+			createDoc("sci", fileName);
+			mInt_->addToRecentFiles(fileName);
+			initRecentFilesMenu();
+		}
+		else {
+			QMessageBox::warning(mInt_->viewer_->widget(), "", "Sorry: Not implemented yet");
+		}
 	}
 }
 

@@ -51,7 +51,7 @@ JuffScintilla::~JuffScintilla() {
 bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
 	QString str(s);
 	QString text = this->text();
-	QStringList lines = text.split(QRegExp("\r?\n"));
+	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
 	int row(-1), col(-1);
 	this->getCursorPosition(&row, &col);
 	int lineIndex(0);

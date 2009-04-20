@@ -756,7 +756,7 @@ void SciDoc::insertText(const QString& text) {
 	
 	int row, col;
 	getCursorPos(row, col);
-	int newLines = text.count(QRegExp("(\r\n|\n|\r"));
+	int newLines = text.count(QRegExp("\r\n|\n|\r"));
 	edit->insert(text);
 	if ( newLines == 0 )
 		setCursorPos(row, col + text.length());

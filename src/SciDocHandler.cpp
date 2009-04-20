@@ -583,5 +583,4 @@ void SciDocHandler::toggleBlockComment() {
 	}
 }
 
-
 }	//	namespace Juff

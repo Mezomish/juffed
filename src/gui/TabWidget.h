@@ -42,9 +42,12 @@ signals:
 	void tabCloseRequested(int);
 	void requestFileName(int, QString&);
 	void newFileRequested();
+	void docOpenRequested(const QString&);
 
 protected:
 	virtual void mouseDoubleClickEvent(QMouseEvent*);
+	virtual void dragEnterEvent(QDragEnterEvent*);
+	virtual void dropEvent(QDropEvent*);
 
 protected slots:
 	void closeBtnPressed();

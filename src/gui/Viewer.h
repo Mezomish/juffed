@@ -55,6 +55,7 @@ signals:
 	void requestDocName(QWidget*, QString&);
 	void requestDocClose(QWidget*);
 	void requestNewDoc();
+	void requestOpenDoc(const QString&);
 
 public slots:
 	void nextDoc();

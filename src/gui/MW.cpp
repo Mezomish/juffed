@@ -21,7 +21,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 #include "MainSettings.h"
 
-#include <QtCore/QUrl>
 #include <QtGui/QCloseEvent>
 #include <QtGui/QIcon>
 
@@ -29,7 +28,7 @@ namespace Juff {
 namespace GUI {
 
 MW::MW() : QMainWindow() {
-	setAcceptDrops(true);
+	setAcceptDrops(false);
 	setGeometry(MainSettings::windowRect());
 	setWindowIcon(QIcon(":juffed_32.png"));
 }
@@ -45,39 +44,6 @@ void MW::closeEvent(QCloseEvent* e) {
 	}
 	else {
 		e->ignore();
-	}
-}
-
-///////////////////////////////////////////////////////////////////////
-//	Drag & Drop
-///////////////////////////////////////////////////////////////////////
-
-void MW::dragEnterEvent(QDragEnterEvent* e) {
-	JUFFENTRY;
-
-	if (e->mimeData()->hasUrls()) {
-		e->acceptProposedAction();
-	}
-}
-
-void MW::dropEvent(QDropEvent* e) {
-	JUFFENTRY;
-
-	if ( e->mimeData()->hasUrls() ) {
-		QList<QUrl> urls = e->mimeData()->urls();
-		foreach (QUrl url, urls) {
-			QString name = url.path();
-
-#ifdef Q_OS_WIN32
-			//	hack to protect of strings with filenames like /C:/doc/file.txt
-			if ( name[0] == '/' )
-				name.remove(0, 1);
-#endif
-
-			if ( !name.isEmpty() ) {
-				emit docOpenRequested(name);
-			}
-		}
 	}
 }
 

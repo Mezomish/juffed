@@ -209,7 +209,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	connect(mInt_->viewer_, SIGNAL(requestNewDoc()), SLOT(fileNew()));
 	connect(gui, SIGNAL(settingsApplied()), SLOT(applySettings()));
 	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));
-	connect(gui, SIGNAL(docOpenRequested(const QString&)), this, SLOT(openDoc(const QString&)));
+	connect(mInt_->viewer_, SIGNAL(requestOpenDoc(const QString&)), this, SLOT(openDoc(const QString&)));
 
 
 

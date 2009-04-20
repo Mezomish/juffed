@@ -20,7 +20,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Log.h"
 
+#include <QtCore/QUrl>
 #include <QtGui/QPushButton>
+#include <QtGui/QDragEnterEvent>
+#include <QtGui/QDropEvent>
+
 
 namespace Juff {
 namespace GUI {
@@ -83,6 +87,39 @@ void TabWidget::closeBtnPressed() {
 		emit tabCloseRequested(index);
 }
 
+
+///////////////////////////////////////////////////////////////////////
+//	Drag & Drop
+///////////////////////////////////////////////////////////////////////
+
+void TabWidget::dragEnterEvent(QDragEnterEvent* e) {
+	JUFFENTRY;
+
+	if (e->mimeData()->hasUrls()) {
+		e->acceptProposedAction();
+	}
+}
+
+void TabWidget::dropEvent(QDropEvent* e) {
+	JUFFENTRY;
+
+	if ( e->mimeData()->hasUrls() ) {
+		QList<QUrl> urls = e->mimeData()->urls();
+		foreach (QUrl url, urls) {
+			QString name = url.path();
+
+#ifdef Q_OS_WIN32
+			//	hack to protect of strings with filenames like /C:/doc/file.txt
+			if ( name[0] == '/' )
+				name.remove(0, 1);
+#endif
+
+			if ( !name.isEmpty() ) {
+				emit docOpenRequested(name);
+			}
+		}
+	}
+}
 
 }	//	namespace GUI
 }	//	namespace Juff

@@ -91,6 +91,8 @@ Viewer::Viewer() : QObject() {
 	connect(vInt_->tw2_, SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
 	connect(vInt_->tw1_, SIGNAL(newFileRequested()), SIGNAL(requestNewDoc()));
 	connect(vInt_->tw2_, SIGNAL(newFileRequested()), SIGNAL(requestNewDoc()));
+	connect(vInt_->tw1_, SIGNAL(docOpenRequested(const QString&)), SIGNAL(requestOpenDoc(const QString&)));
+	connect(vInt_->tw2_, SIGNAL(docOpenRequested(const QString&)), SIGNAL(requestOpenDoc(const QString&)));
 }
 
 Viewer::~Viewer() {

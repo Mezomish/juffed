@@ -114,6 +114,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="stripSpacesChk" >
+     <property name="text" >
+      <string>Strip trailing spaces</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>

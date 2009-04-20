@@ -83,6 +83,10 @@ bool MainSettings::makeBackupOnSave() {
 	return Settings::value("main", "makeBackupOnSave").toBool(); 
 }
 
+bool MainSettings::stripTrailingSpaces() { 
+	return Settings::boolValue("main", "stripTrailingSpaces", false); 
+}
+
 bool MainSettings::closeTabsInOrderOfUse() { 
 	return Settings::boolValue("main", "closeTabsInOrderOfUse", false); 
 }
@@ -142,6 +146,9 @@ void MainSettings::setRecentFiles(const QString& files) {
 }
 void MainSettings::setMakeBackupOnSave(bool bkp) { 
 	Settings::setValue("main", "makeBackupOnSave", bkp); 
+}
+void MainSettings::setStripTrailingSpaces(bool strip) { 
+	Settings::setValue("main", "stripTrailingSpaces", strip); 
 }
 void MainSettings::setSingleInstance(bool single) { 
 	Settings::setValue("main", "singleInstance", single); 

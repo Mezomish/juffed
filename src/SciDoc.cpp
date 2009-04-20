@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Functions.h"
 #include "Log.h"
 #include "LexerStorage.h"
+#include "MainSettings.h"
 #include "JuffScintilla.h"
 #include "TextDocSettings.h"
 
@@ -480,10 +481,35 @@ void SciDoc::showInvisibleSymbols(bool show) {
 
 
 
+void SciDoc::stripTrailingSpaces() {
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+
+	int line, col;
+	getCursorPos(line, col);
+	QString text = edit->text();
+	QStringList lines = text.split(QRegExp("\r\n|\r|\n"));
+	QRegExp rx("[ \t]+$");
+	int i = 0;
+	foreach (QString str, lines) {
+		int pos = str.indexOf(rx);
+		if ( pos >= 0 ) {
+			edit->setSelection(i, 0, i, str.length());
+			str.truncate(pos);
+			replaceSelectedText(str);
+		}
+		++i;
+	}
+	setCursorPos(line, col);
+}
 
 bool SciDoc::save(const QString& fileName, const QString& charset, QString& error) {
 	JUFFENTRY;
-	
+
+	if ( MainSettings::stripTrailingSpaces() )
+		stripTrailingSpaces();
+
 	QFile file(fileName);
 	if ( file.open(QIODevice::WriteOnly) ) {
 		QString text("");

@@ -210,6 +210,7 @@ void SettingsDlg::init() {
 	pageMain_->ui.saveSessionChk->setChecked(MainSettings::saveSessionOnClose());
 	pageMain_->ui.syncOpenDlgChk->setChecked(MainSettings::syncOpenDialogToCurDoc());
 	pageMain_->ui.makeBackupChk->setChecked(MainSettings::makeBackupOnSave());
+	pageMain_->ui.stripSpacesChk->setChecked(MainSettings::stripTrailingSpaces());
 	pageMain_->ui.singleInstanceChk->setChecked(MainSettings::singleInstance());
 #ifndef Q_OS_UNIX
 	pageMain_->ui.singleInstanceChk->hide();
@@ -275,6 +276,7 @@ void SettingsDlg::apply() {
 	MainSettings::setSaveSessionOnClose(pageMain_->ui.saveSessionChk->isChecked());
 	MainSettings::setSyncOpenDialogToCurDoc(pageMain_->ui.syncOpenDlgChk->isChecked());
 	MainSettings::setMakeBackupOnSave(pageMain_->ui.makeBackupChk->isChecked());
+	MainSettings::setStripTrailingSpaces(pageMain_->ui.stripSpacesChk->isChecked());
 	MainSettings::setSingleInstance(pageMain_->ui.singleInstanceChk->isChecked());
 
 	//	Editor page

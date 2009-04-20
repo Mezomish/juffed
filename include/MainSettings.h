@@ -41,11 +41,12 @@ public:
 	static QString recentFiles();
 	static int recentFilesCount();
 	static bool makeBackupOnSave();
+	static bool stripTrailingSpaces();
 	static bool closeTabsInOrderOfUse();
 	static bool singleInstance();
 	static QByteArray mwState();
 	static QString toolBar();
-	
+
 	static void setLastOpenDir(const QString& dir);
 	static void setLastSaveDir(const QString& dir);
 	static void setSyncOpenDialogToCurDoc(bool sync);
@@ -60,6 +61,7 @@ public:
 	static void setSaveSessionOnClose(bool save);
 	static void setRecentFiles(const QString& files);
 	static void setMakeBackupOnSave(bool bkp);
+	static void setStripTrailingSpaces(bool strip);
 	static void setSingleInstance(bool single);
 	static void setMwState(const QByteArray&);
 };

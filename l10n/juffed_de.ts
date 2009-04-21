@@ -61,7 +61,7 @@
     <message>
         <location filename="../src/gui/AutocompleteSettingsPage.ui" line="46"/>
         <source>Case sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Groß-/Kleinschreibung beachten</translation>
     </message>
 </context>
 <context>
@@ -156,12 +156,12 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="179"/>
         <source>Default font color</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard Schriftfarbe</translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="209"/>
         <source>Default background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard Hintergrundfarbe</translation>
     </message>
 </context>
 <context>
@@ -199,7 +199,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="140"/>
         <source>Whole words only</source>
-        <translation type="unfinished"></translation>
+        <translation>nur ganze Wörter</translation>
     </message>
 </context>
 <context>
@@ -303,17 +303,17 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="98"/>
         <source>Toolbars</source>
-        <translation type="unfinished"></translation>
+        <translation>Werkzeugleiste</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="99"/>
         <source>Dock windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenster andocken</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="180"/>
         <source>Charset</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichensatz</translation>
     </message>
 </context>
 <context>
@@ -336,7 +336,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/TabBar.cpp" line="41"/>
         <source>Close</source>
-        <translation type="unfinished">Schließen</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -344,7 +344,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/TabWidget.cpp" line="58"/>
         <source>Close document</source>
-        <translation type="unfinished">Dokument schließen</translation>
+        <translation>Dokument schließen</translation>
     </message>
 </context>
 <context>
@@ -453,17 +453,17 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="526"/>
         <source>Macro name</source>
-        <translation type="unfinished"></translation>
+        <translation>Makroname</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="529"/>
         <source>Warning</source>
-        <translation type="unfinished">Warnung</translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="529"/>
         <source>Macro with name &apos;%1&apos; already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Makro &apos;%1&apos; exisitiert schon</translation>
     </message>
 </context>
 <context>
@@ -534,7 +534,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="119"/>
         <source>Strip trailing spaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Leerstellen am Ende entfernen</translation>
     </message>
 </context>
 <context>
@@ -869,37 +869,37 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="72"/>
         <source>Chinese Simplified translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Vereinfachte chinesische Übersetzung</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="73"/>
         <source>Application icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Programmsymbol</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="55"/>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Makro</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="61"/>
         <source>Go to matching brace</source>
-        <translation type="unfinished"></translation>
+        <translation>Zur passenden Klammer springen</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="63"/>
         <source>Select to matching brace</source>
-        <translation type="unfinished"></translation>
+        <translation>Passende Klammer markieren</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="66"/>
         <source>Comment line(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeilen kommentieren</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="68"/>
         <source>Comment block</source>
-        <translation type="unfinished"></translation>
+        <translation>Block kommentieren</translation>
     </message>
 </context>
 <context>
@@ -975,12 +975,12 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="134"/>
         <source>File types</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateitypen</translation>
     </message>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="251"/>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugins</translation>
     </message>
 </context>
 <context>

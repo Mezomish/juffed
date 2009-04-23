@@ -622,7 +622,7 @@ void SciDoc::applySettings() {
 		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
 		if ( QsciLexer* lexer = edit->lexer() ) {
 			edit->setCaretForegroundColor(lexer->defaultColor());
-			edit->setIndentationGuidesForegroundColor(lexer->defaultColor());
+			edit->setIndentationGuidesForegroundColor(TextDocSettings::indentsColor());
 			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
 		}
 		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());

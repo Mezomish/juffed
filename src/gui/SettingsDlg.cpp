@@ -80,6 +80,7 @@ public:
 		fontColorBtn_ = new ColorButton(ui.fontColorBtn, TextDocSettings::defaultFontColor());
 		bgColorBtn_ = new ColorButton(ui.bgColorBtn, TextDocSettings::defaultBgColor());
 		braceColorBtn_ = new ColorButton(ui.braceColorBtn, TextDocSettings::matchedBraceBgColor());
+		indentsColorBtn_ = new ColorButton(ui.indentColorBtn, TextDocSettings::indentsColor());
 	}
 	
 	Ui::EditorSettingsPage ui;
@@ -88,6 +89,7 @@ public:
 	ColorButton* fontColorBtn_;
 	ColorButton* bgColorBtn_;
 	ColorButton* braceColorBtn_;
+	ColorButton* indentsColorBtn_;
 };
 
 #include "ui_AutocompleteSettingsPage.h"
@@ -298,6 +300,7 @@ void SettingsDlg::apply() {
 	TextDocSettings::setDefaultFontColor(pageEditor_->fontColorBtn_->color());
 	TextDocSettings::setDefaultBgColor(pageEditor_->bgColorBtn_->color());
 	TextDocSettings::setMatchedBraceBgColor(pageEditor_->braceColorBtn_->color());
+	TextDocSettings::setIndentsColor(pageEditor_->indentsColorBtn_->color());
 	TextDocSettings::setReplaceTabsWithSpaces(pageEditor_->ui.replaceTabsChk->isChecked());
 	TextDocSettings::setBackspaceUnindents(pageEditor_->ui.unindentChk->isChecked());
 	TextDocSettings::setTabStopWidth(pageEditor_->ui.tabStopWidthSpin->value());

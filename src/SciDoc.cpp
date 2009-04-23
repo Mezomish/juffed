@@ -619,6 +619,8 @@ void SciDoc::applySettings() {
 		edit->setIndentationGuides(TextDocSettings::showIndents());
 		edit->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
 		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
+		if ( QsciLexer* lexer = edit->lexer() )
+			edit->setCaretForegroundColor(lexer->defaultColor());
 
 		//	autocompletion
 		edit->setAutoCompletionThreshold(AutocompleteSettings::threshold());

@@ -73,7 +73,8 @@ public:
 	JuffScintilla* createEdit() {
 		JuffScintilla* edit = new JuffScintilla();
 		edit->setUtf8(true);
-		edit->setIndentationGuidesForegroundColor(QColor(250, 200, 200));
+		edit->setIndentationGuidesForegroundColor(TextDocSettings::defaultFontColor());
+		edit->setIndentationGuidesBackgroundColor(TextDocSettings::defaultBgColor());
 		edit->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 		edit->setAutoIndent(true);
 		edit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
@@ -619,8 +620,11 @@ void SciDoc::applySettings() {
 		edit->setIndentationGuides(TextDocSettings::showIndents());
 		edit->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
 		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
-		if ( QsciLexer* lexer = edit->lexer() )
+		if ( QsciLexer* lexer = edit->lexer() ) {
 			edit->setCaretForegroundColor(lexer->defaultColor());
+			edit->setIndentationGuidesForegroundColor(lexer->defaultColor());
+			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
+		}
 
 		//	autocompletion
 		edit->setAutoCompletionThreshold(AutocompleteSettings::threshold());

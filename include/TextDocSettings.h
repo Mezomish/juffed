@@ -40,6 +40,7 @@ public:
 	static QColor curLineColor();
 	static QColor defaultFontColor();
 	static QColor defaultBgColor();
+	static QColor matchedBraceBgColor();
 
 	static void setFont(const QFont& font);
 	static void setWidthAdjust(bool adj);
@@ -55,6 +56,7 @@ public:
 	static void setCurLineColor(const QColor& color);
 	static void setDefaultFontColor(const QColor&);
 	static void setDefaultBgColor(const QColor&);
+	static void setMatchedBraceBgColor(const QColor&);
 };
 
 #endif

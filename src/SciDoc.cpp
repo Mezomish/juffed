@@ -78,7 +78,7 @@ public:
 		edit->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 		edit->setAutoIndent(true);
 		edit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
-		edit->setMatchedBraceBackgroundColor(QColor(255, 255, 120));
+		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
 
 		edit->setMarginLineNumbers(1, true);
 		edit->setMarginWidth(2, 12);
@@ -625,6 +625,7 @@ void SciDoc::applySettings() {
 			edit->setIndentationGuidesForegroundColor(lexer->defaultColor());
 			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
 		}
+		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
 
 		//	autocompletion
 		edit->setAutoCompletionThreshold(AutocompleteSettings::threshold());

@@ -74,6 +74,11 @@ QColor TextDocSettings::defaultBgColor() {
 	QColor c = Settings::value("editor", "defaultBgColor").value<QColor>();
 	return c.isValid() ? c : deflt;
 }
+QColor TextDocSettings::matchedBraceBgColor() {
+	QColor deflt(255, 255, 120);
+	QColor c = Settings::value("editor", "matchedBraceBgColor").value<QColor>();
+	return c.isValid() ? c : deflt;
+}
 
 
 
@@ -118,4 +123,7 @@ void TextDocSettings::setDefaultFontColor(const QColor& color) {
 }
 void TextDocSettings::setDefaultBgColor(const QColor& color) {
 	Settings::setValue("editor", "defaultBgColor", color); 
+}
+void TextDocSettings::setMatchedBraceBgColor(const QColor& color) {
+	Settings::setValue("editor", "matchedBraceBgColor", color); 
 }

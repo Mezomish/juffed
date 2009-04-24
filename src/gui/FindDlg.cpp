@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QLineEdit>
 
 #include "IconManager.h"
+#include "MainSettings.h"
 
 namespace Juff {
 namespace GUI {
@@ -61,6 +62,8 @@ FindDlg::FindDlg(QWidget* parent, bool repl) :
 	setReplaceMode(repl);
 	uiFind.findCmb->setFocus();
 	uiFind.findCmb->lineEdit()->selectAll();
+	
+	resize(MainSettings::findDlgRect().size());
 }
 
 FindDlg::~FindDlg() {
@@ -72,6 +75,8 @@ FindDlg::~FindDlg() {
 	backward_ = uiFind.backwardChk->isChecked();
 	regExpMode_ = uiFind.regexpChk->isChecked();
 	wholeWords_ = uiFind.wholeWordsChk->isChecked();
+	
+	MainSettings::setFindDlgRect(rect());
 }
 
 DocFindFlags FindDlg::flags() const {

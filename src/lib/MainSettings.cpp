@@ -43,6 +43,13 @@ QRect MainSettings::windowRect() {
 		return QRect(50, 50, 750, 550);
 }
 
+QRect MainSettings::findDlgRect() {
+	if (Settings::valueExists("main", "findDlgGeometry"))
+		return Settings::value("main", "findDlgGeometry").toRect(); 
+	else
+		return QRect(0, 0, 550, 200);
+}
+
 bool MainSettings::isMaximized() { 
 	return Settings::value("main", "isMaximized").toBool(); 
 }
@@ -116,6 +123,9 @@ void MainSettings::setSyncOpenDialogToCurDoc(bool sync) {
 }
 void MainSettings::setWindowRect(const QRect& rect) { 
 	Settings::setValue("main", "geometry", rect); 
+}
+void MainSettings::setFindDlgRect(const QRect& rect) { 
+	Settings::setValue("main", "findDlgGeometry", rect); 
 }
 void MainSettings::setMaximized(bool maximized) { 
 	Settings::setValue("main", "isMaximized", maximized); 

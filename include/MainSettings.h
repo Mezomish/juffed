@@ -31,6 +31,7 @@ public:
 	static bool syncOpenDialogToCurDoc();
 	static int tabPosition();
 	static QRect windowRect();
+	static QRect findDlgRect();
 	static bool isMaximized();
 	static QString iconTheme();
 	static int toolButtonStyle();
@@ -51,6 +52,7 @@ public:
 	static void setLastSaveDir(const QString& dir);
 	static void setSyncOpenDialogToCurDoc(bool sync);
 	static void setWindowRect(const QRect& rect);
+	static void setFindDlgRect(const QRect& rect);
 	static void setMaximized(bool maximized);
 	static void setTabPosition(int pos);
 	static void setIconTheme(const QString& theme);

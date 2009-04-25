@@ -1156,5 +1156,16 @@ void SciDoc::toggleBlockComment() {
 	}
 }
 
+void SciDoc::changeSplitOrientation() {
+	JUFFENTRY;
+	
+	if ( docInt_->spl_->orientation() == Qt::Vertical ) {
+		docInt_->spl_->setOrientation(Qt::Horizontal);
+	}
+	else {
+		docInt_->spl_->setOrientation(Qt::Vertical);
+	}
+}
+
 }
 

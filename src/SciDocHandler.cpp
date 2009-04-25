@@ -67,6 +67,8 @@ public:
 		lineCommentAct_->setShortcut(QKeySequence("Ctrl+/"));
 		blockCommentAct_ = new QAction(QObject::tr("Comment block"), 0);
 		blockCommentAct_->setShortcut(QKeySequence("Shift+Ctrl+/"));
+		
+		changeSplitAct_ = new QAction("Change split orientation", 0);
 
 		statusWidgets_ << syntaxL_ << eolL_;;
 
@@ -113,6 +115,7 @@ public:
 	QAction* selToMatchingBraceAct_;
 	QAction* lineCommentAct_;
 	QAction* blockCommentAct_;
+	QAction* changeSplitAct_;
 	QsciMacro* macro_;
 	QMap<QString, QString> macros_;
 };
@@ -158,6 +161,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	viewMenu->addAction(st->action(ID_ZOOM_IN));
 	viewMenu->addAction(st->action(ID_ZOOM_OUT));
 	viewMenu->addAction(st->action(ID_ZOOM_100));
+	viewMenu->addAction(docInt_->changeSplitAct_);
 	viewMenu->addSeparator();
 	viewMenu->addMenu(docInt_->syntaxMenu_);
 
@@ -176,6 +180,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 
 	connect(docInt_->lineCommentAct_, SIGNAL(activated()), this, SLOT(toggleLineComment()));
 	connect(docInt_->blockCommentAct_, SIGNAL(activated()), this, SLOT(toggleBlockComment()));
+	connect(docInt_->changeSplitAct_, SIGNAL(activated()), this, SLOT(changeSplitOrientation()));
 
 	QToolBar* zoomTB = new QToolBar("Zoom");
 	zoomTB->addAction(st->action(ID_ZOOM_IN));
@@ -582,5 +587,14 @@ void SciDocHandler::toggleBlockComment() {
 		doc->toggleBlockComment();
 	}
 }
+
+void SciDocHandler::changeSplitOrientation() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc  ) {
+		doc->changeSplitOrientation();
+	}
+}
+
 
 }	//	namespace Juff

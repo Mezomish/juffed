@@ -70,6 +70,8 @@ private slots:
 
 	void toggleLineComment();
 	void toggleBlockComment();
+	
+	void changeSplitOrientation();
 
 private:
 	void initSyntaxMenu();

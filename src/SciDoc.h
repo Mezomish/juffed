@@ -106,6 +106,8 @@ public:
 	void selectToMatchingBrace();
 	void toggleLineComment();
 	void toggleBlockComment();
+	
+	void changeSplitOrientation();
 
 public slots:
 	void unindent();

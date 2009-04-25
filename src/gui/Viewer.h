@@ -56,6 +56,9 @@ signals:
 	void requestDocClose(QWidget*);
 	void requestNewDoc();
 	void requestOpenDoc(const QString&);
+#if QT_VERSION >= 0x040500
+	void tabMoved(int, int);
+#endif
 
 public slots:
 	void nextDoc();

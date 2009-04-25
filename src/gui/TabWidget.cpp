@@ -53,6 +53,10 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	connect(tabBar_, SIGNAL(requestFileName(int, QString&)), this, SIGNAL(requestFileName(int, QString&)));
 	connect(tabBar_, SIGNAL(requestNextDoc()), this, SLOT(nextWidget()));
 	connect(tabBar_, SIGNAL(requestPrevDoc()), this, SLOT(prevWidget()));
+
+#if QT_VERSION >= 0x040500
+	connect(tabBar_, SIGNAL(tabMoved(int, int)), this, SIGNAL(tabMoved(int, int)));
+#endif
 	
 	QPushButton* b = new Button(QIcon(":window-close.png"));
 	b->setToolTip(tr("Close document"));

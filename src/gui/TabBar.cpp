@@ -39,6 +39,10 @@ TabBar::TabBar(QWidget* parent) : QTabBar(parent), index_(-1) {
 	tabMenu_->addAction(tr("Copy file directory path to clipboard"), this, SLOT(copyDirPath()));
 	tabMenu_->addSeparator();
 	tabMenu_->addAction(tr("Close"), this, SLOT(closeTab()));
+
+#if QT_VERSION >= 0x040500
+	setMovable(true);
+#endif
 }
 
 TabBar::~TabBar() {

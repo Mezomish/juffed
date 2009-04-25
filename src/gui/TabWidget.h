@@ -44,6 +44,10 @@ signals:
 	void newFileRequested();
 	void docOpenRequested(const QString&);
 
+#if QT_VERSION >= 0x040500
+	void tabMoved(int from, int to);
+#endif
+
 protected:
 	virtual void mouseDoubleClickEvent(QMouseEvent*);
 	virtual void dragEnterEvent(QDragEnterEvent*);

@@ -82,7 +82,7 @@ public:
 	*/
 	ActionList getContextMenuActions(const QString& engine);
 
-
+public slots:
 	virtual void notifyDocCreated(const QString&);
 	virtual void notifyDocActivated(const QString&);
 	virtual void notifyDocModified(const QString&, bool);
@@ -90,6 +90,9 @@ public:
 	virtual void notifyDocRenamed(const QString&, const QString&);
 	virtual void notifyDocSaved(const QString&);
 	virtual void notifyContextMenuCalled(int, int);
+#if QT_VERSION >= 0x040500
+	virtual void notifyTabMoved(int, int);
+#endif
 
 private:
 	class Interior;

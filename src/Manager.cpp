@@ -210,7 +210,9 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	connect(gui, SIGNAL(settingsApplied()), SLOT(applySettings()));
 	connect(gui, SIGNAL(closeRequested(bool&)), this, SLOT(onCloseEvent(bool&)));
 	connect(mInt_->viewer_, SIGNAL(requestOpenDoc(const QString&)), this, SLOT(openDoc(const QString&)));
-
+#if QT_VERSION >= 0x040500
+	connect(mInt_->viewer_, SIGNAL(tabMoved(int, int)), mInt_->pluginManager_, SLOT(notifyTabMoved(int, int)));
+#endif
 
 
 	//////////////////

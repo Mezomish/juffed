@@ -93,6 +93,10 @@ Viewer::Viewer() : QObject() {
 	connect(vInt_->tw2_, SIGNAL(newFileRequested()), SIGNAL(requestNewDoc()));
 	connect(vInt_->tw1_, SIGNAL(docOpenRequested(const QString&)), SIGNAL(requestOpenDoc(const QString&)));
 	connect(vInt_->tw2_, SIGNAL(docOpenRequested(const QString&)), SIGNAL(requestOpenDoc(const QString&)));
+#if QT_VERSION >= 0x040500
+	connect(vInt_->tw1_, SIGNAL(tabMoved(int, int)), this, SIGNAL(tabMoved(int, int)));
+	connect(vInt_->tw2_, SIGNAL(tabMoved(int, int)), this, SIGNAL(tabMoved(int, int)));
+#endif
 }
 
 Viewer::~Viewer() {

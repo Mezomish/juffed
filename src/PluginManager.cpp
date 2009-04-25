@@ -168,6 +168,18 @@ void PluginManager::notifyContextMenuCalled(int line, int col) {
 	}
 }
 
+#if QT_VERSION >= 0x040500
+void PluginManager::notifyTabMoved(int from, int to) {
+	JUFFENTRY;
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			if ( plugin ) {
+				plugin->onTabMoved(from, to);
+			}
+		}
+	}
+}
+#endif
 
 ////////////////////////////////////////////////////////////
 

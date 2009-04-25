@@ -1,5 +1,16 @@
+2009-04-24:
+* Added: storing the Find Dialog size
+* Added: changing split orientation
+
+2009-04-23:
+* Added: customization for indents color and matching brace color
+
+2009-04-22:
+* Fixed: cursor color now has the same color as text
+
 2009-04-20:
 * Added: optional stripping trailing spaces when saving a file
+* Fixed: bug with wrong line ending guessing
 
 2009-04-19:
 * Added: commenting a line (or several lines) by a hotkey (for some languages)

@@ -33,19 +33,23 @@ namespace Log {
 
 #ifdef JUFF_FULL_DEBUG
 
-#define JUFFENTRY Log::debug(QString("Entering %1 (%2:%3)").arg(__FUNCTION__).arg(__FILE__).arg(__LINE__))
+#include <QtCore/QFileInfo>
+
+#define JUFFENTRY Log::debug(QString("Entering %1 (%2:%3)").arg(__FUNCTION__).arg(QFileInfo(__FILE__).fileName()).arg(__LINE__))
 #define JUFFDTOR Log::debug(QString("Destructor: %1").arg(__FUNCTION__))
-#define JUFFDEBUG(x) Log::debug(QString("DEBUG (%1:%2): %3").arg(__FILE__).arg(__LINE__).arg(x))
-#define JUFFDEBUG2(x) Log::debug(QString("DEBUG2 (%1:%2): %3").arg(__FILE__).arg(__LINE__).arg(x))
+#define JUFFDEBUG(x) Log::debug(QString("DEBUG (%1:%2): %3").arg(QFileInfo(__FILE__).fileName()).arg(__LINE__).arg(x))
+#define JUFFDEBUG2(x) Log::debug(QString("DEBUG2 (%1:%2): %3").arg(QFileInfo(__FILE__).fileName()).arg(__LINE__).arg(x))
 
 #else	//	JUFF_FULL_DEBUG
 
 //-----------------
 #ifdef JUFF_DEBUG
 
-#define JUFFENTRY Log::debug(QString("Entering %1 (%2:%3)").arg(__FUNCTION__).arg(__FILE__).arg(__LINE__))
+#include <QtCore/QFileInfo>
+
+#define JUFFENTRY Log::debug(QString("Entering %1 (%2:%3)").arg(__FUNCTION__).arg(QFileInfo(__FILE__).fileName()).arg(__LINE__))
 #define JUFFDTOR Log::debug(QString("Destructor: %1").arg(__FUNCTION__))
-#define JUFFDEBUG(x) Log::debug(QString("DEBUG (%1:%2): %3").arg(__FILE__).arg(__LINE__).arg(x))
+#define JUFFDEBUG(x) Log::debug(QString("DEBUG (%1:%2): %3").arg(QFileInfo(__FILE__).fileName()).arg(__LINE__).arg(x))
 
 #else	//	JUFF_DEBUG
 

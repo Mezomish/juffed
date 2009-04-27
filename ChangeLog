@@ -1,6 +1,8 @@
+2009-04-26:
+* Added: close button on each tab (for Qt >= 4.5)
+
 2009-04-25:
 * Added: moving tabs (for Qt >= 4.5)
-* Added: close button on each tab (for Qt >= 4.5)
 
 2009-04-24:
 * Added: storing the Find Dialog size

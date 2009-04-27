@@ -49,19 +49,20 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	tabBar()->setFocusPolicy(Qt::NoFocus); 
 	setAcceptDrops(true);
 	
-	connect(tabBar_, SIGNAL(tabCloseRequested(int)), this, SIGNAL(tabCloseRequested(int)));
+	connect(tabBar_, SIGNAL(requestTabClose(int)), this, SIGNAL(tabCloseRequested(int)));
 	connect(tabBar_, SIGNAL(requestFileName(int, QString&)), this, SIGNAL(requestFileName(int, QString&)));
 	connect(tabBar_, SIGNAL(requestNextDoc()), this, SLOT(nextWidget()));
 	connect(tabBar_, SIGNAL(requestPrevDoc()), this, SLOT(prevWidget()));
 
 #if QT_VERSION >= 0x040500
 	connect(tabBar_, SIGNAL(tabMoved(int, int)), this, SIGNAL(tabMoved(int, int)));
+	connect(tabBar_, SIGNAL(tabCloseRequested(int)), this, SIGNAL(tabCloseRequested(int)));
 #endif
 	
-	QPushButton* b = new Button(QIcon(":window-close.png"));
-	b->setToolTip(tr("Close document"));
-	setCornerWidget(b, Qt::TopRightCorner);
-	connect(b, SIGNAL(clicked()), SLOT(closeBtnPressed()));
+	closeBtn_ = new Button(QIcon(":window-close.png"));
+	closeBtn_->setToolTip(tr("Close document"));
+	setCornerWidget(closeBtn_, Qt::TopRightCorner);
+	connect(closeBtn_, SIGNAL(clicked()), SLOT(closeBtnPressed()));
 	//	this button will be deleted automatically by tab widget
 }
 
@@ -123,6 +124,15 @@ void TabWidget::dropEvent(QDropEvent* e) {
 			}
 		}
 	}
+}
+
+void TabWidget::setCloseBtnOnTabs(bool onTabs) {
+#if QT_VERSION >= 0x040500
+	closeBtn_->setVisible(!onTabs);
+	tabBar_->setTabsClosable(onTabs);
+#else
+	closeBtn_->show();
+#endif
 }
 
 }	//	namespace GUI

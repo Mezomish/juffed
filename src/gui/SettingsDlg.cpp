@@ -188,6 +188,11 @@ void SettingsDlg::init() {
 	JUFFDEBUG("Initialization: GUI settings");
 	int tabPos = MainSettings::tabPosition();
 	pageView_->ui.tabPositionCmb->setCurrentIndex(tabPos);
+#if QT_VERSION >= 0x040500
+	pageView_->ui.closeBtnsChk->setChecked(MainSettings::closeButtonsOnTabs());
+#else
+	pageView_->ui.closeBtnsChk->hide();
+#endif
 	
 	int style = MainSettings::toolButtonStyle();
 	pageView_->ui.toolButtonStyleCmb->setCurrentIndex(style);
@@ -266,6 +271,7 @@ void SettingsDlg::apply() {
 	MainSettings::setTabPosition(pageView_->ui.tabPositionCmb->currentIndex());
 	MainSettings::setIconTheme(pageView_->ui.iconThemeCmb->currentText());
 	MainSettings::setToolButtonStyle(pageView_->ui.toolButtonStyleCmb->currentIndex());
+	MainSettings::setCloseButtonsOnTabs(pageView_->ui.closeBtnsChk->isChecked());
 	MainSettings::setIconSize(pageView_->ui.iconSizeCmb->currentIndex());
 	
 	int startupVariant = 0;

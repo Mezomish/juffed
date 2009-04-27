@@ -110,6 +110,9 @@ QString MainSettings::toolBar() {
 	return Settings::value("main", "toolBar").toString();
 }
 
+bool MainSettings::closeButtonsOnTabs() {
+	return Settings::boolValue("main", "closeButtonsOnTabs", false);
+}
 
 
 void MainSettings::setLastOpenDir(const QString& dir) { 
@@ -166,3 +169,7 @@ void MainSettings::setSingleInstance(bool single) {
 void MainSettings::setMwState(const QByteArray& state) {
 	Settings::setValue("main", "mwState", state); 
 }
+void MainSettings::setCloseButtonsOnTabs(bool onTabs) {
+	return Settings::setValue("main", "closeButtonsOnTabs", onTabs);
+}
+

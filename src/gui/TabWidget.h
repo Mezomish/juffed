@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _TAB_WIDGET_H_
 #define _TAB_WIDGET_H_
 
+class QPushButton;
+
 //	Qt headers
 #include <QtGui/QTabWidget>
 
@@ -33,6 +35,8 @@ Q_OBJECT
 public:
 	TabWidget(QWidget* parent);
 	virtual ~TabWidget();
+
+	void setCloseBtnOnTabs(bool);
 
 public slots:
 	void nextWidget();
@@ -58,6 +62,7 @@ protected slots:
 
 private:
 	TabBar* tabBar_;
+	QPushButton* closeBtn_;
 };
 
 }	//	namespace GUI

@@ -62,7 +62,7 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 	//	in Qt 4.3, that's why we need this #if ...
 	if ( e->button() & Qt::MidButton ) {
 		int index = tabAt(e->pos());
-		emit tabCloseRequested(index);
+		emit requestTabClose(index);
 	}
 	else if ( e->button() & Qt::RightButton ) {
 		index_ = tabAt(e->pos());
@@ -98,7 +98,7 @@ void TabBar::mouseDoubleClickEvent(QMouseEvent* e) {
 	//	The QTabBar::tabAt() function was introduced 
 	//	in Qt 4.3, that's why we need this #if ...
 	int index = tabAt(e->pos());
-	emit tabCloseRequested(index);
+	emit requestTabClose(index);
 #endif
 
 	QTabBar::mouseDoubleClickEvent(e);
@@ -122,7 +122,7 @@ void TabBar::copyDirPath() {
 }
 
 void TabBar::closeTab() {
-	emit tabCloseRequested(index_);
+	emit requestTabClose(index_);
 }
 
 }	//	namespace GUI

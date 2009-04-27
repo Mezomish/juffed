@@ -33,7 +33,7 @@ public:
 	virtual ~TabBar();
 
 signals:
-	void tabCloseRequested(int);
+	void requestTabClose(int);
 	void requestFileName(int, QString&);
 	void requestNextDoc();
 	void requestPrevDoc();

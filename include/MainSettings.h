@@ -47,6 +47,7 @@ public:
 	static bool singleInstance();
 	static QByteArray mwState();
 	static QString toolBar();
+	static bool closeButtonsOnTabs();
 
 	static void setLastOpenDir(const QString& dir);
 	static void setLastSaveDir(const QString& dir);
@@ -66,6 +67,7 @@ public:
 	static void setStripTrailingSpaces(bool strip);
 	static void setSingleInstance(bool single);
 	static void setMwState(const QByteArray&);
+	static void setCloseButtonsOnTabs(bool);
 };
 
 #endif

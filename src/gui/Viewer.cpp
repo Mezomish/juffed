@@ -73,8 +73,8 @@ public:
 	}
 	
 	QSplitter* widget_;
-	QTabWidget* tw1_;
-	QTabWidget* tw2_;
+	TabWidget* tw1_;
+	TabWidget* tw2_;
 	QMap<QWidget*, QString> fileNamesMap_;
 	QWidget* curView_;
 };
@@ -106,6 +106,8 @@ Viewer::~Viewer() {
 void Viewer::applySettings() {
 	vInt_->tw1_->setTabPosition((QTabWidget::TabPosition)MainSettings::tabPosition());
 	vInt_->tw2_->setTabPosition((QTabWidget::TabPosition)MainSettings::tabPosition());
+	vInt_->tw1_->setCloseBtnOnTabs(MainSettings::closeButtonsOnTabs());
+	vInt_->tw2_->setCloseBtnOnTabs(MainSettings::closeButtonsOnTabs());
 }
 
 QWidget* Viewer::widget() {

@@ -588,8 +588,12 @@ void Manager::openDoc(const QString& fileName) {
 			mInt_->addToRecentFiles(fileName);
 			initRecentFilesMenu();
 		}
-		else {
-			QMessageBox::warning(mInt_->viewer_->widget(), "", "Sorry: Not implemented yet");
+		else if ( QFileInfo(fileName).isDir() ) {
+			QDir dir(fileName);
+			QStringList files = dir.entryList(QDir::AllEntries | QDir::NoDotAndDotDot);
+			foreach (QString dirItem, files) {
+				openDoc(dir.absoluteFilePath(dirItem));
+			}
 		}
 	}
 }

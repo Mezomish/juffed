@@ -198,8 +198,6 @@ public:
 	*/
 	virtual void onContextMenuCalled(int line, int col) { Q_UNUSED(line); Q_UNUSED(col); }
 
-	
-#if QT_VERSION >= 0x040500
 	/**
 	* onTabMoved()
 	*
@@ -207,7 +205,6 @@ public:
 	* position \par from to position \par to.
 	*/
 	virtual void onTabMoved(int from, int to) { Q_UNUSED(from); Q_UNUSED(to); }
-#endif
 
 
 protected:

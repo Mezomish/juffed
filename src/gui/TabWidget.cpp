@@ -41,7 +41,7 @@ public:
 	static const int sz;
 };
 
-const int Button::sz = 26;
+const int Button::sz = 22;
 
 TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	tabBar_ = new TabBar(this);

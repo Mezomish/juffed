@@ -290,7 +290,7 @@ ActionList SciDocHandler::menuActions(MenuID id) const {
 			break;
 
 		case ID_MENU_TOOLS :
-			list << docInt_->macrosMenu_->menuAction();
+//			list << docInt_->macrosMenu_->menuAction();
 			break;
 
 		default: ;

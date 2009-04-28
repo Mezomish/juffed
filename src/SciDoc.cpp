@@ -593,7 +593,6 @@ void SciDoc::applySettings() {
 	JUFFENTRY;
 	
 	QFont font = TextDocSettings::font();
-	JUFFDEBUG(font.pointSize());
 
 	LexerStorage::instance()->updateLexer(docInt_->syntax_, font);
 	showLineNumbers(TextDocSettings::showLineNumbers());

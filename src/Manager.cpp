@@ -567,6 +567,7 @@ void Manager::applySettings() {
 
 Document* Manager::curDoc() const {
 	JUFFENTRY;
+
 	QWidget* w = mInt_->viewer_->curDoc();
 	if ( !w )
 		JUFFDEBUG("widget is 0");
@@ -960,7 +961,6 @@ bool Manager::openSess(const QString& name) {
 
 	QString sessName = name.isEmpty() ? "_empty_session_" : name;
 	
-	JUFFDEBUG(sessName);
 	QFile sess(AppInfo::configDirPath() + "/sessions/" + sessName);
 	if ( sess.open(QIODevice::ReadOnly) ) {
 		QString fileName("");
@@ -971,7 +971,6 @@ bool Manager::openSess(const QString& name) {
 #else
 			fileName = lineStr.section(':', -3, -3);
 #endif
-			JUFFDEBUG(fileName);
 			int scrPos = lineStr.section(':', -2, -2).toInt();
 			int line = lineStr.section(':', -1, -1).toInt();
 			if ( !fileName.isEmpty() ) {
@@ -995,7 +994,6 @@ bool Manager::saveSess(const QString& name) {
 	
 	QString sessName = name.isEmpty() ? "_empty_session_" : name;
 	
-	JUFFDEBUG(sessName);
 	QFile sess(AppInfo::configDirPath() + "/sessions/" + sessName);
 	if ( sess.open(QIODevice::WriteOnly | QIODevice::Truncate) ) {
 		writePanelViews(sess, 1);
@@ -1187,7 +1185,6 @@ void Manager::docModified(bool mod) {
 	Document* doc = qobject_cast<Document*>(sender());
 
 	if ( doc ) {
-		Log::debug(doc->fileName() + (mod ? "isModified()" : " not modified"));
 		mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, mod);
 		mInt_->viewer_->setDocModified(doc, mod);
 		mInt_->pluginManager_->notifyDocModified(doc->fileName(), mod);

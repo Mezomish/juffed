@@ -151,9 +151,7 @@ void GUI::setCentralWidget(QWidget* w) {
 }
 
 void GUI::setToolBarIconSize(int sz) {
-	JUFFDEBUG(sz);
 	int size = ( sz == 0 ? 16 : (sz == 1 ? 24 : 32) );
-
 	mw_->setIconSize(QSize(size, size));
 }
 
@@ -223,7 +221,6 @@ QString GUI::getSaveFileName(const QString& curFileName, const QString& filters,
 }
 
 QString GUI::getSaveSessionName(const QString& session) {
-	JUFFDEBUG(session);
 	return QInputDialog::getText(mw_, tr("Save session as"), tr("Session name"), QLineEdit::Normal, session);
 }
 	

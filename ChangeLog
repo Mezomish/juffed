@@ -1,3 +1,6 @@
+2009-04-27:
+* Fixed: opening a directory
+
 2009-04-26:
 * Added: close button on each tab (for Qt >= 4.5)
 

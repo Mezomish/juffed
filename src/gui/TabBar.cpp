@@ -51,10 +51,6 @@ TabBar::~TabBar() {
 	delete tabMenu_;
 }
 
-void TabBar::mousePressEvent(QMouseEvent* e) {
-	QTabBar::mousePressEvent(e);
-}
-
 void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 
 #if QT_VERSION >= 0x040300

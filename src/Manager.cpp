@@ -52,7 +52,7 @@ namespace Juff {
 
 class Manager::Interior {
 public:
-	Interior(Manager* m, GUI::GUI* gui) {
+	Interior(Manager* m, GUI::GUI* gui) : stayAlive_(false) {
 		viewer_ = new GUI::Viewer();
 		gui_ = gui;
 		pluginManager_ = 0;
@@ -161,6 +161,7 @@ public:
 	GUI::StatusLabel* posL_;
 	GUI::StatusLabel* nameL_;
 	GUI::StatusLabel* charsetL_;
+	bool stayAlive_;
 };
 
 Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
@@ -591,9 +592,14 @@ void Manager::openDoc(const QString& fileName) {
 	}
 	else {
 		if ( QFileInfo(fileName).isFile() ) {
+			Document* cur = curDoc();
 			createDoc("sci", fileName);
 			mInt_->addToRecentFiles(fileName);
 			initRecentFilesMenu();
+
+			//	close the previous document if it was alone and not modified
+			if ( docCount() == 2 && cur && isNoname(cur->fileName()) && !cur->isModified() )
+				closeDoc(cur);
 		}
 		else if ( QFileInfo(fileName).isDir() ) {
 			QDir dir(fileName);
@@ -722,17 +728,25 @@ void Manager::closeDoc(Document* doc) {
 		mInt_->posL_->hide();
 		mInt_->nameL_->hide();
 		mInt_->charsetL_->hide();
+		
+		if ( !mInt_->stayAlive_ && MainSettings::exitOnLastDocClosed() )
+			exit();
 	}
 }
 
 bool Manager::closeAllDocs() {
 	JUFFENTRY;
 
+	//	If this method was called we don't want to exit the app
+	//	after the last document was closed (if this option was chosen
+	//	in settings dialog). Set the 'stayAlive' flag and unset it afterwards.
+	mInt_->stayAlive_ = true;
 	while ( !curDoc()->isNull() ) {
 		if ( !fileClose() ) {
 			return false;
 		}
 	}
+	mInt_->stayAlive_ = false;
 	mInt_->gui_->updateTitle("", mInt_->sessionName_, false);
 
 	return true;
@@ -774,11 +788,6 @@ void Manager::fileOpen() {
 	
 	QStringList files = mInt_->gui_->getOpenFileNames(startDir, filters);
 	if ( files.count() > 0 ) {
-		
-		//	close the current document if it is alone and not modified
-		if ( docCount() == 1 && doc && isNoname(doc->fileName()) && !doc->isModified() )
-			fileClose();
-	
 		QString fileName = "";
 		foreach (fileName, files) {
 			openDoc(fileName);
@@ -903,7 +912,7 @@ bool Manager::fileClose() {
 
 	if ( curDoc()->isNull() )
 		mInt_->gui_->updateTitle("", mInt_->sessionName_, false);
-	
+
 	return result;
 }
 

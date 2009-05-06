@@ -114,6 +114,10 @@ bool MainSettings::closeButtonsOnTabs() {
 	return Settings::boolValue("main", "closeButtonsOnTabs", false);
 }
 
+bool MainSettings::exitOnLastDocClosed() {
+	return Settings::boolValue("main", "exitOnLastDocClosed", false);
+}
+
 
 void MainSettings::setLastOpenDir(const QString& dir) { 
 	Settings::setValue("main", "lastOpenDir", dir); 
@@ -170,6 +174,9 @@ void MainSettings::setMwState(const QByteArray& state) {
 	Settings::setValue("main", "mwState", state); 
 }
 void MainSettings::setCloseButtonsOnTabs(bool onTabs) {
-	return Settings::setValue("main", "closeButtonsOnTabs", onTabs);
+	Settings::setValue("main", "closeButtonsOnTabs", onTabs);
+}
+void MainSettings::setExitOnLastDocClosed(bool ex) {
+	Settings::setValue("main", "exitOnLastDocClosed", ex);
 }
 

@@ -217,6 +217,7 @@ void SettingsDlg::init() {
 	}
 
 	pageMain_->ui.saveSessionChk->setChecked(MainSettings::saveSessionOnClose());
+	pageMain_->ui.exitOnLastDocClosedChk->setChecked(MainSettings::exitOnLastDocClosed());
 	pageMain_->ui.syncOpenDlgChk->setChecked(MainSettings::syncOpenDialogToCurDoc());
 	pageMain_->ui.makeBackupChk->setChecked(MainSettings::makeBackupOnSave());
 	pageMain_->ui.stripSpacesChk->setChecked(MainSettings::stripTrailingSpaces());
@@ -284,6 +285,7 @@ void SettingsDlg::apply() {
 	MainSettings::setStartupVariant(startupVariant);
 
 	MainSettings::setSaveSessionOnClose(pageMain_->ui.saveSessionChk->isChecked());
+	MainSettings::setExitOnLastDocClosed(pageMain_->ui.exitOnLastDocClosedChk->isChecked());
 	MainSettings::setSyncOpenDialogToCurDoc(pageMain_->ui.syncOpenDlgChk->isChecked());
 	MainSettings::setMakeBackupOnSave(pageMain_->ui.makeBackupChk->isChecked());
 	MainSettings::setStripTrailingSpaces(pageMain_->ui.stripSpacesChk->isChecked());

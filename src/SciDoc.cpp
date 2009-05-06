@@ -81,6 +81,7 @@ public:
 		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
 
 		edit->setMarginLineNumbers(1, true);
+		edit->setMarginSensitivity(1, true);
 		edit->setMarginWidth(2, 12);
 		//	set the 1st margin accept markers 
 		//	number 1 and 2 (binary mask 00000110 == 6)
@@ -146,7 +147,9 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	connect(docInt_->edit2_, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(onCursorMove(int, int)));
 	connect(docInt_->edit1_, SIGNAL(contextMenuCalled(int, int)), this, SIGNAL(contextMenuCalled(int, int)));
 	connect(docInt_->edit2_, SIGNAL(contextMenuCalled(int, int)), this, SIGNAL(contextMenuCalled(int, int)));
-		
+	connect(docInt_->edit1_, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
+	connect(docInt_->edit2_, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
+
 	applySettings();
 	
 	QAction* unindentAct = new QAction(this);
@@ -813,6 +816,14 @@ void SciDoc::setScrollPos(int pos) {
 }
 
 
+void SciDoc::onMarginClicked (int margin, int line, Qt::KeyboardModifiers state) {
+	JUFFENTRY;
+	
+	if ( margin == 1 ) {
+		//	margin that contains line numbers
+		toggleMarker(line);
+	}
+}
 
 IntList SciDoc::markers() const {
 	IntList list;
@@ -823,14 +834,11 @@ IntList SciDoc::markers() const {
 	return list;
 }
 
-void SciDoc::toggleMarker() {
+void SciDoc::toggleMarker(int line) {
 	JuffScintilla* edit = getActiveEdit();
 	if ( !edit )
 		return;
-	
-	int line, col;
-	edit->getCursorPosition(&line, &col);
-	
+
 	if ( edit->markersAtLine(line) & 2 ) {
 		edit->markerDelete(line, 1);
 		edit->markerDelete(line, 2);
@@ -839,9 +847,19 @@ void SciDoc::toggleMarker() {
 		edit->markerAdd(line, 1);
 		edit->markerAdd(line, 2);
 	}
-	
+
 	//	Markers will be added to/deleted from the 2nd edit 
 	//	automatically since they share the same document
+}
+
+void SciDoc::toggleMarker() {
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+
+	int line, col;
+	edit->getCursorPosition(&line, &col);
+	toggleMarker(line);
 }
 
 void SciDoc::nextMarker() {

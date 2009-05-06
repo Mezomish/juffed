@@ -114,12 +114,14 @@ public slots:
 
 private slots:
 	void onCursorMove(int, int);
+	void onMarginClicked (int margin, int line, Qt::KeyboardModifiers state);
 
 private:
 	void guessCharset();
 	void readDoc();
 	void loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer);
 	void stripTrailingSpaces();
+	void toggleMarker(int line);
 
 	bool doReplace(JuffScintilla* edit, const QString& str1, const QString& str2, const DocFindFlags& flags, bool& replaceAll);
 	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);

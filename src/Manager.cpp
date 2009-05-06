@@ -165,8 +165,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	registerCommands();
 	mInt_ = new Interior(this, gui);
 
-	CommandStorage::instance()->registerCommand(ID_DOC_NEXT,        mInt_->viewer_, SLOT(nextDoc()));
-	CommandStorage::instance()->registerCommand(ID_DOC_PREV,        mInt_->viewer_, SLOT(prevDoc()));
+	CommandStorage::instance()->registerCommand(ID_DOC_NEXT, mInt_->viewer_, SLOT(nextDoc()));
+	CommandStorage::instance()->registerCommand(ID_DOC_PREV, mInt_->viewer_, SLOT(prevDoc()));
 
 	initMainMenu();
 	initMainToolBar();
@@ -293,6 +293,7 @@ void Manager::registerCommands() {
 	st->registerCommand(ID_FILE_OPEN,       this, SLOT(fileOpen()));
 	st->registerCommand(ID_FILE_SAVE,       this, SLOT(fileSave()));
 	st->registerCommand(ID_FILE_SAVE_AS,    this, SLOT(fileSaveAs()));
+	st->registerCommand(ID_FILE_SAVE_ALL,   this, SLOT(fileSaveAll()));
 	st->registerCommand(ID_FILE_RELOAD,     this, SLOT(fileReload()));
 	st->registerCommand(ID_FILE_CLOSE,      this, SLOT(fileClose()));
 	st->registerCommand(ID_FILE_CLOSE_ALL,  this, SLOT(fileCloseAll()));
@@ -326,6 +327,7 @@ void Manager::initMainMenu() {
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_OPEN));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_AS));
+	mInt_->fileMenu_->addAction(st->action(ID_FILE_SAVE_ALL));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_RELOAD));
 	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE));
@@ -846,6 +848,27 @@ bool Manager::fileSaveAs() {
 		}
 	}
 	return false;
+}
+
+void Manager::fileSaveAll() {
+	JUFFENTRY;
+	
+	QMap<QString, Document*>::iterator it = mInt_->docs1_.begin();
+	while ( it != mInt_->docs1_.end() ) {
+		Document* doc = it.value();
+		if ( doc && doc->isModified() ) {
+			if ( Juff::isNoname(doc->fileName()) ) {
+				mInt_->viewer_->activateDoc(doc);
+				fileSaveAs();
+			}
+			else {
+				if ( saveDoc(doc, doc->fileName(), doc->charset()) ) {
+					doc->setModified(false);
+				}
+			}
+		}
+		it++;
+	}
 }
 
 void Manager::fileReload() {

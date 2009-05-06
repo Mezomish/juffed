@@ -60,6 +60,7 @@ QString CommandStorage::getName(CommandID id) {
 		case ID_FILE_OPEN :         return QObject::tr("Open");
 		case ID_FILE_SAVE :         return QObject::tr("Save");
 		case ID_FILE_SAVE_AS :      return QObject::tr("Save as");
+		case ID_FILE_SAVE_ALL :     return QObject::tr("Save all");
 		case ID_FILE_RELOAD :       return QObject::tr("Reload");
 		case ID_FILE_CLOSE :        return QObject::tr("Close");
 		case ID_FILE_CLOSE_ALL :    return QObject::tr("Close all");

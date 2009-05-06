@@ -41,6 +41,7 @@ TabBar::TabBar(QWidget* parent) : QTabBar(parent), index_(-1) {
 	tabMenu_->addSeparator();
 	tabMenu_->addAction(tr("Close"), this, SLOT(closeTab()));
 	tabMenu_->addAction(CommandStorage::instance()->action(ID_FILE_CLOSE_ALL));
+	tabMenu_->addAction(CommandStorage::instance()->action(ID_FILE_SAVE_ALL));
 
 #if QT_VERSION >= 0x040500
 	setMovable(true);

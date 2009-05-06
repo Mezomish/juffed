@@ -48,6 +48,7 @@ public:
 	DocFindFlags lastFlags() const;
 
 	void show();
+	void activateMW();
 	void setCentralWidget(QWidget*);
 
 	void addMenu(const QString& type, QMenu* menu);

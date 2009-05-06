@@ -600,6 +600,8 @@ void Manager::openDoc(const QString& fileName) {
 			//	close the previous document if it was alone and not modified
 			if ( docCount() == 2 && cur && isNoname(cur->fileName()) && !cur->isModified() )
 				closeDoc(cur);
+			
+			mInt_->gui_->activateMW();
 		}
 		else if ( QFileInfo(fileName).isDir() ) {
 			QDir dir(fileName);

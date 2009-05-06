@@ -146,6 +146,13 @@ void GUI::show() {
 	mw_->show();
 }
 
+void GUI::activateMW() {
+	if ( !mw_->isActiveWindow() ) {
+		mw_->raise();
+		mw_->activateWindow();
+	}
+}
+
 void GUI::setCentralWidget(QWidget* w) {
 	mw_->setCentralWidget(w);
 }

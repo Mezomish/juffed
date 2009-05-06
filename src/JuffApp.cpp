@@ -179,7 +179,7 @@ void JuffApp::checkForFirstRun() {
 
 	//	create the log file
 	QFile file(AppInfo::logFile());
-	file.open(QIODevice::WriteOnly);
+	file.open(QIODevice::WriteOnly | QIODevice::Truncate);
 	file.close();
 }
 

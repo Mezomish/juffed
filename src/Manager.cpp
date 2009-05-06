@@ -162,9 +162,12 @@ public:
 Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	JUFFENTRY;
 
+	registerCommands();
 	mInt_ = new Interior(this, gui);
 
-	registerCommands();
+	CommandStorage::instance()->registerCommand(ID_DOC_NEXT,        mInt_->viewer_, SLOT(nextDoc()));
+	CommandStorage::instance()->registerCommand(ID_DOC_PREV,        mInt_->viewer_, SLOT(prevDoc()));
+
 	initMainMenu();
 	initMainToolBar();
 
@@ -314,9 +317,6 @@ void Manager::registerCommands() {
 	st->registerCommand(ID_FIND_PREV,       this, SLOT(findPrev()));
 	st->registerCommand(ID_REPLACE,         this, SLOT(replace()));
 	st->registerCommand(ID_GOTO_LINE,       this, SLOT(gotoLine()));
-	//
-	st->registerCommand(ID_DOC_NEXT,        mInt_->viewer_, SLOT(nextDoc()));
-	st->registerCommand(ID_DOC_PREV,        mInt_->viewer_, SLOT(prevDoc()));
 }
 
 void Manager::initMainMenu() {

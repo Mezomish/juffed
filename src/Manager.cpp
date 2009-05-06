@@ -87,6 +87,10 @@ public:
 		gui_->addStatusWidget(posL_);
 		gui_->addStatusWidget(nameL_);
 		gui_->addStatusWidget(charsetL_);
+
+		posL_->hide();
+		nameL_->hide();
+		charsetL_->hide();
 	}
 	~Interior() {
 		delete recentFilesMenu_;
@@ -619,6 +623,12 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 			mInt_->viewer_->addDoc(doc, 1);
 
 			mInt_->pluginManager_->notifyDocCreated(fName);
+			
+			if ( mInt_->posL_->isHidden() ) {
+				mInt_->posL_->show();
+				mInt_->nameL_->show();
+				mInt_->charsetL_->show();
+			}
 		}
 	}
 }
@@ -707,6 +717,11 @@ void Manager::closeDoc(Document* doc) {
 	Document* d = curDoc();
 	if ( d && !d->isNull() ) {
 		d->widget()->setFocus();
+	}
+	else {
+		mInt_->posL_->hide();
+		mInt_->nameL_->hide();
+		mInt_->charsetL_->hide();
 	}
 }
 

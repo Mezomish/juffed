@@ -583,6 +583,9 @@ Document* Manager::curDoc() const {
 
 
 void Manager::openDoc(const QString& fileName) {
+			
+	mInt_->gui_->activateMW();
+	
 	//	check if this file is already opened
 	if ( mInt_->docs1_.contains(fileName) ) {
 		mInt_->viewer_->activateDoc(mInt_->docs1_[fileName]);
@@ -600,8 +603,6 @@ void Manager::openDoc(const QString& fileName) {
 			//	close the previous document if it was alone and not modified
 			if ( docCount() == 2 && cur && isNoname(cur->fileName()) && !cur->isModified() )
 				closeDoc(cur);
-			
-			mInt_->gui_->activateMW();
 		}
 		else if ( QFileInfo(fileName).isDir() ) {
 			QDir dir(fileName);

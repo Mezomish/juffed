@@ -148,8 +148,9 @@ void GUI::show() {
 
 void GUI::activateMW() {
 	if ( !mw_->isActiveWindow() ) {
-		mw_->raise();
+		QApplication::setActiveWindow(mw_);
 		mw_->activateWindow();
+		mw_->raise();
 	}
 }
 

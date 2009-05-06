@@ -1037,9 +1037,10 @@ void SciDoc::toggleLineComment() {
 		return;
 
 	QString comment;
-	if ( docInt_->syntax_ == "C++" )
+	QString& s = docInt_->syntax_;
+	if ( s == "C++" || s == "PHP" || s == "C#" || s == "Java" || s == "JavaScript" )
 		comment = "//";
-	else if ( docInt_->syntax_ == "Bash" || docInt_->syntax_ == "Python" || docInt_->syntax_ == "CMake" || docInt_->syntax_ == "Makefile" )
+	else if ( s == "Bash" || s == "Python" || s == "CMake" || s == "Makefile" )
 		comment = "#";
 	//	TODO : need to add more syntaxes
 
@@ -1104,7 +1105,8 @@ void SciDoc::toggleBlockComment() {
 		return;
 
 	QString commBeg, commEnd;
-	if ( docInt_->syntax_ == "C++" ) {
+	QString& s = docInt_->syntax_;
+	if ( s == "C++" || s == "Java" || s == "C#" || s == "PHP" || s == "CSS" || s == "JavaScript" ) {
 		commBeg = "/*";
 		commEnd = "*/";
 	}

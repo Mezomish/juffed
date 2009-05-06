@@ -36,10 +36,10 @@ public:
 	virtual ~FindDlg();
 
 	QString text() const { return uiFind.findCmb->currentText(); }
-	void setText(const QString& t) { uiFind.findCmb->lineEdit()->setText(t); }
 	QString replaceTo() const { return uiFind.replaceCmb->currentText(); }
 	DocFindFlags flags() const;
 	bool isReplaceMode() const { return uiFind.replaceChk->isChecked(); }
+	void setText(const QString&);
 
 	static QString lastText() { return lastString_; }
 	static QString lastReplaceText() { return lastReplaceText_; }

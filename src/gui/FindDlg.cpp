@@ -47,6 +47,9 @@ FindDlg::FindDlg(QWidget* parent, bool repl) :
 	foreach (QString repl, replaces_)
 		uiFind.replaceCmb->addItem(repl);
 
+	uiFind.findCmb->setCompleter(0);
+	uiFind.replaceCmb->setCompleter(0);
+
 	uiFind.findCmb->setEditText(lastString_);
 	uiFind.replaceCmb->setEditText(lastReplaceText_);
 	uiFind.matchCaseChk->setChecked(matchCase_);
@@ -68,15 +71,27 @@ FindDlg::FindDlg(QWidget* parent, bool repl) :
 
 FindDlg::~FindDlg() {
 	lastString_ = uiFind.findCmb->currentText();
-	strings_.prepend(lastString_);
 	lastReplaceText_ = uiFind.replaceCmb->currentText();
-	replaces_.prepend(lastReplaceText_);
 	matchCase_ = uiFind.matchCaseChk->isChecked();
 	backward_ = uiFind.backwardChk->isChecked();
 	regExpMode_ = uiFind.regexpChk->isChecked();
 	wholeWords_ = uiFind.wholeWordsChk->isChecked();
 	
 	MainSettings::setFindDlgRect(rect());
+	
+	if ( strings_.contains(lastString_) )
+		strings_.removeAll(lastString_);
+	if ( replaces_.contains(lastReplaceText_) )
+		replaces_.removeAll(lastReplaceText_);
+	if ( !lastString_.isEmpty() )
+		strings_.prepend(lastString_);
+	if ( !lastReplaceText_.isEmpty() )
+		replaces_.prepend(lastReplaceText_);
+}
+
+void FindDlg::setText(const QString& t) {
+	uiFind.findCmb->lineEdit()->setText(t); 
+	uiFind.findCmb->lineEdit()->selectAll();
 }
 
 DocFindFlags FindDlg::flags() const {

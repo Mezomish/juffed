@@ -56,6 +56,7 @@ protected:
 	virtual void mouseDoubleClickEvent(QMouseEvent*);
 	virtual void dragEnterEvent(QDragEnterEvent*);
 	virtual void dropEvent(QDropEvent*);
+	virtual void contextMenuEvent(QContextMenuEvent*);
 
 protected slots:
 	void closeBtnPressed();
@@ -63,6 +64,7 @@ protected slots:
 private:
 	TabBar* tabBar_;
 	QPushButton* closeBtn_;
+	QMenu* contextMenu_;
 };
 
 }	//	namespace GUI

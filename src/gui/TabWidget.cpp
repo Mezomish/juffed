@@ -19,8 +19,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TabWidget.h"
 
 #include "Log.h"
+#include "CommandStorage.h"
 
 #include <QtCore/QUrl>
+#include <QtGui/QMenu>
 #include <QtGui/QPushButton>
 #include <QtGui/QDragEnterEvent>
 #include <QtGui/QDropEvent>
@@ -64,10 +66,16 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	setCornerWidget(closeBtn_, Qt::TopRightCorner);
 	connect(closeBtn_, SIGNAL(clicked()), SLOT(closeBtnPressed()));
 	//	this button will be deleted automatically by tab widget
+	
+	contextMenu_ = new QMenu();
+	contextMenu_->addAction(CommandStorage::instance()->action(ID_FILE_NEW));
+	contextMenu_->addAction(CommandStorage::instance()->action(ID_FILE_SAVE_ALL));
+	contextMenu_->addAction(CommandStorage::instance()->action(ID_FILE_CLOSE_ALL));
 }
 
 TabWidget::~TabWidget() {
 	delete tabBar_;
+	delete contextMenu_;
 }
 
 void TabWidget::nextWidget() {
@@ -82,8 +90,9 @@ void TabWidget::prevWidget() {
 		setCurrentIndex(index - 1);
 }
 
-void TabWidget::mouseDoubleClickEvent(QMouseEvent*) {
-	emit newFileRequested();
+void TabWidget::mouseDoubleClickEvent(QMouseEvent* e) {
+	if ( e->button() == Qt::LeftButton )
+		emit newFileRequested();
 }
 
 void TabWidget::closeBtnPressed() {
@@ -92,6 +101,9 @@ void TabWidget::closeBtnPressed() {
 		emit tabCloseRequested(index);
 }
 
+void TabWidget::contextMenuEvent(QContextMenuEvent* e) {
+	contextMenu_->exec(e->globalPos());
+}
 
 ///////////////////////////////////////////////////////////////////////
 //	Drag & Drop

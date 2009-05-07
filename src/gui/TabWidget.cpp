@@ -69,8 +69,8 @@ TabWidget::TabWidget(QWidget* parent) : QTabWidget(parent) {
 	
 	contextMenu_ = new QMenu();
 	contextMenu_->addAction(CommandStorage::instance()->action(ID_FILE_NEW));
-	contextMenu_->addAction(CommandStorage::instance()->action(ID_FILE_SAVE_ALL));
 	contextMenu_->addAction(CommandStorage::instance()->action(ID_FILE_CLOSE_ALL));
+	contextMenu_->addAction(CommandStorage::instance()->action(ID_FILE_SAVE_ALL));
 }
 
 TabWidget::~TabWidget() {
@@ -102,7 +102,15 @@ void TabWidget::closeBtnPressed() {
 }
 
 void TabWidget::contextMenuEvent(QContextMenuEvent* e) {
+#if QT_VERSION >= 0x040300
+	//	QTabBar::tabAt() was introduced in Qt 4.3
+	
+	if ( tabBar()->tabAt(tabBar()->mapFromParent(e->pos())) < 0 )
+		contextMenu_->exec(e->globalPos());
+	
+#else
 	contextMenu_->exec(e->globalPos());
+#endif
 }
 
 ///////////////////////////////////////////////////////////////////////

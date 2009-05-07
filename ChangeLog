@@ -1,3 +1,26 @@
+2009-05-06:
+* Fixed: ugly empty status labels if no documents opened
+* Added: toggling marker by clicking on line number
+* Fixed: bug with text completer in find dialog when start 
+  searching with selected text
+* Added: option 'Close app after the last doc was closed'
+* Added: context menu for tabbar (beside the tabs)
+* Added: activating the app's window when opening a file remotely
+* Fixed: bug with pop-up about log file on Windows at the 1st run
+* Added: truncating the log file when the application starts
+* Added: document lines count in statusbar
+* Fixed: bug with too frequent updates of line numbers (was connected 
+  to signal textChanged() instead of linesChanged())
+
+2009-05-05:
+* Added: 'Close all' to tab's context menu
+* Added: 'Save all' to tab's context menu and main menu
+* Added: block/line commenting for Java, C#, CSS, JavaScript, PHP
+
+-------------------------------
+Preview-version 0.7.528
+-------------------------------
+
 2009-04-27:
 * Fixed: opening a directory
 

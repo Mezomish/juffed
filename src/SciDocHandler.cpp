@@ -68,7 +68,7 @@ public:
 		blockCommentAct_ = new QAction(QObject::tr("Comment block"), 0);
 		blockCommentAct_->setShortcut(QKeySequence("Shift+Ctrl+/"));
 		
-		changeSplitAct_ = new QAction("Change split orientation", 0);
+		changeSplitAct_ = new QAction(QObject::tr("Change split orientation"), 0);
 
 		statusWidgets_ << syntaxL_ << eolL_;;
 

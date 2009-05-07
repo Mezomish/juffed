@@ -79,18 +79,22 @@ public:
 		posL_ = new GUI::StatusLabel("");
 		nameL_ = new GUI::StatusLabel("");
 		charsetL_ = new GUI::StatusLabel("");
+		linesL_ = new GUI::StatusLabel("");
 		posL_->setToolTip(QObject::tr("Cursor position"));
 		nameL_->setToolTip(QObject::tr("File full name"));
 		charsetL_->setToolTip(QObject::tr("Current character set"));
+		linesL_->setToolTip(QObject::tr("Lines count"));
 		charsetL_->setMenu(charsetMenu_);
-
+		
 		gui_->addStatusWidget(posL_);
 		gui_->addStatusWidget(nameL_);
+		gui_->addStatusWidget(linesL_);
 		gui_->addStatusWidget(charsetL_);
 
 		posL_->hide();
 		nameL_->hide();
 		charsetL_->hide();
+		linesL_->hide();
 	}
 	~Interior() {
 		delete recentFilesMenu_;
@@ -161,6 +165,7 @@ public:
 	GUI::StatusLabel* posL_;
 	GUI::StatusLabel* nameL_;
 	GUI::StatusLabel* charsetL_;
+	GUI::StatusLabel* linesL_;
 	bool stayAlive_;
 };
 
@@ -626,6 +631,7 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 			connect(doc, SIGNAL(modified(bool)), SLOT(docModified(bool)));
 			connect(doc, SIGNAL(fileNameChanged(const QString&)), SLOT(docFileNameChanged(const QString&)));
 			connect(doc, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(onCursorPositionChanged(int, int)));
+			connect(doc, SIGNAL(linesCountChanged(int)), this, SLOT(onLinesCountChanged(int)));
 			connect(doc, SIGNAL(contextMenuCalled(int, int)), this, SLOT(onContextMenuCalled(int, int)));
 			
 			mInt_->docs1_[fName] = doc;
@@ -637,6 +643,7 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 				mInt_->posL_->show();
 				mInt_->nameL_->show();
 				mInt_->charsetL_->show();
+				mInt_->linesL_->show();
 			}
 		}
 	}
@@ -731,6 +738,7 @@ void Manager::closeDoc(Document* doc) {
 		mInt_->posL_->hide();
 		mInt_->nameL_->hide();
 		mInt_->charsetL_->hide();
+		mInt_->linesL_->hide();
 		
 		if ( !mInt_->stayAlive_ && MainSettings::exitOnLastDocClosed() )
 			exit();
@@ -1245,6 +1253,10 @@ void Manager::onCursorPositionChanged(int line, int col) {
 	mInt_->posL_->setText(tr(" Row: %1, Col: %2 ").arg(line+1).arg(col+1));
 }
 
+void Manager::onLinesCountChanged(int lines) {
+	mInt_->linesL_->setText(tr(" Lines: %1 ").arg(lines));
+}
+
 void Manager::onContextMenuCalled(int line, int col) {
 	mInt_->pluginManager_->notifyContextMenuCalled(line, col);
 }
@@ -1294,6 +1306,8 @@ void Manager::onCurDocChanged(QWidget* w) {
 			int line = -1, col = -1;
 			doc->getCursorPos(line, col);
 			mInt_->posL_->setText(tr(" Row: %1, Col: %2 ").arg(line+1).arg(col+1));
+			mInt_->linesL_->setText(tr(" Lines: %1 ").arg(doc->lineCount()));
+
 			if ( type != mInt_->docOldType_ ) {
 				if ( mInt_->statusWidgets_.contains(mInt_->docOldType_) ) {
 					foreach (QWidget* w, mInt_->statusWidgets_[mInt_->docOldType_] ) {

@@ -149,6 +149,7 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	connect(docInt_->edit2_, SIGNAL(contextMenuCalled(int, int)), this, SIGNAL(contextMenuCalled(int, int)));
 	connect(docInt_->edit1_, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
 	connect(docInt_->edit2_, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
+	connect(docInt_->edit1_, SIGNAL(linesChanged()), SLOT(onLinesCountChanged()));
 
 	applySettings();
 	
@@ -1184,6 +1185,10 @@ void SciDoc::changeSplitOrientation() {
 	else {
 		docInt_->spl_->setOrientation(Qt::Vertical);
 	}
+}
+
+void SciDoc::onLinesCountChanged() {
+	emit linesCountChanged(lineCount());
 }
 
 }

@@ -115,6 +115,7 @@ public slots:
 private slots:
 	void onCursorMove(int, int);
 	void onMarginClicked (int margin, int line, Qt::KeyboardModifiers state);
+	void onLinesCountChanged();
 
 private:
 	void guessCharset();

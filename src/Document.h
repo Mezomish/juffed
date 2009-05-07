@@ -94,6 +94,7 @@ signals:
 	void fileNameChanged(const QString& oldFileName);
 	void cursorPositionChanged(int, int);
 	void contextMenuCalled(int, int);
+	void linesCountChanged(int);
 
 protected slots:
 	void checkLastModified();

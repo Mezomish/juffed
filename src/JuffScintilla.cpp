@@ -41,7 +41,7 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	contextMenu_->addSeparator();
 	contextMenu_->addAction(st->action(ID_GOTO_LINE));
 	
-	connect(this, SIGNAL(textChanged()), this, SLOT(updateLineNumbers()));
+	connect(this, SIGNAL(linesChanged()), this, SLOT(updateLineNumbers()));
 }
 
 JuffScintilla::~JuffScintilla() {

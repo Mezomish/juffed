@@ -57,6 +57,10 @@ protected:
 
 private:
 	void cancelRectInput();
+	void posToLineCol(long pos, int& line, int& col) const;
+	long lineColToPos(int line, int col) const;
+	long curPos() const;
+	bool findML(const QString& s, const DocFindFlags& flags);
 
 	QMenu* contextMenu_;
 	bool showLineNumbers_;

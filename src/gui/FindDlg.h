@@ -50,6 +50,10 @@ public:
 public slots:
 	void setReplaceMode(bool);
 
+protected slots:
+	void multiLineChecked(bool);
+	void regExpChecked(bool);
+
 protected:
 	virtual void keyPressEvent(QKeyEvent*);
 
@@ -63,6 +67,7 @@ private:
 	static bool backward_;
 	static bool regExpMode_;
 	static bool wholeWords_;
+	static bool multiLine_;
 	static QStringList strings_;
 	static QStringList replaces_;
 };

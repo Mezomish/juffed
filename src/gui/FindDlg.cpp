@@ -34,6 +34,7 @@ bool FindDlg::matchCase_ = true;
 bool FindDlg::backward_ = false;
 bool FindDlg::regExpMode_ = false;
 bool FindDlg::wholeWords_ = false;
+bool FindDlg::multiLine_ = false;
 QStringList FindDlg::strings_;
 QStringList FindDlg::replaces_;
 
@@ -50,33 +51,51 @@ FindDlg::FindDlg(QWidget* parent, bool repl) :
 	uiFind.findCmb->setCompleter(0);
 	uiFind.replaceCmb->setCompleter(0);
 
+	connect(uiFind.findBtn, SIGNAL(clicked()), SLOT(accept()));
+	connect(uiFind.cancelBtn, SIGNAL(clicked()), SLOT(reject()));
+	connect(uiFind.replaceChk, SIGNAL(toggled(bool)), SLOT(setReplaceMode(bool)));
+	connect(uiFind.multiLineChk, SIGNAL(toggled(bool)), SLOT(multiLineChecked(bool)));
+	connect(uiFind.regexpChk, SIGNAL(toggled(bool)), SLOT(regExpChecked(bool)));
+
 	uiFind.findCmb->setEditText(lastString_);
+	uiFind.mlEd->setText(lastString_);
 	uiFind.replaceCmb->setEditText(lastReplaceText_);
 	uiFind.matchCaseChk->setChecked(matchCase_);
 	uiFind.backwardChk->setChecked(backward_);
 	uiFind.replaceChk->setChecked(false);
 	uiFind.regexpChk->setChecked(regExpMode_);
+	uiFind.multiLineChk->setChecked(multiLine_);
 	uiFind.wholeWordsChk->setChecked(wholeWords_);
 
-	connect(uiFind.findBtn, SIGNAL(clicked()), SLOT(accept()));
-	connect(uiFind.cancelBtn, SIGNAL(clicked()), SLOT(reject()));
-	connect(uiFind.replaceChk, SIGNAL(toggled(bool)), SLOT(setReplaceMode(bool)));
-
 	setReplaceMode(repl);
-	uiFind.findCmb->setFocus();
-	uiFind.findCmb->lineEdit()->selectAll();
-	
+	if ( !multiLine_ ) {
+		uiFind.findCmb->setFocus();
+		uiFind.findCmb->lineEdit()->selectAll();
+	}
+	else {
+		uiFind.mlEd->setFocus();
+		uiFind.mlEd->selectAll();
+	}
+	uiFind.mlEd->setVisible(multiLine_);
+	uiFind.findCmb->setVisible(!multiLine_);
+
 	resize(MainSettings::findDlgRect().size());
 }
 
 FindDlg::~FindDlg() {
-	lastString_ = uiFind.findCmb->currentText();
 	lastReplaceText_ = uiFind.replaceCmb->currentText();
 	matchCase_ = uiFind.matchCaseChk->isChecked();
 	backward_ = uiFind.backwardChk->isChecked();
 	regExpMode_ = uiFind.regexpChk->isChecked();
 	wholeWords_ = uiFind.wholeWordsChk->isChecked();
-	
+	multiLine_ = uiFind.multiLineChk->isChecked();
+	if ( multiLine_ ) {
+		lastString_ = uiFind.mlEd->toPlainText();
+	}
+	else {
+		lastString_ = uiFind.findCmb->currentText();
+	}
+
 	MainSettings::setFindDlgRect(rect());
 	
 	if ( strings_.contains(lastString_) )
@@ -90,13 +109,20 @@ FindDlg::~FindDlg() {
 }
 
 void FindDlg::setText(const QString& t) {
-	uiFind.findCmb->lineEdit()->setText(t); 
-	uiFind.findCmb->lineEdit()->selectAll();
+	if ( uiFind.multiLineChk->isChecked() ) {
+		uiFind.mlEd->setText(t); 
+		uiFind.mlEd->selectAll();
+	}
+	else {
+		uiFind.findCmb->lineEdit()->setText(t); 
+		uiFind.findCmb->lineEdit()->selectAll();
+	}
 }
 
 DocFindFlags FindDlg::flags() const {
 	return DocFindFlags(uiFind.replaceChk->isChecked(), uiFind.matchCaseChk->isChecked(), 
-			uiFind.backwardChk->isChecked(), uiFind.regexpChk->isChecked(), uiFind.wholeWordsChk->isChecked());
+			uiFind.backwardChk->isChecked(), uiFind.regexpChk->isChecked(), 
+			uiFind.wholeWordsChk->isChecked(), uiFind.multiLineChk->isChecked());
 }
 
 void FindDlg::keyPressEvent(QKeyEvent* e) {
@@ -121,6 +147,29 @@ void FindDlg::setReplaceMode(bool replaceMode) {
 	}
 	if (uiFind.replaceChk->isChecked() != replaceMode)
 		uiFind.replaceChk->setChecked(replaceMode);
+}
+
+void FindDlg::multiLineChecked(bool chk) {
+	if ( chk ) {
+		uiFind.lowerSpacer->changeSize(0, 0, QSizePolicy::Minimum, QSizePolicy::Fixed);
+		uiFind.mlEd->setText(uiFind.findCmb->currentText());
+	}
+	else {
+		uiFind.findCmb->setEditText(uiFind.mlEd->toPlainText());
+		uiFind.lowerSpacer->changeSize(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	}
+}
+
+void FindDlg::regExpChecked(bool chk) {
+	if ( !chk ) {
+		if ( uiFind.multiLineChk->isChecked() ) {
+			multiLine_ = true;
+			uiFind.multiLineChk->setChecked(false);
+		}
+	}
+	else {
+		uiFind.multiLineChk->setChecked(multiLine_);
+	}
 }
 
 }	//	namespace GUI

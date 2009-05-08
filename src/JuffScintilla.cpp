@@ -49,6 +49,9 @@ JuffScintilla::~JuffScintilla() {
 }
 
 bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
+	if ( flags.multiLine )
+		return findML(s, flags);
+
 	QString str(s);
 	QString text = this->text();
 	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
@@ -150,6 +153,69 @@ bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
 	}
 
 	return false;
+}
+
+void JuffScintilla::posToLineCol(long pos, int& line, int& col) const {
+	line = SendScintilla(SCI_LINEFROMPOSITION, pos);
+	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
+	col = (int)(pos - linpos);
+}
+
+long JuffScintilla::lineColToPos(int line, int col) const {
+	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
+	return linpos + col;
+}
+
+long JuffScintilla::curPos() const {
+	int line, col;
+	getCursorPosition(&line, &col);
+	return lineColToPos(line, col);
+}
+
+bool JuffScintilla::findML(const QString& s, const DocFindFlags& flags) {
+	JUFFENTRY;
+	QString text = this->text();
+	QRegExp rx(s);
+	
+	long pos = -1;
+	if ( flags.backwards ) {
+		long cPos;
+		if ( hasSelectedText() ) {
+			int line1, col1, line2, col2;
+			getSelection(&line1, &col1, &line2, &col2);
+			cPos = lineColToPos(line1, col1);
+		}
+		else {
+			cPos = curPos();
+		}
+
+		pos = text.left(cPos).lastIndexOf(rx);
+	}
+	else {
+		long cPos;
+		if ( hasSelectedText() ) {
+			int line1, col1, line2, col2;
+			getSelection(&line1, &col1, &line2, &col2);
+			cPos = lineColToPos(line2, col2);
+		}
+		else {
+			cPos = curPos();
+		}
+
+		pos = text.indexOf(rx, cPos);
+	}
+
+	if ( pos >= 0 ) {
+		int line1, col1, line2, col2;
+		posToLineCol(pos, line1, col1);
+		posToLineCol(pos + rx.matchedLength(), line2, col2);
+		setSelection(line1, col1, line2, col2);
+		ensureCursorVisible();
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 void JuffScintilla::replaceSelected(const QString& targetText, bool backwards) {

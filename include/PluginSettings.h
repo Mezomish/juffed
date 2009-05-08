@@ -45,6 +45,20 @@ public:
 	/**
 	 */
 	static void setPluginEnabled(const QString& pluginName, bool enabled);
+
+	/**
+	 * setStringValue()
+	 *
+	 * Stores a string \param value with a key \param key for \param plugin.
+	 */
+	static void setStringValue(JuffPlugin* plugin, const QString& key, const QString& value);
+	
+	/**
+	 * getStringValue()
+	 *
+	 * Returns a string value with a key \param key for \param plugin.
+	 */
+	static QString getStringValue(JuffPlugin* plugin, const QString& key);
 };
 
 #endif

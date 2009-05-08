@@ -50,3 +50,15 @@ bool PluginSettings::pluginEnabled(const QString& pluginName) {
 void PluginSettings::setPluginEnabled(const QString& pluginName, bool enabled) {
 	Settings::setValue("Plugins", pluginName, enabled);
 }
+
+void PluginSettings::setStringValue(JuffPlugin* plugin, const QString& key, const QString& value) {
+	if ( plugin )
+		Settings::setValue(plugin->name(), key, value);
+}
+
+QString PluginSettings::getStringValue(JuffPlugin* plugin, const QString& key) {
+	if ( plugin )
+		return Settings::stringValue(plugin->name(), key, "");
+	else
+		return "";
+}

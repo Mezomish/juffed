@@ -1,3 +1,6 @@
+2009-05-07:
+*Added: search for multiline regexps
+
 2009-05-06:
 * Fixed: ugly empty status labels if no documents opened
 * Added: toggling marker by clicking on line number
@@ -11,6 +14,7 @@
 * Added: document lines count in statusbar
 * Fixed: bug with too frequent updates of line numbers (was connected 
   to signal textChanged() instead of linesChanged())
+* Fixed: overlapping tabbar's menu over tab's menu
 
 2009-05-05:
 * Added: 'Close all' to tab's context menu

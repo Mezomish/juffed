@@ -176,39 +176,44 @@ identação ao invés de remover um espaço simples</translation>
 <context>
     <name>FindDlg</name>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="74"/>
+        <location filename="../src/gui/FindDlg.ui" line="126"/>
         <source>Replace</source>
         <translation>Reemplazar</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="20"/>
-        <location filename="../src/gui/FindDlg.ui" line="32"/>
-        <location filename="../src/gui/FindDlg.ui" line="64"/>
+        <location filename="../src/gui/FindDlg.ui" line="26"/>
+        <location filename="../src/gui/FindDlg.ui" line="34"/>
+        <location filename="../src/gui/FindDlg.ui" line="94"/>
         <source>Find</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="100"/>
+        <location filename="../src/gui/FindDlg.ui" line="152"/>
         <source>Match case</source>
         <translation>Distinguir entre mayúsculas y minúsculas</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="134"/>
+        <location filename="../src/gui/FindDlg.ui" line="104"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="107"/>
+        <location filename="../src/gui/FindDlg.ui" line="159"/>
         <source>Backward</source>
         <translation>Buscar hacia atrás</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="114"/>
+        <location filename="../src/gui/FindDlg.ui" line="173"/>
         <source>Regular expression</source>
         <translation>Expressão regular</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="141"/>
+        <location filename="../src/gui/FindDlg.ui" line="183"/>
+        <source>Multi-line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="166"/>
         <source>Whole words only</source>
         <translation type="unfinished"></translation>
     </message>
@@ -249,14 +254,14 @@ identação ao invés de remover um espaço simples</translation>
 <context>
     <name>Juff::GUI::FindDlg</name>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="111"/>
-        <location filename="../src/gui/FindDlg.cpp" line="113"/>
+        <location filename="../src/gui/FindDlg.cpp" line="137"/>
+        <location filename="../src/gui/FindDlg.cpp" line="139"/>
         <source>Replace</source>
         <translation>Reemplazar</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="118"/>
-        <location filename="../src/gui/FindDlg.cpp" line="120"/>
+        <location filename="../src/gui/FindDlg.cpp" line="144"/>
+        <location filename="../src/gui/FindDlg.cpp" line="146"/>
         <source>Find</source>
         <translation>Buscar</translation>
     </message>
@@ -393,8 +398,8 @@ identação ao invés de remover um espaço simples</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1257"/>
-        <location filename="../src/Manager.cpp" line="1309"/>
+        <location filename="../src/Manager.cpp" line="1261"/>
+        <location filename="../src/Manager.cpp" line="1313"/>
         <source> Lines: %1 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -416,14 +421,14 @@ Você quer salvar as alterações?</translation>
         <translation>Fechar documento</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1217"/>
-        <location filename="../src/Manager.cpp" line="1218"/>
+        <location filename="../src/Manager.cpp" line="1221"/>
+        <location filename="../src/Manager.cpp" line="1222"/>
         <source>Go to line</source>
         <translation>Ir para a linha</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1253"/>
-        <location filename="../src/Manager.cpp" line="1308"/>
+        <location filename="../src/Manager.cpp" line="1257"/>
+        <location filename="../src/Manager.cpp" line="1312"/>
         <source> Row: %1, Col: %2 </source>
         <translation type="unfinished"></translation>
     </message>

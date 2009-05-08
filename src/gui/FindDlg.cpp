@@ -119,6 +119,17 @@ void FindDlg::setText(const QString& t) {
 	}
 }
 
+QString FindDlg::text() const {
+	if ( uiFind.multiLineChk->isChecked() )
+		return uiFind.mlEd->toPlainText();
+	else
+		return uiFind.findCmb->currentText();
+}
+
+QString FindDlg::replaceTo() const {
+	return uiFind.replaceCmb->currentText();
+}
+
 DocFindFlags FindDlg::flags() const {
 	return DocFindFlags(uiFind.replaceChk->isChecked(), uiFind.matchCaseChk->isChecked(), 
 			uiFind.backwardChk->isChecked(), uiFind.regexpChk->isChecked(), 

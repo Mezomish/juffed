@@ -35,8 +35,8 @@ public:
 	FindDlg(QWidget*, bool);
 	virtual ~FindDlg();
 
-	QString text() const { return uiFind.findCmb->currentText(); }
-	QString replaceTo() const { return uiFind.replaceCmb->currentText(); }
+	QString text() const;
+	QString replaceTo() const;
 	DocFindFlags flags() const;
 	bool isReplaceMode() const { return uiFind.replaceChk->isChecked(); }
 	void setText(const QString&);

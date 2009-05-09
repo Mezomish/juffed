@@ -127,7 +127,11 @@ QString FindDlg::text() const {
 }
 
 QString FindDlg::replaceTo() const {
-	return uiFind.replaceCmb->currentText();
+	QString replStr = uiFind.replaceCmb->currentText();
+	replStr.replace("\\n", "\n");
+	replStr.replace("\\r", "\r");
+	replStr.replace("\\t", "\t");
+	return replStr;
 }
 
 DocFindFlags FindDlg::flags() const {

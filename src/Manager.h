@@ -109,6 +109,8 @@ private slots:
 	void gotoLine();
 	void charsetSelected();
 
+	void initRecentFilesMenu();
+
 	//	slots called by event signals
 	void onCurDocChanged(QWidget*);
 
@@ -183,10 +185,6 @@ private:
 	/**
 	*/
 	void initCharsetMenu();
-
-	/**
-	*/
-	void initRecentFilesMenu();
 
 	class Interior;
 	Interior* mInt_;

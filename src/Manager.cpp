@@ -63,6 +63,7 @@ public:
 		formatMenu_ = new QMenu(QObject::tr("Fo&rmat"));
 		charsetMenu_ = new QMenu(QObject::tr("&Charset"));
 		recentFilesMenu_ = new QMenu(QObject::tr("Recent files"));
+		connect(recentFilesMenu_, SIGNAL(aboutToShow()), m, SLOT(initRecentFilesMenu()));
 
 		chActGr_ = new QActionGroup(m);
 
@@ -206,7 +207,6 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	QAction* saveAct = CommandStorage::instance()->action(ID_FILE_SAVE);
 	if ( mInt_->fileMenu_ && saveAct ) {
 		mInt_->fileMenu_->insertMenu(saveAct, mInt_->recentFilesMenu_);
-		initRecentFilesMenu();
 	}
 	//	format menu
 	mInt_->formatMenu_->addMenu(mInt_->charsetMenu_);
@@ -603,7 +603,6 @@ void Manager::openDoc(const QString& fileName) {
 			Document* cur = curDoc();
 			createDoc("sci", fileName);
 			mInt_->addToRecentFiles(fileName);
-			initRecentFilesMenu();
 
 			//	close the previous document if it was alone and not modified
 			if ( docCount() == 2 && cur && isNoname(cur->fileName()) && !cur->isModified() )
@@ -818,7 +817,6 @@ void Manager::fileRecent() {
 	if ( !fileName.isEmpty() ) {
 		createDoc("sci", fileName);
 		mInt_->addToRecentFiles(fileName);
-		initRecentFilesMenu();
 	}
 }
 

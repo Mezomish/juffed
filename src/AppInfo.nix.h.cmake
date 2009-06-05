@@ -11,6 +11,7 @@ of configure script.
 #include <QtCore/QString>
 
 #include <unistd.h>
+#include <pwd.h>
 
 class AppInfo {
 public:
@@ -20,7 +21,7 @@ public:
 		static QString configFile()      { return configDirPath() + "/" + name().toLower() + ".conf"; }
 		static QString version()         { return "@JUFFED_VERSION@"; }
 		static QString logFile()         { return configDirPath() + "/juffed.log"; }
-		static QString socketPath()      { return QString("/tmp/jff%1").arg(getuid()); }
+		static QString socketPath()      { return QString("/tmp/juffed-%1").arg(getpwuid(geteuid())->pw_name); }
 		static QString appDirPath()      { return "@DATA_INSTALL_DIR@"; }
 		static QString translationPath() { return appDirPath() + "/l10n"; }
 };

@@ -19,6 +19,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "JuffApp.h"
 #include "MainSettings.h"
 
+#ifdef Q_OS_UNIX
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <errno.h>
+#endif	//	Q_OS_UNIX
+
 JuffApp::JuffApp(int& argc, char** argv) : QApplication(argc, argv), sent_(false) {
 	int sock = -1;
 	gui_ = 0;
@@ -123,15 +129,15 @@ bool JuffApp::findExistingInstance(int& sock) {
 
 	//	Trying to connect to existing socket
 	int s = socket(AF_UNIX, SOCK_STREAM, 0);
-	sockaddr addr;
-	memset(&addr, 0, sizeof(struct sockaddr));
+	struct sockaddr_un addr;
+	memset(&addr, 0, sizeof(sizeof(struct sockaddr_un)));
 
-	addr.sa_family = AF_UNIX;
-	strncpy(addr.sa_data, AppInfo::socketPath().toLocal8Bit().constData(), sizeof(addr.sa_data) - 1);
+	addr.sun_family = AF_UNIX;
+	strncpy(addr.sun_path, AppInfo::socketPath().toLocal8Bit().constData(), sizeof(addr.sun_path) - 1);
 	
-	int res = ::connect(s, &addr, sizeof(addr));
+	int res = ::connect(s, (struct sockaddr *) &addr, sizeof(struct sockaddr_un));
 	sock = s;
-	
+
 	return ( res == 0 );
 
 #else	

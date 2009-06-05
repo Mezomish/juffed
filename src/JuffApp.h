@@ -26,11 +26,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Settings.h"
 #include "SocketListener.h"
 
-#ifdef Q_OS_UNIX
-#include <sys/socket.h>
-#include <errno.h>
-#endif	//	Q_OS_UNIX
-
 #include <QtCore/QLocale>
 #include <QtCore/QTranslator>
 #include <QtGui/QApplication>

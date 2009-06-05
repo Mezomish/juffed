@@ -10,6 +10,8 @@ of configure script.
 #include <QtCore/QDir>
 #include <QtCore/QString>
 
+#include <unistd.h>
+
 class AppInfo {
 public:
 		static QString name()            { return "JuffEd"; }
@@ -18,7 +20,7 @@ public:
 		static QString configFile()      { return configDirPath() + "/" + name().toLower() + ".conf"; }
 		static QString version()         { return "@JUFFED_VERSION@"; }
 		static QString logFile()         { return configDirPath() + "/juffed.log"; }
-		static QString socketPath()      { return "/tmp/juffed"; }
+		static QString socketPath()      { return QString("/tmp/jff%1").arg(getuid()); }
 		static QString appDirPath()      { return "@DATA_INSTALL_DIR@"; }
 		static QString translationPath() { return appDirPath() + "/l10n"; }
 };

@@ -1,8 +1,20 @@
 2009-06-27:
 * Fixed: bug with old tab tooltip after 'Save as'
 
+2009-06-04:
+* Fixed: crash on opening a recent file
+* Fixed: single instance for multiple users (thanks to David Stegbauer)
+
+2009-05-09:
+* Fixed: symbols '\n', '\t'and '\r' in replacing string
+
+2009-05-08:
+* Fixed: getting text from FindDlg
+
 2009-05-07:
-*Added: search for multiline regexps
+* Added: search for multiline regexps
+* Added: tooltip for multi-line checkbox (in FindDlg)
+* Added: storing string settings from plugins
 
 2009-05-06:
 * Fixed: ugly empty status labels if no documents opened

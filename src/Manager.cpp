@@ -815,8 +815,7 @@ void Manager::fileRecent() {
 	
 	QString fileName = a->text();
 	if ( !fileName.isEmpty() ) {
-		createDoc("sci", fileName);
-		mInt_->addToRecentFiles(fileName);
+		openDoc(fileName);
 	}
 }
 

@@ -1,20 +1,23 @@
 #!/bin/sh
 
+BUILD_DIR=build
 VERSION=`cat version`
 RELEASE="1"
 TEMP_DIR="temp_fake_root_dir"
 ARCH="i386"
+DISTR=""
 
 print_usage() {
 	echo ""
-	echo "    Usage: make_deb.sh [options]"
+	echo "Usage: make_deb.sh [options]"
 	echo ""
-	echo "    Valid options:"
-	echo "        --release=<release>        : Package release (default: 1)"
-	echo "        --distr=<distr>            : Distribution suffix"
-	echo "        --arch=<arch>              : Processor architecture (default: i386)"
-	echo "        --do-not-clean             : Do not remove temporary directory"
-	echo "        --help                     : Print this help"
+	echo "Valid options:"
+	echo "    --distr=<distr>            : Distribution suffix"
+	echo "    --arch=<arch>              : Processor architecture (default: i386)"
+	echo "    --build-dir=<dir>          : Build directory (default: 'build')"
+	echo "    --release=<release>        : Package release (default: 1)"
+	echo "    --do-not-clean             : Do not remove temporary directory"
+	echo "    --help                     : Print this help"
 	echo ""
 }
 
@@ -36,6 +39,10 @@ for arg in ${@}; do
 		DISTR=`echo ${arg} | cut -c 9-`
 		;;
 	
+	--build-dir=*)
+		BUILD_DIR=`echo ${arg} | cut -c 13-`
+		;;
+
 	--release=*)
 		RELEASE=`echo ${arg} | cut -c 11-`
 		;;
@@ -56,6 +63,15 @@ for arg in ${@}; do
 
 	esac
 done
+
+if [ -z "$DISTR" ]; then
+	echo ""
+	echo "Error: Distribution is not set";
+	print_usage
+	exit 1
+fi
+
+VERSION=`cat ${BUILD_DIR}/version.real`
 
 rm -rf ${TEMP_DIR}
 mkdir -p ${TEMP_DIR}/usr

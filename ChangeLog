@@ -1,3 +1,6 @@
+2009-06-27:
+* Fixed: bug with old tab tooltip after 'Save as'
+
 2009-05-07:
 *Added: search for multiline regexps
 

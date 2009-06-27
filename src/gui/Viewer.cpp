@@ -161,8 +161,10 @@ void Viewer::updateDocTitle(Document* doc) {
 	if ( tw ) {
 		QWidget* w = doc->widget();
 		if ( vInt_->fileNamesMap_.contains(w) ) {
-			vInt_->fileNamesMap_[w] = doc->fileName();
-			tw->setTabText(index, getDocTitle(doc->fileName()));
+			QString fileName = doc->fileName();
+			vInt_->fileNamesMap_[w] = fileName;
+			tw->setTabText(index, getDocTitle(fileName));
+			tw->setTabToolTip(index, fileName);
 		}
 	}
 }

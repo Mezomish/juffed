@@ -167,22 +167,27 @@ whole indent instead of removind single whitespace</source>
 удалять отступ целиком вместо удаления одного пробела</translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="348"/>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="312"/>
+        <source>Selection background color</source>
+        <translation>Цвет фона выделенного текста</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="378"/>
         <source>Matched brace background color</source>
         <translation>Цвет фона парной скобки</translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="378"/>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="408"/>
         <source>Indents color</source>
         <translation>Цвет отступов</translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="414"/>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="444"/>
         <source>Markers color</source>
         <translation>Цвет маркеров</translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="318"/>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="348"/>
         <source>Current line highlighting color</source>
         <translation>Цвет подсветки текущей строки</translation>
     </message>
@@ -202,42 +207,49 @@ whole indent instead of removind single whitespace</source>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="26"/>
         <location filename="../src/gui/FindDlg.ui" line="34"/>
-        <location filename="../src/gui/FindDlg.ui" line="94"/>
+        <location filename="../src/gui/FindDlg.ui" line="97"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="104"/>
+        <location filename="../src/gui/FindDlg.ui" line="107"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="126"/>
+        <location filename="../src/gui/FindDlg.ui" line="129"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="159"/>
+        <location filename="../src/gui/FindDlg.ui" line="162"/>
         <source>Backward</source>
         <translation>В обратном направлении</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="183"/>
+        <location filename="../src/gui/FindDlg.ui" line="186"/>
+        <source>&lt;p&gt;If &lt;b&gt;checked&lt;/b&gt;, all the text is treated like a single line. Symbols &apos;^&apos; and &apos;$&apos; are at the beginning and at the end of the document. In this mode you can search for multiline regexps using &apos;\r&apos; and &apos;\n&apos; symbols for line ends.&lt;/p&gt;
+
+&lt;p&gt;If &lt;b&gt;not checked&lt;/b&gt;, the regexp is applied to each line separately and each line has its own symbols &apos;^&apos; and &apos;$&apos; (at the beginning and at the end of the line).&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="191"/>
         <source>Multi-line</source>
         <translation>Многострочный поиск</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="152"/>
+        <location filename="../src/gui/FindDlg.ui" line="155"/>
         <source>Match case</source>
         <translation>С учётом регистра</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="173"/>
+        <location filename="../src/gui/FindDlg.ui" line="176"/>
         <source>Regular expression</source>
         <translation>Регулярное выражение</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="166"/>
+        <location filename="../src/gui/FindDlg.ui" line="169"/>
         <source>Whole words only</source>
         <translation>Только слова целиком</translation>
     </message>
@@ -278,14 +290,14 @@ whole indent instead of removind single whitespace</source>
 <context>
     <name>Juff::GUI::FindDlg</name>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="137"/>
-        <location filename="../src/gui/FindDlg.cpp" line="139"/>
+        <location filename="../src/gui/FindDlg.cpp" line="152"/>
+        <location filename="../src/gui/FindDlg.cpp" line="154"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="144"/>
-        <location filename="../src/gui/FindDlg.cpp" line="146"/>
+        <location filename="../src/gui/FindDlg.cpp" line="159"/>
+        <location filename="../src/gui/FindDlg.cpp" line="161"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>
@@ -392,38 +404,38 @@ whole indent instead of removind single whitespace</source>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="663"/>
+        <location filename="../src/Manager.cpp" line="662"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Файл &apos;%1&apos; открыт только для чтения.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="664"/>
+        <location filename="../src/Manager.cpp" line="663"/>
         <source>What do you want to do?</source>
         <translation>Что вы хотите сделать?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="665"/>
+        <location filename="../src/Manager.cpp" line="664"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="666"/>
+        <location filename="../src/Manager.cpp" line="665"/>
         <source>Overwrite</source>
         <translation>Переписать</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="667"/>
+        <location filename="../src/Manager.cpp" line="666"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="681"/>
+        <location filename="../src/Manager.cpp" line="680"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Невозможно изменить права: Доступ запрещён</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1261"/>
-        <location filename="../src/Manager.cpp" line="1313"/>
+        <location filename="../src/Manager.cpp" line="1258"/>
+        <location filename="../src/Manager.cpp" line="1310"/>
         <source> Lines: %1 </source>
         <translation>Строк: %1</translation>
     </message>
@@ -445,14 +457,14 @@ Do you want to save your changes?</source>
         <translation>Закрыть документ</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1221"/>
-        <location filename="../src/Manager.cpp" line="1222"/>
+        <location filename="../src/Manager.cpp" line="1218"/>
+        <location filename="../src/Manager.cpp" line="1219"/>
         <source>Go to line</source>
         <translation>Перейти к строке</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1257"/>
-        <location filename="../src/Manager.cpp" line="1312"/>
+        <location filename="../src/Manager.cpp" line="1254"/>
+        <location filename="../src/Manager.cpp" line="1309"/>
         <source> Row: %1, Col: %2 </source>
         <translation>Стр: %1, Стлб: %2</translation>
     </message>
@@ -601,7 +613,7 @@ Do you want to save your changes?</source>
         <translation>Изменить ориентацию сплита</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="86"/>
+        <location filename="../src/Manager.cpp" line="87"/>
         <source>Lines count</source>
         <translation>Количество строк в файле</translation>
     </message>
@@ -861,12 +873,12 @@ Continue from the beginning?</source>
         <translation>&amp;Синтаксис</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="83"/>
+        <location filename="../src/Manager.cpp" line="84"/>
         <source>Cursor position</source>
         <translation>Позиция курсора</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="84"/>
+        <location filename="../src/Manager.cpp" line="85"/>
         <source>File full name</source>
         <translation>Полное имя файла</translation>
     </message>
@@ -935,7 +947,7 @@ Continue from the beginning?</source>
         <translation>Новый Rich text</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="85"/>
+        <location filename="../src/Manager.cpp" line="86"/>
         <source>Current character set</source>
         <translation>Текущая кодировка</translation>
     </message>
@@ -1001,58 +1013,58 @@ Continue from the beginning?</source>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="116"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="118"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="119"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="121"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="120"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="122"/>
         <source>Apply</source>
         <translation>Применить</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="121"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="123"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="133"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="135"/>
         <source>General</source>
         <translation>Основные</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="135"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="137"/>
         <source>Editor</source>
         <translation>Редактор</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="137"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="139"/>
         <source>Charsets</source>
         <translation>Кодировки</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="134"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="136"/>
         <source>View</source>
         <translation>Вид</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="136"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="138"/>
         <source>Autocompletion</source>
         <translation>Автодополнение</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="138"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="140"/>
         <source>File types</source>
         <translation>Типы файлов</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="142"/>
-        <location filename="../src/gui/SettingsDlg.cpp" line="261"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="144"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="263"/>
         <source>Plugins</source>
         <translation>Плагины</translation>
     </message>

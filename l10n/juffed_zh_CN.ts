@@ -146,12 +146,17 @@
         <translation>符号</translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="348"/>
-        <source>Matched brace background color</source>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="312"/>
+        <source>Selection background color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="378"/>
+        <source>Matched brace background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="408"/>
         <source>Indents color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -208,12 +213,12 @@ newly created/opened docs</source>
         <translation type="obsolete">设置打开/创建文件的默认显示</translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="414"/>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="444"/>
         <source>Markers color</source>
         <translation>标记颜色</translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="318"/>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="348"/>
         <source>Current line highlighting color</source>
         <translation>高亮当前行</translation>
     </message>
@@ -231,44 +236,51 @@ newly created/opened docs</source>
 <context>
     <name>FindDlg</name>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="126"/>
+        <location filename="../src/gui/FindDlg.ui" line="129"/>
         <source>Replace</source>
         <translation>替换</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="26"/>
         <location filename="../src/gui/FindDlg.ui" line="34"/>
-        <location filename="../src/gui/FindDlg.ui" line="94"/>
+        <location filename="../src/gui/FindDlg.ui" line="97"/>
         <source>Find</source>
         <translation>查找</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="152"/>
+        <location filename="../src/gui/FindDlg.ui" line="155"/>
         <source>Match case</source>
         <translation>大小写</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="104"/>
+        <location filename="../src/gui/FindDlg.ui" line="107"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="159"/>
+        <location filename="../src/gui/FindDlg.ui" line="162"/>
         <source>Backward</source>
         <translation>回退</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="173"/>
+        <location filename="../src/gui/FindDlg.ui" line="176"/>
         <source>Regular expression</source>
         <translation>正则表达</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="183"/>
+        <location filename="../src/gui/FindDlg.ui" line="186"/>
+        <source>&lt;p&gt;If &lt;b&gt;checked&lt;/b&gt;, all the text is treated like a single line. Symbols &apos;^&apos; and &apos;$&apos; are at the beginning and at the end of the document. In this mode you can search for multiline regexps using &apos;\r&apos; and &apos;\n&apos; symbols for line ends.&lt;/p&gt;
+
+&lt;p&gt;If &lt;b&gt;not checked&lt;/b&gt;, the regexp is applied to each line separately and each line has its own symbols &apos;^&apos; and &apos;$&apos; (at the beginning and at the end of the line).&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="191"/>
         <source>Multi-line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="166"/>
+        <location filename="../src/gui/FindDlg.ui" line="169"/>
         <source>Whole words only</source>
         <translation type="unfinished"></translation>
     </message>
@@ -313,14 +325,14 @@ newly created/opened docs</source>
 <context>
     <name>Juff::GUI::FindDlg</name>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="137"/>
-        <location filename="../src/gui/FindDlg.cpp" line="139"/>
+        <location filename="../src/gui/FindDlg.cpp" line="152"/>
+        <location filename="../src/gui/FindDlg.cpp" line="154"/>
         <source>Replace</source>
         <translation>替换</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="144"/>
-        <location filename="../src/gui/FindDlg.cpp" line="146"/>
+        <location filename="../src/gui/FindDlg.cpp" line="159"/>
+        <location filename="../src/gui/FindDlg.cpp" line="161"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>
@@ -443,50 +455,50 @@ Do you want to save your changes?</source>
         <translation>关闭文档</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="663"/>
+        <location filename="../src/Manager.cpp" line="662"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>%1 文件只读</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="664"/>
+        <location filename="../src/Manager.cpp" line="663"/>
         <source>What do you want to do?</source>
         <translation>你想做什么？</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="665"/>
+        <location filename="../src/Manager.cpp" line="664"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="666"/>
+        <location filename="../src/Manager.cpp" line="665"/>
         <source>Overwrite</source>
         <translation>覆盖</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="667"/>
+        <location filename="../src/Manager.cpp" line="666"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="681"/>
+        <location filename="../src/Manager.cpp" line="680"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>不能修改属性：访问拒绝</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1221"/>
-        <location filename="../src/Manager.cpp" line="1222"/>
+        <location filename="../src/Manager.cpp" line="1218"/>
+        <location filename="../src/Manager.cpp" line="1219"/>
         <source>Go to line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1257"/>
-        <location filename="../src/Manager.cpp" line="1312"/>
+        <location filename="../src/Manager.cpp" line="1254"/>
+        <location filename="../src/Manager.cpp" line="1309"/>
         <source> Row: %1, Col: %2 </source>
         <translation>行: %1, 列l: %2</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1261"/>
-        <location filename="../src/Manager.cpp" line="1313"/>
+        <location filename="../src/Manager.cpp" line="1258"/>
+        <location filename="../src/Manager.cpp" line="1310"/>
         <source> Lines: %1 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -927,17 +939,17 @@ Do you want to save your changes?</source>
         <translation>最近的文件</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="83"/>
+        <location filename="../src/Manager.cpp" line="84"/>
         <source>Cursor position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="84"/>
+        <location filename="../src/Manager.cpp" line="85"/>
         <source>File full name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="86"/>
+        <location filename="../src/Manager.cpp" line="87"/>
         <source>Lines count</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1191,7 +1203,7 @@ Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="85"/>
+        <location filename="../src/Manager.cpp" line="86"/>
         <source>Current character set</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1257,58 +1269,58 @@ Continue from the beginning?</source>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="116"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="118"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="119"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="121"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="120"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="122"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="121"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="123"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="133"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="135"/>
         <source>General</source>
         <translation>通常</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="135"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="137"/>
         <source>Editor</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="137"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="139"/>
         <source>Charsets</source>
         <translation>编码</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="134"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="136"/>
         <source>View</source>
         <translation>显示</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="142"/>
-        <location filename="../src/gui/SettingsDlg.cpp" line="261"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="144"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="263"/>
         <source>Plugins</source>
         <translation type="unfinished">插件</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="136"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="138"/>
         <source>Autocompletion</source>
         <translation>自动添加</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="138"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="140"/>
         <source>File types</source>
         <translation type="unfinished"></translation>
     </message>

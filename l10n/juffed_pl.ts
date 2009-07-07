@@ -143,22 +143,27 @@ bieżąca opcja pozwala klawiszowi cofania usunąć
 całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="348"/>
-        <source>Matched brace background color</source>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="312"/>
+        <source>Selection background color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="378"/>
+        <source>Matched brace background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="408"/>
         <source>Indents color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="414"/>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="444"/>
         <source>Markers color</source>
         <translation>Kolor znacznika</translation>
     </message>
     <message>
-        <location filename="../src/gui/EditorSettingsPage.ui" line="318"/>
+        <location filename="../src/gui/EditorSettingsPage.ui" line="348"/>
         <source>Current line highlighting color</source>
         <translation>Kolor aktualnej podświetlonej linii</translation>
     </message>
@@ -178,42 +183,49 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="26"/>
         <location filename="../src/gui/FindDlg.ui" line="34"/>
-        <location filename="../src/gui/FindDlg.ui" line="94"/>
+        <location filename="../src/gui/FindDlg.ui" line="97"/>
         <source>Find</source>
         <translation>Znajdź</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="104"/>
+        <location filename="../src/gui/FindDlg.ui" line="107"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="126"/>
+        <location filename="../src/gui/FindDlg.ui" line="129"/>
         <source>Replace</source>
         <translation>Zastąp</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="159"/>
+        <location filename="../src/gui/FindDlg.ui" line="162"/>
         <source>Backward</source>
         <translation>Wstecz</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="183"/>
+        <location filename="../src/gui/FindDlg.ui" line="186"/>
+        <source>&lt;p&gt;If &lt;b&gt;checked&lt;/b&gt;, all the text is treated like a single line. Symbols &apos;^&apos; and &apos;$&apos; are at the beginning and at the end of the document. In this mode you can search for multiline regexps using &apos;\r&apos; and &apos;\n&apos; symbols for line ends.&lt;/p&gt;
+
+&lt;p&gt;If &lt;b&gt;not checked&lt;/b&gt;, the regexp is applied to each line separately and each line has its own symbols &apos;^&apos; and &apos;$&apos; (at the beginning and at the end of the line).&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="191"/>
         <source>Multi-line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="152"/>
+        <location filename="../src/gui/FindDlg.ui" line="155"/>
         <source>Match case</source>
         <translation>Uwzględnij wielkość liter</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="173"/>
+        <location filename="../src/gui/FindDlg.ui" line="176"/>
         <source>Regular expression</source>
         <translation>Regularne wyrażenia</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="166"/>
+        <location filename="../src/gui/FindDlg.ui" line="169"/>
         <source>Whole words only</source>
         <translation type="unfinished"></translation>
     </message>
@@ -254,14 +266,14 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
 <context>
     <name>Juff::GUI::FindDlg</name>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="137"/>
-        <location filename="../src/gui/FindDlg.cpp" line="139"/>
+        <location filename="../src/gui/FindDlg.cpp" line="152"/>
+        <location filename="../src/gui/FindDlg.cpp" line="154"/>
         <source>Replace</source>
         <translation>Zastąp</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="144"/>
-        <location filename="../src/gui/FindDlg.cpp" line="146"/>
+        <location filename="../src/gui/FindDlg.cpp" line="159"/>
+        <location filename="../src/gui/FindDlg.cpp" line="161"/>
         <source>Find</source>
         <translation>Znajdź</translation>
     </message>
@@ -368,38 +380,38 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="663"/>
+        <location filename="../src/Manager.cpp" line="662"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Plik &apos;%1&apos; jest plikiem tylko do odczytu. </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="664"/>
+        <location filename="../src/Manager.cpp" line="663"/>
         <source>What do you want to do?</source>
         <translation>Co chcesz zrobić?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="665"/>
+        <location filename="../src/Manager.cpp" line="664"/>
         <source>Warning</source>
         <translation>Uwaga</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="666"/>
+        <location filename="../src/Manager.cpp" line="665"/>
         <source>Overwrite</source>
         <translation>Nadpisz</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="667"/>
+        <location filename="../src/Manager.cpp" line="666"/>
         <source>Save as</source>
         <translation>Zapisz jako</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="681"/>
+        <location filename="../src/Manager.cpp" line="680"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Nie można zmienić uprawnień: Brak dostępu</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1261"/>
-        <location filename="../src/Manager.cpp" line="1313"/>
+        <location filename="../src/Manager.cpp" line="1258"/>
+        <location filename="../src/Manager.cpp" line="1310"/>
         <source> Lines: %1 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -421,14 +433,14 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Zamknij dokument</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1221"/>
-        <location filename="../src/Manager.cpp" line="1222"/>
+        <location filename="../src/Manager.cpp" line="1218"/>
+        <location filename="../src/Manager.cpp" line="1219"/>
         <source>Go to line</source>
         <translation>Idź do linii</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1257"/>
-        <location filename="../src/Manager.cpp" line="1312"/>
+        <location filename="../src/Manager.cpp" line="1254"/>
+        <location filename="../src/Manager.cpp" line="1309"/>
         <source> Row: %1, Col: %2 </source>
         <translation> Rząd: %1, Kolumna: %2 </translation>
     </message>
@@ -577,7 +589,7 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="86"/>
+        <location filename="../src/Manager.cpp" line="87"/>
         <source>Lines count</source>
         <translation type="unfinished"></translation>
     </message>
@@ -837,12 +849,12 @@ Rozpocząć od początku?</translation>
         <translation>&amp;Składnia</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="83"/>
+        <location filename="../src/Manager.cpp" line="84"/>
         <source>Cursor position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="84"/>
+        <location filename="../src/Manager.cpp" line="85"/>
         <source>File full name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -907,7 +919,7 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="85"/>
+        <location filename="../src/Manager.cpp" line="86"/>
         <source>Current character set</source>
         <translation type="unfinished"></translation>
     </message>
@@ -973,58 +985,58 @@ Rozpocząć od początku?</translation>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="116"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="118"/>
         <source>Settings</source>
         <translation>Ustawienia</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="119"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="121"/>
         <source>OK</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="120"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="122"/>
         <source>Apply</source>
         <translation>Zatwierdź</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="121"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="123"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="133"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="135"/>
         <source>General</source>
         <translation>Główne</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="135"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="137"/>
         <source>Editor</source>
         <translation>Edytor</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="137"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="139"/>
         <source>Charsets</source>
         <translation>Kodowanie</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="134"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="136"/>
         <source>View</source>
         <translation>Widok</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="136"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="138"/>
         <source>Autocompletion</source>
         <translation>Autozakończenie</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="138"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="140"/>
         <source>File types</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="142"/>
-        <location filename="../src/gui/SettingsDlg.cpp" line="261"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="144"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="263"/>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
     </message>

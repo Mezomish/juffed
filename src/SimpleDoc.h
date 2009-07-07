@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 namespace Juff {
 
 class SimpleDoc : public Document {
+Q_OBJECT
 public:
 	SimpleDoc(const QString&);
 	virtual ~SimpleDoc();

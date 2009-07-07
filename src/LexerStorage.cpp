@@ -108,6 +108,7 @@ public:
 	QMap<QString, QsciLexer*> lexers_;
 	SchemeMap schemes_;
 	QMap<QString, QColor> curLineColors_;
+	QMap<QString, QColor> selectionBgColors_;
 };
 
 bool stringToBool(const QString& str) {
@@ -193,6 +194,11 @@ void LSInterior::readCustomStyle(const QString& name) {
 					QColor curLineColor = stringToColor(schEl.attribute("curLineColor"));
 					QString schName = schEl.attribute("name");
 					curLineColors_[schName] = curLineColor;
+				}
+				if ( schEl.hasAttribute("selectionBgColor") && schEl.hasAttribute("name") ) {
+					QColor selectionBgColor = stringToColor(schEl.attribute("selectionBgColor"));
+					QString schName = schEl.attribute("name");
+					selectionBgColors_[schName] = selectionBgColor;
 				}
 			}
 		}
@@ -707,6 +713,11 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
 
 QColor LexerStorage::curLineColor(const QString& name) const {
 	return lsInt_->curLineColors_.value(name, TextDocSettings::curLineColor());
+}
+
+QColor LexerStorage::selectionBgColor(const QString& name) const
+{
+	return lsInt_->selectionBgColors_.value(name, TextDocSettings::selectionBgColor());
 }
 
 void LexerStorage::getLexersList(QStringList& list) const {

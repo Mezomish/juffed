@@ -81,6 +81,7 @@ public:
 		bgColorBtn_ = new ColorButton(ui.bgColorBtn, TextDocSettings::defaultBgColor());
 		braceColorBtn_ = new ColorButton(ui.braceColorBtn, TextDocSettings::matchedBraceBgColor());
 		indentsColorBtn_ = new ColorButton(ui.indentColorBtn, TextDocSettings::indentsColor());
+		selectionBgColorBtn_ = new ColorButton(ui.selectionBgColorBtn, TextDocSettings::selectionBgColor());
 	}
 	
 	Ui::EditorSettingsPage ui;
@@ -90,6 +91,7 @@ public:
 	ColorButton* bgColorBtn_;
 	ColorButton* braceColorBtn_;
 	ColorButton* indentsColorBtn_;
+	ColorButton* selectionBgColorBtn_;
 };
 
 #include "ui_AutocompleteSettingsPage.h"
@@ -303,12 +305,15 @@ void SettingsDlg::apply() {
 		TextDocSettings::setLineLengthIndicator(-pageEditor_->ui.lineLengthSpin->value());
 	}
 	TextDocSettings::setHighlightCurrentLine(pageEditor_->ui.hlCurLineChk->isChecked());
+	// colors
 	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
 	TextDocSettings::setCurLineColor(pageEditor_->curLineColorBtn_->color());
 	TextDocSettings::setDefaultFontColor(pageEditor_->fontColorBtn_->color());
 	TextDocSettings::setDefaultBgColor(pageEditor_->bgColorBtn_->color());
 	TextDocSettings::setMatchedBraceBgColor(pageEditor_->braceColorBtn_->color());
 	TextDocSettings::setIndentsColor(pageEditor_->indentsColorBtn_->color());
+	TextDocSettings::setSelectionBgColor(pageEditor_->selectionBgColorBtn_->color());
+
 	TextDocSettings::setReplaceTabsWithSpaces(pageEditor_->ui.replaceTabsChk->isChecked());
 	TextDocSettings::setBackspaceUnindents(pageEditor_->ui.unindentChk->isChecked());
 	TextDocSettings::setTabStopWidth(pageEditor_->ui.tabStopWidthSpin->value());

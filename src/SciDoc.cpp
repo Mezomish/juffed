@@ -629,6 +629,7 @@ void SciDoc::applySettings() {
 			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
 		}
 		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
+		edit->setSelectionBackgroundColor(TextDocSettings::selectionBgColor());
 
 		//	autocompletion
 		edit->setAutoCompletionThreshold(AutocompleteSettings::threshold());
@@ -942,6 +943,10 @@ void SciDoc::setSyntax(const QString& lexName) {
 	QColor curLineColor = LexerStorage::instance()->curLineColor(lexName);
 	docInt_->edit1_->setCaretLineBackgroundColor(curLineColor);
 	docInt_->edit2_->setCaretLineBackgroundColor(curLineColor);
+
+	QColor selectionBgColor = LexerStorage::instance()->selectionBgColor(lexName);
+	docInt_->edit1_->setSelectionBackgroundColor(selectionBgColor);
+	docInt_->edit2_->setSelectionBackgroundColor(selectionBgColor);
 
 	//	find autocompletion API
 	loadAutocompletionAPI(lexName, lexer);

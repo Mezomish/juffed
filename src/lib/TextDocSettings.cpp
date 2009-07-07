@@ -84,6 +84,11 @@ QColor TextDocSettings::indentsColor() {
 	QColor c = Settings::value("editor", "indentsColor").value<QColor>();
 	return c.isValid() ? c : deflt;
 }
+QColor TextDocSettings::selectionBgColor() {
+	QColor deflt(150, 150, 155);
+	QColor c = Settings::value("editor", "selectionBgColor").value<QColor>();
+	return c.isValid() ? c : deflt;
+}
 
 
 
@@ -134,4 +139,7 @@ void TextDocSettings::setMatchedBraceBgColor(const QColor& color) {
 }
 void TextDocSettings::setIndentsColor(const QColor& color) {
 	Settings::setValue("editor", "indentsColor", color); 
+}
+void TextDocSettings::setSelectionBgColor(const QColor& color) {
+	Settings::setValue("editor", "selectionBgColor", color); 
 }

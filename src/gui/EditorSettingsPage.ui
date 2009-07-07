@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>681</width>
-    <height>478</height>
+    <width>787</width>
+    <height>589</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -285,6 +285,36 @@ whole indent instead of removind single whitespace</string>
         </item>
         <item>
          <widget class="QPushButton" name="bgColorBtn">
+          <property name="minimumSize">
+           <size>
+            <width>40</width>
+            <height>26</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>26</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Selection background color</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="selectionBgColorBtn">
           <property name="minimumSize">
            <size>
             <width>40</width>

@@ -346,21 +346,21 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 					break;
 
 				if ( col == rCol1_ ) {
-					SendScintilla(SCI_SETSELECTIONMODE, 1);
 					setSelection(rLine1_, rCol1_ , rLine2_, rCol2_);
+					SendScintilla(SCI_SETSELECTIONMODE, 1);
 				}
 				
 				beginUndoAction();
 				//	select the last character of each line and remove it
-				SendScintilla(SCI_SETSELECTIONMODE, 1);
 				setSelection(rLine1_, rCol2_ - 1, rLine2_, rCol2_);
+				SendScintilla(SCI_SETSELECTIONMODE, 1);
 				removeSelectedText();
 				
 				--rCol2_;
 				
 				//	place new selection
-				SendScintilla(SCI_SETSELECTIONMODE, 1);
 				setSelection(rLine1_, rCol1_, rLine2_, rCol2_);
+				SendScintilla(SCI_SETSELECTIONMODE, 1);
 				endUndoAction();
 				break;
 
@@ -379,8 +379,8 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 					insertAt(t, i, rCol2_ );
 				}
 				if ( e->key() != Qt::Key_Enter && e->key() != Qt::Key_Return ) {
-					SendScintilla(SCI_SETSELECTIONMODE, 1);
 					setSelection(rLine1_, rCol1_, rLine2_, rCol2_ + t.length());
+					SendScintilla(SCI_SETSELECTIONMODE, 1);
 				}
 				endUndoAction();
 		}

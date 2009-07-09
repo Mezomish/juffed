@@ -133,6 +133,7 @@ SET ( juffed_MOC_HDRS
 	src/RichDoc.h
 	src/RichDocHandler.h
 	src/SciDoc.h
+	src/SimpleDoc.h
 	src/SciDocHandler.h
 	src/SocketListener.h
 	src/gui/AboutDlg.h

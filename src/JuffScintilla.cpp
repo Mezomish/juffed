@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -312,6 +314,7 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 	getCursorPosition(&line, &col);
 
 	if ( hasSelectedText() && SendScintilla(SCI_SELECTIONISRECTANGLE) ) {
+		qDebug() << "yes";
 		int line1, col1, line2, col2;
 		getSelection(&line1, &col1, &line2, &col2);
 		rLine1_ = qMin(line1, line2);

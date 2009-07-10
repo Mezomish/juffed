@@ -39,6 +39,7 @@ namespace Log {
 #define JUFFDTOR Log::debug(QString("Destructor: %1").arg(__FUNCTION__))
 #define JUFFDEBUG(x) Log::debug(QString("DEBUG (%1:%2): %3").arg(QFileInfo(__FILE__).fileName()).arg(__LINE__).arg(x))
 #define JUFFDEBUG2(x) Log::debug(QString("DEBUG2 (%1:%2): %3").arg(QFileInfo(__FILE__).fileName()).arg(__LINE__).arg(x))
+#define JUFFENTRY2 JUFFENTRY
 
 #else	//	JUFF_FULL_DEBUG
 
@@ -61,6 +62,7 @@ namespace Log {
 //-----------------
 
 #define JUFFDEBUG2(x) ;
+#define JUFFENTRY2 ;
 
 #endif	//	JUFF_FULL_DEBUG
 

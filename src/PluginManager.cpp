@@ -273,7 +273,7 @@ void PluginManager::applySettings() {
 //	GUI controls
 
 MenuList PluginManager::getMenus(const QString& engine) {
-	JUFFENTRY;
+	JUFFENTRY2;
 	MenuList menus;
 	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
 		if ( plugin->menu() )
@@ -283,7 +283,7 @@ MenuList PluginManager::getMenus(const QString& engine) {
 }
 
 ActionList PluginManager::getMainMenuActions(const QString& engine, MenuID id) {
-	JUFFENTRY;
+	JUFFENTRY2;
 	ActionList list;
 	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
 		list << plugin->mainMenuActions(id);
@@ -292,7 +292,7 @@ ActionList PluginManager::getMainMenuActions(const QString& engine, MenuID id) {
 }
 
 ToolBarList PluginManager::getToolBars(const QString& engine) {
-	JUFFENTRY;
+	JUFFENTRY2;
 	ToolBarList list;
 	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
 		if ( plugin->toolBar() )
@@ -302,7 +302,7 @@ ToolBarList PluginManager::getToolBars(const QString& engine) {
 }
 
 QWidgetList PluginManager::getDocks(const QString& engine) {
-	JUFFENTRY;
+	JUFFENTRY2;
 	QWidgetList list;
 	foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
 		list << plugin->dockList();

@@ -455,14 +455,14 @@ bool SciDoc::doReplace(JuffScintilla* edit, const QString& str1, const QString& 
 }
 
 void SciDoc::showLineNumbers(bool show) {
-	JUFFENTRY;
+	JUFFENTRY2;
 	
 	docInt_->edit1_->showLineNumbers(show);
 	docInt_->edit2_->showLineNumbers(show);
 }
 
 void SciDoc::wrapText(bool wrap) {
-	JUFFENTRY;
+	JUFFENTRY2;
 	
 	if ( wrap ) {
 		docInt_->edit1_->setWrapMode(QsciScintilla::WrapWord);
@@ -594,7 +594,7 @@ void SciDoc::readDoc() {
 }
 
 void SciDoc::applySettings() {
-	JUFFENTRY;
+	JUFFENTRY2;
 	
 	QFont font = TextDocSettings::font();
 
@@ -692,7 +692,7 @@ void SciDoc::onCursorMove(int line, int col) {
 
 
 void SciDoc::gotoLine(int line) {
-	JUFFENTRY;
+	JUFFENTRY2;
 
 	JuffScintilla* edit = getActiveEdit();
 	if ( !edit )

@@ -195,7 +195,7 @@ SciDocHandler::~SciDocHandler() {
 }
 
 void SciDocHandler::initMarkersMenu() {
-	JUFFENTRY;
+	JUFFENTRY2;
 
 	if ( docInt_->markersMenu_ ) {
 		docInt_->markersMenu_->clear();
@@ -342,7 +342,7 @@ void SciDocHandler::docActivated(Document* d) {
 //	Engine-specific slots
 
 void SciDocHandler::showLineNums() {
-	JUFFENTRY;
+	JUFFENTRY2;
 
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
@@ -353,7 +353,7 @@ void SciDocHandler::showLineNums() {
 }
 
 void SciDocHandler::wordWrap() {
-	JUFFENTRY;
+	JUFFENTRY2;
 
 	QAction* act = qobject_cast<QAction*>(sender());
 	Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());

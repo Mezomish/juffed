@@ -353,19 +353,21 @@ QMenu* GUI::toolsMenu() const {
 
 
 void GUI::updateTitle(const QString& fileName, const QString& session, bool modified) {
-	QString title("JuffEd");
+	QString title;
 
-	//	session name
-	if ( !session.isEmpty() )
-		title += QString(" - [%1]").arg(session);
+	//	modified
+	if ( modified && !fileName.isEmpty() )
+		title += "*";
 
 	//	file name
 	if ( !fileName.isEmpty() )
-		title += QString(" - %1").arg(getDocTitle(fileName));
-	
-	//	modified
-	if ( modified )
-		title += "*";
+		title += QString("%1 - ").arg(getDocTitle(fileName));
+
+	//	session name
+	if ( !session.isEmpty() )
+		title += QString("[%1] - ").arg(session);
+
+	title += "JuffEd";
 
 	mw_->setWindowTitle(title);
 }

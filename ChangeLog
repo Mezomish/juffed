@@ -1,3 +1,7 @@
+2009-07-10:
+* Changed: main window title order (file name first, 'JuffEd' last)
+* Added: context menu to file name in status bar (copy to clipboard)
+
 2009-07-07:
 * Added: changing the selection background color
 

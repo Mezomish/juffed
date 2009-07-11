@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QMap>
 #include <QtGui/QActionGroup>
 #include <QtGui/QApplication>
+#include <QtGui/QClipboard>
 #include <QtGui/QInputDialog>
 #include <QtGui/QMenu>
 #include <QtGui/QMessageBox>
@@ -96,6 +97,9 @@ public:
 		nameL_->hide();
 		charsetL_->hide();
 		linesL_->hide();
+		
+		fileNameStatusMenu_ = new QMenu();
+		nameL_->setMenu(fileNameStatusMenu_);
 	}
 	~Interior() {
 		delete recentFilesMenu_;
@@ -168,6 +172,8 @@ public:
 	GUI::StatusLabel* charsetL_;
 	GUI::StatusLabel* linesL_;
 	bool stayAlive_;
+	
+	QMenu* fileNameStatusMenu_;
 };
 
 Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
@@ -227,7 +233,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	connect(mInt_->viewer_, SIGNAL(tabMoved(int, int)), mInt_->pluginManager_, SLOT(notifyTabMoved(int, int)));
 #endif
 
-
+	mInt_->fileNameStatusMenu_->addAction(tr("Copy to clipboard"), this, SLOT(copyFileName()));
+	
 	//////////////////
 	//	GUI Controls
 
@@ -1571,7 +1578,9 @@ void Manager::saveDoc(const QString& fileName) {
 }
 
 
-
+void Manager::copyFileName() {
+	QApplication::clipboard()->setText(mInt_->nameL_->text().trimmed());
+}
 
 
 }	//	namespace Juff

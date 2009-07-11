@@ -128,6 +128,8 @@ private slots:
 	
 	Document* curDoc() const;
 
+	void copyFileName();
+
 private:
 	/**
 	*	Creates a doc of given type and adds it to the storage and to viewer

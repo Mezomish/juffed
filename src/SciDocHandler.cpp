@@ -110,6 +110,8 @@ public:
 	ActionList contextMenuActions_;
 	GUI::StatusLabel* syntaxL_;
 	GUI::StatusLabel* eolL_;
+	QAction* showLineNumsAct_;
+	QAction* wordWrapAct_;
 	QAction* showInvisibleAct_;
 	QAction* goToMatchingBraceAct_;
 	QAction* selToMatchingBraceAct_;
@@ -137,37 +139,26 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 
 	docInt_ = new Interior();
 
-	QAction* showLineNumsAct = new QAction(tr("Show line numbers"), 0);
-	showLineNumsAct->setShortcut(QKeySequence("F11"));
-	showLineNumsAct->setCheckable(true);
-	showLineNumsAct->setChecked(TextDocSettings::showLineNumbers());
-	connect(showLineNumsAct, SIGNAL(activated()), this, SLOT(showLineNums()));
+	docInt_->showLineNumsAct_ = new QAction(tr("Show line numbers"), 0);
+	docInt_->showLineNumsAct_->setShortcut(QKeySequence("F11"));
+	docInt_->showLineNumsAct_->setCheckable(true);
+	docInt_->showLineNumsAct_->setChecked(TextDocSettings::showLineNumbers());
+	connect(docInt_->showLineNumsAct_, SIGNAL(activated()), this, SLOT(showLineNums()));
 
-	QAction* wordWrapAct = new QAction(tr("Wrap words"), 0);
-	wordWrapAct->setShortcut(QKeySequence("F10"));
-	wordWrapAct->setCheckable(true);
-	wordWrapAct->setChecked(TextDocSettings::widthAdjust());
-	connect(wordWrapAct, SIGNAL(activated()), this, SLOT(wordWrap()));
+	docInt_->wordWrapAct_ = new QAction(tr("Wrap words"), 0);
+	docInt_->wordWrapAct_->setShortcut(QKeySequence("F10"));
+	docInt_->wordWrapAct_->setCheckable(true);
+	docInt_->wordWrapAct_->setChecked(TextDocSettings::widthAdjust());
+	connect(docInt_->wordWrapAct_, SIGNAL(activated()), this, SLOT(wordWrap()));
 
 	docInt_->showInvisibleAct_ = new QAction(tr("Show invisible symbols"), 0);
 	docInt_->showInvisibleAct_->setCheckable(true);
 	docInt_->showInvisibleAct_->setChecked(TextDocSettings::showInvisibleSymbols());
 	connect(docInt_->showInvisibleAct_, SIGNAL(activated()), this, SLOT(showInvisibleSymbols()));
 
-	QMenu* viewMenu = new QMenu(tr("&View"));
-	viewMenu->addAction(showLineNumsAct);
-	viewMenu->addAction(wordWrapAct);
-	viewMenu->addAction(docInt_->showInvisibleAct_);
-	viewMenu->addAction(st->action(ID_ZOOM_IN));
-	viewMenu->addAction(st->action(ID_ZOOM_OUT));
-	viewMenu->addAction(st->action(ID_ZOOM_100));
-	viewMenu->addAction(docInt_->changeSplitAct_);
-	viewMenu->addSeparator();
-	viewMenu->addMenu(docInt_->syntaxMenu_);
-
 	connect(docInt_->markersMenu_, SIGNAL(aboutToShow()), SLOT(initMarkersMenu()));
 
-	docInt_->menus_ << viewMenu << docInt_->markersMenu_;
+	docInt_->menus_ << docInt_->markersMenu_;
 
 	initSyntaxMenu();
 
@@ -277,7 +268,20 @@ MenuList SciDocHandler::menus() const {
 
 ActionList SciDocHandler::menuActions(MenuID id) const {
 	ActionList list;
+	CommandStorage* st = CommandStorage::instance();
 	switch ( id ) {
+		case ID_MENU_VIEW :
+			list << docInt_->showLineNumsAct_;
+			list << docInt_->wordWrapAct_;
+			list << docInt_->showInvisibleAct_;
+			list << st->action(ID_ZOOM_IN);
+			list << st->action(ID_ZOOM_OUT);
+			list << st->action(ID_ZOOM_100);
+			list << docInt_->changeSplitAct_;
+//			viewMenu->addSeparator();
+			list << docInt_->syntaxMenu_->menuAction();
+			break;
+		
 		case ID_MENU_EDIT :
 			list << docInt_->goToMatchingBraceAct_;
 			list << docInt_->selToMatchingBraceAct_;

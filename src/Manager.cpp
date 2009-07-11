@@ -61,6 +61,7 @@ public:
 		mainTB_ = new QToolBar("Main");
 		fileMenu_ = new QMenu(QObject::tr("&File"));
 		editMenu_ = new QMenu(QObject::tr("&Edit"));
+		viewMenu_ = new QMenu(QObject::tr("&View"));
 		formatMenu_ = new QMenu(QObject::tr("Fo&rmat"));
 		charsetMenu_ = new QMenu(QObject::tr("&Charset"));
 		recentFilesMenu_ = new QMenu(QObject::tr("Recent files"));
@@ -106,11 +107,13 @@ public:
 		delete chActGr_;
 		delete fileMenu_;
 		delete editMenu_;
+		delete viewMenu_;
 		delete charsetMenu_;
 		delete mainTB_;
 		delete viewer_;
 		if ( pluginManager_ )
 			delete pluginManager_;
+		delete fileNameStatusMenu_;
 	}
 
 	Document* getDocByView(QWidget* w) {
@@ -161,6 +164,7 @@ public:
 	QToolBar* mainTB_;
 	QMenu* fileMenu_;
 	QMenu* editMenu_;
+	QMenu* viewMenu_;
 	QMenu* formatMenu_;
 	QMenu* charsetMenu_;
 	QMap<QString, QAction*> charsetActions_;
@@ -240,7 +244,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 
 	//	menus from engines
 	MenuList standardMenus;
-	standardMenus << mInt_->fileMenu_ << mInt_->editMenu_ << mInt_->formatMenu_;
+	standardMenus << mInt_->fileMenu_ << mInt_->editMenu_ 
+	              << mInt_->viewMenu_ << mInt_->formatMenu_;
 	MenuList sciMenus = sciDH->menus();
 	MenuList richMenus = richDH->menus();
 	sciMenus << mInt_->pluginManager_->getMenus("sci");
@@ -254,7 +259,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	mInt_->gui_->addToolBars("rich", richDH->toolBars());
 
 	//	controls from plugins
-	MenuID ids[] = { ID_MENU_FILE, ID_MENU_EDIT, ID_MENU_FORMAT, ID_MENU_TOOLS, ID_MENU_NONE };
+	MenuID ids[] = { ID_MENU_FILE, ID_MENU_EDIT, ID_MENU_VIEW, ID_MENU_FORMAT, ID_MENU_TOOLS, ID_MENU_NONE };
 	QString engines[] = { "sci", "rich", "all", "" };
 	int ei = 0;
 	while ( !engines[ei].isEmpty() ) {
@@ -275,6 +280,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 			switch ( id ) {
 				case ID_MENU_FILE : menu = mInt_->fileMenu_; break;
 				case ID_MENU_EDIT : menu = mInt_->editMenu_; break;
+				case ID_MENU_VIEW : menu = mInt_->viewMenu_; break;
 				case ID_MENU_FORMAT : menu = mInt_->formatMenu_; break;
 				case ID_MENU_TOOLS : menu = mInt_->gui_->toolsMenu(); break;
 				default: ;
@@ -548,6 +554,10 @@ void Manager::addDocHandler(DocHandler* handler) {
 	QAction* act = 0;
 	foreach(act, handler->menuActions(ID_MENU_EDIT)) {
 		mInt_->editMenu_->addAction(act);
+		mInt_->gui_->addAction(type, act);
+	}
+	foreach(act, handler->menuActions(ID_MENU_VIEW)) {
+		mInt_->viewMenu_->addAction(act);
 		mInt_->gui_->addAction(type, act);
 	}
 	foreach(act, handler->menuActions(ID_MENU_FORMAT)) {

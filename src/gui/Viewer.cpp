@@ -49,13 +49,13 @@ public:
 		delete widget_;
 	}
 	
-	QTabWidget* getTabWidget(Document* doc, int& index) {
+	TabWidget* getTabWidget(Document* doc, int& index) {
 		if ( !doc || doc->isNull() ) {
 			index = -1;
 			return NULL;
 		}
 		else {
-			QTabWidget* tw = NULL;
+			TabWidget* tw = NULL;
 			QWidget* w = doc->widget();
 			if ( (index = tw1_->indexOf(w)) >= 0 ) {
 				//	this doc belongs to the 1st panel
@@ -124,7 +124,7 @@ void Viewer::addDoc(Document* doc, int panel) {
 	
 	vInt_->fileNamesMap_[w] = doc->fileName();
 
-	QTabWidget* tw = 0;
+	TabWidget* tw = 0;
 	if ( panel == 1 ) {
 		tw = vInt_->tw1_;
 	}
@@ -133,6 +133,7 @@ void Viewer::addDoc(Document* doc, int panel) {
 	}
 	tw->addTab(w, getDocTitle(doc->fileName()));
 	tw->setCurrentWidget(w);
+	tw->enableCloseButton(true);
 	tw->show();
 	doc->init();
 	tw->setTabToolTip(tw->indexOf(w), doc->fileName());
@@ -145,7 +146,7 @@ void Viewer::addDoc(Document* doc, int panel) {
 
 void Viewer::setDocModified(Document* doc, bool modified) {
 	int index = -1;
-	QTabWidget* tw = vInt_->getTabWidget(doc, index);
+	TabWidget* tw = vInt_->getTabWidget(doc, index);
 	if ( tw ) {
 		QString title = getDocTitle(doc->fileName());
 		if ( modified ) {
@@ -157,7 +158,7 @@ void Viewer::setDocModified(Document* doc, bool modified) {
 
 void Viewer::updateDocTitle(Document* doc) {
 	int index = -1;
-	QTabWidget* tw = vInt_->getTabWidget(doc, index);
+	TabWidget* tw = vInt_->getTabWidget(doc, index);
 	if ( tw ) {
 		QWidget* w = doc->widget();
 		if ( vInt_->fileNamesMap_.contains(w) ) {
@@ -175,7 +176,7 @@ void Viewer::removeDoc(Document* doc) {
 	
 	if ( doc ) {
 		int index = -1;
-		QTabWidget* tw = vInt_->getTabWidget(doc, index);
+		TabWidget* tw = vInt_->getTabWidget(doc, index);
 		if ( tw ) {
 			vInt_->fileNamesMap_.remove(doc->widget());
 			tw->removeTab(index);
@@ -185,16 +186,24 @@ void Viewer::removeDoc(Document* doc) {
 				//	tab widget. Hide it and set focus to
 				//	another tab widget
 				
-				tw->hide();
-				
 				//	get another tab widget and set focus to it's current view
-				QTabWidget* tw2 = (tw == vInt_->tw1_ ? vInt_->tw2_ : vInt_->tw1_);
-				if ( tw2 ) {
+				TabWidget* tw2 = (tw == vInt_->tw1_ ? vInt_->tw2_ : vInt_->tw1_);
+				if ( tw2 && tw2->isVisible()) {
+					tw->hide();
+				
 					QWidget* w = tw2->currentWidget();
 					if ( w ) {
 						w->setFocus();
+						vInt_->curView_ = w;
+						emit curDocChanged(w);
 					}
 				}
+				else {
+					vInt_->curView_ = 0;
+					emit curDocChanged(0);
+				}
+				
+				tw->enableCloseButton(false);
 			}
 			else if ( index == tw->currentIndex() ) {
 				//	The doc was removed but the current 
@@ -204,17 +213,13 @@ void Viewer::removeDoc(Document* doc) {
 				emit curDocChanged(vInt_->curView_);
 			}
 		}
-		if ( tw->count() == 0 ) {
-			vInt_->curView_ = 0;
-			emit curDocChanged(0);
-		}
 	}
 }
 
 void Viewer::activateDoc(Document* doc) {
 	if ( doc ) {
 		int index = -1;
-		QTabWidget* tw = vInt_->getTabWidget(doc, index);
+		TabWidget* tw = vInt_->getTabWidget(doc, index);
 		if ( tw ) {
 			tw->setCurrentWidget(doc->widget());
 			doc->widget()->setFocus();
@@ -225,7 +230,7 @@ void Viewer::activateDoc(Document* doc) {
 void Viewer::nextDoc() {
 	JUFFENTRY;
 	
-	QTabWidget* tw = 0;
+	TabWidget* tw = 0;
 	if ( vInt_->tw1_->currentWidget()->hasFocus() )
 		tw = vInt_->tw1_;
 	else
@@ -243,7 +248,7 @@ void Viewer::nextDoc() {
 void Viewer::prevDoc() {
 	JUFFENTRY;
 	
-	QTabWidget* tw = 0;
+	TabWidget* tw = 0;
 	if ( vInt_->tw1_->currentWidget()->hasFocus() )
 		tw = vInt_->tw1_;
 	else
@@ -265,7 +270,7 @@ QWidget* Viewer::curDoc() const {
 
 void Viewer::curIndexChanged(int i) {
 	JUFFENTRY;
-	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
+	TabWidget* tw = qobject_cast<TabWidget*>(sender());
 	if ( tw ) {
 		QWidget* w = tw->widget(i);
 		vInt_->curView_ = w;
@@ -276,7 +281,7 @@ void Viewer::curIndexChanged(int i) {
 void Viewer::onFileNameRequested(int index, QString& name) {
 	JUFFENTRY;
 	
-	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
+	TabWidget* tw = qobject_cast<TabWidget*>(sender());
 	if ( tw ) {
 		QWidget* w = tw->widget(index);
 		emit requestDocName(w, name);
@@ -286,7 +291,7 @@ void Viewer::onFileNameRequested(int index, QString& name) {
 void Viewer::onTabCloseRequested(int index) {
 	JUFFENTRY;
 	
-	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
+	TabWidget* tw = qobject_cast<TabWidget*>(sender());
 	if ( tw ) {
 		QWidget* w = tw->widget(index);
 		emit requestDocClose(w);

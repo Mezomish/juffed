@@ -37,6 +37,7 @@ public:
 	virtual ~TabWidget();
 
 	void setCloseBtnOnTabs(bool);
+	void enableCloseButton(bool);
 
 public slots:
 	void nextWidget();

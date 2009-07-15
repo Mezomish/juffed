@@ -269,6 +269,7 @@ MenuList SciDocHandler::menus() const {
 ActionList SciDocHandler::menuActions(MenuID id) const {
 	ActionList list;
 	CommandStorage* st = CommandStorage::instance();
+	
 	switch ( id ) {
 		case ID_MENU_VIEW :
 			list << docInt_->showLineNumsAct_;

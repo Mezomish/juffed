@@ -155,5 +155,10 @@ void TabWidget::setCloseBtnOnTabs(bool onTabs) {
 #endif
 }
 
+void TabWidget::enableCloseButton(bool enable) {
+	if ( closeBtn_->isVisible() )
+		closeBtn_->setEnabled(enable);
+}
+
 }	//	namespace GUI
 }	//	namespace Juff

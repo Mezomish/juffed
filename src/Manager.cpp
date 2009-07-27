@@ -1022,8 +1022,8 @@ void Manager::writePanelViews(QFile& file, int panel) {
 		if ( doc && !doc->isNull() && !isNoname(doc->fileName()) ) {
 			int scrPos = doc->curScrollPos();
 			int line = doc->curLine();
-			file.write(QString("%1:%2:%3\n")
-				.arg(doc->fileName()).arg(scrPos).arg(line).toLocal8Bit());
+			file.write((QString("%1:%2:%3\n")
+				.arg(doc->fileName()).arg(scrPos).arg(line)).toLocal8Bit());
 		}
 	}
 }
@@ -1037,7 +1037,7 @@ bool Manager::openSess(const QString& name) {
 	if ( sess.open(QIODevice::ReadOnly) ) {
 		QString fileName("");
 		while ( !sess.atEnd() ) {
-			QString lineStr = sess.readLine().simplified();
+			QString lineStr = QString::fromLocal8Bit(sess.readLine()).simplified();
 #ifdef Q_OS_WIN
 			fileName = lineStr.section(':', -4, -3);
 #else

@@ -1392,6 +1392,9 @@ void Manager::onDocCloseRequested(QWidget* w) {
 	
 	Document* doc = mInt_->getDocByView(w);
 	closeWithConfirmation(doc);
+	
+	if ( curDoc()->isNull() )
+		mInt_->gui_->updateTitle("", mInt_->sessionName_, false);
 }
 
 void Manager::onDocNameRequested(QWidget* w, QString& fileName) {

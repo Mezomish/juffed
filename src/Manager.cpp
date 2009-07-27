@@ -638,6 +638,10 @@ void Manager::openDoc(const QString& fileName) {
 void Manager::createDoc(const QString& type, const QString& fileName) {
 	JUFFENTRY;
 
+	if ( !QFileInfo(fileName).exists() ) {
+		QMessageBox::information(NULL, tr("Warning"), tr("Document '%1' doesn't exist").arg(fileName));
+	}
+	
 	DocHandler* h = mInt_->handlers_[type];
 	if ( h ) {
 		Document* doc = h->createDoc(fileName);

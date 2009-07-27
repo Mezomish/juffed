@@ -638,7 +638,7 @@ void Manager::openDoc(const QString& fileName) {
 void Manager::createDoc(const QString& type, const QString& fileName) {
 	JUFFENTRY;
 
-	if ( !QFileInfo(fileName).exists() ) {
+	if ( !fileName.isEmpty() && !QFileInfo(fileName).exists() ) {
 		QMessageBox::information(NULL, tr("Warning"), tr("Document '%1' doesn't exist").arg(fileName));
 	}
 	

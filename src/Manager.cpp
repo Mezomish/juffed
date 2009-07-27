@@ -889,6 +889,8 @@ bool Manager::fileSaveAs() {
 					doc->setFileName(fName);
 					doc->setCharset(charset);
 					mInt_->charsetL_->setText(charset);
+					if ( QAction* chAct = mInt_->charsetActions_[doc->charset()] )
+						chAct->setChecked(true);
 					doc->setModified(false);
 					mInt_->displayFileName(fName);
 				}

@@ -101,6 +101,7 @@ protected slots:
 
 protected:
 	QString type_;
+	QString guessCharset() const;
 
 private:
 	QString fileName_;

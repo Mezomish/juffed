@@ -25,6 +25,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <errno.h>
 #endif	//	Q_OS_UNIX
 
+QString JuffApp::language_ = QString();
+
 JuffApp::JuffApp(int& argc, char** argv) : QApplication(argc, argv), sent_(false) {
 	int sock = -1;
 	gui_ = 0;
@@ -79,6 +81,10 @@ JuffApp::~JuffApp() {
 	Settings::write();
 }
 
+QString JuffApp::language() {
+	return language_;
+}
+
 bool JuffApp::sentFilesToExistingInstance() {
 	return sent_;
 }
@@ -88,6 +94,7 @@ void JuffApp::init(int& argc, char** argv) {
 		
 	//	translator
 	QString lng = QLocale::system().name();
+	language_ = lng;
 	if ( translator_.load("juffed_" + lng, AppInfo::translationPath()) ) {
 		if ( !translator_.isEmpty() ) {
 			installTranslator(&translator_);

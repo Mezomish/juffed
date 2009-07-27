@@ -118,7 +118,6 @@ private slots:
 	void onLinesCountChanged();
 
 private:
-	void guessCharset();
 	void readDoc();
 	void loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer);
 	void stripTrailingSpaces();

@@ -36,7 +36,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
-#include <QtCore/QProcess>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
 #include <QtGui/QMenu>
@@ -550,43 +549,18 @@ void SciDoc::reload() {
 	}
 }
 
-/**
-*	mapCharset()
-*
-*	Maps charset from enca's format to Qt's charset name.
-*/
-QString mapCharset(const QString& encaName) {
-	if ( encaName == "windows-1251" ) {
-		return "Windows-1251";
-	}
-	else if ( encaName == "IBM866" ) {
-		return "IBM 866";
-	}
-	else {
-		return encaName;
-	}
-}
-
-void SciDoc::guessCharset() {
-	QProcess enca;
-	enca.start("enca", QStringList() << "-m" << fileName());
-	enca.waitForFinished();
-	QString output = QString(enca.readAllStandardOutput()).simplified();
-	if ( !output.isEmpty() ) {
-		QString codecName = mapCharset(output).toLocal8Bit();
+void SciDoc::readDoc() {
+	QString text;
+	QFile file(fileName());
+	if ( file.open(QIODevice::ReadOnly) ) {
+		
+		QString codecName = guessCharset();
 		QTextCodec* codec = QTextCodec::codecForName(codecName.toAscii());
 		if ( codec ) {
 			docInt_->codec_ = codec;
 			docInt_->charsetName_ = codecName;
 		}
-	}
-}
-
-void SciDoc::readDoc() {
-	QString text;
-	QFile file(fileName());
-	if ( file.open(QIODevice::ReadOnly) ) {
-		guessCharset();
+		
 		QTextStream ts(&file);
 		ts.setCodec(docInt_->codec_);
 		docInt_->edit1_->setText(ts.readAll());

@@ -38,6 +38,7 @@ public:
 	virtual ~JuffApp();
 
 	bool sentFilesToExistingInstance();
+	static QString language();
 
 private:
 	void init(int& argc, char** argv);
@@ -51,6 +52,7 @@ private:
 	QTranslator translator_;
 	SocketListener* listener_;
 	bool sent_;
+	static QString language_;
 };
 
 #endif

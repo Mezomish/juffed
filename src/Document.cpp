@@ -19,10 +19,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Document.h"
 
 #include "CommandStorage.h"
+#include "JuffApp.h"
 #include "Log.h"
 #include "Functions.h"
 
 #include <QtCore/QFileInfo>
+#include <QtCore/QProcess>
 #include <QtGui/QAbstractButton>
 #include <QtGui/QAction>
 #include <QtGui/QMessageBox>
@@ -144,6 +146,42 @@ void Document::checkLastModified() {
 	}
 }
 
+/**
+*	mapCharset()
+*
+*	Maps charset from enca's format to Qt's charset name.
+*/
+QString mapCharset(const QString& encaName) {
+	if ( encaName == "windows-1251" ) {
+		return "Windows-1251";
+	}
+	else if ( encaName == "IBM866" ) {
+		return "IBM 866";
+	}
+	else {
+		return encaName;
+	}
+}
+
+QString Document::guessCharset() const {
+	QStringList params;
+	params << "-m" << fileName();
+	if ( !JuffApp::language().isEmpty() ) {
+		params << "-L" << JuffApp::language().left(2);
+	}
+
+	QProcess enca;
+	enca.start("enca", params);
+	enca.waitForFinished();
+	QString output = QString(enca.readAllStandardOutput()).simplified();
+	if ( !output.isEmpty() ) {
+		QString codecName = mapCharset(output);
+		return codecName;
+	}
+	else {
+		return "";
+	}
+}
 
 //}	//	namespace Data
 }	//	namespace Juff

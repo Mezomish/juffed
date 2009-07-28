@@ -297,6 +297,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	}
 	//
 
+	mInt_->gui_->addMenus("all", mInt_->pluginManager_->getMenus("all"));
 
 	applySettings();
 

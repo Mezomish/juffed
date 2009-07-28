@@ -1,7 +1,12 @@
+2009-07-28:
+* Fixed: bug with printing Noname files
+
 2009-07-27:
 * Fixed bug with not updated title when closing last document 
   (using close button on tab or tab bar)
 * Added: charset auto-detection for Windows
+* Hopefully fixed bug with toolbar visibility storing
+* Fixed: main menus from plugins (for 'all' engines)
 
 2009-07-26:
 * Fixed: bug with restoring session with non-latin file names 

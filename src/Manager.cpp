@@ -298,10 +298,8 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	//
 
 
-	mInt_->gui_->setCurType("all");
 	applySettings();
 
-	mInt_->mainTB_->show();
 	//	restore toolbars and docks positions
 	mInt_->gui_->restoreState();
 }
@@ -313,6 +311,7 @@ Manager::~Manager() {
 void Manager::registerCommands() {
 	CommandStorage* st = CommandStorage::instance();
 	st->registerCommand(ID_FILE_NEW,        this, SLOT(fileNew()));
+//	st->registerCommand(ID_FILE_NEW_RICH,   this, SLOT(fileNewRich()));
 	st->registerCommand(ID_FILE_OPEN,       this, SLOT(fileOpen()));
 	st->registerCommand(ID_FILE_SAVE,       this, SLOT(fileSave()));
 	st->registerCommand(ID_FILE_SAVE_AS,    this, SLOT(fileSaveAs()));
@@ -525,13 +524,17 @@ bool Manager::confirmExit() {
 
 void Manager::onCloseEvent(bool& confirm) {
 	confirm = confirmExit();
+	if ( confirm )
+		mInt_->gui_->saveState();
 }
 
 void Manager::exit() {
 	JUFFENTRY;
 
-	if ( confirmExit() )
+	if ( confirmExit() ) {
+		mInt_->gui_->saveState();
 		qApp->quit();
+	}
 }
 
 void Manager::addDocHandler(DocHandler* handler) {

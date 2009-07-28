@@ -52,14 +52,19 @@ public:
 
 	void setCurType(const QString& type);
 	
-private:	
+	void saveLastStates();
+	void loadLastStates();
+	
+private:
 	QMap<QString, Juff::ToolBarList> toolBars_;
 	QMap<QString, Juff::MenuList> menus_;
 	QMap<QString, Juff::ActionList> actions_;
 	QMap<QString, QWidgetList> docks_;
+
 	QString curType_;
-	QMap<QWidget*, bool> dockVisible_;
-	QMap<QToolBar*, bool> tbVisible_;
+
+	QMap<QToolBar*, bool> tbLastState_;
+	QMap<QWidget*, bool> dockLastState_;
 };
 
 #endif

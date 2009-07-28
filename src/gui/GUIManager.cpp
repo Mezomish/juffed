@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -17,10 +19,87 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "GUIManager.h"
+#include "Settings.h"
 
 #include <QtGui/QDockWidget>
 #include <QtGui/QMenu>
 #include <QtGui/QToolBar>
+
+class GUISettings : public Settings {
+public:
+	static void saveToolBarLastState(QToolBar* tb, bool visible) {
+		Settings::setValue("toolBarVisible", tb->windowTitle(), visible);
+	}
+	static bool toolBarLastState(QToolBar* tb) {
+		return Settings::boolValue("toolBarVisible", tb->windowTitle(), true);
+	}
+	static void saveDockLastState(QWidget* w, bool visible) {
+		Settings::setValue("dockVisible", w->parentWidget()->windowTitle(), visible);
+	}
+	static bool dockLastState(QWidget* w) {
+		return Settings::boolValue("dockVisible", w->parentWidget()->windowTitle(), true);
+	}
+};
+
+void GUIManager::saveLastStates() {
+	QMap<QString, Juff::ToolBarList>::iterator it = toolBars_.begin();
+	while (it != toolBars_.end()) {
+		Juff::ToolBarList list = it.value();
+		QString type = it.key();
+		foreach (QToolBar* tb, list) {
+			bool visible;
+			if ( type == curType_ ) 
+				visible = tb->isVisible();
+			else
+				visible = tbLastState_[tb];
+			qDebug() << "Saving toolbar" << tb->windowTitle() << "is" << (visible ? "" : "not") << "visible";
+			GUISettings::saveToolBarLastState(tb, visible);
+		}
+		it++;
+	}
+	QMap<QString, QWidgetList>::iterator it2 = docks_.begin();
+	while (it2 != docks_.end()) {
+		QWidgetList list = it2.value();
+		QString type = it2.key();
+		foreach (QWidget* w, list) {
+			bool visible;
+			if ( type == curType_ ) 
+				visible = w->parentWidget()->isVisible();
+			else
+				visible = dockLastState_[w];
+			qDebug() << "Saving dock" << w->parentWidget()->windowTitle() << "is" << (visible ? "" : "not") << "visible";
+			GUISettings::saveDockLastState(w, visible);
+		}
+		it2++;
+	}
+}
+
+void GUIManager::loadLastStates() {
+	QMap<QString, Juff::ToolBarList>::iterator it =  toolBars_.begin();
+	while (it != toolBars_.end()) {
+		Juff::ToolBarList list = it.value();
+		QString type = it.key();
+		foreach (QToolBar* tb, list) {
+			bool visible = GUISettings::toolBarLastState(tb);
+			tbLastState_[tb] = visible;
+			qDebug() << "Loading toolbar" << tb->windowTitle() << "is" << (visible ? "" : "not") << "visible";
+		}
+		it++;
+	}
+	QMap<QString, QWidgetList>::iterator it2 = docks_.begin();
+	while (it2 != docks_.end()) {
+		QWidgetList list = it2.value();
+		QString type = it2.key();
+		foreach (QWidget* w, list) {
+			bool visible = GUISettings::dockLastState(w);
+			dockLastState_[w] = visible;
+			qDebug() << "Loading dock" << w->parentWidget()->windowTitle() << "is" << (visible ? "" : "not") << "visible";
+		}
+		it2++;
+	}
+}
+
+
 
 void GUIManager::addMenu(const QString& type, QMenu* menu) {
 	if ( !menus_.contains(type) )
@@ -88,115 +167,100 @@ void GUIManager::setCurType(const QString& type) {
 	if ( type == curType_ )
 		return;
 	
-	//	remembering the visibility of docks of type 'all'
-	if ( docks_.contains("all") ) {
-		foreach (QWidget* w, docks_["all"]) {
-			dockVisible_[w] = w->parentWidget()->isVisible();
-		}
-	}
-	if ( toolBars_.contains("all") ) {
-		foreach (QToolBar* tb, toolBars_["all"]) {
-			tbVisible_[tb] = tb->isVisible();
-		}
-	}
-	
-	//	hide controls of the current type
-	if ( toolBars_.contains(curType_) ) {
-		foreach (QToolBar* tb, toolBars_[curType_]) {
-			tbVisible_[tb] = tb->isVisible();
+	// hide "old" controls
+	if ( !curType_.isEmpty() ) {
+		foreach(QToolBar* tb, toolBars_[curType_]) {
+			tbLastState_[tb] = tb->isVisible();
 			tb->hide();
-			tb->toggleViewAction()->setVisible(false);
+//			qDebug() << "Hiding" << tb->windowTitle() << "toolbar";
 		}
-	}
-	if ( menus_.contains(curType_) ) {
-		foreach (QMenu* menu, menus_[curType_]) {
-			menu->menuAction()->setVisible(false);
-		}
-	}
-	if ( actions_.contains(curType_) ) {
-		foreach (QAction* act, actions_[curType_] ) {
+		
+		
+		foreach(QAction* act, actions_[curType_]) {
 			act->setVisible(false);
 		}
-	}
-	if ( docks_.contains(curType_) ) {
+		foreach(QMenu* menu, menus_[curType_]) {
+			menu->menuAction()->setVisible(false);
+		}
+		foreach (QToolBar* tb, toolBars_[curType_]) {
+			tb->toggleViewAction()->setVisible(false);
+		}
 		foreach (QWidget* w, docks_[curType_]) {
-			QDockWidget* dock = qobject_cast<QDockWidget*>(w->parentWidget());
-			if ( dock ) {
-				dockVisible_[w] = dock->isVisible();
-				dock->hide();
-				dock->toggleViewAction()->setVisible(false);
-			}
+			w->parentWidget()->hide();
 		}
 	}
-	
-	//	show controls of the new type
-	if ( toolBars_.contains(type) ) {
-		foreach (QToolBar* tb, toolBars_[type]) {
-			if ( !tbVisible_.contains(tb) || tbVisible_[tb] ) {
+	else {
+		// very first call
+		
+		foreach (QToolBar* tb, toolBars_["all"]) {
+			bool visible = tbLastState_[tb];
+			tb->setVisible(visible);
+//			qDebug() << "1: Toolbar" << tb->windowTitle() << "is" << (visible ? "" : "not") << "visible";
+		}
+		foreach (QWidget* w, docks_["all"]) {
+			bool visible = dockLastState_[w];
+			w->parentWidget()->setVisible(visible);
+		}
+	}
+
+
+	foreach (QToolBar* tb, toolBars_[type]) {
+		if ( tbLastState_.contains(tb) ) {
+			if ( tbLastState_[tb] ) {
 				tb->show();
+//				qDebug() << "Showing" << tb->windowTitle() << "toolbar";
 			}
-			tb->toggleViewAction()->setVisible(true);
 		}
-	}
-	if ( menus_.contains(type) ) {
-		foreach (QMenu* menu, menus_[type]) {
-			menu->menuAction()->setVisible(true);
-		}
-	}
-	if ( actions_.contains(type) ) {
-		foreach (QAction* act, actions_[type] ) {
-			act->setVisible(true);
-		}
-	}
-	if ( docks_.contains(type) ) {
-		foreach (QWidget* w, docks_[type]) {
-			QDockWidget* dock = qobject_cast<QDockWidget*>(w->parentWidget());
-			if ( dock ) {
-				if ( dockVisible_.contains(w) && dockVisible_[w] ) {
-					dock->show();
-				}
-				dock->toggleViewAction()->setVisible(true);
-			}
+		else {
+			JUFFDEBUG("Not supposed to be here!!!");
+			tb->setVisible(true);
+			tbLastState_[tb] = true;
 		}
 	}
 	
-	if ( type != "all" ) {
-		//	show controls of 'all' type
-		if ( toolBars_.contains("all") ) {
-			foreach (QToolBar* tb, toolBars_["all"]) {
-				if ( tbVisible_.contains(tb) )
-					tb->setVisible(tbVisible_[tb]);
-				else {
-					tb->setVisible(true);
-					tbVisible_[tb] = true;
-				}
-				tb->toggleViewAction()->setVisible(true);
+	foreach (QWidget* w, docks_[type]) {
+		if ( dockLastState_.contains(w) ) {
+			if ( dockLastState_[w] ) {
+				w->parentWidget()->show();
+//				qDebug() << "Showing" << tb->windowTitle() << "toolbar";
 			}
 		}
-		if ( menus_.contains("all") ) {
-			foreach (QMenu* menu, menus_["all"]) {
-				menu->menuAction()->setVisible(true);
-			}
-		}
-		if ( actions_.contains("all") ) {
-			foreach (QAction* act, actions_["all"] ) {
-				act->setVisible(true);
-			}
-		}
-		if ( docks_.contains("all") ) {
-			foreach (QWidget* w, docks_["all"] ) {
-				QDockWidget* dock = qobject_cast<QDockWidget*>(w->parentWidget());
-				if ( dockVisible_.contains(w) ) {
-					dock->setVisible(dockVisible_[w]);
-				}
-				else {
-					dock->setVisible(true);
-					dockVisible_[w] = true;
-				}
-				dock->toggleViewAction()->setVisible(true);
-			}
+		else {
+			JUFFDEBUG("Not supposed to be here!!!");
+			w->parentWidget()->setVisible(true);
+			dockLastState_[w] = true;
 		}
 	}
 	
+	// showing the controls of the "new" type (if needed)
+	foreach(QAction* act, actions_[type]) {
+		act->setVisible(true);
+	}
+	foreach(QMenu* menu, menus_[type]) {
+		menu->menuAction()->setVisible(true);
+	}
+	foreach (QToolBar* tb, toolBars_[type]) {
+		tb->toggleViewAction()->setVisible(true);
+	}
+
+	// showing controls of "all" type (if needed)
+	foreach(QToolBar* tb, toolBars_["all"]) {
+		tbLastState_ [tb] = tb->isVisible();
+//		qDebug() << "3: Toolbar" << tb->windowTitle() << "is" << (tb->isVisible() ? "" : "not") << "visible";
+	}
+	foreach(QWidget* w, docks_["all"]) {
+		dockLastState_ [w] = w->parentWidget()->isVisible();
+//		qDebug() << "3: Toolbar" << tb->windowTitle() << "is" << (tb->isVisible() ? "" : "not") << "visible";
+	}
+	foreach(QAction* act, actions_["all"]) {
+		act->setVisible(true);
+	}
+	foreach(QMenu* menu, menus_["all"]) {
+		menu->menuAction()->setVisible(true);
+	}
+	foreach (QToolBar* tb, toolBars_["all"]) {
+		tb->toggleViewAction()->setVisible(true);
+	}
+
 	curType_ = type;
 }

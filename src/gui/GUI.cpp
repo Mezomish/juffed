@@ -126,7 +126,7 @@ GUI::GUI() : QObject() {
 
 GUI::~GUI() {
 	JUFFDTOR;
-	saveState();
+//	saveState();
 	delete aboutDlg_;
 	delete settDlg_;
 	delete mw_;
@@ -135,11 +135,13 @@ GUI::~GUI() {
 void GUI::saveState() {
 	QByteArray state = mw_->saveState();
 	MainSettings::setMwState(state);
+	guiManager_.saveLastStates();
 }
 
 void GUI::restoreState() {
 	//	restore the position of toolbars and docks
 	mw_->restoreState(MainSettings::mwState());
+	guiManager_.loadLastStates();
 }
 
 void GUI::show() {

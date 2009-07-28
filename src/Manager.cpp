@@ -959,7 +959,7 @@ void Manager::filePrint() {
 	JUFFENTRY;
 	
 	Document* doc = curDoc();
-	if ( !doc->isNull() && !isNoname(doc->fileName()) )
+	if ( !doc->isNull() )
 		doc->print();
 }
 

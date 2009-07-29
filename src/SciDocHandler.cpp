@@ -94,6 +94,11 @@ public:
 		delete goToMatchingBraceAct_;
 		delete selToMatchingBraceAct_;
 	}
+	
+	void displaySyntax(const QString& syntax) {
+		syntaxL_->setText(syntax);
+		syntaxL_->setToolTip(QObject::tr("Syntax highlighting scheme: %1").arg(syntax));
+	}
 
 	QMenu* markersMenu_;
 	QMenu* syntaxMenu_;
@@ -322,7 +327,7 @@ void SciDocHandler::docActivated(Document* d) {
 	if ( doc ) {
 		initMarkersMenu();
 		QString syntax = doc->syntax();
-		docInt_->syntaxL_->setText(QString(" %1 ").arg(syntax));
+		docInt_->displaySyntax(syntax);
 		QAction* act = docInt_->syntaxActions_[syntax];
 		if ( act ) {
 			act->setChecked(true);
@@ -464,7 +469,7 @@ void SciDocHandler::syntaxSelected() {
 		Juff::SciDoc* doc = qobject_cast<Juff::SciDoc*>(emit getCurDoc());
 		if ( doc && !doc->isNull() ) {
 			doc->setSyntax(a->text());
-			docInt_->syntaxL_->setText(a->text());
+			docInt_->displaySyntax(a->text());
 		}
 		else {
 			a->setChecked(false);

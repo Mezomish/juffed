@@ -149,7 +149,15 @@ public:
 	}
 
 	void displayFileName(const QString& fileName) {
-		nameL_->setText(QString(" %1 ").arg(fileName));
+		if ( Juff::isNoname(fileName) )
+			nameL_->setText(QString(" %1 ").arg(Juff::getDocTitle(fileName)));
+		else
+			nameL_->setText(QString(" %1 ").arg(fileName));
+	}
+	
+	void displayCharset(const QString& charset) {
+		charsetL_->setText(QString(" %1 ").arg(charset));
+		charsetL_->setToolTip(QObject::tr("Current character set: %1").arg(charset));
 	}
 	
 	QMap<QString, DocHandler*> handlers_;
@@ -896,7 +904,7 @@ bool Manager::fileSaveAs() {
 				if ( !asCopy ) {
 					doc->setFileName(fName);
 					doc->setCharset(charset);
-					mInt_->charsetL_->setText(charset);
+					mInt_->displayCharset(charset);
 					if ( QAction* chAct = mInt_->charsetActions_[doc->charset()] )
 						chAct->setChecked(true);
 					doc->setModified(false);
@@ -1258,7 +1266,7 @@ void Manager::charsetSelected() {
 		Document* doc = curDoc();
 		if ( doc && !doc->isNull() ) {
 			doc->setCharset(a->text());
-			mInt_->charsetL_->setText(a->text());
+			mInt_->displayCharset(a->text());
 		}
 	}
 }
@@ -1283,6 +1291,7 @@ void Manager::onCursorPositionChanged(int line, int col) {
 
 void Manager::onLinesCountChanged(int lines) {
 	mInt_->linesL_->setText(tr(" Lines: %1 ").arg(lines));
+	mInt_->linesL_->setToolTip(QObject::tr("Lines count: %1").arg(lines));
 }
 
 void Manager::onContextMenuCalled(int line, int col) {
@@ -1330,11 +1339,12 @@ void Manager::onCurDocChanged(QWidget* w) {
 
 			//	status bar
 			mInt_->displayFileName(doc->fileName());
-			mInt_->charsetL_->setText(QString(" %1 ").arg(doc->charset()));
+			mInt_->displayCharset(doc->charset());
 			int line = -1, col = -1;
 			doc->getCursorPos(line, col);
 			mInt_->posL_->setText(tr(" Row: %1, Col: %2 ").arg(line+1).arg(col+1));
 			mInt_->linesL_->setText(tr(" Lines: %1 ").arg(doc->lineCount()));
+			mInt_->linesL_->setToolTip(tr("Lines count: %1 ").arg(doc->lineCount()));
 
 			if ( type != mInt_->docOldType_ ) {
 				if ( mInt_->statusWidgets_.contains(mInt_->docOldType_) ) {
@@ -1366,7 +1376,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 			
 			//	status bar
 			mInt_->displayFileName("");
-			mInt_->charsetL_->setText("  ");
+			mInt_->displayCharset("");
 			mInt_->posL_->setText("  ");
 			if ( mInt_->statusWidgets_.contains(mInt_->docOldType_) ) {
 				foreach (QWidget* w, mInt_->statusWidgets_[mInt_->docOldType_] ) {
@@ -1379,7 +1389,7 @@ void Manager::onCurDocChanged(QWidget* w) {
 	else {
 		//	status bar
 		mInt_->displayFileName("");
-		mInt_->charsetL_->setText("  ");
+		mInt_->displayCharset("");
 		mInt_->posL_->setText("  ");
 		if ( mInt_->statusWidgets_.contains(mInt_->docOldType_) ) {
 			foreach (QWidget* w, mInt_->statusWidgets_[mInt_->docOldType_] ) {

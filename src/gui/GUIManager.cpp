@@ -204,43 +204,45 @@ void GUIManager::setCurType(const QString& type) {
 	}
 
 
-	foreach (QToolBar* tb, toolBars_[type]) {
-		if ( tbLastState_.contains(tb) ) {
-			if ( tbLastState_[tb] ) {
-				tb->show();
-//				qDebug() << "Showing" << tb->windowTitle() << "toolbar";
-			}
-		}
-		else {
-			JUFFDEBUG("Not supposed to be here!!!");
-			tb->setVisible(true);
-			tbLastState_[tb] = true;
-		}
-	}
-	
-	foreach (QWidget* w, docks_[type]) {
-		if ( dockLastState_.contains(w) ) {
-			if ( dockLastState_[w] ) {
-				w->parentWidget()->show();
-//				qDebug() << "Showing" << tb->windowTitle() << "toolbar";
-			}
-		}
-		else {
-			JUFFDEBUG("Not supposed to be here!!!");
-			w->parentWidget()->setVisible(true);
-			dockLastState_[w] = true;
-		}
-	}
-	
 	// showing the controls of the "new" type (if needed)
-	foreach(QAction* act, actions_[type]) {
-		act->setVisible(true);
-	}
-	foreach(QMenu* menu, menus_[type]) {
-		menu->menuAction()->setVisible(true);
-	}
-	foreach (QToolBar* tb, toolBars_[type]) {
-		tb->toggleViewAction()->setVisible(true);
+	if ( !type.isEmpty() && type != "all" ) {
+		foreach (QToolBar* tb, toolBars_[type]) {
+			if ( tbLastState_.contains(tb) ) {
+				if ( tbLastState_[tb] ) {
+					tb->show();
+	//				qDebug() << "Showing" << tb->windowTitle() << "toolbar";
+				}
+			}
+			else {
+				JUFFDEBUG("Not supposed to be here!!!");
+				tb->setVisible(true);
+				tbLastState_[tb] = true;
+			}
+		}
+		
+		foreach (QWidget* w, docks_[type]) {
+			if ( dockLastState_.contains(w) ) {
+				if ( dockLastState_[w] ) {
+					w->parentWidget()->show();
+	//				qDebug() << "Showing" << tb->windowTitle() << "toolbar";
+				}
+			}
+			else {
+				JUFFDEBUG("Not supposed to be here!!!");
+				w->parentWidget()->setVisible(true);
+				dockLastState_[w] = true;
+			}
+		}
+		
+		foreach(QAction* act, actions_[type]) {
+			act->setVisible(true);
+		}
+		foreach(QMenu* menu, menus_[type]) {
+			menu->menuAction()->setVisible(true);
+		}
+		foreach (QToolBar* tb, toolBars_[type]) {
+			tb->toggleViewAction()->setVisible(true);
+		}
 	}
 
 	// showing controls of "all" type (if needed)
@@ -262,5 +264,8 @@ void GUIManager::setCurType(const QString& type) {
 		tb->toggleViewAction()->setVisible(true);
 	}
 
-	curType_ = type;
+	if ( type != "all" )
+		curType_ = type;
+	else
+		curType_ = "";
 }

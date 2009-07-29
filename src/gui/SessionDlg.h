@@ -41,6 +41,7 @@ public:
 private slots:
 	void openSession();
 	void newSession();
+	void removeSession();
 	void activated(QTreeWidgetItem*, int);
 
 private:

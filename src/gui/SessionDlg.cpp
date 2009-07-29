@@ -20,8 +20,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 //	Qt headers
 #include <QtCore/QDir>
+#include <QtCore/QFile>
 #include <QtCore/QStringList>
 #include <QtGui/QHeaderView>
+
+#include "Log.h"
 
 //	local headers
 #ifdef Q_OS_WIN
@@ -56,11 +59,17 @@ SessionDlg::SessionDlg(QWidget* parent) : QDialog(parent), result_(0) {
 			ui.sessionTree->addTopLevelItem(it);
 		}
 	}
-	if (sList.count() > 0)
+	if (sList.count() > 0) {
 		ui.sessionTree->setCurrentItem(ui.sessionTree->topLevelItem(0));
+	}
+	else {
+		ui.openSessionBtn->setEnabled(false);
+		ui.removeSessionBtn->setEnabled(false);
+	}
 
-	connect(ui.openSessionBtn, SIGNAL(clicked()), SLOT(openSession()));
-	connect(ui.newSessionBtn, SIGNAL(clicked()), SLOT(newSession()));
+	connect(ui.openSessionBtn,   SIGNAL(clicked()), SLOT(openSession()));
+	connect(ui.newSessionBtn,    SIGNAL(clicked()), SLOT(newSession()));
+	connect(ui.removeSessionBtn, SIGNAL(clicked()), SLOT(removeSession()));
 	connect(ui.sessionTree, SIGNAL(itemActivated(QTreeWidgetItem*, int)), SLOT(activated(QTreeWidgetItem*, int)));
 }
 
@@ -80,6 +89,20 @@ void SessionDlg::openSession() {
 void SessionDlg::newSession() {
 	result_ = 2;
 	QDialog::accept();
+}
+
+void SessionDlg::removeSession() {
+	QTreeWidgetItem* it = ui.sessionTree->currentItem();
+	if ( NULL != it ) {
+		QString name = it->text(0);
+		delete it;
+		QString sessFile = AppInfo::configDirPath() + "/sessions/" + name;
+		QFile::remove(sessFile);
+		if ( ui.sessionTree->topLevelItemCount() == 0 ) {
+			ui.openSessionBtn->setEnabled(false);
+			ui.removeSessionBtn->setEnabled(false);
+		}
+	}
 }
 
 int SessionDlg::result() const {

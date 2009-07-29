@@ -415,78 +415,83 @@ identação ao invés de remover um espaço simples</translation>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="687"/>
+        <location filename="../src/Manager.cpp" line="695"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="688"/>
+        <location filename="../src/Manager.cpp" line="696"/>
         <source>What do you want to do?</source>
         <translation>O que você quer fazer?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="646"/>
-        <location filename="../src/Manager.cpp" line="689"/>
+        <location filename="../src/Manager.cpp" line="654"/>
+        <location filename="../src/Manager.cpp" line="697"/>
         <source>Warning</source>
         <translation>Atenção</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="240"/>
+        <location filename="../src/Manager.cpp" line="248"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="646"/>
+        <location filename="../src/Manager.cpp" line="654"/>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="690"/>
+        <location filename="../src/Manager.cpp" line="698"/>
         <source>Overwrite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="691"/>
+        <location filename="../src/Manager.cpp" line="699"/>
         <source>Save as</source>
         <translation>Salvar como</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="705"/>
+        <location filename="../src/Manager.cpp" line="713"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1285"/>
-        <location filename="../src/Manager.cpp" line="1337"/>
+        <location filename="../src/Manager.cpp" line="1293"/>
+        <location filename="../src/Manager.cpp" line="1346"/>
         <source> Lines: %1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="483"/>
+        <location filename="../src/Manager.cpp" line="1347"/>
+        <source>Lines count: %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="491"/>
         <source>The document </source>
         <translation>O documento </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="484"/>
+        <location filename="../src/Manager.cpp" line="492"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> está sendo modificado.
 Você quer salvar as alterações?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="485"/>
+        <location filename="../src/Manager.cpp" line="493"/>
         <source>Close document</source>
         <translation>Fechar documento</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1245"/>
-        <location filename="../src/Manager.cpp" line="1246"/>
+        <location filename="../src/Manager.cpp" line="1253"/>
+        <location filename="../src/Manager.cpp" line="1254"/>
         <source>Go to line</source>
         <translation>Ir para a linha</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1281"/>
-        <location filename="../src/Manager.cpp" line="1336"/>
+        <location filename="../src/Manager.cpp" line="1289"/>
+        <location filename="../src/Manager.cpp" line="1345"/>
         <source> Row: %1, Col: %2 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -510,12 +515,12 @@ Você quer salvar as alterações?</translation>
 <context>
     <name>Juff::SciDocHandler</name>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="142"/>
+        <location filename="../src/SciDocHandler.cpp" line="147"/>
         <source>Show line numbers</source>
         <translation>Mostrar números de linhas</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="148"/>
+        <location filename="../src/SciDocHandler.cpp" line="153"/>
         <source>Wrap words</source>
         <translation type="unfinished"></translation>
     </message>
@@ -524,22 +529,22 @@ Você quer salvar as alterações?</translation>
         <translation type="obsolete">&amp;Visualizar</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="154"/>
+        <location filename="../src/SciDocHandler.cpp" line="159"/>
         <source>Show invisible symbols</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="536"/>
+        <location filename="../src/SciDocHandler.cpp" line="541"/>
         <source>Macro name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="539"/>
+        <location filename="../src/SciDocHandler.cpp" line="544"/>
         <source>Warning</source>
         <translation type="unfinished">Atenção</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="539"/>
+        <location filename="../src/SciDocHandler.cpp" line="544"/>
         <source>Macro with name &apos;%1&apos; already exists</source>
         <translation type="unfinished"></translation>
     </message>
@@ -629,6 +634,16 @@ Você quer salvar as alterações?</translation>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/Manager.cpp" line="160"/>
+        <source>Current character set: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="1294"/>
+        <source>Lines count: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/Manager.cpp" line="64"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Visualizar</translation>
@@ -709,7 +724,7 @@ Você quer salvar as alterações?</translation>
         <translation>Arquivos recentes</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="360"/>
+        <location filename="../src/Manager.cpp" line="368"/>
         <source>Session</source>
         <translation>Sessão</translation>
     </message>
@@ -931,24 +946,29 @@ Continuar do começo?</translation>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="45"/>
         <location filename="../src/SciDocHandler.cpp" line="53"/>
-        <location filename="../src/SciDocHandler.cpp" line="497"/>
+        <location filename="../src/SciDocHandler.cpp" line="502"/>
         <source>Line endings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="500"/>
+        <location filename="../src/SciDocHandler.cpp" line="100"/>
+        <source>Syntax highlighting scheme: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="505"/>
         <location filename="../src/lib/CommandStorage.cpp" line="93"/>
         <source>Unix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="503"/>
+        <location filename="../src/SciDocHandler.cpp" line="508"/>
         <location filename="../src/lib/CommandStorage.cpp" line="92"/>
         <source>Mac</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="506"/>
+        <location filename="../src/SciDocHandler.cpp" line="511"/>
         <location filename="../src/lib/CommandStorage.cpp" line="91"/>
         <source>Win</source>
         <translation type="unfinished"></translation>

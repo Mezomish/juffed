@@ -234,6 +234,41 @@ newly created/opened docs</source>
     </message>
 </context>
 <context>
+    <name>FileTypesPage</name>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="13"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="24"/>
+        <source>Highlighting:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="49"/>
+        <source>File name patterns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="75"/>
+        <location filename="../src/gui/FileTypesPage.ui" line="144"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="94"/>
+        <location filename="../src/gui/FileTypesPage.ui" line="163"/>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="118"/>
+        <source>First line patterns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FindDlg</name>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="129"/>
@@ -292,32 +327,32 @@ newly created/opened docs</source>
         <translation type="obsolete">这个文件被外部修改了。</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="92"/>
+        <location filename="../src/Document.cpp" line="94"/>
         <source>What do you want to do?</source>
         <translation>你想做什么？</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="93"/>
+        <location filename="../src/Document.cpp" line="95"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="97"/>
+        <location filename="../src/Document.cpp" line="99"/>
         <source>Save current</source>
         <translation>存盘</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="104"/>
+        <location filename="../src/Document.cpp" line="106"/>
         <source>Reload from disk</source>
         <translation>重新读入</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="111"/>
+        <location filename="../src/Document.cpp" line="113"/>
         <source>Ignore</source>
         <translation>放弃</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="91"/>
+        <location filename="../src/Document.cpp" line="93"/>
         <source>The file &apos;%1&apos; was modified by external program.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -345,42 +380,42 @@ newly created/opened docs</source>
         <translation>&amp;工具</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="171"/>
+        <location filename="../src/gui/GUI.cpp" line="173"/>
         <source>Open files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="175"/>
+        <location filename="../src/gui/GUI.cpp" line="177"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="206"/>
+        <location filename="../src/gui/GUI.cpp" line="208"/>
         <source>Save as a copy</source>
         <translation>存一个copy</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="219"/>
+        <location filename="../src/gui/GUI.cpp" line="221"/>
         <source>Save</source>
         <translation>存盘</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="232"/>
+        <location filename="../src/gui/GUI.cpp" line="234"/>
         <source>Save session as</source>
         <translation>另存会话</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="232"/>
+        <location filename="../src/gui/GUI.cpp" line="234"/>
         <source>Session name</source>
         <translation>会话名字</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="374"/>
+        <location filename="../src/gui/GUI.cpp" line="378"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="411"/>
+        <location filename="../src/gui/GUI.cpp" line="415"/>
         <source>About Qt</source>
         <translation>关于QT</translation>
     </message>
@@ -400,7 +435,7 @@ newly created/opened docs</source>
         <translation type="unfinished">多窗口</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="186"/>
+        <location filename="../src/gui/GUI.cpp" line="188"/>
         <source>Charset</source>
         <translation type="unfinished">编码</translation>
     </message>
@@ -439,67 +474,78 @@ newly created/opened docs</source>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="470"/>
+        <location filename="../src/Manager.cpp" line="483"/>
         <source>The document </source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="471"/>
+        <location filename="../src/Manager.cpp" line="484"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation>已经被修改。你需要保存修改吗?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="472"/>
+        <location filename="../src/Manager.cpp" line="485"/>
         <source>Close document</source>
         <translation>关闭文档</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="662"/>
+        <location filename="../src/Manager.cpp" line="687"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>%1 文件只读</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="663"/>
+        <location filename="../src/Manager.cpp" line="688"/>
         <source>What do you want to do?</source>
         <translation>你想做什么？</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="664"/>
+        <location filename="../src/Manager.cpp" line="646"/>
+        <location filename="../src/Manager.cpp" line="689"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="665"/>
+        <location filename="../src/Manager.cpp" line="646"/>
+        <source>Document &apos;%1&apos; doesn&apos;t exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="690"/>
         <source>Overwrite</source>
         <translation>覆盖</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="666"/>
+        <location filename="../src/Manager.cpp" line="691"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="680"/>
+        <location filename="../src/Manager.cpp" line="705"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>不能修改属性：访问拒绝</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1218"/>
-        <location filename="../src/Manager.cpp" line="1219"/>
+        <location filename="../src/Manager.cpp" line="1245"/>
+        <location filename="../src/Manager.cpp" line="1246"/>
         <source>Go to line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1254"/>
-        <location filename="../src/Manager.cpp" line="1309"/>
+        <location filename="../src/Manager.cpp" line="1281"/>
+        <location filename="../src/Manager.cpp" line="1336"/>
         <source> Row: %1, Col: %2 </source>
         <translation>行: %1, 列l: %2</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1258"/>
-        <location filename="../src/Manager.cpp" line="1310"/>
+        <location filename="../src/Manager.cpp" line="1285"/>
+        <location filename="../src/Manager.cpp" line="1337"/>
         <source> Lines: %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="240"/>
+        <source>Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -514,7 +560,7 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="534"/>
+        <location filename="../src/SciDoc.cpp" line="533"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -522,37 +568,36 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDocHandler</name>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="140"/>
+        <location filename="../src/SciDocHandler.cpp" line="142"/>
         <source>Show line numbers</source>
         <translation>显示行号</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="146"/>
+        <location filename="../src/SciDocHandler.cpp" line="148"/>
         <source>Wrap words</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="157"/>
         <source>&amp;View</source>
-        <translation>&amp;显示</translation>
+        <translation type="obsolete">&amp;显示</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="152"/>
+        <location filename="../src/SciDocHandler.cpp" line="154"/>
         <source>Show invisible symbols</source>
         <translation>显示隐藏的字符</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="531"/>
+        <location filename="../src/SciDocHandler.cpp" line="536"/>
         <source>Macro name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="534"/>
+        <location filename="../src/SciDocHandler.cpp" line="539"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="534"/>
+        <location filename="../src/SciDocHandler.cpp" line="539"/>
         <source>Macro with name &apos;%1&apos; already exists</source>
         <translation type="unfinished"></translation>
     </message>
@@ -899,12 +944,12 @@ Do you want to save your changes?</source>
         <translation>德文翻译</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="392"/>
+        <location filename="../src/SciDoc.cpp" line="391"/>
         <source>Confirmation</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="393"/>
+        <location filename="../src/SciDoc.cpp" line="392"/>
         <source>Replace this text?</source>
         <translation>替换这些文字</translation>
     </message>
@@ -919,60 +964,65 @@ Do you want to save your changes?</source>
         <translation>巴西葡萄牙语翻译</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="61"/>
+        <location filename="../src/Manager.cpp" line="62"/>
         <source>&amp;File</source>
         <translation>&amp;文件</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="62"/>
+        <location filename="../src/Manager.cpp" line="63"/>
         <source>&amp;Edit</source>
         <translation>&amp;编辑</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="64"/>
+        <source>&amp;View</source>
+        <translation type="unfinished">&amp;显示</translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="66"/>
         <source>&amp;Charset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="65"/>
+        <location filename="../src/Manager.cpp" line="67"/>
         <source>Recent files</source>
         <translation>最近的文件</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="84"/>
+        <location filename="../src/Manager.cpp" line="86"/>
         <source>Cursor position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="85"/>
+        <location filename="../src/Manager.cpp" line="87"/>
         <source>File full name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="87"/>
+        <location filename="../src/Manager.cpp" line="89"/>
         <source>Lines count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="347"/>
+        <location filename="../src/Manager.cpp" line="360"/>
         <source>Session</source>
         <translation>会话</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="319"/>
+        <location filename="../src/SciDoc.cpp" line="318"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>已经到文件头,
 继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="324"/>
+        <location filename="../src/SciDoc.cpp" line="323"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>已经到文件底,继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="329"/>
+        <location filename="../src/SciDoc.cpp" line="328"/>
         <location filename="../src/lib/CommandStorage.cpp" line="81"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
@@ -1158,31 +1208,31 @@ Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="63"/>
+        <location filename="../src/Manager.cpp" line="65"/>
         <source>Fo&amp;rmat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="45"/>
         <location filename="../src/SciDocHandler.cpp" line="53"/>
-        <location filename="../src/SciDocHandler.cpp" line="492"/>
+        <location filename="../src/SciDocHandler.cpp" line="497"/>
         <source>Line endings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="495"/>
+        <location filename="../src/SciDocHandler.cpp" line="500"/>
         <location filename="../src/lib/CommandStorage.cpp" line="93"/>
         <source>Unix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="498"/>
+        <location filename="../src/SciDocHandler.cpp" line="503"/>
         <location filename="../src/lib/CommandStorage.cpp" line="92"/>
         <source>Mac</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="501"/>
+        <location filename="../src/SciDocHandler.cpp" line="506"/>
         <location filename="../src/lib/CommandStorage.cpp" line="91"/>
         <source>Win</source>
         <translation type="unfinished"></translation>
@@ -1203,7 +1253,7 @@ Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="86"/>
+        <location filename="../src/Manager.cpp" line="88"/>
         <source>Current character set</source>
         <translation type="unfinished"></translation>
     </message>

@@ -179,6 +179,41 @@ anstelle von nur einer Leerstelle</translation>
     </message>
 </context>
 <context>
+    <name>FileTypesPage</name>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="13"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="24"/>
+        <source>Highlighting:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="49"/>
+        <source>File name patterns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="75"/>
+        <location filename="../src/gui/FileTypesPage.ui" line="144"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="94"/>
+        <location filename="../src/gui/FileTypesPage.ui" line="163"/>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.ui" line="118"/>
+        <source>First line patterns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FindDlg</name>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="26"/>
@@ -233,32 +268,32 @@ anstelle von nur einer Leerstelle</translation>
 <context>
     <name>Juff::Document</name>
     <message>
-        <location filename="../src/Document.cpp" line="91"/>
+        <location filename="../src/Document.cpp" line="93"/>
         <source>The file &apos;%1&apos; was modified by external program.</source>
         <translation>Die Datei &apos;%1&apos; wurde von einem externen Programm geändert.</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="92"/>
+        <location filename="../src/Document.cpp" line="94"/>
         <source>What do you want to do?</source>
         <translation>Was wollen Sie tun?</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="93"/>
+        <location filename="../src/Document.cpp" line="95"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="97"/>
+        <location filename="../src/Document.cpp" line="99"/>
         <source>Save current</source>
         <translation>Speichere aktuelles</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="104"/>
+        <location filename="../src/Document.cpp" line="106"/>
         <source>Reload from disk</source>
         <translation>Erneut laden</translation>
     </message>
     <message>
-        <location filename="../src/Document.cpp" line="111"/>
+        <location filename="../src/Document.cpp" line="113"/>
         <source>Ignore</source>
         <translation>Ignorieren</translation>
     </message>
@@ -286,42 +321,42 @@ anstelle von nur einer Leerstelle</translation>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="171"/>
+        <location filename="../src/gui/GUI.cpp" line="173"/>
         <source>Open files</source>
         <translation>Öffne Dateien</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="175"/>
+        <location filename="../src/gui/GUI.cpp" line="177"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="206"/>
+        <location filename="../src/gui/GUI.cpp" line="208"/>
         <source>Save as a copy</source>
         <translation>Speichere Kopie als</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="219"/>
+        <location filename="../src/gui/GUI.cpp" line="221"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="232"/>
+        <location filename="../src/gui/GUI.cpp" line="234"/>
         <source>Save session as</source>
         <translation>Sitzung speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="232"/>
+        <location filename="../src/gui/GUI.cpp" line="234"/>
         <source>Session name</source>
         <translation>Sitzungsname</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="374"/>
+        <location filename="../src/gui/GUI.cpp" line="378"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="411"/>
+        <location filename="../src/gui/GUI.cpp" line="415"/>
         <source>About Qt</source>
         <translation>Über QT</translation>
     </message>
@@ -341,7 +376,7 @@ anstelle von nur einer Leerstelle</translation>
         <translation>Fenster andocken</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="186"/>
+        <location filename="../src/gui/GUI.cpp" line="188"/>
         <source>Charset</source>
         <translation>Zeichensatz</translation>
     </message>
@@ -380,61 +415,67 @@ anstelle von nur einer Leerstelle</translation>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="662"/>
+        <location filename="../src/Manager.cpp" line="687"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Datei &apos;%1&apos; ist schreibgeschützt.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="663"/>
+        <location filename="../src/Manager.cpp" line="688"/>
         <source>What do you want to do?</source>
         <translation>Was wollen Sie tun?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="664"/>
+        <location filename="../src/Manager.cpp" line="646"/>
+        <location filename="../src/Manager.cpp" line="689"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="665"/>
+        <location filename="../src/Manager.cpp" line="646"/>
+        <source>Document &apos;%1&apos; doesn&apos;t exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="690"/>
         <source>Overwrite</source>
         <translation>Überschreiben</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="666"/>
+        <location filename="../src/Manager.cpp" line="691"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="680"/>
+        <location filename="../src/Manager.cpp" line="705"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Einstellung können nicht geändert werden: Zugriff verweigert</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1258"/>
-        <location filename="../src/Manager.cpp" line="1310"/>
+        <location filename="../src/Manager.cpp" line="1285"/>
+        <location filename="../src/Manager.cpp" line="1337"/>
         <source> Lines: %1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="470"/>
+        <location filename="../src/Manager.cpp" line="483"/>
         <source>The document </source>
         <translation>Dokument </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="471"/>
+        <location filename="../src/Manager.cpp" line="484"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> wurde geändert.
 Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="472"/>
+        <location filename="../src/Manager.cpp" line="485"/>
         <source>Close document</source>
         <translation>Dokument schließen</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1218"/>
-        <location filename="../src/Manager.cpp" line="1219"/>
+        <location filename="../src/Manager.cpp" line="1245"/>
+        <location filename="../src/Manager.cpp" line="1246"/>
         <source>Go to line</source>
         <translation>Gehe zu Zeile</translation>
     </message>
@@ -443,10 +484,15 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation type="obsolete">Zeile: %1, Spalte: %2</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1254"/>
-        <location filename="../src/Manager.cpp" line="1309"/>
+        <location filename="../src/Manager.cpp" line="1281"/>
+        <location filename="../src/Manager.cpp" line="1336"/>
         <source> Row: %1, Col: %2 </source>
         <translation> Zeile: %1, Spalte: %2 </translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="240"/>
+        <source>Copy to clipboard</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -460,7 +506,7 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="534"/>
+        <location filename="../src/SciDoc.cpp" line="533"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Datei kann nicht zum Schreiben geöffnet werden </translation>
     </message>
@@ -468,37 +514,36 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>Juff::SciDocHandler</name>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="140"/>
+        <location filename="../src/SciDocHandler.cpp" line="142"/>
         <source>Show line numbers</source>
         <translation>Zeilennummern anzeigen</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="146"/>
+        <location filename="../src/SciDocHandler.cpp" line="148"/>
         <source>Wrap words</source>
         <translation>Zeilenumbruch</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="157"/>
         <source>&amp;View</source>
-        <translation>&amp;Ansicht</translation>
+        <translation type="obsolete">&amp;Ansicht</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="152"/>
+        <location filename="../src/SciDocHandler.cpp" line="154"/>
         <source>Show invisible symbols</source>
         <translation>Unsichtbare Symbole anzeigen</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="531"/>
+        <location filename="../src/SciDocHandler.cpp" line="536"/>
         <source>Macro name</source>
         <translation>Makroname</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="534"/>
+        <location filename="../src/SciDocHandler.cpp" line="539"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="534"/>
+        <location filename="../src/SciDocHandler.cpp" line="539"/>
         <source>Macro with name &apos;%1&apos; already exists</source>
         <translation>Makro &apos;%1&apos; exisitiert schon</translation>
     </message>
@@ -598,12 +643,12 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="392"/>
+        <location filename="../src/SciDoc.cpp" line="391"/>
         <source>Confirmation</source>
         <translation>Bestätigung</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="393"/>
+        <location filename="../src/SciDoc.cpp" line="392"/>
         <source>Replace this text?</source>
         <translation>Text ersetzen?</translation>
     </message>
@@ -638,51 +683,56 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation> Brasilianisch-Portugiesische Übersetzung</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="61"/>
+        <location filename="../src/Manager.cpp" line="62"/>
         <source>&amp;File</source>
         <translation>&amp;Datei</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="62"/>
+        <location filename="../src/Manager.cpp" line="63"/>
         <source>&amp;Edit</source>
         <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="64"/>
+        <source>&amp;View</source>
+        <translation type="unfinished">&amp;Ansicht</translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="66"/>
         <source>&amp;Charset</source>
         <translation>Schriftsatz</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="65"/>
+        <location filename="../src/Manager.cpp" line="67"/>
         <source>Recent files</source>
         <translation>Zuletzt geöffnete Dateien</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="87"/>
+        <location filename="../src/Manager.cpp" line="89"/>
         <source>Lines count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="347"/>
+        <location filename="../src/Manager.cpp" line="360"/>
         <source>Session</source>
         <translation>Sitzung</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="319"/>
+        <location filename="../src/SciDoc.cpp" line="318"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Die Suche hat den Dateianfang erreicht.
 Am Ende fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="324"/>
+        <location filename="../src/SciDoc.cpp" line="323"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Die Suche hat das Dateiende erreicht.
 Am Anfang fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="329"/>
+        <location filename="../src/SciDoc.cpp" line="328"/>
         <location filename="../src/lib/CommandStorage.cpp" line="81"/>
         <source>Find</source>
         <translation>Suchen</translation>
@@ -853,12 +903,12 @@ Am Anfang fortsetzen?</translation>
         <translation>&amp;Syntax</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="84"/>
+        <location filename="../src/Manager.cpp" line="86"/>
         <source>Cursor position</source>
         <translation>Schreibmarkenposition</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="85"/>
+        <location filename="../src/Manager.cpp" line="87"/>
         <source>File full name</source>
         <translation>Vollständiger Dateiname</translation>
     </message>
@@ -878,31 +928,31 @@ Am Anfang fortsetzen?</translation>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="63"/>
+        <location filename="../src/Manager.cpp" line="65"/>
         <source>Fo&amp;rmat</source>
         <translation>Fo&amp;rmat</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="45"/>
         <location filename="../src/SciDocHandler.cpp" line="53"/>
-        <location filename="../src/SciDocHandler.cpp" line="492"/>
+        <location filename="../src/SciDocHandler.cpp" line="497"/>
         <source>Line endings</source>
         <translation>Zeilenende</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="495"/>
+        <location filename="../src/SciDocHandler.cpp" line="500"/>
         <location filename="../src/lib/CommandStorage.cpp" line="93"/>
         <source>Unix</source>
         <translation>Unix</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="498"/>
+        <location filename="../src/SciDocHandler.cpp" line="503"/>
         <location filename="../src/lib/CommandStorage.cpp" line="92"/>
         <source>Mac</source>
         <translation>Macintosh</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="501"/>
+        <location filename="../src/SciDocHandler.cpp" line="506"/>
         <location filename="../src/lib/CommandStorage.cpp" line="91"/>
         <source>Win</source>
         <translation>Windows</translation>
@@ -918,7 +968,7 @@ Am Anfang fortsetzen?</translation>
         <translation>Neues Rich text Dokument</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="86"/>
+        <location filename="../src/Manager.cpp" line="88"/>
         <source>Current character set</source>
         <translation>Ausgewählter Zeichensatz</translation>
     </message>

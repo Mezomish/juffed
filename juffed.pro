@@ -71,6 +71,7 @@ FORMS += src/gui/AutocompleteSettingsPage.ui \
          src/gui/MainSettingsPage.ui \
          src/gui/SessionDlg.ui \
          src/gui/ViewSettingsPage.ui \
+         src/gui/FileTypesPage.ui \
 
 SOURCES += \
            src/DocHandler.cpp \

@@ -461,7 +461,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 		pasSch.defaultStyle = styles["default"];
 		pasSch.rules 
 				<< Rule(styles["comment"], QList<int>() << QsciLexerPascal::Comment << QsciLexerPascal::CommentLine)
-				<< Rule(styles["commentdoc"], QList<int>() << QsciLexerPascal::CommentDoc)
+//				<< Rule(styles["commentdoc"], QList<int>() << QsciLexerPascal::CommentDoc)
 				<< Rule(styles["number"], QList<int>() << QsciLexerPascal::Number)
 				<< Rule(styles["keyword"], QList<int>() << QsciLexerPascal::Keyword)
 				<< Rule(styles["string"], QList<int>() << QsciLexerPascal::SingleQuotedString)

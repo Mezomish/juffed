@@ -64,6 +64,11 @@ SET(DATA_INSTALL_DIR
 
 # input files
 
+SET ( libjuffed_MOC_HDRS
+	include/SettingsItem.h
+	include/SettingsCheckItem.h
+)
+
 SET ( libjuffed_SRCS
 	src/lib/AutocompleteSettings.cpp
 	src/lib/CharsetsSettings.cpp
@@ -74,6 +79,8 @@ SET ( libjuffed_SRCS
 	src/lib/MainSettings.cpp
 	src/lib/PluginSettings.cpp
 	src/lib/Settings.cpp
+	src/lib/SettingsItem.cpp
+	src/lib/SettingsCheckItem.cpp
 	src/lib/TextDocSettings.cpp
 )
 
@@ -186,6 +193,7 @@ SET ( juffed_includes
 	include/Parameter.h
 	include/PluginSettings.h
 	include/Settings.h
+	include/SettingsItem.h
 	include/TextDocSettings.h
 )
 
@@ -201,6 +209,7 @@ configure_file ("${CMAKE_SOURCE_DIR}/cmake/version.cmake" "${CMAKE_BINARY_DIR}/v
 # qt4 actions
 QT4_WRAP_UI ( juffed_UIS_H ${juffed_UIS} )
 QT4_WRAP_CPP ( juffed_MOC_SRCS ${juffed_MOC_HDRS} )
+QT4_WRAP_CPP ( libjuffed_MOC_SRCS ${libjuffed_MOC_HDRS} )
 QT4_ADD_RESOURCES ( juffed_RESOURCES ${juffed_RESOURCES} )
 QT4_AUTOMOC ( ${juffed_SRCS} )
 QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
@@ -255,6 +264,7 @@ ENDIF ( MINGW )
 
 ADD_LIBRARY ( juff SHARED
 	${libjuffed_SRCS}
+	${libjuffed_MOC_SRCS}
 )
 
 # the main build target

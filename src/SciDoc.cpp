@@ -89,6 +89,9 @@ public:
 		edit->markerDefine(QsciScintilla::Background, 2);
 		edit->setMarkerForegroundColor(QColor(100, 100, 100));
 		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
+//		edit->setMarginsBackgroundColor(QColor(50, 50, 50));
+//		edit->setMarginsForegroundColor(QColor(150, 150, 150));
+//		edit->setFoldMarginColors(QColor(150, 150, 150), QColor(50, 50, 50));
 
 		return edit;
 	}

@@ -34,6 +34,8 @@ class PluginPage;
 class FileTypesPage;
 class SyntaxPage;
 
+class SettingsItem;
+
 class SettingsDlg : public QDialog {
 Q_OBJECT
 public:
@@ -50,6 +52,7 @@ signals:
 protected slots:
 	void apply();
 	void ok();
+	void somethingChanged(bool);
 
 private:
 	void init();
@@ -68,6 +71,7 @@ private:
 	FileTypesPage* fileTypesPage_;
 	QWidget* pluginsMainPage_;
 	QMap<QString, PluginPage*> pluginPages_;
+	QList<SettingsItem*> items_;
 };
 
 #endif

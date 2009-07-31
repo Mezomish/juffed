@@ -20,12 +20,33 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QtCore/QDir>
 
-QString MainSettings::lastOpenDir() { 
-	return Settings::stringValue("main", "lastOpenDir", QDir::homePath()); 
-}
-
 bool MainSettings::syncOpenDialogToCurDoc() {
 	return Settings::boolValue("main", "syncOpenDialogToCurDoc", true);
+}
+bool MainSettings::saveSessionOnClose() { 
+	return Settings::boolValue("main", "saveSessionOnClose", true); 
+}
+bool MainSettings::makeBackupOnSave() { 
+	return Settings::value("main", "makeBackupOnSave").toBool(); 
+}
+bool MainSettings::exitOnLastDocClosed() {
+	return Settings::boolValue("main", "exitOnLastDocClosed", false);
+}
+bool MainSettings::stripTrailingSpaces() { 
+	return Settings::boolValue("main", "stripTrailingSpaces", false); 
+}
+bool MainSettings::singleInstance() { 
+	return Settings::boolValue("main", "singleInstance", true); 
+}
+bool MainSettings::closeButtonsOnTabs() {
+	return Settings::boolValue("main", "closeButtonsOnTabs", false);
+}
+
+
+
+
+QString MainSettings::lastOpenDir() { 
+	return Settings::stringValue("main", "lastOpenDir", QDir::homePath()); 
 }
 
 QString MainSettings::lastSaveDir() { 
@@ -74,10 +95,6 @@ QString MainSettings::lastSessionName() {
 	return Settings::value("main", "lastSessionName").toString(); 
 }
 
-bool MainSettings::saveSessionOnClose() { 
-	return Settings::boolValue("main", "saveSessionOnClose", true); 
-}
-
 QString MainSettings::recentFiles() { 
 	return Settings::value("main", "recentFiles").toString(); 
 }
@@ -86,20 +103,8 @@ int MainSettings::recentFilesCount() {
 	return Settings::intValue("main", "recentFilesCount", 10);
 }
 
-bool MainSettings::makeBackupOnSave() { 
-	return Settings::value("main", "makeBackupOnSave").toBool(); 
-}
-
-bool MainSettings::stripTrailingSpaces() { 
-	return Settings::boolValue("main", "stripTrailingSpaces", false); 
-}
-
 bool MainSettings::closeTabsInOrderOfUse() { 
 	return Settings::boolValue("main", "closeTabsInOrderOfUse", false); 
-}
-
-bool MainSettings::singleInstance() { 
-	return Settings::boolValue("main", "singleInstance", true); 
 }
 
 QByteArray MainSettings::mwState() {
@@ -110,13 +115,6 @@ QString MainSettings::toolBar() {
 	return Settings::value("main", "toolBar").toString();
 }
 
-bool MainSettings::closeButtonsOnTabs() {
-	return Settings::boolValue("main", "closeButtonsOnTabs", false);
-}
-
-bool MainSettings::exitOnLastDocClosed() {
-	return Settings::boolValue("main", "exitOnLastDocClosed", false);
-}
 
 
 void MainSettings::setLastOpenDir(const QString& dir) { 
@@ -124,9 +122,6 @@ void MainSettings::setLastOpenDir(const QString& dir) {
 }
 void MainSettings::setLastSaveDir(const QString& dir) { 
 	Settings::setValue("main", "lastSaveDir", dir); 
-}
-void MainSettings::setSyncOpenDialogToCurDoc(bool sync) { 
-	Settings::setValue("main", "syncOpenDialogToCurDoc", sync); 
 }
 void MainSettings::setWindowRect(const QRect& rect) { 
 	Settings::setValue("main", "geometry", rect); 
@@ -155,28 +150,10 @@ void MainSettings::setStartupVariant(int v) {
 void MainSettings::setLastSessionName(const QString& session) { 
 	Settings::setValue("main", "lastSessionName", session); 
 }
-void MainSettings::setSaveSessionOnClose(bool save) { 
-	Settings::setValue("main", "saveSessionOnClose", save); 
-}
 void MainSettings::setRecentFiles(const QString& files) { 
 	Settings::setValue("main", "recentFiles", files); 
 }
-void MainSettings::setMakeBackupOnSave(bool bkp) { 
-	Settings::setValue("main", "makeBackupOnSave", bkp); 
-}
-void MainSettings::setStripTrailingSpaces(bool strip) { 
-	Settings::setValue("main", "stripTrailingSpaces", strip); 
-}
-void MainSettings::setSingleInstance(bool single) { 
-	Settings::setValue("main", "singleInstance", single); 
-}
 void MainSettings::setMwState(const QByteArray& state) {
 	Settings::setValue("main", "mwState", state); 
-}
-void MainSettings::setCloseButtonsOnTabs(bool onTabs) {
-	Settings::setValue("main", "closeButtonsOnTabs", onTabs);
-}
-void MainSettings::setExitOnLastDocClosed(bool ex) {
-	Settings::setValue("main", "exitOnLastDocClosed", ex);
 }
 

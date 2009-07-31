@@ -52,7 +52,6 @@ public:
 
 	static void setLastOpenDir(const QString& dir);
 	static void setLastSaveDir(const QString& dir);
-	static void setSyncOpenDialogToCurDoc(bool sync);
 	static void setWindowRect(const QRect& rect);
 	static void setFindDlgRect(const QRect& rect);
 	static void setMaximized(bool maximized);
@@ -62,14 +61,8 @@ public:
 	static void setIconSize(int sz);
 	static void setStartupVariant(int v);
 	static void setLastSessionName(const QString& session);
-	static void setSaveSessionOnClose(bool save);
 	static void setRecentFiles(const QString& files);
-	static void setMakeBackupOnSave(bool bkp);
-	static void setStripTrailingSpaces(bool strip);
-	static void setSingleInstance(bool single);
 	static void setMwState(const QByteArray&);
-	static void setCloseButtonsOnTabs(bool);
-	static void setExitOnLastDocClosed(bool);
 };
 
 #endif

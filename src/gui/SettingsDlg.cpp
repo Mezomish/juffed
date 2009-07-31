@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -40,8 +42,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "PluginSettings.h"
 #include "TextDocSettings.h"
 #include "AutocompleteSettings.h"
+#include "SettingsItem.h"
 
 #include "ui_MainSettingsPage.h"
+
+#include <juffed/SettingsCheckItem.h>
 
 class MainSettingsPage : public QWidget {
 public:
@@ -159,6 +164,7 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 }
 
 SettingsDlg::~SettingsDlg() {
+	items_.clear();
 	delete pageCharsets_;
 	delete pageEditor_;
 	delete pageMain_;
@@ -190,11 +196,6 @@ void SettingsDlg::init() {
 	JUFFDEBUG("Initialization: GUI settings");
 	int tabPos = MainSettings::tabPosition();
 	pageView_->ui.tabPositionCmb->setCurrentIndex(tabPos);
-#if QT_VERSION >= 0x040500
-	pageView_->ui.closeBtnsChk->setChecked(MainSettings::closeButtonsOnTabs());
-#else
-	pageView_->ui.closeBtnsChk->hide();
-#endif
 	
 	int style = MainSettings::toolButtonStyle();
 	pageView_->ui.toolButtonStyleCmb->setCurrentIndex(style);
@@ -218,16 +219,25 @@ void SettingsDlg::init() {
 			pageMain_->ui.showSessionDlgBtn->setChecked(true);
 	}
 
-	pageMain_->ui.saveSessionChk->setChecked(MainSettings::saveSessionOnClose());
-	pageMain_->ui.exitOnLastDocClosedChk->setChecked(MainSettings::exitOnLastDocClosed());
-	pageMain_->ui.syncOpenDlgChk->setChecked(MainSettings::syncOpenDialogToCurDoc());
-	pageMain_->ui.makeBackupChk->setChecked(MainSettings::makeBackupOnSave());
-	pageMain_->ui.stripSpacesChk->setChecked(MainSettings::stripTrailingSpaces());
-	pageMain_->ui.singleInstanceChk->setChecked(MainSettings::singleInstance());
+	items_ << new SettingsCheckItem("main", "saveSessionOnClose", pageMain_->ui.saveSessionChk, true)
+	       << new SettingsCheckItem("main", "exitOnLastDocClosed", pageMain_->ui.exitOnLastDocClosedChk, false)
+	       << new SettingsCheckItem("main", "syncOpenDialogToCurDoc", pageMain_->ui.syncOpenDlgChk, true)
+	       << new SettingsCheckItem("main", "makeBackupOnSave", pageMain_->ui.makeBackupChk, true)
+	       << new SettingsCheckItem("main", "stripTrailingSpaces", pageMain_->ui.stripSpacesChk, false)
+	       << new SettingsCheckItem("main", "singleInstance", pageMain_->ui.singleInstanceChk, true)
+	;
 #ifndef Q_OS_UNIX
 	pageMain_->ui.singleInstanceChk->hide();
 #endif
+
+#if QT_VERSION >= 0x040500
+	items_ << new SettingsCheckItem("main", "closeButtonsOnTabs", pageView_->ui.closeBtnsChk, true);
+#else
+	pageView_->ui.closeBtnsChk->hide();
+#endif
 	
+	connect(SettingsItem::notifier(), SIGNAL(hasChangedItems(bool)), SLOT(somethingChanged(bool)));
+
 	//	Editor page
 	JUFFDEBUG("Initialization: editor page");
 	pageEditor_->ui.fontCmb->setCurrentFont(TextDocSettings::font());
@@ -274,7 +284,6 @@ void SettingsDlg::apply() {
 	MainSettings::setTabPosition(pageView_->ui.tabPositionCmb->currentIndex());
 	MainSettings::setIconTheme(pageView_->ui.iconThemeCmb->currentText());
 	MainSettings::setToolButtonStyle(pageView_->ui.toolButtonStyleCmb->currentIndex());
-	MainSettings::setCloseButtonsOnTabs(pageView_->ui.closeBtnsChk->isChecked());
 	MainSettings::setIconSize(pageView_->ui.iconSizeCmb->currentIndex());
 	
 	int startupVariant = 0;
@@ -286,12 +295,9 @@ void SettingsDlg::apply() {
 	}
 	MainSettings::setStartupVariant(startupVariant);
 
-	MainSettings::setSaveSessionOnClose(pageMain_->ui.saveSessionChk->isChecked());
-	MainSettings::setExitOnLastDocClosed(pageMain_->ui.exitOnLastDocClosedChk->isChecked());
-	MainSettings::setSyncOpenDialogToCurDoc(pageMain_->ui.syncOpenDlgChk->isChecked());
-	MainSettings::setMakeBackupOnSave(pageMain_->ui.makeBackupChk->isChecked());
-	MainSettings::setStripTrailingSpaces(pageMain_->ui.stripSpacesChk->isChecked());
-	MainSettings::setSingleInstance(pageMain_->ui.singleInstanceChk->isChecked());
+	foreach (SettingsItem* sItem, items_) {
+		sItem->writeValue();
+	}
 
 	//	Editor page
 	QFont font(pageEditor_->ui.fontCmb->currentFont());
@@ -356,4 +362,9 @@ bool SettingsDlg::isPluginEnabled(const QString& pluginName) {
 		return page->pageEnabled();
 	else
 		return false;
+}
+
+
+void SettingsDlg::somethingChanged(bool changed) {
+	qDebug() << "Something is changed:" << (changed ? "TRUE" : "FALSE");
 }

@@ -88,6 +88,8 @@ enum CommandID {
 	//
 	//
 	ID_FILE_NEW_RICH,
+	//
+	ID_LAST_ITEM // MUST ALWAYS REMAIN LAST !!!
 };
 
 enum InfoEvent {

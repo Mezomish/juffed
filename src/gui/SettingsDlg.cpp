@@ -219,19 +219,19 @@ void SettingsDlg::init() {
 			pageMain_->ui.showSessionDlgBtn->setChecked(true);
 	}
 
-	items_ << new SettingsCheckItem("main", "saveSessionOnClose", pageMain_->ui.saveSessionChk, true)
-	       << new SettingsCheckItem("main", "exitOnLastDocClosed", pageMain_->ui.exitOnLastDocClosedChk, false)
-	       << new SettingsCheckItem("main", "syncOpenDialogToCurDoc", pageMain_->ui.syncOpenDlgChk, true)
-	       << new SettingsCheckItem("main", "makeBackupOnSave", pageMain_->ui.makeBackupChk, true)
-	       << new SettingsCheckItem("main", "stripTrailingSpaces", pageMain_->ui.stripSpacesChk, false)
-	       << new SettingsCheckItem("main", "singleInstance", pageMain_->ui.singleInstanceChk, true)
+	items_ << new SettingsCheckItem("main", "saveSessionOnClose", pageMain_->ui.saveSessionChk)
+	       << new SettingsCheckItem("main", "exitOnLastDocClosed", pageMain_->ui.exitOnLastDocClosedChk)
+	       << new SettingsCheckItem("main", "syncOpenDialogToCurDoc", pageMain_->ui.syncOpenDlgChk)
+	       << new SettingsCheckItem("main", "makeBackupOnSave", pageMain_->ui.makeBackupChk)
+	       << new SettingsCheckItem("main", "stripTrailingSpaces", pageMain_->ui.stripSpacesChk)
+	       << new SettingsCheckItem("main", "singleInstance", pageMain_->ui.singleInstanceChk)
 	;
 #ifndef Q_OS_UNIX
 	pageMain_->ui.singleInstanceChk->hide();
 #endif
 
 #if QT_VERSION >= 0x040500
-	items_ << new SettingsCheckItem("main", "closeButtonsOnTabs", pageView_->ui.closeBtnsChk, true);
+	items_ << new SettingsCheckItem("main", "closeButtonsOnTabs", pageView_->ui.closeBtnsChk);
 #else
 	pageView_->ui.closeBtnsChk->hide();
 #endif

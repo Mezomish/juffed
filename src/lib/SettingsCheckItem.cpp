@@ -23,12 +23,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QCheckBox>
 
 SettingsCheckItem::SettingsCheckItem(const QString& section, const QString& key, 
-                                     QCheckBox* cb, bool defaultValue)
+                                     QCheckBox* cb)
 {
 	checkBox_ = cb;
 	section_ = section;
 	key_ = key;
-	default_ = defaultValue;
+//	default_ = Settings::defaultValue(section, key);
 	readValue();
 	
 	connect(cb, SIGNAL(toggled(bool)), SLOT(onChecked(bool)));
@@ -37,7 +37,7 @@ SettingsCheckItem::SettingsCheckItem(const QString& section, const QString& key,
 }
 
 void SettingsCheckItem::readValue() {
-	curValue_ = Settings::boolValue(section_, key_, default_);
+	curValue_ = Settings::boolValue(section_, key_);
 	checkBox_->setChecked(curValue_);
 }
 

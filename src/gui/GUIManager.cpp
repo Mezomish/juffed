@@ -31,13 +31,13 @@ public:
 		Settings::setValue("toolBarVisible", tb->windowTitle(), visible);
 	}
 	static bool toolBarLastState(QToolBar* tb) {
-		return Settings::boolValue("toolBarVisible", tb->windowTitle(), true);
+		return Settings::boolValue("toolBarVisible", tb->windowTitle());
 	}
 	static void saveDockLastState(QWidget* w, bool visible) {
 		Settings::setValue("dockVisible", w->parentWidget()->windowTitle(), visible);
 	}
 	static bool dockLastState(QWidget* w) {
-		return Settings::boolValue("dockVisible", w->parentWidget()->windowTitle(), true);
+		return Settings::boolValue("dockVisible", w->parentWidget()->windowTitle());
 	}
 };
 

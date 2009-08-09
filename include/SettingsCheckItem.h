@@ -26,7 +26,7 @@ class QCheckBox;
 class SettingsCheckItem : public QObject, public SettingsItem {
 Q_OBJECT
 public:
-	SettingsCheckItem(const QString&, const QString&, QCheckBox*, bool defaultValue = false);
+	SettingsCheckItem(const QString&, const QString&, QCheckBox*);
 
 	virtual void readValue();
 	virtual void writeValue();
@@ -38,7 +38,7 @@ private:
 	QCheckBox* checkBox_;
 	QString section_;
 	QString key_;
-	bool default_;
+//	bool default_;
 	bool curValue_;
 };
 

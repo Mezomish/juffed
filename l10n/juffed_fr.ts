@@ -507,7 +507,7 @@ Voulez-vous enregistrer les changements?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="533"/>
+        <location filename="../src/SciDoc.cpp" line="536"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -684,12 +684,12 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Traduction allemande</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="391"/>
+        <location filename="../src/SciDoc.cpp" line="394"/>
         <source>Confirmation</source>
         <translation>Confirmation</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="392"/>
+        <location filename="../src/SciDoc.cpp" line="395"/>
         <source>Replace this text?</source>
         <translation>Remplacer ce texte?</translation>
     </message>
@@ -729,21 +729,21 @@ Voulez-vous enregistrer les changements?</translation>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="318"/>
+        <location filename="../src/SciDoc.cpp" line="321"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>La recherche a atteint le début du fichier.
 Continuer à partir de la fin?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="323"/>
+        <location filename="../src/SciDoc.cpp" line="326"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>La recherche a atteint la fin du fichier.
 Continuer à partir du début?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="328"/>
+        <location filename="../src/SciDoc.cpp" line="331"/>
         <location filename="../src/lib/CommandStorage.cpp" line="81"/>
         <source>Find</source>
         <translation>Chercher</translation>
@@ -1032,22 +1032,27 @@ Continuer à partir du début?</translation>
 <context>
     <name>SessionDlg</name>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="13"/>
+        <location filename="../src/gui/SessionDlg.ui" line="14"/>
         <source>Session manager</source>
         <translation>Gestionnaire de sessions</translation>
     </message>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="44"/>
+        <location filename="../src/gui/SessionDlg.ui" line="45"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="65"/>
+        <location filename="../src/gui/SessionDlg.ui" line="66"/>
         <source>Open session</source>
         <translation>Ouvrir session</translation>
     </message>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="75"/>
+        <location filename="../src/gui/SessionDlg.ui" line="76"/>
+        <source>Remove selected session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SessionDlg.ui" line="96"/>
         <source>New session</source>
         <translation>Nouvelle session</translation>
     </message>
@@ -1055,58 +1060,58 @@ Continuer à partir du début?</translation>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="118"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="123"/>
         <source>Settings</source>
         <translation>Configuration</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="121"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="126"/>
         <source>OK</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="122"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="127"/>
         <source>Apply</source>
         <translation>Appliquer</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="123"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="128"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="135"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="140"/>
         <source>General</source>
         <translation>Général</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="137"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="142"/>
         <source>Editor</source>
         <translation>Editeur</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="139"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="144"/>
         <source>Charsets</source>
         <translation>Encodage</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="136"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="141"/>
         <source>View</source>
         <translation>Affichage</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="138"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="143"/>
         <source>Autocompletion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="140"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="145"/>
         <source>File types</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="144"/>
-        <location filename="../src/gui/SettingsDlg.cpp" line="263"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="149"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="273"/>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
     </message>

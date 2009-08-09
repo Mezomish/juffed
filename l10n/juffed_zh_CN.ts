@@ -565,7 +565,7 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="533"/>
+        <location filename="../src/SciDoc.cpp" line="536"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -949,12 +949,12 @@ Do you want to save your changes?</source>
         <translation>德文翻译</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="391"/>
+        <location filename="../src/SciDoc.cpp" line="394"/>
         <source>Confirmation</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="392"/>
+        <location filename="../src/SciDoc.cpp" line="395"/>
         <source>Replace this text?</source>
         <translation>替换这些文字</translation>
     </message>
@@ -1024,20 +1024,20 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="318"/>
+        <location filename="../src/SciDoc.cpp" line="321"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>已经到文件头,
 继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="323"/>
+        <location filename="../src/SciDoc.cpp" line="326"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>已经到文件底,继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="328"/>
+        <location filename="../src/SciDoc.cpp" line="331"/>
         <location filename="../src/lib/CommandStorage.cpp" line="81"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
@@ -1316,22 +1316,27 @@ Continue from the beginning?</source>
 <context>
     <name>SessionDlg</name>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="13"/>
+        <location filename="../src/gui/SessionDlg.ui" line="14"/>
         <source>Session manager</source>
         <translation>会话层管理</translation>
     </message>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="44"/>
+        <location filename="../src/gui/SessionDlg.ui" line="45"/>
         <source>Name</source>
         <translation>名字</translation>
     </message>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="65"/>
+        <location filename="../src/gui/SessionDlg.ui" line="66"/>
         <source>Open session</source>
         <translation>打开会话</translation>
     </message>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="75"/>
+        <location filename="../src/gui/SessionDlg.ui" line="76"/>
+        <source>Remove selected session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SessionDlg.ui" line="96"/>
         <source>New session</source>
         <translation>新会话</translation>
     </message>
@@ -1339,58 +1344,58 @@ Continue from the beginning?</source>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="118"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="123"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="121"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="126"/>
         <source>OK</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="122"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="127"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="123"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="128"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="135"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="140"/>
         <source>General</source>
         <translation>通常</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="137"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="142"/>
         <source>Editor</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="139"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="144"/>
         <source>Charsets</source>
         <translation>编码</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="136"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="141"/>
         <source>View</source>
         <translation>显示</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="144"/>
-        <location filename="../src/gui/SettingsDlg.cpp" line="263"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="149"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="273"/>
         <source>Plugins</source>
         <translation type="unfinished">插件</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="138"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="143"/>
         <source>Autocompletion</source>
         <translation>自动添加</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="140"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="145"/>
         <source>File types</source>
         <translation type="unfinished"></translation>
     </message>

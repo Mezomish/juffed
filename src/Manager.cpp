@@ -1610,6 +1610,11 @@ void Manager::saveDoc(const QString& fileName) {
 	}
 }
 
+QWidget* Manager::mainWindow() const {
+	return mInt_->viewer_->widget();
+}
+
+
 
 void Manager::copyFileName() {
 	QApplication::clipboard()->setText(mInt_->nameL_->text().trimmed());

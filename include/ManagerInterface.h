@@ -173,6 +173,14 @@ public:
 	*	Inserts the text \par text to the current cursor position.
 	*/
 	virtual void insertText(const QString& text) = 0;
+	
+	/**
+	*	mainWindow()
+	*
+	*	Returns a pointer to a main window. Useful for dialogs 
+	*	that need to have a parent window.
+	*/
+	virtual QWidget* mainWindow() const = 0;
 };
 
 #endif

@@ -62,6 +62,7 @@ public:
 	virtual void removeSelectedText();
 	virtual void replaceSelectedText(const QString&);
 	virtual void insertText(const QString&);
+	virtual QWidget* mainWindow() const;
 
 	virtual bool closeDoc(const QString& fileName);
 	virtual void saveDoc(const QString& fileName);

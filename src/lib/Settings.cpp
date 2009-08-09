@@ -89,7 +89,8 @@ int Settings::intValue(const QString& section, const QString& key, int def) {
 	return settData_->data_[section].value(key, def).toInt();
 }
 
-bool Settings::boolValue(const QString& section, const QString& key, bool def) {
+bool Settings::boolValue(const QString& section, const QString& key) {
+	QVariant def = defaultValue(section, key);
 	return settData_->data_[section].value(key, def).toBool	();
 }
 
@@ -106,3 +107,42 @@ QStringList Settings::keyList(const QString& section) {
 }
 
 SettingsData* Settings::settData_ = new SettingsData();
+
+
+QVariant Settings::defaultValue(const QString& section, const QString& key) {
+	if ( section == "main" ) {
+		if ( key == "syncOpenDialogToCurDoc" ) return true;
+		if ( key == "saveSessionOnClose" )     return true; 
+		if ( key == "makeBackupOnSave" )       return true;
+		if ( key == "exitOnLastDocClosed" )    return false;
+		if ( key == "stripTrailingSpaces" )    return false; 
+		if ( key == "singleInstance" )         return true; 
+		if ( key == "closeButtonsOnTabs" )     return false;
+		if ( key == "closeTabsInOrderOfUse" )  return false;
+	}
+	else if ( section == "autocomplete" ) {
+		if ( key == "useDocument" )   return false;
+		if ( key == "useApis" )       return false;
+		if ( key == "replaceWord" )   return false;
+		if ( key == "caseSensitive" ) return false;
+	}
+	else if ( key == "charset" ) {
+		return true;
+	}
+	else if ( key == "Plugins" ) {
+		return true;
+	}
+	else if ( key == "editor" ) {
+		if ( key == "widthAdjust" )           return false;
+		if ( key == "showLineNumbers" )       return true;
+		if ( key == "showInvisibleSymbols" )  return false;
+		if ( key == "showIndents" )           return true;
+		if ( key == "highlightCurrentLine" )  return true;
+		if ( key == "replaceTabsWithSpaces" ) return false;
+		if ( key == "backspaceUnindents" )    return false;
+	}
+	else if ( key == "toolBarVisible" || key == "dockVisible" ) {
+		return true;
+	}
+	return QVariant();
+}

@@ -59,6 +59,20 @@ public:
 	 * Returns a string value with a key \param key for \param plugin.
 	 */
 	static QString getStringValue(JuffPlugin* plugin, const QString& key);
+
+	/**
+	 * setBoolValue()
+	 *
+	 * Stores a bool \param value with a key \param key for \param plugin.
+	 */
+	static void setBoolValue(JuffPlugin* plugin, const QString& key, bool value);
+	
+	/**
+	 * getBoolValue()
+	 *
+	 * Returns a bool value with a key \param key for \param plugin.
+	 */
+	static bool getBoolValue(JuffPlugin* plugin, const QString& key);
 };
 
 #endif

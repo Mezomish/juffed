@@ -31,28 +31,28 @@ int TextDocSettings::tabStopWidth() {
 	return Settings::intValue("editor", "tabStopWidth", 4); 
 }
 bool TextDocSettings::widthAdjust() { 
-	return Settings::boolValue("editor", "widthAdjust", false);
+	return Settings::boolValue("editor", "widthAdjust");
 }
 bool TextDocSettings::showLineNumbers() { 
-	return Settings::boolValue("editor", "showLineNumbers", true); 
+	return Settings::boolValue("editor", "showLineNumbers"); 
 }
 bool TextDocSettings::showInvisibleSymbols() { 
-	return Settings::boolValue("editor", "showInvisibleSymbols", false); 
+	return Settings::boolValue("editor", "showInvisibleSymbols"); 
 }
 int TextDocSettings::lineLengthIndicator() { 
 	return Settings::intValue("editor", "lineLengthIndicator", 80); 
 }
 bool TextDocSettings::showIndents() {
-	return Settings::boolValue("editor", "showIndents", true);
+	return Settings::boolValue("editor", "showIndents");
 }
 bool TextDocSettings::highlightCurrentLine() {
-	return Settings::boolValue("editor", "highlightCurrentLine", true);
+	return Settings::boolValue("editor", "highlightCurrentLine");
 }
 bool TextDocSettings::replaceTabsWithSpaces() {
-	return Settings::boolValue("editor", "replaceTabsWithSpaces", false);
+	return Settings::boolValue("editor", "replaceTabsWithSpaces");
 }
 bool TextDocSettings::backspaceUnindents() {
-	return Settings::boolValue("editor", "backspaceUnindents", false);
+	return Settings::boolValue("editor", "backspaceUnindents");
 }
 QColor TextDocSettings::markersColor() {
 	QColor deflt(160, 180, 200);

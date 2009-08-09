@@ -21,25 +21,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtCore/QDir>
 
 bool MainSettings::syncOpenDialogToCurDoc() {
-	return Settings::boolValue("main", "syncOpenDialogToCurDoc", true);
+	return Settings::boolValue("main", "syncOpenDialogToCurDoc");
 }
 bool MainSettings::saveSessionOnClose() { 
-	return Settings::boolValue("main", "saveSessionOnClose", true); 
+	return Settings::boolValue("main", "saveSessionOnClose"); 
 }
 bool MainSettings::makeBackupOnSave() { 
-	return Settings::value("main", "makeBackupOnSave").toBool(); 
+	return Settings::boolValue("main", "makeBackupOnSave"); 
 }
 bool MainSettings::exitOnLastDocClosed() {
-	return Settings::boolValue("main", "exitOnLastDocClosed", false);
+	return Settings::boolValue("main", "exitOnLastDocClosed");
 }
 bool MainSettings::stripTrailingSpaces() { 
-	return Settings::boolValue("main", "stripTrailingSpaces", false); 
+	return Settings::boolValue("main", "stripTrailingSpaces"); 
 }
 bool MainSettings::singleInstance() { 
-	return Settings::boolValue("main", "singleInstance", true); 
+	return Settings::boolValue("main", "singleInstance"); 
 }
 bool MainSettings::closeButtonsOnTabs() {
-	return Settings::boolValue("main", "closeButtonsOnTabs", false);
+	return Settings::boolValue("main", "closeButtonsOnTabs");
 }
 
 
@@ -104,7 +104,7 @@ int MainSettings::recentFilesCount() {
 }
 
 bool MainSettings::closeTabsInOrderOfUse() { 
-	return Settings::boolValue("main", "closeTabsInOrderOfUse", false); 
+	return Settings::boolValue("main", "closeTabsInOrderOfUse"); 
 }
 
 QByteArray MainSettings::mwState() {

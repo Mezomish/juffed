@@ -1,5 +1,16 @@
+2009-08-09:
+* Added getting a main widget pointer to a plugins interface
+* Localizations updated
+
+2009-07-31:
+* Fixed: building issue in SettingsDlg (wrong include path)
+* Fixed: building issue with new QScintilla (they removed 
+  CommentDoc style in Pascal lexer)
+
 2009-07-29:
 * Added: removing a session in Session Dialog
+* Fixed: problem with 'lost' main toolbar when call 
+  'New session' or 'Open session'
 
 2009-07-28:
 * Fixed: bug with printing Noname files

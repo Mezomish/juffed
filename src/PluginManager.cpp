@@ -211,6 +211,7 @@ void PluginManager::loadPlugin(const QString& path) {
 			//	Check if we need to load it
 			if ( !PluginSettings::pluginEnabled(plugin->name()) ) {
 				pmInt_->gui_->addPluginSettingsPage(plugin->name(), 0);
+				Log::debug("Plugin is disabled in Settings");
 				return;
 			}
 
@@ -222,7 +223,7 @@ void PluginManager::loadPlugin(const QString& path) {
 			plugin->setManager(pmInt_->managerInt_);
 			if ( pmInt_->addPlugin(plugin) ) {
 
-				qDebug(qPrintable(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name())));
+				Log::debug(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name()));
 
 				//	context menu actions
 				QString type = plugin->targetEngine();
@@ -235,6 +236,12 @@ void PluginManager::loadPlugin(const QString& path) {
 				loader.unload();
 			}
 		}
+		else {
+			Log::debug("Error while casting to JuffPlugin type");
+		}
+	}
+	else {
+		Log::debug("Empty plugin instance");
 	}
 }
 

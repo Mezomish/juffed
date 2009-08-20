@@ -310,11 +310,11 @@ void JuffScintilla::cancelRectInput() {
 }
 
 void JuffScintilla::keyPressEvent(QKeyEvent* e) {
-	int line, col;
-	getCursorPosition(&line, &col);
-
 	if ( hasSelectedText() && SendScintilla(SCI_SELECTIONISRECTANGLE) ) {
 		qDebug() << "yes";
+		int line, col;
+		getCursorPosition(&line, &col);
+
 		int line1, col1, line2, col2;
 		getSelection(&line1, &col1, &line2, &col2);
 		rLine1_ = qMin(line1, line2);

@@ -67,6 +67,7 @@ SET(DATA_INSTALL_DIR
 SET ( libjuffed_MOC_HDRS
 	include/SettingsItem.h
 	include/SettingsCheckItem.h
+	include/SettingsSelectItem.h
 )
 
 SET ( libjuffed_SRCS
@@ -81,6 +82,7 @@ SET ( libjuffed_SRCS
 	src/lib/Settings.cpp
 	src/lib/SettingsItem.cpp
 	src/lib/SettingsCheckItem.cpp
+	src/lib/SettingsSelectItem.cpp
 	src/lib/TextDocSettings.cpp
 )
 

@@ -126,13 +126,13 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "replaceWord" )   return false;
 		if ( key == "caseSensitive" ) return false;
 	}
-	else if ( key == "charset" ) {
+	else if ( section == "charset" ) {
 		return true;
 	}
-	else if ( key == "Plugins" ) {
+	else if ( section == "Plugins" ) {
 		return true;
 	}
-	else if ( key == "editor" ) {
+	else if ( section == "editor" ) {
 		if ( key == "widthAdjust" )           return false;
 		if ( key == "showLineNumbers" )       return true;
 		if ( key == "showInvisibleSymbols" )  return false;
@@ -141,7 +141,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "replaceTabsWithSpaces" ) return false;
 		if ( key == "backspaceUnindents" )    return false;
 	}
-	else if ( key == "toolBarVisible" || key == "dockVisible" ) {
+	else if ( section == "toolBarVisible" || section == "dockVisible" ) {
 		return true;
 	}
 	return QVariant();

@@ -26,7 +26,11 @@ class QComboBox;
 class SettingsSelectItem : public QObject, public SettingsItem {
 Q_OBJECT
 public:
-	SettingsSelectItem(const QString&, const QString&, QComboBox*, int defaultValue = -1);
+	enum Mode {
+		IndexMode,
+		StringMode
+	};
+	SettingsSelectItem(const QString&, const QString&, QComboBox*, Mode mode);
 
 	virtual void readValue();
 	virtual void writeValue();
@@ -39,9 +43,9 @@ private:
 	QComboBox* comboBox_;
 	QString section_;
 	QString key_;
-//	bool default_;
-//	bool curValue_;
-	int curItem_;
+	int curIndex_;
+	QString curString_;
+	Mode mode_;
 };
 
 #endif /* __JUFF_SETTINGS_SELECT_ITEM_H__ */

@@ -36,7 +36,7 @@ public:
 
 protected:
 	static bool valueExists(const QString& section, const QString& key);
-	static QString stringValue(const QString& section, const QString& key, const QString& def = "");
+	static QString stringValue(const QString& section, const QString& key);
 	static int intValue(const QString& section, const QString& key, int def = 0);
 	static bool boolValue(const QString& section, const QString& key);
 	static QVariant value(const QString& section, const QString& key, const QVariant& defValue = QVariant());

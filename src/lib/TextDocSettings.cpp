@@ -19,11 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TextDocSettings.h"
 
 QFont TextDocSettings::font() { 
-#ifdef Q_OS_WIN32
-	QString fontFamily = Settings::stringValue("editor", "fontFamily", "Courier New");
-#else
-	QString fontFamily = Settings::stringValue("editor", "fontFamily", "DejaVu Sans Mono");
-#endif
+	QString fontFamily = Settings::stringValue("editor", "fontFamily");
 	int fontSize = Settings::intValue("editor", "fontSize", 10);
 	return QFont(fontFamily, fontSize); 
 }

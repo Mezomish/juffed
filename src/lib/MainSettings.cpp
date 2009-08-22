@@ -46,11 +46,11 @@ bool MainSettings::closeButtonsOnTabs() {
 
 
 QString MainSettings::lastOpenDir() { 
-	return Settings::stringValue("main", "lastOpenDir", QDir::homePath()); 
+	return Settings::stringValue("main", "lastOpenDir");
 }
 
 QString MainSettings::lastSaveDir() { 
-	return Settings::stringValue("main", "lastSaveDir", QDir::homePath()); 
+	return Settings::stringValue("main", "lastSaveDir");
 }
 
 int MainSettings::tabPosition() { 

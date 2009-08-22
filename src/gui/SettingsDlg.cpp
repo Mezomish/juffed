@@ -47,6 +47,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "ui_MainSettingsPage.h"
 
 #include <SettingsCheckItem.h>
+#include <SettingsSelectItem.h>
 
 class MainSettingsPage : public QWidget {
 public:
@@ -54,6 +55,36 @@ public:
 		JUFFENTRY;
 		ui.setupUi(this);
 	}
+
+	void init(QList<SettingsItem*>& items) {
+		JUFFDEBUG("Initialization: main page");
+		int startupVariant = MainSettings::startupVariant();
+		switch (startupVariant) {
+			case 1:
+				ui.openLastSessionBtn->setChecked(true);
+				break;
+
+			case 2:
+				ui.openEmptySessionBtn->setChecked(true);
+				break;
+
+			case 0:
+			default:
+				ui.showSessionDlgBtn->setChecked(true);
+		}
+
+		items << new SettingsCheckItem("main", "saveSessionOnClose", ui.saveSessionChk)
+			  << new SettingsCheckItem("main", "exitOnLastDocClosed", ui.exitOnLastDocClosedChk)
+			  << new SettingsCheckItem("main", "syncOpenDialogToCurDoc", ui.syncOpenDlgChk)
+			  << new SettingsCheckItem("main", "makeBackupOnSave", ui.makeBackupChk)
+			  << new SettingsCheckItem("main", "stripTrailingSpaces", ui.stripSpacesChk)
+			  << new SettingsCheckItem("main", "singleInstance", ui.singleInstanceChk)
+		;
+#ifndef Q_OS_UNIX
+		ui.singleInstanceChk->hide();
+#endif
+	}
+
 	Ui::MainSettingsPage ui;
 };
 
@@ -65,6 +96,27 @@ public:
 		JUFFENTRY;
 		ui.setupUi(this);
 	}
+
+	void init(QList<SettingsItem*>& items) {
+		//	icon themes
+		JUFFDEBUG("Initialization: icon theme");
+		QStringList themes = IconManager::instance()->themeList();
+		ui.iconThemeCmb->clear();
+		ui.iconThemeCmb->addItem("<default>");
+		ui.iconThemeCmb->addItems(themes);
+
+		items << new SettingsSelectItem("main", "iconTheme", ui.iconThemeCmb, SettingsSelectItem::StringMode)
+		      << new SettingsSelectItem("main", "toolButtonStyle", ui.toolButtonStyleCmb, SettingsSelectItem::IndexMode)
+			  << new SettingsSelectItem("main", "iconSize", ui.iconSizeCmb, SettingsSelectItem::IndexMode)
+			  << new SettingsSelectItem("main", "tabPosition", ui.tabPositionCmb, SettingsSelectItem::IndexMode)
+		;
+#if QT_VERSION >= 0x040500
+		items << new SettingsCheckItem("main", "closeButtonsOnTabs", ui.closeBtnsChk);
+#else
+		ui.closeBtnsChk->hide();
+#endif
+	}
+	
 	Ui::ViewSettingsPage ui;
 };
 
@@ -89,6 +141,27 @@ public:
 		selectionBgColorBtn_ = new ColorButton(ui.selectionBgColorBtn, TextDocSettings::selectionBgColor());
 	}
 	
+	void init(QList<SettingsItem*>& items) {
+		JUFFDEBUG("Initialization: editor page");
+		ui.fontCmb->setCurrentFont(TextDocSettings::font());
+		ui.fontSizeSpin->setValue(TextDocSettings::font().pointSize());
+		int chars = TextDocSettings::lineLengthIndicator();
+		if (chars > 0) {
+			ui.showLineLengthChk->setChecked(true);
+			ui.lineLengthSpin->setValue(chars);
+		}
+		else {
+			ui.showLineLengthChk->setChecked(false);
+			ui.lineLengthSpin->setValue(-chars);
+		}
+		ui.tabStopWidthSpin->setValue(TextDocSettings::tabStopWidth());
+
+		items << new SettingsCheckItem("editor", "highlightCurrentLine", ui.hlCurLineChk)
+			  << new SettingsCheckItem("editor", "showIndents", ui.showIndentsChk)
+			  << new SettingsCheckItem("editor", "replaceTabsWithSpaces", ui.replaceTabsChk)
+			  << new SettingsCheckItem("editor", "backspaceUnindents", ui.unindentChk);
+	}
+	
 	Ui::EditorSettingsPage ui;
 	ColorButton* curLineColorBtn_;
 	ColorButton* markersColorBtn_;
@@ -105,6 +178,14 @@ class AutocompleteSettingsPage : public QWidget {
 public:
 	AutocompleteSettingsPage() : QWidget() {
 		ui.setupUi(this);
+	}
+	
+	void init(QList<SettingsItem*>& items) {
+		items << new SettingsCheckItem("autocomplete", "useDocument", ui.useDocumentChk)
+			  << new SettingsCheckItem("autocomplete", "useApis", ui.useApiChk)
+			  << new SettingsCheckItem("autocomplete", "replaceWord", ui.replaceWordChk)
+			  << new SettingsCheckItem("autocomplete", "caseSensitive", ui.matchCaseChk);
+		ui.thresholdSpin->setValue(AutocompleteSettings::threshold());
 	}
 	
 	Ui::AutocompletePage ui;
@@ -178,91 +259,12 @@ SettingsDlg::~SettingsDlg() {
 void SettingsDlg::init() {
 	JUFFENTRY;
 	
-	//	icon themes
-	JUFFDEBUG("Initialization: icon theme");
-	QStringList themes = IconManager::instance()->themeList();
-	pageView_->ui.iconThemeCmb->clear();
-	pageView_->ui.iconThemeCmb->addItem("<default>");
-	pageView_->ui.iconThemeCmb->addItems(themes);
-	
-	QString iconTheme = MainSettings::iconTheme();
-	if ( iconTheme.isEmpty() || !themes.contains(iconTheme) ) {
-		pageView_->ui.iconThemeCmb->setCurrentIndex(pageView_->ui.iconThemeCmb->findText("<default>"));
-	}
-	else {
-		pageView_->ui.iconThemeCmb->setCurrentIndex(pageView_->ui.iconThemeCmb->findText(iconTheme));
-	}
-
-	JUFFDEBUG("Initialization: GUI settings");
-	int tabPos = MainSettings::tabPosition();
-	pageView_->ui.tabPositionCmb->setCurrentIndex(tabPos);
-	
-	int style = MainSettings::toolButtonStyle();
-	pageView_->ui.toolButtonStyleCmb->setCurrentIndex(style);
-	pageView_->ui.iconSizeCmb->setCurrentIndex(MainSettings::iconSize());
-	
-
-	//	Main page
-	JUFFDEBUG("Initialization: main page");
-	int startupVariant = MainSettings::startupVariant();
-	switch (startupVariant) {
-		case 1:
-			pageMain_->ui.openLastSessionBtn->setChecked(true);
-			break;
-
-		case 2:
-			pageMain_->ui.openEmptySessionBtn->setChecked(true);
-			break;
-
-		case 0:
-		default:
-			pageMain_->ui.showSessionDlgBtn->setChecked(true);
-	}
-
-	items_ << new SettingsCheckItem("main", "saveSessionOnClose", pageMain_->ui.saveSessionChk)
-	       << new SettingsCheckItem("main", "exitOnLastDocClosed", pageMain_->ui.exitOnLastDocClosedChk)
-	       << new SettingsCheckItem("main", "syncOpenDialogToCurDoc", pageMain_->ui.syncOpenDlgChk)
-	       << new SettingsCheckItem("main", "makeBackupOnSave", pageMain_->ui.makeBackupChk)
-	       << new SettingsCheckItem("main", "stripTrailingSpaces", pageMain_->ui.stripSpacesChk)
-	       << new SettingsCheckItem("main", "singleInstance", pageMain_->ui.singleInstanceChk)
-	;
-#ifndef Q_OS_UNIX
-	pageMain_->ui.singleInstanceChk->hide();
-#endif
-
-#if QT_VERSION >= 0x040500
-	items_ << new SettingsCheckItem("main", "closeButtonsOnTabs", pageView_->ui.closeBtnsChk);
-#else
-	pageView_->ui.closeBtnsChk->hide();
-#endif
-	
 	connect(SettingsItem::notifier(), SIGNAL(hasChangedItems(bool)), SLOT(somethingChanged(bool)));
 
-	//	Editor page
-	JUFFDEBUG("Initialization: editor page");
-	pageEditor_->ui.fontCmb->setCurrentFont(TextDocSettings::font());
-	pageEditor_->ui.fontSizeSpin->setValue(TextDocSettings::font().pointSize());
-	int chars = TextDocSettings::lineLengthIndicator();
-	if (chars > 0) {
-		pageEditor_->ui.showLineLengthChk->setChecked(true);
-		pageEditor_->ui.lineLengthSpin->setValue(chars);
-	}
-	else {
-		pageEditor_->ui.showLineLengthChk->setChecked(false);
-		pageEditor_->ui.lineLengthSpin->setValue(-chars);
-	}
-	pageEditor_->ui.hlCurLineChk->setChecked(TextDocSettings::highlightCurrentLine());
-	pageEditor_->ui.tabStopWidthSpin->setValue(TextDocSettings::tabStopWidth());
-	pageEditor_->ui.showIndentsChk->setChecked(TextDocSettings::showIndents());
-	pageEditor_->ui.replaceTabsChk->setChecked(TextDocSettings::replaceTabsWithSpaces());
-	pageEditor_->ui.unindentChk->setChecked(TextDocSettings::backspaceUnindents());
-
-	//	Autocomplete
-	pageAC_->ui.useDocumentChk->setChecked(AutocompleteSettings::useDocument());
-	pageAC_->ui.useApiChk->setChecked(AutocompleteSettings::useApis());
-	pageAC_->ui.replaceWordChk->setChecked(AutocompleteSettings::replaceWord());
-	pageAC_->ui.matchCaseChk->setChecked(AutocompleteSettings::caseSensitive());
-	pageAC_->ui.thresholdSpin->setValue(AutocompleteSettings::threshold());
+	pageMain_->init(items_);
+	pageView_->init(items_);
+	pageEditor_->init(items_);
+	pageAC_->init(items_);
 	
 	//	charsets page
 	pageCharsets_->init();
@@ -281,11 +283,6 @@ int SettingsDlg::exec() {
 }
 
 void SettingsDlg::apply() {
-	MainSettings::setTabPosition(pageView_->ui.tabPositionCmb->currentIndex());
-	MainSettings::setIconTheme(pageView_->ui.iconThemeCmb->currentText());
-	MainSettings::setToolButtonStyle(pageView_->ui.toolButtonStyleCmb->currentIndex());
-	MainSettings::setIconSize(pageView_->ui.iconSizeCmb->currentIndex());
-	
 	int startupVariant = 0;
 	if (pageMain_->ui.openLastSessionBtn->isChecked()) {
 		startupVariant = 1;
@@ -310,7 +307,6 @@ void SettingsDlg::apply() {
 	else {
 		TextDocSettings::setLineLengthIndicator(-pageEditor_->ui.lineLengthSpin->value());
 	}
-	TextDocSettings::setHighlightCurrentLine(pageEditor_->ui.hlCurLineChk->isChecked());
 	// colors
 	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
 	TextDocSettings::setCurLineColor(pageEditor_->curLineColorBtn_->color());
@@ -320,16 +316,9 @@ void SettingsDlg::apply() {
 	TextDocSettings::setIndentsColor(pageEditor_->indentsColorBtn_->color());
 	TextDocSettings::setSelectionBgColor(pageEditor_->selectionBgColorBtn_->color());
 
-	TextDocSettings::setReplaceTabsWithSpaces(pageEditor_->ui.replaceTabsChk->isChecked());
-	TextDocSettings::setBackspaceUnindents(pageEditor_->ui.unindentChk->isChecked());
 	TextDocSettings::setTabStopWidth(pageEditor_->ui.tabStopWidthSpin->value());
-	TextDocSettings::setShowIndents(pageEditor_->ui.showIndentsChk->isChecked());
 
 	//	Autocomplete
-	AutocompleteSettings::setUseDocument(pageAC_->ui.useDocumentChk->isChecked());
-	AutocompleteSettings::setUseApis(pageAC_->ui.useApiChk->isChecked());
-	AutocompleteSettings::setReplaceWord(pageAC_->ui.replaceWordChk->isChecked());
-	AutocompleteSettings::setCaseSensitive(pageAC_->ui.matchCaseChk->isChecked());
 	AutocompleteSettings::setThreshold(pageAC_->ui.thresholdSpin->value());
 
 	//	charsets

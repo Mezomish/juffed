@@ -58,7 +58,7 @@ void PluginSettings::setStringValue(JuffPlugin* plugin, const QString& key, cons
 
 QString PluginSettings::getStringValue(JuffPlugin* plugin, const QString& key) {
 	if ( plugin )
-		return Settings::stringValue(plugin->name(), key, "");
+		return Settings::stringValue(plugin->name(), key);
 	else
 		return "";
 }

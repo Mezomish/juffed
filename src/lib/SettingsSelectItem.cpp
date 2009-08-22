@@ -23,12 +23,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QComboBox>
 
 SettingsSelectItem::SettingsSelectItem(const QString& section, const QString& key, 
-                                     QComboBox* cb, int defaultValue)
+                                     QComboBox* cb, Mode mode)
 {
 	comboBox_ = cb;
 	section_ = section;
 	key_ = key;
-//	default_ = defaultValue;
+	mode_ = mode;
 	readValue();
 	
 	connect(cb, SIGNAL(activated(int)), SLOT(onSelected(int)));
@@ -37,11 +37,30 @@ SettingsSelectItem::SettingsSelectItem(const QString& section, const QString& ke
 }
 
 void SettingsSelectItem::readValue() {
+	if ( mode_ == IndexMode ) {
+		curIndex_ = Settings::intValue(section_, key_);
+		comboBox_->setCurrentIndex(curIndex_);
+	}
+	else {
+		curString_ = Settings::stringValue(section_, key_);
+		int index = comboBox_->findText(curString_);
+		if ( index >= 0 )
+			comboBox_->setCurrentIndex(index);
+	}
 //	curItem_ = Settings::boolValue(section_, key_, default_);
 //	comboBox_->setComboed(curValue_);
 }
 
 void SettingsSelectItem::writeValue() {
+	if ( mode_ == IndexMode ) {
+		curIndex_ = comboBox_->currentIndex();
+		Settings::setValue(section_, key_, curIndex_);
+	}
+	else {
+		curString_ = comboBox_->currentText();
+		Settings::setValue(section_, key_, curString_);
+	}
+	oneLessChanged();
 //	if ( comboBox_->isComboed() != curValue_ ) {
 //		curValue_ = comboBox_->isComboed();
 //		Settings::setValue(section_, key_, curValue_);
@@ -50,6 +69,18 @@ void SettingsSelectItem::writeValue() {
 }
 
 void SettingsSelectItem::onSelected(int item) {
+	if ( mode_ == IndexMode ) {
+		if ( comboBox_->currentIndex() == curIndex_ )
+			oneLessChanged();
+		else
+			oneMoreChanged();
+	}
+	else {
+		if ( comboBox_->currentText() == curString_ )
+			oneLessChanged();
+		else
+			oneMoreChanged();
+	}
 //	if ( comboed != curValue_ )
 //		oneMoreChanged();
 //	else

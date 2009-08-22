@@ -81,8 +81,8 @@ QVariant Settings::value(const QString& section, const QString& key, const QVari
 	return settData_->data_[section].value(key, defValue);
 }
 
-QString Settings::stringValue(const QString& section, const QString& key, const QString& def) {
-	return settData_->data_[section].value(key, def).toString();
+QString Settings::stringValue(const QString& section, const QString& key) {
+	return settData_->data_[section].value(key, defaultValue(section, key)).toString();
 }
 
 int Settings::intValue(const QString& section, const QString& key, int def) {
@@ -119,6 +119,9 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "singleInstance" )         return true; 
 		if ( key == "closeButtonsOnTabs" )     return false;
 		if ( key == "closeTabsInOrderOfUse" )  return false;
+		if ( key == "iconTheme" )              return "<default>";
+		if ( key == "lastOpenDir" )            return QDir::homePath();
+		if ( key == "lastSaveDir" )            return QDir::homePath();
 	}
 	else if ( section == "autocomplete" ) {
 		if ( key == "useDocument" )   return false;
@@ -140,6 +143,12 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "highlightCurrentLine" )  return true;
 		if ( key == "replaceTabsWithSpaces" ) return false;
 		if ( key == "backspaceUnindents" )    return false;
+		if ( key == "fontFamily" )
+#ifdef Q_OS_WIN32
+			return "Courier New";
+#else
+			return "DejaVu Sans Mono";
+#endif
 	}
 	else if ( section == "toolBarVisible" || section == "dockVisible" ) {
 		return true;

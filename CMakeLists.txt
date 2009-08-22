@@ -76,6 +76,8 @@ SET ( libjuffed_SRCS
 	src/lib/CommandStorage.cpp
 	src/lib/FileTypeSettings.cpp
 	src/lib/IconManager.cpp
+	src/lib/JuffFunctions.cpp
+	src/lib/KeySettings.cpp
 	src/lib/Log.cpp
 	src/lib/MainSettings.cpp
 	src/lib/PluginSettings.cpp
@@ -188,6 +190,7 @@ SET ( juffed_includes
 	include/IconManager.h
 	include/Juff.h
 	include/JuffPlugin.h
+	include/KeySettings.h
 	include/License.h
 	include/Log.h
 	include/MainSettings.h
@@ -196,6 +199,8 @@ SET ( juffed_includes
 	include/PluginSettings.h
 	include/Settings.h
 	include/SettingsItem.h
+	include/SettingsCheckItem.h
+	include/SettingsSelectItem.h
 	include/TextDocSettings.h
 )
 

@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	Qt
 #include <QtGui/QAction>
 
+#include "KeySettings.h"
+
 namespace Juff {
 
 CommandStorage* CommandStorage::instance() {
@@ -106,6 +108,10 @@ QString CommandStorage::getName(CommandID id) {
 }
 
 QKeySequence CommandStorage::getShortcut(CommandID id) {
+	QKeySequence seq = KeySettings::keySequence(id);
+	if ( !seq.isEmpty() )
+		return seq;
+
 	switch (id) {
 		case ID_FILE_NEW :          return QKeySequence("Ctrl+N");
 		case ID_FILE_NEW_RICH :     return QKeySequence("Ctrl+M");

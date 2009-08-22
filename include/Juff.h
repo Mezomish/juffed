@@ -30,61 +30,61 @@ class QAction;
 namespace Juff {
 
 enum CommandID {
-	ID_NONE,
-	ID_SEPARATOR,
+	ID_NONE,                  //  == 0
+	ID_SEPARATOR,             //  == 1
 	//
-	ID_FILE_NEW,
-	ID_FILE_OPEN,
-	ID_FILE_SAVE,
-	ID_FILE_SAVE_AS,
-	ID_FILE_SAVE_ALL,
-	ID_FILE_RELOAD,
-	ID_FILE_CLOSE,
-	ID_FILE_CLOSE_ALL,
-	ID_FILE_PRINT,
-	ID_EXIT,
+	ID_FILE_NEW,              //  == 2
+	ID_FILE_OPEN,             //  == 3
+	ID_FILE_SAVE,             //  == 4
+	ID_FILE_SAVE_AS,          //  == 5
+	ID_FILE_SAVE_ALL,         //  == 6
+	ID_FILE_RELOAD,           //  == 7
+	ID_FILE_CLOSE,            //  == 8
+	ID_FILE_CLOSE_ALL,        //  == 9
+	ID_FILE_PRINT,            //  == 10
+	ID_EXIT,                  //  == 11
 	//
-	ID_SESSION_NEW,
-	ID_SESSION_OPEN,
-	ID_SESSION_SAVE,
-	ID_SESSION_SAVE_AS,
+	ID_SESSION_NEW,           //  == 12
+	ID_SESSION_OPEN,          //  == 13
+	ID_SESSION_SAVE,          //  == 14
+	ID_SESSION_SAVE_AS,       //  == 15
 	//
-	ID_DOC_NEXT,
-	ID_DOC_PREV,
+	ID_DOC_NEXT,              //  == 16
+	ID_DOC_PREV,              //  == 17
 	//
-	ID_EDIT_UNDO,
-	ID_EDIT_REDO,
-	ID_EDIT_CUT,
-	ID_EDIT_COPY,
-	ID_EDIT_PASTE,
-	ID_EDIT_SELECT_ALL,
+	ID_EDIT_UNDO,             //  == 18
+	ID_EDIT_REDO,             //  == 19
+	ID_EDIT_CUT,              //  == 20
+	ID_EDIT_COPY,             //  == 21
+	ID_EDIT_PASTE,            //  == 22
+	ID_EDIT_SELECT_ALL,       //  == 23
 	//
-	ID_FIND,
-	ID_FIND_NEXT,
-	ID_FIND_PREV,
-	ID_REPLACE,
-	ID_GOTO_LINE,
+	ID_FIND,                  //  == 24
+	ID_FIND_NEXT,             //  == 25
+	ID_FIND_PREV,             //  == 26
+	ID_REPLACE,               //  == 27
+	ID_GOTO_LINE,             //  == 28
 	//
-	ID_SHOW_LINE_NUMBERS,
-	ID_WRAP_TEXT,
-	ID_SHOW_HIDDEN_SYMBOLS,
+	ID_SHOW_LINE_NUMBERS,     //  == 29
+	ID_WRAP_TEXT,             //  == 30
+	ID_SHOW_HIDDEN_SYMBOLS,   //  == 31
 	//
-	ID_ZOOM_IN,
-	ID_ZOOM_OUT,
-	ID_ZOOM_100,
+	ID_ZOOM_IN,               //  == 32
+	ID_ZOOM_OUT,              //  == 33
+	ID_ZOOM_100,              //  == 34
 	//
-	ID_EOL_WIN,
-	ID_EOL_MAC,
-	ID_EOL_UNIX,
+	ID_EOL_WIN,               //  == 35
+	ID_EOL_MAC,               //  == 36
+	ID_EOL_UNIX,              //  == 37
 	//
-	ID_MARKER_TOGGLE,
-	ID_MARKER_NEXT,
-	ID_MARKER_PREV,
-	ID_MARKER_REMOVE_ALL,
+	ID_MARKER_TOGGLE,         //  == 38
+	ID_MARKER_NEXT,           //  == 39
+	ID_MARKER_PREV,           //  == 40
+	ID_MARKER_REMOVE_ALL,     //  == 41
 	//
-	ID_SETTINGS,
-	ID_ABOUT,
-	ID_ABOUT_QT,
+	ID_SETTINGS,              //  == 42
+	ID_ABOUT,                 //  == 43
+	ID_ABOUT_QT,              //  == 44
 	//
 	//
 	ID_FILE_NEW_RICH,
@@ -150,6 +150,9 @@ typedef QList<QMenu*> MenuList;
 typedef QList<QToolBar*> ToolBarList;
 typedef QList<QAction*> ActionList;
 typedef QList<int> IntList;
+
+QString commandIdToString(CommandID);
+CommandID stringToCommandId(const QString&);
 
 }	//	namespace Juff
 

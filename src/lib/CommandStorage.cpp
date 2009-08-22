@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -156,7 +158,7 @@ QAction* CommandStorage::action(int id) {
 		return sep;
 	}
 	
-	return cmds_[id];
+	return cmds_.value(id, 0);
 }
 
 void CommandStorage::updateIcons() {

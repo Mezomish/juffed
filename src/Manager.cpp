@@ -307,7 +307,7 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 
 	mInt_->gui_->addMenus("all", mInt_->pluginManager_->getMenus("all"));
 
-	applySettings();
+	applySettings(false);
 
 	//	restore toolbars and docks positions
 	mInt_->gui_->restoreState();
@@ -584,7 +584,7 @@ void Manager::addDocHandler(DocHandler* handler) {
 	connect(handler, SIGNAL(getCurDoc()), SLOT(curDoc()));
 }
 
-void Manager::applySettings() {
+void Manager::applySettings(bool save) {
 	mInt_->viewer_->applySettings();
 	mInt_->gui_->setToolBarIconSize(MainSettings::iconSize());
 	mInt_->gui_->setToolButtonStyle((Qt::ToolButtonStyle)MainSettings::toolButtonStyle());
@@ -604,6 +604,9 @@ void Manager::applySettings() {
 	initCharsetMenu();
 	
 	mInt_->pluginManager_->applySettings();
+	
+	if ( save )
+		Settings::write();
 }
 
 Document* Manager::curDoc() const {

@@ -120,7 +120,7 @@ private slots:
 	void onLinesCountChanged(int);
 	void onContextMenuCalled(int, int);
 	void docFileNameChanged(const QString&);
-	void applySettings();
+	void applySettings(bool save = true);
 	void onCloseEvent(bool&);
 	
 	//	slots for signals from Viewer

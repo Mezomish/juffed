@@ -1,3 +1,17 @@
+2009-08-22:
+* Some internal changes in Settings (SettingsSelectItem)
+* Fixed troubles with versioning on Windows
+* Added: shortcuts configuration (for now in config only, no GUI)
+
+2009-08-19:
+* Resolved a possible performance issue
+* Fixed: bug in default values for some settings
+* Added script for making tarballs easily and correctly
+
+-------------------------------
+Preview-version 0.7.591
+-------------------------------
+
 2009-08-09:
 * Added getting a main widget pointer to a plugins interface
 * Localizations updated

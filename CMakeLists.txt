@@ -205,8 +205,8 @@ SET (QT_USE_QTXML TRUE)
 INCLUDE (${QT_USE_FILE})
 
 #Configure AppInfo.h
-configure_file ("${CMAKE_SOURCE_DIR}/src/AppInfo.nix.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.nix.h" @ONLY)
-configure_file ("${CMAKE_SOURCE_DIR}/include/AppInfo.win.h" "${CMAKE_SOURCE_DIR}/include/AppInfo.win.h" @ONLY)
+configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.nix.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.nix.h" @ONLY)
+configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.win.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.win.h" @ONLY)
 configure_file ("${CMAKE_SOURCE_DIR}/cmake/version.cmake" "${CMAKE_BINARY_DIR}/version.real" @ONLY)
 
 # qt4 actions

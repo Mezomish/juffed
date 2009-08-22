@@ -82,6 +82,9 @@ QString CommandStorage::getName(CommandID id) {
 		case ID_EDIT_COPY :         return QObject::tr("Copy");
 		case ID_EDIT_PASTE :        return QObject::tr("Paste");
 
+		case ID_DOC_NEXT :          return QObject::tr("Next document");
+		case ID_DOC_PREV :          return QObject::tr("Previous document");
+
 		case ID_FIND :              return QObject::tr("Find");
 		case ID_FIND_NEXT :         return QObject::tr("Find next");
 		case ID_FIND_PREV :         return QObject::tr("Find previous");

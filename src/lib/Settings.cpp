@@ -150,8 +150,11 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 			return "DejaVu Sans Mono";
 #endif
 	}
-	else if ( section == "toolBarVisible" || section == "dockVisible" ) {
+	else if ( section == "toolBarVisible" ) {
 		return true;
+	}
+	else if ( section == "dockVisible" ) {
+		return false;
 	}
 	return QVariant();
 }

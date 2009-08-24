@@ -56,6 +56,8 @@ public:
 	virtual void getCursorPos(int&, int&);
 	virtual void getSelection(int&, int&, int&, int&);
 	virtual void getSelectedText(QString&);
+	virtual QString getCurDocCharset();
+	virtual void setCurDocCharset(const QString&);
 
 	virtual void setCursorPos(int, int);
 	virtual void setSelection(int, int, int, int);

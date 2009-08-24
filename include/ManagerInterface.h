@@ -94,6 +94,9 @@ public:
 	*/
 	virtual void getCurrentDocText(int line, QString& text) = 0;
 
+	virtual QString getCurDocCharset() = 0;
+	virtual void setCurDocCharset(const QString&) = 0;
+
 	/**
 	* getDocText()
 	*

@@ -1504,6 +1504,22 @@ void Manager::getCurrentDocText(int line, QString& text) {
 	}
 }
 
+QString Manager::getCurDocCharset() {
+	Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		return doc->charset();
+	}
+	else {
+		return "";
+	}
+}
+
+void Manager::setCurDocCharset(const QString& charset) {
+	Document* doc = curDoc();
+	if ( !doc->isNull() )
+		doc->setCharset(charset);
+}
+
 
 void Manager::getCursorPos(int& line, int& col) {
 	JUFFENTRY;

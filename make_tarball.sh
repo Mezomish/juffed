@@ -2,7 +2,7 @@
 
 REVISION=`LC_ALL=C svn info | grep Revision | cut -d" " -f2-`
 VERSION=`cat version`".$REVISION"
-DIR="juffed-${VERSION}"
+DIR="juffed_${VERSION}"
 
 mkdir $DIR
 
@@ -13,6 +13,6 @@ echo $VERSION > $DIR/version
 rm -rf $DIR/win32/
 find $DIR -name ".svn" -exec rm -rf '{}' ';'
 
-tar -czf "juffed_${VERSION}.tar.gz" $DIR
-tar -cjf "juffed_${VERSION}.tar.bz2" $DIR
-7z a "juffed_${VERSION}.7z" $DIR
+tar -czf "juffed-${VERSION}.tar.gz" $DIR
+tar -cjf "juffed-${VERSION}.tar.bz2" $DIR
+7z a "juffed-${VERSION}.7z" $DIR

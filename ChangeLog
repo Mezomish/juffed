@@ -1,7 +1,17 @@
+2009-08-24:
+* Added: getting and setting charset through Plugins API
+* Fixed: manual charset selection (previously it was always 
+  through 'enca' if it was available)
+
+2009-08-23:
+* Fixed: applying keybindings without restarting
+* Added: minimum size to SettingsDlg
+
 2009-08-22:
 * Some internal changes in Settings (SettingsSelectItem)
 * Fixed troubles with versioning on Windows
 * Added: shortcuts configuration (for now in config only, no GUI)
+* Fixed: storing settings instantly after pressing 'Apply'
 
 2009-08-19:
 * Resolved a possible performance issue

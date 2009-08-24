@@ -172,6 +172,18 @@ void CommandStorage::updateIcons() {
 	}
 }
 
+void CommandStorage::updateShortcuts() {
+	QStringList list = KeySettings::commandList();
+	foreach (QString idStr, list) {
+		CommandID id = Juff::stringToCommandId(idStr);
+		if ( id != Juff::ID_NONE ) {
+			QAction* a = action(id);
+			if ( NULL != a )
+				a->setShortcut(KeySettings::keySequence(id));
+		}
+	}
+}
+
 
 CommandStorage* CommandStorage::st_ = 0;
 

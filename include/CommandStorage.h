@@ -110,6 +110,8 @@ public:
 	*/
 	void updateIcons();
 	
+	void updateShortcuts();
+	
 private:
 	/**
 	* CommandStorage()

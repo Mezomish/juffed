@@ -584,7 +584,7 @@ void Manager::addDocHandler(DocHandler* handler) {
 	connect(handler, SIGNAL(getCurDoc()), SLOT(curDoc()));
 }
 
-void Manager::applySettings(bool save) {
+void Manager::applySettings(bool save /* = true*/) {
 	mInt_->viewer_->applySettings();
 	mInt_->gui_->setToolBarIconSize(MainSettings::iconSize());
 	mInt_->gui_->setToolButtonStyle((Qt::ToolButtonStyle)MainSettings::toolButtonStyle());
@@ -605,7 +605,11 @@ void Manager::applySettings(bool save) {
 	
 	mInt_->pluginManager_->applySettings();
 	
-	if ( save )
+	// this needs to be called after 
+	// PluginManager->applySettings() is called
+	CommandStorage::instance()->updateShortcuts();
+	
+//	if ( save )
 		Settings::write();
 }
 

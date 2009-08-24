@@ -33,3 +33,6 @@ void KeySettings::setKeySequence(Juff::CommandID id, const QKeySequence& seq) {
 	Settings::setValue("keys", idStr, seq.toString());
 }
 
+QStringList KeySettings::commandList() {
+	return keyList("keys");
+}

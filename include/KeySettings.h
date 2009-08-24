@@ -28,6 +28,8 @@ class KeySettings : public Settings {
 public:
 	static QKeySequence keySequence(Juff::CommandID);
 	static void setKeySequence(Juff::CommandID, const QKeySequence&);
+
+	static QStringList commandList();
 };
 
 #endif /* __JUFF_KEY_SETTINGS_H__ */

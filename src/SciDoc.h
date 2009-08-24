@@ -118,7 +118,7 @@ private slots:
 	void onLinesCountChanged();
 
 private:
-	void readDoc();
+	void readDoc(bool keepCharset = false);
 	void loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer);
 	void stripTrailingSpaces();
 	void toggleMarker(int line);

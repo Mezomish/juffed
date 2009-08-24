@@ -1516,8 +1516,10 @@ QString Manager::getCurDocCharset() {
 
 void Manager::setCurDocCharset(const QString& charset) {
 	Document* doc = curDoc();
-	if ( !doc->isNull() )
+	if ( !doc->isNull() ) {
 		doc->setCharset(charset);
+		mInt_->displayCharset(charset);
+	}
 }
 
 

@@ -552,16 +552,18 @@ void SciDoc::reload() {
 	}
 }
 
-void SciDoc::readDoc() {
+void SciDoc::readDoc(bool keepCharset /* = false*/) {
 	QString text;
 	QFile file(fileName());
 	if ( file.open(QIODevice::ReadOnly) ) {
 		
-		QString codecName = guessCharset();
-		QTextCodec* codec = QTextCodec::codecForName(codecName.toAscii());
-		if ( codec ) {
-			docInt_->codec_ = codec;
-			docInt_->charsetName_ = codecName;
+		if ( !keepCharset ) {
+			QString codecName = guessCharset();
+			QTextCodec* codec = QTextCodec::codecForName(codecName.toAscii());
+			if ( codec ) {
+				docInt_->codec_ = codec;
+				docInt_->charsetName_ = codecName;
+			}
 		}
 		
 		QTextStream ts(&file);
@@ -899,7 +901,7 @@ void SciDoc::setCharset(const QString& charset) {
 	if ( codec != 0 ) {
 		docInt_->codec_ = codec;
 		docInt_->charsetName_ = charset;
-		readDoc();
+		readDoc(true);
 	}
 }
 

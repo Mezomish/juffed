@@ -202,6 +202,7 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	JUFFENTRY;
 
 	setWindowTitle(tr("Settings"));
+	setMinimumSize(600, 400);
 
 	//	create buttons
 	okBtn_ = new QPushButton(tr("OK"), this);

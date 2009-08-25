@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/gui/AboutDlg.cpp" line="107"/>
         <source>About</source>
-        <translation>ber JuffEd</translation>
+        <translation>Über JuffEd</translation>
     </message>
     <message>
         <location filename="../src/gui/AboutDlg.cpp" line="115"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="../src/gui/AboutDlg.cpp" line="69"/>
         <source>Close</source>
-        <translation>Schlieen</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -59,7 +59,7 @@
     <message>
         <location filename="../src/gui/AutocompleteSettingsPage.ui" line="46"/>
         <source>Case sensitive</source>
-        <translation>Gro-/Kleinschreibung beachten</translation>
+        <translation>Groß-/Kleinschreibung beachten</translation>
     </message>
 </context>
 <context>
@@ -80,7 +80,7 @@
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="42"/>
         <source>Size</source>
-        <translation>Gre</translation>
+        <translation>Größe</translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="20"/>
@@ -96,7 +96,7 @@
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="196"/>
         <source>Show line length indicator</source>
-        <translation>Zeige Zeilenlngenanzeiger</translation>
+        <translation>Zeige Zeilenlängenanzeiger</translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="219"/>
@@ -155,7 +155,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="408"/>
         <source>Indents color</source>
-        <translation>Einrck-Farbe</translation>
+        <translation>Einrück-Farbe</translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="444"/>
@@ -215,24 +215,24 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="64"/>
         <source>New file name pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Dateinamenmuster</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="71"/>
         <location filename="../src/gui/FileTypesPage.cpp" line="93"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="71"/>
         <location filename="../src/gui/FileTypesPage.cpp" line="93"/>
         <source>No file type is selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein Dateityp ausgewählt</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="86"/>
         <source>New first line pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Muster in der ersten Zeile</translation>
     </message>
 </context>
 <context>
@@ -257,16 +257,16 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="162"/>
         <source>Backward</source>
-        <translation>Rckwrts suchen</translation>
+        <translation>Rückwärts suchen</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="186"/>
         <source>&lt;p&gt;If &lt;b&gt;checked&lt;/b&gt;, all the text is treated like a single line. Symbols &apos;^&apos; and &apos;$&apos; are at the beginning and at the end of the document. In this mode you can search for multiline regexps using &apos;\r&apos; and &apos;\n&apos; symbols for line ends.&lt;/p&gt;
 
 &lt;p&gt;If &lt;b&gt;not checked&lt;/b&gt;, the regexp is applied to each line separately and each line has its own symbols &apos;^&apos; and &apos;$&apos; (at the beginning and at the end of the line).&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Wenn &lt;b&gt;ausgewhlt&lt;/b&gt;, dann wird der ganze Text als eine Zeile behandelt. Symbole wie &apos;^&apos; und &apos;$&apos; sind am Anfang und Ende des Dokuments. In diesem Modus knnen Sie mehrzeilige regulre Ausdrcke mit &apos;\r&apos; und &apos;\n&apos; fr Zeilenenden benutzen&lt;/p&gt;
+        <translation>&lt;p&gt;Wenn &lt;b&gt;ausgewählt&lt;/b&gt;, dann wird der ganze Text als eine Zeile behandelt. Symbole wie &apos;^&apos; und &apos;$&apos; sind am Anfang und Ende des Dokuments. In diesem Modus können Sie mehrzeilige reguläre Ausdrücke mit &apos;\r&apos; und &apos;\n&apos; für Zeilenenden benutzen&lt;/p&gt;
 
-&lt;p&gt;Wenn &lt;b&gt;nicht ausgewhlt&lt;/b&gt;, dann wird der regulre Ausdruck fr jede Zeile seperat angewendet und jede Zeile hat einen Anfang und Ende (&apos;^&apos; bzw. &apos;$&apos;).&lt;/p&gt;</translation>
+&lt;p&gt;Wenn &lt;b&gt;nicht ausgewählt&lt;/b&gt;, dann wird der reguläre Ausdruck für jede Zeile seperat angewendet und jede Zeile hat einen Anfang und Ende (&apos;^&apos; bzw. &apos;$&apos;).&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="191"/>
@@ -276,17 +276,17 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="155"/>
         <source>Match case</source>
-        <translation>Gro-/Kleinschreibung beachten</translation>
+        <translation>Groß-/Kleinschreibung beachten</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="176"/>
         <source>Regular expression</source>
-        <translation>Regulre Ausdrcke</translation>
+        <translation>Reguläre Ausdrücke</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="169"/>
         <source>Whole words only</source>
-        <translation>nur ganze Wrter</translation>
+        <translation>nur ganze Wörter</translation>
     </message>
 </context>
 <context>
@@ -294,7 +294,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/Document.cpp" line="93"/>
         <source>The file &apos;%1&apos; was modified by external program.</source>
-        <translation>Die Datei &apos;%1&apos; wurde von einem externen Programm gendert.</translation>
+        <translation>Die Datei &apos;%1&apos; wurde von einem externen Programm geändert.</translation>
     </message>
     <message>
         <location filename="../src/Document.cpp" line="94"/>
@@ -347,7 +347,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="173"/>
         <source>Open files</source>
-        <translation>ffne Dateien</translation>
+        <translation>Öffne Dateien</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="177"/>
@@ -382,7 +382,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="415"/>
         <source>About Qt</source>
-        <translation>ber QT</translation>
+        <translation>Über QT</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="97"/>
@@ -425,7 +425,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/TabBar.cpp" line="42"/>
         <source>Close</source>
-        <translation>Schlieen</translation>
+        <translation>Schließen</translation>
     </message>
 </context>
 <context>
@@ -433,7 +433,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/TabWidget.cpp" line="65"/>
         <source>Close document</source>
-        <translation>Dokument schlieen</translation>
+        <translation>Dokument schließen</translation>
     </message>
 </context>
 <context>
@@ -441,10 +441,10 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/Manager.cpp" line="702"/>
         <source>File &apos;%1&apos; is read-only.</source>
-        <translation>Datei &apos;%1&apos; ist schreibgeschtzt.</translation>
+        <translation>Datei &apos;%1&apos; ist schreibgeschützt.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="703"/>
+        <location filename="../src/Manager.cpp" line="696"/>
         <source>What do you want to do?</source>
         <translation>Was wollen Sie tun?</translation>
     </message>
@@ -462,7 +462,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/Manager.cpp" line="705"/>
         <source>Overwrite</source>
-        <translation>berschreiben</translation>
+        <translation>Überschreiben</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="706"/>
@@ -472,7 +472,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/Manager.cpp" line="720"/>
         <source>Can&apos;t change permissions: Access denied</source>
-        <translation>Einstellung knnen nicht gendert werden: Zugriff verweigert</translation>
+        <translation>Einstellung können nicht geändert werden: Zugriff verweigert</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="1300"/>
@@ -489,13 +489,13 @@ anstelle von nur einer Leerstelle</translation>
         <location filename="../src/Manager.cpp" line="492"/>
         <source> has been modified.
 Do you want to save your changes?</source>
-        <translation> wurde gendert.
-Wollen Sie die nderungen speichern?</translation>
+        <translation> wurde geändert.
+Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="493"/>
         <source>Close document</source>
-        <translation>Dokument schlieen</translation>
+        <translation>Dokument schließen</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="1260"/>
@@ -529,7 +529,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/RichDoc.cpp" line="72"/>
         <source>Can&apos;t open file for writing</source>
-        <translation>Datei kann nicht zum Schreiben geffnet werden </translation>
+        <translation>Datei kann nicht zum Schreiben geöffnet werden </translation>
     </message>
 </context>
 <context>
@@ -537,7 +537,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/SciDoc.cpp" line="536"/>
         <source>Can&apos;t open file for writing</source>
-        <translation>Datei kann nicht zum Schreiben geffnet werden </translation>
+        <translation>Datei kann nicht zum Schreiben geöffnet werden </translation>
     </message>
 </context>
 <context>
@@ -582,7 +582,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/SimpleDoc.cpp" line="124"/>
         <source>Can&apos;t open file for writing</source>
-        <translation>Datei kann nicht zum Schreiben geffnet werden</translation>
+        <translation>Datei kann nicht zum Schreiben geöffnet werden</translation>
     </message>
 </context>
 <context>
@@ -595,7 +595,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="40"/>
         <source>Open empty session</source>
-        <translation>ffne leere Sitzung</translation>
+        <translation>öffne leere Sitzung</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="80"/>
@@ -613,12 +613,12 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="110"/>
         <source>Use existing instance of application when open files</source>
-        <translation>ffne Dateien in aktueller Instanz</translation>
+        <translation>öffne Dateien in aktueller Instanz</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="113"/>
         <source>Open files in existing instance</source>
-        <translation>ffne Datei in exisitierender Instanz</translation>
+        <translation>Öffne Datei in exisitierender Instanz</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="120"/>
@@ -633,7 +633,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="67"/>
         <source>Open last saved session</source>
-        <translation>letzte gespeicherte Session ffnen</translation>
+        <translation>letzte gespeicherte Session öffnen</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="96"/>
@@ -643,7 +643,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="103"/>
         <source>Sync &apos;Open&apos; dialog to current doc&apos;s dir</source>
-        <translation>&apos;ffnen&apos; Dialog mit aktuellem Dokument abgleichen</translation>
+        <translation>&apos;Öffnen&apos; Dialog mit aktuellem Dokument abgleichen</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="127"/>
@@ -664,7 +664,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="71"/>
         <source>Change split orientation</source>
-        <translation>Unterteilungsausrichtung ndern</translation>
+        <translation>Unterteilungsausrichtung ändern</translation>
     </message>
     <message>
         <location filename="../include/Functions.h" line="33"/>
@@ -674,7 +674,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/SciDoc.cpp" line="394"/>
         <source>Confirmation</source>
-        <translation>Besttigung</translation>
+        <translation>Bestätigung</translation>
     </message>
     <message>
         <location filename="../src/SciDoc.cpp" line="395"/>
@@ -685,7 +685,7 @@ Wollen Sie die nderungen speichern?</translation>
         <location filename="../src/gui/GUI.cpp" line="62"/>
         <location filename="../src/lib/CommandStorage.cpp" line="108"/>
         <source>About</source>
-        <translation>ber JuffEd</translation>
+        <translation>Über JuffEd</translation>
     </message>
     <message>
         <source>Simple text editor with syntax highlighting</source>
@@ -694,22 +694,22 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="68"/>
         <source>Polish translation</source>
-        <translation>Polnische bersetzung</translation>
+        <translation>Polnische Übersetzung</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="69"/>
         <source>German translation</source>
-        <translation>Deutsche bersetzung</translation>
+        <translation>Deutsche Übersetzung</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="70"/>
         <source>French translation</source>
-        <translation>Franzsische bersetzung</translation>
+        <translation>Französische Übersetzung</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="71"/>
         <source>Brazilian Portuguese translation</source>
-        <translation> Brasilianisch-Portugiesische bersetzung</translation>
+        <translation> Brasilianisch-Portugiesische Übersetzung</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="62"/>
@@ -734,7 +734,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="67"/>
         <source>Recent files</source>
-        <translation>Zuletzt geffnete Dateien</translation>
+        <translation>Zuletzt geöffnete Dateien</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="89"/>
@@ -744,7 +744,7 @@ Wollen Sie die nderungen speichern?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="160"/>
         <source>Current character set: %1</source>
-        <translation>Ausgewhlter Zeichensatz: %1</translation>
+        <translation>Ausgewählter Zeichensatz: %1</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="368"/>
@@ -784,7 +784,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="64"/>
         <source>Open</source>
-        <translation>ffnen</translation>
+        <translation>Öffnen</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="65"/>
@@ -804,12 +804,12 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="69"/>
         <source>Close</source>
-        <translation>Schlieen</translation>
+        <translation>Schließen</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="70"/>
         <source>Close all</source>
-        <translation>Alle schlieen</translation>
+        <translation>Alle schließen</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="72"/>
@@ -824,7 +824,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="75"/>
         <source>Open session</source>
-        <translation>Sitzung ffnen</translation>
+        <translation>Sitzung öffnen</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="76"/>
@@ -839,7 +839,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="79"/>
         <source>Undo</source>
-        <translation>Rckgngig</translation>
+        <translation>Rückgängig</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="80"/>
@@ -859,17 +859,17 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="83"/>
         <source>Paste</source>
-        <translation>Einfgen</translation>
+        <translation>Einfügen</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="85"/>
         <source>Next document</source>
-        <translation type="unfinished"></translation>
+        <translation>Nächstes Dokument</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="86"/>
         <source>Previous document</source>
-        <translation type="unfinished"></translation>
+        <translation>vorheriges Dokument</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="89"/>
@@ -894,7 +894,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="94"/>
         <source>Zoom in</source>
-        <translation>Vergrern</translation>
+        <translation>Vergrößern</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="95"/>
@@ -904,17 +904,17 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="96"/>
         <source>Zoom 100%</source>
-        <translation>normale Gre</translation>
+        <translation>normale Größe</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="102"/>
         <source>Add/Remove marker</source>
-        <translation>Markierung hinzufgen/entfernen</translation>
+        <translation>Markierung hinzufügen/entfernen</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="103"/>
         <source>Next marker</source>
-        <translation>Nchste Markierung</translation>
+        <translation>Nächste Markierung</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="104"/>
@@ -934,7 +934,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="109"/>
         <source>About Qt</source>
-        <translation>ber QT</translation>
+        <translation>Über QT</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="111"/>
@@ -959,7 +959,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="87"/>
         <source>File full name</source>
-        <translation>Vollstndiger Dateiname</translation>
+        <translation>Vollständiger Dateiname</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="49"/>
@@ -1024,7 +1024,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="88"/>
         <source>Current character set</source>
-        <translation>Ausgewhlter Zeichensatz</translation>
+        <translation>Ausgewählter Zeichensatz</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="64"/>
@@ -1034,7 +1034,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="72"/>
         <source>Chinese Simplified translation</source>
-        <translation>Vereinfachte chinesische bersetzung</translation>
+        <translation>Vereinfachte chinesische Übersetzung</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="73"/>
@@ -1082,12 +1082,12 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/gui/SessionDlg.ui" line="66"/>
         <source>Open session</source>
-        <translation>Sitzung ffnen</translation>
+        <translation>Sitzung öffnen</translation>
     </message>
     <message>
         <location filename="../src/gui/SessionDlg.ui" line="76"/>
         <source>Remove selected session</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Sitzung löschen</translation>
     </message>
     <message>
         <location filename="../src/gui/SessionDlg.ui" line="96"/>
@@ -1140,7 +1140,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="225"/>
         <source>Autocompletion</source>
-        <translation>Autovervollstndigung</translation>
+        <translation>Autovervollständigung</translation>
     </message>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="227"/>
@@ -1179,7 +1179,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="49"/>
         <source>Toolbar icons size</source>
-        <translation>Symbolgre</translation>
+        <translation>Symbolgröße</translation>
     </message>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="119"/>
@@ -1244,7 +1244,7 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="150"/>
         <source>Close button on each tab</source>
-        <translation>Schlieen Knopf auf jedem Tab</translation>
+        <translation>Schließen Knopf auf jedem Tab</translation>
     </message>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="99"/>

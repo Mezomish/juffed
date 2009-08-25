@@ -5,19 +5,29 @@ Copyright (C) 2007-2009 Mikhail Murzin <mezomish@gmail.com>
 Requirements:
 	Qt (>= 4.2)
 	QScintilla2 (>= 2.1)
-	
-Installation:
-	*nix:
-	$ mkdir build
-	$ cd build
-	$ cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=release
-	$ make
-	$ sudo make install
-	(to install to fake root folder for further packaging use 'make DESTDIR=<path> install')
 
- License:
+
+Building and Installation:
+	Debian, Ubuntu and all other Debian-based distros:
+		You will need 'fakeroot' and 'cdbs' packages, 
+		please install them.
+		
+		$ dpkg-buildpackage -rfakeroot
+
+
+	Other distros:
+		$ mkdir build
+		$ cd build
+		$ cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=release
+		$ make
+		$ sudo make install
+To install to a fake root folder for further packaging use 'make INSTALL_ROOT=<path> install'
+
+
+License:
 	JuffEd is distributed under the GNU General Public License.
 	See COPYING for details.
+
 
 Features:
 	- multi-document interface (tabs)
@@ -25,12 +35,15 @@ Features:
 	- code blocks folding
 	- sessions support
 	- find/replace using regular expressions
-	- charset selection
+	- charset selection and auto-detection
 	- line markers
-	- international languages support
+	- international languages and Unicode support
+	- plugins
+
 	
 Homepage:
 	https://sourceforge.net/projects/juffed/
+
 	
 Bugs and feature requests:
 	https://sourceforge.net/tracker/?group_id=205470

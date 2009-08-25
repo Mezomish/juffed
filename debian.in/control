@@ -3,6 +3,7 @@ Section: editors
 Priority: optional
 Maintainer: Mikhail Murzin <mezomish@gmail.com>
 Standards-Version: @FULL_VERSION@
+Build-Depends: cdbs
 
 Package: juffed
 Architecture: any 

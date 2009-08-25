@@ -212,6 +212,28 @@ anstelle von nur einer Leerstelle</translation>
         <source>First line patterns:</source>
         <translation>Zeilenanfang</translation>
     </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.cpp" line="64"/>
+        <source>New file name pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.cpp" line="71"/>
+        <location filename="../src/gui/FileTypesPage.cpp" line="93"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.cpp" line="71"/>
+        <location filename="../src/gui/FileTypesPage.cpp" line="93"/>
+        <source>No file type is selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FileTypesPage.cpp" line="86"/>
+        <source>New first line pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FindDlg</name>
@@ -417,44 +439,44 @@ anstelle von nur einer Leerstelle</translation>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="695"/>
+        <location filename="../src/Manager.cpp" line="702"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Datei &apos;%1&apos; ist schreibgeschtzt.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="696"/>
+        <location filename="../src/Manager.cpp" line="703"/>
         <source>What do you want to do?</source>
         <translation>Was wollen Sie tun?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="654"/>
-        <location filename="../src/Manager.cpp" line="697"/>
+        <location filename="../src/Manager.cpp" line="661"/>
+        <location filename="../src/Manager.cpp" line="704"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="654"/>
+        <location filename="../src/Manager.cpp" line="661"/>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
         <translation>Dokument &apos;%1&apos; existiert nicht</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="698"/>
+        <location filename="../src/Manager.cpp" line="705"/>
         <source>Overwrite</source>
         <translation>berschreiben</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="699"/>
+        <location filename="../src/Manager.cpp" line="706"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="713"/>
+        <location filename="../src/Manager.cpp" line="720"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Einstellung knnen nicht gendert werden: Zugriff verweigert</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1293"/>
-        <location filename="../src/Manager.cpp" line="1346"/>
+        <location filename="../src/Manager.cpp" line="1300"/>
+        <location filename="../src/Manager.cpp" line="1353"/>
         <source> Lines: %1 </source>
         <translation>Zeilen: %1</translation>
     </message>
@@ -476,8 +498,8 @@ Wollen Sie die nderungen speichern?</translation>
         <translation>Dokument schlieen</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1253"/>
-        <location filename="../src/Manager.cpp" line="1254"/>
+        <location filename="../src/Manager.cpp" line="1260"/>
+        <location filename="../src/Manager.cpp" line="1261"/>
         <source>Go to line</source>
         <translation>Gehe zu Zeile</translation>
     </message>
@@ -486,8 +508,8 @@ Wollen Sie die nderungen speichern?</translation>
         <translation type="obsolete">Zeile: %1, Spalte: %2</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1289"/>
-        <location filename="../src/Manager.cpp" line="1345"/>
+        <location filename="../src/Manager.cpp" line="1296"/>
+        <location filename="../src/Manager.cpp" line="1352"/>
         <source> Row: %1, Col: %2 </source>
         <translation> Zeile: %1, Spalte: %2 </translation>
     </message>
@@ -497,7 +519,7 @@ Wollen Sie die nderungen speichern?</translation>
         <translation>In die Zwischenablage kopieren</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1347"/>
+        <location filename="../src/Manager.cpp" line="1354"/>
         <source>Lines count: %1 </source>
         <translation>Zeilenanzahl: %1</translation>
     </message>
@@ -513,7 +535,7 @@ Wollen Sie die nderungen speichern?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="533"/>
+        <location filename="../src/SciDoc.cpp" line="536"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Datei kann nicht zum Schreiben geffnet werden </translation>
     </message>
@@ -650,18 +672,18 @@ Wollen Sie die nderungen speichern?</translation>
         <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="391"/>
+        <location filename="../src/SciDoc.cpp" line="394"/>
         <source>Confirmation</source>
         <translation>Besttigung</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="392"/>
+        <location filename="../src/SciDoc.cpp" line="395"/>
         <source>Replace this text?</source>
         <translation>Text ersetzen?</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="62"/>
-        <location filename="../src/lib/CommandStorage.cpp" line="101"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="108"/>
         <source>About</source>
         <translation>ber JuffEd</translation>
     </message>
@@ -730,182 +752,192 @@ Wollen Sie die nderungen speichern?</translation>
         <translation>Sitzung</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1294"/>
+        <location filename="../src/Manager.cpp" line="1301"/>
         <source>Lines count: %1</source>
         <translation>Zeilenanzahl: %1</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="318"/>
+        <location filename="../src/SciDoc.cpp" line="321"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Die Suche hat den Dateianfang erreicht.
 Am Ende fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="323"/>
+        <location filename="../src/SciDoc.cpp" line="326"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Die Suche hat das Dateiende erreicht.
 Am Anfang fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="328"/>
-        <location filename="../src/lib/CommandStorage.cpp" line="81"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="88"/>
+        <location filename="../src/SciDoc.cpp" line="331"/>
         <source>Find</source>
         <translation>Suchen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="58"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="62"/>
         <source>New</source>
         <translation>Neu</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="60"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="64"/>
         <source>Open</source>
         <translation>ffnen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="61"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="65"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="62"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="66"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="63"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="67"/>
         <source>Save all</source>
         <translation>Alles speichern</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="65"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="69"/>
         <source>Close</source>
         <translation>Schlieen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="66"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="70"/>
         <source>Close all</source>
         <translation>Alle schlieen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="68"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="72"/>
         <source>Exit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="70"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="74"/>
         <source>New session</source>
         <translation>Neue Sitzung</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="71"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="75"/>
         <source>Open session</source>
         <translation>Sitzung ffnen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="72"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="76"/>
         <source>Save session</source>
         <translation>Sitzung speichern</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="73"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="77"/>
         <source>Save session as</source>
         <translation>Sitzung speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="75"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="79"/>
         <source>Undo</source>
         <translation>Rckgngig</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="76"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="80"/>
         <source>Redo</source>
         <translation>Wiederholen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="77"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="81"/>
         <source>Cut</source>
         <translation>Ausschneiden</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="78"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="82"/>
         <source>Copy</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="79"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="83"/>
         <source>Paste</source>
         <translation>Einfgen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="82"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="85"/>
+        <source>Next document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="86"/>
+        <source>Previous document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="89"/>
         <source>Find next</source>
         <translation>Suche fortsetzen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="83"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="90"/>
         <source>Find previous</source>
         <translation>Suche vorheriges</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="84"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="91"/>
         <source>Replace</source>
         <translation>Ersetzen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="85"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="92"/>
         <source>Go to line</source>
         <translation>Gehe zu Zeile</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="87"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="94"/>
         <source>Zoom in</source>
         <translation>Vergrern</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="88"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="95"/>
         <source>Zoom out</source>
         <translation>Verkleinern</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="89"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="96"/>
         <source>Zoom 100%</source>
         <translation>normale Gre</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="95"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="102"/>
         <source>Add/Remove marker</source>
         <translation>Markierung hinzufgen/entfernen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="96"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="103"/>
         <source>Next marker</source>
         <translation>Nchste Markierung</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="97"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="104"/>
         <source>Previous marker</source>
         <translation>Vorherige Markierung</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="98"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="105"/>
         <source>Remove all markers</source>
         <translation>Alle Markierungen entfernen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="100"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="107"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="102"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="109"/>
         <source>About Qt</source>
         <translation>ber QT</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="104"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="111"/>
         <source>N/A</source>
         <translation>k.A.</translation>
     </message>
@@ -935,12 +967,12 @@ Am Anfang fortsetzen?</translation>
         <translation>Syntaxherforhebung</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="64"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="68"/>
         <source>Reload</source>
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="67"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="71"/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
@@ -962,20 +994,20 @@ Am Anfang fortsetzen?</translation>
         <translation>Syntax Hervorhebungsschema</translation>
     </message>
     <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="100"/>
         <location filename="../src/SciDocHandler.cpp" line="505"/>
-        <location filename="../src/lib/CommandStorage.cpp" line="93"/>
         <source>Unix</source>
         <translation>Unix</translation>
     </message>
     <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="99"/>
         <location filename="../src/SciDocHandler.cpp" line="508"/>
-        <location filename="../src/lib/CommandStorage.cpp" line="92"/>
         <source>Mac</source>
         <translation>Macintosh</translation>
     </message>
     <message>
+        <location filename="../src/lib/CommandStorage.cpp" line="98"/>
         <location filename="../src/SciDocHandler.cpp" line="511"/>
-        <location filename="../src/lib/CommandStorage.cpp" line="91"/>
         <source>Win</source>
         <translation>Windows</translation>
     </message>
@@ -985,7 +1017,7 @@ Am Anfang fortsetzen?</translation>
         <translation>Paket</translation>
     </message>
     <message>
-        <location filename="../src/lib/CommandStorage.cpp" line="59"/>
+        <location filename="../src/lib/CommandStorage.cpp" line="63"/>
         <source>New Rich text</source>
         <translation>Neues Rich text Dokument</translation>
     </message>
@@ -1038,22 +1070,27 @@ Am Anfang fortsetzen?</translation>
 <context>
     <name>SessionDlg</name>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="13"/>
+        <location filename="../src/gui/SessionDlg.ui" line="14"/>
         <source>Session manager</source>
         <translation>Sitzungverwaltung</translation>
     </message>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="44"/>
+        <location filename="../src/gui/SessionDlg.ui" line="45"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="65"/>
+        <location filename="../src/gui/SessionDlg.ui" line="66"/>
         <source>Open session</source>
         <translation>Sitzung ffnen</translation>
     </message>
     <message>
-        <location filename="../src/gui/SessionDlg.ui" line="75"/>
+        <location filename="../src/gui/SessionDlg.ui" line="76"/>
+        <source>Remove selected session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SessionDlg.ui" line="96"/>
         <source>New session</source>
         <translation>Neue Sitzung</translation>
     </message>
@@ -1061,58 +1098,58 @@ Am Anfang fortsetzen?</translation>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="118"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="204"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="121"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="208"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="122"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="209"/>
         <source>Apply</source>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="123"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="210"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="135"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="222"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="137"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="224"/>
         <source>Editor</source>
         <translation>Editor</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="139"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="226"/>
         <source>Charsets</source>
         <translation>Zeichensatz</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="136"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="223"/>
         <source>View</source>
         <translation>Ansicht</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="138"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="225"/>
         <source>Autocompletion</source>
         <translation>Autovervollstndigung</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="140"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="227"/>
         <source>File types</source>
         <translation>Dateitypen</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="144"/>
-        <location filename="../src/gui/SettingsDlg.cpp" line="263"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="231"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="276"/>
         <source>Plugins</source>
         <translation>Plugins</translation>
     </message>

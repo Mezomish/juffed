@@ -275,6 +275,8 @@ ADD_LIBRARY ( juff SHARED
 	${libjuffed_MOC_SRCS}
 )
 
+SET_TARGET_PROPERTIES ( juff PROPERTIES VERSION ${VERSION} )
+
 # the main build target
 ADD_EXECUTABLE ( ${JUFFED}
 	${juffed_SRCS} 

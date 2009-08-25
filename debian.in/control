@@ -1,0 +1,10 @@
+Source: juffed
+Section: editors
+Priority: optional
+Maintainer: Mikhail Murzin <mezomish@gmail.com>
+
+Version: @FULL_VERSION@
+Package: juffed
+Architecture: @ARCH@
+Depends: ${shlibs:Depends}
+Description: Advanced text editor

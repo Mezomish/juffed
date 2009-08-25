@@ -38,14 +38,6 @@ public:
 		manager_ = m;
 	}
 
-	/**
-	* apiVersion()
-	*
-	* Returns the API version used while building the plugin.
-	* Needs to be checked when loading plugin.
-	*/
-	QString apiVersion() const { return "3.0"; }
-
 	////////////////////////////////////////////////////////
 	//	Plugin information functions
 	////////////////////////////////////////////////////////
@@ -221,6 +213,6 @@ private:
 	ManagerInterface* manager_;
 };
 
-Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/3.0")
+Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.1")
 
 #endif	//	_JUFF_PLUGIN_H_

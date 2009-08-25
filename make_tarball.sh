@@ -10,14 +10,13 @@ P7Z=""
 
 print_usage() {
 	echo ""
-	echo "Usage: make_deb.sh [options]"
+	echo "Usage: make_tarball.sh [--targz|--tarbz2|--7z|--all]"
 	echo ""
 	echo "Valid options:"
-	echo "    --distr=<distr>            : Distribution suffix"
-	echo "    --arch=<arch>              : Processor architecture (default: i386)"
-	echo "    --build-dir=<dir>          : Build directory (default: 'build')"
-	echo "    --release=<release>        : Package release (default: 1)"
-	echo "    --do-not-clean             : Do not remove temporary directory"
+	echo "    --targz                    : Make a .tar.gz archive"
+	echo "    --tarbz2                   : Make a .tar.bz2 archive"
+	echo "    --7z                       : Make a .7z archive"
+	echo "    --all                      : Make all tree archives"
 	echo "    --help                     : Print this help"
 	echo ""
 }
@@ -60,17 +59,24 @@ done
 
 mkdir $DIR
 
+# checkout SVN
 svn co http://juffed.svn.sourceforge.net/svnroot/juffed/trunk $DIR
+
+# set the proper version
 cat CMakeLists.txt | sed -r "s/DEV 1/DEV 0/" > $DIR/CMakeLists.txt
 echo $VERSION > $DIR/version
 
+# remove unnecessary stuff
 rm -rf $DIR/win32/
 find $DIR -name ".svn" -exec rm -rf '{}' ';'
+rm $DIR/make_tarball.sh
 
+# prepare 'debian' directory
 mv $DIR/debian.in $DIR/debian
 sed -i "s/@FULL_VERSION@/$VERSION/" $DIR/debian/control
 sed -i "s/@FULL_VERSION@/$VERSION/" $DIR/debian/changelog
 
+# pack tarballs if necessary
 if [ -n "${TARGZ}" ]; then
 	tar -czf "juffed-${VERSION}.tar.gz" $DIR
 fi

@@ -1,3 +1,8 @@
+2009-08-25:
+* Added: proper 'debian' dir for packaging
+* Updated localizations
+* Removed plugin example
+
 2009-08-24:
 * Added: getting and setting charset through Plugins API
 * Fixed: manual charset selection (previously it was always 
@@ -6,6 +11,10 @@
 2009-08-23:
 * Fixed: applying keybindings without restarting
 * Added: minimum size to SettingsDlg
+
+-------------------------------
+Preview-version 0.7.606
+-------------------------------
 
 2009-08-22:
 * Some internal changes in Settings (SettingsSelectItem)

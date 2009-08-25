@@ -57,6 +57,7 @@ for arg in ${@}; do
 	esac
 done
 
+rm -rf $DIR 2>/dev/null
 mkdir $DIR
 
 # checkout SVN
@@ -68,7 +69,7 @@ echo $VERSION > $DIR/version
 
 # remove unnecessary stuff
 rm -rf $DIR/win32/
-find $DIR -name ".svn" -exec rm -rf '{}' ';'
+find $DIR -name ".svn" -exec rm -rf '{}' 2>/dev/null ';'
 rm $DIR/make_tarball.sh
 
 # prepare 'debian' directory

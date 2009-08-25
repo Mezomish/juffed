@@ -2,9 +2,9 @@ Source: juffed
 Section: editors
 Priority: optional
 Maintainer: Mikhail Murzin <mezomish@gmail.com>
+Standards-Version: @FULL_VERSION@
 
-Version: @FULL_VERSION@
 Package: juffed
-Architecture: @ARCH@
+Architecture: any 
 Depends: ${shlibs:Depends}
 Description: Advanced text editor

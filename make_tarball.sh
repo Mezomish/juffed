@@ -1,13 +1,5 @@
 #!/bin/sh
 
-REVISION=`LC_ALL=C svn info | grep Revision | cut -d" " -f2-`
-VERSION=`cat version`".$REVISION"
-DIR="juffed-${VERSION}"
-
-TARGZ=""
-TARBZ2=""
-P7Z=""
-
 print_usage() {
 	echo ""
 	echo "Usage: make_tarball.sh [--targz|--tarbz2|--7z|--all]"
@@ -20,6 +12,15 @@ print_usage() {
 	echo "    --help                     : Print this help"
 	echo ""
 }
+
+TARGZ=""
+TARBZ2=""
+P7Z=""
+
+svn up
+REVISION=`LC_ALL=C svn info | grep Revision | cut -d" " -f2-`
+VERSION=`cat version`".$REVISION"
+DIR="juffed-${VERSION}"
 
 #	Parse command line arguments
 for arg in ${@}; do
@@ -79,13 +80,13 @@ sed -i "s/@FULL_VERSION@/$VERSION/" $DIR/debian/changelog
 
 # pack tarballs if necessary
 if [ -n "${TARGZ}" ]; then
-	tar -czf "juffed-${VERSION}.tar.gz" $DIR
+	tar -czf "juffed_${VERSION}.tar.gz" $DIR
 fi
 
 if [ -n "${TARBZ2}" ]; then
-	tar -cjf "juffed-${VERSION}.tar.bz2" $DIR
+	tar -cjf "juffed_${VERSION}.tar.bz2" $DIR
 fi
 
 if [ -n "${P7Z}" ]; then
-	7z a "juffed-${VERSION}.7z" $DIR
+	7z a "juffed_${VERSION}.7z" $DIR
 fi

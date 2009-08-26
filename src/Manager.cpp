@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -663,8 +665,10 @@ void Manager::createDoc(const QString& type, const QString& fileName) {
 	
 	DocHandler* h = mInt_->handlers_[type];
 	if ( h ) {
+		qDebug() << "          Handler found";
 		Document* doc = h->createDoc(fileName);
 		if ( doc ) {
+			qDebug() << "          Doc created";
 			QString fName = doc->fileName();
 			
 			connect(doc, SIGNAL(modified(bool)), SLOT(docModified(bool)));
@@ -1068,10 +1072,13 @@ bool Manager::openSess(const QString& name) {
 #else
 			fileName = lineStr.section(':', -3, -3);
 #endif
+			Log::debug(QString("          Opening file '%1'").arg(fileName));
 			int scrPos = lineStr.section(':', -2, -2).toInt();
 			int line = lineStr.section(':', -1, -1).toInt();
+			Log::debug(QString("          Position: %1, scroll: %2").arg(line).arg(scrPos));
 			if ( !fileName.isEmpty() ) {
 				createDoc("sci", fileName);
+				Log::debug("          Doc created");
 				Document* doc = curDoc();
 				if ( !doc->isNull() ) {
 					doc->gotoLine(line);
@@ -1139,6 +1146,8 @@ void Manager::restoreSession() {
 		default:
 			sessionOpen();
 	}
+	
+	Log::debug("Session restored");
 }
 
 

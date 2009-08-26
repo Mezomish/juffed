@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -113,12 +115,16 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	showInvisibleSymbols(TextDocSettings::showInvisibleSymbols());
 
 	if ( !fileName.isEmpty() && !isNoname(fileName) ) {
+		qDebug() << "               Reading doc";
 		readDoc();
 		docInt_->edit1_->setModified(false);
 
 		//	syntax highlighting
 		QString lexName = LexerStorage::instance()->lexerName(fileName);
+		qDebug() << "               Syntax highlighting:" << lexName;
 		setSyntax(lexName);
+		
+		qDebug() << "               Guessing line endings";
 		
 		//	line endings
 		QFile file(fileName);
@@ -139,6 +145,7 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 			}
 			file.close();
 		}
+		qDebug() << "               Done with all that";
 	}
 	else {
 		setSyntax("none");
@@ -153,7 +160,9 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	connect(docInt_->edit2_, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
 	connect(docInt_->edit1_, SIGNAL(linesChanged()), SLOT(onLinesCountChanged()));
 
+	qDebug() << "               Applying settings...";
 	applySettings();
+	qDebug() << "               ....done";
 	
 	QAction* unindentAct = new QAction(this);
 	unindentAct->setShortcut(QKeySequence("Shift+Tab"));

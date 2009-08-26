@@ -2,18 +2,16 @@
 
 print_usage() {
 	echo ""
-	echo "Usage: make_tarball.sh [--targz|--tarbz2|--7z|--all]"
+	echo "Usage: make_tarball.sh [--tarbz2|--7z|--all]"
 	echo ""
 	echo "Valid options:"
-	echo "    --targz                    : Make a .tar.gz archive"
-	echo "    --tarbz2                   : Make a .tar.bz2 archive"
-	echo "    --7z                       : Make a .7z archive"
-	echo "    --all                      : Make all tree archives"
+	echo "    --tarbz2                   : Make also a .tar.bz2 archive"
+	echo "    --7z                       : Make also a .7z archive"
+	echo "    --all                      : Make all archives: .tar.gz, .tar.bz2, .7z"
 	echo "    --help                     : Print this help"
 	echo ""
 }
 
-TARGZ=""
 TARBZ2=""
 P7Z=""
 
@@ -31,10 +29,6 @@ for arg in ${@}; do
 		exit 0
 		;;
 
-	--targz)
-		TARGZ="yes"
-		;;
-	
 	--tarbz2)
 		TARBZ2="yes"
 		;;
@@ -44,7 +38,6 @@ for arg in ${@}; do
 		;;
 		
 	--all)
-		TARGZ="yes"
 		TARBZ2="yes"
 		P7Z="yes"
 		;;
@@ -78,11 +71,10 @@ mv $DIR/debian.in $DIR/debian
 sed -i "s/@FULL_VERSION@/$VERSION/" $DIR/debian/control
 sed -i "s/@FULL_VERSION@/$VERSION/" $DIR/debian/changelog
 
-# pack tarballs if necessary
-if [ -n "${TARGZ}" ]; then
-	tar -czf "juffed_${VERSION}.tar.gz" $DIR
-fi
+# make a tarball and a .dsc file
+dpkg-source -b $DIR
 
+# pack other tarballs if necessary
 if [ -n "${TARBZ2}" ]; then
 	tar -cjf "juffed_${VERSION}.tar.bz2" $DIR
 fi

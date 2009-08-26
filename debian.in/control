@@ -3,7 +3,7 @@ Section: editors
 Priority: optional
 Maintainer: Mikhail Murzin <mezomish@gmail.com>
 Standards-Version: @FULL_VERSION@
-Build-Depends: cdbs
+Build-Depends: cdbs, cmake, libqt4-dev, qt4-dev-tools, libqscintilla2-dev
 
 Package: juffed
 Architecture: any 

@@ -997,23 +997,21 @@ void Manager::sessionOpen() {
 	
 	saveSess(mInt_->sessionName_);
 	
-	if ( closeSess() ) {
-		bool accepted = false;
-		QString sessName = mInt_->gui_->getOpenSessionName(accepted);
-		if ( accepted ) {
-			if ( !sessName.isEmpty() ) {
-				//	open session
-				if ( openSess(sessName) ) {
-					mInt_->sessionName_ = sessName;
-					Document* doc = curDoc();
-					QString fileName = doc->isNull() ? "" : doc->fileName();
-					mInt_->gui_->updateTitle(fileName, sessName, false);
-				}
+	bool accepted = false;
+	QString sessName = mInt_->gui_->getOpenSessionName(accepted);
+	if ( accepted && closeSess() ) {
+		if ( !sessName.isEmpty() ) {
+			//	open session
+			if ( openSess(sessName) ) {
+				mInt_->sessionName_ = sessName;
+				Document* doc = curDoc();
+				QString fileName = doc->isNull() ? "" : doc->fileName();
+				mInt_->gui_->updateTitle(fileName, sessName, false);
 			}
-			else {
-				//	new session
-				sessionNew();
-			}
+		}
+		else {
+			//	new session
+			sessionNew();
 		}
 	}
 }

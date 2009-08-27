@@ -237,24 +237,23 @@ QString GUI::getSaveSessionName(const QString& session) {
 QString GUI::getOpenSessionName(bool& accepted) {
 	QString name = "";
 	SessionDlg dlg(mw_);
-	int sCount = dlg.sessionCount();
-	if ( sCount > 0 ) {
-		dlg.exec();
-		int res = dlg.result();
 
-		if ( res == 0 ) {
-			accepted = false;
-		} 
-		else if ( res == 1 ) {
-			//	open session
-			name = dlg.curSessionName();
-			accepted = true;
-		}
-		else {
-			//	new session
-			accepted = true;
-		}
+	dlg.exec();
+	int res = dlg.result();
+
+	if ( res == 0 ) {
+		accepted = false;
+	} 
+	else if ( res == 1 ) {
+		//	open session
+		name = dlg.curSessionName();
+		accepted = true;
 	}
+	else {
+		//	new session
+		accepted = true;
+	}
+
 	return name;
 }
 

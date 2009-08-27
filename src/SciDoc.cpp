@@ -925,20 +925,25 @@ void SciDoc::setSyntax(const QString& lexName) {
 	QFont font = TextDocSettings::font();
 	docInt_->syntax_ = lexName;
 
+	qDebug() << "               Getting the lexer";
 	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName, font);
 	LexerStorage::instance()->updateLexer(lexName, font);
 
+	qDebug() << "               Getting the cur line color";
 	QColor curLineColor = LexerStorage::instance()->curLineColor(lexName);
 	docInt_->edit1_->setCaretLineBackgroundColor(curLineColor);
 	docInt_->edit2_->setCaretLineBackgroundColor(curLineColor);
 
+	qDebug() << "               Getting the selection bg color";
 	QColor selectionBgColor = LexerStorage::instance()->selectionBgColor(lexName);
 	docInt_->edit1_->setSelectionBackgroundColor(selectionBgColor);
 	docInt_->edit2_->setSelectionBackgroundColor(selectionBgColor);
 
 	//	find autocompletion API
+	qDebug() << "               Loading autocompletion";
 	loadAutocompletionAPI(lexName, lexer);
 	
+	qDebug() << "               Setting the lexer";
 	docInt_->edit1_->setLexer(lexer);
 	docInt_->edit1_->recolor();
 	docInt_->edit2_->setLexer(lexer);

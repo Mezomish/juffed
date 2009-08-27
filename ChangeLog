@@ -1,7 +1,13 @@
+2009-08-27:
+* Fixed: missed 'Open session' dialog if there was no sessions
+* Fixed: closing the current session before displaying the
+  'Open session' dialog
+
 2009-08-25:
 * Added: proper 'debian' dir for packaging
 * Updated localizations
 * Removed plugin example
+* Added: build depends to 'control' file
 
 2009-08-24:
 * Added: getting and setting charset through Plugins API

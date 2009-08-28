@@ -199,7 +199,7 @@ void PluginManager::loadPlugin(const QString& path) {
 
 	QPluginLoader loader(path);
 	if ( !loader.load() ) {
-		Log::debug(QString("Plugin '%1' was NOT loaded").arg(path));
+		Log::debug(QString("Plugin '%1' was NOT loaded: %2").arg(path).arg(loader.errorString()));
 		return;
 	}
 	

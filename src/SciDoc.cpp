@@ -927,6 +927,7 @@ void SciDoc::setSyntax(const QString& lexName) {
 
 	qDebug() << "               Getting the lexer";
 	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName, font);
+	qDebug() << "               Updating the lexer";
 	LexerStorage::instance()->updateLexer(lexName, font);
 
 	qDebug() << "               Getting the cur line color";

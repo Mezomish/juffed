@@ -150,6 +150,8 @@ void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 }
 
 void LSInterior::readCustomStyle(const QString& name) {
+	JUFFENTRY;
+	
 	QDomDocument doc("JuffScheme");
 	QString nm = name;
 	nm = nm.replace(QString("+"), "plus").replace(QString("#"), "sharp").toLower();
@@ -205,6 +207,8 @@ void LSInterior::readCustomStyle(const QString& name) {
 		schNode = schNode.nextSibling();
 	}
 
+
+	Log::debug(QString("Preparing to create a lexer '%1'").arg(name));
 
 	if ( name.compare("C++") == 0 ) {
 		Scheme cppSch;
@@ -474,11 +478,16 @@ void LSInterior::readCustomStyle(const QString& name) {
 #endif	//	JUFF_PASCAL_LEXER
 
 
+	Log::debug("Exiting readCustomStyle()");
 }
 
 void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
+	JUFFENTRY;
+	
 	QsciLexer* lex = lexers_.value(name, 0);
 	if ( lex != 0 ) {
+		Log::debug("Have a lexer");
+		
 		lex->setFont(font, -1);
 
 		if ( name.compare("none") == 0 ) {
@@ -488,7 +497,10 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 			lex->setPaper(TextDocSettings::defaultBgColor(), -1);
 		}
 		else {
+			Log::debug(QString("Lexer is not 'none'"));
+			
 			if ( schemes_.contains(name) ) {
+				Log::debug(QString("Found sceme").arg(name));
 				Scheme& scheme = schemes_[name];
 			
 				QFont f(font);
@@ -533,6 +545,7 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 		}
 		lex->refreshProperties();
 	}
+	Log::debug("Exiting applyCustomStyle()");
 }
 
 QsciLexer* LSInterior::lexer(const QString& name) {
@@ -702,6 +715,8 @@ QString LexerStorage::lexerName(const QString& fName) const {
 }
 
 QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
+	JUFFENTRY;
+	
 	QsciLexer* lex = lsInt_->lexer(lexerName);
 
 	if ( lex != 0 ) {
@@ -741,13 +756,17 @@ void LexerStorage::getLexersList(QStringList& list) const {
 }
 
 void LexerStorage::updateLexer(const QString& name, const QFont& font) {
-	if ( lsInt_->lexers_.contains(name) ) {
-		QsciLexer* lex = lsInt_->lexers_[name];
+	JUFFENTRY;
+	
+	QsciLexer* lex = lsInt_->lexers_.value(name, NULL);
+	if ( NULL != lex ) {
 		lex->setFont(font);
 		lex->refreshProperties();
 
 		lsInt_->applyCustomStyle(name, font);
 	}
+	
+	Log::debug("Exiting updateLexer()");
 }
 
 LexerStorage* LexerStorage::instance() {

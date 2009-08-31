@@ -147,7 +147,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 #ifdef Q_OS_WIN32
 			return "Courier New";
 #else
-			return "DejaVu Sans Mono";
+			return "Monospace";
 #endif
 	}
 	else if ( section == "toolBarVisible" ) {

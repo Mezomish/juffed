@@ -760,8 +760,26 @@ void LexerStorage::updateLexer(const QString& name, const QFont& font) {
 	
 	QsciLexer* lex = lsInt_->lexers_.value(name, NULL);
 	if ( NULL != lex ) {
+		Log::debug("Lexer's details: -----------");
+		Log::debug(QString("Object name: %1").arg(lex->objectName()));
+		if ( lex->inherits("QsciLexer") )
+			Log::debug("It inherits QsciLexer");
+		else
+			Log::debug("It doesn't inherit QsciLexer");
+		Log::debug(QString("Lexer's language: %1").arg(lex->language()));
+		Log::debug(QString("Lexer's lexer: %1").arg(lex->lexer()));
+		
+		Log::debug("Font details: --------------");
+		Log::debug(QString("%1, %2 (%3)").arg(font.family()).arg(font.pointSize()).arg(font.exactMatch() ? "exact match" : "not exact match"));
+		
+		Log::debug("");
+		Log::debug("Trying to set that font....");
 		lex->setFont(font);
+		Log::debug("....successful!");
+		
+		Log::debug("Trying to refresh properties....");
 		lex->refreshProperties();
+		Log::debug("....successful!");
 
 		lsInt_->applyCustomStyle(name, font);
 	}

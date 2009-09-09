@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -639,7 +641,11 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 #endif
 
 		if ( newLexer != 0 ) {
+			qDebug() << "";
+			qDebug() << "==========" << "Lexer Created" << "==========";
+			qDebug() << name << "lexer pointer:" << newLexer;
 			lexers_[name] = newLexer;
+			qDebug() << "All lexers:" << lexers_;
 			if ( !name.isEmpty() && name.compare("none") != 0 ) {
 				readCustomStyle(name);
 			}
@@ -761,6 +767,10 @@ void LexerStorage::updateLexer(const QString& name, const QFont& font) {
 	QsciLexer* lex = lsInt_->lexers_.value(name, NULL);
 	if ( NULL != lex ) {
 		Log::debug("Lexer's details: -----------");
+		
+		qDebug() << "All lexers:" << lsInt_->lexers_;
+		qDebug() << name << "lexer pointer:" << lex;
+
 		Log::debug(QString("Object name: %1").arg(lex->objectName()));
 		if ( lex->inherits("QsciLexer") )
 			Log::debug("It inherits QsciLexer");

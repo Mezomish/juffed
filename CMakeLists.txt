@@ -247,6 +247,14 @@ if ( QSCI_PASCAL_LEXER )
 	)
 endif ( QSCI_PASCAL_LEXER )
 
+# find Fortran lexer
+find_path ( QSCI_FORTRAN_LEXER qscilexerfortran.h ${LIBQSCINTILLA2_INCLUDE_DIR} )
+if ( QSCI_FORTRAN_LEXER )
+	ADD_DEFINITIONS (
+		-DJUFF_FORTRAN_LEXER
+	)
+endif ( QSCI_FORTRAN_LEXER )
+
 # include directories
 INCLUDE_DIRECTORIES(
 	${QT_INCLUDES}

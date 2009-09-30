@@ -1047,6 +1047,8 @@ void SciDoc::toggleLineComment() {
 		comment = "//";
 	else if ( s == "Bash" || s == "Python" || s == "CMake" || s == "Makefile" )
 		comment = "#";
+	else if ( s == "Fortran" )
+		comment = "!";
 	//	TODO : need to add more syntaxes
 
 	if ( comment.isEmpty() )

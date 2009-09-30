@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="Fortran">
+	<style name="unclosedstring"  color="#990000" bgColor="#ff3030" />
+	<style name="comment" color="#99a999" italic="true" />
+	<style name="operator" color="#660099" />
+	<style name="keyword" color="#000099" />
+	<style name="string" color="#ee0099" />
+	<style name="number" color="" />
+	<style name="identifier" color="" />
+	<style name="preprocessor" color="" />
+	<style name="label" color="" />
+	<style name="dottedoperator" color="" />
+	<style name="intrinsicfunction" color="" />
+	<style name="extendedfunction" color="" />
+	<style name="continuation" color="" />
+</scheme>
+</JuffScheme>

@@ -47,7 +47,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #ifdef JUFF_PASCAL_LEXER
 #include <qscilexerpascal.h>
-#endif	//	JUFF_LEXER_PASCAL
+#endif	//	JUFF_PASCAL_LEXER
+
+#ifdef JUFF_FORTRAN_LEXER
+#include <qscilexerfortran.h>
+#endif	//	JUFF_FORTRAN_LEXER
 
 //	Qt headers
 #include <QtCore/QFileInfo>
@@ -481,6 +485,28 @@ void LSInterior::readCustomStyle(const QString& name) {
 	}
 #endif	//	JUFF_PASCAL_LEXER
 
+#ifdef JUFF_FORTRAN_LEXER
+	else if ( name.compare("Fortran") == 0 ) {
+		Scheme frtSch;
+		frtSch.defaultStyle = styles["default"];
+		frtSch.rules 
+				<< Rule(styles["comment"], QList<int>() << QsciLexerFortran77::Comment)
+				<< Rule(styles["number"], QList<int>() << QsciLexerFortran77::Number)
+				<< Rule(styles["keyword"], QList<int>() << QsciLexerFortran77::Keyword)
+				<< Rule(styles["operator"], QList<int>() << QsciLexerFortran77::Operator)
+				<< Rule(styles["identifier"], QList<int>() << QsciLexerFortran77::Identifier)
+				<< Rule(styles["preprocessor"], QList<int>() << QsciLexerFortran77::PreProcessor)
+				<< Rule(styles["string"], QList<int>() << QsciLexerFortran77::SingleQuotedString << QsciLexerFortran77::DoubleQuotedString)
+				<< Rule(styles["label"], QList<int>() << QsciLexerFortran77::Label)
+				<< Rule(styles["dottedoperator"], QList<int>() << QsciLexerFortran77::DottedOperator)
+				<< Rule(styles["intrinsicfunction"], QList<int>() << QsciLexerFortran77::IntrinsicFunction)
+				<< Rule(styles["extendedfunction"], QList<int>() << QsciLexerFortran77::ExtendedFunction)
+				<< Rule(styles["continuation"], QList<int>() << QsciLexerFortran77::Continuation)
+				<< Rule(styles["unclosedstring"], QList<int>() << QsciLexerFortran77::UnclosedString);
+		schemes_[name] = frtSch;
+	}
+#endif	//	JUFF_FORTRAN_LEXER
+
 
 	Log::debug("Exiting readCustomStyle()");
 }
@@ -634,13 +660,19 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if ( name.compare("TCL") == 0 ) {
 			newLexer = new QsciLexerTCL();
 		}
-#endif
+#endif // JUFF_TCL_LEXER
 
 #ifdef JUFF_PASCAL_LEXER
 		else if ( name.compare("Pascal") == 0 ) {
 			newLexer = new QsciLexerPascal();
 		}
-#endif
+#endif // JUFF_PASCAL_LEXER
+
+#ifdef JUFF_FORTRAN_LEXER
+		else if ( name.compare("Fortran") == 0 ) {
+			newLexer = new QsciLexerFortran();
+		}
+#endif // JUFF_FORTRAN_LEXER
 
 		if ( newLexer != 0 ) {
 			qDebug() << "";
@@ -680,11 +712,9 @@ QString LexerStorage::lexerName(const QString& fName) {
 	QString name = "none";
 
 	//	try to guess lexer using file name
-	QStringList types = FileTypeSettings::getTypeList();
-	if ( types.isEmpty() ) {
-		types = lexersList();
-		types.removeAll("none");
-	}
+	QStringList types = lexersList();
+	types.removeAll("none");
+	
 	foreach(QString type, types ) {
 		QStringList patterns = FileTypeSettings::getFileNamePatterns(type);
 		foreach (QString pattern, patterns) {
@@ -740,15 +770,19 @@ QsciLexer* LexerStorage::lexerByFileName(const QString& fileName) {
 QStringList LexerStorage::lexersList() const {
 	QStringList list;
 	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" 
-			<< "D" << "Diff" << "HTML" << "IDL" << "Java" << "JavaScript" 
-			<< "Lua" << "Makefile" 
+			<< "D" << "Diff" 
+			
+#ifdef JUFF_FORTRAN_LEXER
+			<< "Fortran"
+#endif	//	JUFF_FORTRAN_LEXER
+
+			<< "HTML" << "IDL" << "Java" << "JavaScript" << "Lua" << "Makefile" 
 
 #ifdef JUFF_PASCAL_LEXER
 			<< "Pascal"
 #endif	//	JUFF_PASCAL_LEXER
 
-			<< "Perl" << "Python" << "PHP" 
-			<< "Ruby" << "SQL"
+			<< "Perl" << "Python" << "PHP" << "Ruby" << "SQL"
 
 #ifdef JUFF_TCL_LEXER
 			<< "TCL"

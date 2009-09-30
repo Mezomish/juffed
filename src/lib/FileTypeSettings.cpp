@@ -74,6 +74,8 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 			list << "*.tex";
 		else if ( type == "XML") 
 			list << "*.xml";
+		else if ( type == "Fortran") 
+			list << "*.f" << "*.f77" << "*.f90";
 
 		return list;
 	}

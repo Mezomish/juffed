@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Manager.h"
 
+//#define JUFF_RICH_DOC
+
 #include <QtCore/QFile>
 #include <QtCore/QMap>
 #include <QtGui/QActionGroup>
@@ -41,7 +43,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "NullDoc.h"
 #include "Parameter.h"
 #include "PluginManager.h"
-#include "RichDocHandler.h"
 #include "SimpleDocHandler.h"
 #include "SciDocHandler.h"
 #include "gui/StatusLabel.h"
@@ -50,6 +51,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Log.h"
 #include "gui/GUIManager.h"
+
+#ifdef JUFF_RICH_DOC
+#include "RichDocHandler.h"
+#endif
 
 namespace Juff {
 
@@ -216,8 +221,11 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 /*	SimpleDocHandler* simpleDH = new SimpleDocHandler();
 	addDocHandler(simpleDH);
 */	
+
+#ifdef JUFF_RICH_DOC
 	RichDocHandler* richDH = new RichDocHandler();
 	addDocHandler(richDH);
+#endif
 	
 	SciDocHandler* sciDH = new SciDocHandler();
 	addDocHandler(sciDH);
@@ -257,16 +265,19 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	standardMenus << mInt_->fileMenu_ << mInt_->editMenu_ 
 	              << mInt_->viewMenu_ << mInt_->formatMenu_;
 	MenuList sciMenus = sciDH->menus();
-	MenuList richMenus = richDH->menus();
 	sciMenus << mInt_->pluginManager_->getMenus("sci");
-	richMenus << mInt_->pluginManager_->getMenus("rich");
 	mInt_->gui_->addMenus("all", standardMenus);
 	mInt_->gui_->addMenus("sci", sciMenus);
-	mInt_->gui_->addMenus("rich", richMenus);
 	//	toolbars from engines
 	mInt_->gui_->addToolBar("all", mInt_->mainTB_);
 	mInt_->gui_->addToolBars("sci", sciDH->toolBars());
+	
+#ifdef JUFF_RICH_DOC
+	MenuList richMenus = richDH->menus();
+	richMenus << mInt_->pluginManager_->getMenus("rich");
+	mInt_->gui_->addMenus("rich", richMenus);
 	mInt_->gui_->addToolBars("rich", richDH->toolBars());
+#endif
 
 	//	controls from plugins
 	MenuID ids[] = { ID_MENU_FILE, ID_MENU_EDIT, ID_MENU_VIEW, ID_MENU_FORMAT, ID_MENU_TOOLS, ID_MENU_NONE };

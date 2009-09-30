@@ -16,6 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QDebug>
+
 #include "Log.h"
 
 //	Qt headers
@@ -65,8 +67,8 @@ namespace Log {
 			}
 #else
 			Q_UNUSED(canBeSkipped);
-			qDebug(qPrintable(QString("Can't open log file: ") + log.errorString()));
-			qDebug(qPrintable(QString("Log string: ") + str));
+			qDebug() << "Can't open log file:" << log.errorString();
+			qDebug() << "Log string:" << str;
 #endif
 		}
 	}
@@ -75,7 +77,7 @@ namespace Log {
 #ifdef Q_OS_WIN
 		printToLog(str, canBeSkipped);
 #else
-		qDebug(qPrintable(QDateTime::currentDateTime().toString("[hh:mm:ss] %1").arg(str)));
+		qDebug() << QDateTime::currentDateTime().toString("[hh:mm:ss]") << str;
 #endif
 }
 	

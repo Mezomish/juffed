@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>601</width>
-    <height>296</height>
+    <height>302</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -31,7 +31,10 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Find</string>
+        <string>&amp;Find</string>
+       </property>
+       <property name="buddy">
+        <cstring>findCmb</cstring>
        </property>
       </widget>
      </item>
@@ -126,7 +129,7 @@
      <item row="1" column="0">
       <widget class="QCheckBox" name="replaceChk">
        <property name="text">
-        <string>Replace</string>
+        <string>&amp;Replace</string>
        </property>
        <property name="checked">
         <bool>false</bool>
@@ -152,28 +155,28 @@
      <item row="2" column="1">
       <widget class="QCheckBox" name="matchCaseChk">
        <property name="text">
-        <string>Match case</string>
+        <string>Match &amp;case</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
       <widget class="QCheckBox" name="backwardChk">
        <property name="text">
-        <string>Backward</string>
+        <string>&amp;Backward</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
       <widget class="QCheckBox" name="wholeWordsChk">
        <property name="text">
-        <string>Whole words only</string>
+        <string>Whole &amp;words only</string>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
       <widget class="QCheckBox" name="regexpChk">
        <property name="text">
-        <string>Regular expression</string>
+        <string>Regular &amp;expression</string>
        </property>
       </widget>
      </item>
@@ -188,7 +191,7 @@
 &lt;p&gt;If &lt;b&gt;not checked&lt;/b&gt;, the regexp is applied to each line separately and each line has its own symbols '^' and '$' (at the beginning and at the end of the line).&lt;/p&gt;</string>
        </property>
        <property name="text">
-        <string>Multi-line</string>
+        <string>&amp;Multi-line</string>
        </property>
       </widget>
      </item>

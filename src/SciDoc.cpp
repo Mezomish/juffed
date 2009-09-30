@@ -585,8 +585,7 @@ void SciDoc::applySettings() {
 	JUFFENTRY2;
 	
 	QFont font = TextDocSettings::font();
-
-	LexerStorage::instance()->updateLexer(docInt_->syntax_, font);
+	LexerStorage::instance()->updateLexers(font);
 	showLineNumbers(TextDocSettings::showLineNumbers());
 
 	QsciScintilla* edits[] = { docInt_->edit1_, docInt_->edit2_ };
@@ -919,39 +918,27 @@ QString SciDoc::syntax() const {
 }
 
 void SciDoc::setSyntax(const QString& lexName) {
+	qDebug() << "Syntax:" << lexName;
 	if ( lexName.isEmpty() )
 		return;
 
-	QFont font = TextDocSettings::font();
 	docInt_->syntax_ = lexName;
 
 	qDebug() << "               Getting the lexer";
-	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName, font);
-	qDebug() << "               Updating the lexer";
-	LexerStorage::instance()->updateLexer(lexName, font);
+	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName);
 
-	qDebug() << "               Getting the cur line color";
-	QColor curLineColor = LexerStorage::instance()->curLineColor(lexName);
-	docInt_->edit1_->setCaretLineBackgroundColor(curLineColor);
-	docInt_->edit2_->setCaretLineBackgroundColor(curLineColor);
-
-	qDebug() << "               Getting the selection bg color";
-	QColor selectionBgColor = LexerStorage::instance()->selectionBgColor(lexName);
-	docInt_->edit1_->setSelectionBackgroundColor(selectionBgColor);
-	docInt_->edit2_->setSelectionBackgroundColor(selectionBgColor);
-
-	//	find autocompletion API
 	qDebug() << "               Loading autocompletion";
 	loadAutocompletionAPI(lexName, lexer);
 	
 	qDebug() << "               Setting the lexer";
 	docInt_->edit1_->setLexer(lexer);
-	docInt_->edit1_->recolor();
 	docInt_->edit2_->setLexer(lexer);
-	docInt_->edit2_->recolor();
 }
 
 void SciDoc::loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer) {
+	if ( NULL == lexer )
+		return;
+	
 	QDir dir(AppInfo::configDirPath() + "/apis");
 	QString fileName = lexName.toLower() + ".api";
 	fileName.replace(QString("+"), "plus").replace(QString("#"), "sharp");

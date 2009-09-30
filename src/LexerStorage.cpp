@@ -99,6 +99,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class LSInterior {
 public:
 	LSInterior() {
+		curFont_ = TextDocSettings::font();
 	}
 	~LSInterior() {
 	}
@@ -111,6 +112,7 @@ public:
 	SchemeMap schemes_;
 	QMap<QString, QColor> curLineColors_;
 	QMap<QString, QColor> selectionBgColors_;
+	QFont curFont_;
 };
 
 bool stringToBool(const QString& str) {
@@ -649,6 +651,7 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 			if ( !name.isEmpty() && name.compare("none") != 0 ) {
 				readCustomStyle(name);
 			}
+			applyCustomStyle(name, curFont_);
 		}
 
 		return newLexer;
@@ -667,12 +670,10 @@ LexerStorage::LexerStorage() {
 }
 
 LexerStorage::~LexerStorage() {
-	JUFFDTOR;
-
 	delete lsInt_;
 }
 
-QString LexerStorage::lexerName(const QString& fName) const {
+QString LexerStorage::lexerName(const QString& fName) {
 	QFileInfo fi(fName);
 	QString fileName = fi.fileName();
 	QString ext = fi.suffix().toLower();
@@ -681,7 +682,7 @@ QString LexerStorage::lexerName(const QString& fName) const {
 	//	try to guess lexer using file name
 	QStringList types = FileTypeSettings::getTypeList();
 	if ( types.isEmpty() ) {
-		getLexersList(types);
+		types = lexersList();
 		types.removeAll("none");
 	}
 	foreach(QString type, types ) {
@@ -720,29 +721,24 @@ QString LexerStorage::lexerName(const QString& fName) const {
 	return name;
 }
 
-QsciLexer* LexerStorage::lexer(const QString& lexerName, const QFont& font) {
-	JUFFENTRY;
-	
-	QsciLexer* lex = lsInt_->lexer(lexerName);
-
-	if ( lex != 0 ) {
-		lsInt_->applyCustomStyle(lexerName, font);
-	}
-
-	return lex;
+QsciLexer* LexerStorage::lexer(const QString& lexerName) {
+	return lsInt_->lexer(lexerName);
 }
 
 QColor LexerStorage::curLineColor(const QString& name) const {
 	return lsInt_->curLineColors_.value(name, TextDocSettings::curLineColor());
 }
 
-QColor LexerStorage::selectionBgColor(const QString& name) const
-{
+QColor LexerStorage::selectionBgColor(const QString& name) const {
 	return lsInt_->selectionBgColors_.value(name, TextDocSettings::selectionBgColor());
 }
 
-void LexerStorage::getLexersList(QStringList& list) const {
-	list.clear();
+QsciLexer* LexerStorage::lexerByFileName(const QString& fileName) {
+	return lexer(lexerName(fileName));
+}
+
+QStringList LexerStorage::lexersList() const {
+	QStringList list;
 	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" 
 			<< "D" << "Diff" << "HTML" << "IDL" << "Java" << "JavaScript" 
 			<< "Lua" << "Makefile" 
@@ -759,46 +755,25 @@ void LexerStorage::getLexersList(QStringList& list) const {
 #endif	//	JUFF_TCL_LEXER
 
 			<< "TeX" << "XML";
+	return list;
 }
 
-void LexerStorage::updateLexer(const QString& name, const QFont& font) {
-	JUFFENTRY;
+void LexerStorage::updateLexers(const QFont& font) {
+	if ( font == lsInt_->curFont_ )
+		return;
 	
-	QsciLexer* lex = lsInt_->lexers_.value(name, NULL);
-	if ( NULL != lex ) {
-		Log::debug("Lexer's details: -----------");
-		
-		qDebug() << "All lexers:" << lsInt_->lexers_;
-		qDebug() << name << "lexer pointer:" << lex;
-
-		Log::debug(QString("Object name: %1").arg(lex->objectName()));
-		if ( lex->inherits("QsciLexer") )
-			Log::debug("It inherits QsciLexer");
-		else
-			Log::debug("It doesn't inherit QsciLexer");
-		Log::debug(QString("Lexer's language: %1").arg(lex->language()));
-		Log::debug(QString("Lexer's lexer: %1").arg(lex->lexer()));
-		
-		Log::debug("Font details: --------------");
-		Log::debug(QString("%1, %2 (%3)").arg(font.family()).arg(font.pointSize()).arg(font.exactMatch() ? "exact match" : "not exact match"));
-		
-		Log::debug("");
-		Log::debug("Trying to set that font....");
-		lex->setFont(font);
-		Log::debug("....successful!");
-		
-		Log::debug("Trying to refresh properties....");
-		lex->refreshProperties();
-		Log::debug("....successful!");
-
-		lsInt_->applyCustomStyle(name, font);
+	QMap<QString, QsciLexer*>::iterator it = lsInt_->lexers_.begin();
+	while (it != lsInt_->lexers_.end()) {
+		lsInt_->applyCustomStyle(it.key(), font);
+		it++;
 	}
-	
-	Log::debug("Exiting updateLexer()");
+	lsInt_->curFont_ = font;
 }
+
 
 LexerStorage* LexerStorage::instance() {
 	if ( instance_ == 0 )
 		instance_ = new LexerStorage();
 	return instance_;
 }
+

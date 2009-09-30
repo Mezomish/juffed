@@ -218,8 +218,7 @@ void SciDocHandler::initMarkersMenu() {
 }
 
 void SciDocHandler::initSyntaxMenu() {
-	QStringList sList;
-	LexerStorage::instance()->getLexersList(sList);
+	QStringList sList = LexerStorage::instance()->lexersList();
 	foreach (QString s, sList) {
 		QAction* a = docInt_->syntaxMenu_->addAction(s, this, SLOT(syntaxSelected()));
 		a->setCheckable(true);

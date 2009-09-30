@@ -36,7 +36,7 @@ FileTypesPage::FileTypesPage() : QWidget() {
 	//	file types
 	QStringList types = FileTypeSettings::getTypeList();
 	if ( types.isEmpty() ) {
-		LexerStorage::instance()->getLexersList(types);
+		types = LexerStorage::instance()->lexersList();
 		types.removeAll("none");
 	}
 	

@@ -30,17 +30,51 @@ class QStringList;
 
 class LexerStorage {
 public:
-	~LexerStorage();
-	QString lexerName(const QString& fileName) const;
-	QsciLexer* lexer(const QString& name, const QFont&);
+	/**
+	* Returns lexer by name
+	*/
+	QsciLexer* lexer(const QString& lexerName);
 
-	QColor curLineColor    (const QString&) const;
+	/**
+	* Returns lexer by file name
+	*/
+	QsciLexer* lexerByFileName(const QString& fileName);
+
+	/**
+	* Returns lexer name by file name
+	*/
+	QString lexerName(const QString& fileName);
+	
+	/**
+	* Returns a list of available lexers
+	*/
+	QStringList lexersList() const;
+
+	/**
+	* Updates currently existing lexers with new font and 
+	* sets the default font for new lexers
+	*/
+	void updateLexers(const QFont&);
+
+	/**
+	* Returns current line highlighting color for specified lexer
+	*/
+	QColor curLineColor(const QString&) const;
+	
+	/**
+	* Returns selection background color for specified lexer
+	*/
 	QColor selectionBgColor(const QString&) const;
-
-	void updateLexer(const QString& name, const QFont& font);
-	void getLexersList(QStringList&) const;
-
+	
+	/**
+	* Returns LexerStorage singleton
+	*/
 	static LexerStorage* instance();
+
+	/**
+	* Destructor
+	*/
+	~LexerStorage();
 
 protected:
 	LexerStorage();

@@ -114,8 +114,11 @@ void FindDlg::setText(const QString& t) {
 		uiFind.mlEd->selectAll();
 	}
 	else {
-		uiFind.findCmb->lineEdit()->setText(t); 
-		uiFind.findCmb->lineEdit()->selectAll();
+		if ( !t.isEmpty() ) {
+			uiFind.findCmb->insertItem(0, t);
+			uiFind.findCmb->setCurrentIndex(0); 
+			uiFind.findCmb->lineEdit()->selectAll();
+		}
 	}
 }
 

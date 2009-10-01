@@ -98,7 +98,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 		QList<Rule> rules;
 	};
 	typedef QMap<QString, Style> StyleMap;
-	typedef QMap<QString, Scheme> SchemeMap;
+	typedef QMap<QString, Scheme*> SchemeMap;
 
 class LSInterior {
 public:
@@ -218,10 +218,12 @@ void LSInterior::readCustomStyle(const QString& name) {
 
 	Log::debug(QString("Preparing to create a lexer '%1'").arg(name));
 
+	Scheme* scheme = NULL;
+	
 	if ( name.compare("C++") == 0 ) {
-		Scheme cppSch;
-		cppSch.defaultStyle = styles["default"];
-		cppSch.rules << Rule(styles["preprocessor"], QList<int>() << QsciLexerCPP::PreProcessor)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["preprocessor"], QList<int>() << QsciLexerCPP::PreProcessor)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine)
 				<< Rule(styles["commentdoc"], QList<int>() << QsciLexerCPP::CommentDoc << QsciLexerCPP::CommentLineDoc)
 				<< Rule(styles["commentdockeyword"], QList<int>() << QsciLexerCPP::CommentDocKeyword)
@@ -230,12 +232,12 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["operator"], QList<int>() << QsciLexerCPP::Operator)
 				<< Rule(styles["string"], QList<int>() << QsciLexerCPP::DoubleQuotedString)
 				<< Rule(styles["unclosedString"], QList<int>() << QsciLexerCPP::UnclosedString);
-		schemes_[name] = cppSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("CMake") == 0 ) {
-		Scheme cmakeSch;
-		cmakeSch.defaultStyle = styles["default"];
-		cmakeSch.rules << Rule(styles["comment"], QList<int>() << QsciLexerCMake::Comment)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["comment"], QList<int>() << QsciLexerCMake::Comment)
 				<< Rule(styles["string"], QList<int>() << QsciLexerCMake::String)
 				<< Rule(styles["variable"], QList<int>() << QsciLexerCMake::Variable)
 				<< Rule(styles["stringvariable"], QList<int>() << QsciLexerCMake::StringVariable)
@@ -247,32 +249,32 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["blockforeach"], QList<int>() << QsciLexerCMake::BlockForeach)
 				<< Rule(styles["blockmacro"], QList<int>() << QsciLexerCMake::BlockMacro)
 				<< Rule(styles["keywordset3"], QList<int>() << QsciLexerCMake::KeywordSet3);
-		schemes_[name] = cmakeSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("Makefile") == 0 ) {
-		Scheme mkSch;
-		mkSch.defaultStyle = styles["default"];
-		mkSch.rules << Rule(styles["variable"], QList<int>() << QsciLexerMakefile::Variable)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["variable"], QList<int>() << QsciLexerMakefile::Variable)
 				<< Rule(styles["target"], QList<int>() << QsciLexerMakefile::Target)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerMakefile::Comment)
 				<< Rule(styles["error"], QList<int>() << QsciLexerMakefile::Error);
-		schemes_[name] = mkSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("Diff") == 0 ) {
-		Scheme diffSch;
-		diffSch.defaultStyle = styles["default"];
-		diffSch.rules << Rule(styles["lineadded"], QList<int>() << QsciLexerDiff::LineAdded)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["lineadded"], QList<int>() << QsciLexerDiff::LineAdded)
 				<< Rule(styles["lineremoved"], QList<int>() << QsciLexerDiff::LineRemoved)
 				<< Rule(styles["command"], QList<int>() << QsciLexerDiff::Command)
 				<< Rule(styles["position"], QList<int>() << QsciLexerDiff::Position)
 				<< Rule(styles["header"], QList<int>() << QsciLexerDiff::Header)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerDiff::Comment);
-		schemes_[name] = diffSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("Java") == 0 ) {
-		Scheme javaSch;
-		javaSch.defaultStyle = styles["default"];
-		javaSch.rules << Rule(styles["preprocessor"], QList<int>() << QsciLexerCPP::PreProcessor)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["preprocessor"], QList<int>() << QsciLexerCPP::PreProcessor)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine)
 				<< Rule(styles["commentdoc"], QList<int>() << QsciLexerCPP::CommentDoc)
 				<< Rule(styles["commentdockeyword"], QList<int>() << QsciLexerCPP::CommentDocKeyword)
@@ -281,12 +283,12 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["operator"], QList<int>() << QsciLexerCPP::Operator)
 				<< Rule(styles["string"], QList<int>() << QsciLexerCPP::DoubleQuotedString)
 				<< Rule(styles["unclosedString"], QList<int>() << QsciLexerCPP::UnclosedString);
-		schemes_[name] = javaSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("Python") == 0 ) {
-		Scheme pySch;
-		pySch.defaultStyle = styles["default"];
-		pySch.rules << Rule(styles["keyword"], QList<int>() << QsciLexerPython::Keyword)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["keyword"], QList<int>() << QsciLexerPython::Keyword)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerPython::Comment << QsciLexerPython::CommentBlock)
 				<< Rule(styles["number"], QList<int>() << QsciLexerPython::Number)
 				<< Rule(styles["operator"], QList<int>() << QsciLexerPython::Operator)
@@ -298,22 +300,22 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["tripleDouble"], QList<int>() << QsciLexerPython::TripleDoubleQuotedString)
 				<< Rule(styles["decorator"], QList<int>() << QsciLexerPython::Decorator)
 				<< Rule(styles["unclosedString"], QList<int>() << QsciLexerPython::UnclosedString);
-		schemes_[name] = pySch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("XML") == 0 ) {
-		Scheme xmlSch;
-		xmlSch.defaultStyle = styles["default"];
-		xmlSch.rules << Rule(styles["tag"], QList<int>() << QsciLexerHTML::Tag << QsciLexerHTML::UnknownTag << QsciLexerHTML::XMLTagEnd)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["tag"], QList<int>() << QsciLexerHTML::Tag << QsciLexerHTML::UnknownTag << QsciLexerHTML::XMLTagEnd)
 				<< Rule(styles["attribute"], QList<int>() << QsciLexerHTML::Attribute << QsciLexerHTML::UnknownAttribute)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerHTML::HTMLComment)
 				<< Rule(styles["value"], QList<int>() << QsciLexerHTML::HTMLSingleQuotedString << QsciLexerHTML::HTMLDoubleQuotedString)
 				<< Rule(styles["entity"], QList<int>() << QsciLexerHTML::Entity);
-		schemes_[name] = xmlSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("Bash") == 0 ) {
-		Scheme bashSch;
-		bashSch.defaultStyle = styles["default"];
-		bashSch.rules << Rule(styles["identifier"], QList<int>() << QsciLexerBash::Identifier)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["identifier"], QList<int>() << QsciLexerBash::Identifier)
 				<< Rule(styles["singleString"], QList<int>() << QsciLexerBash::SingleQuotedString)
 				<< Rule(styles["doubleString"], QList<int>() << QsciLexerBash::DoubleQuotedString)
 				<< Rule(styles["keyword"], QList<int>() << QsciLexerBash::Keyword)
@@ -322,22 +324,22 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["comment"], QList<int>() << QsciLexerBash::Comment)
 				<< Rule(styles["scalar"], QList<int>() << QsciLexerBash::Scalar << QsciLexerBash::ParameterExpansion)
 				<< Rule(styles["error"], QList<int>() << QsciLexerBash::Error);
-		schemes_[name] = bashSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("Batch") == 0 ) {
-		Scheme batSch;
-		batSch.defaultStyle = styles["default"];
-		batSch.rules << Rule(styles["variable"], QList<int>() << QsciLexerBatch::Variable)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["variable"], QList<int>() << QsciLexerBatch::Variable)
 				<<	Rule(styles["comment"], QList<int>() << QsciLexerBatch::Comment)
 				<<	Rule(styles["operator"], QList<int>() << QsciLexerBatch::Operator)
 				<<	Rule(styles["keyword"], QList<int>() << QsciLexerBatch::Keyword)
 				<<	Rule(styles["label"], QList<int>() << QsciLexerBatch::Label);
-		schemes_[name] = batSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("HTML") == 0 ) {
-		Scheme htmlSch;
-		htmlSch.defaultStyle = styles["default"];
-		htmlSch.rules 
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules 
 				<< Rule(styles["tag"], QList<int>() << QsciLexerHTML::Tag)
 				<< Rule(styles["attribute"], QList<int>() << QsciLexerHTML::Attribute)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerHTML::HTMLComment)
@@ -351,12 +353,12 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["jsComment"], QList<int>() << QsciLexerHTML::JavaScriptComment << QsciLexerHTML::JavaScriptCommentLine)
 				<< Rule(styles["jsNumber"], QList<int>() << QsciLexerHTML::JavaScriptNumber)
 				<< Rule(styles["jsSymbol"], QList<int>() << QsciLexerHTML::JavaScriptSymbol);
-		schemes_[name] = htmlSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("PHP") == 0 ) {
-		Scheme phpSch;
-		phpSch.defaultStyle = styles["default"];
-		phpSch.rules 
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules 
 				<< Rule(styles["phpKeyword"], QList<int>() << QsciLexerHTML::PHPKeyword)
 				<< Rule(styles["phpOperator"], QList<int>() << QsciLexerHTML::PHPOperator)
 				<< Rule(styles["phpVariable"], QList<int>() << QsciLexerHTML::PHPVariable)
@@ -377,12 +379,12 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["jsComment"], QList<int>() << QsciLexerHTML::JavaScriptComment << QsciLexerHTML::JavaScriptCommentLine)
 				<< Rule(styles["jsNumber"], QList<int>() << QsciLexerHTML::JavaScriptNumber)
 				<< Rule(styles["jsSymbol"], QList<int>() << QsciLexerHTML::JavaScriptSymbol);
-		schemes_[name] = phpSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("JavaScript") == 0 ) {
-		Scheme jsSch;
-		jsSch.defaultStyle = styles["default"];
-		jsSch.rules << Rule(styles["keyword"], QList<int>() << QsciLexerCPP::Keyword)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["keyword"], QList<int>() << QsciLexerCPP::Keyword)
 				<< Rule(styles["singleString"], QList<int>() << QsciLexerCPP::SingleQuotedString)
 				<< Rule(styles["doubleString"], QList<int>() << QsciLexerCPP::DoubleQuotedString)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerCPP::Comment << QsciLexerCPP::CommentLine)
@@ -390,12 +392,12 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["commentdockeyword"], QList<int>() << QsciLexerCPP::CommentDocKeyword)
 				<< Rule(styles["number"], QList<int>() << QsciLexerCPP::Number)
 				<< Rule(styles["identifier"], QList<int>() << QsciLexerCPP::Identifier);
-		schemes_[name] = jsSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("Perl") == 0 ) {
-		Scheme perlSch;
-		perlSch.defaultStyle = styles["default"];
-		perlSch.rules << Rule(styles["comment"], QList<int>() << QsciLexerPerl::Comment)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["comment"], QList<int>() << QsciLexerPerl::Comment)
 				<< Rule(styles["number"], QList<int>() << QsciLexerPerl::Number)
 				<< Rule(styles["keyword"], QList<int>() << QsciLexerPerl::Keyword)
 				<< Rule(styles["operator"], QList<int>() << QsciLexerPerl::Operator)
@@ -410,12 +412,12 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["substitution"], QList<int>() << QsciLexerPerl::Substitution)
 				<< Rule(styles["hereDocument"], QList<int>() << QsciLexerPerl::HereDocumentDelimiter << QsciLexerPerl::SingleQuotedHereDocument << QsciLexerPerl::DoubleQuotedHereDocument)
 				<< Rule(styles["error"], QList<int>() << QsciLexerPerl::Error);
-		schemes_[name] = perlSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("Ruby") == 0 ) {
-		Scheme rbSch;
-		rbSch.defaultStyle = styles["default"];
-		rbSch.rules << Rule(styles["comment"], QList<int>() << QsciLexerRuby::Comment)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["comment"], QList<int>() << QsciLexerRuby::Comment)
 				<< Rule(styles["number"], QList<int>() << QsciLexerRuby::Number)
 				<< Rule(styles["keyword"], QList<int>() << QsciLexerRuby::Keyword)
 				<< Rule(styles["operator"], QList<int>() << QsciLexerRuby::Operator)
@@ -433,23 +435,23 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["functionMethod"], QList<int>() << QsciLexerRuby::FunctionMethodName)
 				<< Rule(styles["global"], QList<int>() << QsciLexerRuby::Global)
 				<< Rule(styles["error"], QList<int>() << QsciLexerRuby::Error);
-		schemes_[name] = rbSch;
+		schemes_[name] = scheme;
 	}
 	else if ( name.compare("TeX") == 0 ) {
-		Scheme texSch;
-		texSch.defaultStyle = styles["default"];
-		texSch.rules << Rule(styles["special"], QList<int>() << QsciLexerTeX::Special)
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["special"], QList<int>() << QsciLexerTeX::Special)
 				<< Rule(styles["group"], QList<int>() << QsciLexerTeX::Group)
 				<< Rule(styles["symbol"], QList<int>() << QsciLexerTeX::Symbol)
 				<< Rule(styles["command"], QList<int>() << QsciLexerTeX::Command)
 				<< Rule(styles["text"], QList<int>() << QsciLexerTeX::Text);
-		schemes_[name] = texSch;
+		schemes_[name] = scheme;
 	}
 #ifdef JUFF_TCL_LEXER
 	else if ( name.compare("TCL") == 0 ) {
-		Scheme tclSch;
-		tclSch.defaultStyle = styles["default"];
-		tclSch.rules 
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules 
 				<< Rule(styles["number"], QList<int>() << QsciLexerTCL::Number)
 				<< Rule(styles["keyword"], QList<int>() << QsciLexerTCL::QuotedKeyword << QsciLexerTCL::ExpandKeyword << QsciLexerTCL::KeywordSet6 << QsciLexerTCL::KeywordSet7 << QsciLexerTCL::KeywordSet8 << QsciLexerTCL::KeywordSet9)
 				<< Rule(styles["string"], QList<int>() << QsciLexerTCL::QuotedString)
@@ -463,15 +465,15 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["itclkeyword"], QList<int>() << QsciLexerTCL::ITCLKeyword)
 				<< Rule(styles["tkcommand"], QList<int>() << QsciLexerTCL::TkCommand)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerTCL::CommentBox << QsciLexerTCL::CommentBlock << QsciLexerTCL::Comment << QsciLexerTCL::CommentLine);
-		schemes_[name] = tclSch;
+		schemes_[name] = scheme;
 	}
 #endif	//	JUFF_TCL_LEXER
 
 #ifdef JUFF_PASCAL_LEXER
 	else if ( name.compare("Pascal") == 0 ) {
-		Scheme pasSch;
-		pasSch.defaultStyle = styles["default"];
-		pasSch.rules 
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules 
 				<< Rule(styles["comment"], QList<int>() << QsciLexerPascal::Comment << QsciLexerPascal::CommentLine)
 //				<< Rule(styles["commentdoc"], QList<int>() << QsciLexerPascal::CommentDoc)
 				<< Rule(styles["number"], QList<int>() << QsciLexerPascal::Number)
@@ -481,15 +483,15 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["operator"], QList<int>() << QsciLexerPascal::Operator)
 				<< Rule(styles["identifier"], QList<int>() << QsciLexerPascal::Identifier)
 				<< Rule(styles["asm"], QList<int>() << QsciLexerPascal::Asm);
-		schemes_[name] = pasSch;
+		schemes_[name] = scheme;
 	}
 #endif	//	JUFF_PASCAL_LEXER
 
 #ifdef JUFF_FORTRAN_LEXER
 	else if ( name.compare("Fortran") == 0 ) {
-		Scheme frtSch;
-		frtSch.defaultStyle = styles["default"];
-		frtSch.rules 
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules 
 				<< Rule(styles["comment"], QList<int>() << QsciLexerFortran77::Comment)
 				<< Rule(styles["number"], QList<int>() << QsciLexerFortran77::Number)
 				<< Rule(styles["keyword"], QList<int>() << QsciLexerFortran77::Keyword)
@@ -503,7 +505,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["extendedfunction"], QList<int>() << QsciLexerFortran77::ExtendedFunction)
 				<< Rule(styles["continuation"], QList<int>() << QsciLexerFortran77::Continuation)
 				<< Rule(styles["unclosedstring"], QList<int>() << QsciLexerFortran77::UnclosedString);
-		schemes_[name] = frtSch;
+		schemes_[name] = scheme;
 	}
 #endif	//	JUFF_FORTRAN_LEXER
 
@@ -531,30 +533,30 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 			
 			if ( schemes_.contains(name) ) {
 				Log::debug(QString("Found sceme").arg(name));
-				Scheme& scheme = schemes_[name];
+				Scheme* scheme = schemes_[name];
 			
 				QFont f(font);
-				f.setStyle(scheme.defaultStyle.italic ? QFont::StyleItalic : QFont::StyleNormal);
-				f.setWeight(scheme.defaultStyle.bold ? QFont::Bold : QFont::Normal);
+				f.setStyle(scheme->defaultStyle.italic ? QFont::StyleItalic : QFont::StyleNormal);
+				f.setWeight(scheme->defaultStyle.bold ? QFont::Bold : QFont::Normal);
 				lex->setFont(f, -1);
-				if ( scheme.defaultStyle.color.isValid() ) {
-					lex->setColor(scheme.defaultStyle.color, -1);
-					lex->setDefaultColor(scheme.defaultStyle.color);
+				if ( scheme->defaultStyle.color.isValid() ) {
+					lex->setColor(scheme->defaultStyle.color, -1);
+					lex->setDefaultColor(scheme->defaultStyle.color);
 				}
 				else {
 					lex->setColor(TextDocSettings::defaultFontColor(), -1);
 					lex->setDefaultColor(TextDocSettings::defaultFontColor());
 				}
-				if ( scheme.defaultStyle.bgColor.isValid() ) {
-					lex->setPaper(scheme.defaultStyle.bgColor, -1);
-					lex->setDefaultPaper(scheme.defaultStyle.bgColor);
+				if ( scheme->defaultStyle.bgColor.isValid() ) {
+					lex->setPaper(scheme->defaultStyle.bgColor, -1);
+					lex->setDefaultPaper(scheme->defaultStyle.bgColor);
 				}
 				else {
 					lex->setPaper(TextDocSettings::defaultBgColor(), -1);
 					lex->setDefaultPaper(TextDocSettings::defaultBgColor());
 				}
 
-				foreach (Rule const& rule, scheme.rules) {
+				foreach (Rule const& rule, scheme->rules) {
 					foreach (int element, rule.hlElements) {
 						QFont f(font);
 						f.setStyle(rule.style.italic ? QFont::StyleItalic : QFont::StyleNormal);

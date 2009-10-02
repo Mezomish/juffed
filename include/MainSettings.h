@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _MAIN_SETTINGS_H_
-#define _MAIN_SETTINGS_H_
+#ifndef __JUFF_MAIN_SETTINGS_H__
+#define __JUFF_MAIN_SETTINGS_H__
 
 #include "Settings.h"
 
@@ -65,4 +65,4 @@ public:
 	static void setMwState(const QByteArray&);
 };
 
-#endif
+#endif // __JUFF_MAIN_SETTINGS_H__

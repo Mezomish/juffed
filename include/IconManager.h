@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _JUFF_ICON_MANAGER_H_
-#define _JUFF_ICON_MANAGER_H_
+#ifndef __JUFF_ICON_MANAGER_H__
+#define __JUFF_ICON_MANAGER_H__
 
 class IMInterior;
 
@@ -76,4 +76,4 @@ private:
 	IMInterior* imInt_;
 };
 
-#endif // _ICON_MANAGER_H_
+#endif // __JUFF_ICON_MANAGER_H__

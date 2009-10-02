@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _LOG_H_
-#define _LOG_H_
+#ifndef __JUFF_LOG_H__
+#define __JUFF_LOG_H__
 
 #include <QtCore/QString>
 #include <QtCore/QRect>
@@ -66,4 +66,4 @@ namespace Log {
 
 #endif	//	JUFF_FULL_DEBUG
 
-#endif	//	_LOG_H_
+#endif	//	__JUFF_LOG_H__

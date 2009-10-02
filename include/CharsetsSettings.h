@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _CHARSET_SETTINGS_H_
-#define _CHARSET_SETTINGS_H_
+#ifndef __JUFF_CHARSET_SETTINGS_H__
+#define __JUFF_CHARSET_SETTINGS_H__
 
 #include "Settings.h"
 
@@ -31,4 +31,4 @@ private:
 	static QStringList csList_;
 };
 
-#endif
+#endif // __JUFF_CHARSET_SETTINGS_H__

@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _AUTOCOMPLETE_SETTINGS_H_
-#define _AUTOCOMPLETE_SETTINGS_H_
+#ifndef __JUFF_AUTOCOMPLETE_SETTINGS_H__
+#define __JUFF_AUTOCOMPLETE_SETTINGS_H__
 
 #include "Settings.h"
 
@@ -36,4 +36,4 @@ public:
 	static void setThreshold(int);
 };
 
-#endif
+#endif // __JUFF_AUTOCOMPLETE_SETTINGS_H__

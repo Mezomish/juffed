@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _JUFF_ABOUT_DLG_H_
-#define _JUFF_ABOUT_DLG_H_
+#ifndef __JUFF_ABOUT_DLG_H__
+#define __JUFF_ABOUT_DLG_H__
 
 class QIcon;
 class QUrl;
@@ -71,4 +71,4 @@ private:
 	Interior* dlgInt_;
 };
 
-#endif
+#endif // __JUFF_ABOUT_DLG_H__

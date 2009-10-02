@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _MULTIPAGE_H_
-#define _MULTIPAGE_H_
+#ifndef __JUFF_MULTIPAGE_H__
+#define __JUFF_MULTIPAGE_H__
 
 #include <QtGui/QWidget>
 
@@ -47,4 +47,4 @@ private:
 	MultiPageInterior* mpInt_;
 };
 
-#endif
+#endif // __JUFF_MULTIPAGE_H__

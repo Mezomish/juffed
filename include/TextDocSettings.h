@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _TEXT_DOC_SETTINGS_H_
-#define _TEXT_DOC_SETTINGS_H_
+#ifndef __JUFF_TEXT_DOC_SETTINGS_H__
+#define __JUFF_TEXT_DOC_SETTINGS_H__
 
 #include "Settings.h"
 
@@ -63,4 +63,4 @@ public:
 	static void setSelectionBgColor(const QColor&);
 };
 
-#endif
+#endif // __JUFF_TEXT_DOC_SETTINGS_H__

@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _JUFF_MW_H_
-#define _JUFF_MW_H_
+#ifndef __JUFF_MW_H__
+#define __JUFF_MW_H__
 
 #include <QtGui/QMainWindow>
 
@@ -39,4 +39,4 @@ protected:
 }	//	namespace GUI
 }	//	namespace Juff
 
-#endif
+#endif // __JUFF_MW_H__

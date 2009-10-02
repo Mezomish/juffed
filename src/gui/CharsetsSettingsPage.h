@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _CHARSETS_SETTINGS_PAGE_H_
-#define _CHARSETS_SETTINGS_PAGE_H_
+#ifndef __JUFF_CHARSETS_SETTINGS_PAGE_H__
+#define __JUFF_CHARSETS_SETTINGS_PAGE_H__
 
 //	Qt
 #include <QtGui/QWidget>
@@ -42,4 +42,4 @@ private:
 	Ui::CharsetsSettingsPage ui;
 };
 
-#endif
+#endif // __JUFF_CHARSETS_SETTINGS_PAGE_H__

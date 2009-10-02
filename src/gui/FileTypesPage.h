@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _FILE_TYPES_PAGE_H_
-#define _FILE_TYPES_PAGE_H_
+#ifndef __JUFF_FILE_TYPES_PAGE_H__
+#define __JUFF_FILE_TYPES_PAGE_H__
 
 #include "ui_FileTypesPage.h"
 
@@ -41,4 +41,4 @@ private:
 	QMap<QString, QStringList> firstLinePatterns_;
 };
 
-#endif
+#endif // __JUFF_FILE_TYPES_PAGE_H__

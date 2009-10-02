@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _LICENSE_H_
-#define _LICENSE_H_
+#ifndef __JUFF_LICENSE_H__
+#define __JUFF_LICENSE_H__
 
 namespace License {
 const char* licenseText = 
@@ -303,4 +303,4 @@ const char* licenseText =
 "\n"
 "		END OF TERMS AND CONDITIONS\n";
 };
-#endif
+#endif // __JUFF_LICENSE_H__

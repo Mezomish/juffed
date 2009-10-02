@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _SETTINGS_DLG_H_
-#define _SETTINGS_DLG_H_
+#ifndef __JUFF_SETTINGS_DLG_H__
+#define __JUFF_SETTINGS_DLG_H__
 
 #include <QtCore/QMap>
 #include <QtGui/QDialog>
@@ -74,4 +74,4 @@ private:
 	QList<SettingsItem*> items_;
 };
 
-#endif
+#endif // __JUFF_SETTINGS_DLG_H__

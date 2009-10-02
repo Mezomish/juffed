@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _SETTINGS_H_
-#define _SETTINGS_H_
+#ifndef __JUFF_SETTINGS_H__
+#define __JUFF_SETTINGS_H__
 
 class QString;
 class SettingsData;
@@ -50,4 +50,4 @@ private:
 	static SettingsData* settData_;
 };
 
-#endif
+#endif // __JUFF_SETTINGS_H__

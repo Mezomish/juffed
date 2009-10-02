@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _PLUGIN_PAGE_H_
-#define _PLUGIN_PAGE_H_
+#ifndef __JUFF_PLUGIN_PAGE_H__
+#define __JUFF_PLUGIN_PAGE_H__
 
 class QCheckBox;
 
@@ -42,4 +42,4 @@ private:
 	QString name_;
 };
 
-#endif
+#endif // __JUFF_PLUGIN_PAGE_H__

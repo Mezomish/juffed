@@ -16,8 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef _JUFF_FUNCTIONS_H_
-#define _JUFF_FUNCTIONS_H_
+#ifndef __JUFF_FUNCTIONS_H__
+#define __JUFF_FUNCTIONS_H__
 
 #include <QtCore/QFileInfo>
 #include <QtCore/QString>
@@ -39,4 +39,4 @@ inline QString getDocTitle(const QString& fileName, bool modified = false) {
 
 }	//	namespace Juff
 
-#endif
+#endif // __JUFF_FUNCTIONS_H__

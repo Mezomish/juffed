@@ -68,6 +68,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TextDocSettings.h"
 
 #include "Log.h"
+#include <stdio.h>
 
 	struct Style {
 		Style(const QColor& c = QColor(), const QColor& bgc = QColor(), bool b = false, bool i = false) {
@@ -685,9 +686,12 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 			if ( !name.isEmpty() && name.compare("none") != 0 ) {
 				readCustomStyle(name);
 			}
+			printf("Applying style\n   -- Lexer pointer:%p\n", newLexer);
 			applyCustomStyle(name, curFont_);
+			printf("Style applied\n   -- Lexer pointer:%p\n", newLexer);
 		}
 
+		printf("Returning lexer\n   -- Lexer pointer:%p\n", newLexer);
 		return newLexer;
 	}
 }

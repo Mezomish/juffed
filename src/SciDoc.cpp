@@ -46,6 +46,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QScrollBar>
 #include <QtGui/QSplitter>
 
+#include <stdio.h>
+
 namespace Juff {
 
 class SciDoc::Interior {
@@ -934,17 +936,17 @@ void SciDoc::setSyntax(const QString& lexName) {
 
 	qDebug() << "               Getting the lexer";
 	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName);
-	qDebug() << "               -- Lexer pointer:" << lexer;
+	printf("Lexer returned\n   -- Lexer pointer:%p\n", lexer);
 
 	qDebug() << "               Loading autocompletion";
 	loadAutocompletionAPI(lexName, lexer);
-	qDebug() << "               -- Lexer pointer:" << lexer;
+	printf("Autocomplete loaded\n   -- Lexer pointer:%p\n", lexer);
 	
 	qDebug() << "               Setting the lexer";
 	docInt_->edit1_->setLexer(lexer);
-	qDebug() << "               -- Lexer pointer:" << lexer;
+	printf("Lexer set to edit1\n   -- Lexer pointer:%p\n", lexer);
 	docInt_->edit2_->setLexer(lexer);
-	qDebug() << "               -- Lexer pointer:" << lexer;
+	printf("Lexer set to edit2\n   -- Lexer pointer:%p\n", lexer);
 }
 
 void SciDoc::loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer) {

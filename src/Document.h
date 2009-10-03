@@ -63,6 +63,7 @@ public:
 
 	virtual QString text() const { return ""; }
 	virtual QString text(int) const { return ""; }
+	virtual QString wordUnderCursor() const { return ""; }
 	virtual QString selectedText() const { return ""; }
 	virtual void getCursorPos(int&, int&) const {}
 	virtual void setCursorPos(int, int) {}

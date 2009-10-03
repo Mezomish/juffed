@@ -60,6 +60,7 @@ public:
 	virtual void gotoLine(int);
 	virtual QString text() const;
 	virtual QString text(int) const;
+	virtual QString wordUnderCursor() const;
 	virtual QString selectedText() const;
 	virtual void getCursorPos(int&, int&) const;
 	virtual void setCursorPos(int, int);

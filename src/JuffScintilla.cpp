@@ -174,6 +174,18 @@ long JuffScintilla::curPos() const {
 	return lineColToPos(line, col);
 }
 
+QString JuffScintilla::wordUnderCursor() {
+	int line, col;
+	getCursorPosition(&line, &col);
+	QString str = text(line);
+	int startPos = str.left(col).lastIndexOf(QRegExp("\\b"));
+	int endPos = str.indexOf(QRegExp("\\b"), col);
+	if ( startPos >= 0 && endPos >= 0 && endPos > startPos )
+		return str.mid(startPos, endPos - startPos);
+	else
+		return "";
+}
+
 bool JuffScintilla::findML(const QString& s, const DocFindFlags& flags) {
 	JUFFENTRY;
 	QString text = this->text();

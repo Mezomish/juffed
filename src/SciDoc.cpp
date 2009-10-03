@@ -706,6 +706,14 @@ QString SciDoc::text(int line) const {
 	return docInt_->edit1_->text(line); 
 }
 
+QString SciDoc::wordUnderCursor() const {
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return QString();
+	
+	return edit->wordUnderCursor(); 
+}
+
 QString SciDoc::selectedText() const {
 	JuffScintilla* edit = getActiveEdit();
 	if ( !edit )

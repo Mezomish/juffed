@@ -1209,8 +1209,13 @@ void Manager::findImpl(bool replc) {
 		QString str1, str2;
 		int line1, col1, line2, col2;
 		doc->getSelection(line1, col1, line2, col2);
-		if ( line1 == line2 && col1 != col2 ) {
-			str1 = doc->selectedText();
+		if ( line1 == line2 ) {
+			if ( col1 != col2 ) {
+				str1 = doc->selectedText();
+			}
+			else {
+				str1 = doc->wordUnderCursor();
+			}
 		}
 		if ( mInt_->gui_->getFindParams(str1, str2, flags) ) {
 			if ( flags.replace ) {

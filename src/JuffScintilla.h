@@ -40,6 +40,8 @@ public:
 	void addContextMenuActions(const ActionList&);
 	void showLineNumbers(bool);
 
+	QString wordUnderCursor();
+
 signals:
 	void contextMenuCalled(int, int);
 

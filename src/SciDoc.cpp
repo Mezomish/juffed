@@ -934,13 +934,17 @@ void SciDoc::setSyntax(const QString& lexName) {
 
 	qDebug() << "               Getting the lexer";
 	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName);
+	qDebug() << "               -- Lexer pointer:" << lexer;
 
 	qDebug() << "               Loading autocompletion";
 	loadAutocompletionAPI(lexName, lexer);
+	qDebug() << "               -- Lexer pointer:" << lexer;
 	
 	qDebug() << "               Setting the lexer";
 	docInt_->edit1_->setLexer(lexer);
+	qDebug() << "               -- Lexer pointer:" << lexer;
 	docInt_->edit2_->setLexer(lexer);
+	qDebug() << "               -- Lexer pointer:" << lexer;
 }
 
 void SciDoc::loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer) {

@@ -225,6 +225,10 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 
 	SciDocHandler* sciDH = new SciDocHandler();
 
+	// Need to call it here because Keybindings plugin 
+	// needs to have updated shortcuts
+	CommandStorage::instance()->updateShortcuts();
+
 	//	TODO : add a proper engines list initialization
 	mInt_->pluginManager_ = new PluginManager(QStringList() << /*"simple" <<*/ "rich" << "sci", this, gui);
 	mInt_->pluginManager_->loadPlugins();

@@ -90,6 +90,7 @@ public:
 		nameL_ = new GUI::StatusLabel("");
 		charsetL_ = new GUI::StatusLabel("");
 		linesL_ = new GUI::StatusLabel("");
+		posL_->setMinimumWidth(130);
 		posL_->setToolTip(QObject::tr("Cursor position"));
 		nameL_->setToolTip(QObject::tr("File full name"));
 		charsetL_->setToolTip(QObject::tr("Current character set"));

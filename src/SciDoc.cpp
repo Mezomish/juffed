@@ -32,7 +32,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <qsciapis.h>
 #include <qscilexer.h>
-#include <qscimacro.h>
+//#include <qscimacro.h>
 #include <qsciprinter.h>
 #include <qsciscintilla.h>
 
@@ -999,7 +999,7 @@ void SciDoc::setEolMode(EolMode eol) {
 	}
 }
 
-QsciMacro* SciDoc::newMacro() {
+/*QsciMacro* SciDoc::newMacro() {
 	JuffScintilla* edit = getActiveEdit();
 	if ( !edit )
 		return 0;
@@ -1016,7 +1016,7 @@ void SciDoc::runMacro(const QString& mcr) {
 	if ( macro.load(mcr) ) {
 		macro.play();
 	}
-}
+}*/
 
 void SciDoc::goToMatchingBrace() {
 	JuffScintilla* edit = getActiveEdit();

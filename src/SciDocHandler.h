@@ -61,9 +61,9 @@ private slots:
 	void syntaxSelected();
 	void eolSelected();
 
-	void startMacroRecord();
-	void stopMacroRecord();
-	void runMacro();
+//	void startMacroRecord();
+//	void stopMacroRecord();
+//	void runMacro();
 
 	void goToMatchingBrace();
 	void selectToMatchingBrace();

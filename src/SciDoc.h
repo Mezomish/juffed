@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Document.h"
 
 class QsciLexer;
-class QsciMacro;
+//class QsciMacro;
 
 namespace Juff {
 
@@ -100,8 +100,8 @@ public:
 	void prevMarker();
 	void removeAllMarkers();
 
-	QsciMacro* newMacro();
-	void runMacro(const QString&);
+//	QsciMacro* newMacro();
+//	void runMacro(const QString&);
 
 	void goToMatchingBrace();
 	void selectToMatchingBrace();

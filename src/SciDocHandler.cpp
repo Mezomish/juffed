@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QMessageBox>
 #include <QtGui/QToolBar>
 
-#include <Qsci/qscimacro.h>
+//#include <Qsci/qscimacro.h>
 
 #include "CommandStorage.h"
 #include "LexerStorage.h"
@@ -63,11 +63,11 @@ public:
 		eolL_->setMenu(eolMenu_);
 		eolL_->setToolTip(QObject::tr("Line endings"));
 
-		macrosMenu_ = new QMenu(QObject::tr("Macro"));
-		startMacroAct_ = new QAction(QIcon(":record.png"), "Start recording", 0);
-		stopMacroAct_ = new QAction(QIcon(":stop.png"), "Stop recording", 0);
-		macrosMenu_->addAction(startMacroAct_);
-		macrosMenu_->addAction(stopMacroAct_);
+//		macrosMenu_ = new QMenu(QObject::tr("Macro"));
+//		startMacroAct_ = new QAction(QIcon(":record.png"), "Start recording", 0);
+//		stopMacroAct_ = new QAction(QIcon(":stop.png"), "Stop recording", 0);
+//		macrosMenu_->addAction(startMacroAct_);
+//		macrosMenu_->addAction(stopMacroAct_);
 
 		goToMatchingBraceAct_ = new QAction(QObject::tr("Go to matching brace"), 0);
 		goToMatchingBraceAct_->setShortcut(QKeySequence("Ctrl+E"));
@@ -116,15 +116,15 @@ public:
 		for (int i = 0; i < list.size(); ++i) {
 			CommandStorage::instance()->registerExtCommand(ID_SCI_BASE_ITEM + shifts[i], list[i]);
 		}
-		macro_ = 0;
+//		macro_ = 0;
 	}
 
 	~Interior() {
 		delete syntaxActGr_;
 		delete eolActGr_;
 		delete showInvisibleAct_;
-		if ( macro_ )
-			delete macro_;	//	in case we closed the app without stopping macro recording
+//		if ( macro_ )
+//			delete macro_;	//	in case we closed the app without stopping macro recording
 		delete goToMatchingBraceAct_;
 		delete selToMatchingBraceAct_;
 	}
@@ -137,9 +137,9 @@ public:
 	QMenu* markersMenu_;
 	QMenu* syntaxMenu_;
 	QMenu* eolMenu_;
-	QMenu* macrosMenu_;
-	QAction* startMacroAct_;
-	QAction* stopMacroAct_;
+//	QMenu* macrosMenu_;
+//	QAction* startMacroAct_;
+//	QAction* stopMacroAct_;
 	ToolBarList toolBars_;
 	MenuList menus_;
 	QMap<QString, QAction*> syntaxActions_;
@@ -157,8 +157,8 @@ public:
 	QAction* lineCommentAct_;
 	QAction* blockCommentAct_;
 	QAction* changeSplitAct_;
-	QsciMacro* macro_;
-	QMap<QString, QString> macros_;
+//	QsciMacro* macro_;
+//	QMap<QString, QString> macros_;
 };
 
 SciDocHandler::SciDocHandler() : DocHandler() {
@@ -188,9 +188,9 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 
 	initSyntaxMenu();
 
-	connect(docInt_->startMacroAct_, SIGNAL(activated()), this, SLOT(startMacroRecord()));
-	connect(docInt_->stopMacroAct_, SIGNAL(activated()), this, SLOT(stopMacroRecord()));
-	docInt_->stopMacroAct_->setEnabled(false);
+//	connect(docInt_->startMacroAct_, SIGNAL(activated()), this, SLOT(startMacroRecord()));
+//	connect(docInt_->stopMacroAct_, SIGNAL(activated()), this, SLOT(stopMacroRecord()));
+//	docInt_->stopMacroAct_->setEnabled(false);
 
 	connect(docInt_->goToMatchingBraceAct_, SIGNAL(activated()), this, SLOT(goToMatchingBrace()));
 	connect(docInt_->selToMatchingBraceAct_, SIGNAL(activated()), this, SLOT(selectToMatchingBrace()));
@@ -536,7 +536,7 @@ void SciDocHandler::changeCurEol(SciDoc* doc, CommandID id, EolMode mode) {
 }
 
 
-void SciDocHandler::startMacroRecord() {
+/*void SciDocHandler::startMacroRecord() {
 	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
 	if ( doc ) {
 		docInt_->macro_ = doc->newMacro();
@@ -584,7 +584,7 @@ void SciDocHandler::runMacro() {
 	if ( a && doc && docInt_->macros_.contains(a->text()) ) {
 		doc->runMacro(docInt_->macros_[a->text()]);
 	}
-}
+}*/
 
 void SciDocHandler::goToMatchingBrace() {
 	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());

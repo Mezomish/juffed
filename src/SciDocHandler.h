@@ -73,6 +73,8 @@ private slots:
 	void duplicateLine();
 	void moveLineUp();
 	void cutCurrentLine();
+	void toUpperCase();
+	void toLowerCase();
 	
 	void changeSplitOrientation();
 

@@ -48,6 +48,8 @@ public:
 		DUPLICATE_LINE,
 		MOVE_LINE_UP,
 		CUT_CURRENT_LINE,
+		TO_UPPER_CASE,
+		TO_LOWER_CASE,
 	};
 	
 	Interior() {
@@ -102,6 +104,10 @@ public:
 		moveLineUpAct_->setShortcut(QKeySequence("Ctrl+T"));
 		cutCurrentLineAct_ = new QAction(QObject::tr("Cut current line"), 0);
 		cutCurrentLineAct_->setShortcut(QKeySequence("Ctrl+L"));
+		toUpperCaseAct_ = new QAction(QObject::tr("TO UPPER CASE"), 0);
+		toUpperCaseAct_->setShortcut(QKeySequence("Ctrl+U"));
+		toLowerCaseAct_ = new QAction(QObject::tr("to lower case"), 0);
+		toLowerCaseAct_->setShortcut(QKeySequence("Ctrl+Shift+U"));
 		
 		changeSplitAct_ = new QAction(QObject::tr("Change split orientation"), 0);
 
@@ -121,10 +127,10 @@ public:
 		QList<int> shifts;
 		list << showLineNumsAct_ << wordWrapAct_ << showInvisibleAct_ << goToMatchingBraceAct_ 
 		     << selToMatchingBraceAct_ << lineCommentAct_ << blockCommentAct_ << changeSplitAct_
-		     << duplicateLineAct_ << moveLineUpAct_ << cutCurrentLineAct_;
+		     << duplicateLineAct_ << moveLineUpAct_ << cutCurrentLineAct_ << toUpperCaseAct_ << toLowerCaseAct_;
 		shifts << SHOW_LINE_NUMBERS << WORD_WRAP << SHOW_INVISIBLE_SYMBOLS << GO_TO_MATCHING_BRACE
 		       << SELECT_TO_MATCHING_BRACE << COMMENT_LINE << COMMENT_BLOCK << CHANGE_SPLIT
-		       << DUPLICATE_LINE << MOVE_LINE_UP << CUT_CURRENT_LINE;
+		       << DUPLICATE_LINE << MOVE_LINE_UP << CUT_CURRENT_LINE << TO_UPPER_CASE << TO_LOWER_CASE;
 		for (int i = 0; i < list.size(); ++i) {
 			CommandStorage::instance()->registerExtCommand(ID_SCI_BASE_ITEM + shifts[i], list[i]);
 		}
@@ -171,6 +177,8 @@ public:
 	QAction* duplicateLineAct_;
 	QAction* moveLineUpAct_;
 	QAction* cutCurrentLineAct_;
+	QAction* toUpperCaseAct_;
+	QAction* toLowerCaseAct_;
 	QAction* changeSplitAct_;
 //	QsciMacro* macro_;
 //	QMap<QString, QString> macros_;
@@ -215,6 +223,8 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	connect(docInt_->duplicateLineAct_, SIGNAL(activated()), this, SLOT(duplicateLine()));
 	connect(docInt_->moveLineUpAct_, SIGNAL(activated()), this, SLOT(moveLineUp()));
 	connect(docInt_->cutCurrentLineAct_, SIGNAL(activated()), this, SLOT(cutCurrentLine()));
+	connect(docInt_->toUpperCaseAct_, SIGNAL(activated()), this, SLOT(toUpperCase()));
+	connect(docInt_->toLowerCaseAct_, SIGNAL(activated()), this, SLOT(toLowerCase()));
 	connect(docInt_->changeSplitAct_, SIGNAL(activated()), this, SLOT(changeSplitOrientation()));
 
 	QToolBar* zoomTB = new QToolBar("Zoom");
@@ -334,6 +344,8 @@ ActionList SciDocHandler::menuActions(MenuID id) const {
 			list << docInt_->duplicateLineAct_;
 			list << docInt_->moveLineUpAct_;
 			list << docInt_->cutCurrentLineAct_;
+			list << docInt_->toUpperCaseAct_;
+			list << docInt_->toLowerCaseAct_;
 			break;
 
 		case ID_MENU_FORMAT :
@@ -660,6 +672,22 @@ void SciDocHandler::cutCurrentLine() {
 
 	if ( doc ) {
 		doc->cutCurrentLine();
+	}
+}
+
+void SciDocHandler::toUpperCase() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc ) {
+		doc->toUpperCase();
+	}
+}
+
+void SciDocHandler::toLowerCase() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc ) {
+		doc->toLowerCase();
 	}
 }
 

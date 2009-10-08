@@ -1212,6 +1212,28 @@ void SciDoc::cutCurrentLine() {
 	edit->SendScintilla(QsciScintilla::SCI_LINEDELETE);
 }
 
+void SciDoc::toUpperCase()
+{
+	JUFFENTRY;
+
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->SendScintilla(QsciScintilla::SCI_UPPERCASE);
+}
+
+void SciDoc::toLowerCase()
+{
+	JUFFENTRY;
+
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->SendScintilla(QsciScintilla::SCI_LOWERCASE);
+}
+
 void SciDoc::changeSplitOrientation() {
 	JUFFENTRY;
 	

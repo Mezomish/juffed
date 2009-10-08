@@ -1185,7 +1185,10 @@ void SciDoc::duplicateLine() {
 	if ( !edit )
 		return;
 	
-	edit->SendScintilla(QsciScintilla::SCI_LINEDUPLICATE);
+	if ( edit->hasSelectedText() )
+		edit->SendScintilla(QsciScintilla::SCI_SELECTIONDUPLICATE);
+	else
+		edit->SendScintilla(QsciScintilla::SCI_LINEDUPLICATE);
 }
 
 void SciDoc::moveLineUp() {

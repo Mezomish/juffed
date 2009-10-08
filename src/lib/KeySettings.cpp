@@ -19,7 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "KeySettings.h"
 
 QKeySequence KeySettings::keySequence(Juff::CommandID id) {
-	QString idStr = commandIdToString(id);
+	QString idStr = QString::number(id);
 	if ( idStr.isEmpty() )
 		return QKeySequence();
 	QString s = Settings::stringValue("keys", idStr);
@@ -27,12 +27,13 @@ QKeySequence KeySettings::keySequence(Juff::CommandID id) {
 }
 
 void KeySettings::setKeySequence(Juff::CommandID id, const QKeySequence& seq) {
-	QString idStr = commandIdToString(id);
+	QString idStr = QString::number(id);
 	if ( idStr.isEmpty() )
 		return;
 	Settings::setValue("keys", idStr, seq.toString());
 }
 
-QStringList KeySettings::commandList() {
-	return keyList("keys");
+bool KeySettings::contains(Juff::CommandID id) {
+	return keyList("keys").contains(QString::number(id));
 }
+

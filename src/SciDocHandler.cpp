@@ -36,6 +36,17 @@ namespace Juff {
 
 class SciDocHandler::Interior {
 public:
+	enum {
+		SHOW_LINE_NUMBERS,
+		WORD_WRAP,
+		SHOW_INVISIBLE_SYMBOLS,
+		GO_TO_MATCHING_BRACE,
+		SELECT_TO_MATCHING_BRACE,
+		COMMENT_LINE,
+		COMMENT_BLOCK,
+		CHANGE_SPLIT,
+	};
+	
 	Interior() {
 		markersMenu_ = new QMenu(QObject::tr("&Markers"));
 
@@ -68,9 +79,23 @@ public:
 		blockCommentAct_ = new QAction(QObject::tr("Comment block"), 0);
 		blockCommentAct_->setShortcut(QKeySequence("Shift+Ctrl+/"));
 		
+		showLineNumsAct_ = new QAction(tr("Show line numbers"), 0);
+		showLineNumsAct_->setShortcut(QKeySequence("F11"));
+		showLineNumsAct_->setCheckable(true);
+		showLineNumsAct_->setChecked(TextDocSettings::showLineNumbers());
+		
+		wordWrapAct_ = new QAction(tr("Wrap words"), 0);
+		wordWrapAct_->setShortcut(QKeySequence("F10"));
+		wordWrapAct_->setCheckable(true);
+		wordWrapAct_->setChecked(TextDocSettings::widthAdjust());
+	
+		showInvisibleAct_ = new QAction(tr("Show invisible symbols"), 0);
+		showInvisibleAct_->setCheckable(true);
+		showInvisibleAct_->setChecked(TextDocSettings::showInvisibleSymbols());
+	
 		changeSplitAct_ = new QAction(QObject::tr("Change split orientation"), 0);
 
-		statusWidgets_ << syntaxL_ << eolL_;;
+		statusWidgets_ << syntaxL_ << eolL_;
 
 		CommandStorage* st = CommandStorage::instance();
 		QList<QAction*> eolActList;
@@ -81,7 +106,16 @@ public:
 			eolActGr_->addAction(act);
 			act->setCheckable(true);
 		}
-
+		
+		QList<QAction*> list;
+		QList<int> shifts;
+		list << showLineNumsAct_ << wordWrapAct_ << showInvisibleAct_ << goToMatchingBraceAct_ 
+		     << selToMatchingBraceAct_ << lineCommentAct_ << blockCommentAct_ << changeSplitAct_;
+		shifts << SHOW_LINE_NUMBERS << WORD_WRAP << SHOW_INVISIBLE_SYMBOLS << GO_TO_MATCHING_BRACE
+		       << SELECT_TO_MATCHING_BRACE << COMMENT_LINE << COMMENT_BLOCK << CHANGE_SPLIT;
+		for (int i = 0; i < list.size(); ++i) {
+			CommandStorage::instance()->registerExtCommand(ID_SCI_BASE_ITEM + shifts[i], list[i]);
+		}
 		macro_ = 0;
 	}
 
@@ -144,21 +178,8 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 
 	docInt_ = new Interior();
 
-	docInt_->showLineNumsAct_ = new QAction(tr("Show line numbers"), 0);
-	docInt_->showLineNumsAct_->setShortcut(QKeySequence("F11"));
-	docInt_->showLineNumsAct_->setCheckable(true);
-	docInt_->showLineNumsAct_->setChecked(TextDocSettings::showLineNumbers());
 	connect(docInt_->showLineNumsAct_, SIGNAL(activated()), this, SLOT(showLineNums()));
-
-	docInt_->wordWrapAct_ = new QAction(tr("Wrap words"), 0);
-	docInt_->wordWrapAct_->setShortcut(QKeySequence("F10"));
-	docInt_->wordWrapAct_->setCheckable(true);
-	docInt_->wordWrapAct_->setChecked(TextDocSettings::widthAdjust());
 	connect(docInt_->wordWrapAct_, SIGNAL(activated()), this, SLOT(wordWrap()));
-
-	docInt_->showInvisibleAct_ = new QAction(tr("Show invisible symbols"), 0);
-	docInt_->showInvisibleAct_->setCheckable(true);
-	docInt_->showInvisibleAct_->setChecked(TextDocSettings::showInvisibleSymbols());
 	connect(docInt_->showInvisibleAct_, SIGNAL(activated()), this, SLOT(showInvisibleSymbols()));
 
 	connect(docInt_->markersMenu_, SIGNAL(aboutToShow()), SLOT(initMarkersMenu()));

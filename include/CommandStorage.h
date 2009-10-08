@@ -104,6 +104,13 @@ public:
 	QAction* action(int id);
 
 	/**
+	* actionIDs()
+	*
+	* Returns a list of all items' IDs currently registered
+	*/
+	QList<int> actionIDs() const;
+	
+	/**
 	* updateIcons()
 	*
 	* Updates actions' icons according to the current icon theme

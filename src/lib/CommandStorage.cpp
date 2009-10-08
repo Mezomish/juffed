@@ -161,25 +161,37 @@ QAction* CommandStorage::action(int id) {
 		return sep;
 	}
 	
-	return cmds_.value(id, 0);
+	QAction* act = 0;
+	if ( cmds_.contains(id) ) {
+		act = cmds_[id];
+	}
+	return act;
 }
+
+QList<int> CommandStorage::actionIDs() const {
+	return cmds_.keys();
+}
+
 
 void CommandStorage::updateIcons() {
 	QMap<int, QAction*>::iterator it = cmds_.begin();
 	for ( ; it != cmds_.end(); it++) {
 		QIcon icon = getIcon((CommandID)it.key());
-		it.value()->setIcon(icon);
+		if ( !icon.isNull() )
+			it.value()->setIcon(icon);
 	}
 }
 
 void CommandStorage::updateShortcuts() {
-	QStringList list = KeySettings::commandList();
-	foreach (QString idStr, list) {
-		CommandID id = Juff::stringToCommandId(idStr);
-		if ( id != Juff::ID_NONE ) {
-			QAction* a = action(id);
-			if ( NULL != a )
-				a->setShortcut(KeySettings::keySequence(id));
+	JUFFENTRY;
+	QList<int> ids = CommandStorage::instance()->actionIDs();
+	foreach (int id, ids) {
+		QAction* a = action((CommandID)id);
+		if ( NULL != a ) {
+			if ( KeySettings::contains((CommandID)id) ) {
+				qDebug() << "Updating:" << id << KeySettings::keySequence((CommandID)id);
+				a->setShortcut(KeySettings::keySequence((CommandID)id));
+			}
 		}
 	}
 }

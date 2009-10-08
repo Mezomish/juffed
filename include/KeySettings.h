@@ -29,8 +29,7 @@ public:
 	static QKeySequence keySequence(Juff::CommandID);
 	static void setKeySequence(Juff::CommandID, const QKeySequence&);
 
-	static QStringList commandList();
+	static bool contains(Juff::CommandID);
 };
 
 #endif /* __JUFF_KEY_SETTINGS_H__ */
-

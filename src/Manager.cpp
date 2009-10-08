@@ -212,10 +212,6 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	gui->setCentralWidget(mInt_->viewer_->widget());
 
 
-	//	TODO : add a proper engines list initialization
-	mInt_->pluginManager_ = new PluginManager(QStringList() << /*"simple" <<*/ "rich" << "sci", this, gui);
-	mInt_->pluginManager_->loadPlugins();
-
 	//	TODO : add a proper engines loading
 	//	engines
 /*	SimpleDocHandler* simpleDH = new SimpleDocHandler();
@@ -226,10 +222,14 @@ Manager::Manager(GUI::GUI* gui) : QObject(), ManagerInterface() {
 	RichDocHandler* richDH = new RichDocHandler();
 	addDocHandler(richDH);
 #endif
-	
-	SciDocHandler* sciDH = new SciDocHandler();
-	addDocHandler(sciDH);
 
+	SciDocHandler* sciDH = new SciDocHandler();
+
+	//	TODO : add a proper engines list initialization
+	mInt_->pluginManager_ = new PluginManager(QStringList() << /*"simple" <<*/ "rich" << "sci", this, gui);
+	mInt_->pluginManager_->loadPlugins();
+
+	addDocHandler(sciDH);
 
 	//	recent files
 	QAction* saveAct = CommandStorage::instance()->action(ID_FILE_SAVE);

@@ -45,6 +45,8 @@ public:
 		COMMENT_LINE,
 		COMMENT_BLOCK,
 		CHANGE_SPLIT,
+		DUPLICATE_LINE,
+		MOVE_LINE_UP,
 	};
 	
 	Interior() {
@@ -93,6 +95,11 @@ public:
 		showInvisibleAct_->setCheckable(true);
 		showInvisibleAct_->setChecked(TextDocSettings::showInvisibleSymbols());
 	
+		duplicateLineAct_ = new QAction(QObject::tr("Duplicate line"), 0);
+		duplicateLineAct_->setShortcut(QKeySequence("Ctrl+D"));
+		moveLineUpAct_ = new QAction(QObject::tr("Move line up"), 0);
+		moveLineUpAct_->setShortcut(QKeySequence("Ctrl+T"));
+		
 		changeSplitAct_ = new QAction(QObject::tr("Change split orientation"), 0);
 
 		statusWidgets_ << syntaxL_ << eolL_;
@@ -110,9 +117,11 @@ public:
 		QList<QAction*> list;
 		QList<int> shifts;
 		list << showLineNumsAct_ << wordWrapAct_ << showInvisibleAct_ << goToMatchingBraceAct_ 
-		     << selToMatchingBraceAct_ << lineCommentAct_ << blockCommentAct_ << changeSplitAct_;
+		     << selToMatchingBraceAct_ << lineCommentAct_ << blockCommentAct_ << changeSplitAct_
+		     << duplicateLineAct_ << moveLineUpAct_;
 		shifts << SHOW_LINE_NUMBERS << WORD_WRAP << SHOW_INVISIBLE_SYMBOLS << GO_TO_MATCHING_BRACE
-		       << SELECT_TO_MATCHING_BRACE << COMMENT_LINE << COMMENT_BLOCK << CHANGE_SPLIT;
+		       << SELECT_TO_MATCHING_BRACE << COMMENT_LINE << COMMENT_BLOCK << CHANGE_SPLIT
+		       << DUPLICATE_LINE << MOVE_LINE_UP;
 		for (int i = 0; i < list.size(); ++i) {
 			CommandStorage::instance()->registerExtCommand(ID_SCI_BASE_ITEM + shifts[i], list[i]);
 		}
@@ -156,6 +165,8 @@ public:
 	QAction* selToMatchingBraceAct_;
 	QAction* lineCommentAct_;
 	QAction* blockCommentAct_;
+	QAction* duplicateLineAct_;
+	QAction* moveLineUpAct_;
 	QAction* changeSplitAct_;
 //	QsciMacro* macro_;
 //	QMap<QString, QString> macros_;
@@ -197,6 +208,8 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 
 	connect(docInt_->lineCommentAct_, SIGNAL(activated()), this, SLOT(toggleLineComment()));
 	connect(docInt_->blockCommentAct_, SIGNAL(activated()), this, SLOT(toggleBlockComment()));
+	connect(docInt_->duplicateLineAct_, SIGNAL(activated()), this, SLOT(duplicateLine()));
+	connect(docInt_->moveLineUpAct_, SIGNAL(activated()), this, SLOT(moveLineUp()));
 	connect(docInt_->changeSplitAct_, SIGNAL(activated()), this, SLOT(changeSplitOrientation()));
 
 	QToolBar* zoomTB = new QToolBar("Zoom");
@@ -313,6 +326,8 @@ ActionList SciDocHandler::menuActions(MenuID id) const {
 			list << docInt_->selToMatchingBraceAct_;
 			list << docInt_->lineCommentAct_;
 			list << docInt_->blockCommentAct_;
+			list << docInt_->duplicateLineAct_;
+			list << docInt_->moveLineUpAct_;
 			break;
 
 		case ID_MENU_FORMAT :
@@ -615,6 +630,22 @@ void SciDocHandler::toggleBlockComment() {
 
 	if ( doc  ) {
 		doc->toggleBlockComment();
+	}
+}
+
+void SciDocHandler::duplicateLine() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc ) {
+		doc->duplicateLine();
+	}
+}
+
+void SciDocHandler::moveLineUp() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc ) {
+		doc->moveLineUp();
 	}
 }
 

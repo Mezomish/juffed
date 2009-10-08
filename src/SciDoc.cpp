@@ -1178,6 +1178,14 @@ void SciDoc::toggleBlockComment() {
 	}
 }
 
+void SciDoc::duplicateLine() {
+	JUFFENTRY;
+}
+
+void SciDoc::moveLineUp() {
+	JUFFENTRY;
+}
+
 void SciDoc::changeSplitOrientation() {
 	JUFFENTRY;
 	

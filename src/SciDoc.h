@@ -107,6 +107,8 @@ public:
 	void selectToMatchingBrace();
 	void toggleLineComment();
 	void toggleBlockComment();
+	void duplicateLine();
+	void moveLineUp();
 	
 	void changeSplitOrientation();
 

@@ -70,6 +70,8 @@ private slots:
 
 	void toggleLineComment();
 	void toggleBlockComment();
+	void duplicateLine();
+	void moveLineUp();
 	
 	void changeSplitOrientation();
 

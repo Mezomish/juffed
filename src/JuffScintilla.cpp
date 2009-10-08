@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "JuffScintilla.h"
 
+#include <Qsci/qscicommandset.h>
+
 #include "CommandStorage.h"
 
 namespace Juff {
@@ -30,6 +32,9 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	rLine2_ = -1;
 	rCol2_ = -1;
 
+	standardCommands()->clearKeys();
+	standardCommands()->clearAlternateKeys();
+	
 	contextMenu_ = new QMenu();
 	CommandStorage* st = CommandStorage::instance();
 	contextMenu_->addAction(st->action(ID_EDIT_CUT));

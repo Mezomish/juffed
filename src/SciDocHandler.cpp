@@ -47,7 +47,7 @@ public:
 		CHANGE_SPLIT,
 		DUPLICATE_LINE,
 		MOVE_LINE_UP,
-		CUT_CURRENT_LINE,
+		DELETE_CURRENT_LINE,
 		TO_UPPER_CASE,
 		TO_LOWER_CASE,
 	};
@@ -102,8 +102,8 @@ public:
 		duplicateLineAct_->setShortcut(QKeySequence("Ctrl+D"));
 		moveLineUpAct_ = new QAction(QObject::tr("Move line up"), 0);
 		moveLineUpAct_->setShortcut(QKeySequence("Ctrl+T"));
-		cutCurrentLineAct_ = new QAction(QObject::tr("Cut current line"), 0);
-		cutCurrentLineAct_->setShortcut(QKeySequence("Ctrl+L"));
+		deleteCurrentLineAct_ = new QAction(QObject::tr("Delete current line"), 0);
+		deleteCurrentLineAct_->setShortcut(QKeySequence("Ctrl+L"));
 		toUpperCaseAct_ = new QAction(QObject::tr("TO UPPER CASE"), 0);
 		toUpperCaseAct_->setShortcut(QKeySequence("Ctrl+U"));
 		toLowerCaseAct_ = new QAction(QObject::tr("to lower case"), 0);
@@ -127,10 +127,10 @@ public:
 		QList<int> shifts;
 		list << showLineNumsAct_ << wordWrapAct_ << showInvisibleAct_ << goToMatchingBraceAct_ 
 		     << selToMatchingBraceAct_ << lineCommentAct_ << blockCommentAct_ << changeSplitAct_
-		     << duplicateLineAct_ << moveLineUpAct_ << cutCurrentLineAct_ << toUpperCaseAct_ << toLowerCaseAct_;
+		     << duplicateLineAct_ << moveLineUpAct_ << deleteCurrentLineAct_ << toUpperCaseAct_ << toLowerCaseAct_;
 		shifts << SHOW_LINE_NUMBERS << WORD_WRAP << SHOW_INVISIBLE_SYMBOLS << GO_TO_MATCHING_BRACE
 		       << SELECT_TO_MATCHING_BRACE << COMMENT_LINE << COMMENT_BLOCK << CHANGE_SPLIT
-		       << DUPLICATE_LINE << MOVE_LINE_UP << CUT_CURRENT_LINE << TO_UPPER_CASE << TO_LOWER_CASE;
+		       << DUPLICATE_LINE << MOVE_LINE_UP << DELETE_CURRENT_LINE << TO_UPPER_CASE << TO_LOWER_CASE;
 		for (int i = 0; i < list.size(); ++i) {
 			CommandStorage::instance()->registerExtCommand(ID_SCI_BASE_ITEM + shifts[i], list[i]);
 		}
@@ -176,7 +176,7 @@ public:
 	QAction* blockCommentAct_;
 	QAction* duplicateLineAct_;
 	QAction* moveLineUpAct_;
-	QAction* cutCurrentLineAct_;
+	QAction* deleteCurrentLineAct_;
 	QAction* toUpperCaseAct_;
 	QAction* toLowerCaseAct_;
 	QAction* changeSplitAct_;
@@ -222,7 +222,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	connect(docInt_->blockCommentAct_, SIGNAL(activated()), this, SLOT(toggleBlockComment()));
 	connect(docInt_->duplicateLineAct_, SIGNAL(activated()), this, SLOT(duplicateLine()));
 	connect(docInt_->moveLineUpAct_, SIGNAL(activated()), this, SLOT(moveLineUp()));
-	connect(docInt_->cutCurrentLineAct_, SIGNAL(activated()), this, SLOT(cutCurrentLine()));
+	connect(docInt_->deleteCurrentLineAct_, SIGNAL(activated()), this, SLOT(deleteCurrentLine()));
 	connect(docInt_->toUpperCaseAct_, SIGNAL(activated()), this, SLOT(toUpperCase()));
 	connect(docInt_->toLowerCaseAct_, SIGNAL(activated()), this, SLOT(toLowerCase()));
 	connect(docInt_->changeSplitAct_, SIGNAL(activated()), this, SLOT(changeSplitOrientation()));
@@ -343,7 +343,7 @@ ActionList SciDocHandler::menuActions(MenuID id) const {
 			list << docInt_->blockCommentAct_;
 			list << docInt_->duplicateLineAct_;
 			list << docInt_->moveLineUpAct_;
-			list << docInt_->cutCurrentLineAct_;
+			list << docInt_->deleteCurrentLineAct_;
 			list << docInt_->toUpperCaseAct_;
 			list << docInt_->toLowerCaseAct_;
 			break;
@@ -667,11 +667,11 @@ void SciDocHandler::moveLineUp() {
 	}
 }
 
-void SciDocHandler::cutCurrentLine() {
+void SciDocHandler::deleteCurrentLine() {
 	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
 
 	if ( doc ) {
-		doc->cutCurrentLine();
+		doc->deleteCurrentLine();
 	}
 }
 

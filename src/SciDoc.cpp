@@ -1202,7 +1202,7 @@ void SciDoc::moveLineUp() {
 	edit->SendScintilla(QsciScintilla::SCI_LINEUP);
 }
 
-void SciDoc::cutCurrentLine() {
+void SciDoc::deleteCurrentLine() {
 	JUFFENTRY;
 
 	JuffScintilla* edit = getActiveEdit();

@@ -109,7 +109,7 @@ public:
 	void toggleBlockComment();
 	void duplicateLine();
 	void moveLineUp();
-	void cutCurrentLine();
+	void deleteCurrentLine();
 	void toUpperCase();
 	void toLowerCase();
 	

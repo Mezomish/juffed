@@ -20,19 +20,4 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 namespace Juff {
 
-QString commandIdToString(CommandID id) {
-	if ( id < ID_LAST_ITEM && id > ID_SEPARATOR )
-		return QString::number((int)id);
-	else
-		return "";
-}
-
-CommandID stringToCommandId(const QString& str) {
-	int n = str.toInt();
-	if ( n < ID_LAST_ITEM && n > ID_SEPARATOR )
-		return (CommandID)n;
-	else
-		return ID_NONE;
-}
-
 } // namespace Juff

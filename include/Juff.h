@@ -153,9 +153,6 @@ typedef QList<QToolBar*> ToolBarList;
 typedef QList<QAction*> ActionList;
 typedef QList<int> IntList;
 
-QString commandIdToString(CommandID);
-CommandID stringToCommandId(const QString&);
-
 }	//	namespace Juff
 
 #endif // __JUFF_H__

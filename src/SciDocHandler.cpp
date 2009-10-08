@@ -47,6 +47,7 @@ public:
 		CHANGE_SPLIT,
 		DUPLICATE_LINE,
 		MOVE_LINE_UP,
+		CUT_CURRENT_LINE,
 	};
 	
 	Interior() {
@@ -99,6 +100,8 @@ public:
 		duplicateLineAct_->setShortcut(QKeySequence("Ctrl+D"));
 		moveLineUpAct_ = new QAction(QObject::tr("Move line up"), 0);
 		moveLineUpAct_->setShortcut(QKeySequence("Ctrl+T"));
+		cutCurrentLineAct_ = new QAction(QObject::tr("Cut current line"), 0);
+		cutCurrentLineAct_->setShortcut(QKeySequence("Ctrl+L"));
 		
 		changeSplitAct_ = new QAction(QObject::tr("Change split orientation"), 0);
 
@@ -118,10 +121,10 @@ public:
 		QList<int> shifts;
 		list << showLineNumsAct_ << wordWrapAct_ << showInvisibleAct_ << goToMatchingBraceAct_ 
 		     << selToMatchingBraceAct_ << lineCommentAct_ << blockCommentAct_ << changeSplitAct_
-		     << duplicateLineAct_ << moveLineUpAct_;
+		     << duplicateLineAct_ << moveLineUpAct_ << cutCurrentLineAct_;
 		shifts << SHOW_LINE_NUMBERS << WORD_WRAP << SHOW_INVISIBLE_SYMBOLS << GO_TO_MATCHING_BRACE
 		       << SELECT_TO_MATCHING_BRACE << COMMENT_LINE << COMMENT_BLOCK << CHANGE_SPLIT
-		       << DUPLICATE_LINE << MOVE_LINE_UP;
+		       << DUPLICATE_LINE << MOVE_LINE_UP << CUT_CURRENT_LINE;
 		for (int i = 0; i < list.size(); ++i) {
 			CommandStorage::instance()->registerExtCommand(ID_SCI_BASE_ITEM + shifts[i], list[i]);
 		}
@@ -167,6 +170,7 @@ public:
 	QAction* blockCommentAct_;
 	QAction* duplicateLineAct_;
 	QAction* moveLineUpAct_;
+	QAction* cutCurrentLineAct_;
 	QAction* changeSplitAct_;
 //	QsciMacro* macro_;
 //	QMap<QString, QString> macros_;
@@ -210,6 +214,7 @@ SciDocHandler::SciDocHandler() : DocHandler() {
 	connect(docInt_->blockCommentAct_, SIGNAL(activated()), this, SLOT(toggleBlockComment()));
 	connect(docInt_->duplicateLineAct_, SIGNAL(activated()), this, SLOT(duplicateLine()));
 	connect(docInt_->moveLineUpAct_, SIGNAL(activated()), this, SLOT(moveLineUp()));
+	connect(docInt_->cutCurrentLineAct_, SIGNAL(activated()), this, SLOT(cutCurrentLine()));
 	connect(docInt_->changeSplitAct_, SIGNAL(activated()), this, SLOT(changeSplitOrientation()));
 
 	QToolBar* zoomTB = new QToolBar("Zoom");
@@ -328,6 +333,7 @@ ActionList SciDocHandler::menuActions(MenuID id) const {
 			list << docInt_->blockCommentAct_;
 			list << docInt_->duplicateLineAct_;
 			list << docInt_->moveLineUpAct_;
+			list << docInt_->cutCurrentLineAct_;
 			break;
 
 		case ID_MENU_FORMAT :
@@ -646,6 +652,14 @@ void SciDocHandler::moveLineUp() {
 
 	if ( doc ) {
 		doc->moveLineUp();
+	}
+}
+
+void SciDocHandler::cutCurrentLine() {
+	SciDoc* doc = qobject_cast<SciDoc*>(getCurDoc());
+
+	if ( doc ) {
+		doc->cutCurrentLine();
 	}
 }
 

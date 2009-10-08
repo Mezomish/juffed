@@ -32,9 +32,6 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	rLine2_ = -1;
 	rCol2_ = -1;
 
-	standardCommands()->clearKeys();
-	standardCommands()->clearAlternateKeys();
-	
 	contextMenu_ = new QMenu();
 	CommandStorage* st = CommandStorage::instance();
 	contextMenu_->addAction(st->action(ID_EDIT_CUT));

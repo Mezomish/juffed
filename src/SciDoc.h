@@ -109,6 +109,7 @@ public:
 	void toggleBlockComment();
 	void duplicateLine();
 	void moveLineUp();
+	void cutCurrentLine();
 	
 	void changeSplitOrientation();
 

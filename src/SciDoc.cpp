@@ -1180,10 +1180,33 @@ void SciDoc::toggleBlockComment() {
 
 void SciDoc::duplicateLine() {
 	JUFFENTRY;
+
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->SendScintilla(QsciScintilla::SCI_LINEDUPLICATE);
 }
 
 void SciDoc::moveLineUp() {
 	JUFFENTRY;
+
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->SendScintilla(QsciScintilla::SCI_LINETRANSPOSE);
+	edit->SendScintilla(QsciScintilla::SCI_LINEUP);
+}
+
+void SciDoc::cutCurrentLine() {
+	JUFFENTRY;
+
+	JuffScintilla* edit = getActiveEdit();
+	if ( !edit )
+		return;
+	
+	edit->SendScintilla(QsciScintilla::SCI_LINEDELETE);
 }
 
 void SciDoc::changeSplitOrientation() {

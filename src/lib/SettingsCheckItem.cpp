@@ -33,7 +33,7 @@ SettingsCheckItem::SettingsCheckItem(const QString& section, const QString& key,
 	
 	connect(cb, SIGNAL(toggled(bool)), SLOT(onChecked(bool)));
 	
-	qDebug() << "section:" << section << ", key:" << key;
+//	qDebug() << "section:" << section << ", key:" << key;
 }
 
 void SettingsCheckItem::readValue() {

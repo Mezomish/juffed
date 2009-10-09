@@ -158,6 +158,7 @@ SET ( juffed_MOC_HDRS
 	src/gui/PluginPage.h
 	src/gui/SessionDlg.h
 	src/gui/SettingsDlg.h
+	src/gui/StatusLabel.h
 	src/gui/TabBar.h
 	src/gui/TabWidget.h
 	src/gui/Viewer.h

@@ -36,6 +36,9 @@ void StatusLabel::mouseReleaseEvent(QMouseEvent* e) {
 	if ( menu_ ) {
 		menu_->exec(e->globalPos());
 	}
+	else {
+		emit clicked();
+	}
 }
 
 };	//	namespace GUI

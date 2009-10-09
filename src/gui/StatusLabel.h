@@ -27,10 +27,14 @@ namespace Juff {
 namespace GUI {
 
 class StatusLabel : public QLabel {
+Q_OBJECT
 public:
 	StatusLabel(const QString& text);
 	void setMenu(QMenu* menu);
-	
+
+signals:
+	void clicked();
+
 protected:
 	virtual void mouseReleaseEvent(QMouseEvent*);
 	

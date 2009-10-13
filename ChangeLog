@@ -1,3 +1,29 @@
+2009-10-13:
+* Localizations updated
+
+2009-10-09:
+* Added 'Go to line' dialog calling when clicking on 
+  'Cursor position' or 'Lines count' status labels
+
+2009-10-08:
+* Fixed: minimum width for cursor position status label
+
+2009-10-07:
+* Fixed: configuring shortcuts for SciDoc actions
+* Added: 'Duplicate line', 'Delete current line', 'TO UPPER CASE',
+  'to lower case' and 'Move line up' actions to main menu
+
+2009-10-03:
+* Added: setting the word under cursor as a search string to FindDlg
+
+2009-09-30:
+* Fixed: keyboard navigation through find combobox in FindDlg
+
+2009-09-29:
+* Refactored LexerStorage class
+* Added: Fortran syntax highlighting
+* Added: keyboard accelerators for controls in FindDialog
+
 2009-08-27:
 * Fixed: missed 'Open session' dialog if there was no sessions
 * Fixed: closing the current session before displaying the

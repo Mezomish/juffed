@@ -239,52 +239,72 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
     <name>FindDlg</name>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="26"/>
-        <location filename="../src/gui/FindDlg.ui" line="34"/>
-        <location filename="../src/gui/FindDlg.ui" line="97"/>
+        <location filename="../src/gui/FindDlg.ui" line="103"/>
         <source>Find</source>
         <translation>Znajdź</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="107"/>
+        <location filename="../src/gui/FindDlg.ui" line="34"/>
+        <source>&amp;Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="113"/>
         <source>Cancel</source>
         <translation>Anuluj</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="129"/>
+        <location filename="../src/gui/FindDlg.ui" line="135"/>
+        <source>&amp;Replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="161"/>
+        <source>Match &amp;case</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="168"/>
+        <source>&amp;Backward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="175"/>
+        <source>Whole &amp;words only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="182"/>
+        <source>Regular &amp;expression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/FindDlg.ui" line="197"/>
+        <source>&amp;Multi-line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Replace</source>
-        <translation>Zastąp</translation>
+        <translation type="obsolete">Zastąp</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="162"/>
         <source>Backward</source>
-        <translation>Wstecz</translation>
+        <translation type="obsolete">Wstecz</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="186"/>
+        <location filename="../src/gui/FindDlg.ui" line="192"/>
         <source>&lt;p&gt;If &lt;b&gt;checked&lt;/b&gt;, all the text is treated like a single line. Symbols &apos;^&apos; and &apos;$&apos; are at the beginning and at the end of the document. In this mode you can search for multiline regexps using &apos;\r&apos; and &apos;\n&apos; symbols for line ends.&lt;/p&gt;
 
 &lt;p&gt;If &lt;b&gt;not checked&lt;/b&gt;, the regexp is applied to each line separately and each line has its own symbols &apos;^&apos; and &apos;$&apos; (at the beginning and at the end of the line).&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="191"/>
-        <source>Multi-line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/gui/FindDlg.ui" line="155"/>
         <source>Match case</source>
-        <translation>Uwzględnij wielkość liter</translation>
+        <translation type="obsolete">Uwzględnij wielkość liter</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.ui" line="176"/>
         <source>Regular expression</source>
-        <translation>Regularne wyrażenia</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/FindDlg.ui" line="169"/>
-        <source>Whole words only</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Regularne wyrażenia</translation>
     </message>
 </context>
 <context>
@@ -323,14 +343,14 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
 <context>
     <name>Juff::GUI::FindDlg</name>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="152"/>
-        <location filename="../src/gui/FindDlg.cpp" line="154"/>
+        <location filename="../src/gui/FindDlg.cpp" line="155"/>
+        <location filename="../src/gui/FindDlg.cpp" line="157"/>
         <source>Replace</source>
         <translation>Zastąp</translation>
     </message>
     <message>
-        <location filename="../src/gui/FindDlg.cpp" line="159"/>
-        <location filename="../src/gui/FindDlg.cpp" line="161"/>
+        <location filename="../src/gui/FindDlg.cpp" line="162"/>
+        <location filename="../src/gui/FindDlg.cpp" line="164"/>
         <source>Find</source>
         <translation>Znajdź</translation>
     </message>
@@ -373,12 +393,12 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
         <translation>Nazwa sesji</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="378"/>
+        <location filename="../src/gui/GUI.cpp" line="377"/>
         <source>Warning</source>
         <translation>Uwaga</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="415"/>
+        <location filename="../src/gui/GUI.cpp" line="414"/>
         <source>About Qt</source>
         <translation>О Qt</translation>
     </message>
@@ -437,83 +457,87 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="702"/>
+        <location filename="../src/Manager.cpp" line="723"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Plik &apos;%1&apos; jest plikiem tylko do odczytu. </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="703"/>
+        <location filename="../src/Manager.cpp" line="724"/>
         <source>What do you want to do?</source>
         <translation>Co chcesz zrobić?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="661"/>
-        <location filename="../src/Manager.cpp" line="704"/>
+        <location filename="../src/Manager.cpp" line="680"/>
+        <location filename="../src/Manager.cpp" line="725"/>
         <source>Warning</source>
         <translation>Uwaga</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="248"/>
+        <location filename="../src/Manager.cpp" line="265"/>
         <source>Copy to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="661"/>
+        <location filename="../src/Manager.cpp" line="680"/>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="705"/>
+        <location filename="../src/Manager.cpp" line="726"/>
         <source>Overwrite</source>
         <translation>Nadpisz</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="706"/>
+        <location filename="../src/Manager.cpp" line="727"/>
         <source>Save as</source>
         <translation>Zapisz jako</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="720"/>
+        <location filename="../src/Manager.cpp" line="741"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Nie można zmienić uprawnień: Brak dostępu</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1300"/>
-        <location filename="../src/Manager.cpp" line="1353"/>
+        <location filename="../src/Manager.cpp" line="1325"/>
+        <source>Row: %1, Col: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/Manager.cpp" line="1329"/>
+        <location filename="../src/Manager.cpp" line="1382"/>
         <source> Lines: %1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1354"/>
+        <location filename="../src/Manager.cpp" line="1383"/>
         <source>Lines count: %1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="491"/>
+        <location filename="../src/Manager.cpp" line="510"/>
         <source>The document </source>
         <translation>Dokument </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="492"/>
+        <location filename="../src/Manager.cpp" line="511"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> został zmodyfikowany.
 Czy chcesz zachować swoje zmiany?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="493"/>
+        <location filename="../src/Manager.cpp" line="512"/>
         <source>Close document</source>
         <translation>Zamknij dokument</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1260"/>
-        <location filename="../src/Manager.cpp" line="1261"/>
+        <location filename="../src/Manager.cpp" line="1289"/>
+        <location filename="../src/Manager.cpp" line="1290"/>
         <source>Go to line</source>
         <translation>Idź do linii</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1296"/>
-        <location filename="../src/Manager.cpp" line="1352"/>
+        <location filename="../src/Manager.cpp" line="1381"/>
         <source> Row: %1, Col: %2 </source>
         <translation> Rząd: %1, Kolumna: %2 </translation>
     </message>
@@ -529,7 +553,7 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="536"/>
+        <location filename="../src/SciDoc.cpp" line="547"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -537,37 +561,33 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>Juff::SciDocHandler</name>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="147"/>
         <source>Show line numbers</source>
-        <translation>Pokaż numery linii</translation>
-    </message>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="153"/>
-        <source>Wrap words</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Pokaż numery linii</translation>
     </message>
     <message>
         <source>&amp;View</source>
         <translation type="obsolete">&amp;Widok</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="159"/>
-        <source>Show invisible symbols</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="541"/>
-        <source>Macro name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="544"/>
         <source>Warning</source>
-        <translation type="unfinished">Uwaga</translation>
+        <translation type="obsolete">Uwaga</translation>
+    </message>
+</context>
+<context>
+    <name>Juff::SciDocHandler::Interior</name>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="87"/>
+        <source>Show line numbers</source>
+        <translation type="unfinished">Pokaż numery linii</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="544"/>
-        <source>Macro with name &apos;%1&apos; already exists</source>
+        <location filename="../src/SciDocHandler.cpp" line="92"/>
+        <source>Wrap words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="97"/>
+        <source>Show invisible symbols</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -656,42 +676,41 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/Manager.cpp" line="160"/>
+        <location filename="../src/Manager.cpp" line="168"/>
         <source>Current character set: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1301"/>
+        <location filename="../src/Manager.cpp" line="1330"/>
         <source>Lines count: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="64"/>
+        <location filename="../src/Manager.cpp" line="71"/>
         <source>&amp;View</source>
         <translation type="unfinished">&amp;Widok</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="71"/>
+        <location filename="../src/SciDocHandler.cpp" line="112"/>
         <source>Change split orientation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="89"/>
+        <location filename="../src/Manager.cpp" line="97"/>
         <source>Lines count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../include/Functions.h" line="33"/>
         <source>Noname</source>
-        <translation>Bez nazwy</translation>
+        <translation type="obsolete">Bez nazwy</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="394"/>
+        <location filename="../src/SciDoc.cpp" line="405"/>
         <source>Confirmation</source>
         <translation>Potwierdzenie</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="395"/>
+        <location filename="../src/SciDoc.cpp" line="406"/>
         <source>Replace this text?</source>
         <translation>Zastąpić ten tekst?</translation>
     </message>
@@ -726,39 +745,39 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Brazylijskie portugalskie tłumaczenie</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="62"/>
+        <location filename="../src/Manager.cpp" line="69"/>
         <source>&amp;File</source>
         <translation>&amp;Plik</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="63"/>
+        <location filename="../src/Manager.cpp" line="70"/>
         <source>&amp;Edit</source>
         <translation>&amp;Edycja</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="66"/>
+        <location filename="../src/Manager.cpp" line="73"/>
         <source>&amp;Charset</source>
         <translation>&amp;Kodowanie</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="67"/>
+        <location filename="../src/Manager.cpp" line="74"/>
         <source>Recent files</source>
         <translation>Ostatnio otwarte pliki</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="368"/>
+        <location filename="../src/Manager.cpp" line="387"/>
         <source>Session</source>
         <translation>Sesja</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="321"/>
+        <location filename="../src/SciDoc.cpp" line="332"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Wyszukiwanie osiągnęło początek pliku.
 Rozpocząć od końca?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="326"/>
+        <location filename="../src/SciDoc.cpp" line="337"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Wyszukiwanie osiągnęło koniec pliku.
@@ -766,7 +785,7 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="331"/>
+        <location filename="../src/SciDoc.cpp" line="342"/>
         <source>Find</source>
         <translation>Znajdź</translation>
     </message>
@@ -936,27 +955,27 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="40"/>
+        <location filename="../src/SciDocHandler.cpp" line="56"/>
         <source>&amp;Markers</source>
         <translation>&amp;Znaczniki</translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="42"/>
+        <location filename="../src/SciDocHandler.cpp" line="58"/>
         <source>&amp;Syntax</source>
         <translation>&amp;Składnia</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="86"/>
+        <location filename="../src/Manager.cpp" line="94"/>
         <source>Cursor position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="87"/>
+        <location filename="../src/Manager.cpp" line="95"/>
         <source>File full name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="49"/>
+        <location filename="../src/SciDocHandler.cpp" line="65"/>
         <source>Syntax highlighting scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -971,37 +990,62 @@ Rozpocząć od początku?</translation>
         <translation>Drukuj</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="65"/>
+        <location filename="../src/Manager.cpp" line="72"/>
         <source>Fo&amp;rmat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="45"/>
-        <location filename="../src/SciDocHandler.cpp" line="53"/>
-        <location filename="../src/SciDocHandler.cpp" line="502"/>
+        <location filename="../src/SciDocHandler.cpp" line="61"/>
+        <location filename="../src/SciDocHandler.cpp" line="69"/>
+        <location filename="../src/SciDocHandler.cpp" line="555"/>
         <source>Line endings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="100"/>
+        <location filename="../src/SciDocHandler.cpp" line="101"/>
+        <source>Duplicate line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="103"/>
+        <source>Move line up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="105"/>
+        <source>Delete current line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="107"/>
+        <source>TO UPPER CASE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="109"/>
+        <source>to lower case</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDocHandler.cpp" line="152"/>
         <source>Syntax highlighting scheme: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="100"/>
-        <location filename="../src/SciDocHandler.cpp" line="505"/>
+        <location filename="../src/SciDocHandler.cpp" line="558"/>
         <source>Unix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="99"/>
-        <location filename="../src/SciDocHandler.cpp" line="508"/>
+        <location filename="../src/SciDocHandler.cpp" line="561"/>
         <source>Mac</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="98"/>
-        <location filename="../src/SciDocHandler.cpp" line="511"/>
+        <location filename="../src/SciDocHandler.cpp" line="564"/>
         <source>Win</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1021,7 +1065,7 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="88"/>
+        <location filename="../src/Manager.cpp" line="96"/>
         <source>Current character set</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1036,27 +1080,22 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="55"/>
-        <source>Macro</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/SciDocHandler.cpp" line="61"/>
+        <location filename="../src/SciDocHandler.cpp" line="77"/>
         <source>Go to matching brace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="63"/>
+        <location filename="../src/SciDocHandler.cpp" line="79"/>
         <source>Select to matching brace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="66"/>
+        <location filename="../src/SciDocHandler.cpp" line="82"/>
         <source>Comment line(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDocHandler.cpp" line="68"/>
+        <location filename="../src/SciDocHandler.cpp" line="84"/>
         <source>Comment block</source>
         <translation type="unfinished"></translation>
     </message>

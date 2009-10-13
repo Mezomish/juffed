@@ -618,7 +618,14 @@ void SciDoc::applySettings() {
 			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
 		}
 		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
-		edit->setSelectionBackgroundColor(TextDocSettings::selectionBgColor());
+		
+		// selection
+		QColor selBgColor = TextDocSettings::selectionBgColor();
+		edit->setSelectionBackgroundColor(selBgColor);
+		if ( selBgColor.red() + selBgColor.green() + selBgColor.blue() < 3 * 255 / 2)
+			edit->setSelectionForegroundColor(QColor(255, 255, 255));
+		else
+			edit->setSelectionForegroundColor(QColor(0, 0, 0));
 
 		//	autocompletion
 		edit->setAutoCompletionThreshold(AutocompleteSettings::threshold());

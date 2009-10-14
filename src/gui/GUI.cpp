@@ -41,6 +41,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#endif
+
 namespace Juff {
 namespace GUI {
 
@@ -149,11 +153,22 @@ void GUI::show() {
 }
 
 void GUI::activateMW() {
+#ifdef Q_OS_WIN32
+	HWND id = mw_->winId();
+	if ( IsIconic(id) ) {
+		ShowWindow(id, SW_RESTORE);
+	}
+	else {
+		SetActiveWindow(id);
+		SetForegroundWindow(id);
+	}
+#else
 	if ( !mw_->isActiveWindow() ) {
 		QApplication::setActiveWindow(mw_);
 		mw_->activateWindow();
 		mw_->raise();
 	}
+#endif
 }
 
 void GUI::setCentralWidget(QWidget* w) {

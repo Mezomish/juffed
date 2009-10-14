@@ -55,6 +55,7 @@ void SocketListener::onNewConnection() {
 	}
 	
 	QByteArray data = socket->readAll();
+	JUFFDEBUG(QString::fromLocal8Bit(data));
 	if ( data.isEmpty() ) {
 		return;
 	}

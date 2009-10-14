@@ -137,7 +137,7 @@ bool JuffApp::sendFileNames(QLocalSocket& sock, const QString& list) {
 	JUFFENTRY;
 	
 	bool result = true;
-	qDebug() << list;
+	JUFFDEBUG(list);
 	if ( !list.isEmpty() ) {
 		QByteArray buf = list.toLocal8Bit();
 		int bytes;

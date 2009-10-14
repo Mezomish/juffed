@@ -81,7 +81,7 @@ public:
 			  << new SettingsCheckItem("main", "singleInstance", ui.singleInstanceChk)
 		;
 #ifndef Q_OS_UNIX
-		ui.singleInstanceChk->hide();
+//		ui.singleInstanceChk->hide();
 #endif
 	}
 

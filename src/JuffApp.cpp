@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -19,16 +21,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "JuffApp.h"
 #include "MainSettings.h"
 
-#ifdef Q_OS_UNIX
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <errno.h>
-#endif	//	Q_OS_UNIX
+#include <QLocalSocket>
 
 QString JuffApp::language_ = QString();
 
 JuffApp::JuffApp(int& argc, char** argv) : QApplication(argc, argv), sent_(false) {
-	int sock = -1;
 	gui_ = 0;
 	manager_ = 0;
 	listener_ = 0;
@@ -38,6 +35,7 @@ JuffApp::JuffApp(int& argc, char** argv) : QApplication(argc, argv), sent_(false
 	checkForFirstRun();
 	Settings::read();
 	
+	QLocalSocket sock;
 	if ( MainSettings::singleInstance() && findExistingInstance(sock) ) {
 		//	Instance exists. In this case do not start 
 		//	new app, just send given files to 
@@ -70,8 +68,6 @@ JuffApp::JuffApp(int& argc, char** argv) : QApplication(argc, argv), sent_(false
 
 JuffApp::~JuffApp() {
 	if ( listener_ ) {
-		listener_->exit();
-		listener_->wait(500);
 		delete listener_;
 	}
 	if ( gui_ )
@@ -130,53 +126,38 @@ void JuffApp::init(int& argc, char** argv) {
 }
 
 
-bool JuffApp::findExistingInstance(int& sock) {
+bool JuffApp::findExistingInstance(QLocalSocket& sock) {
 	JUFFENTRY;
-#ifdef Q_OS_UNIX
-
-	//	Trying to connect to existing socket
-	int s = socket(AF_UNIX, SOCK_STREAM, 0);
-	struct sockaddr_un addr;
-	memset(&addr, 0, sizeof(sizeof(struct sockaddr_un)));
-
-	addr.sun_family = AF_UNIX;
-	strncpy(addr.sun_path, AppInfo::socketPath().toLocal8Bit().constData(), sizeof(addr.sun_path) - 1);
 	
-	int res = ::connect(s, (struct sockaddr *) &addr, sizeof(struct sockaddr_un));
-	sock = s;
-
-	return ( res == 0 );
-
-#else	
-
-//	Q_OS_UNIX not defined
-	return false;
-
-#endif	//	Q_OS_UNIX
+	sock.connectToServer(AppInfo::socketPath());
+	return sock.waitForConnected(1000);
 }
 
-bool JuffApp::sendFileNames(int sock, const QString& list) {
-#ifdef Q_OS_UNIX
-
+bool JuffApp::sendFileNames(QLocalSocket& sock, const QString& list) {
+	JUFFENTRY;
+	
 	bool result = true;
+	qDebug() << list;
 	if ( !list.isEmpty() ) {
 		QByteArray buf = list.toLocal8Bit();
-		if ( write(sock, buf.constData(), buf.size()) == -1 )
+		int bytes;
+		if ( (bytes = sock.write(buf)) == -1) {
 			result = false;
+		}
+		else {
+			sock.waitForBytesWritten(1000);
+		}
 	}
 	else {
-		char nf[] = "--newfile";
-		if ( write(sock, nf, strlen(nf)) == -1 )
+		QByteArray nf("--newfile");
+		if ( sock.write(nf) == -1 ) {
 			result = false;
+		}
+		else {
+			sock.waitForBytesWritten(1000);
+		}
 	}
 	return result;
-	
-#else	
-
-//	Q_OS_UNIX not defined
-	return false;
-
-#endif	//	Q_OS_UNIX
 }
 
 void JuffApp::checkForFirstRun() {

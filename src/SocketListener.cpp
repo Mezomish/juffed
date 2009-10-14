@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -19,111 +21,58 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "SocketListener.h"
 
 #include <QtGlobal>
-
-#ifdef Q_OS_UNIX
-
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <errno.h>
-#include <QtGui/QApplication>
-#include <QtGui/QWidget>
+#include <QFile>
+#include <QLocalServer>
+#include <QLocalSocket>
 
 #include "AppInfo.h"
 #include "Log.h"
 
-#endif	//	Q_OS_UNIX
 
-
-SocketListener::SocketListener(QObject* parent) : QThread(parent) {
+SocketListener::SocketListener(QObject* parent) : QObject(parent) {
 	//	Remove socket file if exists. Can safely do this
 	//	because the only case we could reach this point
 	//	is if connection to existing socket failed. That's
 	//	why if the socket path still exists, it isn't accociated
 	//	with any sockets
-#ifdef Q_OS_UNIX
 	if ( QFile::exists(AppInfo::socketPath()) )
 		QFile::remove(AppInfo::socketPath());
-	
-	socket_ = socket(AF_UNIX, SOCK_STREAM, 0);
-	if ( socket_ == -1 ) {
-		//	error
-		Log::debug("Failed to create socket");
-	}
-	else {
-		//	Socket was created successfully.
-		//	Trying to bind it.
-		struct sockaddr_un addr;
-		memset(&addr, 0, sizeof(struct sockaddr_un));
-
-		addr.sun_family = AF_UNIX;
-		strncpy(addr.sun_path, AppInfo::socketPath().toLocal8Bit().constData(), sizeof(addr.sun_path) - 1);
-
-		int res = bind(socket_, (struct sockaddr *) &addr, sizeof(struct sockaddr_un));
-
-		if ( res == -1 ) {
-			//	error
-			Log::debug("Failed to bind socket");
-		}
-		else {
-			//	Socket was binded successfully. Now it 
-			//	starts listening and accepting connections
-			int res = listen(socket_, 0);
-			if ( res == -1 ) {
-				//	error
-				Log::debug("Failed to start listening");
-			}
-		}
-	}
-#endif	//	Q_OS_UNIX
+	server_ = new QLocalServer();
+	connect(server_, SIGNAL(newConnection()), SLOT(onNewConnection()));
 }
 
 SocketListener::~SocketListener() {
-#ifdef Q_OS_UNIX
-	close(socket_);
-#endif	//	Q_OS_UNIX
+	server_->removeServer(AppInfo::socketPath());
 }
 
-void SocketListener::run() {
-#ifdef Q_OS_UNIX
-	sockaddr cl_addr;
-	socklen_t addr_len = sizeof(cl_addr);
-	char buf[1024];
+void SocketListener::onNewConnection() {
+	JUFFENTRY;
 	
-	//	Here we have infinte loop which waits for 
-	//	connection. If accept function fails 10 
-	//	times, thread exits
-	int fails = 0;
-	while ( true ) {
-		Log::debug("Listening...");
-		int connected_sock = accept(socket_, &cl_addr, &addr_len);
-		if ( connected_sock == -1 ) {
-			//	error
-			Log::debug("Accept failed");
-			++fails;
-		}
-		else {
-			JUFFDEBUG("Connection accepted");
-			int bytes_read = read(connected_sock, buf, sizeof(buf) - 1);
-			buf[bytes_read] = '\0';
-			QStringList list = QString::fromLocal8Bit(buf).split(";");
-			int count = list.count();
-			for (int i = 0; i < count; ++i) {
-				QString arg = list[i];
-				if ( arg[0] == '-' ) {
-					//	command line options
-					if ( arg.compare("--newfile") == 0 ) {
-						emit newFileRequested();
-					}
-				}
-				else {
-					emit fileRecieved(QFileInfo(arg).absoluteFilePath());
-				}
+	QLocalSocket* socket = server_->nextPendingConnection();
+	if ( !socket->waitForReadyRead(1000) ) {
+		qDebug() << "Couldn't read data:" << socket->errorString();
+		return;
+	}
+	
+	QByteArray data = socket->readAll();
+	if ( data.isEmpty() ) {
+		return;
+	}
+	
+	QStringList list = QString::fromLocal8Bit(data).split(";");
+	foreach (QString arg, list) {
+		if ( arg[0] == '-' ) {
+			if ( arg.compare("--newfile") == 0 ) {
+				emit newFileRequested();
 			}
 		}
-		
-		if (fails >= 10) {
-			exit(-1);
+		else {
+			if ( !arg.isEmpty() )
+				emit fileRecieved(QFileInfo(arg).absoluteFilePath());
 		}
 	}
-#endif	//	Q_OS_UNIX
+}
+
+void SocketListener::start() {
+	server_->listen(AppInfo::socketPath());
 }

@@ -19,23 +19,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _SOCKET_LISTENER_H_
 #define _SOCKET_LISTENER_H_
 
-#include <QtCore/QThread>
+class QLocalServer;
 
-class SocketListener : public QThread {
+#include <QtCore/QObject>
+
+class SocketListener : public QObject {
 Q_OBJECT
 public:
 	SocketListener(QObject*);
 	virtual ~SocketListener();
+	void start();
 
 signals:
 	void fileRecieved(const QString&);
 	void newFileRequested();
 	
-protected:
-	virtual void run();
-	
+private slots:
+	void onNewConnection();
+
 private:
-	int socket_;
+	QLocalServer* server_;
 };
 
 #endif

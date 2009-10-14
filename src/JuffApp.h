@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _JUFF_APP_H_
 #define _JUFF_APP_H_
 
+class QLocalSocket;
+
 #include "gui/GUI.h"
 #include "AppInfo.h"
 #include "Log.h"
@@ -42,8 +44,8 @@ public:
 
 private:
 	void init(int& argc, char** argv);
-	bool findExistingInstance(int& sock);
-	bool sendFileNames(int sock, const QString& list);
+	bool findExistingInstance(QLocalSocket& sock);
+	bool sendFileNames(QLocalSocket& sock, const QString& list);
 	void checkForFirstRun();
 	void copyToLocalDir(const QString& subDirName);
 	

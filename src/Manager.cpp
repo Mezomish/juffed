@@ -56,6 +56,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "RichDocHandler.h"
 #endif
 
+static const char* EMPTY_SESSION = "_empty_session_";
+
 namespace Juff {
 
 class Manager::Interior {
@@ -515,7 +517,7 @@ void Manager::initSessionsMenu() {
 				mInt_->sessionsMenu_->addSeparator();
 
 		foreach (QString session, sessions) {
-			if (session.compare("_empty_session_") != 0) {
+			if (session.compare(EMPTY_SESSION) != 0) {
 				mInt_->sessionsMenu_->addAction(session, this, SLOT(session()));
 			}
 		}
@@ -1107,7 +1109,7 @@ void Manager::writePanelViews(QFile& file, int panel) {
 bool Manager::openSess(const QString& name) {
 	JUFFENTRY;
 
-	QString sessName = name.isEmpty() ? "_empty_session_" : name;
+	QString sessName = name.isEmpty() ? EMPTY_SESSION : name;
 	
 	QFile sess(AppInfo::configDirPath() + "/sessions/" + sessName);
 	if ( sess.open(QIODevice::ReadOnly) ) {
@@ -1139,7 +1141,7 @@ bool Manager::openSess(const QString& name) {
 		mInt_->sessionName_ = sessName;
 		Document* doc = curDoc();
 		QString curFileName = doc->isNull() ? "" : doc->fileName();
-		mInt_->gui_->updateTitle(curFileName, sessName == "_empty_session_" ? "" : sessName, false);
+		mInt_->gui_->updateTitle(curFileName, sessName == EMPTY_SESSION ? "" : sessName, false);
 		
 		return true;
 	}
@@ -1149,7 +1151,7 @@ bool Manager::openSess(const QString& name) {
 bool Manager::saveSess(const QString& name) {
 	JUFFENTRY;
 	
-	QString sessName = name.isEmpty() ? "_empty_session_" : name;
+	QString sessName = name.isEmpty() ? EMPTY_SESSION : name;
 	
 	QFile sess(AppInfo::configDirPath() + "/sessions/" + sessName);
 	if ( sess.open(QIODevice::WriteOnly | QIODevice::Truncate) ) {
@@ -1349,7 +1351,7 @@ void Manager::docModified(bool mod) {
 	Document* doc = qobject_cast<Document*>(sender());
 
 	if ( doc ) {
-		mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, mod);
+		mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_ == EMPTY_SESSION ? "" : mInt_->sessionName_, mod);
 		mInt_->viewer_->setDocModified(doc, mod);
 		mInt_->pluginManager_->notifyDocModified(doc->fileName(), mod);
 	}

@@ -90,9 +90,18 @@ private slots:
 	void fileReload();
 	bool fileClose();
 	void fileCloseAll();
-	void fileRecent();
 	void filePrint();
 	void exit();
+
+	/**
+	* This slot is called by items from 'Recent files' menu
+	*/
+	void fileRecent();
+
+	/**
+	* This slot is called by items from 'Sessions' menu
+	*/
+	void session();
 
 	void sessionNew();
 	void sessionOpen();
@@ -113,6 +122,7 @@ private slots:
 	void charsetSelected();
 
 	void initRecentFilesMenu();
+	void initSessionsMenu();
 
 	//	slots called by event signals
 	void onCurDocChanged(QWidget*);

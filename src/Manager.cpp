@@ -72,7 +72,9 @@ public:
 		formatMenu_ = new QMenu(QObject::tr("Fo&rmat"));
 		charsetMenu_ = new QMenu(QObject::tr("&Charset"));
 		recentFilesMenu_ = new QMenu(QObject::tr("Recent files"));
+		sessionsMenu_ = new QMenu(QObject::tr("Sessions"));
 		connect(recentFilesMenu_, SIGNAL(aboutToShow()), m, SLOT(initRecentFilesMenu()));
+		connect(sessionsMenu_, SIGNAL(aboutToShow()), m, SLOT(initSessionsMenu()));
 
 		chActGr_ = new QActionGroup(m);
 
@@ -186,6 +188,7 @@ public:
 	QMap<QString, QAction*> charsetActions_;
 	QActionGroup* chActGr_;
 	QMenu* recentFilesMenu_;
+	QMenu* sessionsMenu_;
 	QStringList recentFiles_;
 	GUI::StatusLabel* posL_;
 	GUI::StatusLabel* nameL_;
@@ -384,12 +387,7 @@ void Manager::initMainMenu() {
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_CLOSE_ALL));
 	mInt_->fileMenu_->addAction(st->action(ID_FILE_PRINT));
 	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
-	QMenu* sessMenu = new QMenu(QObject::tr("Session"));
-	sessMenu->addAction(st->action(ID_SESSION_NEW));
-	sessMenu->addAction(st->action(ID_SESSION_OPEN));
-	sessMenu->addAction(st->action(ID_SESSION_SAVE));
-	sessMenu->addAction(st->action(ID_SESSION_SAVE_AS));
-	mInt_->fileMenu_->addMenu(sessMenu);
+	mInt_->fileMenu_->addMenu(mInt_->sessionsMenu_);
 	mInt_->fileMenu_->addAction(st->action(ID_SEPARATOR));
 	mInt_->fileMenu_->addAction(st->action(ID_EXIT));
 	
@@ -499,6 +497,30 @@ void Manager::initRecentFilesMenu() {
 		mInt_->recentFilesMenu_->setEnabled(true);
 }
 
+void Manager::initSessionsMenu() {
+	JUFFENTRY;
+	
+	CommandStorage* st = CommandStorage::instance();
+	mInt_->sessionsMenu_->clear();
+	mInt_->sessionsMenu_->addAction(st->action(ID_SESSION_NEW));
+	mInt_->sessionsMenu_->addAction(st->action(ID_SESSION_OPEN));
+	mInt_->sessionsMenu_->addAction(st->action(ID_SESSION_SAVE));
+	mInt_->sessionsMenu_->addAction(st->action(ID_SESSION_SAVE_AS));
+	
+	QStringList sessions;
+	QDir sessionDir(AppInfo::configDirPath() + "/sessions/");
+	if (sessionDir.exists()) {
+		sessions = sessionDir.entryList(QDir::Files | QDir::NoSymLinks);
+		if ( !sessions.isEmpty() )
+				mInt_->sessionsMenu_->addSeparator();
+
+		foreach (QString session, sessions) {
+			if (session.compare("_empty_session_") != 0) {
+				mInt_->sessionsMenu_->addAction(session, this, SLOT(session()));
+			}
+		}
+	}
+}
 
 bool Manager::closeWithConfirmation(Document* doc) {
 	if ( !doc || doc->isNull() )
@@ -880,6 +902,20 @@ void Manager::fileRecent() {
 	}
 }
 
+void Manager::session() {
+	JUFFENTRY;
+
+	QAction* a = qobject_cast<QAction*>(sender());
+	if ( !a )
+		return;
+	
+	QString sessName = a->text();
+	if ( closeSess() && !sessName.isEmpty() ) {
+		if ( openSess(sessName) ) {
+		}
+	}
+}
+
 bool Manager::fileSave() {
 	JUFFENTRY;
 	
@@ -1020,10 +1056,6 @@ void Manager::sessionOpen() {
 		if ( !sessName.isEmpty() ) {
 			//	open session
 			if ( openSess(sessName) ) {
-				mInt_->sessionName_ = sessName;
-				Document* doc = curDoc();
-				QString fileName = doc->isNull() ? "" : doc->fileName();
-				mInt_->gui_->updateTitle(fileName, sessName, false);
 			}
 		}
 		else {
@@ -1103,6 +1135,12 @@ bool Manager::openSess(const QString& name) {
 		}
 
 		sess.close();
+		
+		mInt_->sessionName_ = sessName;
+		Document* doc = curDoc();
+		QString curFileName = doc->isNull() ? "" : doc->fileName();
+		mInt_->gui_->updateTitle(curFileName, sessName == "_empty_session_" ? "" : sessName, false);
+		
 		return true;
 	}
 	return false;
@@ -1143,10 +1181,6 @@ void Manager::restoreSession() {
 			{
 				QString sessName = MainSettings::lastSessionName();
 				if ( openSess(sessName) ) {
-					mInt_->sessionName_ = sessName;
-					Document* doc = curDoc();
-					QString fileName = doc->isNull() ? "" : doc->fileName();
-					mInt_->gui_->updateTitle(fileName, sessName, false);
 				}
 				if ( docCount() == 0 )
 					fileNew();

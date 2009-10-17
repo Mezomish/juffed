@@ -46,6 +46,21 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	contextMenu_->addAction(st->action(ID_GOTO_LINE));
 	
 	connect(this, SIGNAL(linesChanged()), this, SLOT(updateLineNumbers()));
+	
+	// list of commands we want to disable initially
+	QList<int> cmdsToRemove;
+	cmdsToRemove << (Qt::Key_D | Qt::CTRL) << (Qt::Key_L | Qt::CTRL) 
+	             << (Qt::Key_T | Qt::CTRL) << (Qt::Key_U | Qt::CTRL) 
+	             << (Qt::Key_U | Qt::CTRL | Qt::SHIFT);
+	
+	QsciCommandSet* set = standardCommands();
+	QList< QsciCommand*> cmds = set->commands();
+	foreach (QsciCommand* cmd, cmds) {
+		if ( cmdsToRemove.contains(cmd->key()) )
+			cmd->setKey(0);
+		if ( cmdsToRemove.contains(cmd->alternateKey()) )
+			cmd->setAlternateKey(0);
+	}
 }
 
 JuffScintilla::~JuffScintilla() {

@@ -1,5 +1,12 @@
+2009-10-17:
+* Removed default keys Ctrl+D, Ctrl+L, etc.
+* Fixed: getting svn revision (now using CMake)
+
 2009-10-14:
 * Added: list of existing sessions to session menu for quick opening
+* Removed platform-dependent code for single instance (not tested on Windows yet)
+* Added raising window on Windows when received a file in a single instance
+* Fixed: '_empty_session_' in title when modified a doc
 
 -------------------------------
 Preview-version 0.7.669

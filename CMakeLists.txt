@@ -33,15 +33,11 @@ SET ( DEV 1 )
 
 IF ( DEV )
 	# SVN revision
-	SET ( ENV{LC_MESSAGES} "C" )
-	EXECUTE_PROCESS ( 
-		COMMAND svn info ${CMAKE_SOURCE_DIR}
-		COMMAND grep Revision
-		COMMAND cut -d: -f2 
-		OUTPUT_VARIABLE REV
-	)
-	STRING ( STRIP "${REV}" REV )
-
+	FIND_PACKAGE(Subversion)
+	IF(Subversion_FOUND)
+		Subversion_WC_INFO(${PROJECT_SOURCE_DIR} SVN)
+	ENDIF(Subversion_FOUND)
+	SET ( REV ${SVN_WC_REVISION} )
 	SET ( JUFFED_VERSION "${JUFFED_VERSION}.${REV}" )
 ENDIF ( DEV )
 

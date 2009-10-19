@@ -644,9 +644,8 @@ void Manager::applySettings(bool save /* = true*/) {
 		it.value()->applySettings();
 	}
 	
-	initCharsetMenu();
-	
 	mInt_->pluginManager_->applySettings();
+	initCharsetMenu();
 	
 	// this needs to be called after 
 	// PluginManager->applySettings() is called

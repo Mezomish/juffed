@@ -13,6 +13,22 @@
 # 	http://wiki.qtcentre.org/index.php?title=Compiling_Qt4_apps_with_CMake
 # 	http://qtnode.net/wiki/Qt_with_cmake#cmake_for_Qt_4
 
+MESSAGE ( "" )
+MESSAGE ( "" )
+MESSAGE ( "------------------------------------------------------------" )
+MESSAGE ( "  ATTENTION!!!   ATTENTION!!!   ATTENTION!!!   ATTENTION!!!" )
+MESSAGE ( "------------------------------------------------------------" )
+MESSAGE ( "" )
+MESSAGE ( "This is an unstable branch and it can be extremely buggy." )
+MESSAGE ( "If you'd like to use earlier 0.7 version (that is going to" )
+MESSAGE ( "become 0.8 version) please use the following repo:" )
+MESSAGE ( "" )
+MESSAGE ( "svn co http://juffed.svn.sourceforge.net/svnroot/juffed/0.8" )
+MESSAGE ( "" )
+MESSAGE ( "------------------------------------------------------------" )
+MESSAGE ( "" )
+MESSAGE ( "" )
+
 PROJECT (juffed)
 CMAKE_MINIMUM_REQUIRED (VERSION 2.4.0)
     IF (COMMAND cmake_policy)

@@ -117,16 +117,12 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	showInvisibleSymbols(TextDocSettings::showInvisibleSymbols());
 
 	if ( !fileName.isEmpty() && !isNoname(fileName) ) {
-		qDebug() << "               Reading doc";
 		readDoc();
 		docInt_->edit1_->setModified(false);
 
 		//	syntax highlighting
 		QString lexName = LexerStorage::instance()->lexerName(fileName);
-		qDebug() << "               Syntax highlighting:" << lexName;
 		setSyntax(lexName);
-		
-		qDebug() << "               Guessing line endings";
 		
 		//	line endings
 		QFile file(fileName);
@@ -147,7 +143,6 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 			}
 			file.close();
 		}
-		qDebug() << "               Done with all that";
 	}
 	else {
 		setSyntax("none");
@@ -162,9 +157,7 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	connect(docInt_->edit2_, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
 	connect(docInt_->edit1_, SIGNAL(linesChanged()), SLOT(onLinesCountChanged()));
 
-	qDebug() << "               Applying settings...";
 	applySettings();
-	qDebug() << "               ....done";
 	
 	QAction* unindentAct = new QAction(this);
 	unindentAct->setShortcut(QKeySequence("Shift+Tab"));
@@ -937,19 +930,12 @@ void SciDoc::setSyntax(const QString& lexName) {
 
 	docInt_->syntax_ = lexName;
 
-	qDebug() << "               Getting the lexer";
 	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName);
-	printf("Lexer returned\n   -- Lexer pointer:%p\n", lexer);
 
-	qDebug() << "               Loading autocompletion";
 	loadAutocompletionAPI(lexName, lexer);
-	printf("Autocomplete loaded\n   -- Lexer pointer:%p\n", lexer);
 	
-	qDebug() << "               Setting the lexer";
 	docInt_->edit1_->setLexer(lexer);
-	printf("Lexer set to edit1\n   -- Lexer pointer:%p\n", lexer);
 	docInt_->edit2_->setLexer(lexer);
-	printf("Lexer set to edit2\n   -- Lexer pointer:%p\n", lexer);
 }
 
 void SciDoc::loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer) {

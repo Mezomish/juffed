@@ -678,20 +678,14 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 #endif // JUFF_FORTRAN_LEXER
 
 		if ( newLexer != 0 ) {
-			qDebug() << "";
 			qDebug() << "==========" << "Lexer Created" << "==========";
-			qDebug() << name << "lexer pointer:" << newLexer;
 			lexers_[name] = newLexer;
-			qDebug() << "All lexers:" << lexers_;
 			if ( !name.isEmpty() && name.compare("none") != 0 ) {
 				readCustomStyle(name);
 			}
-			printf("Applying style\n   -- Lexer pointer:%p\n", newLexer);
 			applyCustomStyle(name, curFont_);
-			printf("Style applied\n   -- Lexer pointer:%p\n", newLexer);
 		}
 
-		printf("Returning lexer\n   -- Lexer pointer:%p\n", newLexer);
 		return newLexer;
 	}
 }

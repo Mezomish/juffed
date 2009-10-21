@@ -45,10 +45,32 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QPrintDialog>
 #include <QtGui/QScrollBar>
 #include <QtGui/QSplitter>
+#include <QPainter>
+#include <QHBoxLayout>
 
 #include <stdio.h>
 
 namespace Juff {
+
+class MarkersWidget : public QWidget {
+public:
+	MarkersWidget() : QWidget() {
+		setMinimumWidth(0);
+		setMaximumWidth(0);
+	}
+	
+	void setLineCount(int) {
+	}
+	
+	void toggleMarker(int) {
+	}
+	
+protected:
+	virtual void paintEvent(QPaintEvent* e) {
+		QPainter p(this);
+		p.drawLine(0, 0, 10, 100);
+	}
+};
 
 class SciDoc::Interior {
 public:
@@ -61,9 +83,31 @@ public:
 		edit2_ = createEdit();
 		edit2_->setDocument(edit1_->document());
 
+		
+		widget1_ = new QWidget();
+		QHBoxLayout* hBox1 = new QHBoxLayout();
+		hBox1->setMargin(0);
+		hBox1->setSpacing(0);
+		widget1_->setLayout(hBox1);
+		markersWidget1_ = new MarkersWidget();
+		hBox1->addWidget(edit1_);
+		hBox1->addWidget(markersWidget1_);
+		
+		widget2_ = new QWidget();
+		QHBoxLayout* hBox2 = new QHBoxLayout();
+		hBox2->setMargin(0);
+		hBox2->setSpacing(0);
+		widget2_->setLayout(hBox2);
+		markersWidget2_ = new MarkersWidget();
+		hBox2->addWidget(edit2_);
+		hBox2->addWidget(markersWidget2_);
+
+
 		spl_ = new QSplitter(Qt::Vertical);
-		spl_->addWidget(edit1_);
-		spl_->addWidget(edit2_);
+//		spl_->addWidget(edit1_);
+//		spl_->addWidget(edit1_);
+		spl_->addWidget(widget1_);
+		spl_->addWidget(widget2_);
 
 		spl_->setSizes(QList<int>() << 0 << spl_->height());
 	}
@@ -107,6 +151,10 @@ public:
 	QString syntax_;
 	QTextCodec* codec_;
 	QString charsetName_;
+	QWidget* widget1_;
+	QWidget* widget2_;
+	QWidget* markersWidget1_;
+	QWidget* markersWidget2_;
 };
 
 SciDoc::SciDoc(const QString& fileName) : Document(fileName) {

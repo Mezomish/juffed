@@ -34,22 +34,22 @@
     <message>
         <location filename="../src/gui/AutocompleteSettingsPage.ui" line="25"/>
         <source>Use current document</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser le document actuel</translation>
     </message>
     <message>
         <location filename="../src/gui/AutocompleteSettingsPage.ui" line="32"/>
         <source>Use API files</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser les fichiers API</translation>
     </message>
     <message>
         <location filename="../src/gui/AutocompleteSettingsPage.ui" line="39"/>
         <source>Replace word</source>
-        <translation type="unfinished"></translation>
+        <translation>Remplacer un mot</translation>
     </message>
     <message>
         <location filename="../src/gui/AutocompleteSettingsPage.ui" line="61"/>
         <source>Threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Seuil</translation>
     </message>
     <message>
         <location filename="../src/gui/AutocompleteSettingsPage.ui" line="71"/>
@@ -59,7 +59,7 @@
     <message>
         <location filename="../src/gui/AutocompleteSettingsPage.ui" line="46"/>
         <source>Case sensitive</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensible à la casse</translation>
     </message>
 </context>
 <context>
@@ -145,17 +145,17 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="312"/>
         <source>Selection background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de fond de la sélection</translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="378"/>
         <source>Matched brace background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de fond de les balises unis</translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="408"/>
         <source>Indents color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur d&apos;indentation</translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="444"/>
@@ -170,12 +170,12 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="252"/>
         <source>Default font color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de la police par défaut</translation>
     </message>
     <message>
         <location filename="../src/gui/EditorSettingsPage.ui" line="282"/>
         <source>Default background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de fond par défaut</translation>
     </message>
 </context>
 <context>
@@ -183,56 +183,56 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     <message>
         <location filename="../src/gui/FileTypesPage.ui" line="13"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulaire</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.ui" line="24"/>
         <source>Highlighting:</source>
-        <translation type="unfinished"></translation>
+        <translation>Surlignement:</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.ui" line="49"/>
         <source>File name patterns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Patron de nom de fichier:</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.ui" line="75"/>
         <location filename="../src/gui/FileTypesPage.ui" line="144"/>
         <source>+</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.ui" line="94"/>
         <location filename="../src/gui/FileTypesPage.ui" line="163"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.ui" line="118"/>
         <source>First line patterns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Patron de la première ligne:</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="64"/>
         <source>New file name pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Patron de nouveau fichier</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="71"/>
         <location filename="../src/gui/FileTypesPage.cpp" line="93"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="71"/>
         <location filename="../src/gui/FileTypesPage.cpp" line="93"/>
         <source>No file type is selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun type de fichier est sélectionné</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="86"/>
         <source>New first line pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Patron de nouvelle première ligne</translation>
     </message>
 </context>
 <context>
@@ -250,37 +250,37 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     <message>
         <location filename="../src/gui/FindDlg.ui" line="34"/>
         <source>&amp;Find</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rechercher</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="135"/>
         <source>&amp;Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Remplacer</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="161"/>
         <source>Match &amp;case</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensible à la &amp;casse</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="168"/>
         <source>&amp;Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Arrière</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="175"/>
         <source>Whole &amp;words only</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mots complet seulement</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="182"/>
         <source>Regular &amp;expression</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Expression régulière</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="197"/>
         <source>&amp;Multi-line</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Multi-ligne</translation>
     </message>
     <message>
         <source>Match case</source>
@@ -304,7 +304,9 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
         <source>&lt;p&gt;If &lt;b&gt;checked&lt;/b&gt;, all the text is treated like a single line. Symbols &apos;^&apos; and &apos;$&apos; are at the beginning and at the end of the document. In this mode you can search for multiline regexps using &apos;\r&apos; and &apos;\n&apos; symbols for line ends.&lt;/p&gt;
 
 &lt;p&gt;If &lt;b&gt;not checked&lt;/b&gt;, the regexp is applied to each line separately and each line has its own symbols &apos;^&apos; and &apos;$&apos; (at the beginning and at the end of the line).&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Si &lt;b&gt;activé&lt;/b&gt;, tout le texte est traité comme une seul ligne. Les symboles &apos;^&apos; et &apos;$&apos; sont au début et à la fin du document. Dans ce mode, vous pouvez chercher pour de multiple regexps en utilisant les symboles &apos;\r&apos; et &apos;\n&apos; pour la fin de ligne.&lt;/p&gt;
+
+&lt;p&gt;Si &lt;b&gt;Non activé&lt;/b&gt;, le regexp est appliqué à chaque ligne séparément et chaque lignes a son propre symbole &apos;^&apos; et &apos;$&apos; (au début et à la fin de la ligne).&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -410,17 +412,17 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     <message>
         <location filename="../src/gui/GUI.cpp" line="102"/>
         <source>Toolbars</source>
-        <translation type="unfinished"></translation>
+        <translation>Barres d&apos;outils</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="103"/>
         <source>Dock windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenêtres interne</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="203"/>
         <source>Charset</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -428,22 +430,22 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     <message>
         <location filename="../src/gui/TabBar.cpp" line="38"/>
         <source>Copy file name to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copier le nom du fichier dans le presse-papier</translation>
     </message>
     <message>
         <location filename="../src/gui/TabBar.cpp" line="39"/>
         <source>Copy full file path to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copier le chemin complet du fichier dans le presse-papier</translation>
     </message>
     <message>
         <location filename="../src/gui/TabBar.cpp" line="40"/>
         <source>Copy file directory path to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copier le chemin du dossier du fichier dans le presse-papier</translation>
     </message>
     <message>
         <location filename="../src/gui/TabBar.cpp" line="42"/>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -451,67 +453,67 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     <message>
         <location filename="../src/gui/TabWidget.cpp" line="65"/>
         <source>Close document</source>
-        <translation type="unfinished">Fermer le document</translation>
+        <translation>Fermer le document</translation>
     </message>
 </context>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="749"/>
+        <location filename="../src/Manager.cpp" line="747"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="750"/>
+        <location filename="../src/Manager.cpp" line="748"/>
         <source>What do you want to do?</source>
         <translation>Que voulez-vous faire?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="706"/>
-        <location filename="../src/Manager.cpp" line="751"/>
+        <location filename="../src/Manager.cpp" line="704"/>
+        <location filename="../src/Manager.cpp" line="749"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="270"/>
         <source>Copy to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copier dans le presse-papier</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="706"/>
+        <location filename="../src/Manager.cpp" line="704"/>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Le document &apos;%1&apos; n&apos;existe pas</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="752"/>
+        <location filename="../src/Manager.cpp" line="750"/>
         <source>Overwrite</source>
-        <translation type="unfinished"></translation>
+        <translation>Écraser</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="753"/>
+        <location filename="../src/Manager.cpp" line="751"/>
         <source>Save as</source>
         <translation>Enregistrer sous</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="767"/>
+        <location filename="../src/Manager.cpp" line="765"/>
         <source>Can&apos;t change permissions: Access denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne peux pas changer la permission: accès non autorisé</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1363"/>
+        <location filename="../src/Manager.cpp" line="1361"/>
         <source>Row: %1, Col: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligne: %1, Col: %2</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1367"/>
-        <location filename="../src/Manager.cpp" line="1420"/>
+        <location filename="../src/Manager.cpp" line="1365"/>
+        <location filename="../src/Manager.cpp" line="1418"/>
         <source> Lines: %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>Lignes: %1</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1421"/>
+        <location filename="../src/Manager.cpp" line="1419"/>
         <source>Lines count: %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>Nbr de lignes : %1</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="534"/>
@@ -531,13 +533,13 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Fermer le document</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1327"/>
-        <location filename="../src/Manager.cpp" line="1328"/>
+        <location filename="../src/Manager.cpp" line="1325"/>
+        <location filename="../src/Manager.cpp" line="1326"/>
         <source>Go to line</source>
         <translation>Aller à la ligne</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1419"/>
+        <location filename="../src/Manager.cpp" line="1417"/>
         <source> Row: %1, Col: %2 </source>
         <translation>Ligne: %1, Col: %2</translation>
     </message>
@@ -547,7 +549,7 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <location filename="../src/RichDoc.cpp" line="72"/>
         <source>Can&apos;t open file for writing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne peux ouvrir le fichier pour l&apos;écriture</translation>
     </message>
 </context>
 <context>
@@ -555,7 +557,7 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <location filename="../src/SciDoc.cpp" line="547"/>
         <source>Can&apos;t open file for writing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne peux ouvrir le fichier pour l&apos;écriture</translation>
     </message>
 </context>
 <context>
@@ -578,17 +580,17 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="87"/>
         <source>Show line numbers</source>
-        <translation type="unfinished">Afficher le numéro de ligne</translation>
+        <translation>Afficher le numéro de ligne</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="92"/>
         <source>Wrap words</source>
-        <translation type="unfinished"></translation>
+        <translation>Retour à la ligne automatique</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="97"/>
         <source>Show invisible symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher les symboles invisible</translation>
     </message>
 </context>
 <context>
@@ -596,7 +598,7 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <location filename="../src/SimpleDoc.cpp" line="124"/>
         <source>Can&apos;t open file for writing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne peux ouvrir le fichier pour l&apos;écriture</translation>
     </message>
 </context>
 <context>
@@ -652,7 +654,7 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="96"/>
         <source>Exit after closing the last document</source>
-        <translation type="unfinished"></translation>
+        <translation>Quitter lorsque le dernier document est fermé</translation>
     </message>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="103"/>
@@ -662,7 +664,7 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <location filename="../src/gui/MainSettingsPage.ui" line="127"/>
         <source>Strip trailing spaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlever les espaces de trop</translation>
     </message>
 </context>
 <context>
@@ -670,7 +672,7 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <location filename="../src/gui/PluginPage.cpp" line="34"/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Activé</translation>
     </message>
 </context>
 <context>
@@ -678,36 +680,37 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="77"/>
         <source>Sessions</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="172"/>
         <source>Current character set: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Charset actuel: %1</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1368"/>
+        <location filename="../src/Manager.cpp" line="1366"/>
         <source>Lines count: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nbr de lignes : %1</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="73"/>
         <source>&amp;View</source>
-        <translation type="unfinished">&amp;Affichage</translation>
+        <translation>&amp;Affichage</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="112"/>
         <source>Change split orientation</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer l&apos;orientation de la division</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="101"/>
         <source>Lines count</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de lignes</translation>
     </message>
     <message>
+        <location filename="../include/Functions.h" line="33"/>
         <source>Noname</source>
-        <translation type="obsolete">Sans titre</translation>
+        <translation>Sans titre</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="66"/>
@@ -812,7 +815,7 @@ Continuer à partir du début?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="67"/>
         <source>Save all</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer tout</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="69"/>
@@ -877,12 +880,12 @@ Continuer à partir du début?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="85"/>
         <source>Next document</source>
-        <translation type="unfinished"></translation>
+        <translation>Prochain document</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="86"/>
         <source>Previous document</source>
-        <translation type="unfinished"></translation>
+        <translation>Document précédent</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="89"/>
@@ -907,17 +910,17 @@ Continuer à partir du début?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="94"/>
         <source>Zoom in</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoomer</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="95"/>
         <source>Zoom out</source>
-        <translation type="unfinished"></translation>
+        <translation>Dézoomer</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="96"/>
         <source>Zoom 100%</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="102"/>
@@ -952,7 +955,7 @@ Continuer à partir du début?</translation>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="111"/>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation>N/D</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="56"/>
@@ -967,107 +970,107 @@ Continuer à partir du début?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="98"/>
         <source>Cursor position</source>
-        <translation type="unfinished"></translation>
+        <translation>Position du curseur</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="99"/>
         <source>File full name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom complet du fichier</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="65"/>
         <source>Syntax highlighting scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Schéma du surlignement syntaxique</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="68"/>
         <source>Reload</source>
-        <translation type="unfinished"></translation>
+        <translation>Recharger</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="71"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimer</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="74"/>
         <source>Fo&amp;rmat</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="61"/>
         <location filename="../src/SciDocHandler.cpp" line="69"/>
         <location filename="../src/SciDocHandler.cpp" line="555"/>
         <source>Line endings</source>
-        <translation type="unfinished"></translation>
+        <translation>Fins de ligne</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="101"/>
         <source>Duplicate line</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligne en double</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="103"/>
         <source>Move line up</source>
-        <translation type="unfinished"></translation>
+        <translation>Monter la ligne</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="105"/>
         <source>Delete current line</source>
-        <translation type="unfinished"></translation>
+        <translation>Effacer la ligne actuel</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="107"/>
         <source>TO UPPER CASE</source>
-        <translation type="unfinished"></translation>
+        <translation>EN MAJUSCULE</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="109"/>
         <source>to lower case</source>
-        <translation type="unfinished"></translation>
+        <translation>en minuscule</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="152"/>
         <source>Syntax highlighting scheme: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Schéma du surlignement syntaxique: %1</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="100"/>
         <location filename="../src/SciDocHandler.cpp" line="558"/>
         <source>Unix</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="99"/>
         <location filename="../src/SciDocHandler.cpp" line="561"/>
         <source>Mac</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="98"/>
         <location filename="../src/SciDocHandler.cpp" line="564"/>
         <source>Win</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="71"/>
         <source>Packaging</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="76"/>
         <source>Chinese Simplified translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Traduction du chinois simplifié</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="63"/>
         <source>New Rich text</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau texte riche</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="100"/>
         <source>Current character set</source>
-        <translation type="unfinished"></translation>
+        <translation>Charset actuel</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="68"/>
@@ -1077,27 +1080,27 @@ Continuer à partir du début?</translation>
     <message>
         <location filename="../src/gui/GUI.cpp" line="77"/>
         <source>Application icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Icône de l&apos;application</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="77"/>
         <source>Go to matching brace</source>
-        <translation type="unfinished"></translation>
+        <translation>Aller aux balises unis</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="79"/>
         <source>Select to matching brace</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélection au balises unis</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="82"/>
         <source>Comment line(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligne(s) de commentaire</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="84"/>
         <source>Comment block</source>
-        <translation type="unfinished"></translation>
+        <translation>Bloque de commentaire</translation>
     </message>
 </context>
 <context>
@@ -1120,7 +1123,7 @@ Continuer à partir du début?</translation>
     <message>
         <location filename="../src/gui/SessionDlg.ui" line="76"/>
         <source>Remove selected session</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlever la session sélectionné</translation>
     </message>
     <message>
         <location filename="../src/gui/SessionDlg.ui" line="96"/>
@@ -1173,18 +1176,18 @@ Continuer à partir du début?</translation>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="225"/>
         <source>Autocompletion</source>
-        <translation type="unfinished"></translation>
+        <translation>Autocomplétion</translation>
     </message>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="227"/>
         <source>File types</source>
-        <translation type="unfinished"></translation>
+        <translation>Types de fichier</translation>
     </message>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="231"/>
         <location filename="../src/gui/SettingsDlg.cpp" line="276"/>
         <source>Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1262,7 +1265,7 @@ Continuer à partir du début?</translation>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="150"/>
         <source>Close button on each tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Bouton de fermeture pour chaque onglet</translation>
     </message>
     <message>
         <location filename="../src/gui/ViewSettingsPage.ui" line="99"/>

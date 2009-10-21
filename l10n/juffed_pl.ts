@@ -553,7 +553,7 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="547"/>
+        <location filename="../src/SciDoc.cpp" line="540"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -706,16 +706,17 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../include/Functions.h" line="33"/>
         <source>Noname</source>
-        <translation type="obsolete">Bez nazwy</translation>
+        <translation type="unfinished">Bez nazwy</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="405"/>
+        <location filename="../src/SciDoc.cpp" line="398"/>
         <source>Confirmation</source>
         <translation>Potwierdzenie</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="406"/>
+        <location filename="../src/SciDoc.cpp" line="399"/>
         <source>Replace this text?</source>
         <translation>Zastąpić ten tekst?</translation>
     </message>
@@ -774,14 +775,14 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="obsolete">Sesja</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="332"/>
+        <location filename="../src/SciDoc.cpp" line="325"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Wyszukiwanie osiągnęło początek pliku.
 Rozpocząć od końca?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="337"/>
+        <location filename="../src/SciDoc.cpp" line="330"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Wyszukiwanie osiągnęło koniec pliku.
@@ -789,7 +790,7 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="342"/>
+        <location filename="../src/SciDoc.cpp" line="335"/>
         <source>Find</source>
         <translation>Znajdź</translation>
     </message>

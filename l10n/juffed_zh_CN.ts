@@ -611,7 +611,7 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="547"/>
+        <location filename="../src/SciDoc.cpp" line="540"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -966,8 +966,9 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../include/Functions.h" line="33"/>
         <source>Noname</source>
-        <translation type="obsolete">未知</translation>
+        <translation type="unfinished">未知</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="66"/>
@@ -990,12 +991,12 @@ Do you want to save your changes?</source>
         <translation>德文翻译</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="405"/>
+        <location filename="../src/SciDoc.cpp" line="398"/>
         <source>Confirmation</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="406"/>
+        <location filename="../src/SciDoc.cpp" line="399"/>
         <source>Replace this text?</source>
         <translation>替换这些文字</translation>
     </message>
@@ -1069,21 +1070,21 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="332"/>
+        <location filename="../src/SciDoc.cpp" line="325"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>已经到文件头,
 继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="337"/>
+        <location filename="../src/SciDoc.cpp" line="330"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>已经到文件底,继续搜索吗?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="342"/>
+        <location filename="../src/SciDoc.cpp" line="335"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>

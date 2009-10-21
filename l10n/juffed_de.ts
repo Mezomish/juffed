@@ -563,7 +563,7 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="547"/>
+        <location filename="../src/SciDoc.cpp" line="540"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Datei kann nicht zum Schreiben geöffnet werden </translation>
     </message>
@@ -707,16 +707,17 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>Unterteilungsausrichtung ändern</translation>
     </message>
     <message>
+        <location filename="../include/Functions.h" line="33"/>
         <source>Noname</source>
-        <translation type="obsolete">Unbenannt</translation>
+        <translation type="unfinished">Unbenannt</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="405"/>
+        <location filename="../src/SciDoc.cpp" line="398"/>
         <source>Confirmation</source>
         <translation>Bestätigung</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="406"/>
+        <location filename="../src/SciDoc.cpp" line="399"/>
         <source>Replace this text?</source>
         <translation>Text ersetzen?</translation>
     </message>
@@ -800,14 +801,14 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>Zeilenanzahl: %1</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="332"/>
+        <location filename="../src/SciDoc.cpp" line="325"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Die Suche hat den Dateianfang erreicht.
 Am Ende fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="337"/>
+        <location filename="../src/SciDoc.cpp" line="330"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Die Suche hat das Dateiende erreicht.
@@ -815,7 +816,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="342"/>
+        <location filename="../src/SciDoc.cpp" line="335"/>
         <source>Find</source>
         <translation>Suchen</translation>
     </message>

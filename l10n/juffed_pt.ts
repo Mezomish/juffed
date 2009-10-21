@@ -553,7 +553,7 @@ Você quer salvar as alterações?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="547"/>
+        <location filename="../src/SciDoc.cpp" line="540"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -706,8 +706,9 @@ Você quer salvar as alterações?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../include/Functions.h" line="33"/>
         <source>Noname</source>
-        <translation type="obsolete">Semnome</translation>
+        <translation type="unfinished">Semnome</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="66"/>
@@ -730,12 +731,12 @@ Você quer salvar as alterações?</translation>
         <translation>Tradução alemã</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="405"/>
+        <location filename="../src/SciDoc.cpp" line="398"/>
         <source>Confirmation</source>
         <translation>Confirmação</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="406"/>
+        <location filename="../src/SciDoc.cpp" line="399"/>
         <source>Replace this text?</source>
         <translation>Substituir este texto?</translation>
     </message>
@@ -774,14 +775,14 @@ Você quer salvar as alterações?</translation>
         <translation type="obsolete">Sessão</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="332"/>
+        <location filename="../src/SciDoc.cpp" line="325"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>A procura alcançou o início do arquivo.
 Continuar do final?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="337"/>
+        <location filename="../src/SciDoc.cpp" line="330"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>A procura alcançou o final do arquivo.
@@ -789,7 +790,7 @@ Continuar do começo?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="342"/>
+        <location filename="../src/SciDoc.cpp" line="335"/>
         <source>Find</source>
         <translation>Buscar</translation>
     </message>

@@ -628,6 +628,8 @@ void Manager::addDocHandler(DocHandler* handler) {
 }
 
 void Manager::applySettings(bool save /* = true*/) {
+	mInt_->pluginManager_->saveSettings();
+
 	mInt_->viewer_->applySettings();
 	mInt_->gui_->setToolBarIconSize(MainSettings::iconSize());
 	mInt_->gui_->setToolButtonStyle((Qt::ToolButtonStyle)MainSettings::toolButtonStyle());
@@ -644,15 +646,16 @@ void Manager::applySettings(bool save /* = true*/) {
 		it.value()->applySettings();
 	}
 	
-	mInt_->pluginManager_->applySettings();
 	initCharsetMenu();
-	
+
 	// this needs to be called after 
-	// PluginManager->applySettings() is called
+	// PluginManager->saveSettings() is called
 	CommandStorage::instance()->updateShortcuts();
 	
 //	if ( save )
 		Settings::write();
+	
+	mInt_->pluginManager_->applySettings();
 }
 
 Document* Manager::curDoc() const {

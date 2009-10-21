@@ -119,9 +119,17 @@ public:
 	virtual QWidget* settingsPage() const { return 0; }
 	
 	/**
+	* saveSettings()
+	*
+	* This method asks to save the changes been made by the plugin.
+	*/
+	virtual void saveSettings() { }
+
+	/**
 	* applySettings()
 	*
-	* Called when 'Apply' or "OK' button in 'Settings' dialog was pressed.
+	* This method notifies the plugin that all changes were stored 
+	* and it's time to apply some if it's necessary.
 	*/
 	virtual void applySettings() { }
 

@@ -533,7 +533,7 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 			Log::debug(QString("Lexer is not 'none'"));
 			
 			if ( schemes_.contains(name) ) {
-				Log::debug(QString("Found sceme").arg(name));
+				Log::debug(QString("Found scheme").arg(name));
 				Scheme* scheme = schemes_[name];
 			
 				QFont f(font);
@@ -799,8 +799,8 @@ QStringList LexerStorage::lexersList() const {
 }
 
 void LexerStorage::updateLexers(const QFont& font) {
-	if ( font == lsInt_->curFont_ )
-		return;
+//	if ( font == lsInt_->curFont_ )
+//		return;
 	
 	QMap<QString, QsciLexer*>::iterator it = lsInt_->lexers_.begin();
 	while (it != lsInt_->lexers_.end()) {

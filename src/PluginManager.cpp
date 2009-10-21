@@ -274,6 +274,14 @@ void PluginManager::applySettings() {
 	}
 }
 
+void PluginManager::saveSettings() {
+	foreach (QString engine, pmInt_->engines_) {
+		foreach (JuffPlugin* plugin, pmInt_->plugins_[engine]) {
+			plugin->saveSettings();
+		}
+	}
+}
+
 
 
 ////////////////////////////////////////////////////////////

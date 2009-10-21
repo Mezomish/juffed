@@ -43,6 +43,7 @@ public:
 	static QColor matchedBraceBgColor();
 	static QColor indentsColor();
 	static QColor selectionBgColor();
+	static QColor selectionTextColor();
 
 	static void setFont(const QFont& font);
 	static void setWidthAdjust(bool adj);

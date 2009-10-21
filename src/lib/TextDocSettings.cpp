@@ -86,6 +86,13 @@ QColor TextDocSettings::selectionBgColor() {
 	return c.isValid() ? c : deflt;
 }
 
+QColor TextDocSettings::selectionTextColor() {
+	QColor selBgColor = selectionBgColor();
+	if ( selBgColor.red() + selBgColor.green() + selBgColor.blue() < 3 * 255 / 2)
+		return Qt::white;
+	else
+		return Qt::black;
+}
 
 
 void TextDocSettings::setFont(const QFont& font) { 

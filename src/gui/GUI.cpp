@@ -74,7 +74,9 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 			<< Helper("Marc Dumoulin", "shadosan@gmail.com", "mailto:shadosan@gmail.com", QObject::tr("French translation"))
 			<< Helper("Giuliano S. Nascimento", "giusoft.tecnologia@gmail.com", "mailto:giusoft.tecnologia@gmail.com", QObject::tr("Brazilian Portuguese translation"))
 			<< Helper("YANG Weichun", "htyoung@163.com", "mailto:htyoung@163.com", QObject::tr("Chinese Simplified translation"))
-			<< Helper("\"SoftIcon\"", "http://softicon.ru/", "http://softicon.ru/", QObject::tr("Application icon"));
+			<< Helper("\"SoftIcon\"", "http://softicon.ru/", "http://softicon.ru/", QObject::tr("Application icon"))
+			<< Helper("Evgeny Muravjev Studio", "http://emuravjev.ru/", "http://emuravjev.ru/", QObject::tr("Website"))
+	;
 
 	QString thanks;
 	foreach(Helper helper, helpers) {
@@ -87,7 +89,7 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	dlg->setAuthors(auth);
 	dlg->setThanks(thanks);
 	dlg->setLicense(License::licenseText, false);
-	dlg->resize(500, 300);
+	dlg->resize(500, 400);
 	dlg->setIcon(QIcon(":juffed_48.png"));
 	
 	return dlg;

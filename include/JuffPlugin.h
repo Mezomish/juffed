@@ -221,6 +221,6 @@ private:
 	ManagerInterface* manager_;
 };
 
-Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.2")
+Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.3")
 
 #endif	//	__JUFF_PLUGIN_H__

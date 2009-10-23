@@ -155,20 +155,18 @@ void GUI::show() {
 }
 
 void GUI::activateMW() {
+	mw_->activateWindow();
+	mw_->raise();
 #ifdef Q_OS_WIN32
 	HWND id = mw_->winId();
 	if ( IsIconic(id) ) {
 		ShowWindow(id, SW_RESTORE);
 	}
 	else {
+		SetWindowPos(id, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+		SetWindowPos(id, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 		SetActiveWindow(id);
 		SetForegroundWindow(id);
-	}
-#else
-	if ( !mw_->isActiveWindow() ) {
-		QApplication::setActiveWindow(mw_);
-		mw_->activateWindow();
-		mw_->raise();
 	}
 #endif
 }

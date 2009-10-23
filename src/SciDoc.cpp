@@ -119,7 +119,7 @@ public:
 		hBox1->setMargin(0);
 		hBox1->setSpacing(0);
 		widget1_->setLayout(hBox1);
-		markersWidget1_ = new MarkersWidget();
+		markersWidget1_ = new MarkersWidget(doc);
 		hBox1->addWidget(edit1_);
 		hBox1->addWidget(markersWidget1_);
 		
@@ -128,7 +128,7 @@ public:
 		hBox2->setMargin(0);
 		hBox2->setSpacing(0);
 		widget2_->setLayout(hBox2);
-		markersWidget2_ = new MarkersWidget();
+		markersWidget2_ = new MarkersWidget(doc);
 		hBox2->addWidget(edit2_);
 		hBox2->addWidget(markersWidget2_);
 

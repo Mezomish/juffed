@@ -51,30 +51,60 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <stdio.h>
 
 namespace Juff {
-
+static const int WIDTH = 6;
+	
 class MarkersWidget : public QWidget {
 public:
-	MarkersWidget() : QWidget() {
-		setMinimumWidth(0);
-		setMaximumWidth(0);
+	MarkersWidget(SciDoc* doc) : QWidget(), lineCount_(0), doc_(doc) {
+		setMinimumWidth(WIDTH);
+		setMaximumWidth(WIDTH);
 	}
 	
-	void setLineCount(int) {
+	void setLineCount(int n) {
+		lineCount_ = n;
+		update();
 	}
 	
 	void toggleMarker(int) {
+		markers_ = doc_->markers();
+		update();
 	}
 	
 protected:
 	virtual void paintEvent(QPaintEvent* e) {
+		if ( lineCount_ == 0 )
+			return;
+		
 		QPainter p(this);
-		p.drawLine(0, 0, 10, 100);
+		
+		// Hack !!! We actually don't know the offsets and there's
+		// no way to know it since it depends on theme, so we can
+		// just estimate that top margin is ~scrollbar width and
+		// bottom margin is ~2*scrollbar width
+		int scrW = QScrollBar(Qt::Vertical).sizeHint().width();
+		int h = height() - 3 * scrW;
+		p.fillRect(QRect(0, scrW, WIDTH, h), TextDocSettings::defaultBgColor());
+		
+		if ( markers_.isEmpty() )
+			return;
+		
+		QColor color = TextDocSettings::markersColor();
+		p.setPen(QPen(color, 2));
+		foreach (int line, markers_) {
+			int y = scrW + (float)line / (float)lineCount_ * h;
+			p.drawLine(0, y, WIDTH, y);
+		}
 	}
+	
+private:
+	IntList markers_;
+	int lineCount_;
+	SciDoc* doc_;
 };
 
 class SciDoc::Interior {
 public:
-	Interior() {
+	Interior(SciDoc* doc) {
 		syntax_ = "none";
 		codec_ = QTextCodec::codecForLocale();
 		charsetName_ = codec_->name();
@@ -82,8 +112,8 @@ public:
 		edit1_ = createEdit();
 		edit2_ = createEdit();
 		edit2_->setDocument(edit1_->document());
-
 		
+
 		widget1_ = new QWidget();
 		QHBoxLayout* hBox1 = new QHBoxLayout();
 		hBox1->setMargin(0);
@@ -104,8 +134,6 @@ public:
 
 
 		spl_ = new QSplitter(Qt::Vertical);
-//		spl_->addWidget(edit1_);
-//		spl_->addWidget(edit1_);
 		spl_->addWidget(widget1_);
 		spl_->addWidget(widget2_);
 
@@ -153,12 +181,12 @@ public:
 	QString charsetName_;
 	QWidget* widget1_;
 	QWidget* widget2_;
-	QWidget* markersWidget1_;
-	QWidget* markersWidget2_;
+	MarkersWidget* markersWidget1_;
+	MarkersWidget* markersWidget2_;
 };
 
 SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
-	docInt_ = new Interior();
+	docInt_ = new Interior(this);
 
 	wrapText(TextDocSettings::widthAdjust());
 	showLineNumbers(TextDocSettings::showLineNumbers());
@@ -195,6 +223,8 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	else {
 		setSyntax("none");
 	}
+	docInt_->markersWidget1_->setLineCount(lineCount());
+	docInt_->markersWidget2_->setLineCount(lineCount());
 
 	connect(docInt_->edit1_, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
 	connect(docInt_->edit1_, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(onCursorMove(int, int)));
@@ -893,6 +923,9 @@ void SciDoc::toggleMarker(int line) {
 
 	//	Markers will be added to/deleted from the 2nd edit 
 	//	automatically since they share the same document
+	
+	docInt_->markersWidget1_->toggleMarker(line);
+	docInt_->markersWidget2_->toggleMarker(line);
 }
 
 void SciDoc::toggleMarker() {
@@ -1283,7 +1316,10 @@ void SciDoc::changeSplitOrientation() {
 }
 
 void SciDoc::onLinesCountChanged() {
-	emit linesCountChanged(lineCount());
+	int count = lineCount();
+	docInt_->markersWidget1_->setLineCount(count);
+	docInt_->markersWidget2_->setLineCount(count);
+	emit linesCountChanged(count);
 }
 
 }

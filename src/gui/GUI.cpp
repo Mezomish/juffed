@@ -383,7 +383,7 @@ void GUI::updateTitle(const QString& fileName, const QString& session, bool modi
 
 	//	session name
 	if ( !session.isEmpty() )
-		title += QString("[%1] - ").arg(session);
+		title += QString("[%1] - ").arg(session == "_empty_session_" ? "" : session);
 
 	title += "JuffEd";
 

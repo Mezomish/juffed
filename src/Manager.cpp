@@ -1143,7 +1143,7 @@ bool Manager::openSess(const QString& name) {
 		mInt_->sessionName_ = sessName;
 		Document* doc = curDoc();
 		QString curFileName = doc->isNull() ? "" : doc->fileName();
-		mInt_->gui_->updateTitle(curFileName, sessName == EMPTY_SESSION ? "" : sessName, false);
+		mInt_->gui_->updateTitle(curFileName, sessName, false);
 		
 		return true;
 	}
@@ -1353,7 +1353,7 @@ void Manager::docModified(bool mod) {
 	Document* doc = qobject_cast<Document*>(sender());
 
 	if ( doc ) {
-		mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_ == EMPTY_SESSION ? "" : mInt_->sessionName_, mod);
+		mInt_->gui_->updateTitle(doc->fileName(), mInt_->sessionName_, mod);
 		mInt_->viewer_->setDocModified(doc, mod);
 		mInt_->pluginManager_->notifyDocModified(doc->fileName(), mod);
 	}

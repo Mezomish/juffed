@@ -1,3 +1,16 @@
+2009-10-22:
+* Fixed: '_empty_session_' in title (now for real :))
+
+2009-10-21:
+* Updated localizations (Russian and French are full now)
+* Fixed: updating background color and text color without restart
+
+2009-10-20:
+* Added: selectionTextColor() method to TextDocSettings
+
+2009-10-18:
+* Splitted branch 0.8
+
 2009-10-17:
 * Removed default keys Ctrl+D, Ctrl+L, etc.
 * Fixed: getting svn revision (now using CMake)

@@ -417,7 +417,7 @@ newly created/opened docs</source>
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="100"/>
+        <location filename="../src/gui/GUI.cpp" line="102"/>
         <source>&amp;Tools</source>
         <translation>&amp;工具</translation>
     </message>
@@ -462,17 +462,17 @@ newly created/opened docs</source>
         <translation>关于QT</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="101"/>
+        <location filename="../src/gui/GUI.cpp" line="103"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="102"/>
+        <location filename="../src/gui/GUI.cpp" line="104"/>
         <source>Toolbars</source>
         <translation type="unfinished">工具栏</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="103"/>
+        <location filename="../src/gui/GUI.cpp" line="105"/>
         <source>Dock windows</source>
         <translation type="unfinished">多窗口</translation>
     </message>
@@ -611,7 +611,7 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="540"/>
+        <location filename="../src/SciDoc.cpp" line="618"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -961,6 +961,11 @@ Do you want to save your changes?</source>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/gui/GUI.cpp" line="78"/>
+        <source>Website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/SciDocHandler.cpp" line="112"/>
         <source>Change split orientation</source>
         <translation type="unfinished"></translation>
@@ -991,12 +996,12 @@ Do you want to save your changes?</source>
         <translation>德文翻译</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="398"/>
+        <location filename="../src/SciDoc.cpp" line="476"/>
         <source>Confirmation</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="399"/>
+        <location filename="../src/SciDoc.cpp" line="477"/>
         <source>Replace this text?</source>
         <translation>替换这些文字</translation>
     </message>
@@ -1070,21 +1075,21 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="325"/>
+        <location filename="../src/SciDoc.cpp" line="403"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>已经到文件头,
 继续搜索吗?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="330"/>
+        <location filename="../src/SciDoc.cpp" line="408"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>已经到文件底,继续搜索吗?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="335"/>
+        <location filename="../src/SciDoc.cpp" line="413"/>
         <source>Find</source>
         <translation type="unfinished"></translation>
     </message>

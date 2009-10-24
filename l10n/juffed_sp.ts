@@ -352,7 +352,7 @@ whole indent instead of removind single whitespace</source>
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="100"/>
+        <location filename="../src/gui/GUI.cpp" line="102"/>
         <source>&amp;Tools</source>
         <translation>&amp;Herramientas</translation>
     </message>
@@ -397,17 +397,17 @@ whole indent instead of removind single whitespace</source>
         <translation>Acerca de Qt</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="101"/>
+        <location filename="../src/gui/GUI.cpp" line="103"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="102"/>
+        <location filename="../src/gui/GUI.cpp" line="104"/>
         <source>Toolbars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="103"/>
+        <location filename="../src/gui/GUI.cpp" line="105"/>
         <source>Dock windows</source>
         <translation type="unfinished"></translation>
     </message>
@@ -546,7 +546,7 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="540"/>
+        <location filename="../src/SciDoc.cpp" line="618"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -653,6 +653,11 @@ Do you want to save your changes?</source>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/gui/GUI.cpp" line="78"/>
+        <source>Website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/Manager.cpp" line="77"/>
         <source>Sessions</source>
         <translation type="unfinished"></translation>
@@ -699,7 +704,7 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="398"/>
+        <location filename="../src/SciDoc.cpp" line="476"/>
         <source>Confirmation</source>
         <translation>Confirmación</translation>
     </message>
@@ -714,7 +719,7 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="399"/>
+        <location filename="../src/SciDoc.cpp" line="477"/>
         <source>Replace this text?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -739,20 +744,20 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="325"/>
+        <location filename="../src/SciDoc.cpp" line="403"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="330"/>
+        <location filename="../src/SciDoc.cpp" line="408"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="335"/>
+        <location filename="../src/SciDoc.cpp" line="413"/>
         <source>Find</source>
         <translation>Buscar</translation>
     </message>

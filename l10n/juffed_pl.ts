@@ -358,7 +358,7 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="100"/>
+        <location filename="../src/gui/GUI.cpp" line="102"/>
         <source>&amp;Tools</source>
         <translation>&amp;Narzędzia</translation>
     </message>
@@ -403,17 +403,17 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
         <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="101"/>
+        <location filename="../src/gui/GUI.cpp" line="103"/>
         <source>Help</source>
         <translation>Pomoc</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="102"/>
+        <location filename="../src/gui/GUI.cpp" line="104"/>
         <source>Toolbars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="103"/>
+        <location filename="../src/gui/GUI.cpp" line="105"/>
         <source>Dock windows</source>
         <translation type="unfinished"></translation>
     </message>
@@ -553,7 +553,7 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="540"/>
+        <location filename="../src/SciDoc.cpp" line="618"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -676,6 +676,11 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/gui/GUI.cpp" line="78"/>
+        <source>Website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/Manager.cpp" line="77"/>
         <source>Sessions</source>
         <translation type="unfinished"></translation>
@@ -711,12 +716,12 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="unfinished">Bez nazwy</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="398"/>
+        <location filename="../src/SciDoc.cpp" line="476"/>
         <source>Confirmation</source>
         <translation>Potwierdzenie</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="399"/>
+        <location filename="../src/SciDoc.cpp" line="477"/>
         <source>Replace this text?</source>
         <translation>Zastąpić ten tekst?</translation>
     </message>
@@ -775,14 +780,14 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="obsolete">Sesja</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="325"/>
+        <location filename="../src/SciDoc.cpp" line="403"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Wyszukiwanie osiągnęło początek pliku.
 Rozpocząć od końca?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="330"/>
+        <location filename="../src/SciDoc.cpp" line="408"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Wyszukiwanie osiągnęło koniec pliku.
@@ -790,7 +795,7 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="335"/>
+        <location filename="../src/SciDoc.cpp" line="413"/>
         <source>Find</source>
         <translation>Znajdź</translation>
     </message>

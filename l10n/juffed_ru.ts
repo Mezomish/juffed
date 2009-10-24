@@ -392,7 +392,7 @@ whole indent instead of removind single whitespace</source>
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="100"/>
+        <location filename="../src/gui/GUI.cpp" line="102"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
@@ -437,17 +437,17 @@ whole indent instead of removind single whitespace</source>
         <translation>О Qt</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="101"/>
+        <location filename="../src/gui/GUI.cpp" line="103"/>
         <source>Help</source>
         <translation>Справка</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="102"/>
+        <location filename="../src/gui/GUI.cpp" line="104"/>
         <source>Toolbars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="103"/>
+        <location filename="../src/gui/GUI.cpp" line="105"/>
         <source>Dock windows</source>
         <translation type="unfinished"></translation>
     </message>
@@ -491,18 +491,18 @@ whole indent instead of removind single whitespace</source>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="747"/>
+        <location filename="../src/Manager.cpp" line="749"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Файл &apos;%1&apos; открыт только для чтения.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="748"/>
+        <location filename="../src/Manager.cpp" line="750"/>
         <source>What do you want to do?</source>
         <translation>Что вы хотите сделать?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="704"/>
-        <location filename="../src/Manager.cpp" line="749"/>
+        <location filename="../src/Manager.cpp" line="706"/>
+        <location filename="../src/Manager.cpp" line="751"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
@@ -512,38 +512,38 @@ whole indent instead of removind single whitespace</source>
         <translation>Копировать в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="704"/>
+        <location filename="../src/Manager.cpp" line="706"/>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
         <translation>Документ &apos;%1&apos; не существует</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="750"/>
+        <location filename="../src/Manager.cpp" line="752"/>
         <source>Overwrite</source>
         <translation>Переписать</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="751"/>
+        <location filename="../src/Manager.cpp" line="753"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="765"/>
+        <location filename="../src/Manager.cpp" line="767"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Невозможно изменить права: Доступ запрещён</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1361"/>
+        <location filename="../src/Manager.cpp" line="1363"/>
         <source>Row: %1, Col: %2</source>
         <translation>Стр: %1, Стлб: %2</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1365"/>
-        <location filename="../src/Manager.cpp" line="1418"/>
+        <location filename="../src/Manager.cpp" line="1367"/>
+        <location filename="../src/Manager.cpp" line="1420"/>
         <source> Lines: %1 </source>
         <translation>Строк: %1</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1419"/>
+        <location filename="../src/Manager.cpp" line="1421"/>
         <source>Lines count: %1 </source>
         <translation>Количество строк: %1</translation>
     </message>
@@ -565,13 +565,13 @@ Do you want to save your changes?</source>
         <translation>Закрыть документ</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1325"/>
-        <location filename="../src/Manager.cpp" line="1326"/>
+        <location filename="../src/Manager.cpp" line="1327"/>
+        <location filename="../src/Manager.cpp" line="1328"/>
         <source>Go to line</source>
         <translation>Перейти к строке</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1417"/>
+        <location filename="../src/Manager.cpp" line="1419"/>
         <source> Row: %1, Col: %2 </source>
         <translation>Стр: %1, Стлб: %2</translation>
     </message>
@@ -587,7 +587,7 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="547"/>
+        <location filename="../src/SciDoc.cpp" line="618"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Не могу открыть файл для записи</translation>
     </message>
@@ -726,6 +726,11 @@ Do you want to save your changes?</source>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/gui/GUI.cpp" line="78"/>
+        <source>Website</source>
+        <translation>Веб-сайт</translation>
+    </message>
+    <message>
         <location filename="../src/Manager.cpp" line="77"/>
         <source>Sessions</source>
         <translation>Сеансы</translation>
@@ -736,7 +741,7 @@ Do you want to save your changes?</source>
         <translation>Текущая кодировка: %1</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1366"/>
+        <location filename="../src/Manager.cpp" line="1368"/>
         <source>Lines count: %1</source>
         <translation>Количество строк: %1</translation>
     </message>
@@ -761,12 +766,12 @@ Do you want to save your changes?</source>
         <translation>Без имени</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="405"/>
+        <location filename="../src/SciDoc.cpp" line="476"/>
         <source>Confirmation</source>
         <translation>Подтверждение</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="406"/>
+        <location filename="../src/SciDoc.cpp" line="477"/>
         <source>Replace this text?</source>
         <translation>Заменить этот текст?</translation>
     </message>
@@ -825,14 +830,14 @@ Do you want to save your changes?</source>
         <translation type="obsolete">Сеанс</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="332"/>
+        <location filename="../src/SciDoc.cpp" line="403"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Поиск достиг начала файла.
 Продолжить с конца?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="337"/>
+        <location filename="../src/SciDoc.cpp" line="408"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Поиск достиг конца файла.
@@ -840,7 +845,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="342"/>
+        <location filename="../src/SciDoc.cpp" line="413"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>

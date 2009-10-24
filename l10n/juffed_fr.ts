@@ -360,7 +360,7 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="100"/>
+        <location filename="../src/gui/GUI.cpp" line="102"/>
         <source>&amp;Tools</source>
         <translation>&amp;Outils</translation>
     </message>
@@ -405,17 +405,17 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
         <translation>À propos de Qt</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="101"/>
+        <location filename="../src/gui/GUI.cpp" line="103"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="102"/>
+        <location filename="../src/gui/GUI.cpp" line="104"/>
         <source>Toolbars</source>
         <translation>Barres d&apos;outils</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="103"/>
+        <location filename="../src/gui/GUI.cpp" line="105"/>
         <source>Dock windows</source>
         <translation>Fenêtres interne</translation>
     </message>
@@ -459,18 +459,18 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="747"/>
+        <location filename="../src/Manager.cpp" line="749"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="748"/>
+        <location filename="../src/Manager.cpp" line="750"/>
         <source>What do you want to do?</source>
         <translation>Que voulez-vous faire?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="704"/>
-        <location filename="../src/Manager.cpp" line="749"/>
+        <location filename="../src/Manager.cpp" line="706"/>
+        <location filename="../src/Manager.cpp" line="751"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
@@ -480,38 +480,38 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
         <translation>Copier dans le presse-papier</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="704"/>
+        <location filename="../src/Manager.cpp" line="706"/>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
         <translation>Le document &apos;%1&apos; n&apos;existe pas</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="750"/>
+        <location filename="../src/Manager.cpp" line="752"/>
         <source>Overwrite</source>
         <translation>Écraser</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="751"/>
+        <location filename="../src/Manager.cpp" line="753"/>
         <source>Save as</source>
         <translation>Enregistrer sous</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="765"/>
+        <location filename="../src/Manager.cpp" line="767"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Ne peux pas changer la permission: accès non autorisé</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1361"/>
+        <location filename="../src/Manager.cpp" line="1363"/>
         <source>Row: %1, Col: %2</source>
         <translation>Ligne: %1, Col: %2</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1365"/>
-        <location filename="../src/Manager.cpp" line="1418"/>
+        <location filename="../src/Manager.cpp" line="1367"/>
+        <location filename="../src/Manager.cpp" line="1420"/>
         <source> Lines: %1 </source>
         <translation>Lignes: %1</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1419"/>
+        <location filename="../src/Manager.cpp" line="1421"/>
         <source>Lines count: %1 </source>
         <translation>Nbr de lignes : %1</translation>
     </message>
@@ -533,13 +533,13 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Fermer le document</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1325"/>
-        <location filename="../src/Manager.cpp" line="1326"/>
+        <location filename="../src/Manager.cpp" line="1327"/>
+        <location filename="../src/Manager.cpp" line="1328"/>
         <source>Go to line</source>
         <translation>Aller à la ligne</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1417"/>
+        <location filename="../src/Manager.cpp" line="1419"/>
         <source> Row: %1, Col: %2 </source>
         <translation>Ligne: %1, Col: %2</translation>
     </message>
@@ -555,7 +555,7 @@ Voulez-vous enregistrer les changements?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="547"/>
+        <location filename="../src/SciDoc.cpp" line="618"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Ne peux ouvrir le fichier pour l&apos;écriture</translation>
     </message>
@@ -678,6 +678,11 @@ Voulez-vous enregistrer les changements?</translation>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/gui/GUI.cpp" line="78"/>
+        <source>Website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/Manager.cpp" line="77"/>
         <source>Sessions</source>
         <translation></translation>
@@ -688,7 +693,7 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Charset actuel: %1</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="1366"/>
+        <location filename="../src/Manager.cpp" line="1368"/>
         <source>Lines count: %1</source>
         <translation>Nbr de lignes : %1</translation>
     </message>
@@ -733,12 +738,12 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Traduction allemande</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="405"/>
+        <location filename="../src/SciDoc.cpp" line="476"/>
         <source>Confirmation</source>
         <translation>Confirmation</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="406"/>
+        <location filename="../src/SciDoc.cpp" line="477"/>
         <source>Replace this text?</source>
         <translation>Remplacer ce texte?</translation>
     </message>
@@ -773,14 +778,14 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Fichiers récents</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="332"/>
+        <location filename="../src/SciDoc.cpp" line="403"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>La recherche a atteint le début du fichier.
 Continuer à partir de la fin?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="337"/>
+        <location filename="../src/SciDoc.cpp" line="408"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>La recherche a atteint la fin du fichier.
@@ -788,7 +793,7 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="342"/>
+        <location filename="../src/SciDoc.cpp" line="413"/>
         <source>Find</source>
         <translation>Chercher</translation>
     </message>

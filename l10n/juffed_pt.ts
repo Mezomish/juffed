@@ -358,7 +358,7 @@ identação ao invés de remover um espaço simples</translation>
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="100"/>
+        <location filename="../src/gui/GUI.cpp" line="102"/>
         <source>&amp;Tools</source>
         <translation>&amp;Ferramentas</translation>
     </message>
@@ -403,17 +403,17 @@ identação ao invés de remover um espaço simples</translation>
         <translation>Sobre o Qt</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="101"/>
+        <location filename="../src/gui/GUI.cpp" line="103"/>
         <source>Help</source>
         <translation>Ajuda</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="102"/>
+        <location filename="../src/gui/GUI.cpp" line="104"/>
         <source>Toolbars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="103"/>
+        <location filename="../src/gui/GUI.cpp" line="105"/>
         <source>Dock windows</source>
         <translation type="unfinished"></translation>
     </message>
@@ -553,7 +553,7 @@ Você quer salvar as alterações?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="540"/>
+        <location filename="../src/SciDoc.cpp" line="618"/>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -676,6 +676,11 @@ Você quer salvar as alterações?</translation>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/gui/GUI.cpp" line="78"/>
+        <source>Website</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/Manager.cpp" line="77"/>
         <source>Sessions</source>
         <translation type="unfinished"></translation>
@@ -731,12 +736,12 @@ Você quer salvar as alterações?</translation>
         <translation>Tradução alemã</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="398"/>
+        <location filename="../src/SciDoc.cpp" line="476"/>
         <source>Confirmation</source>
         <translation>Confirmação</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="399"/>
+        <location filename="../src/SciDoc.cpp" line="477"/>
         <source>Replace this text?</source>
         <translation>Substituir este texto?</translation>
     </message>
@@ -775,14 +780,14 @@ Você quer salvar as alterações?</translation>
         <translation type="obsolete">Sessão</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="325"/>
+        <location filename="../src/SciDoc.cpp" line="403"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>A procura alcançou o início do arquivo.
 Continuar do final?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="330"/>
+        <location filename="../src/SciDoc.cpp" line="408"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>A procura alcançou o final do arquivo.
@@ -790,7 +795,7 @@ Continuar do começo?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="335"/>
+        <location filename="../src/SciDoc.cpp" line="413"/>
         <source>Find</source>
         <translation>Buscar</translation>
     </message>

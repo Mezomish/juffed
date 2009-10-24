@@ -193,7 +193,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/FileTypesPage.ui" line="49"/>
         <source>File name patterns:</source>
-        <translation>Dateiendung</translation>
+        <translation>Dateiendung:</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.ui" line="75"/>
@@ -210,7 +210,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/FileTypesPage.ui" line="118"/>
         <source>First line patterns:</source>
-        <translation>Zeilenanfang</translation>
+        <translation>Zeilenanfang:</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="64"/>
@@ -246,7 +246,7 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="34"/>
         <source>&amp;Find</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Suchen</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="113"/>
@@ -256,32 +256,32 @@ anstelle von nur einer Leerstelle</translation>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="135"/>
         <source>&amp;Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ersetzen</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="161"/>
         <source>Match &amp;case</source>
-        <translation type="unfinished"></translation>
+        <translation>Groß-/&amp;Kleinschreibung beachten</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="168"/>
         <source>&amp;Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rückwärts suchen</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="175"/>
         <source>Whole &amp;words only</source>
-        <translation type="unfinished"></translation>
+        <translation>nur ganze &amp;Wörter</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="182"/>
         <source>Regular &amp;expression</source>
-        <translation type="unfinished"></translation>
+        <translation>Reguläre &amp;Ausdrücke</translation>
     </message>
     <message>
         <location filename="../src/gui/FindDlg.ui" line="197"/>
         <source>&amp;Multi-line</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mehrzeilig</translation>
     </message>
     <message>
         <source>Replace</source>
@@ -368,7 +368,7 @@ anstelle von nur einer Leerstelle</translation>
 <context>
     <name>Juff::GUI::GUI</name>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="100"/>
+        <location filename="../src/gui/GUI.cpp" line="102"/>
         <source>&amp;Tools</source>
         <translation>&amp;Einstellungen</translation>
     </message>
@@ -413,17 +413,17 @@ anstelle von nur einer Leerstelle</translation>
         <translation>Über QT</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="101"/>
+        <location filename="../src/gui/GUI.cpp" line="103"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="102"/>
+        <location filename="../src/gui/GUI.cpp" line="104"/>
         <source>Toolbars</source>
         <translation>Werkzeugleiste</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="103"/>
+        <location filename="../src/gui/GUI.cpp" line="105"/>
         <source>Dock windows</source>
         <translation>Fenster andocken</translation>
     </message>
@@ -534,7 +534,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="1363"/>
         <source>Row: %1, Col: %2</source>
-        <translation type="unfinished">Zeile: %1, Spalte: %2</translation>
+        <translation>Zeile: %1, Spalte: %2</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="1419"/>
@@ -563,7 +563,7 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="540"/>
+        <location filename="../src/SciDoc.cpp" line="618"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Datei kann nicht zum Schreiben geöffnet werden </translation>
     </message>
@@ -604,17 +604,17 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="87"/>
         <source>Show line numbers</source>
-        <translation type="unfinished">Zeilennummern anzeigen</translation>
+        <translation>Zeilennummern anzeigen</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="92"/>
         <source>Wrap words</source>
-        <translation type="unfinished">Zeilenumbruch</translation>
+        <translation>Zeilenumbruch</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="97"/>
         <source>Show invisible symbols</source>
-        <translation type="unfinished">Unsichtbare Symbole anzeigen</translation>
+        <translation>Unsichtbare Symbole anzeigen</translation>
     </message>
 </context>
 <context>
@@ -702,6 +702,11 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/gui/GUI.cpp" line="78"/>
+        <source>Website</source>
+        <translation>Webseite</translation>
+    </message>
+    <message>
         <location filename="../src/SciDocHandler.cpp" line="112"/>
         <source>Change split orientation</source>
         <translation>Unterteilungsausrichtung ändern</translation>
@@ -709,15 +714,15 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../include/Functions.h" line="33"/>
         <source>Noname</source>
-        <translation type="unfinished">Unbenannt</translation>
+        <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="398"/>
+        <location filename="../src/SciDoc.cpp" line="476"/>
         <source>Confirmation</source>
         <translation>Bestätigung</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="399"/>
+        <location filename="../src/SciDoc.cpp" line="477"/>
         <source>Replace this text?</source>
         <translation>Text ersetzen?</translation>
     </message>
@@ -769,7 +774,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="75"/>
         <source>&amp;Charset</source>
-        <translation>Schriftsatz</translation>
+        <translation>&amp;Schriftsatz</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="76"/>
@@ -779,7 +784,7 @@ Wollen Sie die Änderungen speichern?</translation>
     <message>
         <location filename="../src/Manager.cpp" line="77"/>
         <source>Sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Sitzungungen</translation>
     </message>
     <message>
         <location filename="../src/Manager.cpp" line="101"/>
@@ -801,14 +806,14 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>Zeilenanzahl: %1</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="325"/>
+        <location filename="../src/SciDoc.cpp" line="403"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Die Suche hat den Dateianfang erreicht.
 Am Ende fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="330"/>
+        <location filename="../src/SciDoc.cpp" line="408"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Die Suche hat das Dateiende erreicht.
@@ -816,7 +821,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="335"/>
+        <location filename="../src/SciDoc.cpp" line="413"/>
         <source>Find</source>
         <translation>Suchen</translation>
     </message>
@@ -1035,32 +1040,32 @@ Am Anfang fortsetzen?</translation>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="101"/>
         <source>Duplicate line</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeile duplizieren</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="103"/>
         <source>Move line up</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeile nach oben verschieben</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="105"/>
         <source>Delete current line</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Zeile löschen</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="107"/>
         <source>TO UPPER CASE</source>
-        <translation type="unfinished"></translation>
+        <translation>in Großbuchstaben</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="109"/>
         <source>to lower case</source>
-        <translation type="unfinished"></translation>
+        <translation>in Kleinbuchstaben</translation>
     </message>
     <message>
         <location filename="../src/SciDocHandler.cpp" line="152"/>
         <source>Syntax highlighting scheme: %1</source>
-        <translation>Syntax Hervorhebungsschema</translation>
+        <translation>Syntax Hervorhebungsschema: %1</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="100"/>

@@ -31,6 +31,7 @@ class EditorSettingsPage;
 class CharsetsSettingsPage;
 class AutocompleteSettingsPage;
 class PluginPage;
+class PrintingPage;
 class FileTypesPage;
 class SyntaxPage;
 
@@ -69,6 +70,7 @@ private:
 	AutocompleteSettingsPage* pageAC_;
 	SyntaxPage* pageSyntax_;
 	FileTypesPage* fileTypesPage_;
+	PrintingPage* printingPage_;
 	QWidget* pluginsMainPage_;
 	QMap<QString, PluginPage*> pluginPages_;
 	QList<SettingsItem*> items_;

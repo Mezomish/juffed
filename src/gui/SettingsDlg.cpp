@@ -42,6 +42,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "PluginSettings.h"
 #include "TextDocSettings.h"
 #include "AutocompleteSettings.h"
+#include "PrintSettings.h"
 #include "SettingsItem.h"
 
 #include "ui_MainSettingsPage.h"
@@ -191,6 +192,29 @@ public:
 	Ui::AutocompletePage ui;
 };
 
+class PrintingPage: public QWidget {
+public:
+	PrintingPage() {
+		QVBoxLayout* vBox = new QVBoxLayout(this);
+		keepColorsChk_  = new QCheckBox(tr("Keep syntax highlighting"));
+		keepBgColorChk_ = new QCheckBox(tr("Keep background color"));
+		alwaysWrapChk_  = new QCheckBox(tr("Always wrap text"));
+		vBox->addWidget(keepColorsChk_);
+		vBox->addWidget(keepBgColorChk_);
+		vBox->addWidget(alwaysWrapChk_);
+		vBox->addStretch();
+		vBox->setMargin(0);
+	}
+	void init(QList<SettingsItem*>& items) {
+		items << new SettingsCheckItem("printing", "keepColors", keepColorsChk_)
+			  << new SettingsCheckItem("printing", "keepBgColor", keepBgColorChk_)
+			  << new SettingsCheckItem("printing", "alwaysWrap", alwaysWrapChk_);
+	}
+	QCheckBox* keepColorsChk_;
+	QCheckBox* keepBgColorChk_;
+	QCheckBox* alwaysWrapChk_;
+};
+
 #include "FileTypesPage.h"
 #include "CharsetsSettingsPage.h"
 #include "PluginPage.h"
@@ -219,12 +243,14 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	pageCharsets_ = new CharsetsSettingsPage();
 	pageAC_ = new AutocompleteSettingsPage();
 	fileTypesPage_ = new FileTypesPage();
+	printingPage_ = new PrintingPage();
 	mp_->addPage(tr("General"), pageMain_);
 	mp_->addPage(tr("View"), pageView_);
 	mp_->addPage(tr("Editor"), pageEditor_);
 	mp_->addPage(tr("Autocompletion"), pageAC_);
 	mp_->addPage(tr("Charsets"), pageCharsets_);
 	mp_->addPage(tr("File types"), fileTypesPage_);
+	mp_->addPage(tr("Printing"), printingPage_);
 
 	//	plugins
 	pluginsMainPage_ = new QWidget();
@@ -266,6 +292,7 @@ void SettingsDlg::init() {
 	pageView_->init(items_);
 	pageEditor_->init(items_);
 	pageAC_->init(items_);
+	printingPage_->init(items_);
 	
 	//	charsets page
 	pageCharsets_->init();

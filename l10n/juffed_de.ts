@@ -393,22 +393,22 @@ anstelle von nur einer Leerstelle</translation>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="249"/>
+        <location filename="../src/gui/GUI.cpp" line="250"/>
         <source>Save session as</source>
         <translation>Sitzung speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="249"/>
+        <location filename="../src/gui/GUI.cpp" line="250"/>
         <source>Session name</source>
         <translation>Sitzungsname</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="392"/>
+        <location filename="../src/gui/GUI.cpp" line="393"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/gui/GUI.cpp" line="429"/>
+        <location filename="../src/gui/GUI.cpp" line="430"/>
         <source>About Qt</source>
         <translation>Über QT</translation>
     </message>
@@ -563,7 +563,7 @@ Wollen Sie die Änderungen speichern?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="618"/>
+        <location filename="../src/SciDoc.cpp" line="630"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Datei kann nicht zum Schreiben geöffnet werden </translation>
     </message>
@@ -700,6 +700,24 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
 </context>
 <context>
+    <name>PrintingPage</name>
+    <message>
+        <location filename="../src/gui/SettingsDlg.cpp" line="199"/>
+        <source>Keep syntax highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SettingsDlg.cpp" line="200"/>
+        <source>Keep background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SettingsDlg.cpp" line="201"/>
+        <source>Always wrap text</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../src/gui/GUI.cpp" line="78"/>
@@ -717,12 +735,12 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>Unbenannt</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="476"/>
+        <location filename="../src/SciDoc.cpp" line="488"/>
         <source>Confirmation</source>
         <translation>Bestätigung</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="477"/>
+        <location filename="../src/SciDoc.cpp" line="489"/>
         <source>Replace this text?</source>
         <translation>Text ersetzen?</translation>
     </message>
@@ -806,14 +824,14 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>Zeilenanzahl: %1</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="403"/>
+        <location filename="../src/SciDoc.cpp" line="415"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
         <translation>Die Suche hat den Dateianfang erreicht.
 Am Ende fortsetzen?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="408"/>
+        <location filename="../src/SciDoc.cpp" line="420"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
         <translation>Die Suche hat das Dateiende erreicht.
@@ -821,7 +839,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="413"/>
+        <location filename="../src/SciDoc.cpp" line="425"/>
         <source>Find</source>
         <translation>Suchen</translation>
     </message>
@@ -1171,58 +1189,63 @@ Am Anfang fortsetzen?</translation>
 <context>
     <name>SettingsDlg</name>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="204"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="228"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="208"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="232"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="209"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="233"/>
         <source>Apply</source>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="210"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="234"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="222"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="247"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="224"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="249"/>
         <source>Editor</source>
         <translation>Editor</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="226"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="251"/>
         <source>Charsets</source>
         <translation>Zeichensatz</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="223"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="248"/>
         <source>View</source>
         <translation>Ansicht</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="225"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="250"/>
         <source>Autocompletion</source>
         <translation>Autovervollständigung</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="227"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="252"/>
         <source>File types</source>
         <translation>Dateitypen</translation>
     </message>
     <message>
-        <location filename="../src/gui/SettingsDlg.cpp" line="231"/>
-        <location filename="../src/gui/SettingsDlg.cpp" line="276"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="253"/>
+        <source>Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/gui/SettingsDlg.cpp" line="257"/>
+        <location filename="../src/gui/SettingsDlg.cpp" line="303"/>
         <source>Plugins</source>
         <translation>Plugins</translation>
     </message>

@@ -156,5 +156,10 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 	else if ( section == "dockVisible" ) {
 		return false;
 	}
+	else if ( section == "printing" ) {
+		if ( key == "keepColors" )  return false;
+		if ( key == "keepBgColor" ) return false;
+		if ( key == "alwaysWrap" )  return true;
+	}
 	return QVariant();
 }

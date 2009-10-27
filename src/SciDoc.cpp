@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "LexerStorage.h"
 #include "MainSettings.h"
 #include "JuffScintilla.h"
+#include "PrintSettings.h"
 #include "TextDocSettings.h"
 
 #include <qsciapis.h>
@@ -264,11 +265,20 @@ void SciDoc::print() {
 	QsciPrinter prn;
 	QPrintDialog dlg(&prn, widget());
 	if (dlg.exec() == QDialog::Accepted) {
-		prn.setWrapMode(TextDocSettings::widthAdjust() ? QsciScintilla::WrapWord : QsciScintilla::WrapNone);
+		prn.setWrapMode(TextDocSettings::widthAdjust() || PrintSettings::alwaysWrap() ? QsciScintilla::WrapWord : QsciScintilla::WrapNone);
 		
 		int line1(-1), line2(-1), col1(-1), col2(-1);
 		JuffScintilla* edit = getActiveEdit();
 		if ( edit ) {
+			QsciLexer* lexer = edit->lexer();
+			if ( !PrintSettings::keepBgColor() ) {
+				lexer->setDefaultPaper(Qt::white);
+				lexer->setPaper(Qt::white);
+				lexer->setDefaultColor(Qt::black);
+			}
+			if ( !PrintSettings::keepColors() ) {
+				lexer->setColor(Qt::black);
+			}
 			edit->getSelection(&line1, &col1, &line2, &col2);
 			if (line1 >=0 && line2 >= 0 && col1 >= 0 && col2 >= 0) {
 				//	We have selection. Print it.
@@ -280,6 +290,8 @@ void SciDoc::print() {
 				//	We don't have selection. Print the whole text.
 				prn.printRange(edit, 0);
 			}
+			QFont font = TextDocSettings::font();
+			LexerStorage::instance()->updateLexers(font);
 		}
 	}
 }

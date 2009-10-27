@@ -93,6 +93,7 @@ SET ( libjuffed_SRCS
 	src/lib/Log.cpp
 	src/lib/MainSettings.cpp
 	src/lib/PluginSettings.cpp
+	src/lib/PrintSettings.cpp
 	src/lib/Settings.cpp
 	src/lib/SettingsItem.cpp
 	src/lib/SettingsCheckItem.cpp
@@ -210,6 +211,7 @@ SET ( juffed_includes
 	include/ManagerInterface.h
 	include/Parameter.h
 	include/PluginSettings.h
+	include/PrintSettings.h
 	include/Settings.h
 	include/SettingsItem.h
 	include/SettingsCheckItem.h

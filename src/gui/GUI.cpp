@@ -246,7 +246,8 @@ QString GUI::getSaveFileName(const QString& curFileName, const QString& filters,
 }
 
 QString GUI::getSaveSessionName(const QString& session) {
-	return QInputDialog::getText(mw_, tr("Save session as"), tr("Session name"), QLineEdit::Normal, session);
+	QString sess = (session == "_empty_session_" ? "" : session);
+	return QInputDialog::getText(mw_, tr("Save session as"), tr("Session name"), QLineEdit::Normal, sess);
 }
 	
 QString GUI::getOpenSessionName(bool& accepted) {

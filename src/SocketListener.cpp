@@ -42,7 +42,9 @@ SocketListener::SocketListener(QObject* parent) : QObject(parent) {
 }
 
 SocketListener::~SocketListener() {
+#if QT_VERSION >= 0x040500
 	server_->removeServer(AppInfo::socketPath());
+#endif
 }
 
 void SocketListener::onNewConnection() {

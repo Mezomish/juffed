@@ -139,6 +139,11 @@ public:
 		spl_->addWidget(widget2_);
 
 		spl_->setSizes(QList<int>() << 0 << spl_->height());
+		
+		searchStartingLine_ = -1;
+		searchStartingCol_ = -1;
+		searchSteppedOver_ = false;
+		searchStartingScroll_ = 0;
 	}
 
 
@@ -185,6 +190,10 @@ public:
 	QWidget* widget2_;
 	MarkersWidget* markersWidget1_;
 	MarkersWidget* markersWidget2_;
+	int searchStartingLine_;
+	int searchStartingCol_;
+	bool searchSteppedOver_;
+	int searchStartingScroll_;
 };
 
 SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
@@ -411,30 +420,18 @@ void prepareForFind(QsciScintilla* edit, const QString& s, const DocFindFlags& f
 	}
 }
 
-bool continueOverTheEnd(QsciScintilla* edit, bool back) {
-	QString msg;
+void stepOver(JuffScintilla* edit, bool back) {
 	int row(0), col(0);
 	if ( back ) {
-		msg = QObject::tr("The search has reached the beginning of file.\nContinue from the end?");
 		row = edit->lines() - 1;
 		col = edit->text(row).length();
 	}
 	else {
-		msg = QObject::tr("The search has reached the end of file.\nContinue from the beginning?");
 		row = 0;
 		col = 0;
 	}
 	
-	QMessageBox::StandardButton choice = QMessageBox::question(edit, QObject::tr("Find"),
-			msg, QMessageBox::Ok | QMessageBox::Cancel);
-	
-	if ( choice == QMessageBox::Ok ) {
-		edit->setCursorPosition(row, col);
-		return true;
-	}
-	else {
-		return false;
-	}
+	edit->setCursorPosition(row, col);
 }
 
 void SciDoc::find(const QString& str, const DocFindFlags& flags) {
@@ -447,13 +444,30 @@ void SciDoc::find(const QString& str, const DocFindFlags& flags) {
 	if ( !edit )
 		return;
 
+	edit->getCursorPosition(&(docInt_->searchStartingLine_), &(docInt_->searchStartingCol_));
+	docInt_->searchSteppedOver_ = false;
+	docInt_->searchStartingScroll_ = edit->verticalScrollBar()->value();
+	
+	startFind(edit, str, flags);
+}
+
+void SciDoc::startFind(JuffScintilla* edit, const QString& str, const DocFindFlags& flags) {
 	prepareForFind(edit, str, flags);
 
 	bool found = edit->find(str, flags);
 	if ( !found ) {
 		//	not found
-		if ( continueOverTheEnd(edit, flags.backwards) )
-			find(str, flags);
+		if ( !docInt_->searchSteppedOver_ ) {
+			docInt_->searchSteppedOver_ = true;
+			stepOver(edit, flags.backwards);
+			startFind(edit, str, flags);
+		}
+		else {
+			edit->setCursorPosition(docInt_->searchStartingLine_, docInt_->searchStartingCol_);
+			edit->verticalScrollBar()->setValue(docInt_->searchStartingScroll_);
+			QMessageBox::information(edit, tr("Information"), tr("Text '%1' was not found").arg(str));
+			return;
+		}
 	}
 }
 
@@ -469,18 +483,39 @@ void SciDoc::replace(const QString& str1, const QString& str2, const DocFindFlag
 
 	prepareForFind(edit, str1, flags);
 
-	bool cancelled = false;
+	edit->getCursorPosition(&(docInt_->searchStartingLine_), &(docInt_->searchStartingCol_));
+	docInt_->searchSteppedOver_ = false;
+	docInt_->searchStartingScroll_ = edit->verticalScrollBar()->value();
+	
 	bool replaceAll = false;
+	int count = 0;
+	startReplace(edit, str1, str2, flags, replaceAll, count);
+}
+
+void SciDoc::startReplace(JuffScintilla* edit, const QString& str1, const QString& str2, const DocFindFlags& flags, bool& replaceAll, int& count) {
+	bool cancelled = false;
 	while ( edit->find(str1, flags) ) {
 		if ( !doReplace(edit, str1, str2, flags, replaceAll) ) {
 			cancelled = true;
 			break;
 		}
+		else {
+			++count;
+		}
 	}
 	if ( !cancelled ) {
 		//	reached the end or the beginning
-		if ( continueOverTheEnd(edit, flags.backwards) )
-			replace(str1, str2, flags);
+		if ( !docInt_->searchSteppedOver_ ) {
+			docInt_->searchSteppedOver_ = true;
+			stepOver(edit, flags.backwards);
+			startReplace(edit, str1, str2, flags, replaceAll, count);
+		}
+		else {
+			edit->setCursorPosition(docInt_->searchStartingLine_, docInt_->searchStartingCol_);
+			edit->verticalScrollBar()->setValue(docInt_->searchStartingScroll_);
+			QMessageBox::information(edit, tr("Information"), tr("Replacement finished (%1 replacements were made)").arg(count));
+			return;
+		}
 	}
 }
 

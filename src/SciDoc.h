@@ -129,6 +129,8 @@ private:
 	void loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer);
 	void stripTrailingSpaces();
 	void toggleMarker(int line);
+	void startFind(JuffScintilla*, const QString&, const DocFindFlags&);
+	void startReplace(JuffScintilla*, const QString&, const QString&, const DocFindFlags&, bool&, int&);
 
 	bool doReplace(JuffScintilla* edit, const QString& str1, const QString& str2, const DocFindFlags& flags, bool& replaceAll);
 	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);

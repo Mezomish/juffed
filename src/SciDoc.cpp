@@ -113,7 +113,7 @@ public:
 		edit1_ = createEdit();
 		edit2_ = createEdit();
 		edit2_->setDocument(edit1_->document());
-		
+		curEdit_ = NULL;
 
 		widget1_ = new QWidget();
 		QHBoxLayout* hBox1 = new QHBoxLayout();
@@ -176,6 +176,7 @@ public:
 	QSplitter* spl_;
 	JuffScintilla* edit1_;
 	JuffScintilla* edit2_;
+	JuffScintilla* curEdit_;
 	
 	QString syntax_;
 	QTextCodec* codec_;
@@ -235,6 +236,8 @@ SciDoc::SciDoc(const QString& fileName) : Document(fileName) {
 	connect(docInt_->edit1_, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
 	connect(docInt_->edit2_, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
 	connect(docInt_->edit1_, SIGNAL(linesChanged()), SLOT(onLinesCountChanged()));
+	connect(docInt_->edit1_, SIGNAL(focusReceived()), SLOT(onEditReceivedFocus()));
+	connect(docInt_->edit2_, SIGNAL(focusReceived()), SLOT(onEditReceivedFocus()));
 
 	applySettings();
 	
@@ -301,7 +304,7 @@ QWidget* SciDoc::widget() {
 }
 
 JuffScintilla* SciDoc::getActiveEdit() const {
-	return qobject_cast<JuffScintilla*>(docInt_->spl_->focusProxy());
+	return docInt_->curEdit_;
 }
 
 bool SciDoc::isModified() const {
@@ -1332,6 +1335,14 @@ void SciDoc::onLinesCountChanged() {
 	docInt_->markersWidget1_->setLineCount(count);
 	docInt_->markersWidget2_->setLineCount(count);
 	emit linesCountChanged(count);
+}
+
+void SciDoc::onEditReceivedFocus() {
+	JuffScintilla* edit = qobject_cast<JuffScintilla*>(sender());
+	if ( !edit )
+		return;
+	
+	docInt_->curEdit_ = edit;
 }
 
 }

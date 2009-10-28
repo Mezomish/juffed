@@ -44,6 +44,7 @@ public:
 
 signals:
 	void contextMenuCalled(int, int);
+	void focusReceived();
 
 protected slots:
 	void updateLineNumbers();

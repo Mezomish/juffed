@@ -309,6 +309,7 @@ void JuffScintilla::contextMenuEvent(QContextMenuEvent* e) {
 void JuffScintilla::focusInEvent(QFocusEvent* e) {
 	parentWidget()->setFocusProxy(this);
 	QsciScintilla::focusInEvent(e);
+	emit focusReceived();
 }
 
 void JuffScintilla::focusOutEvent(QFocusEvent* e) {

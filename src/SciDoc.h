@@ -122,6 +122,7 @@ private slots:
 	void onCursorMove(int, int);
 	void onMarginClicked (int margin, int line, Qt::KeyboardModifiers state);
 	void onLinesCountChanged();
+	void onEditReceivedFocus();
 
 private:
 	void readDoc(bool keepCharset = false);

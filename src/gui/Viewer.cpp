@@ -1,3 +1,4 @@
+#include <QDebug>
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2009 Mikhail Murzin
@@ -37,11 +38,7 @@ public:
 	Interior() {
 		widget_ = new QSplitter(Qt::Horizontal);
 		tw1_ = new TabWidget(0);
-		tw2_ = new TabWidget(0);
 		widget_->addWidget(tw1_);
-		widget_->addWidget(tw2_);
-		
-		tw2_->hide();
 		
 		curView_ = NULL;
 	}
@@ -55,26 +52,12 @@ public:
 			return NULL;
 		}
 		else {
-			TabWidget* tw = NULL;
-			QWidget* w = doc->widget();
-			if ( (index = tw1_->indexOf(w)) >= 0 ) {
-				//	this doc belongs to the 1st panel
-				tw = tw1_;
-			}
-			else if ( (index = tw2_->indexOf(w)) >= 0 ) {
-				//	this doc belongs to the 2nd panel
-				tw = tw2_;
-			}
-			else {
-				Log::debug("Oops.... nobody holds the document");
-			}
-			return tw;
+			return tw1_;
 		}
 	}
 	
 	QSplitter* widget_;
 	TabWidget* tw1_;
-	TabWidget* tw2_;
 	QMap<QWidget*, QString> fileNamesMap_;
 	QWidget* curView_;
 };
@@ -83,19 +66,13 @@ Viewer::Viewer() : QObject() {
 	vInt_ = new Interior();
 	
 	connect(vInt_->tw1_, SIGNAL(currentChanged(int)), this, SLOT(curIndexChanged(int)));
-	connect(vInt_->tw2_, SIGNAL(currentChanged(int)), this, SLOT(curIndexChanged(int)));
 
 	connect(vInt_->tw1_, SIGNAL(requestFileName(int, QString&)), SLOT(onFileNameRequested(int, QString&)));
 	connect(vInt_->tw1_, SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
-	connect(vInt_->tw2_, SIGNAL(requestFileName(int, QString&)), SLOT(onFileNameRequested(int, QString&)));
-	connect(vInt_->tw2_, SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
 	connect(vInt_->tw1_, SIGNAL(newFileRequested()), SIGNAL(requestNewDoc()));
-	connect(vInt_->tw2_, SIGNAL(newFileRequested()), SIGNAL(requestNewDoc()));
 	connect(vInt_->tw1_, SIGNAL(docOpenRequested(const QString&)), SIGNAL(requestOpenDoc(const QString&)));
-	connect(vInt_->tw2_, SIGNAL(docOpenRequested(const QString&)), SIGNAL(requestOpenDoc(const QString&)));
 #if QT_VERSION >= 0x040500
 	connect(vInt_->tw1_, SIGNAL(tabMoved(int, int)), this, SIGNAL(tabMoved(int, int)));
-	connect(vInt_->tw2_, SIGNAL(tabMoved(int, int)), this, SIGNAL(tabMoved(int, int)));
 #endif
 }
 
@@ -105,9 +82,7 @@ Viewer::~Viewer() {
 
 void Viewer::applySettings() {
 	vInt_->tw1_->setTabPosition((QTabWidget::TabPosition)MainSettings::tabPosition());
-	vInt_->tw2_->setTabPosition((QTabWidget::TabPosition)MainSettings::tabPosition());
 	vInt_->tw1_->setCloseBtnOnTabs(MainSettings::closeButtonsOnTabs());
-	vInt_->tw2_->setCloseBtnOnTabs(MainSettings::closeButtonsOnTabs());
 }
 
 QWidget* Viewer::widget() {
@@ -124,13 +99,7 @@ void Viewer::addDoc(Document* doc, int panel) {
 	
 	vInt_->fileNamesMap_[w] = doc->fileName();
 
-	TabWidget* tw = 0;
-	if ( panel == 1 ) {
-		tw = vInt_->tw1_;
-	}
-	else {
-		tw = vInt_->tw2_;
-	}
+	TabWidget* tw = vInt_->tw1_;
 	tw->addTab(w, getDocTitle(doc->fileName()));
 	tw->setCurrentWidget(w);
 	tw->enableCloseButton(true);
@@ -181,31 +150,7 @@ void Viewer::removeDoc(Document* doc) {
 			vInt_->fileNamesMap_.remove(doc->widget());
 			tw->removeTab(index);
 
-			if ( tw->count() == 0 ) {
-				//	This doc was the last doc in this 
-				//	tab widget. Hide it and set focus to
-				//	another tab widget
-				
-				//	get another tab widget and set focus to it's current view
-				TabWidget* tw2 = (tw == vInt_->tw1_ ? vInt_->tw2_ : vInt_->tw1_);
-				if ( tw2 && tw2->isVisible()) {
-					tw->hide();
-				
-					QWidget* w = tw2->currentWidget();
-					if ( w ) {
-						w->setFocus();
-						vInt_->curView_ = w;
-						emit curDocChanged(w);
-					}
-				}
-				else {
-					vInt_->curView_ = 0;
-					emit curDocChanged(0);
-				}
-				
-				tw->enableCloseButton(false);
-			}
-			else if ( index == tw->currentIndex() ) {
+			if ( index == tw->currentIndex() ) {
 				//	The doc was removed but the current 
 				//	index remained the same
 				
@@ -230,11 +175,7 @@ void Viewer::activateDoc(Document* doc) {
 void Viewer::nextDoc() {
 	JUFFENTRY;
 	
-	TabWidget* tw = 0;
-	if ( vInt_->tw1_->currentWidget()->hasFocus() )
-		tw = vInt_->tw1_;
-	else
-		tw = vInt_->tw2_;
+	TabWidget* tw = vInt_->tw1_;
 	
 	if ( tw ) {
 		int n = tw->count();
@@ -248,11 +189,7 @@ void Viewer::nextDoc() {
 void Viewer::prevDoc() {
 	JUFFENTRY;
 	
-	TabWidget* tw = 0;
-	if ( vInt_->tw1_->currentWidget()->hasFocus() )
-		tw = vInt_->tw1_;
-	else
-		tw = vInt_->tw2_;
+	TabWidget* tw = vInt_->tw1_;
 	
 	if ( tw ) {
 		int n = tw->count();
@@ -309,12 +246,6 @@ void Viewer::getViewsList(int panel, QWidgetList& list) const {
 		int count = vInt_->tw1_->count();
 		for (int i = 0; i < count; ++i) {
 			list << vInt_->tw1_->widget(i);
-		}
-	}
-	else if ( panel == 2 ) {
-		int count = vInt_->tw2_->count();
-		for (int i = 0; i < count; ++i) {
-			list << vInt_->tw2_->widget(i);
 		}
 	}
 }

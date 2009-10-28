@@ -728,17 +728,17 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="199"/>
         <source>Keep syntax highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить подсветку синтаксиса</translation>
     </message>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="200"/>
         <source>Keep background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить цвет фона</translation>
     </message>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="201"/>
         <source>Always wrap text</source>
-        <translation type="unfinished"></translation>
+        <translation>Всегда переносить строки</translation>
     </message>
 </context>
 <context>
@@ -1269,7 +1269,7 @@ Continue from the beginning?</source>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="253"/>
         <source>Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Печать</translation>
     </message>
     <message>
         <location filename="../src/gui/SettingsDlg.cpp" line="257"/>

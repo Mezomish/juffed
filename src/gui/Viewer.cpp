@@ -52,6 +52,7 @@ public:
 			return NULL;
 		}
 		else {
+			index = tw1_->indexOf(doc->widget());
 			return tw1_;
 		}
 	}

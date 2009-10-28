@@ -71,6 +71,8 @@ SET(DATA_INSTALL_DIR
     CACHE PATH "Install path for shared data"
 )
 
+SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+
 # verbose is off by default
 #SET( CMAKE_VERBOSE_MAKEFILE  ON )
 

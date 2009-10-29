@@ -605,7 +605,7 @@ Do you want to save your changes?</source>
     <message>
         <location filename="../src/SciDoc.cpp" line="516"/>
         <source>Replacement finished (%1 replacements were made)</source>
-        <translation>Замена окончена (сделано %1 замен)</translation>
+        <translation>Замена окончена (сделано замен: %1)</translation>
     </message>
 </context>
 <context>

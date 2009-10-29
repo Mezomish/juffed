@@ -555,9 +555,25 @@ Voulez-vous enregistrer les changements?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="630"/>
+        <location filename="../src/SciDoc.cpp" line="668"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Ne peux ouvrir le fichier pour l&apos;écriture</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="468"/>
+        <location filename="../src/SciDoc.cpp" line="516"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="468"/>
+        <source>Text &apos;%1&apos; was not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="516"/>
+        <source>Replacement finished (%1 replacements were made)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -756,12 +772,12 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Traduction allemande</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="488"/>
+        <location filename="../src/SciDoc.cpp" line="526"/>
         <source>Confirmation</source>
         <translation>Confirmation</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="489"/>
+        <location filename="../src/SciDoc.cpp" line="527"/>
         <source>Replace this text?</source>
         <translation>Remplacer ce texte?</translation>
     </message>
@@ -796,22 +812,19 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Fichiers récents</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="415"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
-        <translation>La recherche a atteint le début du fichier.
+        <translation type="obsolete">La recherche a atteint le début du fichier.
 Continuer à partir de la fin?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="420"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
-        <translation>La recherche a atteint la fin du fichier.
+        <translation type="obsolete">La recherche a atteint la fin du fichier.
 Continuer à partir du début?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="425"/>
         <source>Find</source>
         <translation>Chercher</translation>
     </message>

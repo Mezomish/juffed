@@ -553,8 +553,24 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="630"/>
+        <location filename="../src/SciDoc.cpp" line="668"/>
         <source>Can&apos;t open file for writing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="468"/>
+        <location filename="../src/SciDoc.cpp" line="516"/>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="468"/>
+        <source>Text &apos;%1&apos; was not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="516"/>
+        <source>Replacement finished (%1 replacements were made)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -734,12 +750,12 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="unfinished">Bez nazwy</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="488"/>
+        <location filename="../src/SciDoc.cpp" line="526"/>
         <source>Confirmation</source>
         <translation>Potwierdzenie</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="489"/>
+        <location filename="../src/SciDoc.cpp" line="527"/>
         <source>Replace this text?</source>
         <translation>Zastąpić ten tekst?</translation>
     </message>
@@ -798,22 +814,19 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="obsolete">Sesja</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="415"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
-        <translation>Wyszukiwanie osiągnęło początek pliku.
+        <translation type="obsolete">Wyszukiwanie osiągnęło początek pliku.
 Rozpocząć od końca?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="420"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
-        <translation>Wyszukiwanie osiągnęło koniec pliku.
+        <translation type="obsolete">Wyszukiwanie osiągnęło koniec pliku.
 Rozpocząć od początku?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="425"/>
         <source>Find</source>
         <translation>Znajdź</translation>
     </message>

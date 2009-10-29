@@ -245,7 +245,7 @@ whole indent instead of removind single whitespace</source>
         <location filename="../src/gui/FileTypesPage.cpp" line="71"/>
         <location filename="../src/gui/FileTypesPage.cpp" line="93"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Сообщение</translation>
     </message>
     <message>
         <location filename="../src/gui/FileTypesPage.cpp" line="71"/>
@@ -444,12 +444,12 @@ whole indent instead of removind single whitespace</source>
     <message>
         <location filename="../src/gui/GUI.cpp" line="104"/>
         <source>Toolbars</source>
-        <translation type="unfinished"></translation>
+        <translation>Панели инструментов</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="105"/>
         <source>Dock windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Док-окна</translation>
     </message>
     <message>
         <location filename="../src/gui/GUI.cpp" line="203"/>
@@ -587,9 +587,25 @@ Do you want to save your changes?</source>
 <context>
     <name>Juff::SciDoc</name>
     <message>
-        <location filename="../src/SciDoc.cpp" line="630"/>
+        <location filename="../src/SciDoc.cpp" line="668"/>
         <source>Can&apos;t open file for writing</source>
         <translation>Не могу открыть файл для записи</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="468"/>
+        <location filename="../src/SciDoc.cpp" line="516"/>
+        <source>Information</source>
+        <translation>Сообщение</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="468"/>
+        <source>Text &apos;%1&apos; was not found</source>
+        <translation>Текст &apos;%1&apos; не найден</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="516"/>
+        <source>Replacement finished (%1 replacements were made)</source>
+        <translation>Замена окончена (сделано %1 замен)</translation>
     </message>
 </context>
 <context>
@@ -784,12 +800,12 @@ Do you want to save your changes?</source>
         <translation>Без имени</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="488"/>
+        <location filename="../src/SciDoc.cpp" line="526"/>
         <source>Confirmation</source>
         <translation>Подтверждение</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="489"/>
+        <location filename="../src/SciDoc.cpp" line="527"/>
         <source>Replace this text?</source>
         <translation>Заменить этот текст?</translation>
     </message>
@@ -848,22 +864,19 @@ Do you want to save your changes?</source>
         <translation type="obsolete">Сеанс</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="415"/>
         <source>The search has reached the beginning of file.
 Continue from the end?</source>
-        <translation>Поиск достиг начала файла.
+        <translation type="obsolete">Поиск достиг начала файла.
 Продолжить с конца?</translation>
     </message>
     <message>
-        <location filename="../src/SciDoc.cpp" line="420"/>
         <source>The search has reached the end of file.
 Continue from the beginning?</source>
-        <translation>Поиск достиг конца файла.
+        <translation type="obsolete">Поиск достиг конца файла.
 Продолжить с начала?</translation>
     </message>
     <message>
         <location filename="../src/lib/CommandStorage.cpp" line="88"/>
-        <location filename="../src/SciDoc.cpp" line="425"/>
         <source>Find</source>
         <translation>Найти</translation>
     </message>

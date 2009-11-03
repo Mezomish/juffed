@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="CSS">
+	<style name="tag" color="#0d0581" />
+	<style name="value" color="#800970" bold="false" italic="false" />
+	<style name="property" color="#0940d0" />
+	<style name="operator" color="#600000" />
+	<style name="id" color="#308086" />
+	<style name="important" color="#f09000" />
+	<style name="comment" color="#999999" italic="true" />
+	<style name="singleString" color="#e00970" />
+	<style name="doubleString" color="#e00970" />
+	<style name="pseudoClass" color="#a00514" />
+	<style name="classSelector" color="#003040" />
+
+<!-- NOT IMPLEMENTED YET
+Attribute 
+UnknownPseudoClass 	An unknown pseudo class.
+UnknownProperty 	An unknown property.
+AtRule 	An @-rule.
+PseudoElement 	A pseudo element. The list of pseudo elements is defined by keyword set 5.
+ExtendedCSSProperty 	An extended (browser specific) CSS property. The list of extended CSS properties is defined by keyword set 6.
+ExtendedPseudoClass 	An extended (browser specific) pseudo class. The list of extended pseudo classes is defined by keyword set 7.
+ExtendedPseudoElement 	An extended (browser specific) pseudo element. The list of extended pseudo elements is defined by keyword set 8. 
+-->
+</scheme>
+</JuffScheme>

@@ -395,6 +395,25 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["identifier"], QList<int>() << QsciLexerCPP::Identifier);
 		schemes_[name] = scheme;
 	}
+	else if ( name.compare("CSS") == 0 ) {
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules 
+				<< Rule(styles["tag"], QList<int>() << QsciLexerCSS::Tag)
+				<< Rule(styles["property"], QList<int>() << QsciLexerCSS::CSS1Property << QsciLexerCSS::CSS2Property << QsciLexerCSS::CSS3Property)
+				<< Rule(styles["value"], QList<int>() << QsciLexerCSS::Value)
+				<< Rule(styles["operator"], QList<int>() << QsciLexerCSS::Operator)
+				<< Rule(styles["id"], QList<int>() << QsciLexerCSS::IDSelector)
+				<< Rule(styles["important"], QList<int>() << QsciLexerCSS::Important)
+				<< Rule(styles["comment"], QList<int>() << QsciLexerCSS::Comment)
+				<< Rule(styles["singleString"], QList<int>() << QsciLexerCSS::SingleQuotedString)
+				<< Rule(styles["doubleString"], QList<int>() << QsciLexerCSS::DoubleQuotedString)
+				<< Rule(styles["pseudoClass"], QList<int>() << QsciLexerCSS::PseudoClass)
+				<< Rule(styles["classSelector"], QList<int>() << QsciLexerCSS::ClassSelector)
+//				<< Rule(styles["attribute"], QList<int>() << QsciLexerCSS::Attribute)
+		;
+		schemes_[name] = scheme;
+	}
 	else if ( name.compare("Perl") == 0 ) {
 		scheme = new Scheme();
 		scheme->defaultStyle = styles["default"];

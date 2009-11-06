@@ -170,7 +170,7 @@ public:
 	void displayCharset(const QString& charset) {
 		charsetL_->setText(QString(" %1 ").arg(charset));
 		charsetL_->setToolTip(QObject::tr("Current character set: %1").arg(charset));
-		if ( QAction* chAct = mInt_->charsetActions_[charset] )
+		if ( QAction* chAct = charsetActions_[charset] )
 			chAct->setChecked(true);
 	}
 	

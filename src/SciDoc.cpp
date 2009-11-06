@@ -1046,7 +1046,7 @@ void SciDoc::setCharset(const QString& charset, bool confirm /*= false*/) {
 	if ( codec != 0 ) {
 		int ret = QMessageBox::Yes;
 		if ( confirm && isModified() && !isNoname(fileName()) ) {
-			QString str = tr("The changes been made will be lost.\nDo you want to proceed?");
+			QString str = tr("All unsaved changes will be lost.\nDo you want to proceed?");
 			ret = QMessageBox::question(widget(), tr("Warning"),
 				str, QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 		}

@@ -170,6 +170,8 @@ public:
 	void displayCharset(const QString& charset) {
 		charsetL_->setText(QString(" %1 ").arg(charset));
 		charsetL_->setToolTip(QObject::tr("Current character set: %1").arg(charset));
+		if ( QAction* chAct = mInt_->charsetActions_[charset] )
+			chAct->setChecked(true);
 	}
 	
 	QMap<QString, DocHandler*> handlers_;
@@ -972,9 +974,7 @@ bool Manager::fileSaveAs() {
 				if ( !asCopy ) {
 					doc->setFileName(fName);
 					doc->setCharset(charset);
-					mInt_->displayCharset(charset);
-					if ( QAction* chAct = mInt_->charsetActions_[doc->charset()] )
-						chAct->setChecked(true);
+					mInt_->displayCharset(doc->charset());
 					doc->setModified(false);
 					mInt_->displayFileName(fName);
 				}
@@ -1339,8 +1339,8 @@ void Manager::charsetSelected() {
 	if ( a != 0 ) {
 		Document* doc = curDoc();
 		if ( doc && !doc->isNull() ) {
-			doc->setCharset(a->text());
-			mInt_->displayCharset(a->text());
+			doc->setCharset(a->text(), true);
+			mInt_->displayCharset(doc->charset());
 		}
 	}
 }
@@ -1584,8 +1584,8 @@ QString Manager::getCurDocCharset() {
 void Manager::setCurDocCharset(const QString& charset) {
 	Document* doc = curDoc();
 	if ( !doc->isNull() ) {
-		doc->setCharset(charset);
-		mInt_->displayCharset(charset);
+		doc->setCharset(charset, true);
+		mInt_->displayCharset(doc->charset());
 	}
 }
 

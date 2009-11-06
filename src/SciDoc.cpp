@@ -1039,14 +1039,25 @@ QString SciDoc::charset() const {
 	return docInt_->charsetName_;
 }
 
-void SciDoc::setCharset(const QString& charset) {
+void SciDoc::setCharset(const QString& charset, bool confirm /*= false*/) {
 	JUFFENTRY;
 	
 	QTextCodec* codec = QTextCodec::codecForName(charset.toAscii());
 	if ( codec != 0 ) {
-		docInt_->codec_ = codec;
-		docInt_->charsetName_ = charset;
-		readDoc(true);
+		int ret = QMessageBox::Yes;
+		if ( confirm && isModified() && !isNoname(fileName()) ) {
+			QString str = tr("The changes been made will be lost.\nDo you want to proceed?");
+			ret = QMessageBox::question(widget(), tr("Warning"),
+				str, QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+		}
+		if ( ret == QMessageBox::Yes ) {
+			docInt_->codec_ = codec;
+			docInt_->charsetName_ = charset;
+			if ( !isNoname(fileName()) ) {
+				readDoc(true);
+				setModified(false);
+			}
+		}
 	}
 }
 

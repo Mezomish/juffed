@@ -75,7 +75,7 @@ public:
 
 	virtual int lineCount() const;
 	virtual QString charset() const;
-	virtual void setCharset(const QString&);
+	virtual void setCharset(const QString&, bool confirm = false);
 
 	virtual void applySettings();
 	virtual void updateActivated();

@@ -78,7 +78,7 @@ public:
 	virtual void setScrollPos(int) {}
 	virtual int lineCount() const { return 0; }
 	virtual QString charset() const { return ""; }
-	virtual void setCharset(const QString&) {}
+	virtual void setCharset(const QString&, bool confirm = false) {}
 	
 	virtual void applySettings() {}
 

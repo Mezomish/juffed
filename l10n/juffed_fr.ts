@@ -459,43 +459,43 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="749"/>
+        <location filename="../src/Manager.cpp" line="751"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="750"/>
+        <location filename="../src/Manager.cpp" line="752"/>
         <source>What do you want to do?</source>
         <translation>Que voulez-vous faire?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="706"/>
-        <location filename="../src/Manager.cpp" line="751"/>
+        <location filename="../src/Manager.cpp" line="708"/>
+        <location filename="../src/Manager.cpp" line="753"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="270"/>
+        <location filename="../src/Manager.cpp" line="272"/>
         <source>Copy to clipboard</source>
         <translation>Copier dans le presse-papier</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="706"/>
+        <location filename="../src/Manager.cpp" line="708"/>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
         <translation>Le document &apos;%1&apos; n&apos;existe pas</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="752"/>
+        <location filename="../src/Manager.cpp" line="754"/>
         <source>Overwrite</source>
         <translation>Écraser</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="753"/>
+        <location filename="../src/Manager.cpp" line="755"/>
         <source>Save as</source>
         <translation>Enregistrer sous</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="767"/>
+        <location filename="../src/Manager.cpp" line="769"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Ne peux pas changer la permission: accès non autorisé</translation>
     </message>
@@ -516,19 +516,19 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
         <translation>Nbr de lignes : %1</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="534"/>
+        <location filename="../src/Manager.cpp" line="536"/>
         <source>The document </source>
         <translation>Le document</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="535"/>
+        <location filename="../src/Manager.cpp" line="537"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation>a été modifié.
 Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="536"/>
+        <location filename="../src/Manager.cpp" line="538"/>
         <source>Close document</source>
         <translation>Fermer le document</translation>
     </message>
@@ -574,6 +574,17 @@ Voulez-vous enregistrer les changements?</translation>
         <location filename="../src/SciDoc.cpp" line="516"/>
         <source>Replacement finished (%1 replacements were made)</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="1049"/>
+        <source>All unsaved changes will be lost.
+Do you want to proceed?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="1050"/>
+        <source>Warning</source>
+        <translation>Avertissement</translation>
     </message>
 </context>
 <context>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="ru">
-<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -491,43 +490,43 @@ whole indent instead of removind single whitespace</source>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="749"/>
+        <location filename="../src/Manager.cpp" line="751"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Файл &apos;%1&apos; открыт только для чтения.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="750"/>
+        <location filename="../src/Manager.cpp" line="752"/>
         <source>What do you want to do?</source>
         <translation>Что вы хотите сделать?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="706"/>
-        <location filename="../src/Manager.cpp" line="751"/>
+        <location filename="../src/Manager.cpp" line="708"/>
+        <location filename="../src/Manager.cpp" line="753"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="270"/>
+        <location filename="../src/Manager.cpp" line="272"/>
         <source>Copy to clipboard</source>
         <translation>Копировать в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="706"/>
+        <location filename="../src/Manager.cpp" line="708"/>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
         <translation>Документ &apos;%1&apos; не существует</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="752"/>
+        <location filename="../src/Manager.cpp" line="754"/>
         <source>Overwrite</source>
         <translation>Переписать</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="753"/>
+        <location filename="../src/Manager.cpp" line="755"/>
         <source>Save as</source>
         <translation>Сохранить как</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="767"/>
+        <location filename="../src/Manager.cpp" line="769"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Невозможно изменить права: Доступ запрещён</translation>
     </message>
@@ -548,19 +547,19 @@ whole indent instead of removind single whitespace</source>
         <translation>Количество строк: %1</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="534"/>
+        <location filename="../src/Manager.cpp" line="536"/>
         <source>The document </source>
         <translation>Документ </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="535"/>
+        <location filename="../src/Manager.cpp" line="537"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> был изменён.
 Желаете сохранить изменения?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="536"/>
+        <location filename="../src/Manager.cpp" line="538"/>
         <source>Close document</source>
         <translation>Закрыть документ</translation>
     </message>
@@ -606,6 +605,17 @@ Do you want to save your changes?</source>
         <location filename="../src/SciDoc.cpp" line="516"/>
         <source>Replacement finished (%1 replacements were made)</source>
         <translation>Замена окончена (сделано замен: %1)</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="1049"/>
+        <source>All unsaved changes will be lost.
+Do you want to proceed?</source>
+        <translation>Несохранённые изменения будут утеряны.\nПродолжить?</translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="1050"/>
+        <source>Warning</source>
+        <translation>Внимание</translation>
     </message>
 </context>
 <context>

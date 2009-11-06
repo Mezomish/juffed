@@ -467,38 +467,38 @@ anstelle von nur einer Leerstelle</translation>
 <context>
     <name>Juff::Manager</name>
     <message>
-        <location filename="../src/Manager.cpp" line="749"/>
+        <location filename="../src/Manager.cpp" line="751"/>
         <source>File &apos;%1&apos; is read-only.</source>
         <translation>Datei &apos;%1&apos; ist schreibgeschützt.</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="750"/>
+        <location filename="../src/Manager.cpp" line="752"/>
         <source>What do you want to do?</source>
         <translation>Was wollen Sie tun?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="706"/>
-        <location filename="../src/Manager.cpp" line="751"/>
+        <location filename="../src/Manager.cpp" line="708"/>
+        <location filename="../src/Manager.cpp" line="753"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="706"/>
+        <location filename="../src/Manager.cpp" line="708"/>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
         <translation>Dokument &apos;%1&apos; existiert nicht</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="752"/>
+        <location filename="../src/Manager.cpp" line="754"/>
         <source>Overwrite</source>
         <translation>Überschreiben</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="753"/>
+        <location filename="../src/Manager.cpp" line="755"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="767"/>
+        <location filename="../src/Manager.cpp" line="769"/>
         <source>Can&apos;t change permissions: Access denied</source>
         <translation>Einstellung können nicht geändert werden: Zugriff verweigert</translation>
     </message>
@@ -509,19 +509,19 @@ anstelle von nur einer Leerstelle</translation>
         <translation>Zeilen: %1</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="534"/>
+        <location filename="../src/Manager.cpp" line="536"/>
         <source>The document </source>
         <translation>Dokument </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="535"/>
+        <location filename="../src/Manager.cpp" line="537"/>
         <source> has been modified.
 Do you want to save your changes?</source>
         <translation> wurde geändert.
 Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="536"/>
+        <location filename="../src/Manager.cpp" line="538"/>
         <source>Close document</source>
         <translation>Dokument schließen</translation>
     </message>
@@ -542,7 +542,7 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation> Zeile: %1, Spalte: %2 </translation>
     </message>
     <message>
-        <location filename="../src/Manager.cpp" line="270"/>
+        <location filename="../src/Manager.cpp" line="272"/>
         <source>Copy to clipboard</source>
         <translation>In die Zwischenablage kopieren</translation>
     </message>
@@ -571,7 +571,7 @@ Wollen Sie die Änderungen speichern?</translation>
         <location filename="../src/SciDoc.cpp" line="468"/>
         <location filename="../src/SciDoc.cpp" line="516"/>
         <source>Information</source>
-        <translation type="unfinished">Information</translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location filename="../src/SciDoc.cpp" line="468"/>
@@ -582,6 +582,17 @@ Wollen Sie die Änderungen speichern?</translation>
         <location filename="../src/SciDoc.cpp" line="516"/>
         <source>Replacement finished (%1 replacements were made)</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="1049"/>
+        <source>All unsaved changes will be lost.
+Do you want to proceed?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/SciDoc.cpp" line="1050"/>
+        <source>Warning</source>
+        <translation>Warnung</translation>
     </message>
 </context>
 <context>

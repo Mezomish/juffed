@@ -15,11 +15,6 @@ print_usage() {
 TARBZ2=""
 P7Z=""
 
-svn up
-REVISION=`LC_ALL=C svn info | grep Revision | cut -d" " -f2-`
-VERSION=`cat version`".$REVISION"
-DIR="juffed-${VERSION}"
-
 #	Parse command line arguments
 for arg in ${@}; do
 	case ${arg} in
@@ -51,6 +46,17 @@ for arg in ${@}; do
 	esac
 done
 
+DIR="juffed-${VERSION}"
+
+svn up
+DEV=`grep DEV CMakeLists.txt | grep SET | grep 1`
+if [ -n "$DEV" ]; then 
+	REVISION=`LC_ALL=C svn info | grep Revision | cut -d" " -f2-`
+	VERSION=`cat version`".$REVISION"
+else
+	VERSION=`cat version`
+fi
+
 rm -rf $DIR 2>/dev/null
 mkdir $DIR
 
@@ -66,13 +72,18 @@ rm -rf $DIR/win32/
 find $DIR -name ".svn" -exec rm -rf '{}' 2>/dev/null ';'
 rm $DIR/make_tarball.sh
 
-# prepare 'debian' directory
-mv $DIR/debian.in $DIR/debian
-sed -i "s/@FULL_VERSION@/$VERSION/" $DIR/debian/control
-sed -i "s/@FULL_VERSION@/$VERSION/" $DIR/debian/changelog
+# Here I stopped creating a 'debian' directory (requested by Ubuntu maintainers).
+# It'll be kept as 'debian.in' for those who wants to pack a deb-package 
+# themselves (just rename it to 'debian')
+#mv $DIR/debian.in $DIR/debian
+sed -i "s/@FULL_VERSION@/$VERSION/" $DIR/debian.in/control
+sed -i "s/@FULL_VERSION@/$VERSION/" $DIR/debian.in/changelog
 
 # make a tarball and a .dsc file
-dpkg-source -b $DIR
+#dpkg-source -b $DIR
+
+# make a tarball
+tar -czf "juffed_${VERSION}.tar.gz" $DIR
 
 # pack other tarballs if necessary
 if [ -n "${TARBZ2}" ]; then

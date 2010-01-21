@@ -46,8 +46,6 @@ for arg in ${@}; do
 	esac
 done
 
-DIR="juffed-${VERSION}"
-
 svn up
 DEV=`grep DEV CMakeLists.txt | grep SET | grep 1`
 if [ -n "$DEV" ]; then 
@@ -56,6 +54,8 @@ if [ -n "$DEV" ]; then
 else
 	VERSION=`cat version`
 fi
+
+DIR="juffed-${VERSION}"
 
 rm -rf $DIR 2>/dev/null
 mkdir $DIR

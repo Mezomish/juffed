@@ -20,10 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
 QStringList FileTypeSettings::getTypeList() {
-	if ( Settings::valueExists("filetypes", "types") )
-		return Settings::value("filetypes", "types").toStringList();
-	else
-		return QStringList();
+	return Settings::value("filetypes", "types").toStringList();
 }
 
 QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {

@@ -1,0 +1,686 @@
+#include <QDebug>
+
+#include "SciDoc.h"
+
+#include "Functions.h"
+#include "JuffScintilla.h"
+#include "Log.h"
+#include "EditorSettings.h"
+#include "LexerStorage.h"
+
+#include <QFile>
+#include <QTextCodec>
+#include <QTextStream>
+#include <QVBoxLayout>
+#include <QPrintDialog>
+#include <QSplitter>
+
+//#include <Qsci/qsciscintilla.h>
+#include <Qsci/qsciprinter.h>
+#include <Qsci/qscilexer.h>
+
+class SciDoc::Interior {
+public:
+	Interior(QWidget* w) {
+		LOGGER;
+		
+		curEdit_ = NULL;
+		
+		spl_ = new QSplitter(Qt::Vertical);
+		QVBoxLayout* vBox = new QVBoxLayout();
+		vBox->setContentsMargins(0, 0, 0, 0);
+		vBox->addWidget(spl_);
+		w->setLayout(vBox);
+		
+		edit1_ = createEdit();
+		edit2_ = createEdit();
+		spl_->addWidget(edit1_);
+		spl_->addWidget(edit2_);
+		edit1_->setDocument(edit2_->document());
+		w->setFocusProxy(spl_);
+		spl_->setSizes(QList<int>() << 0 << spl_->height());
+	}
+	
+	JuffScintilla* createEdit() {
+		LOGGER;
+		JuffScintilla* edit = new JuffScintilla();
+		edit->setUtf8(true);
+//		edit->setIndentationGuidesForegroundColor(EditorSettings::defaultFontColor());
+//		edit->setIndentationGuidesBackgroundColor(TextDoEditorSettings::defaultBgColor());
+		edit->setFolding(QsciScintilla::BoxedTreeFoldStyle);
+		edit->setAutoIndent(true);
+		edit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
+//		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
+
+		edit->setMarginLineNumbers(1, true);
+		edit->setMarginSensitivity(1, true);
+		edit->setMarginWidth(2, 12);
+		//	set the 1st margin accept markers 
+		//	number 1 and 2 (binary mask 00000110 == 6)
+		edit->setMarginMarkerMask(1, 6);
+		edit->markerDefine(QsciScintilla::RightTriangle, 1);
+		edit->markerDefine(QsciScintilla::Background, 2);
+		edit->setMarkerForegroundColor(QColor(100, 100, 100));
+//		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
+//		edit->setMarginsBackgroundColor(QColor(50, 50, 50));
+//		edit->setMarginsForegroundColor(QColor(150, 150, 150));
+//		edit->setFoldMarginColors(QColor(150, 150, 150), QColor(50, 50, 50));
+
+		return edit;
+	}
+	
+	void setCurrentEdit(JuffScintilla* edit) {
+		LOGGER;
+		
+//		if ( edit == edit1_ )
+//			qDebug() << "edit1";
+//		else if ( edit == edit2_ )
+//			qDebug() << "edit2";
+//		else
+//			qDebug() << "edit ??";
+		curEdit_ = edit;
+		spl_->setFocusProxy(edit);
+	}
+	
+	JuffScintilla* edit1_;
+	JuffScintilla* edit2_;
+	JuffScintilla* curEdit_;
+	QString syntax_;
+	QSplitter* spl_;
+//	QWidget* parent_;
+};
+
+SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
+	LOGGER;
+	
+	int_ = new Interior(this);
+	
+	JuffScintilla* edits[] = { int_->edit1_, int_->edit2_ };
+	for ( int i = 0; i < 2; ++i) {
+		JuffScintilla* edit = edits[i];
+		connect(edit, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
+		connect(edit, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(onCursorMoved(int, int)));
+	//	connect(int_->edit1_, SIGNAL(contextMenuCalled(int, int)), this, SIGNAL(contextMenuCalled(int, int)));
+		connect(edit, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
+		connect(edit, SIGNAL(linesChanged()), SLOT(onLineCountChanged()));
+		connect(edit, SIGNAL(focusReceived()), SLOT(onEditFocused()));
+		connect(edit, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
+	}
+	
+	QString lexName = "none";
+	if ( !fileName.isEmpty() && !Juff::isNoname(fileName) ) {
+		QString codecName = Document::guessCharset(fileName);
+		if ( !codecName.isEmpty() )
+			setCharset(codecName);
+		readFile();
+		int_->edit1_->setModified(false);
+
+		//	syntax highlighting
+		lexName = LexerStorage::instance()->lexerName(fileName);
+	}
+
+	int_->syntax_ = lexName;
+	setLexer(lexName);
+	
+	applySettings();
+}
+
+/*SciDoc::SciDoc(Juff::Document* doc) : Juff::Document(doc) {
+	SciDoc* d = qobject_cast<SciDoc*>(doc);
+	if ( d != 0 ) {
+		int_->edit1_->setDocument(d->int_->edit1_->document());
+		int_->edit2_->setDocument(d->int_->edit2_->document());
+	}
+}*/
+
+SciDoc::~SciDoc() {
+	delete int_;
+}
+
+QString SciDoc::type() const {
+	return "QSci";
+}
+
+bool SciDoc::supportsAction(Juff::ActionID id) const {
+	switch (id) {
+		case Juff::FileClone : return true;
+		default :              return Juff::Document::supportsAction(id);
+	}
+}
+
+/*Juff::Document* SciDoc::createClone() {
+	if ( hasClone() )
+		return NULL;
+	else
+		return new SciDoc(this);
+}
+
+void SciDoc::updateClone() {
+	LOGGER;
+	
+//	SciDoc* cln = qobject_cast<SciDoc*>(clone());
+//	if ( cln != 0 ) {
+//		if ( cln->int_->syntax_ != int_->syntax_ ) {
+//			cln->int_->syntax_ = int_->syntax_;
+//			QsciLexer* lexer = LexerStorage::instance()->lexer(int_->syntax_);
+//			cln->int_->edit1_->setLexer(lexer);
+//			cln->int_->edit2_->setLexer(lexer);
+//		}
+//	}
+	
+	Juff::Document::updateClone();
+}*/
+
+void SciDoc::init() {
+	int_->setCurrentEdit(int_->edit2_);
+}
+
+void SciDoc::reload() {
+	if ( !Juff::isNoname(this) ) {
+		int line, col;
+		getCursorPos(line, col);
+//		int scroll = curScrollPos();
+		readFile();
+		setModified(false);
+		if ( line >=0 && col >= 0 ) {
+			setCursorPos(line, col);
+//			setScrollPos(scroll);
+		}
+	}
+}
+
+void SciDoc::print() {
+	QsciPrinter prn;
+	QPrintDialog dlg(&prn, this);
+	if (dlg.exec() == QDialog::Accepted) {
+//		prn.setWrapMode(TextDocSettings::widthAdjust() || PrintSettings::alwaysWrap() ? QsciScintilla::WrapWord : QsciScintilla::WrapNone);
+		
+		int line1(-1), line2(-1), col1(-1), col2(-1);
+		JuffScintilla* edit = int_->curEdit_;
+		if ( edit ) {
+			QsciLexer* lexer = edit->lexer();
+//			if ( !PrintSettings::keepBgColor() ) {
+//				lexer->setDefaultPaper(Qt::white);
+//				lexer->setPaper(Qt::white);
+//				lexer->setDefaultColor(Qt::black);
+//			}
+//			if ( !PrintSettings::keepColors() ) {
+//				lexer->setColor(Qt::black);
+//			}
+			edit->getSelection(&line1, &col1, &line2, &col2);
+			if (line1 >=0 && line2 >= 0 && col1 >= 0 && col2 >= 0) {
+				//	We have selection. Print it.
+				
+				--line2;
+				prn.printRange(edit, line1, line2);
+			}
+			else {
+				//	We don't have selection. Print the whole text.
+				prn.printRange(edit, 0);
+			}
+			QFont font = EditorSettings::font();
+			LexerStorage::instance()->updateLexers(font);
+		}
+	}
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Document API implementation
+
+int SciDoc::lineCount() const {
+	return int_->edit1_->lines();
+}
+
+bool SciDoc::isModified() const {
+	return int_->edit1_->isModified();
+}
+
+bool SciDoc::hasSelectedText() const {
+	if ( int_->curEdit_ == NULL ) return false;
+	
+	return int_->curEdit_->hasSelectedText();
+}
+
+bool SciDoc::getSelection(int& line1, int& col1, int& line2, int& col2) const {
+	if ( int_->curEdit_ == NULL ) return false;
+	
+	int_->curEdit_->getSelection(&line1, &col1, &line2, &col2);
+	return true;
+}
+
+bool SciDoc::getSelectedText(QString& text) const {
+	if ( int_->curEdit_ == NULL ) return false;
+	
+	text = int_->curEdit_->selectedText();
+	return true;
+}
+
+bool SciDoc::getCursorPos(int& line, int& col) const {
+	if ( int_->curEdit_ == NULL ) return false;
+
+	int_->curEdit_->getCursorPosition(&line, &col);
+	return true;
+}
+
+QString SciDoc::syntax() const {
+	return int_->syntax_;
+}
+
+void SciDoc::setModified(bool modified) {
+	int_->edit1_->setModified(modified);
+}
+
+void SciDoc::setSelection(int line1, int col1, int line2, int col2) {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	int_->curEdit_->setSelection(line1, col1, line2, col2);
+}
+
+void SciDoc::removeSelectedText() {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	int_->curEdit_->removeSelectedText();
+}
+
+void SciDoc::replaceSelectedText(const QString& text) {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	int_->curEdit_->beginUndoAction();
+	removeSelectedText();
+	insertText(text);
+	int_->curEdit_->endUndoAction();
+}
+
+void SciDoc::insertText(const QString& text) {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	int row, col;
+	getCursorPos(row, col);
+	int newLines = text.count(QRegExp("\r\n|\n|\r"));
+	int_->curEdit_->insert(text);
+	if ( newLines == 0 )
+		setCursorPos(row, col + text.length());
+}
+
+void SciDoc::setCursorPos(int line, int col) {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	int_->curEdit_->setCursorPosition(line, col);
+}
+
+void SciDoc::setSyntax(const QString& lexName) {
+	LOGGER;
+
+	if ( lexName.isEmpty() )
+		return;
+	
+	QString oldSyntax = int_->syntax_;
+	int_->syntax_ = lexName;
+	setLexer(lexName);
+//	updateClone();
+	
+	// notify plugins
+	emit syntaxChanged(oldSyntax);
+}
+// End of Document API implementation
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+void SciDoc::undo() {
+	LOGGER;
+	if ( int_->curEdit_ != NULL )
+		int_->curEdit_->undo();
+}
+
+void SciDoc::redo() {
+	if ( int_->curEdit_ != NULL )
+		int_->curEdit_->redo();
+}
+
+void SciDoc::cut() {
+	if ( int_->curEdit_ != NULL )
+		int_->curEdit_->cut();
+}
+
+void SciDoc::copy() {
+	if ( int_->curEdit_ != NULL )
+		int_->curEdit_->copy();
+}
+
+void SciDoc::paste() {
+	if ( int_->curEdit_ != NULL )
+		int_->curEdit_->paste();
+}
+
+void SciDoc::gotoLine(int line) {
+	if ( int_->curEdit_ != NULL )
+		int_->curEdit_->setCursorPosition(line, 0);
+}
+
+void SciDoc::setWrapWords(bool wrap) {
+	LOGGER;
+	
+	if ( wrap ) {
+		int_->edit1_->setWrapMode(QsciScintilla::WrapWord);
+		int_->edit2_->setWrapMode(QsciScintilla::WrapWord);
+	}
+	else {
+		int_->edit1_->setWrapMode(QsciScintilla::WrapNone);
+		int_->edit2_->setWrapMode(QsciScintilla::WrapNone);
+	}
+}
+
+void SciDoc::setShowLineNumbers(bool show) {
+	LOGGER;
+	
+	int_->edit1_->showLineNumbers(show);
+	int_->edit2_->showLineNumbers(show);
+}
+
+void SciDoc::setShowWhitespaces(bool show) {
+	LOGGER;
+	
+	int_->edit1_->setWhitespaceVisibility(show ? QsciScintilla::WsVisible : QsciScintilla::WsInvisible);
+	int_->edit2_->setWhitespaceVisibility(show ? QsciScintilla::WsVisible : QsciScintilla::WsInvisible);
+	int_->edit1_->setWrapVisualFlags(show ? QsciScintilla::WrapFlagByBorder : QsciScintilla::WrapFlagNone);
+	int_->edit2_->setWrapVisualFlags(show ? QsciScintilla::WrapFlagByBorder : QsciScintilla::WrapFlagNone);
+	EditorSettings::set(EditorSettings::ShowWhitespaces, show);
+}
+
+void SciDoc::setShowLineEndings(bool show) {
+	LOGGER;
+	
+	int_->edit1_->setEolVisibility(show);
+	int_->edit2_->setEolVisibility(show);
+}
+
+bool SciDoc::wrapWords() const {
+	return int_->edit1_->wrapMode() == QsciScintilla::WrapWord;
+}
+
+bool SciDoc::lineNumbersVisible() const {
+	return int_->edit1_->lineNumbersVisible();
+}
+
+bool SciDoc::whitespacesVisible() const {
+	return int_->edit1_->whitespaceVisibility() == QsciScintilla::WsVisible;
+}
+
+bool SciDoc::lineEndingsVisible() const {
+	return int_->edit1_->eolVisibility();
+}
+
+void SciDoc::zoomIn() {
+	LOGGER;
+	
+	int_->edit1_->zoomIn();
+	int_->edit2_->zoomIn();
+}
+
+void SciDoc::zoomOut() {
+	LOGGER;
+	
+	int_->edit1_->zoomOut();
+	int_->edit2_->zoomOut();
+}
+
+void SciDoc::zoom100() {
+	LOGGER;
+	
+	int_->edit1_->zoomTo(0);
+	int_->edit2_->zoomTo(0);
+}
+
+void SciDoc::toUpperCase() {
+	if ( int_->curEdit_ != NULL ) {
+		int_->curEdit_->SendScintilla(QsciScintilla::SCI_UPPERCASE);
+	}
+}
+
+void SciDoc::toLowerCase() {
+	if ( int_->curEdit_ != NULL ) {
+		int_->curEdit_->SendScintilla(QsciScintilla::SCI_LOWERCASE);
+	}
+}
+
+void SciDoc::swapLines() {
+	if ( int_->curEdit_ != NULL ) {
+		int_->curEdit_->SendScintilla(QsciScintilla::SCI_LINETRANSPOSE);
+	}
+}
+
+void SciDoc::moveUp() {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	if ( hasSelectedText() ) {
+		int line1, line2, col1, col2;
+		getSelection(line1, col1, line2, col2);
+		
+		if ( line1 == 0 )
+			return;
+		
+		int realLine2 = line2;
+		if ( col2 == 0 )
+			--line2;
+		
+		int_->curEdit_->beginUndoAction();
+		for (int line = line1; line <= line2; ++line) {
+			int_->curEdit_->setCursorPosition(line, 0);
+			swapLines();
+		}
+		
+		setSelection(line1 - 1, col1, realLine2 - 1, col2);
+		int_->curEdit_->endUndoAction();
+	}
+	else {
+		int line, col;
+		int_->curEdit_->getCursorPosition(&line, &col);
+		if ( line > 0 ) {
+			swapLines();
+			int_->curEdit_->setCursorPosition(line - 1, col);
+		}
+	}
+}
+
+void SciDoc::moveDown() {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	if ( hasSelectedText() ) {
+		int line1, line2, col1, col2;
+		getSelection(line1, col1, line2, col2);
+		int n = lineCount();
+		
+		int realLine2 = line2;
+		if ( col2 == 0 )
+			--line2;
+		
+		if ( line2 == lineCount() - 1 )
+			return;
+		
+		int_->curEdit_->beginUndoAction();
+		for (int line = line2 + 1; line >= line1 + 1; --line) {
+			int_->curEdit_->setCursorPosition(line, 0);
+			swapLines();
+		}
+		
+		setSelection(line1 + 1, col1, realLine2 + 1, col2);
+		int_->curEdit_->endUndoAction();
+	}
+	else {
+		int line, col;
+		int_->curEdit_->getCursorPosition(&line, &col);
+		if ( line < lineCount() - 1 ) {
+			int_->curEdit_->setCursorPosition(line + 1, 0);
+			swapLines();
+			int_->curEdit_->setCursorPosition(line + 1, col);
+		}
+	}
+}
+
+
+
+
+void SciDoc::readFile() {
+	LOGGER;
+
+	QString text;
+	QFile file(fileName());
+	if ( file.open(QIODevice::ReadOnly) ) {
+		
+//		if ( !keepCharset ) {
+//			QString codecName = Document::guessCharset(fileName());
+//			QTextCodec* c = QTextCodec::codecForName(codecName.toAscii());
+//			if ( c ) {
+//				setCodec(c);
+//				setCharset(codecName);
+//			}
+//		}
+		
+		QTextStream ts(&file);
+		ts.setCodec(codec());
+		int_->edit1_->setText(ts.readAll());
+	}
+}
+
+bool SciDoc::save(QString& error) {
+	LOGGER;
+
+	if ( Juff::isNoname(fileName()) ) {
+		error = tr("This is a Noname file and shouldn't be saved directly");
+		return false;
+	}
+//	if ( MainSettings::stripTrailingSpaces() )
+//		stripTrailingSpaces();
+
+	QFile file(fileName());
+	if ( file.open(QIODevice::WriteOnly) ) {
+		QString text("");
+		text = int_->edit1_->text();
+		file.write(codec()->fromUnicode(text));
+		file.close();
+		int_->edit1_->setModified(false);
+		return true;
+	}
+	else {
+		error = tr("Can't open file for writing");
+		return false;
+	}
+}
+
+void SciDoc::setLexer(const QString& lexName) {
+	LOGGER;
+
+	if ( lexName.isEmpty() )
+		return;
+	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName);
+//	loadAutocompletionAPI(lexName, lexer);
+	int_->edit1_->setLexer(lexer);
+	int_->edit2_->setLexer(lexer);
+}
+
+//void SciDoc::showLineNumbers(bool show) {
+//	int_->edit1_->showLineNumbers(show);
+//	int_->edit2_->showLineNumbers(show);
+//}
+
+
+
+
+void SciDoc::applySettings() {
+	LOGGER;
+	
+//	QFont font(EditorSettings::font());
+//	LexerStorage::instance()->updateLexers(font);
+	setShowLineNumbers(EditorSettings::get(EditorSettings::ShowLineNumbers));
+
+//	QsciScintilla* edits[] = { docInt_->edit1_, docInt_->edit2_ };
+	QsciScintilla* edits[] = { int_->edit1_, int_->edit2_, NULL };
+	for (int i = 0; edits[i] != NULL; ++i ) {
+		QsciScintilla* edit = edits[i];
+//		QsciScintilla* edit = int_->edit1_;
+
+
+		edit->setTabWidth(EditorSettings::get(EditorSettings::TabWidth));
+		edit->setIndentationsUseTabs(EditorSettings::get(EditorSettings::UseTabs));
+
+//		int lInd = TextDocSettings::lineLengthIndicator();
+//		if ( lInd > 0 ) {
+//			edit->setEdgeMode(QsciScintilla::EdgeLine);
+//			edit->setEdgeColumn(lInd);
+//		}
+//		else {
+//			edit->setEdgeMode(QsciScintilla::EdgeNone);
+//		}
+		
+//		edit->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
+//		edit->setCaretLineBackgroundColor(LexerStorage::instance()->curLineColor(docInt_->syntax_));
+//		edit->setIndentationGuides(TextDocSettings::showIndents());
+//		edit->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
+//		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
+		if ( QsciLexer* lexer = edit->lexer() ) {
+//			lexer->setFont(font, -1);
+			edit->setCaretForegroundColor(lexer->defaultColor());
+//			edit->setIndentationGuidesForegroundColor(TextDocSettings::indentsColor());
+			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
+		}
+//		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
+		
+		// selection
+/*		QColor selBgColor = TextDocSettings::selectionBgColor();
+		edit->setSelectionBackgroundColor(selBgColor);
+		if ( selBgColor.red() + selBgColor.green() + selBgColor.blue() < 3 * 255 / 2)
+			edit->setSelectionForegroundColor(QColor(255, 255, 255));
+		else
+			edit->setSelectionForegroundColor(QColor(0, 0, 0));
+
+		//	autocompletion
+		edit->setAutoCompletionThreshold(AutocompleteSettings::threshold());
+		edit->setAutoCompletionReplaceWord(AutocompleteSettings::replaceWord());
+		edit->setAutoCompletionCaseSensitivity(AutocompleteSettings::caseSensitive());
+		if ( AutocompleteSettings::useDocument() ) {
+			if ( AutocompleteSettings::useApis() )
+				edit->setAutoCompletionSource(QsciScintilla::AcsAll);
+			else
+				edit->setAutoCompletionSource(QsciScintilla::AcsDocument);
+		}
+		else {
+			if ( AutocompleteSettings::useApis() )
+				edit->setAutoCompletionSource(QsciScintilla::AcsAPIs);
+			else
+				edit->setAutoCompletionSource(QsciScintilla::AcsNone);
+		}*/
+	}
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// SLOTS
+
+void SciDoc::onCursorMoved(int line, int col) {
+	emit cursorPosChanged(line, col);
+}
+
+void SciDoc::onMarginClicked(int, int, Qt::KeyboardModifiers) {
+}
+
+void SciDoc::onLineCountChanged() {
+	emit lineCountChanged(lineCount());
+}
+
+void SciDoc::onEditFocused() {
+	LOGGER;
+
+	if ( sender() == int_->edit1_ ) {
+		int_->setCurrentEdit(int_->edit1_);
+	}
+	else {
+		int_->setCurrentEdit(int_->edit2_);
+	}
+	emit focused();
+}
+

@@ -1,79 +1,28 @@
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2009 Mikhail Murzin
+#ifndef __JUFFED_ICON_MANAGER_H__
+#define __JUFFED_ICON_MANAGER_H__
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
+#include <QIcon>
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
-#ifndef __JUFF_ICON_MANAGER_H__
-#define __JUFF_ICON_MANAGER_H__
-
-class IMInterior;
-
-#include "Juff.h"
-#include <QtGui/QIcon>
-
-/**
-* class IconManager
-*
-* Manages icon theme, reads icon theme from disk and provides 
-* main window icons.
-*/
+#include "Enums.h"
 
 class IconManager {
 public:
-	/**
-	* instance()
-	*
-	* Returns an instance of IconManager
-	*/
 	static IconManager* instance();
-
-	/**
-	* ~IconManager()
-	*
-	* Destructor
-	*/
-	virtual ~IconManager();
-
-	/**
-	* TODO
-	*/
-	void setCurrentIconTheme(const QString&, int size);
 	
-	/**
-	* iconThemes()
-	*
-	* Returns the list of all available icon themes.
-	*/
-	QStringList themeList() const;
-
-	/**
-	* icon()
-	*
-	* Returns an icon by action name.
-	*/
-	QIcon getIcon(Juff::CommandID);
+	QIcon icon(Juff::ActionID) const;
+	int iconSize() const;
+	void setIconSize(int);
+	QString iconTheme() const;
+	void setIconTheme(const QString&);
 	
-protected:
-	IconManager();
-
 private:
-	QIcon getDefaultIcon(Juff::CommandID);
+	IconManager();
+	QIcon defaultIcon(Juff::ActionID) const;
 
+	class Interior;
+	Interior* int_;
+	
 	static IconManager* instance_;
-	IMInterior* imInt_;
 };
 
-#endif // __JUFF_ICON_MANAGER_H__
+#endif // __JUFFED_ICON_MANAGER_H__

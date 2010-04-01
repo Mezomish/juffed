@@ -29,6 +29,7 @@ namespace Log {
 	void debug(const char*, bool canBeSkipped = false);
 	void debug(int, bool canBeSkipped = false);
 	void debug(const QRect&, bool canBeSkipped = false);
+	void warning(const QString&, bool canBeSkiped = false);
 };
 
 #ifdef JUFF_FULL_DEBUG
@@ -65,5 +66,19 @@ namespace Log {
 #define JUFFENTRY2 ;
 
 #endif	//	JUFF_FULL_DEBUG
+
+class Logger {
+public:
+	Logger(const char*, const char*, int);
+	~Logger();
+
+private:
+	static int indent_;
+	QString func_;
+	QString file_;
+	int line_;
+};
+
+#define LOGGER Logger l(__FUNCTION__, __FILE__, __LINE__)
 
 #endif	//	__JUFF_LOG_H__

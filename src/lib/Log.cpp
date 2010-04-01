@@ -1,36 +1,17 @@
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2009 Mikhail Murzin
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
 #include <QDebug>
 
+#include "AppInfo.h"
 #include "Log.h"
 
 //	Qt headers
 #include <QtCore/QDateTime>
 #include <QtCore/QFile>
+#include <QtCore/QFileInfo>
 #include <QtCore/QObject>
 
 #ifdef Q_OS_WIN
 #include <QtGui/QMessageBox>
 #endif
-
-//	local headers
-#include "AppInfo.h"
 
 namespace Log {
 
@@ -92,5 +73,27 @@ namespace Log {
 	void debug(const QRect& r, bool canBeSkipped) {
 		debug(QString("%1,%2,%3,%4").arg(r.left()).arg(r.top()).arg(r.width()).arg(r.height()), canBeSkipped);
 	}
+    
+	void warning(const QString& str, bool canBeSkipped) {
+#ifdef Q_OS_WIN
+		printToLog(str, canBeSkipped);
+#else
+		qWarning() << QDateTime::currentDateTime().toString("[hh:mm:ss]") << str;
+#endif
+	}
 };
 
+
+
+
+int Logger::indent_ = 0;
+
+Logger::Logger(const char* func, const char* file, int line) : func_(func), file_(file), line_(line) {
+	indent_ += 2;
+	qDebug() << QString("%1Entering %2 (%3:%4)").arg(QString().fill(' ', indent_)).arg(func_).arg(QFileInfo(file_).fileName()).arg(line_);
+}
+
+Logger::~Logger() {
+	qDebug() << QString("%1Leaving  %2 (%3)").arg(QString().fill(' ', indent_)).arg(func_).arg(QFileInfo(file_).fileName());
+	indent_ -= 2;
+}

@@ -1,0 +1,63 @@
+<RCC>
+	<qresource>
+		<file alias="32/document-new.png">../images/icons/32/document-new.png</file>
+		<file alias="32/document-open.png">../images/icons/32/document-open.png</file>
+		<file alias="32/document-print.png">../images/icons/32/document-print.png</file>
+		<file alias="32/document-save-as.png">../images/icons/32/document-save-as.png</file>
+		<file alias="32/document-save.png">../images/icons/32/document-save.png</file>
+		<file alias="32/edit-copy.png">../images/icons/32/edit-copy.png</file>
+		<file alias="32/edit-cut.png">../images/icons/32/edit-cut.png</file>
+		<file alias="32/edit-find.png">../images/icons/32/edit-find.png</file>
+		<file alias="32/edit-find-replace.png">../images/icons/32/edit-find-replace.png</file>
+		<file alias="32/edit-paste.png">../images/icons/32/edit-paste.png</file>
+		<file alias="32/edit-redo.png">../images/icons/32/edit-redo.png</file>
+		<file alias="32/edit-undo.png">../images/icons/32/edit-undo.png</file>
+		<file alias="32/preferences-system.png">../images/icons/32/preferences-system.png</file>
+		<file alias="32/system-log-out.png">../images/icons/32/system-log-out.png</file>
+		<file alias="32/view-refresh.png">../images/icons/32/view-refresh.png</file>
+		<file alias="32/zoom100.png">../images/icons/32/zoom100.png</file>
+		<file alias="32/zoomIn.png">../images/icons/32/zoomIn.png</file>
+		<file alias="32/zoomOut.png">../images/icons/32/zoomOut.png</file>
+		<file alias="32/view-fullscreen.png">../images/icons/32/view-fullscreen.png</file>
+
+		<file alias="24/document-new.png">../images/icons/24/document-new.png</file>
+		<file alias="24/document-open.png">../images/icons/24/document-open.png</file>
+		<file alias="24/document-print.png">../images/icons/24/document-print.png</file>
+		<file alias="24/document-save-as.png">../images/icons/24/document-save-as.png</file>
+		<file alias="24/document-save.png">../images/icons/24/document-save.png</file>
+		<file alias="24/edit-copy.png">../images/icons/24/edit-copy.png</file>
+		<file alias="24/edit-cut.png">../images/icons/24/edit-cut.png</file>
+		<file alias="24/edit-find.png">../images/icons/24/edit-find.png</file>
+		<file alias="24/edit-find-replace.png">../images/icons/24/edit-find-replace.png</file>
+		<file alias="24/edit-paste.png">../images/icons/24/edit-paste.png</file>
+		<file alias="24/edit-redo.png">../images/icons/24/edit-redo.png</file>
+		<file alias="24/edit-undo.png">../images/icons/24/edit-undo.png</file>
+		<file alias="24/preferences-system.png">../images/icons/24/preferences-system.png</file>
+		<file alias="24/system-log-out.png">../images/icons/24/system-log-out.png</file>
+		<file alias="24/view-refresh.png">../images/icons/24/view-refresh.png</file>
+		<file alias="24/zoom100.png">../images/icons/24/zoom100.png</file>
+		<file alias="24/zoomIn.png">../images/icons/24/zoomIn.png</file>
+		<file alias="24/zoomOut.png">../images/icons/24/zoomOut.png</file>
+		<file alias="24/view-fullscreen.png">../images/icons/24/view-fullscreen.png</file>
+
+		<file alias="16/document-new.png">../images/icons/16/document-new.png</file>
+		<file alias="16/document-open.png">../images/icons/16/document-open.png</file>
+		<file alias="16/document-print.png">../images/icons/16/document-print.png</file>
+		<file alias="16/document-save-as.png">../images/icons/16/document-save-as.png</file>
+		<file alias="16/document-save.png">../images/icons/16/document-save.png</file>
+		<file alias="16/edit-copy.png">../images/icons/16/edit-copy.png</file>
+		<file alias="16/edit-cut.png">../images/icons/16/edit-cut.png</file>
+		<file alias="16/edit-find.png">../images/icons/16/edit-find.png</file>
+		<file alias="16/edit-find-replace.png">../images/icons/16/edit-find-replace.png</file>
+		<file alias="16/edit-paste.png">../images/icons/16/edit-paste.png</file>
+		<file alias="16/edit-redo.png">../images/icons/16/edit-redo.png</file>
+		<file alias="16/edit-undo.png">../images/icons/16/edit-undo.png</file>
+		<file alias="16/preferences-system.png">../images/icons/16/preferences-system.png</file>
+		<file alias="16/system-log-out.png">../images/icons/16/system-log-out.png</file>
+		<file alias="16/view-refresh.png">../images/icons/16/view-refresh.png</file>
+		<file alias="16/zoom100.png">../images/icons/16/zoom100.png</file>
+		<file alias="16/zoomIn.png">../images/icons/16/zoomIn.png</file>
+		<file alias="16/zoomOut.png">../images/icons/16/zoomOut.png</file>
+		<file alias="16/view-fullscreen.png">../images/icons/16/view-fullscreen.png</file>
+	</qresource>
+</RCC>

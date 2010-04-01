@@ -1,0 +1,9 @@
+<RCC>
+	<qresource>
+		<file alias="doc_unmodified">../images/16/doc_unmodified16.png</file>
+		<file alias="doc_modified">../images/16/doc_modified16.png</file>
+		<file alias="doc_icon">../images/16/doc_icon.png</file>
+		<file alias="doc_icon_red">../images/16/doc_icon_red.png</file>
+		<file alias="close">../images/16/close.png</file>
+	</qresource>
+</RCC>

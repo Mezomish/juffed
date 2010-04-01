@@ -30,14 +30,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 typedef QMap<QString, QVariant> Section;
 typedef QMap<QString, Section> SettingsMap;
 
-class SettingsData {
+class Settings::SettingsData {
 public:
 	SettingsMap data_;
 };
 
-int Settings::count() {
-	return settData_->data_.count();
-}
+Settings::SettingsData* Settings::settData_ = new Settings::SettingsData();
+
+//int Settings::count() {
+//	return settData_->data_.count();
+//}
 
 void Settings::read() {
 	QSettings sett(QSettings::IniFormat, QSettings::UserScope, 
@@ -77,15 +79,12 @@ bool Settings::valueExists(const QString& section, const QString& key) {
 	return settData_->data_[section].contains(key);
 }
 
-QVariant Settings::value(const QString& section, const QString& key, const QVariant& defValue /*= QVariant()*/) {
+QVariant Settings::value(const QString& section, const QString& key, const QVariant& defValue) {
 	return settData_->data_[section].value(key, defValue);
 }
 
-QString Settings::stringValue(const QString& section, const QString& key) {
-	return settData_->data_[section].value(key, defaultValue(section, key)).toString();
-}
-
-int Settings::intValue(const QString& section, const QString& key, int def) {
+int Settings::intValue(const QString& section, const QString& key) {
+	QVariant def = defaultValue(section, key);
 	return settData_->data_[section].value(key, def).toInt();
 }
 
@@ -94,19 +93,22 @@ bool Settings::boolValue(const QString& section, const QString& key) {
 	return settData_->data_[section].value(key, def).toBool	();
 }
 
+QString Settings::stringValue(const QString& section, const QString& key) {
+	return settData_->data_[section].value(key, defaultValue(section, key)).toString();
+}
+
 void Settings::setValue(const QString& section, const QString& key, const QVariant& value) {
 	settData_->data_[section][key] = value;
 }
 
-QStringList Settings::sectionList() {
+/*QStringList Settings::sectionList() {
 	return settData_->data_.keys();
 }
 
 QStringList Settings::keyList(const QString& section) {
 	return settData_->data_[section].keys();
 }
-
-SettingsData* Settings::settData_ = new SettingsData();
+*/
 
 
 QVariant Settings::defaultValue(const QString& section, const QString& key) {

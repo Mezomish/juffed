@@ -1,41 +1,27 @@
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2009 Mikhail Murzin
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
 #ifndef __JUFF_PLUGIN_H__
 #define __JUFF_PLUGIN_H__
 
-#include "Juff.h"
-#include "Parameter.h"
-#include "ManagerInterface.h"
+#include "DocHandlerInt.h"
+#include "Enums.h"
+#include "PluginNotifier.h"
+#include "Types.h"
 
 #include <QtGui/QWidgetList>
 
 class QToolBar;
-class QMenu;
 
 class JuffPlugin {
 public:
 	JuffPlugin() {
-		manager_ = 0;
+		handler_ = 0;
 	}
 
-	void setManager(ManagerInterface* m) {
-		manager_ = m;
+	void setHandler(Juff::DocHandlerInt* h) {
+		handler_ = h;
+	}
+
+	void setNotifier(Juff::PluginNotifier* n) {
+		notifier_ = n;
 	}
 
 	////////////////////////////////////////////////////////
@@ -45,9 +31,16 @@ public:
 	/**
 	* name()
 	*
-	* Returns plugin's unique name.
+	* Returns plugin's unique name. Must NOT be translated.
 	*/
 	virtual QString name() const = 0;
+	
+	/**
+	* title()
+	*
+	* Returns plugin's title. Can be translated.
+	*/
+	virtual QString title() const { return name(); }
 	
 	/**
 	* description()
@@ -119,17 +112,9 @@ public:
 	virtual QWidget* settingsPage() const { return 0; }
 	
 	/**
-	* saveSettings()
-	*
-	* This method asks to save the changes been made by the plugin.
-	*/
-	virtual void saveSettings() { }
-
-	/**
 	* applySettings()
 	*
-	* This method notifies the plugin that all changes were stored 
-	* and it's time to apply some if it's necessary.
+	* Called when 'Apply' or "OK' button in 'Settings' dialog was pressed.
 	*/
 	virtual void applySettings() { }
 
@@ -142,85 +127,17 @@ public:
 
 
 
-	////////////////////////////////////////////////////////
-	// Info Events
-	////////////////////////////////////////////////////////
-
-	/**
-	* onDocCreated()
-	*
-	* This method is called once new doc is created or opened.
-	* Parameter \par fileName contains document's file name.
-	*/
-	virtual void onDocCreated(const QString& fileName) { Q_UNUSED(fileName); }
-	
-	/**
-	* onDocActivated()
-	*
-	* This method is called once document was activated. 
-	* Parameter \par fileName contains document's file name.
-	*/
-	virtual void onDocActivated(const QString& fileName) { Q_UNUSED(fileName); }
-	
-	/**
-	* onDocModified()
-	*
-	* This method is called once document's modification status
-	* was changed. Parameter \par fileName contains document's file name, 
-	* parameter \par modified contains new modification status.
-	*/
-	virtual void onDocModified(const QString& fileName, bool modified) { Q_UNUSED(fileName); Q_UNUSED(modified); }
-	
-	/**
-	* onDocClosed()
-	*
-	* This method is called once document was closed. 
-	* Parameter \par fileName contains document's file name.
-	*/
-	virtual void onDocClosed(const QString& fileName) { Q_UNUSED(fileName); }
-	
-	/**
-	* onDocRenamed()
-	*
-	* This method is called once document was renamed.
-	* Parameter \par oldFileName contains document's old file name,
-	* parameter \par newFileName contains document's new file name.
-	*/
-	virtual void onDocRenamed(const QString& oldFileName, const QString& newFileName) { Q_UNUSED(newFileName); Q_UNUSED(oldFileName); }
-	
-	/**
-	* onDocSaved()
-	*
-	* This method is called once document with file name \par fileName was saved.
-	*/
-	virtual void onDocSaved(const QString& fileName) { Q_UNUSED(fileName); }
-	
-	/**
-	*	onContextMenuCalled()
-	*
-	* This method is called once document's context menu is about to be
-	* displayed. Parameters \par line, \par col contain cursor position
-	* (starting with 0, 0).
-	*/
-	virtual void onContextMenuCalled(int line, int col) { Q_UNUSED(line); Q_UNUSED(col); }
-
-	/**
-	* onTabMoved()
-	*
-	* This method is called once document's tab was moved from 
-	* position \par from to position \par to.
-	*/
-	virtual void onTabMoved(int from, int to) { Q_UNUSED(from); Q_UNUSED(to); }
-
-
 protected:
-	///	trivial accessor to Manager
-	ManagerInterface* manager() const { return manager_; }
+	/// accessor to DocHandler
+	Juff::DocHandlerInt* handler() const { return handler_; }
+	/// accessor to PluginNotifier
+	Juff::PluginNotifier* notifier() const { return notifier_; }
 	
 private:
-	ManagerInterface* manager_;
+	Juff::DocHandlerInt* handler_;
+	Juff::PluginNotifier* notifier_;
 };
 
-Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.3")
+Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.5")
 
 #endif	//	__JUFF_PLUGIN_H__

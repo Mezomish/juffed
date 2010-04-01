@@ -68,27 +68,50 @@ SET (CMAKE_INSTALL_RPATH "${LIB_INSTALL_DIR}")
 ###############
 # File sets
 
+SET ( juffed_lib_MOC_HEADERS
+	include/Document.h
+	include/Project.h
+	include/PluginNotifier.h
+)
+
 SET ( juffed_lib_SRCS
 	src/lib/CharsetSettings.cpp
+	src/lib/EditorSettings.cpp
+	src/lib/FileTypeSettings.cpp
+	src/lib/MainSettings.cpp
+	src/lib/Settings.cpp
+	
 	src/lib/CommandStorage.cpp
 	src/lib/Document.cpp
 	src/lib/DocEngine.cpp
-	src/lib/FileTypeSettings.cpp
 	src/lib/Functions.cpp
 	src/lib/IconManager.cpp
 	src/lib/Log.cpp
 	src/lib/NullDoc.cpp
 	src/lib/Project.cpp
-	src/lib/Settings.cpp
-	src/lib/EditorSettings.cpp
 	src/lib/PluginNotifier.cpp
 )
 
-SET ( juffed_lib_MOC_HEADERS
-	include/Document.h
-	include/Project.h
-	include/PluginNotifier.h
-#	include/DocEngine.h
+SET ( juffed_lib_RESOURCES
+	src/lib/LibResources.qrc
+)
+
+SET ( juffed_app_MOC_HEADERS
+	src/app/DocManager.h
+	src/app/JuffEd.h
+	src/app/qsci/JuffScintilla.h
+	src/app/qsci/SciDoc.h
+	src/app/qsci/SciDocEngine.h
+	src/app/ui/DocViewer.h
+	src/app/ui/JuffMW.h
+	src/app/ui/MessageWidget.h
+	src/app/ui/SelectFilesDlg.h
+	src/app/ui/StatusLabel.h
+	src/app/ui/TabBar.h
+	src/app/ui/TabWidget.h
+	
+	# TODO : move this to a plugin!
+	src/app/ui/ProjectTree.h
 )
 
 SET ( juffed_app_SRCS
@@ -112,24 +135,6 @@ SET ( juffed_app_SRCS
 	src/app/ui/ProjectTree.cpp
 )
 
-SET ( juffed_app_MOC_HEADERS
-	src/app/DocManager.h
-	src/app/JuffEd.h
-	src/app/qsci/JuffScintilla.h
-	src/app/qsci/SciDoc.h
-	src/app/qsci/SciDocEngine.h
-	src/app/ui/DocViewer.h
-	src/app/ui/JuffMW.h
-	src/app/ui/MessageWidget.h
-	src/app/ui/SelectFilesDlg.h
-	src/app/ui/StatusLabel.h
-	src/app/ui/TabBar.h
-	src/app/ui/TabWidget.h
-	
-	# TODO : move this to a plugin!
-	src/app/ui/ProjectTree.h
-)
-
 SET ( juffed_app_UIS
 	src/app/ui/forms/MessageWidget.ui
 	src/app/ui/forms/SelectFilesDlg.ui
@@ -139,8 +144,26 @@ SET ( juffed_app_RESOURCES
 	src/app/Resources.qrc
 )
 
-SET ( juffed_lib_RESOURCES
-	src/lib/LibResources.qrc
+SET ( juffed_DEV_HEADERS
+	include/AppInfo.h
+	include/CharsetSettings.h
+	include/CommandStorage.h
+	include/Document.h
+	include/DocEngine.h
+	include/DocHandlerInt.h
+	include/EditorSettings.h
+	include/Enums.h
+	include/FileTypeSettings.h
+	include/Functions.h
+	include/IconManager.h
+	include/JuffPlugin.h
+	include/Log.h
+	include/MainSettings.h
+	include/NullDoc.h
+	include/PluginNotifier.h
+	include/Project.h
+	include/Types.h
+#	include/Settings.h,
 )
 
 FIND_PACKAGE ( Qt4 REQUIRED )
@@ -375,7 +398,7 @@ INSTALL ( DIRECTORY hlschemes DESTINATION ${DATA_INSTALL_DIR} PATTERN ".svn" EXC
 INSTALL ( DIRECTORY apis DESTINATION ${DATA_INSTALL_DIR} PATTERN "*.svn" EXCLUDE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ )
 INSTALL ( FILES juffed.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/pixmaps )
 INSTALL ( FILES juffed.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications )
-#INSTALL ( FILES ${juffed_includes} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME} )
+INSTALL ( FILES ${juffed_DEV_HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME} )
 #
 ## uninstall 
 CONFIGURE_FILE ( "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY )

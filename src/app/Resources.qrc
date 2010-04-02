@@ -5,5 +5,8 @@
 		<file alias="doc_icon">../images/16/doc_icon.png</file>
 		<file alias="doc_icon_red">../images/16/doc_icon_red.png</file>
 		<file alias="close">../images/16/close.png</file>
+		
+		<file alias="juffed_32.png">../images/32/juffed_32.png</file>
+		<file alias="juffed_48.png">../images/48/juffed_48.png</file>
 	</qresource>
 </RCC>

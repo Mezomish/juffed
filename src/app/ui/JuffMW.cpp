@@ -91,7 +91,8 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 
 JuffMW::JuffMW() : QMainWindow() {
 	resize(800, 700);
-
+	setWindowIcon(QIcon(":juffed_32.png"));
+	
 	mainWidget_ = new QWidget();
 	vBox_ = new QVBoxLayout();
 	vBox_->setContentsMargins(0, 0, 0, 0);

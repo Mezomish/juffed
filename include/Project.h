@@ -19,6 +19,7 @@ public:
 	QString fileName() const;
 	void setFileName(const QString&);
 	void setName(const QString&);
+	bool isNoname() const;
 
 	bool hasSubProjects() const;
 	bool hasFiles() const;

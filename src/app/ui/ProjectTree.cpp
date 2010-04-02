@@ -1,6 +1,7 @@
 #include "ProjectTree.h"
 
 #include "DocHandlerInt.h"
+#include "Functions.h"
 #include "Log.h"
 
 #include <QMenu>
@@ -78,7 +79,7 @@ void ProjectTree::parsePrjItem(Juff::Project* prj, QTreeWidgetItem* parent) {
 		// files
 		QStringList files = prj->files();
 		foreach (QString file, files) {
-			QTreeWidgetItem* fileItem = new QTreeWidgetItem(QStringList() << QFileInfo(file).fileName());
+			QTreeWidgetItem* fileItem = new QTreeWidgetItem(QStringList() << Juff::docTitle(file, false));
 			fileItem->setToolTip(0, file);
 			if ( parent != 0 )
 				parent->addChild(fileItem);

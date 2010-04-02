@@ -9,6 +9,7 @@
 #include "Functions.h"
 #include "IconManager.h"
 #include "Log.h"
+#include "MainSettings.h"
 #include "Project.h"
 #include "Settings.h"
 #include "StatusLabel.h"
@@ -29,8 +30,9 @@
 JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(this, this) {
 	LOGGER;
 	
-	prj_ = NULL;
 	Settings::read();
+	QString prjName = MainSettings::get(MainSettings::LastProject);
+	prj_ = new Juff::Project(prjName);
 	
 	charsetMenu_ = openWithCharsetMenu_ = setCharsetMenu_ = NULL;
 	
@@ -45,6 +47,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	mw_ = new JuffMW();
 	
 	tree_ = new ProjectTree(this);
+	tree_->setProject(prj_);
 	QDockWidget* dock = new QDockWidget();
 	dock->setWidget(tree_);
 	mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
@@ -241,9 +244,13 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	linesL_->hide();
 	
 	docManager_->initStatusBar(mw_->statusBar());
+	
+	loadProject();
 }
 
 JuffEd::~JuffEd() {
+	Settings::write();
+	
 	if ( prj_ != NULL )
 		delete prj_;
 }
@@ -263,11 +270,15 @@ void JuffEd::slotFileOpen() {
 	
 	// TODO : proper filters here
 	QString filters = "All files (*)";
-	QStringList files = mw_->getOpenFileNames(filters);
+	QStringList files = mw_->getOpenFileNames(openDialogDirectory(), filters);
 	
-	foreach (QString fileName, files) {
+	QString fileName;
+	foreach (fileName, files) {
 		createDoc(fileName);
 	}
+	
+	// store the last used directory
+	MainSettings::set(MainSettings::LastDir, QFileInfo(fileName).absolutePath());
 }
 
 void JuffEd::slotFileSave() {
@@ -370,36 +381,34 @@ void JuffEd::slotFileExit() {
 void JuffEd::slotPrjNew() {
 	LOGGER;
 	
-	QString prjName = mw_->getSavePrjName(tr("New project"));
-	if ( !prjName.isEmpty() ) {
-		if ( prj_ != NULL )
-			delete prj_;
+	QString prjFile = mw_->getSavePrjName(tr("New project"));
+	if ( !prjFile.isEmpty() ) {
+		// store the last used directory
+		MainSettings::set(MainSettings::LastDir, QFileInfo(prjFile).absolutePath());
 		
-		prj_ = new Juff::Project(prjName);
+		if ( closeProject() )
+			createProject(prjFile);
 	}
 }
 
 void JuffEd::slotPrjOpen() {
 	LOGGER;
 	
-	QString file = mw_->getOpenFileName("JuffEd XML Project Files (*.xml)");
-	if ( !file.isEmpty() ) {
-		slotPrjClose();
+	QString prjFile = mw_->getOpenFileName(openDialogDirectory(), "JuffEd XML Project Files (*.xml)");
+	if ( !prjFile.isEmpty() ) {
+		// store the last used directory
+		MainSettings::set(MainSettings::LastDir, QFileInfo(prjFile).absolutePath());
 		
-		prj_ = new Juff::Project(file);
-
-		// TODO : remove later
-		tree_->setProject(prj_);
+		if ( closeProject() )
+			createProject(prjFile);
 	}
 }
 
 void JuffEd::slotPrjClose() {
 	LOGGER;
 
-	if ( prj_ != NULL ) {
-		delete prj_;
-		prj_ = NULL;
-	}
+	if ( closeProject() )
+		createProject("");
 }
 
 void JuffEd::slotPrjRename() {
@@ -418,10 +427,14 @@ void JuffEd::slotPrjAddFile() {
 	LOGGER;
 	
 	if ( prj_ != NULL ) {
-		QStringList fileList = mw_->getOpenFileNames("All files (*)");
-		foreach (QString file, fileList) {
+		// TODO : filters
+		QStringList fileList = mw_->getOpenFileNames(openDialogDirectory(), "All files (*)");
+		QString file;
+		foreach (file, fileList) {
 			prj_->addFile(file);
 		}
+		// store the last used directory
+		MainSettings::set(MainSettings::LastDir, QFileInfo(file).absolutePath());
 	}
 }
 
@@ -720,6 +733,8 @@ Juff::Document* JuffEd::createDoc(const QString& fileName) {
 	if ( !doc->isNull() ) {
 		initDoc(doc);
 		viewer_->addDoc(doc);
+		if ( prj_->name().isEmpty() )
+			prj_->addFile(doc->fileName());
 		updateGUI(doc);
 	}
 	
@@ -727,6 +742,28 @@ Juff::Document* JuffEd::createDoc(const QString& fileName) {
 	emit docOpened(doc);
 	
 	return doc;
+}
+
+void JuffEd::createProject(const QString& fileName) {
+	prj_ = new Juff::Project(fileName);
+	MainSettings::set(MainSettings::LastProject, prj_->fileName());
+	loadProject();
+	
+	// TODO : remove later
+	tree_->setProject(prj_);
+}
+
+bool JuffEd::closeProject() {
+	if ( prj_ == NULL )
+		return true;
+	
+	slotFileCloseAll();
+	// check if all files were closed
+	if ( viewer_->docCount() > 0 )
+		return false;
+	
+	delete prj_;
+	return true;
 }
 
 
@@ -813,6 +850,9 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 	}
 
 	if ( decidedToClose ) {
+		if ( prj_ != NULL && prj_->isNoname() )
+			prj_->removeFile(doc->fileName());
+		
 		// notify plugins
 		emit docClosed(doc);
 		
@@ -845,6 +885,9 @@ bool JuffEd::saveDocAs(Juff::Document* doc) {
 	QString filters = "All files (*)";
 	QString fileName = mw_->getSaveFileName(doc->fileName(), filters);
 	if ( !fileName.isEmpty() ) {
+		// store the last used directory
+		MainSettings::set(MainSettings::LastDir, QFileInfo(fileName).absolutePath());
+		
 		QString error;
 		if ( doc->saveAs(fileName, error) ) {
 			// saving succeeded - return true
@@ -951,4 +994,21 @@ void JuffEd::initPlugins() {
 
 QString JuffEd::projectName() const {
 	return ( prj_ == NULL ? "" : prj_->name() );
+}
+
+void JuffEd::loadProject() {
+	if ( prj_ == NULL ) return;
+	
+	QStringList files = prj_->files();
+	foreach (QString file, files) {
+		openDoc(file);
+	}
+}
+
+QString JuffEd::openDialogDirectory() const {
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() && !Juff::isNoname(doc) && MainSettings::get(MainSettings::SyncToCurDoc) )
+		return QFileInfo(doc->fileName()).absolutePath();
+	else
+		return MainSettings::get(MainSettings::LastDir);
 }

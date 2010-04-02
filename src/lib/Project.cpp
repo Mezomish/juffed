@@ -1,5 +1,7 @@
 #include "Project.h"
 
+#include "AppInfo.h"
+#include "Functions.h"
 #include "Log.h"
 
 #include <QFileInfo>
@@ -13,8 +15,9 @@ namespace Juff {
 Project::Project(const QString& fileName) : QObject() {
 	LOGGER;
 	
-	fileName_ = fileName;
-	name_ = QFileInfo(fileName).baseName();
+	fileName_ = ( fileName.isEmpty() ? AppInfo::defaultPrjPath() : fileName );
+	name_     = ( fileName_ == AppInfo::defaultPrjPath() ? "" : QFileInfo(fileName).fileName() );
+	
 	Log::debug(name_);
 	Log::debug(fileName_);
 	
@@ -45,6 +48,10 @@ void Project::setName(const QString& name) {
 	name_ = name;
 	
 	emit renamed(oldName);
+}
+
+bool Project::isNoname() const {
+	return name().isEmpty();
 }
 
 
@@ -167,13 +174,17 @@ void Project::storeProject(QDomDocument& doc, QDomElement& prjEl, Project* prj) 
 	LOGGER;
 	
 	if ( prj->hasFiles() ) {
+		// files
 		foreach (QString file, files_) {
-			QDomElement el = doc.createElement("file");
-			el.setAttribute("path", file);
-			prjEl.appendChild(el);
+			if ( !Juff::isNoname(file) ) {
+				QDomElement el = doc.createElement("file");
+				el.setAttribute("path", file);
+				prjEl.appendChild(el);
+			}
 		}
 	}
 	else if ( prj->hasSubProjects() ) {
+		// subprojects
 		foreach (Project* subPrj, subProjects_) {
 			QDomElement el = doc.createElement("project");
 			el.setAttribute("name", subPrj->name());
@@ -239,8 +250,6 @@ void Project::parseProject(QDomElement& prjEl, Project* prj) {
 			QString path = subEl.attribute("path", "");
 			if ( !path.isEmpty() && !prj->hasSubProjects() ) {
 				prj->addFile(path);
-				Log::debug("FILE");
-				Log::debug(path);
 			}
 		}
 		else if ( tagName.compare("project") == 0 ) {

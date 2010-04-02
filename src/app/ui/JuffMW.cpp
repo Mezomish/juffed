@@ -5,6 +5,7 @@
 
 #include "Document.h"
 #include "Functions.h"
+#include "MainSettings.h"
 #include "MessageWidget.h"
 #include "SelectFilesDlg.h"
 
@@ -29,15 +30,11 @@ void JuffMW::setViewer(QWidget* w) {
 	vBox_->addWidget(w);
 }
 
-QString JuffMW::getOpenFileName(const QString& filters) {
-	// TODO : 
-	QString dir = "";
+QString JuffMW::getOpenFileName(const QString& dir, const QString& filters) {
 	return QFileDialog::getOpenFileName(this, tr("Open file"), dir, filters);
 }
 
-QStringList JuffMW::getOpenFileNames(const QString& filters) {
-	// TODO : 
-	QString dir = "";
+QStringList JuffMW::getOpenFileNames(const QString& dir, const QString& filters) {
 	return QFileDialog::getOpenFileNames(this, tr("Open files"), dir, filters);
 }
 

@@ -15,8 +15,8 @@ public:
 	JuffMW();
 
 	void setViewer(QWidget*);
-	QString getOpenFileName(const QString& filters);
-	QStringList getOpenFileNames(const QString& filters);
+	QString getOpenFileName(const QString& dir, const QString& filters);
+	QStringList getOpenFileNames(const QString& dir, const QString& filters);
 	QString getSaveFileName(const QString& curFileName, const QString& filters);
 	QString getSavePrjName(const QString& title);
 	int getGotoLineNumber(int);

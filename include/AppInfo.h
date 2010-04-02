@@ -11,6 +11,7 @@ public:
 	static QString configDirPath()   { return QDir::homePath() + "/.config/" + organization().toLower(); }
 	static QString language()        { return QLocale::system().name(); }
 	static QString logFile()         { return configDirPath() + "/juffed.log"; }
+	static QString defaultPrjPath()  { return configDirPath() + "/empty_project.xml"; }
 	
 //	static QString translationPath() { return ; }
 };

@@ -101,10 +101,15 @@ private:
 	*/
 	Juff::Document* createDoc(const QString& fileName);
 
+	void createProject(const QString& fileName);
+	bool closeProject();
+
 	QString projectName() const;
 	void initDoc(Juff::Document*);
 	void initCharsetMenus();
 	void initPlugins();
+	void loadProject();
+	QString openDialogDirectory() const;
 	void reportError(const QString&);
 	
 	/**

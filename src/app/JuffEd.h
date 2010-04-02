@@ -105,6 +105,8 @@ public slots:
 	void slotOpenWithCharset();
 	void slotSetCharset();
 	
+	void onMessageReceived(const QString&);
+	
 private slots:
 	void onDocModified(bool);
 	void onDocCursorMoved(int, int);

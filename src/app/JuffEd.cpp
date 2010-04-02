@@ -755,6 +755,16 @@ void JuffEd::onCloseRequested(bool& confirm) {
 	}
 }
 
+void JuffEd::onMessageReceived(const QString& msg) {
+	LOGGER;
+	
+	QStringList params = msg.split("\n");
+	foreach (QString param, params) {
+		if ( QFileInfo(param).exists() )
+			openDoc(param);
+	}
+}
+
 
 Juff::Document* JuffEd::createDoc(const QString& fileName) {
 	LOGGER;

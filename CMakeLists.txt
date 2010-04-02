@@ -111,6 +111,10 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/StatusLabel.h
 	src/app/ui/TabBar.h
 	src/app/ui/TabWidget.h
+	src/3rd_party/qtsingleapplication/qtsinglecoreapplication.h
+	src/3rd_party/qtsingleapplication/qtsingleapplication.h
+	src/3rd_party/qtsingleapplication/qtlockedfile.h
+	src/3rd_party/qtsingleapplication/qtlocalpeer.h
 	
 	# TODO : move this to a plugin!
 	src/app/ui/ProjectTree.h
@@ -134,10 +138,28 @@ SET ( juffed_app_SRCS
 	src/app/ui/StatusLabel.cpp
 	src/app/ui/TabBar.cpp
 	src/app/ui/TabWidget.cpp
+	src/3rd_party/qtsingleapplication/qtsinglecoreapplication.cpp
+	src/3rd_party/qtsingleapplication/qtsingleapplication.cpp
+	src/3rd_party/qtsingleapplication/qtlockedfile.cpp
+	src/3rd_party/qtsingleapplication/qtlocalpeer.cpp
 	
 	# TODO : move this to a plugin!
 	src/app/ui/ProjectTree.cpp
 )
+
+IF ( WIN32 )
+	SET ( juffed_app_SRCS
+		${juffed_app_SRCS}
+		src/3rd_party/qtsingleapplication/qtlockedfile_win.cpp
+	)
+ENDIF ( WIN32 )
+
+IF ( UNIX )
+	SET ( juffed_app_SRCS
+		${juffed_app_SRCS}
+		src/3rd_party/qtsingleapplication/qtlockedfile_unix.cpp
+	)
+ENDIF ( UNIX )
 
 SET ( juffed_app_UIS
 	src/app/ui/forms/JumpToFileDlg.ui
@@ -212,7 +234,7 @@ ADD_EXECUTABLE ( ${JUFFED}
 TARGET_LINK_LIBRARIES ( ${JUFFLIB}
 	${QT_LIBRARIES}
 	${QT_QTCORE_LIBRARY}
-	${QT_QTGUI_LIBRARY}
+#	${QT_QTGUI_LIBRARY}
 )
 
 TARGET_LINK_LIBRARIES ( ${JUFFED} ${JUFFLIB}
@@ -220,7 +242,7 @@ TARGET_LINK_LIBRARIES ( ${JUFFED} ${JUFFLIB}
 	${QT_QTCORE_LIBRARY}
 	${QT_QTGUI_LIBRARY}
 	${QT_QTXML_LIBRARY}
-#	${QT_QTNETWORK_LIBRARY}
+	${QT_QTNETWORK_LIBRARY}
 	${LIBQSCINTILLA2_LIBRARY} 
 )
 

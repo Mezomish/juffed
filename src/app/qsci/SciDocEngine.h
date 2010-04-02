@@ -25,6 +25,9 @@ public slots:
 	void slotLowerCase();
 	void slotMoveUp();
 	void slotMoveDown();
+	void slotCommentLines();
+	void slotCommentBlock();
+	void slotDuplicate();
 
 protected slots:
 	void slotSyntaxChanged();

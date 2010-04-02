@@ -521,6 +521,142 @@ void SciDoc::moveDown() {
 	}
 }
 
+void SciDoc::toggleCommentLines() {
+	LOGGER;
+	
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+
+	QString comment;
+	QString s = syntax();
+	if ( s == "C++" || s == "PHP" || s == "C#" || s == "Java" || s == "JavaScript" )
+		comment = "//";
+	else if ( s == "Bash" || s == "Python" || s == "CMake" || s == "Makefile" )
+		comment = "#";
+	else if ( s == "Fortran" )
+		comment = "!";
+	//	TODO : need to add more syntaxes
+
+	if ( comment.isEmpty() )
+		return;
+
+	if ( edit->hasSelectedText() ) {
+		int line1, col1, line2, col2, curLine, curCol;
+		edit->getSelection(&line1, &col1, &line2, &col2);
+		edit->getCursorPosition(&curLine, &curCol);
+
+		QString str1 = edit->text(line1);
+		QString ln = str1.simplified();
+		bool toComment = true;
+		if ( ln.startsWith(comment) ) {
+			toComment = false;
+		}
+
+		if ( col2 == 0 )
+			--line2;
+
+		edit->beginUndoAction();
+		for ( int line = line1; line <= line2; ++line ) {
+			str1 = edit->text(line);
+			if ( toComment ) {
+				if ( !str1.simplified().startsWith(comment) )
+					commentLine(edit, line, str1, comment);
+			}
+			else {
+				if ( str1.simplified().startsWith(comment) )
+					uncommentLine(edit, line, str1, comment);
+			}
+		}
+		edit->endUndoAction();
+		if ( curCol > 0 )
+			edit->setCursorPosition(curLine, curCol + comment.length() * (toComment ? 1 : -1) );
+		else
+			edit->setCursorPosition(curLine, curCol);
+	}
+	else {
+		int line1, col1;
+		edit->getCursorPosition(&line1, &col1);
+		QString str1 = edit->text(line1);
+
+		QString ln = str1.simplified();
+		if ( ln.startsWith(comment) ) {
+			uncommentLine(edit, line1, str1, comment);
+			edit->setCursorPosition(line1, col1 - comment.length());
+		}
+		else {
+			commentLine(edit, line1, str1, comment);
+			edit->setCursorPosition(line1, col1 + comment.length());
+		}
+	}
+}
+
+void SciDoc::toggleCommentBlock() {
+	LOGGER;
+	
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+
+	QString commBeg, commEnd;
+	QString s = syntax();
+	if ( s == "C++" || s == "Java" || s == "C#" || s == "PHP" || s == "CSS" || s == "JavaScript" ) {
+		commBeg = "/*";
+		commEnd = "*/";
+	}
+	else if ( s == "HTML" || s == "XML" ) {
+		commBeg = "<!--";
+		commEnd = "-->";
+	}
+	else if ( s == "Python" ) {
+		commBeg = "'''";
+		commEnd = "'''";
+	}
+	//	TODO : need to add more syntaxes
+
+	if ( commBeg.isEmpty() || commEnd.isEmpty() )
+		return;
+
+	if ( edit->hasSelectedText() ) {
+		int line1, col1, line2, col2, curLine, curCol;
+		edit->getSelection(&line1, &col1, &line2, &col2);
+		edit->getCursorPosition(&curLine, &curCol);
+		
+		QString str1 = edit->selectedText();
+		bool toComment = true;
+		if ( str1.startsWith(commBeg) && str1.endsWith(commEnd) )
+			toComment = false;
+
+		QString str2;
+		if ( toComment )
+			str2 = commBeg + str1 + commEnd;
+		else {
+			str2 = str1;
+			str2.chop(commEnd.length());
+			str2.remove(0, commBeg.length());
+		}
+		replaceSelectedText(str2);
+		if ( line1 == line2 ) {
+			if ( curCol == col1 )
+				edit->setCursorPosition(curLine, curCol);
+			else
+				edit->setCursorPosition(curLine, curCol + (commBeg.length() + commEnd.length()) * (toComment ? 1 : -1));
+		}
+		else {
+			if ( curLine == line2 && curCol == col2)
+				edit->setCursorPosition(curLine, curCol + commEnd.length() * (toComment ? 1 : -1) );
+			else
+				edit->setCursorPosition(curLine, curCol);
+		}
+	}
+}
+
+void SciDoc::duplicateText() {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	if ( int_->curEdit_->hasSelectedText() )
+		int_->curEdit_->SendScintilla(QsciScintilla::SCI_SELECTIONDUPLICATE);
+	else
+		int_->curEdit_->SendScintilla(QsciScintilla::SCI_LINEDUPLICATE);
+}
 
 
 
@@ -684,3 +820,19 @@ void SciDoc::onEditFocused() {
 	emit focused();
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
+// Helper functions
+void SciDoc::commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment) {
+	QString str2 = comment + str1;
+	edit->setSelection(line, 0, line + 1, 0);
+	replaceSelectedText(str2);
+}
+
+void SciDoc::uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment) {
+	int pos = str1.indexOf(comment);
+	QString str2 = str1;
+	str2.replace(pos, comment.length(), "");
+	edit->setSelection(line, 0, line + 1, 0);
+	replaceSelectedText(str2);
+}

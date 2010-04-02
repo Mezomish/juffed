@@ -1,6 +1,8 @@
 #ifndef __JUFFED_SCI_DOC_H__
 #define __JUFFED_SCI_DOC_H__
 
+class JuffScintilla;
+
 #include "Document.h"
 
 class SciDoc : public Juff::Document {
@@ -59,7 +61,10 @@ public:
 	void moveUp();
 	void moveDown();
 	
-
+	void toggleCommentLines();
+	void toggleCommentBlock();
+	void duplicateText();
+	
 private slots:
 	void onCursorMoved(int, int);
 	void onMarginClicked(int, int, Qt::KeyboardModifiers);
@@ -74,6 +79,9 @@ private:
 	void readFile();
 	void setLexer(const QString& lexName);
 	void applySettings();
+
+	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
+	void uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 
 	class Interior;
 	Interior* int_;

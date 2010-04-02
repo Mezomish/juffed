@@ -52,6 +52,9 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 			addAction(id, menu, createAction(tr("lower case"), QKeySequence("Shift+Ctrl+U"), SLOT(slotLowerCase())));
 			addAction(id, menu, createAction(tr("Move up"), QKeySequence("Alt+Up"), SLOT(slotMoveUp())));
 			addAction(id, menu, createAction(tr("Move down"), QKeySequence("Alt+Down"), SLOT(slotMoveDown())));
+			addAction(id, menu, createAction(tr("Duplicate text"), QKeySequence("Ctrl+D"), SLOT(slotDuplicate())));
+			addAction(id, menu, createAction(tr("Comment lines"), QKeySequence("Ctrl+/"), SLOT(slotCommentLines())));
+			addAction(id, menu, createAction(tr("Comment block"), QKeySequence("Shift+Ctrl+/"), SLOT(slotCommentBlock())));
 			
 			
 			break;
@@ -120,6 +123,34 @@ void SciDocEngine::slotMoveDown() {
 		doc->moveDown();
 	}
 }
+
+void SciDocEngine::slotCommentLines() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->toggleCommentLines();
+	}
+}
+
+void SciDocEngine::slotCommentBlock() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->toggleCommentBlock();
+	}
+}
+
+void SciDocEngine::slotDuplicate() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->duplicateText();
+	}
+}
+
 
 
 void SciDocEngine::slotSyntaxChanged() {

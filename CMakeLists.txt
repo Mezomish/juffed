@@ -102,6 +102,7 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/qsci/JuffScintilla.h
 	src/app/qsci/SciDoc.h
 	src/app/qsci/SciDocEngine.h
+	src/app/ui/AboutDlg.h
 	src/app/ui/DocViewer.h
 	src/app/ui/JuffMW.h
 	src/app/ui/MessageWidget.h
@@ -123,6 +124,7 @@ SET ( juffed_app_SRCS
 	src/app/qsci/LexerStorage.cpp
 	src/app/qsci/SciDoc.cpp
 	src/app/qsci/SciDocEngine.cpp
+	src/app/ui/AboutDlg.cpp
 	src/app/ui/DocViewer.cpp
 	src/app/ui/JuffMW.cpp
 	src/app/ui/MessageWidget.cpp

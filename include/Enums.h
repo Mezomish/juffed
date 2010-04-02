@@ -55,6 +55,9 @@ typedef enum {
 	ViewZoomOut,
 	ViewZoom100,
 	ViewFullscreen,
+	//
+	About,
+	AboutQt,
 //	LastAction
 } ActionID;
 

@@ -1,6 +1,7 @@
 #ifndef __JUFFED_MAIN_WINDOW_H__
 #define __JUFFED_MAIN_WINDOW_H__
 
+class AboutDlg;
 class QVBoxLayout;
 
 #include <QMainWindow>
@@ -30,6 +31,10 @@ public:
 signals:
 	void closeRequested(bool&);
 
+public slots:
+	void about();
+	void aboutQt();
+
 protected:
 	virtual void closeEvent(QCloseEvent*);
 	
@@ -37,6 +42,7 @@ private:
 	QWidget* viewer_;
 	QWidget* mainWidget_;
 	QVBoxLayout* vBox_;
+	AboutDlg* aboutDlg_;
 };
 
 #endif // __JUFFED_MAIN_WINDOW_H__

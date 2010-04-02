@@ -75,6 +75,9 @@ void CommandStorage::createActions() {
 		Juff::ViewZoom100,
 		Juff::ViewFullscreen,
 		//
+		Juff::About,
+		Juff::AboutQt,
+		//
 		Juff::NullID
 	};
 	
@@ -139,6 +142,9 @@ QString CommandStorage::title(Juff::ActionID id) const {
 		case Juff::ViewZoom100 :     return QObject::tr("Zoom 100%");
 		case Juff::ViewFullscreen :  return QObject::tr("Fullscreen");
 		
+		case Juff::About:            return QObject::tr("About");
+		case Juff::AboutQt:          return QObject::tr("About Qt");
+		
 		default:
 			return "<no title>";
 	}
@@ -183,6 +189,8 @@ QKeySequence CommandStorage::shortcut(Juff::ActionID id) const {
 		case Juff::ViewZoomOut :     return QKeySequence("Ctrl+-");
 		case Juff::ViewZoom100 :     return QKeySequence("Ctrl+0");
 		case Juff::ViewFullscreen :  return QKeySequence("F11");
+		
+		case Juff::About:            return QKeySequence("F1");
 		
 		default:
 			return QKeySequence("");

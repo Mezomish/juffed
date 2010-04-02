@@ -99,6 +99,9 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	connect(st->action(Juff::ViewZoom100), SIGNAL(triggered()), this, SLOT(slotZoom100()));
 	connect(st->action(Juff::ViewFullscreen), SIGNAL(triggered()), this, SLOT(slotFullscreen()));
 	
+	connect(st->action(Juff::About), SIGNAL(triggered()), mw_, SLOT(about()));
+	connect(st->action(Juff::AboutQt), SIGNAL(triggered()), mw_, SLOT(aboutQt()));
+
 	// toolbar
 	QToolBar* tb = mw_->addToolBar("Main");
 	int sz = IconManager::instance()->iconSize();
@@ -187,11 +190,15 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	}
 	
 	QMenu* formatMenu = *( menus_.insert(Juff::MenuFormat, new QMenu(tr("&Format"))) );
+	QMenu* helpMenu = *( menus_.insert(Juff::MenuHelp, new QMenu(tr("&Help"))) );
+	helpMenu->addAction(st->action(Juff::About));
+	helpMenu->addAction(st->action(Juff::AboutQt));
 	
 	mw_->menuBar()->addMenu(fileMenu);
 	mw_->menuBar()->addMenu(editMenu);
 	mw_->menuBar()->addMenu(viewMenu);
 	mw_->menuBar()->addMenu(formatMenu);
+	mw_->menuBar()->addMenu(helpMenu);
 	
 	initPlugins();
 	

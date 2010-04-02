@@ -21,6 +21,7 @@ public:
 	QString getSaveFileName(const QString& curFileName, const QString& filters);
 	QString getSavePrjName(const QString& title);
 	int getGotoLineNumber(int);
+	QString getJumpToFileName(const QStringList&);
 	int askForSave(const QString& fileName);
 	bool askForSave(const QStringList&, QStringList&);
 

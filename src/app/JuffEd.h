@@ -73,6 +73,7 @@ public slots:
 	void slotFindPrev();
 	void slotReplace();
 	void slotGotoLine();
+	void slotJumpToFile();
 	
 	void slotWrapWords();
 	void slotShowLineNumbers();

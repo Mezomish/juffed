@@ -64,7 +64,8 @@ void CommandStorage::createActions() {
 		Juff::EditFindNext,
 		Juff::EditFindPrev,
 		Juff::EditReplace,
-		Juff::EditGotoLine,
+		Juff::GotoLine,
+		Juff::JumpToFile,
 		//
 		Juff::ViewLineNumbers,
 		Juff::ViewWrapWords,
@@ -131,7 +132,8 @@ QString CommandStorage::title(Juff::ActionID id) const {
 		case Juff::EditFindNext : return QObject::tr("Find next");
 		case Juff::EditFindPrev : return QObject::tr("Find previous");
 		case Juff::EditReplace :  return QObject::tr("Replace");
-		case Juff::EditGotoLine : return QObject::tr("Go to line");
+		case Juff::GotoLine :     return QObject::tr("Go to line");
+		case Juff::JumpToFile:    return QObject::tr("Jump to file");
 		
 		case Juff::ViewLineNumbers : return QObject::tr("Show line numbers");
 		case Juff::ViewWrapWords :   return QObject::tr("Wrap words");
@@ -179,7 +181,8 @@ QKeySequence CommandStorage::shortcut(Juff::ActionID id) const {
 		case Juff::EditFindNext : return QKeySequence("F3");
 		case Juff::EditFindPrev : return QKeySequence("Shift+F3");
 		case Juff::EditReplace :  return QKeySequence("Ctrl+R");
-		case Juff::EditGotoLine : return QKeySequence("Ctrl+G");
+		case Juff::GotoLine :     return QKeySequence("Ctrl+G");
+		case Juff::JumpToFile :   return QKeySequence("Shift+Ctrl+G");
 		
 //		case Juff::ViewLineNumbers : return QKeySequence("");
 		case Juff::ViewWrapWords :   return QKeySequence("F10");

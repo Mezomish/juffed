@@ -8,6 +8,7 @@
 #include "CommandStorage.h"
 #include "Document.h"
 #include "Functions.h"
+#include "JumpToFileDlg.h"
 #include "License.h"
 #include "MainSettings.h"
 #include "MessageWidget.h"
@@ -125,6 +126,16 @@ int JuffMW::getGotoLineNumber(int lineCount) {
 		return line - 1;
 	else
 		return -1;
+}
+
+QString JuffMW::getJumpToFileName(const QStringList& fileList) {
+	JumpToFileDlg dlg(fileList, this);
+	if ( dlg.exec() == QDialog::Accepted ) {
+		return dlg.fileName();
+	}
+	else {
+		return "";
+	}
 }
 
 int JuffMW::askForSave(const QString& fileName) {

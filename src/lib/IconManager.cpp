@@ -34,7 +34,7 @@ public:
 //		iconNames_[Juff::EditFindNext] = "";
 //		iconNames_[Juff::EditFindPrev] = "";
 		iconNames_[Juff::EditReplace]  = "edit-find-replace.png";
-		iconNames_[Juff::EditGotoLine] = "";
+		iconNames_[Juff::GotoLine] = "";
 		
 		iconNames_[Juff::ViewZoomIn]     = "zoomIn.png";
 		iconNames_[Juff::ViewZoomOut]    = "zoomOut.png";

@@ -88,7 +88,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	connect(st->action(Juff::EditFindNext), SIGNAL(triggered()), this, SLOT(slotFindNext()));
 	connect(st->action(Juff::EditFindPrev), SIGNAL(triggered()), this, SLOT(slotFindPrev()));
 	connect(st->action(Juff::EditReplace), SIGNAL(triggered()), this, SLOT(slotReplace()));
-	connect(st->action(Juff::EditGotoLine), SIGNAL(triggered()), this, SLOT(slotGotoLine()));
+	connect(st->action(Juff::GotoLine), SIGNAL(triggered()), this, SLOT(slotGotoLine()));
+	connect(st->action(Juff::JumpToFile), SIGNAL(triggered()), this, SLOT(slotJumpToFile()));
 	
 	connect(st->action(Juff::ViewLineNumbers), SIGNAL(triggered()), this, SLOT(slotShowLineNumbers()));
 	connect(st->action(Juff::ViewWrapWords), SIGNAL(triggered()), this, SLOT(slotWrapWords()));
@@ -162,7 +163,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 		                         Juff::Separator,
 //			                     Juff::EditFind, Juff::EditFindNext,
 //		                         Juff::EditFindPrev, Juff::EditReplace, Juff::Separator,
-		                         Juff::EditGotoLine,
+		                         Juff::GotoLine, Juff::JumpToFile,
 		                         Juff::NullID };
 		for (int i = 0; ids[i] != Juff::NullID; i++) {
 			if ( ids[i] == Juff::Separator )
@@ -538,6 +539,15 @@ void JuffEd::slotGotoLine() {
 		if ( line >= 0 )
 			doc->gotoLine(line);
 	}
+}
+
+void JuffEd::slotJumpToFile() {
+	LOGGER;
+	
+	QStringList list = viewer_->docNamesList();
+	QString fileName = mw_->getJumpToFileName(list);
+	if ( !fileName.isEmpty() )
+		openDoc(fileName);
 }
 
 void JuffEd::slotWrapWords(){

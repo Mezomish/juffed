@@ -32,6 +32,7 @@ int main(int argc, char* argv[]) {
 
 	JuffEd juffed;
 	QObject::connect(&app, SIGNAL(messageReceived(const QString&)), &juffed, SLOT(onMessageReceived(const QString&)));
+	app.setActivationWindow(juffed.mainWindow());
 //	JuffMW mw;
 //	mw.show();
 	juffed.mainWindow()->show();

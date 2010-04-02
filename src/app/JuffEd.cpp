@@ -759,6 +759,7 @@ void JuffEd::onMessageReceived(const QString& msg) {
 	LOGGER;
 	
 	QStringList params = msg.split("\n");
+	params.removeFirst();
 	foreach (QString param, params) {
 		if ( QFileInfo(param).exists() )
 			openDoc(param);

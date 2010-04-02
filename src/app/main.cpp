@@ -24,8 +24,8 @@ int main(int argc, char* argv[]) {
 
 	// check single run
 	QString params = app.arguments().join("\n");
-	if (app.sendMessage(params))
-	  return 0;
+	if ( app.sendMessage(params) )
+		return 0;
 
 	app.setOrganizationName("juff");
 	app.setApplicationName("juffed");
@@ -35,6 +35,7 @@ int main(int argc, char* argv[]) {
 //	JuffMW mw;
 //	mw.show();
 	juffed.mainWindow()->show();
+	juffed.onMessageReceived(params);
 	
 	return app.exec();
 }

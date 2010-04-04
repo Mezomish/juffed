@@ -79,6 +79,7 @@ SET ( juffed_lib_SRCS
 	src/lib/EditorSettings.cpp
 	src/lib/FileTypeSettings.cpp
 	src/lib/MainSettings.cpp
+	src/lib/PluginSettings.cpp
 	src/lib/Settings.cpp
 	
 	src/lib/CommandStorage.cpp
@@ -188,6 +189,7 @@ SET ( juffed_DEV_HEADERS
 	include/MainSettings.h
 	include/NullDoc.h
 	include/PluginNotifier.h
+	include/PluginSettings.h
 	include/Project.h
 	include/Types.h
 #	include/Settings.h,

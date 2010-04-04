@@ -61,6 +61,7 @@ int EditorSettings::get(IntKey key) {
 		case TabWidth :
 			return Settings::intValue("editor", "tabStopWidth");
 	}
+	return -1;
 }
 
 bool EditorSettings::get(BoolKey key) {
@@ -72,6 +73,7 @@ bool EditorSettings::get(BoolKey key) {
 		case ShowWhitespaces:
 			return Settings::boolValue("editor", "showWhitespaces");
 	}
+	return false;
 }
 
 QString EditorSettings::get(StringKey key) {
@@ -79,6 +81,7 @@ QString EditorSettings::get(StringKey key) {
 		case FontFamily :
 			return stringValue("editor", "fontFamily");
 	}
+	return "";
 }
 
 QColor EditorSettings::get(ColorKey key) {
@@ -108,6 +111,7 @@ QColor EditorSettings::get(ColorKey key) {
 			return c.isValid() ? c : deflt;
 		}
 	}
+	return QColor();
 }
 
 

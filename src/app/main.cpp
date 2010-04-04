@@ -19,12 +19,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "../3rd_party/qtsingleapplication/qtsingleapplication.h"
 #include "JuffEd.h"
 
+#include <QFileInfo>
+
 int main(int argc, char* argv[]) {
 	QtSingleApplication app(argc, argv);
 
 	// check single run
-	QString params = app.arguments().join("\n");
-	if ( app.sendMessage(params) )
+	QString paramStr = app.arguments().join("\n");
+	if ( app.sendMessage(paramStr) )
 		return 0;
 
 	app.setOrganizationName("juff");
@@ -33,10 +35,15 @@ int main(int argc, char* argv[]) {
 	JuffEd juffed;
 	QObject::connect(&app, SIGNAL(messageReceived(const QString&)), &juffed, SLOT(onMessageReceived(const QString&)));
 	app.setActivationWindow(juffed.mainWindow());
-//	JuffMW mw;
-//	mw.show();
 	juffed.mainWindow()->show();
-	juffed.onMessageReceived(params);
+	
+	// command line params
+	QStringList params = paramStr.split("\n");
+	params.removeFirst();
+	foreach (QString param, params) {
+		if ( QFileInfo(param).exists() )
+			juffed.openDoc(param);
+	}
 	
 	return app.exec();
 }

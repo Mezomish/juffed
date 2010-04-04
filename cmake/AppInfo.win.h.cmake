@@ -9,9 +9,8 @@ of configure script.
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
+#include <QtCore/QLocale>
 #include <QtCore/QString>
-
-
 
 class AppInfo {
 public:
@@ -22,8 +21,9 @@ public:
 	static QString translationPath() { return appDirPath() + "/l10n"; }
 	static QString version()         { return "@JUFFED_VERSION@"; }
 	static QString logFile()         { return configDirPath() + "/juffed.log"; }
+	static QString language()        { return QLocale::system().name(); }
+	static QString defaultPrjPath()  { return configDirPath() + "/empty_project.xml"; }
 
-	static QString socketPath()      { return "/tmp/juffed"; }
 	static QString appDirPath()      { return QCoreApplication::applicationDirPath(); }
 };
 

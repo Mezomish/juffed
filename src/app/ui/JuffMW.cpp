@@ -55,8 +55,7 @@ struct Helper {
 AboutDlg* createAboutDlg(QWidget* parent) {
 	AboutDlg* dlg = new AboutDlg(parent);
 	dlg->setWindowTitle(QObject::tr("About"));
-//	dlg->setProgramName(AppInfo::name() + " v" + AppInfo::version());
-	dlg->setProgramName(AppInfo::name());
+	dlg->setProgramName(AppInfo::name() + " v" + AppInfo::version());
 	QString text = QString("   %1   <br><br>   Copyright &copy; 2007-2009 Mikhail Murzin   <br><br><a href=\"http://sourceforge.net/projects/juffed/\">http://sourceforge.net/projects/juffed/</a>").arg(QObject::tr("Advanced text editor"));
 	QString auth("<br>&nbsp;Mikhail Murzin a.k.a. Mezomish<br>&nbsp;&nbsp;<a href='mailto:mezomish@gmail.com'>mezomish@gmail.com</a>");
 	QList<Helper> helpers;

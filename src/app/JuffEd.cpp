@@ -755,6 +755,11 @@ void JuffEd::onCloseRequested(bool& confirm) {
 	}
 }
 
+#ifdef Q_OS_UNIX
+//#include <X11/Xlib.h>
+//#include <QX11Info>
+#endif
+
 void JuffEd::onMessageReceived(const QString& msg) {
 	LOGGER;
 	
@@ -764,6 +769,18 @@ void JuffEd::onMessageReceived(const QString& msg) {
 		if ( QFileInfo(param).exists() )
 			openDoc(param);
 	}
+#ifdef Q_OS_UNIX
+//	Display* d = QX11Info::display();
+//	Window w = mw_->winId();
+//
+//	XSetWindowAttributes attr;
+//	attr.override_redirect = True;
+//
+//	XChangeWindowAttributes(d, w, CWOverrideRedirect, &attr);
+//	XRaiseWindow(d, w);
+//	XFlush(d); 
+//	XSync(d, False);
+#endif
 }
 
 

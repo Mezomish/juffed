@@ -19,19 +19,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_APP_INFO_H__
 #define __JUFFED_APP_INFO_H__
 
-#include <QDir>
-#include <QLocale>
+#ifdef Q_OS_WIN
+#include "AppInfo.win.h"
+#else
+#include "AppInfo.nix.h"
+#endif
 
-class AppInfo {
-public:
-	static QString name()            { return "JuffEd"; }
-	static QString organization()    { return "Juff"; }
-	static QString configDirPath()   { return QDir::homePath() + "/.config/" + organization().toLower(); }
-	static QString language()        { return QLocale::system().name(); }
-	static QString logFile()         { return configDirPath() + "/juffed.log"; }
-	static QString defaultPrjPath()  { return configDirPath() + "/empty_project.xml"; }
-	
-//	static QString translationPath() { return ; }
-};
-
-#endif // __JUFFED_APP_INFO_H__
+#endif // __JUFF_APP_INFO_H__

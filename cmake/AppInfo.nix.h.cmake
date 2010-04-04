@@ -8,10 +8,9 @@ of configure script.
 #define _APP_INFO_NIX_H_
 
 #include <QtCore/QDir>
+#include <QtCore/QLocale>
 #include <QtCore/QString>
 
-#include <unistd.h>
-#include <pwd.h>
 
 class AppInfo {
 public:
@@ -22,8 +21,9 @@ public:
 	static QString translationPath() { return appDirPath() + "/l10n"; }
 	static QString version()         { return "@JUFFED_VERSION@"; }
 	static QString logFile()         { return configDirPath() + "/juffed.log"; }
-
-	static QString socketPath()      { return QString("/tmp/juffed-%1").arg(getpwuid(geteuid())->pw_name); }
+	static QString language()        { return QLocale::system().name(); }
+	static QString defaultPrjPath()  { return configDirPath() + "/empty_project.xml"; }
+	
 	static QString appDirPath()      { return "@DATA_INSTALL_DIR@"; }
 };
 

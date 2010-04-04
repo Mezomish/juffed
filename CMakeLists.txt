@@ -172,7 +172,7 @@ SET ( juffed_app_RESOURCES
 )
 
 SET ( juffed_DEV_HEADERS
-	include/AppInfo.h
+#	include/AppInfo.h
 	include/CharsetSettings.h
 	include/CommandStorage.h
 	include/Document.h
@@ -296,8 +296,8 @@ SET( CMAKE_VERBOSE_MAKEFILE  ON )
 #INCLUDE (${QT_USE_FILE})
 
 #Configure AppInfo.h
-#configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.nix.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.nix.h" @ONLY)
-#configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.win.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.win.h" @ONLY)
+configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.nix.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.nix.h" @ONLY)
+configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.win.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.win.h" @ONLY)
 #configure_file ("${CMAKE_SOURCE_DIR}/cmake/version.cmake" "${CMAKE_BINARY_DIR}/version.real" @ONLY)
 
 # qt4 actions

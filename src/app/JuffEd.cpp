@@ -217,9 +217,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	mw_->menuBar()->addMenu(editMenu);
 	mw_->menuBar()->addMenu(viewMenu);
 	mw_->menuBar()->addMenu(formatMenu);
-	mw_->menuBar()->addMenu(helpMenu);
-	
 	initPlugins();
+	mw_->menuBar()->addMenu(helpMenu);
 	
 	openWithCharsetGr_ = new QActionGroup(this);
 	setCharsetGr_ = new QActionGroup(this);

@@ -29,6 +29,7 @@ public:
 	enum IntKey {
 		FontSize,
 		TabWidth,
+		LineLengthIndicator,
 	};
 	
 	enum BoolKey {

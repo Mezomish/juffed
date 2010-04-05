@@ -89,7 +89,7 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 }
 
 JuffMW::JuffMW() : QMainWindow() {
-	resize(800, 700);
+	setGeometry(MainSettings::geometry());
 	setWindowIcon(QIcon(":juffed_32.png"));
 	
 	mainWidget_ = new QWidget();
@@ -211,4 +211,14 @@ void JuffMW::closeEvent(QCloseEvent* e) {
 	else {
 		e->ignore();
 	}
+}
+
+void JuffMW::resizeEvent(QResizeEvent*) {
+	LOGGER;
+	MainSettings::setGeometry(geometry());
+}
+
+void JuffMW::moveEvent(QMoveEvent*) {
+	LOGGER;
+	MainSettings::setGeometry(geometry());
 }

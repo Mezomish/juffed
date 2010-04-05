@@ -36,10 +36,12 @@ public:
 //	static void set(IntKey, int);
 	static void set(BoolKey, bool);
 	static void set(StringKey, const QString&);
+	static void setGeometry(const QRect&);
 
 //	static int     get(IntKey);
 	static bool    get(BoolKey);
 	static QString get(StringKey);
+	static QRect geometry();
 //	static QColor  get(ColorKey);
 };
 

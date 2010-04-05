@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "MainSettings.h"
 
+#include <QRect>
+
 void MainSettings::set(BoolKey key, bool value) {
 	switch (key) {
 		case SyncToCurDoc :
@@ -77,3 +79,12 @@ QString MainSettings::get(StringKey key) {
 			return "";
 	}
 }
+
+void MainSettings::setGeometry(const QRect& rect) {
+	Settings::setValue("main", "geometry", rect);
+}
+
+QRect MainSettings::geometry() {
+	return Settings::value("main", "geometry", defaultValue("main", "geometry")).toRect();
+}
+

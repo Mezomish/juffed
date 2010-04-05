@@ -56,6 +56,8 @@ public slots:
 
 protected:
 	virtual void closeEvent(QCloseEvent*);
+	virtual void resizeEvent(QResizeEvent*);
+	virtual void moveEvent(QMoveEvent*);
 	
 private:
 	QWidget* viewer_;

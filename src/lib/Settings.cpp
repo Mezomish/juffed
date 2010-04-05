@@ -124,6 +124,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "iconTheme" )              return "<default>";
 		if ( key == "lastOpenDir" )            return QDir::homePath();
 		if ( key == "lastSaveDir" )            return QDir::homePath();
+		if ( key == "geometry" )               return QRect(50, 50, 800, 600);
 	}
 	else if ( section == "autocomplete" ) {
 		if ( key == "useDocument" )   return false;

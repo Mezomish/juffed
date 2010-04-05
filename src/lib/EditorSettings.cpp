@@ -27,6 +27,10 @@ void EditorSettings::set(IntKey key, int value) {
 		case TabWidth :
 			Settings::setValue("editor", "tabStopWidth", value); 
 			break;
+		
+		case LineLengthIndicator :
+			Settings::setValue("editor", "lineLengthIndicator", value); 
+			break;
 	}
 }
 
@@ -60,6 +64,8 @@ int EditorSettings::get(IntKey key) {
 			return Settings::intValue("editor", "fontSize");
 		case TabWidth :
 			return Settings::intValue("editor", "tabStopWidth");
+		case LineLengthIndicator :
+			return Settings::intValue("editor", "lineLengthIndicator");
 	}
 	return -1;
 }

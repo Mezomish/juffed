@@ -73,7 +73,7 @@ public:
 //				ui.showSessionDlgBtn->setChecked(true);
 //		}
 
-		items << new SettingsCheckItem("main", "saveSessionOnClose", ui.saveSessionChk)
+		items
 			  << new SettingsCheckItem("main", "exitOnLastDocClosed", ui.exitOnLastDocClosedChk)
 			  << new SettingsCheckItem("main", "syncOpenDialogToCurDoc", ui.syncOpenDlgChk)
 			  << new SettingsCheckItem("main", "makeBackupOnSave", ui.makeBackupChk)
@@ -145,15 +145,15 @@ public:
 		Log::debug("Initialization: editor page");
 		ui.fontCmb->setCurrentFont(EditorSettings::font());
 		ui.fontSizeSpin->setValue(EditorSettings::font().pointSize());
-//		int chars = TextDocSettings::lineLengthIndicator();
-//		if (chars > 0) {
-//			ui.showLineLengthChk->setChecked(true);
-//			ui.lineLengthSpin->setValue(chars);
-//		}
-//		else {
-//			ui.showLineLengthChk->setChecked(false);
-//			ui.lineLengthSpin->setValue(-chars);
-//		}
+		int chars = EditorSettings::get(EditorSettings::LineLengthIndicator);
+		if (chars > 0) {
+			ui.showLineLengthChk->setChecked(true);
+			ui.lineLengthSpin->setValue(chars);
+		}
+		else {
+			ui.showLineLengthChk->setChecked(false);
+			ui.lineLengthSpin->setValue(-chars);
+		}
 		ui.tabStopWidthSpin->setValue(EditorSettings::get(EditorSettings::TabWidth));
 
 		items << new SettingsCheckItem("editor", "highlightCurrentLine", ui.hlCurLineChk)
@@ -311,15 +311,6 @@ int SettingsDlg::exec() {
 }
 
 void SettingsDlg::apply() {
-	int startupVariant = 0;
-	if (pageMain_->ui.openLastSessionBtn->isChecked()) {
-		startupVariant = 1;
-	}
-	else if (pageMain_->ui.openEmptySessionBtn->isChecked()) {
-		startupVariant = 2;
-	}
-//	MainSettings::setStartupVariant(startupVariant);
-
 	foreach (SettingsItem* sItem, items_) {
 		sItem->writeValue();
 	}
@@ -329,11 +320,11 @@ void SettingsDlg::apply() {
 	font.setPointSize(pageEditor_->ui.fontSizeSpin->value());
 	EditorSettings::setFont(font);
 
-	if (pageEditor_->ui.showLineLengthChk->isChecked()) {
-//		TextDocSettings::setLineLengthIndicator(pageEditor_->ui.lineLengthSpin->value());
+	if ( pageEditor_->ui.showLineLengthChk->isChecked() ) {
+		EditorSettings::set(EditorSettings::LineLengthIndicator, pageEditor_->ui.lineLengthSpin->value());
 	}
 	else {
-//		TextDocSettings::setLineLengthIndicator(-pageEditor_->ui.lineLengthSpin->value());
+		EditorSettings::set(EditorSettings::LineLengthIndicator, -pageEditor_->ui.lineLengthSpin->value());
 	}
 	// colors
 //	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());

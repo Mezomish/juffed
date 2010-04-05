@@ -761,14 +761,14 @@ void SciDoc::applySettings() {
 		edit->setTabWidth(EditorSettings::get(EditorSettings::TabWidth));
 		edit->setIndentationsUseTabs(EditorSettings::get(EditorSettings::UseTabs));
 
-//		int lInd = TextDocSettings::lineLengthIndicator();
-//		if ( lInd > 0 ) {
-//			edit->setEdgeMode(QsciScintilla::EdgeLine);
-//			edit->setEdgeColumn(lInd);
-//		}
-//		else {
-//			edit->setEdgeMode(QsciScintilla::EdgeNone);
-//		}
+		int lInd = EditorSettings::get(EditorSettings::LineLengthIndicator);
+		if ( lInd > 0 ) {
+			edit->setEdgeMode(QsciScintilla::EdgeLine);
+			edit->setEdgeColumn(lInd);
+		}
+		else {
+			edit->setEdgeMode(QsciScintilla::EdgeNone);
+		}
 		
 		edit->setCaretLineVisible(true);
 //		edit->setCaretLineVisible(TextDocSettings::highlightCurrentLine());

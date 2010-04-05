@@ -117,6 +117,17 @@ SET ( juffed_app_MOC_HEADERS
 	src/3rd_party/qtsingleapplication/qtlockedfile.h
 	src/3rd_party/qtsingleapplication/qtlocalpeer.h
 	
+	# settings
+	src/app/ui/settings/CharsetsSettingsPage.h
+	src/app/ui/settings/ColorButton.h
+#	src/app/ui/settings/FileTypesPage.h
+	src/app/ui/settings/MultiPage.h
+	src/app/ui/settings/PluginPage.h
+	src/app/ui/settings/SettingsDlg.h
+	src/app/ui/settings/SettingsCheckItem.h
+	src/app/ui/settings/SettingsItem.h
+	src/app/ui/settings/SettingsSelectItem.h
+
 	# TODO : move this to a plugin!
 	src/app/ui/ProjectTree.h
 )
@@ -144,6 +155,17 @@ SET ( juffed_app_SRCS
 	src/3rd_party/qtsingleapplication/qtlockedfile.cpp
 	src/3rd_party/qtsingleapplication/qtlocalpeer.cpp
 	
+	# settings
+	src/app/ui/settings/CharsetsSettingsPage.cpp
+	src/app/ui/settings/ColorButton.cpp
+#	src/app/ui/settings/FileTypesPage.cpp
+	src/app/ui/settings/MultiPage.cpp
+	src/app/ui/settings/PluginPage.cpp
+	src/app/ui/settings/SettingsDlg.cpp
+	src/app/ui/settings/SettingsCheckItem.cpp
+	src/app/ui/settings/SettingsItem.cpp
+	src/app/ui/settings/SettingsSelectItem.cpp
+
 	# TODO : move this to a plugin!
 	src/app/ui/ProjectTree.cpp
 )
@@ -166,6 +188,15 @@ SET ( juffed_app_UIS
 	src/app/ui/forms/JumpToFileDlg.ui
 	src/app/ui/forms/MessageWidget.ui
 	src/app/ui/forms/SelectFilesDlg.ui
+	
+	# settings
+	src/app/ui/forms/AutocompleteSettingsPage.ui
+	src/app/ui/forms/CharsetsSettingsPage.ui
+	src/app/ui/forms/EditorSettingsPage.ui
+	src/app/ui/forms/FileTypesPage.ui
+	src/app/ui/forms/MainSettingsPage.ui
+	src/app/ui/forms/SessionDlg.ui
+	src/app/ui/forms/ViewSettingsPage.ui
 )
 
 SET ( juffed_app_RESOURCES

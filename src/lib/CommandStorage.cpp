@@ -94,6 +94,8 @@ void CommandStorage::createActions() {
 		Juff::ViewZoom100,
 		Juff::ViewFullscreen,
 		//
+		Juff::Settings,
+		//
 		Juff::About,
 		Juff::AboutQt,
 		//
@@ -161,6 +163,8 @@ QString CommandStorage::title(Juff::ActionID id) const {
 		case Juff::ViewZoomOut :     return QObject::tr("Zoom out");
 		case Juff::ViewZoom100 :     return QObject::tr("Zoom 100%");
 		case Juff::ViewFullscreen :  return QObject::tr("Fullscreen");
+		
+		case Juff::Settings:         return QObject::tr("Settings");
 		
 		case Juff::About:            return QObject::tr("About");
 		case Juff::AboutQt:          return QObject::tr("About Qt");

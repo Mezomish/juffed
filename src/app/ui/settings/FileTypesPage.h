@@ -16,36 +16,29 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef __JUFFED_PLUGIN_NOTIFIER_H__
-#define __JUFFED_PLUGIN_NOTIFIER_H__
+#ifndef __JUFF_FILE_TYPES_PAGE_H__
+#define __JUFF_FILE_TYPES_PAGE_H__
 
-#include <QObject>
-#include <QString>
+#include "ui_FileTypesPage.h"
 
-namespace Juff {
-
-class Project;
-class Document;
-
-class PluginNotifier : public QObject {
+class FileTypesPage : public QWidget {
 Q_OBJECT
 public:
-	PluginNotifier();
+	FileTypesPage();
 
-signals:
-	void docOpened(Juff::Document*);
-	void docActivated(Juff::Document*);
-	void docClosed(Juff::Document*);
-	void docRenamed(Juff::Document*, const QString& oldName);
-	void docModified(Juff::Document*);
-	void docTextChanged(Juff::Document*);
-	void docSyntaxChanged(Juff::Document*, const QString& oldSyntax);
-	void docCharsetChanged(Juff::Document*, const QString& oldCharset);
+	void apply();
 
-	void projectOpened(Juff::Project*);
-	void settingsApplied();
+protected slots:
+	void typeChanged(const QString&);
+	void addFileNamePattern();
+	void removeFileNamePattern();
+	void addFirstLinePattern();
+	void removeFirstLinePattern();
+
+private:
+	Ui::FileTypesPage ui;
+	QMap<QString, QStringList> fileNamePatterns_;
+	QMap<QString, QStringList> firstLinePatterns_;
 };
 
-}
-
-#endif // __JUFFED_PLUGIN_NOTIFIER_H__
+#endif // __JUFF_FILE_TYPES_PAGE_H__

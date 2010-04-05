@@ -770,8 +770,9 @@ void SciDoc::applySettings() {
 //			edit->setEdgeMode(QsciScintilla::EdgeNone);
 //		}
 		
+		edit->setCaretLineVisible(true);
 //		edit->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
-//		edit->setCaretLineBackgroundColor(LexerStorage::instance()->curLineColor(docInt_->syntax_));
+		edit->setCaretLineBackgroundColor(LexerStorage::instance()->curLineColor(syntax()));
 //		edit->setIndentationGuides(TextDocSettings::showIndents());
 //		edit->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
 //		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());

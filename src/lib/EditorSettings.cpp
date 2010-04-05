@@ -114,7 +114,31 @@ QColor EditorSettings::get(ColorKey key) {
 	return QColor();
 }
 
+void EditorSettings::set(ColorKey key, const QColor& c) {
+	switch (key) {
+		case CurLineColor :
+			Settings::setValue("editor", "curLineColor", c);
+			break;
+		
+		case SelectionBgColor :
+			Settings::setValue("editor", "selectionBgColor", c);
+			break;
+		
+		case DefaultBgColor :
+			Settings::setValue("editor", "defaultBgColor", c);
+			break;
+		
+		case DefaultFontColor :
+			Settings::setValue("editor", "defaultFontColor", c);
+			break;
+	}
+}
 
 QFont EditorSettings::font() {
 	return QFont(get(FontFamily), get(FontSize));
+}
+
+void EditorSettings::setFont(const QFont& f) {
+	set(FontFamily, f.family());
+	set(FontSize, f.pointSize());
 }

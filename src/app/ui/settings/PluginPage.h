@@ -16,36 +16,30 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef __JUFFED_PLUGIN_NOTIFIER_H__
-#define __JUFFED_PLUGIN_NOTIFIER_H__
+#ifndef __JUFF_PLUGIN_PAGE_H__
+#define __JUFF_PLUGIN_PAGE_H__
 
-#include <QObject>
-#include <QString>
+class QCheckBox;
 
-namespace Juff {
+#include <QtGui/QWidget>
 
-class Project;
-class Document;
-
-class PluginNotifier : public QObject {
+class PluginPage : public QWidget {
 Q_OBJECT
 public:
-	PluginNotifier();
+	PluginPage(const QString& pluginName, QWidget* page);
+	virtual ~PluginPage();
 
-signals:
-	void docOpened(Juff::Document*);
-	void docActivated(Juff::Document*);
-	void docClosed(Juff::Document*);
-	void docRenamed(Juff::Document*, const QString& oldName);
-	void docModified(Juff::Document*);
-	void docTextChanged(Juff::Document*);
-	void docSyntaxChanged(Juff::Document*, const QString& oldSyntax);
-	void docCharsetChanged(Juff::Document*, const QString& oldCharset);
+	bool pageEnabled() const;
+	QString name() const { return name_; }
 
-	void projectOpened(Juff::Project*);
-	void settingsApplied();
+public slots:
+	void enablePage(bool);
+
+private:
+	QCheckBox* usePluginChk_;
+	QWidget* page_;
+	bool enabled_;
+	QString name_;
 };
 
-}
-
-#endif // __JUFFED_PLUGIN_NOTIFIER_H__
+#endif // __JUFF_PLUGIN_PAGE_H__

@@ -75,6 +75,8 @@ typedef enum {
 	ViewZoom100,
 	ViewFullscreen,
 	//
+	Settings,
+	//
 	About,
 	AboutQt,
 //	LastAction

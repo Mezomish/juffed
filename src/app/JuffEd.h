@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class QActionGroup;
 class QMenu;
+class SettingsDlg;
 
 namespace Juff {
 	class Project;
@@ -105,6 +106,9 @@ public slots:
 	void slotOpenWithCharset();
 	void slotSetCharset();
 	
+	void slotSettings();
+	
+	// single application slot
 	void onMessageReceived(const QString&);
 	
 private slots:
@@ -188,6 +192,7 @@ private:
 	
 	ProjectTree* tree_;
 	PluginManager pluginMgr_;
+	SettingsDlg* settingsDlg_;
 };
 
 #endif // __JUFFED_JUFFED_H__

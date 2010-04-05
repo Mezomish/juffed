@@ -31,6 +31,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Project.h"
 #include "Settings.h"
 #include "StatusLabel.h"
+#include "settings/SettingsDlg.h"
 
 #include <QAction>
 #include <QActionGroup>
@@ -117,6 +118,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	connect(st->action(Juff::ViewZoomOut), SIGNAL(triggered()), this, SLOT(slotZoomOut()));
 	connect(st->action(Juff::ViewZoom100), SIGNAL(triggered()), this, SLOT(slotZoom100()));
 	connect(st->action(Juff::ViewFullscreen), SIGNAL(triggered()), this, SLOT(slotFullscreen()));
+	
+	connect(st->action(Juff::Settings), SIGNAL(triggered()), this, SLOT(slotSettings()));
 	
 	connect(st->action(Juff::About), SIGNAL(triggered()), mw_, SLOT(about()));
 	connect(st->action(Juff::AboutQt), SIGNAL(triggered()), mw_, SLOT(aboutQt()));
@@ -209,7 +212,10 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	}
 	
 	QMenu* formatMenu = *( menus_.insert(Juff::MenuFormat, new QMenu(tr("&Format"))) );
+	QMenu* toolsMenu = *( menus_.insert(Juff::MenuTools, new QMenu(tr("&Tools"))) );
 	QMenu* helpMenu = *( menus_.insert(Juff::MenuHelp, new QMenu(tr("&Help"))) );
+	
+	toolsMenu->addAction(st->action(Juff::Settings));
 	helpMenu->addAction(st->action(Juff::About));
 	helpMenu->addAction(st->action(Juff::AboutQt));
 	
@@ -218,6 +224,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	mw_->menuBar()->addMenu(viewMenu);
 	mw_->menuBar()->addMenu(formatMenu);
 	initPlugins();
+	mw_->menuBar()->addMenu(toolsMenu);
 	mw_->menuBar()->addMenu(helpMenu);
 	
 	openWithCharsetGr_ = new QActionGroup(this);
@@ -271,6 +278,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	docManager_->initStatusBar(mw_->statusBar());
 	
 	loadProject();
+	
+	settingsDlg_ = new SettingsDlg(mw_);
 }
 
 JuffEd::~JuffEd() {
@@ -634,6 +643,11 @@ void JuffEd::slotFullscreen() {
 	LOGGER;
 	
 	mw_->setWindowState(mw_->windowState() ^ Qt::WindowFullScreen);
+}
+
+void JuffEd::slotSettings() {
+	LOGGER;
+	settingsDlg_->exec();
 }
 
 void JuffEd::slotOpenWithCharset() {

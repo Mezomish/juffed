@@ -51,6 +51,7 @@ public:
 	static void set(IntKey, int);
 	static void set(BoolKey, bool);
 	static void set(StringKey, const QString&);
+	static void set(ColorKey, const QColor&);
 
 	static int     get(IntKey);
 	static bool    get(BoolKey);
@@ -58,6 +59,7 @@ public:
 	static QColor  get(ColorKey);
 	
 	static QFont font();
+	static void setFont(const QFont&);
 };
 
 #endif // __JUFFED_EDITOR_SETTINGS_H__

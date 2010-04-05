@@ -715,6 +715,16 @@ void JuffEd::onDocActivated(Juff::Document* doc) {
 	emit docActivated(doc);
 }
 
+void JuffEd::onDocRenamed(const QString& oldName) {
+	LOGGER;
+	
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
+	if ( doc != 0 ) {
+		// notify plugins
+		emit docRenamed(doc, oldName);
+	}
+}
+
 void JuffEd::onCloseRequested(bool& confirm) {
 	LOGGER;
 
@@ -837,6 +847,7 @@ void JuffEd::initDoc(Juff::Document* doc) {
 	connect(doc, SIGNAL(cursorPosChanged(int, int)), SLOT(onDocCursorMoved(int, int)));
 	connect(doc, SIGNAL(lineCountChanged(int)), SLOT(onDocLineCountChanged(int)));
 	connect(doc, SIGNAL(textChanged()), SLOT(onDocTextChanged()));
+	connect(doc, SIGNAL(renamed(const QString&)), SLOT(onDocRenamed(const QString&)));
 	
 	updateMenus(doc);
 }
@@ -945,6 +956,8 @@ bool JuffEd::saveDoc(Juff::Document* doc) {
 }
 
 bool JuffEd::saveDocAs(Juff::Document* doc) {
+	LOGGER;
+	
 	QString filters = "All files (*)";
 	QString fileName = mw_->getSaveFileName(doc->fileName(), filters);
 	if ( !fileName.isEmpty() ) {
@@ -1050,9 +1063,25 @@ void JuffEd::initCharsetMenus() {
 void JuffEd::initPlugins() {
 	pluginMgr_.loadPlugins();
 	
+	// menus
 	Juff::MenuList menus = pluginMgr_.menus();
 	foreach (QMenu* menu, menus)
 		mw_->menuBar()->addMenu(menu);
+	
+	// menu actions
+	// TODO
+	
+	// docks
+	QWidgetList widgets = pluginMgr_.docks();
+	foreach (QWidget* w, widgets) {
+		QString title = w->windowTitle();
+		QDockWidget* dock = new QDockWidget(title);
+		dock->setObjectName(title);
+		dock->setWidget(w);
+		mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
+		
+//		docksMenu_->addAction(dock->toggleViewAction());
+	}
 }
 
 QString JuffEd::projectName() const {

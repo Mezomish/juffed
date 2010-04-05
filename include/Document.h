@@ -101,7 +101,7 @@ signals:
 	void textChanged();
 	void syntaxChanged(const QString&);
 	void charsetChanged(const QString&);
-//	void renamed(const QString&);
+	void renamed(const QString&);
 
 protected:
 	// This constructor is being used for creating clones

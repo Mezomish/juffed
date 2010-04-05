@@ -216,7 +216,7 @@ void SciDoc::print() {
 		int line1(-1), line2(-1), col1(-1), col2(-1);
 		JuffScintilla* edit = int_->curEdit_;
 		if ( edit ) {
-			QsciLexer* lexer = edit->lexer();
+//			QsciLexer* lexer = edit->lexer();
 //			if ( !PrintSettings::keepBgColor() ) {
 //				lexer->setDefaultPaper(Qt::white);
 //				lexer->setPaper(Qt::white);
@@ -510,7 +510,7 @@ void SciDoc::moveDown() {
 	if ( hasSelectedText() ) {
 		int line1, line2, col1, col2;
 		getSelection(line1, col1, line2, col2);
-		int n = lineCount();
+//		int n = lineCount();
 		
 		int realLine2 = line2;
 		if ( col2 == 0 )

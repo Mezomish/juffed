@@ -58,7 +58,8 @@ void PluginManager::loadPlugins() {
 Juff::MenuList PluginManager::menus() const {
 	Juff::MenuList menus;
 	foreach (JuffPlugin* plugin, plugins_)
-		menus << plugin->menu();
+		if ( plugin->menu() != 0 )
+			menus << plugin->menu();
 	return menus;
 }
 
@@ -67,6 +68,13 @@ Juff::ActionList PluginManager::actions(Juff::MenuID id) const {
 	foreach (JuffPlugin* plugin, plugins_)
 		actions << plugin->mainMenuActions(id);
 	return actions;
+}
+
+QWidgetList PluginManager::docks() const {
+	QWidgetList list;
+	foreach (JuffPlugin* plugin, plugins_)
+		list << plugin->dockList();
+	return list;
 }
 
 #include "EditorSettings.h"
@@ -104,6 +112,7 @@ void PluginManager::loadPlugin(const QString& path) {
 //			plugin->setManager(pmInt_->managerInt_);
 			plugin->setHandler(handler_);
 			plugin->setNotifier(notifier_);
+			plugin->init();
 			
 			plugins_ << plugin;
 //			if ( pmInt_->addPlugin(plugin) ) {

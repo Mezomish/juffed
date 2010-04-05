@@ -37,6 +37,7 @@ public:
 
 	Juff::MenuList menus() const;
 	Juff::ActionList actions(Juff::MenuID) const;
+	QWidgetList docks() const;
 
 private:
 	void loadPlugin(const QString&);

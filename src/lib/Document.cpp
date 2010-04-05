@@ -162,9 +162,19 @@ QString Document::guessCharset(const QString& fileName) {
 }*/
 
 bool Document::saveAs(const QString& fileName, QString& error) {
+	QString oldName = fileName_;
 	fileName_ = fileName;
-//	updateClone();
-	return save(error);
+	if ( save(error) ) {
+		// notify plugins
+		emit renamed(oldName);
+		
+//		updateClone();
+		return true;
+	}
+	else {
+		fileName_ = oldName;
+		return false;
+	}
 }
 
 }

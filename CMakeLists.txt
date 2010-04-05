@@ -173,7 +173,9 @@ SET ( juffed_app_RESOURCES
 )
 
 SET ( juffed_DEV_HEADERS
-#	include/AppInfo.h
+	include/AppInfo.h
+	${CMAKE_BINARY_DIR}/AppInfo.win.h
+	${CMAKE_BINARY_DIR}/AppInfo.nix.h
 	include/CharsetSettings.h
 	include/CommandStorage.h
 	include/Document.h
@@ -192,7 +194,7 @@ SET ( juffed_DEV_HEADERS
 	include/PluginSettings.h
 	include/Project.h
 	include/Types.h
-#	include/Settings.h,
+	include/Settings.h
 )
 
 FIND_PACKAGE ( Qt4 REQUIRED )

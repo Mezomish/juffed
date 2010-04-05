@@ -62,7 +62,11 @@ Juff::MenuList PluginManager::menus() const {
 	return menus;
 }
 
-Juff::ActionList PluginManager::actions(Juff::MenuID) const {
+Juff::ActionList PluginManager::actions(Juff::MenuID id) const {
+	Juff::ActionList actions;
+	foreach (JuffPlugin* plugin, plugins_)
+		actions << plugin->mainMenuActions(id);
+	return actions;
 }
 
 #include "EditorSettings.h"

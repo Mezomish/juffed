@@ -164,7 +164,7 @@ QString Document::guessCharset(const QString& fileName) {
 bool Document::saveAs(const QString& fileName, QString& error) {
 	fileName_ = fileName;
 //	updateClone();
-	save(error);
+	return save(error);
 }
 
 }

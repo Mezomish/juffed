@@ -275,6 +275,25 @@ bool SciDoc::getSelectedText(QString& text) const {
 	return true;
 }
 
+bool SciDoc::getText(QString& text) const {
+	if ( int_->curEdit_ == NULL ) return false;
+	
+	text = int_->curEdit_->text();
+	return true;
+}
+
+bool SciDoc::getTextLine(int line, QString& textLine) const {
+	if ( int_->curEdit_ == NULL ) return false;
+	
+	if ( line >=0 && line < lineCount() ) {
+		textLine = int_->curEdit_->text(line);
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 bool SciDoc::getCursorPos(int& line, int& col) const {
 	if ( int_->curEdit_ == NULL ) return false;
 

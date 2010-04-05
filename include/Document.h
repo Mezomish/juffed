@@ -42,6 +42,8 @@ public:
 	virtual bool hasSelectedText() const { return false; }
 	virtual bool getSelection(int&, int&, int&, int&) const { return false; }
 	virtual bool getSelectedText(QString&) const { return false; }
+	virtual bool getText(QString&) const { return false; }
+	virtual bool getTextLine(int, QString&) const { return false; }
 	virtual bool getCursorPos(int&, int&) const { return false; }
 	virtual QString syntax() const { return ""; }
 	virtual void setModified(bool) {}

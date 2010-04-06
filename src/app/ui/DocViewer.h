@@ -68,6 +68,7 @@ public:
 
 signals:
 	void docActivated(Juff::Document*);
+	void docOpenRequested(const QString&);
 
 public slots:
 	void nextDoc();

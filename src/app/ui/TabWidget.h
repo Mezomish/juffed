@@ -39,6 +39,7 @@ signals:
 	void requestDocClose(Juff::Document*, Juff::TabWidget*);
 	void requestDocClone(Juff::Document*, Juff::TabWidget*);
 	void requestDocMove(Juff::Document*, Juff::TabWidget*);
+	void requestDocOpen(const QString&);
 	void tabRemoved(Juff::TabWidget*);
 
 protected slots:
@@ -52,6 +53,8 @@ protected slots:
 protected:
 	virtual void tabRemoved(int);
 	virtual void tabInserted(int);
+	virtual void dragEnterEvent(QDragEnterEvent*);
+	virtual void dropEvent(QDropEvent*);
 
 private slots:
 	void onTabCloseRequested(int);

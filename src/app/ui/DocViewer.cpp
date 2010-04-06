@@ -53,6 +53,7 @@ DocViewer::DocViewer() : QWidget() {
 		connect(tw, SIGNAL(requestDocClose(Juff::Document*, Juff::TabWidget*)), SLOT(onDocCloseRequested(Juff::Document*, Juff::TabWidget*)));
 		connect(tw, SIGNAL(requestDocClone(Juff::Document*, Juff::TabWidget*)), SLOT(onDocCloneRequested(Juff::Document*, Juff::TabWidget*)));
 		connect(tw, SIGNAL(requestDocMove(Juff::Document*, Juff::TabWidget*)), SLOT(onDocMoveRequested(Juff::Document*, Juff::TabWidget*)));
+		connect(tw, SIGNAL(requestDocOpen(const QString&)), SIGNAL(docOpenRequested(const QString&)));
 		connect(tw, SIGNAL(tabRemoved(Juff::TabWidget*)), SLOT(onTabRemoved(Juff::TabWidget*)));
 	}
 	

@@ -25,9 +25,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QApplication>
 #include <QClipboard>
+#include <QDragEnterEvent>
+#include <QDropEvent>
 #include <QFileInfo>
 #include <QMenu>
 #include <QPushButton>
+#include <QUrl>
 
 namespace Juff {
 
@@ -55,6 +58,7 @@ const int DocListButton::sz = 24;
 TabWidget::TabWidget() : QTabWidget() {
 	setTabBar(new Juff::TabBar(this));
 	connect(tabBar(), SIGNAL(requestTabClose(int)), SLOT(onTabCloseRequested(int)));
+	setAcceptDrops(true);
 	
 	static int ind = 0;
 	index_ = ind++;
@@ -203,6 +207,37 @@ void TabWidget::moveDoc() {
 		emit requestDocMove(doc, this);
 	}
 }
+
+
+void TabWidget::dragEnterEvent(QDragEnterEvent* e) {
+	LOGGER;
+
+	if (e->mimeData()->hasUrls()) {
+		e->acceptProposedAction();
+	}
+}
+
+void TabWidget::dropEvent(QDropEvent* e) {
+	LOGGER;
+
+	if ( e->mimeData()->hasUrls() ) {
+		QList<QUrl> urls = e->mimeData()->urls();
+		foreach (QUrl url, urls) {
+			QString name = url.path();
+
+#ifdef Q_OS_WIN32
+			//	hack to protect of strings with filenames like /C:/doc/file.txt
+			if ( name[0] == '/' )
+				name.remove(0, 1);
+#endif
+
+			if ( !name.isEmpty() ) {
+				emit requestDocOpen(name);
+			}
+		}
+	}
+}
+
 
 } // namespace Juff
 

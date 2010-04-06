@@ -244,6 +244,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	docManager_ = new DocManager(this);
 	
 	connect(viewer_, SIGNAL(docActivated(Juff::Document*)), SLOT(onDocActivated(Juff::Document*)));
+	connect(viewer_, SIGNAL(docOpenRequested(const QString&)), SLOT(onDocOpenRequested(const QString&)));
 	connect(mw_, SIGNAL(closeRequested(bool&)), SLOT(onCloseRequested(bool&)));
 	
 	// engines actions
@@ -790,6 +791,10 @@ void JuffEd::onCloseRequested(bool& confirm) {
 			confirm = false;
 		}
 	}
+}
+
+void JuffEd::onDocOpenRequested(const QString& fileName) {
+	openDoc(fileName);
 }
 
 #ifdef Q_OS_UNIX

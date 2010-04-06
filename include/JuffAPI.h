@@ -8,11 +8,22 @@
 
 class JuffAPI {
 public:
-	JuffAPI(Juff::DocHandlerInt*, Juff::PluginNotifier*);
-	virtual ~JuffAPI();
-
+	/**
+	* Returns current document or NullDoc if there is no current document.
+	* See "Document.h" for details.
+	*/
 	Juff::Document* currentDocument() const;
+	
+	/**
+	* Returns current project.
+	* See "Project.h" for details.
+	*/
 	Juff::Project* currentProject() const;
+	
+	/**
+	* Returns PluginNotifier object that emits signals when certain events occur.
+	* See "PluginNotifier.h" for details.
+	*/
 	Juff::PluginNotifier* notifier() const;
 
 
@@ -41,6 +52,11 @@ public:
 	*/
 	virtual QStringList docList() const;
 	
+	
+	/// Constructor
+	JuffAPI(Juff::DocHandlerInt*, Juff::PluginNotifier*);
+	/// Destructor
+	virtual ~JuffAPI();
 private:
 	class Interior;
 	Interior* int_;

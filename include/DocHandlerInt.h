@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 namespace Juff {
 
 class Document;
+class Project;
 
 class DocHandlerInt {
 public:
@@ -29,6 +30,11 @@ public:
 	* Returns current document. If there is no documents then returns a NullDoc.
 	*/
 	virtual Juff::Document* curDoc() const = 0;
+
+	/**
+	* Returns current project.
+	*/
+	virtual Juff::Project* curPrj() const = 0;
 
 	/**
 	* Opens a document with a given file name or activates it if it is already opened.

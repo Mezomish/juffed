@@ -54,6 +54,7 @@ public:
 
 	// implementation of DocHandlerInt interface
 	virtual Juff::Document* curDoc() const;
+	virtual Juff::Project* curPrj() const;
 	virtual void openDoc(const QString&);
 	virtual void closeDoc(const QString&);
 	virtual void saveDoc(const QString&);

@@ -87,6 +87,7 @@ SET ( juffed_lib_SRCS
 	src/lib/DocEngine.cpp
 	src/lib/Functions.cpp
 	src/lib/IconManager.cpp
+	src/lib/JuffAPI.cpp
 	src/lib/Log.cpp
 	src/lib/NullDoc.cpp
 	src/lib/Project.cpp
@@ -217,6 +218,7 @@ SET ( juffed_DEV_HEADERS
 	include/FileTypeSettings.h
 	include/Functions.h
 	include/IconManager.h
+	include/JuffAPI.h
 	include/JuffPlugin.h
 	include/Log.h
 	include/MainSettings.h

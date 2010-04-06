@@ -29,8 +29,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QPluginLoader>
 
 PluginManager::PluginManager(Juff::DocHandlerInt* handler, Juff::PluginNotifier* notifier) {
-	handler_ = handler;
-	notifier_ = notifier;
+	api_ = new JuffAPI(handler, notifier);
+}
+
+PluginManager::~PluginManager() {
+	delete api_;
 }
 
 void PluginManager::loadPlugins() {
@@ -110,8 +113,7 @@ void PluginManager::loadPlugin(const QString& path) {
 //				return;
 
 //			plugin->setManager(pmInt_->managerInt_);
-			plugin->setHandler(handler_);
-			plugin->setNotifier(notifier_);
+			plugin->setAPI(api_);
 			plugin->init();
 			
 			plugins_ << plugin;

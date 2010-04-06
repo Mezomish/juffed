@@ -892,6 +892,10 @@ Juff::Document* JuffEd::curDoc() const {
 	return viewer_->currentDoc();
 }
 
+Juff::Project* JuffEd::curPrj() const {
+	return prj_;
+}
+
 void JuffEd::openDoc(const QString& fileName) {
 	LOGGER;
 	

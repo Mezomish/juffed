@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_PLUGIN_MANAGER_H__
 #define __JUFFED_PLUGIN_MANAGER_H__
 
+class JuffAPI;
 class JuffPlugin;
 
 namespace Juff {
@@ -33,6 +34,8 @@ namespace Juff {
 class PluginManager {
 public:
 	PluginManager(Juff::DocHandlerInt*, Juff::PluginNotifier*);
+	virtual ~PluginManager();
+
 	void loadPlugins();
 
 	Juff::MenuList menus() const;
@@ -43,8 +46,7 @@ private:
 	void loadPlugin(const QString&);
 
 	QList<JuffPlugin*> plugins_;
-	Juff::DocHandlerInt* handler_;
-	Juff::PluginNotifier* notifier_;
+	JuffAPI* api_;
 };
 
 #endif // __JUFFED_PLUGIN_MANAGER_H__

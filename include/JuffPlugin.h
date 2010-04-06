@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "DocHandlerInt.h"
 #include "Enums.h"
+#include "JuffAPI.h"
 #include "PluginNotifier.h"
 #include "Types.h"
 
@@ -31,15 +32,11 @@ class QToolBar;
 class JuffPlugin {
 public:
 	JuffPlugin() {
-		handler_ = 0;
+		api_ = 0;
 	}
 
-	void setHandler(Juff::DocHandlerInt* h) {
-		handler_ = h;
-	}
-
-	void setNotifier(Juff::PluginNotifier* n) {
-		notifier_ = n;
+	void setAPI(JuffAPI* api) {
+		api_ = api;
 	}
 
 	virtual void init() {}
@@ -148,14 +145,11 @@ public:
 
 
 protected:
-	/// accessor to DocHandler
-	Juff::DocHandlerInt* handler() const { return handler_; }
-	/// accessor to PluginNotifier
-	Juff::PluginNotifier* notifier() const { return notifier_; }
+	/// accessor to JuffAPI
+	JuffAPI* api() const { return api_; }
 	
 private:
-	Juff::DocHandlerInt* handler_;
-	Juff::PluginNotifier* notifier_;
+	JuffAPI* api_;
 };
 
 Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.5")

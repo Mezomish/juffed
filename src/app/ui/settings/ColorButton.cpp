@@ -33,7 +33,6 @@ ColorButton::ColorButton(QPushButton* btn, const QColor& color) : QObject(btn) {
 }
 
 ColorButton::~ColorButton() {
-	JUFFDTOR;
 }
 
 void ColorButton::clicked() {

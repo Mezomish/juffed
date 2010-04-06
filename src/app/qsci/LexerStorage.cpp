@@ -157,7 +157,7 @@ void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 }
 
 void LSInterior::readCustomStyle(const QString& name) {
-	JUFFENTRY;
+	LOGGER;
 	
 	QDomDocument doc("JuffScheme");
 	QString nm = name;
@@ -535,7 +535,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 }
 
 void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
-	JUFFENTRY;
+	LOGGER;
 	
 	QsciLexer* lex = lexers_.value(name, 0);
 	if ( lex != 0 ) {

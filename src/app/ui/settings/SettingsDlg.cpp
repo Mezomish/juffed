@@ -52,7 +52,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class MainSettingsPage : public QWidget {
 public:
 	MainSettingsPage() : QWidget() {
-		JUFFENTRY;
 		ui.setupUi(this);
 	}
 
@@ -93,7 +92,6 @@ public:
 class ViewSettingsPage : public QWidget {
 public:
 	ViewSettingsPage() : QWidget() {
-		JUFFENTRY;
 		ui.setupUi(this);
 	}
 

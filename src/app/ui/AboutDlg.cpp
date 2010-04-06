@@ -143,14 +143,11 @@ private:
 };
 
 AboutDlg::AboutDlg(QWidget* parent /*= 0*/, Qt::WindowFlags f /*= 0*/) : QDialog(parent, f) {
-	JUFFENTRY;
 	dlgInt_ = new Interior(this);
 	connect(dlgInt_->aboutPage(), SIGNAL(linkActivated(const QString&)), SLOT(gotoUrl(const QString&)));
 }
 
 AboutDlg::~AboutDlg() {
-	JUFFDTOR;
-
 	delete dlgInt_;
 }
 

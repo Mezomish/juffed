@@ -422,6 +422,9 @@ void JuffEd::slotPrjNew() {
 		
 		if ( closeProject() )
 			createProject(prjFile);
+		
+		// Notification signals are gonna be emitted 
+		// in closeProject and createProject
 	}
 }
 
@@ -435,6 +438,9 @@ void JuffEd::slotPrjOpen() {
 		
 		if ( closeProject() )
 			createProject(prjFile);
+		
+		// Notification signals are gonna be emitted 
+		// in closeProject and createProject
 	}
 }
 
@@ -443,18 +449,23 @@ void JuffEd::slotPrjClose() {
 
 	if ( closeProject() )
 		createProject("");
+
+	// Notification signals are gonna be emitted 
+	// in closeProject and createProject
 }
 
 void JuffEd::slotPrjRename() {
 	LOGGER;
+	
+	// TODO : don't forget to emit a notification signal
 }
 
 void JuffEd::slotPrjSaveAs() {
 	LOGGER;
 	
-	QString prjName = mw_->getSavePrjName(tr("Save project as..."));
-	if ( !prjName.isEmpty() ) {
-	}
+//	QString prjName = mw_->getSavePrjName(tr("Save project as..."));
+//	if ( !prjName.isEmpty() ) {
+//	}
 }
 
 void JuffEd::slotPrjAddFile() {
@@ -466,6 +477,9 @@ void JuffEd::slotPrjAddFile() {
 		QString file;
 		foreach (file, fileList) {
 			prj_->addFile(file);
+			
+			// notify plugins
+			emit projectFileAdded(prj_, file);
 		}
 		// store the last used directory
 		MainSettings::set(MainSettings::LastDir, QFileInfo(file).absolutePath());
@@ -835,6 +849,9 @@ void JuffEd::createProject(const QString& fileName) {
 	MainSettings::set(MainSettings::LastProject, prj_->fileName());
 	loadProject();
 	
+	// notify plugins
+	emit projectOpened(prj_);
+	
 	// TODO : remove later
 	tree_->setProject(prj_);
 }
@@ -847,6 +864,9 @@ bool JuffEd::closeProject() {
 	// check if all files were closed
 	if ( viewer_->docCount() > 0 )
 		return false;
+	
+	// notify plugins
+	emit projectAboutToBeClosed(prj_);
 	
 	delete prj_;
 	return true;

@@ -33,6 +33,7 @@ public:
 	PluginNotifier();
 
 signals:
+	// document notifications
 	void docOpened(Juff::Document*);
 	void docActivated(Juff::Document*);
 	void docClosed(Juff::Document*);
@@ -42,7 +43,16 @@ signals:
 	void docSyntaxChanged(Juff::Document*, const QString& oldSyntax);
 	void docCharsetChanged(Juff::Document*, const QString& oldCharset);
 
+	// project notifications
 	void projectOpened(Juff::Project*);
+	void projectRenamed(Juff::Project*, const QString& oldName, const QString& oldPath);
+	void projectFileAdded(Juff::Project*, const QString&);
+	void projectFileRemoved(Juff::Project*, const QString&);
+	void projectSubProjectAdded(Juff::Project*, Juff::Project*);
+	void projectSubProjectRemoved(Juff::Project*, Juff::Project*);
+	void projectAboutToBeClosed(Juff::Project*);
+
+	// misc
 	void settingsApplied();
 };
 

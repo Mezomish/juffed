@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 #include "EditorSettings.h"
 #include "LexerStorage.h"
+#include "MainSettings.h"
 
 #include <QFile>
 #include <QTextCodec>
@@ -726,8 +727,9 @@ bool SciDoc::save(QString& error) {
 		error = tr("This is a Noname file and shouldn't be saved directly");
 		return false;
 	}
-//	if ( MainSettings::stripTrailingSpaces() )
-//		stripTrailingSpaces();
+
+	if ( MainSettings::get(MainSettings::StripTrailingSpaces) )
+		stripTrailingSpaces();
 
 	QFile file(fileName());
 	if ( file.open(QIODevice::WriteOnly) ) {
@@ -873,4 +875,33 @@ void SciDoc::uncommentLine(JuffScintilla* edit, int line, const QString& str1, c
 	str2.replace(pos, comment.length(), "");
 	edit->setSelection(line, 0, line + 1, 0);
 	replaceSelectedText(str2);
+}
+
+void SciDoc::stripTrailingSpaces() {
+	LOGGER;
+	if ( int_->curEdit_ == NULL ) return;
+
+	int line, col;
+	getCursorPos(line, col);
+	QString text = int_->curEdit_->text();
+	QStringList lines = text.split(QRegExp("\r\n|\r|\n"));
+	QRegExp rx("[ \t]+$");
+	int i = 0;
+	foreach (QString str, lines) {
+		int pos = str.indexOf(rx);
+		if ( pos >= 0 ) {
+			int_->curEdit_->setSelection(i, 0, i, str.length());
+			str.truncate(pos);
+			replaceSelectedText(str);
+		}
+		++i;
+	}
+	setCursorPos(line, col);
+}
+
+
+bool SciDoc::find(const Juff::SearchParams& params) {
+//	if ( int_->curEdit_ == NULL) return false;
+		
+//	int_->curEdit_->find(params.findWhat);
 }

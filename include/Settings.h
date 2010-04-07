@@ -26,8 +26,8 @@ class QString;
 
 class Settings {
 public:
-	static void read();
-	static void write();
+	static void read(const QString&, const QString&);
+	static void write(const QString&, const QString&);
 
 //	static int count();
 

@@ -29,6 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 #include "MainSettings.h"
 #include "Project.h"
+#include "SearchEngine.h"
 #include "Settings.h"
 #include "StatusLabel.h"
 #include "settings/SettingsDlg.h"
@@ -49,7 +50,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(this, this) {
 	LOGGER;
 	
-	Settings::read();
 	QString prjName = MainSettings::get(MainSettings::LastProject);
 	prj_ = new Juff::Project(prjName);
 	
@@ -103,10 +103,10 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	connect(st->action(Juff::EditCopy), SIGNAL(triggered()), this, SLOT(slotEditCopy()));
 	connect(st->action(Juff::EditPaste), SIGNAL(triggered()), this, SLOT(slotEditPaste()));
 	
-	connect(st->action(Juff::EditFind), SIGNAL(triggered()), this, SLOT(slotFind()));
-	connect(st->action(Juff::EditFindNext), SIGNAL(triggered()), this, SLOT(slotFindNext()));
-	connect(st->action(Juff::EditFindPrev), SIGNAL(triggered()), this, SLOT(slotFindPrev()));
-	connect(st->action(Juff::EditReplace), SIGNAL(triggered()), this, SLOT(slotReplace()));
+	connect(st->action(Juff::Find), SIGNAL(triggered()), this, SLOT(slotFind()));
+	connect(st->action(Juff::FindNext), SIGNAL(triggered()), this, SLOT(slotFindNext()));
+	connect(st->action(Juff::FindPrev), SIGNAL(triggered()), this, SLOT(slotFindPrev()));
+	connect(st->action(Juff::Replace), SIGNAL(triggered()), this, SLOT(slotReplace()));
 	connect(st->action(Juff::GotoLine), SIGNAL(triggered()), this, SLOT(slotGotoLine()));
 	connect(st->action(Juff::JumpToFile), SIGNAL(triggered()), this, SLOT(slotJumpToFile()));
 	
@@ -184,7 +184,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 		                         Juff::Separator,
 //			                     Juff::EditFind, Juff::EditFindNext,
 //		                         Juff::EditFindPrev, Juff::EditReplace, Juff::Separator,
-		                         Juff::GotoLine, Juff::JumpToFile,
+//		                         Juff::GotoLine, Juff::JumpToFile,
 		                         Juff::NullID };
 		for (int i = 0; ids[i] != Juff::NullID; i++) {
 			if ( ids[i] == Juff::Separator )
@@ -211,6 +211,21 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 		}
 	}
 	
+	QMenu* searchMenu = *( menus_.insert(Juff::MenuSearch, new QMenu(tr("&Search"))) );
+	{
+		Juff::ActionID ids[] = { Juff::Find, Juff::FindNext, Juff::FindPrev,
+		                         Juff::Replace,
+		                         Juff::Separator,
+		                         Juff::GotoLine, Juff::JumpToFile,
+		                         Juff::NullID };
+		for (int i = 0; ids[i] != Juff::NullID; i++) {
+			if ( ids[i] == Juff::Separator )
+				searchMenu->addSeparator();
+			else
+				searchMenu->addAction(st->action(ids[i]));
+		}
+	}
+	
 	QMenu* formatMenu = *( menus_.insert(Juff::MenuFormat, new QMenu(tr("&Format"))) );
 	QMenu* toolsMenu = *( menus_.insert(Juff::MenuTools, new QMenu(tr("&Tools"))) );
 	QMenu* helpMenu = *( menus_.insert(Juff::MenuHelp, new QMenu(tr("&Help"))) );
@@ -222,6 +237,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	mw_->menuBar()->addMenu(fileMenu);
 	mw_->menuBar()->addMenu(editMenu);
 	mw_->menuBar()->addMenu(viewMenu);
+	mw_->menuBar()->addMenu(searchMenu);
 	mw_->menuBar()->addMenu(formatMenu);
 	initPlugins();
 	mw_->menuBar()->addMenu(toolsMenu);
@@ -281,10 +297,15 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	loadProject();
 	
 	settingsDlg_ = new SettingsDlg(mw_);
+	search_ = new SearchEngine(this, mw_);
 }
 
 JuffEd::~JuffEd() {
-	Settings::write();
+	delete docManager_;
+	delete settingsDlg_;
+	delete search_;
+	
+	Settings::write("juff", "juffed");
 	
 	if ( prj_ != NULL )
 		delete prj_;
@@ -349,6 +370,9 @@ void JuffEd::slotFileClose() {
 		return;
 	
 	closeDocWithConfirmation(doc);
+	
+	if ( docCount() == 0 && MainSettings::get(MainSettings::ExitOnLastDocClosed) )
+		slotFileExit();
 }
 
 void JuffEd::slotFileCloseAll() {
@@ -542,33 +566,23 @@ void JuffEd::slotEditPaste() {
 void JuffEd::slotFind() {
 	LOGGER;
 	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-	}
+	search_->find(curDoc());
 }
 
 void JuffEd::slotFindNext() {
 	LOGGER;
 	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-	}
+	search_->findNext(curDoc());
 }
 
 void JuffEd::slotFindPrev() {
 	LOGGER;
 	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-	}
+	search_->findPrev(curDoc());
 }
 
 void JuffEd::slotReplace() {
 	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-	}
 }
 
 void JuffEd::slotGotoLine() {
@@ -982,6 +996,14 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 
 bool JuffEd::saveDoc(Juff::Document* doc) {
 	if ( doc->isModified() ) {
+		if ( MainSettings::get(MainSettings::MakeBackupCopy) ) {
+			QString bkpName = doc->fileName() + "~";
+			if ( QFile::exists(bkpName) ) {
+				QFile::remove(bkpName);
+			}
+			QFile::copy(doc->fileName(), bkpName);
+		}
+		
 		QString error;
 		if ( doc->save(error) ) {
 			// saving succeeded - return true
@@ -1137,6 +1159,9 @@ void JuffEd::loadProject() {
 	foreach (QString file, files) {
 		openDoc(file);
 	}
+	
+	if ( docCount() == 0 )
+		slotFileNew();
 }
 
 QString JuffEd::openDialogDirectory() const {

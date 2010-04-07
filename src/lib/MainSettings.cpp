@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "MainSettings.h"
 
+#include "Log.h"
+
 #include <QRect>
 
 void MainSettings::set(BoolKey key, bool value) {
@@ -32,6 +34,22 @@ void MainSettings::set(BoolKey key, bool value) {
 		
 		case FullScreen :
 			Settings::setValue("main", "isFullScreen", value);
+			break;
+		
+		case ExitOnLastDocClosed :
+			Settings::setValue("main", "exitOnLastDocClosed", value);
+			break;
+		
+		case SingleInstance :
+			Settings::setValue("main", "singleInstance", value);
+			break;
+		
+		case StripTrailingSpaces :
+			Settings::setValue("main", "stripTrailingSpaces", value);
+			break;
+		
+		case MakeBackupCopy :
+			Settings::setValue("main", "makeBackupOnSave", value);
 			break;
 		
 		default: ;
@@ -61,6 +79,18 @@ bool MainSettings::get(BoolKey key) {
 		
 		case FullScreen :
 			return Settings::boolValue("main", "isFullScreen");
+		
+		case ExitOnLastDocClosed :
+			return Settings::boolValue("main", "exitOnLastDocClosed");
+		
+		case SingleInstance :
+			return Settings::boolValue("main", "singleInstance");
+		
+		case StripTrailingSpaces :
+			return Settings::boolValue("main", "stripTrailingSpaces");
+		
+		case MakeBackupCopy :
+			return Settings::boolValue("main", "makeBackupOnSave");
 		
 		default :
 			return false;

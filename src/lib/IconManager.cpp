@@ -48,10 +48,10 @@ public:
 		iconNames_[Juff::EditCut]      = "edit-cut.png";
 		iconNames_[Juff::EditCopy]     = "edit-copy.png";
 		iconNames_[Juff::EditPaste]    = "edit-paste.png";
-		iconNames_[Juff::EditFind]     = "edit-find.png";
+		iconNames_[Juff::Find]     = "edit-find.png";
 //		iconNames_[Juff::EditFindNext] = "";
 //		iconNames_[Juff::EditFindPrev] = "";
-		iconNames_[Juff::EditReplace]  = "edit-find-replace.png";
+		iconNames_[Juff::Replace]  = "edit-find-replace.png";
 		iconNames_[Juff::GotoLine] = "";
 		
 		iconNames_[Juff::ViewZoomIn]     = "zoomIn.png";

@@ -19,7 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _JUFF_SCINTILLA_H_
 #define _JUFF_SCINTILLA_H_
 
-//#include "Juff.h"
+#include "Types.h"
 
 #include <Qsci/qsciscintilla.h>
 
@@ -33,6 +33,7 @@ public:
 	JuffScintilla();
 	virtual ~JuffScintilla();
 
+	bool find(const Juff::SearchParams&);
 /*	bool find(const QString& s, const DocFindFlags& flags);
 	void replaceSelected(const QString& targetText, bool backwards);
 	void addContextMenuActions(const ActionList&);*/

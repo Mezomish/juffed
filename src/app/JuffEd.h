@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class QActionGroup;
 class QMenu;
 class SettingsDlg;
+class SearchEngine;
 
 namespace Juff {
 	class Project;
@@ -195,6 +196,7 @@ private:
 	ProjectTree* tree_;
 	PluginManager pluginMgr_;
 	SettingsDlg* settingsDlg_;
+	SearchEngine* search_;
 };
 
 #endif // __JUFFED_JUFFED_H__

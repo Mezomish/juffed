@@ -62,6 +62,8 @@ public:
 	virtual void paste();
 	virtual void gotoLine(int);
 
+	virtual bool find(const Juff::SearchParams&);
+
 	virtual void setWrapWords(bool);
 	virtual void setShowLineNumbers(bool);
 	virtual void setShowWhitespaces(bool);
@@ -99,9 +101,10 @@ private:
 	void readFile();
 	void setLexer(const QString& lexName);
 	void applySettings();
-
+	
 	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 	void uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
+	void stripTrailingSpaces();
 
 	class Interior;
 	Interior* int_;

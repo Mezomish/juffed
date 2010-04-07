@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #include "CommandStorage.h"
 #include "Document.h"
+#include "FindDlg.h"
 #include "Functions.h"
 #include "JumpToFileDlg.h"
 #include "License.h"
@@ -99,6 +100,7 @@ JuffMW::JuffMW() : QMainWindow() {
 	setCentralWidget(mainWidget_);
 	
 	aboutDlg_ = createAboutDlg(this);
+	findDlg_ = new FindDlg(this, false);
 }
 
 void JuffMW::setViewer(QWidget* w) {
@@ -178,6 +180,20 @@ bool JuffMW::askForSave(const QStringList& filesIn, QStringList& filesOut) {
 		return false;
 	}
 }
+
+void JuffMW::showFindDialog() {
+	if ( findDlg_->exec() == QDialog::Accepted ) {
+		emit searchRequested(findDlg_->params());
+	}
+}
+
+void JuffMW::hideFindDialog() {
+}
+
+void JuffMW::getSearchParams(Juff::SearchParams&) {
+}
+
+
 
 
 

@@ -41,9 +41,8 @@ Settings::SettingsData* Settings::settData_ = new Settings::SettingsData();
 //	return settData_->data_.count();
 //}
 
-void Settings::read() {
-	QSettings sett(QSettings::IniFormat, QSettings::UserScope, 
-			QCoreApplication::organizationName(), QCoreApplication::applicationName());
+void Settings::read(const QString& org, const QString& appName) {
+	QSettings sett(QSettings::IniFormat, QSettings::UserScope, org, appName);
 
 	QStringList groups = sett.childGroups();
 	foreach (QString grp, groups) {
@@ -60,9 +59,8 @@ void Settings::read() {
 	}
 }
 
-void Settings::write() {
-	QSettings sett(QSettings::IniFormat, QSettings::UserScope, 
-			QCoreApplication::organizationName(), QCoreApplication::applicationName());
+void Settings::write(const QString& org, const QString& appName) {
+	QSettings sett(QSettings::IniFormat, QSettings::UserScope, org, appName);
 
 	QStringList groups = settData_->data_.keys();
 	foreach (QString grp, groups) {

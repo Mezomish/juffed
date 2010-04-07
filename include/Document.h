@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class QTextCodec;
 
 #include "Enums.h"
+#include "Types.h"
 
 #include <QWidget>
 
@@ -78,7 +79,9 @@ public:
 	virtual void copy() {}
 	virtual void paste() {}
 	virtual void gotoLine(int) {}
-	
+
+	virtual bool find(const Juff::SearchParams&) { return false; }
+
 	virtual void setWrapWords(bool) {}
 	virtual void setShowLineNumbers(bool) {}
 	virtual void setShowWhitespaces(bool) {}

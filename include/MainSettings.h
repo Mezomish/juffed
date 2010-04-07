@@ -32,6 +32,10 @@ public:
 		SyncToCurDoc,
 		Maximized,
 		FullScreen,
+		ExitOnLastDocClosed,
+		SingleInstance,
+		StripTrailingSpaces,
+		MakeBackupCopy,
 	};
 //	static void set(IntKey, int);
 	static void set(BoolKey, bool);

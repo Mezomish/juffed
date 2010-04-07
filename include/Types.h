@@ -28,6 +28,17 @@ namespace Juff {
 typedef QList<QMenu*> MenuList;
 typedef QList<QAction*> ActionList;
 
+typedef struct {
+	QString findWhat;
+	QString replaceWith;
+	bool replace;
+	bool caseSensitive;
+	bool backwards;
+	bool wholeWords;
+	bool regExp;
+	bool multiLine;
+} SearchParams;
+
 }
 
 #endif // __JUFFED_TYPES_H__

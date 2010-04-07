@@ -101,11 +101,13 @@ SET ( juffed_lib_RESOURCES
 SET ( juffed_app_MOC_HEADERS
 	src/app/DocManager.h
 	src/app/JuffEd.h
+	src/app/SearchEngine.h
 	src/app/qsci/JuffScintilla.h
 	src/app/qsci/SciDoc.h
 	src/app/qsci/SciDocEngine.h
 	src/app/ui/AboutDlg.h
 	src/app/ui/DocViewer.h
+	src/app/ui/FindDlg.h
 	src/app/ui/JuffMW.h
 	src/app/ui/JumpToFileDlg.h
 	src/app/ui/MessageWidget.h
@@ -138,12 +140,14 @@ SET ( juffed_app_SRCS
 	src/app/JuffEd.cpp
 	src/app/main.cpp
 	src/app/PluginManager.cpp
+	src/app/SearchEngine.cpp
 	src/app/qsci/JuffScintilla.cpp
 	src/app/qsci/LexerStorage.cpp
 	src/app/qsci/SciDoc.cpp
 	src/app/qsci/SciDocEngine.cpp
 	src/app/ui/AboutDlg.cpp
 	src/app/ui/DocViewer.cpp
+	src/app/ui/FindDlg.cpp
 	src/app/ui/JuffMW.cpp
 	src/app/ui/JumpToFileDlg.cpp
 	src/app/ui/MessageWidget.cpp
@@ -186,6 +190,7 @@ IF ( UNIX )
 ENDIF ( UNIX )
 
 SET ( juffed_app_UIS
+	src/app/ui/forms/FindDlg.ui
 	src/app/ui/forms/JumpToFileDlg.ui
 	src/app/ui/forms/MessageWidget.ui
 	src/app/ui/forms/SelectFilesDlg.ui

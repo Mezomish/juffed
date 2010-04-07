@@ -20,7 +20,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define __JUFFED_MAIN_WINDOW_H__
 
 class AboutDlg;
+class FindDlg;
 class QVBoxLayout;
+
+#include "Types.h"
 
 #include <QMainWindow>
 
@@ -47,8 +50,13 @@ public:
 	void addStatusWidget(QWidget*);
 	void message(const QIcon& icon, const QString& title, const QString& message, int timeout = 10);
 
+	void showFindDialog();
+	void hideFindDialog();
+	void getSearchParams(Juff::SearchParams&);
+
 signals:
 	void closeRequested(bool&);
+	void searchRequested(const Juff::SearchParams&);
 
 public slots:
 	void about();
@@ -64,6 +72,7 @@ private:
 	QWidget* mainWidget_;
 	QVBoxLayout* vBox_;
 	AboutDlg* aboutDlg_;
+	FindDlg* findDlg_;
 };
 
 #endif // __JUFFED_MAIN_WINDOW_H__

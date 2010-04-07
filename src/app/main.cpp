@@ -18,32 +18,62 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "../3rd_party/qtsingleapplication/qtsingleapplication.h"
 #include "JuffEd.h"
+#include "MainSettings.h"
 
 #include <QFileInfo>
 
-int main(int argc, char* argv[]) {
-	QtSingleApplication app(argc, argv);
-
-	// check single run
-	QString paramStr = app.arguments().join("\n");
-	if ( app.sendMessage(paramStr) )
-		return 0;
-
+void initApp(QApplication& app) {
 	app.setOrganizationName("juff");
 	app.setApplicationName("juffed");
+}
 
-	JuffEd juffed;
-	QObject::connect(&app, SIGNAL(messageReceived(const QString&)), &juffed, SLOT(onMessageReceived(const QString&)));
-	app.setActivationWindow(juffed.mainWindow());
-	juffed.mainWindow()->show();
-	
-	// command line params
-	QStringList params = paramStr.split("\n");
+void processParams(JuffEd& juffed, QStringList params) {
 	params.removeFirst();
 	foreach (QString param, params) {
 		if ( QFileInfo(param).exists() )
-			juffed.openDoc(param);
+			juffed.openDoc(QFileInfo(param).absoluteFilePath());
 	}
-	
+}
+
+int runSingle(int argc, char* argv[]) {
+	QtSingleApplication app(argc, argv);
+	initApp(app);
+
+	// check if instance already exists
+	QStringList fileList;
+	foreach (QString param, app.arguments()) {
+		fileList << QFileInfo(param).absoluteFilePath();
+	}
+	if ( app.sendMessage(fileList.join("\n")) )
+		return 0;
+
+	// instance doesn't exist yet
+	JuffEd juffed;
+	QObject::connect(&app, SIGNAL(messageReceived(const QString&)), &juffed, SLOT(onMessageReceived(const QString&)));
+	app.setActivationWindow(juffed.mainWindow());
+
+	juffed.mainWindow()->show();
+	processParams(juffed, app.arguments());
+
 	return app.exec();
+}
+
+int runNotSingle(int argc, char* argv[]) {
+	QApplication app(argc, argv);
+	initApp(app);
+
+	JuffEd juffed;
+
+	juffed.mainWindow()->show();
+	processParams(juffed, app.arguments());
+
+	return app.exec();
+}
+
+int main(int argc, char* argv[]) {
+	Settings::read("juff", "juffed");
+	if ( MainSettings::get(MainSettings::SingleInstance) )
+		return runSingle(argc, argv);
+	else 
+		return runNotSingle(argc, argv);
 }

@@ -59,12 +59,13 @@ typedef enum {
 	EditCut,
 	EditCopy,
 	EditPaste,
-	EditFind,
-	EditFindNext,
-	EditFindPrev,
-	EditReplace,
 	GotoLine,
 	JumpToFile,
+	//
+	Find,
+	FindNext,
+	FindPrev,
+	Replace,
 	//
 	ViewLineNumbers,
 	ViewWrapWords,

@@ -283,15 +283,14 @@ bool SciDoc::getText(QString& text) const {
 	return true;
 }
 
-bool SciDoc::getTextLine(int line, QString& textLine) const {
-	if ( int_->curEdit_ == NULL ) return false;
+QString SciDoc::textLine(int line) const {
+	if ( int_->curEdit_ == NULL ) return QString();
 	
 	if ( line >=0 && line < lineCount() ) {
-		textLine = int_->curEdit_->text(line);
-		return true;
+		return int_->curEdit_->text(line);
 	}
 	else {
-		return false;
+		return QString();
 	}
 }
 
@@ -314,6 +313,7 @@ void SciDoc::setSelection(int line1, int col1, int line2, int col2) {
 	if ( int_->curEdit_ == NULL ) return;
 	
 	int_->curEdit_->setSelection(line1, col1, line2, col2);
+	int_->curEdit_->ensureCursorVisible();
 }
 
 void SciDoc::removeSelectedText() {

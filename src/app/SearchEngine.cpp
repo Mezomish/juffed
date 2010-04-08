@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "SearchEngine.h"
 
 #include "DocHandlerInt.h"
@@ -5,183 +7,197 @@
 #include "JuffMW.h"
 #include "Log.h"
 
+void stepOver(Juff::Document* doc, bool forward);
+
 SearchEngine::SearchEngine(Juff::DocHandlerInt* handler, JuffMW* mw) : QObject() {
 	handler_ = handler;
 	mw_ = mw;
-	
+
 	connect(mw_, SIGNAL(searchRequested(const Juff::SearchParams&)), SLOT(onSearchRequested(const Juff::SearchParams&)));
 }
 
-void SearchEngine::find(Juff::Document*) {
+void SearchEngine::keepVariables(Juff::Document* doc) {
+	if ( doc->fileName() != fileName_ ) {
+		steppedOver_ = false;
+		doc->getCursorPos(startLine_, startCol_);
+		fileName_ = doc->fileName();
+	}
+}
+
+void SearchEngine::clearSelection(Juff::Document* doc) {
+	if ( doc->hasSelectedText() ) {
+		int line1, col1, line2, col2;
+		doc->getSelection(line1, col1, line2, col2);
+		if ( params_.backwards )
+			doc->setCursorPos(line1, col1);
+		else
+			doc->setCursorPos(line2, col2);
+	}
+}
+
+void SearchEngine::find(Juff::Document* doc) {
 	mw_->showFindDialog();
+
+	keepVariables(doc);
 }
 
-void SearchEngine::findNext(Juff::Document*) {
+void SearchEngine::findNext(Juff::Document* doc) {
+	// in case the document is different
+	keepVariables(doc);
+	params_.backwards = false;
+
+	if ( !startFind(doc) ) {
+		stepOver(doc, true);
+		if ( !startFind(doc) ) {
+			mw_->message(QIcon(), "", tr("Line '%1' was not found").arg(params_.findWhat));
+			return;
+		}
+	}
 }
 
-void SearchEngine::findPrev(Juff::Document*) {
+void SearchEngine::findPrev(Juff::Document* doc) {
+	// in case the document is different
+	keepVariables(doc);
+	params_.backwards = true;
+
+	if ( !startFind(doc) ) {
+		stepOver(doc, false);
+		if ( !startFind(doc) ) {
+			mw_->message(QIcon(), "", tr("Text '%1' was not found").arg(params_.findWhat));
+			return;
+		}
+	}
 }
 
 
 void SearchEngine::onSearchRequested(const Juff::SearchParams& params) {
 	LOGGER;
-	
+
 	Juff::Document* doc = handler_->curDoc();
 	if ( doc->isNull() ) return;
-	
-	QString text;
-	doc->getText(text);
-	
-	int startLine, startCol;
-	bool searchSteppedOver_ = false;
-	doc->getCursorPos(startLine, startCol);
-//	docInt_->searchStartingScroll_ = edit->verticalScrollBar()->value();
-	
-//	startFind(edit, str, flags);
-	startFind(doc, params);
+
+	params_ = params;
+	if ( params.backwards )
+		findPrev(doc);
+	else
+		findNext(doc);
 }
 
-bool SearchEngine::startFind(Juff::Document* doc, const Juff::SearchParams& params) {
+int SearchEngine::findAt(const QString& line, bool forward, int& length) {
+	QString str = params_.findWhat;
+	QRegExp regExp;
+	if ( params_.wholeWords ) {
+		regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
+	}
+	else
+		regExp = QRegExp(str);
+	regExp.setCaseSensitivity(params_.caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
+
+	int index = -1;
+	if ( params_.regExp || params_.wholeWords ) {
+		index = ( forward ? line.indexOf(regExp) : line.lastIndexOf(regExp) );
+		length = regExp.matchedLength();
+		return index;
+	}
+	else {
+		if ( !params_.caseSensitive ) {
+			index = ( forward ? line.toLower().indexOf(str.toLower()) : line.toLower().lastIndexOf(str.toLower()) );
+		}
+		else {
+			index = ( forward ? line.indexOf(str) : line.lastIndexOf(str) );
+		}
+		length = str.length();
+		return index;
+	}
+}
+
+bool SearchEngine::startFind(Juff::Document* doc) {
 	if ( doc->isNull() ) return false;
-//	doc->find(params);
-	
-	
-	
-	
+
 	QString text;
 	doc->getText(text);
-	
+	clearSelection(doc);
+
 //	if ( params.multiLine )
 //		return findML(s, flags);
 
-	QString str = params.findWhat;
+	QString str = params_.findWhat;
 	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
-	int row(-1), col(-1);
-	doc->getCursorPos(row, col);
-	int lineIndex(0);
-	if (row < 0 || col < 0)
+	int initialRow = -1, initialCol = -1;
+	doc->getCursorPos(initialRow, initialCol);
+	int lineIndex = 0;
+	if (initialRow < 0 || initialCol < 0)
 		return false;
 
-	if ( !params.backwards ) {
-		foreach (QString line, lines) {
-			if ( lineIndex < row ) {
-			}
-			else {
-				int indent(0);
-				if ( lineIndex == row ) {
-					line = line.right(line.length() - col);
-					indent = col;
-				}
-				int index(-1);
-				QRegExp regExp;
-				if ( params.wholeWords ) {
-					regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
-				}
-				else
-					regExp = QRegExp(str);
-				regExp.setCaseSensitivity(params.caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
-				if ( params.regExp || params.wholeWords ) {
-					index = line.indexOf(regExp);
-				}
-				else {
-					if ( !params.caseSensitive ) {
-						str = str.toLower();
-						line = line.toLower();
-					}
-					index = line.indexOf(str);
-				}
+	if ( !params_.backwards ) {
+		// forward search
+		QStringList::iterator it = lines.begin();
 
-				if ( index >= 0 ) {
-					if ( params.regExp ) {
-						doc->setSelection(lineIndex, index + indent, lineIndex, index + indent + regExp.matchedLength());
-//						this->ensureCursorVisible();
-					}
-					else {
-						doc->setSelection(lineIndex, index + indent, lineIndex, index + indent + str.length());
-//						this->ensureCursorVisible();
-					}
-					return true;
-				}
+		// step to the initial line
+		it += initialRow;
+		int lineIndex = initialRow;
+
+		bool firstLine = true;
+		while ( it != lines.end() ) {
+			QString line = (*it);
+			int indent = 0;
+
+			if ( firstLine ) {
+				line = line.right(line.length() - initialCol);
+				indent = initialCol;
+				firstLine = false;
 			}
-			++lineIndex;
+
+			int length;
+			int index = findAt(line, true, length);
+
+			if ( index >= 0 ) {
+				doc->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
+				return true;
+			}
+
+			it++;
+			lineIndex++;
 		}
 	}
 	else {
 		QStringList::iterator it = lines.end();
-		it--;
-		int lineIndex = lines.count() - 1;
+
+		// step to the initial row
+		it -= lines.count() - initialRow;
+		int lineIndex = initialRow;
 		while ( lineIndex >= 0 ) {
-			if ( lineIndex > row ) {
+			QString line = *it;
+			if ( lineIndex == initialRow ) {
+				line = line.left(initialCol);
 			}
-			else {
-				QString line = *it;
-				if ( lineIndex == row ) {
-					line = line.left(col);
-				}
 
-				int index(-1);
-				QRegExp regExp;
-				if ( params.wholeWords )
-					regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
-				else
-					regExp = QRegExp(str);
-				regExp.setCaseSensitivity(params.caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
-				if ( params.regExp || params.wholeWords )
-					index = line.lastIndexOf(regExp);
-				else {
-					if ( !params.caseSensitive ) {
-						str = str.toLower();
-						line = line.toLower();
-					}
-					index = line.lastIndexOf(str);
-				}
+			int length;
+			int index = findAt(line, false, length);
 
-				if ( index >= 0 ) {
-					if ( params.regExp ) {
-						doc->setSelection(lineIndex, index, lineIndex, index + regExp.matchedLength());
-//						this->ensureCursorVisible();
-					}
-					else {
-						doc->setSelection(lineIndex, index, lineIndex, index + str.length());
-//						this->ensureCursorVisible();
-					}
-					return true;
-				}
+			if ( index >= 0 ) {
+				doc->setSelection(lineIndex, index, lineIndex, index + length);
+				return true;
 			}
-			lineIndex--;
+
 			it--;
+			lineIndex--;
 		}
 	}
 
 	return false;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	prepareForFind(edit, str, flags);
-
-//	bool found = edit->find(str, flags);
-//	if ( !found ) {
-		//	not found
-//		if ( !docInt_->searchSteppedOver_ ) {
-//			docInt_->searchSteppedOver_ = true;
-//			stepOver(edit, flags.backwards);
-//			startFind(edit, str, flags);
-//		}
-//		else {
-//			edit->setCursorPosition(docInt_->searchStartingLine_, docInt_->searchStartingCol_);
-//			edit->verticalScrollBar()->setValue(docInt_->searchStartingScroll_);
-//			QMessageBox::information(edit, tr("Information"), tr("Text '%1' was not found").arg(str));
-//			return;
-//		}
-//	}
 }
 
+void stepOver(Juff::Document* doc, bool forward) {
+	int row(0), col(0);
+	if ( !forward ) {
+		row = doc->lineCount() - 1;
+		col = doc->textLine(row).length();
+	}
+	else {
+		row = 0;
+		col = 0;
+	}
+
+	doc->setCursorPos(row, col);
+}

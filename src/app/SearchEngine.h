@@ -23,10 +23,21 @@ protected slots:
 	void onSearchRequested(const Juff::SearchParams&);
 
 private:
-	bool startFind(Juff::Document*, const Juff::SearchParams&);
+	void keepVariables(Juff::Document*);
+	void clearSelection(Juff::Document*);
+
+	bool startFind(Juff::Document*);
+
+	bool performSearch(Juff::Document*);
+	int findAt(const QString&, bool forward, int& length);
 	
 	JuffMW* mw_;
 	Juff::DocHandlerInt* handler_;
+	bool steppedOver_;
+	int startLine_;
+	int startCol_;
+	QString fileName_;
+	Juff::SearchParams params_;
 };
 
 #endif // __JUFFED_SEARCH_ENGINE_H__

@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_SCI_DOC_ENGINE_H__
 #define __JUFFED_SCI_DOC_ENGINE_H__
 
+class QActionGroup;
+
 #include "DocEngine.h"
 #include "StatusLabel.h"
 
@@ -60,6 +62,7 @@ private:
 	QMenu* syntaxMenu_;
 	QMap<QString, QAction*> syntaxActions_;
 	Juff::StatusLabel* syntaxLabel_;
+	QActionGroup* syntaxGroup_;
 };
 
 #endif // __JUFFED_SCI_DOC_ENGINE_H__

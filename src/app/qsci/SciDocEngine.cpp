@@ -26,6 +26,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QMenu>
 
 SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
+	syntaxGroup_ = new QActionGroup(this);
+	
 	syntaxMenu_ = new QMenu(tr("Syntax"));
 	connect(syntaxMenu_, SIGNAL(aboutToShow()), SLOT(onMenuAboutToBeShown()));
 	QStringList syntaxes = syntaxList();
@@ -33,6 +35,7 @@ SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
 		QAction* action = syntaxMenu_->addAction(syntax, this, SLOT(slotSyntaxChanged()));
 		action->setCheckable(true);
 		syntaxActions_[syntax] = action;
+		syntaxGroup_->addAction(action);
 	}
 	
 	syntaxLabel_ = new Juff::StatusLabel("");

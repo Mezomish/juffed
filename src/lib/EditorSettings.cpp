@@ -23,13 +23,13 @@ void EditorSettings::set(IntKey key, int value) {
 		case FontSize :
 			Settings::setValue("editor", "fontSize", value);
 			break;
-		
+
 		case TabWidth :
-			Settings::setValue("editor", "tabStopWidth", value); 
+			Settings::setValue("editor", "tabStopWidth", value);
 			break;
-		
+
 		case LineLengthIndicator :
-			Settings::setValue("editor", "lineLengthIndicator", value); 
+			Settings::setValue("editor", "lineLengthIndicator", value);
 			break;
 	}
 }
@@ -37,13 +37,23 @@ void EditorSettings::set(IntKey key, int value) {
 void EditorSettings::set(BoolKey key, bool value) {
 	switch (key) {
 		case UseTabs :
-			Settings::setValue("editor", "replaceTabsWithSpaces", !value); 
+			Settings::setValue("editor", "replaceTabsWithSpaces", !value);
 			break;
+
 		case ShowLineNumbers :
-			Settings::setValue("editor", "showLineNumbers", value); 
+			Settings::setValue("editor", "showLineNumbers", value);
 			break;
-		case ShowWhitespaces:
-			Settings::setValue("editor", "showWhitespaces", value); 
+
+		case ShowWhitespaces :
+			Settings::setValue("editor", "showWhitespaces", value);
+			break;
+
+		case ShowLineEnds :
+			Settings::setValue("editor", "showLineEnds", value);
+			break;
+
+		case WrapWords :
+			Settings::setValue("editor", "wrapWords", value);
 			break;
 	}
 }
@@ -62,8 +72,10 @@ int EditorSettings::get(IntKey key) {
 	switch (key) {
 		case FontSize :
 			return Settings::intValue("editor", "fontSize");
+
 		case TabWidth :
 			return Settings::intValue("editor", "tabStopWidth");
+
 		case LineLengthIndicator :
 			return Settings::intValue("editor", "lineLengthIndicator");
 	}
@@ -74,10 +86,18 @@ bool EditorSettings::get(BoolKey key) {
 	switch (key) {
 		case UseTabs :
 			return !Settings::boolValue("editor", "replaceTabsWithSpaces");
+
 		case ShowLineNumbers :
 			return Settings::boolValue("editor", "showLineNumbers");
-		case ShowWhitespaces:
+
+		case ShowWhitespaces :
 			return Settings::boolValue("editor", "showWhitespaces");
+
+		case ShowLineEnds :
+			return Settings::boolValue("editor", "showLineEnds");
+
+		case WrapWords :
+			return Settings::boolValue("editor", "wrapWords");
 	}
 	return false;
 }

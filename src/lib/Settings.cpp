@@ -112,11 +112,11 @@ QStringList Settings::keyList(const QString& section) {
 QVariant Settings::defaultValue(const QString& section, const QString& key) {
 	if ( section == "main" ) {
 		if ( key == "syncOpenDialogToCurDoc" ) return true;
-		if ( key == "saveSessionOnClose" )     return true; 
+		if ( key == "saveSessionOnClose" )     return true;
 		if ( key == "makeBackupOnSave" )       return true;
 		if ( key == "exitOnLastDocClosed" )    return false;
-		if ( key == "stripTrailingSpaces" )    return false; 
-		if ( key == "singleInstance" )         return true; 
+		if ( key == "stripTrailingSpaces" )    return false;
+		if ( key == "singleInstance" )         return true;
 		if ( key == "closeButtonsOnTabs" )     return false;
 		if ( key == "closeTabsInOrderOfUse" )  return false;
 		if ( key == "iconTheme" )              return "<default>";
@@ -137,9 +137,10 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		return true;
 	}
 	else if ( section == "editor" ) {
-		if ( key == "widthAdjust" )           return false;
 		if ( key == "showLineNumbers" )       return true;
-		if ( key == "showInvisibleSymbols" )  return false;
+		if ( key == "showWhitespaces" )       return false;
+		if ( key == "showLineEnds" )          return false;
+		if ( key == "wrapWords" )             return false;
 		if ( key == "showIndents" )           return true;
 		if ( key == "highlightCurrentLine" )  return true;
 		if ( key == "replaceTabsWithSpaces" ) return false;

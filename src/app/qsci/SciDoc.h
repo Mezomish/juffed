@@ -86,6 +86,8 @@ public:
 	void toggleCommentLines();
 	void toggleCommentBlock();
 	void duplicateText();
+	void unindent();
+	void removeLine();
 	
 private slots:
 	void onCursorMoved(int, int);

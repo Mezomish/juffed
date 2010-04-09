@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "CharsetSettings.h"
 #include "CommandStorage.h"
 #include "Document.h"
+#include "EditorSettings.h"
 #include "Functions.h"
 #include "IconManager.h"
 #include "Log.h"
@@ -210,6 +211,10 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 				viewMenu->addAction(st->action(ids[i]));
 		}
 	}
+	st->action(Juff::ViewWrapWords)->setChecked(EditorSettings::get(EditorSettings::WrapWords));
+	st->action(Juff::ViewLineNumbers)->setChecked(EditorSettings::get(EditorSettings::ShowLineNumbers));
+	st->action(Juff::ViewWhitespaces)->setChecked(EditorSettings::get(EditorSettings::ShowWhitespaces));
+	st->action(Juff::ViewLineEndings)->setChecked(EditorSettings::get(EditorSettings::ShowLineEnds));
 	
 	QMenu* searchMenu = *( menus_.insert(Juff::MenuSearch, new QMenu(tr("&Search"))) );
 	{
@@ -605,39 +610,53 @@ void JuffEd::slotJumpToFile() {
 		openDoc(fileName);
 }
 
+///////
+
 void JuffEd::slotWrapWords(){
 	LOGGER;
 	
+	bool checked = CommandStorage::instance()->action(Juff::ViewWrapWords)->isChecked();
+	EditorSettings::set(EditorSettings::WrapWords, checked);
+	
 	Juff::Document* doc = curDoc();
 	if ( !doc->isNull() ) {
-		doc->setWrapWords(CommandStorage::instance()->action(Juff::ViewWrapWords)->isChecked());
+		doc->setWrapWords(checked);
 	}
 }
 
 void JuffEd::slotShowLineNumbers(){
 	LOGGER;
 	
+	bool checked = CommandStorage::instance()->action(Juff::ViewLineNumbers)->isChecked();
+	EditorSettings::set(EditorSettings::ShowLineNumbers, checked);
+	
 	Juff::Document* doc = curDoc();
 	if ( !doc->isNull() ) {
-		doc->setShowLineNumbers(CommandStorage::instance()->action(Juff::ViewLineNumbers)->isChecked());
+		doc->setShowLineNumbers(checked);
 	}
 }
 
 void JuffEd::slotShowWhitespaces(){
 	LOGGER;
 	
+	bool checked = CommandStorage::instance()->action(Juff::ViewWhitespaces)->isChecked();
+	EditorSettings::set(EditorSettings::ShowWhitespaces, checked);
+	
 	Juff::Document* doc = curDoc();
 	if ( !doc->isNull() ) {
-		doc->setShowWhitespaces(CommandStorage::instance()->action(Juff::ViewWhitespaces)->isChecked());
+		doc->setShowWhitespaces(checked);
 	}
 }
 
 void JuffEd::slotShowLineEndings(){
 	LOGGER;
 	
+	bool checked = CommandStorage::instance()->action(Juff::ViewLineEndings)->isChecked();
+	EditorSettings::set(EditorSettings::ShowLineEnds, checked);
+	
 	Juff::Document* doc = curDoc();
 	if ( !doc->isNull() ) {
-		doc->setShowLineEndings(CommandStorage::instance()->action(Juff::ViewLineEndings)->isChecked());
+		doc->setShowLineEndings(checked);
 	}
 }
 
@@ -1049,11 +1068,16 @@ bool JuffEd::saveDocAs(Juff::Document* doc) {
 void JuffEd::updateMenus(Juff::Document* doc) {
 	LOGGER;
 	
-	CommandStorage::instance()->action(Juff::ViewWrapWords)->setChecked(doc->wrapWords());
-	CommandStorage::instance()->action(Juff::ViewLineNumbers)->setChecked(doc->lineNumbersVisible());
-	CommandStorage::instance()->action(Juff::ViewWhitespaces)->setChecked(doc->whitespacesVisible());
-	CommandStorage::instance()->action(Juff::ViewLineEndings)->setChecked(doc->lineEndingsVisible());
-
+	CommandStorage* st = CommandStorage::instance();
+	doc->setWrapWords(st->action(Juff::ViewWrapWords)->isChecked());
+	doc->setShowLineNumbers(st->action(Juff::ViewLineNumbers)->isChecked());
+	doc->setShowWhitespaces(st->action(Juff::ViewWhitespaces)->isChecked());
+	doc->setShowLineEndings(st->action(Juff::ViewLineEndings)->isChecked());
+//	CommandStorage::instance()->action(Juff::ViewWrapWords)->setChecked(doc->wrapWords());
+//	CommandStorage::instance()->action(Juff::ViewLineNumbers)->setChecked(doc->lineNumbersVisible());
+//	CommandStorage::instance()->action(Juff::ViewWhitespaces)->setChecked(doc->whitespacesVisible());
+//	CommandStorage::instance()->action(Juff::ViewLineEndings)->setChecked(doc->lineEndingsVisible());
+	
 	docManager_->setCurDocType(doc->type());
 }
 

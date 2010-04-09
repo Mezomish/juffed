@@ -36,6 +36,8 @@ public:
 		UseTabs,
 		ShowLineNumbers,
 		ShowWhitespaces,
+		ShowLineEnds,
+		WrapWords,
 	};
 	
 	enum StringKey {

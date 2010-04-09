@@ -696,6 +696,63 @@ void SciDoc::duplicateText() {
 		int_->curEdit_->SendScintilla(QsciScintilla::SCI_LINEDUPLICATE);
 }
 
+void SciDoc::unindent() {
+	LOGGER;
+	
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+	
+	int line1(-1), line2(-1), col1(-1), col2(-1);
+	if ( edit->hasSelectedText() ) {
+		edit->getSelection(&line1, &col1, &line2, &col2);
+		if ( col2 == 0 )
+			--line2;
+		
+		if (line1 <= line2 && line1 >= 0) {
+			edit->beginUndoAction();
+			for (int l = line1; l <= line2; ++l) {
+				edit->unindent(l);
+			}
+			edit->endUndoAction();
+		}
+	}
+	else {
+		edit->getCursorPosition(&line1, &col1);
+		if ( line1 >= 0 ) {
+			edit->unindent(line1);
+		}
+	}
+}
+
+void SciDoc::removeLine() {
+	LOGGER;
+	
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+	
+	int line1(-1), line2(-1), col1(-1), col2(-1);
+	if ( edit->hasSelectedText() ) {
+		edit->getSelection(&line1, &col1, &line2, &col2);
+		if ( col2 == 0 )
+			--line2;
+		
+		if (line1 <= line2 && line1 >= 0) {
+			setCursorPos(line1, 0);
+			edit->beginUndoAction();
+			for (int l = line1; l <= line2; ++l) {
+				edit->SendScintilla(QsciScintilla::SCI_LINEDELETE);
+			}
+			edit->endUndoAction();
+		}
+	}
+	else {
+		edit->getCursorPosition(&line1, &col1);
+		if ( line1 >= 0 ) {
+			edit->SendScintilla(QsciScintilla::SCI_LINEDELETE);
+		}
+	}
+}
+
 
 
 void SciDoc::readFile() {

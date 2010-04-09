@@ -71,8 +71,10 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 			addAction(id, menu, createAction(tr("Move up"), QKeySequence("Alt+Up"), SLOT(slotMoveUp())));
 			addAction(id, menu, createAction(tr("Move down"), QKeySequence("Alt+Down"), SLOT(slotMoveDown())));
 			addAction(id, menu, createAction(tr("Duplicate text"), QKeySequence("Ctrl+D"), SLOT(slotDuplicate())));
+			addAction(id, menu, createAction(tr("Remove lines"), QKeySequence("Ctrl+L"), SLOT(slotRemoveLines())));
 			addAction(id, menu, createAction(tr("Comment lines"), QKeySequence("Ctrl+/"), SLOT(slotCommentLines())));
 			addAction(id, menu, createAction(tr("Comment block"), QKeySequence("Shift+Ctrl+/"), SLOT(slotCommentBlock())));
+			addAction(id, menu, createAction(tr("Unindent lines"), QKeySequence("Shift+Tab"), SLOT(slotUnindent())));
 			
 			
 			break;
@@ -166,6 +168,24 @@ void SciDocEngine::slotDuplicate() {
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
 		doc->duplicateText();
+	}
+}
+
+void SciDocEngine::slotUnindent() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->unindent();
+	}
+}
+
+void SciDocEngine::slotRemoveLines() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->removeLine();
 	}
 }
 

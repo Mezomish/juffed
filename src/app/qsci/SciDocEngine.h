@@ -46,6 +46,8 @@ public slots:
 	void slotCommentLines();
 	void slotCommentBlock();
 	void slotDuplicate();
+	void slotUnindent();
+	void slotRemoveLines();
 
 protected slots:
 	void slotSyntaxChanged();

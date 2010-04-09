@@ -35,6 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QCloseEvent>
 #include <QFileDialog>
+#include <QHBoxLayout>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QStatusBar>
@@ -101,6 +102,11 @@ JuffMW::JuffMW() : QMainWindow() {
 	
 	aboutDlg_ = createAboutDlg(this);
 	findDlg_ = new FindDlg(this, false);
+	
+	statusWidget_ = new QWidget();
+	statusLayout_ = new QHBoxLayout(statusWidget_);
+	statusLayout_->setContentsMargins(1, 1, 1, 1);
+	statusBar()->addWidget(statusWidget_, 1);
 }
 
 void JuffMW::setViewer(QWidget* w) {
@@ -200,8 +206,10 @@ void JuffMW::getSearchParams(Juff::SearchParams&) {
 ////////////////////////////////////////////////////////////////////////////////
 // Information display
 
-void JuffMW::addStatusWidget(QWidget* w) {
-	statusBar()->addWidget(w);
+void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
+	if ( maxWidth > 0 )
+		w->setMaximumWidth(maxWidth);
+	statusLayout_->addWidget(w);
 }
 
 void JuffMW::message(const QIcon& icon, const QString& title, const QString& message, int timeout) {

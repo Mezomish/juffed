@@ -287,10 +287,10 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	connect(linesL_, SIGNAL(clicked()), SLOT(slotGotoLine()));
 	connect(posL_, SIGNAL(clicked()), SLOT(slotGotoLine()));
 	
-	mw_->addStatusWidget(posL_);
-	mw_->addStatusWidget(nameL_);
-	mw_->addStatusWidget(linesL_);
-	mw_->addStatusWidget(charsetL_);
+	mw_->addStatusWidget(posL_, 100);
+	mw_->addStatusWidget(nameL_, -1);
+	mw_->addStatusWidget(linesL_, 80);
+	mw_->addStatusWidget(charsetL_, 60);
 
 	posL_->hide();
 	nameL_->hide();

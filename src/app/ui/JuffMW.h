@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class AboutDlg;
 class FindDlg;
+class QHBoxLayout;
 class QVBoxLayout;
 
 #include "Types.h"
@@ -47,7 +48,7 @@ public:
 	bool askForSave(const QStringList&, QStringList&);
 
 	// information display
-	void addStatusWidget(QWidget*);
+	void addStatusWidget(QWidget*, int);
 	void message(const QIcon& icon, const QString& title, const QString& message, int timeout = 10);
 
 	void showFindDialog();
@@ -73,6 +74,8 @@ private:
 	QVBoxLayout* vBox_;
 	AboutDlg* aboutDlg_;
 	FindDlg* findDlg_;
+	QWidget* statusWidget_;
+	QHBoxLayout* statusLayout_;
 };
 
 #endif // __JUFFED_MAIN_WINDOW_H__

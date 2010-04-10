@@ -81,6 +81,7 @@ SET ( juffed_lib_SRCS
 	src/lib/MainSettings.cpp
 	src/lib/PluginSettings.cpp
 	src/lib/Settings.cpp
+	src/lib/QSciSettings.cpp
 	
 	src/lib/CommandStorage.cpp
 	src/lib/Document.cpp
@@ -231,6 +232,7 @@ SET ( juffed_DEV_HEADERS
 	include/PluginNotifier.h
 	include/PluginSettings.h
 	include/Project.h
+	include/QSciSettings.h
 	include/Types.h
 	include/Settings.h
 )

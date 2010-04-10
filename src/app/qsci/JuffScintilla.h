@@ -41,6 +41,7 @@ public:
 	bool lineNumbersVisible() const;
 
 	QString wordUnderCursor();
+	void highlightText(const QString&);
 
 signals:
 	void contextMenuCalled(int, int);
@@ -63,6 +64,9 @@ private:
 	void posToLineCol(long pos, int& line, int& col) const;
 	long lineColToPos(int line, int col) const;
 	long curPos() const;
+	void highlight(int start, int end, int ind);
+	void clearHighlighting();
+	void initHighlightingStyle(int id, const QColor &color);
 //	bool findML(const QString& s, const DocFindFlags& flags);
 
 	QMenu* contextMenu_;

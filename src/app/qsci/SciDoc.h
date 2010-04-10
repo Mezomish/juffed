@@ -54,6 +54,7 @@ public:
 	virtual void print();
 	virtual void reload();
 	virtual bool save(QString& error);
+	virtual bool saveAs(const QString& fileName, QString& error);
 
 	virtual void undo();
 	virtual void redo();
@@ -88,6 +89,12 @@ public:
 	void duplicateText();
 	void unindent();
 	void removeLine();
+	
+	int scrollPos() const;
+	void setScrollPos(int);
+	
+public slots:
+	void highlightWord();
 	
 private slots:
 	void onCursorMoved(int, int);

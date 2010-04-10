@@ -45,4 +45,8 @@ QString docTitle(Juff::Document* doc) {
 	return docTitle(doc->fileName(), doc->isModified());
 }
 
+QIcon docIcon(Juff::Document* doc) {
+	return QIcon( (doc->isModified() ? ":doc_icon_red" : ":doc_icon") );
+}
+
 }

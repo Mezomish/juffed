@@ -20,10 +20,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define __JUFFED_DOCUMENT_H__
 
 class QTextCodec;
+class QTimer;
 
 #include "Enums.h"
 #include "Types.h"
 
+#include <QDateTime>
+#include <QMutex>
 #include <QWidget>
 
 namespace Juff {
@@ -62,10 +65,10 @@ public:
 	virtual QString type() const = 0;
 	virtual bool supportsAction(Juff::ActionID) const;
 	virtual void init() {}
-	virtual bool save(QString& error) { Q_UNUSED(error); return false; }
-	virtual void reload() {}
 	virtual void print() {}
-	bool saveAs(const QString& fileName, QString& error);
+	virtual void reload() {}
+	virtual bool save(QString& error);
+	virtual bool saveAs(const QString& fileName, QString& error);
 	
 	/**
 	* Clone is not updated yet, you need to call updateClone() function
@@ -120,12 +123,22 @@ protected:
 		return codec_;
 	}
 	
+	void startCheckingTimer();
+	void stopCheckingTimer();
+
+protected slots:
+	void checkLastModified();
+
 private:
 	QString fileName_;
 	QString charset_;
 	QTextCodec* codec_;
 //	Juff::Document* clone_;
 	static int sCount_;
+	
+	QDateTime lastModified_;
+	QTimer* modCheckTimer_;
+	QMutex checkingMutex_;
 };
 
 }

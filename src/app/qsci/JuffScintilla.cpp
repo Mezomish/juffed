@@ -18,9 +18,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "JuffScintilla.h"
 
+#include <QScrollBar>
+
 #include <Qsci/qscicommandset.h>
 
 //#include "CommandStorage.h"
+
+#define WORD_HIGHLIGHT     1
 
 JuffScintilla::JuffScintilla() : QsciScintilla() {
 	rLine1_ = -1;
@@ -28,6 +32,8 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	rLine2_ = -1;
 	rCol2_ = -1;
 
+	initHighlightingStyle(WORD_HIGHLIGHT, QColor(180, 230, 180));
+	
 	contextMenu_ = new QMenu();
 /*	CommandStorage* st = CommandStorage::instance();
 	contextMenu_->addAction(st->action(ID_EDIT_CUT));
@@ -171,14 +177,14 @@ bool JuffScintilla::find(const Juff::SearchParams&) {
 	}
 
 	return false;
-}
+}*/
 
 void JuffScintilla::posToLineCol(long pos, int& line, int& col) const {
 	line = SendScintilla(SCI_LINEFROMPOSITION, pos);
 	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
 	col = (int)(pos - linpos);
 }
-
+/*
 long JuffScintilla::lineColToPos(int line, int col) const {
 	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
 	return linpos + col;
@@ -188,7 +194,7 @@ long JuffScintilla::curPos() const {
 	int line, col;
 	getCursorPosition(&line, &col);
 	return lineColToPos(line, col);
-}
+}*/
 
 QString JuffScintilla::wordUnderCursor() {
 	int line, col;
@@ -202,7 +208,7 @@ QString JuffScintilla::wordUnderCursor() {
 		return "";
 }
 
-bool JuffScintilla::findML(const QString& s, const DocFindFlags& flags) {
+/*bool JuffScintilla::findML(const QString& s, const DocFindFlags& flags) {
 	JUFFENTRY;
 	QString text = this->text();
 	QRegExp rx(s);
@@ -443,3 +449,45 @@ void JuffScintilla::updateLineNumbers() {
 	}
 }
 
+void JuffScintilla::clearHighlighting() {
+	SendScintilla(SCI_SETINDICATORCURRENT, WORD_HIGHLIGHT);
+	SendScintilla(SCI_INDICATORCLEARRANGE, 0, length());
+}
+
+void JuffScintilla::highlightText(const QString& text) {
+	if ( hasSelectedText() ) {
+		return;
+	}
+	
+	clearHighlighting();
+	
+	if ( text.length() < 2 )
+		return;
+	
+	int initialLine, initialCol;
+	getCursorPosition(&initialLine, &initialCol);
+	int scrollPos = verticalScrollBar()->value();
+	
+	int line = 0, col = 0;
+	while ( findFirst(text, false, false, true, false, true, line, col) ) {
+		int start = SendScintilla(SCI_GETSELECTIONSTART);
+		int end = SendScintilla(SCI_GETSELECTIONEND);
+		highlight(start, end, WORD_HIGHLIGHT);
+		posToLineCol(end, line, col);
+	}
+	
+	setCursorPosition(initialLine, initialCol);
+	verticalScrollBar()->setValue(scrollPos);
+}
+
+void JuffScintilla::highlight(int start, int end, int ind) {
+	SendScintilla(SCI_SETINDICATORCURRENT, ind);
+	SendScintilla(SCI_INDICATORFILLRANGE, start, end - start);
+}
+
+void JuffScintilla::initHighlightingStyle(int id, const QColor &color) {
+	SendScintilla(SCI_INDICSETSTYLE, id, INDIC_ROUNDBOX);
+	SendScintilla(SCI_INDICSETUNDER, id, true);
+	SendScintilla(SCI_INDICSETFORE, id, color);
+	SendScintilla(SCI_INDICSETALPHA, id, 50);
+}

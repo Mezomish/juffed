@@ -221,8 +221,9 @@ void SciDocEngine::onMenuAboutToBeShown() {
 	}
 }
 
+
 void SciDocEngine::onDocFocused() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(sender());
 	if ( doc != 0 ) {

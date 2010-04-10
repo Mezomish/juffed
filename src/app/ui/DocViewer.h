@@ -28,6 +28,7 @@ namespace Juff {
 
 //#include <QTabWidget>
 #include <QList>
+#include <QMenu>
 #include <QSplitter>
 
 class DocViewer : public QWidget {
@@ -35,6 +36,7 @@ Q_OBJECT
 public:
 	DocViewer();
 	void addDoc(Juff::Document*);
+	void removeDoc(Juff::Document*);
 	Juff::Document* currentDoc() const;
 	Juff::Document* document(const QString&) const;
 	bool activateDoc(const QString&);
@@ -69,6 +71,7 @@ public:
 signals:
 	void docActivated(Juff::Document*);
 	void docOpenRequested(const QString&);
+	void docCloseRequested(Juff::Document*, bool&);
 
 public slots:
 	void nextDoc();
@@ -82,11 +85,17 @@ private slots:
 	void onDocMoveRequested(Juff::Document*, Juff::TabWidget*);
 	void onTabRemoved(Juff::TabWidget*);
 	void onDocFocused();
+	void onDocStackCalled(bool);
+	void onCtrlTabSelected();
+
+protected:
+	virtual bool eventFilter(QObject *obj, QEvent *e);
 
 private:
 	void addDoc(Juff::Document*, Juff::TabWidget*);
 	void closePanel(Juff::TabWidget*);
 	Juff::TabWidget* anotherPanel(Juff::TabWidget*);
+	void buildCtrlTabMenu(int);
 
 	QAction* nextAct_;
 	QAction* prevAct_;
@@ -96,6 +105,8 @@ private:
 	Juff::TabWidget* curTab_;
 	QSplitter* spl_;
 	Juff::Document* curDoc_;
+	QList<Juff::Document*> docStack_;
+	QMenu ctrlTabMenu_;
 };
 
 #endif // __JUFFED_VIEWER_H__

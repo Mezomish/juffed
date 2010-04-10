@@ -121,6 +121,7 @@ private slots:
 	void onDocActivated(Juff::Document*);
 	void onDocRenamed(const QString&);
 	void onCloseRequested(bool&);
+	void onDocCloseRequested(Juff::Document*, bool&);
 	void onDocOpenRequested(const QString&);
 
 private:

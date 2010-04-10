@@ -266,6 +266,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	connect(viewer_, SIGNAL(docActivated(Juff::Document*)), SLOT(onDocActivated(Juff::Document*)));
 	connect(viewer_, SIGNAL(docOpenRequested(const QString&)), SLOT(onDocOpenRequested(const QString&)));
+	connect(viewer_, SIGNAL(docCloseRequested(Juff::Document*, bool&)), SLOT(onDocCloseRequested(Juff::Document*, bool&)));
 	connect(mw_, SIGNAL(closeRequested(bool&)), SLOT(onCloseRequested(bool&)));
 	
 	// engines actions
@@ -739,7 +740,7 @@ void JuffEd::onDocModified(bool) {
 }
 
 void JuffEd::onDocCursorMoved(int line, int col) {
-	LOGGER;
+//	LOGGER;
 	
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {
@@ -748,7 +749,7 @@ void JuffEd::onDocCursorMoved(int line, int col) {
 }
 
 void JuffEd::onDocTextChanged() {
-	LOGGER;
+//	LOGGER;
 	
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {
@@ -828,6 +829,10 @@ void JuffEd::onCloseRequested(bool& confirm) {
 
 void JuffEd::onDocOpenRequested(const QString& fileName) {
 	openDoc(fileName);
+}
+
+void JuffEd::onDocCloseRequested(Juff::Document* doc, bool& ok) {
+	ok = closeDocWithConfirmation(doc);
 }
 
 #ifdef Q_OS_UNIX
@@ -1004,6 +1009,8 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 		
 		// notify plugins
 		emit docClosed(doc);
+		
+		viewer_->removeDoc(doc);
 		
 		delete doc;
 		return true;

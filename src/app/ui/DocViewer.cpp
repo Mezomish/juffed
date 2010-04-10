@@ -27,11 +27,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TabWidget.h"
 
 #include <QAction>
+#include <QKeyEvent>
 #include <QMenu>
 //#include <QTabBar>
 #include <QVBoxLayout>
 
-DocViewer::DocViewer() : QWidget() {
+DocViewer::DocViewer() : QWidget(), ctrlTabMenu_(this) {
 	spl_ = new QSplitter(this);
 	QVBoxLayout* vBox = new QVBoxLayout(this);
 	vBox->addWidget(spl_);
@@ -55,6 +56,7 @@ DocViewer::DocViewer() : QWidget() {
 		connect(tw, SIGNAL(requestDocMove(Juff::Document*, Juff::TabWidget*)), SLOT(onDocMoveRequested(Juff::Document*, Juff::TabWidget*)));
 		connect(tw, SIGNAL(requestDocOpen(const QString&)), SIGNAL(docOpenRequested(const QString&)));
 		connect(tw, SIGNAL(tabRemoved(Juff::TabWidget*)), SLOT(onTabRemoved(Juff::TabWidget*)));
+		connect(tw, SIGNAL(docStackCalled(bool)), SLOT(onDocStackCalled(bool)));
 	}
 	
 	// next/prev doc
@@ -75,6 +77,8 @@ DocViewer::DocViewer() : QWidget() {
 		addAction(act);
 	}
 	curDoc_ = NullDoc::instance();
+	
+	ctrlTabMenu_.installEventFilter(this);
 }
 
 void DocViewer::addDoc(Juff::Document* doc) {
@@ -87,6 +91,12 @@ void DocViewer::addDoc(Juff::Document* doc) {
 	// It's better to have it after adding to TabWidget to avoid
 	// emitting the signal 'docActivated()' during the document creation.
 	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
+	
+	docStack_.prepend(doc);
+}
+
+void DocViewer::removeDoc(Juff::Document* doc) {
+	docStack_.removeAll(doc);
 }
 
 Juff::Document* DocViewer::currentDoc() const {
@@ -216,6 +226,58 @@ void DocViewer::prevDoc() {
 	curTab_->setCurrentIndex( (curTab_->currentIndex() + n - 1) % n );
 }
 
+void DocViewer::buildCtrlTabMenu(int curItem) {
+	ctrlTabMenu_.clear();
+	
+	int i = 0;
+	foreach (Juff::Document* doc, docStack_) {
+		QAction* act = ctrlTabMenu_.addAction(Juff::docIcon(doc), Juff::docTitle(doc), this, SLOT(onCtrlTabSelected()));
+		act->setData(doc->fileName());
+		if ( i == curItem )
+			ctrlTabMenu_.setActiveAction(act);
+		i++;
+	}
+}
+
+void DocViewer::onDocStackCalled(bool direct) {
+	LOGGER;
+	
+	if ( direct )
+		buildCtrlTabMenu(1);
+	else
+		buildCtrlTabMenu(docStack_.count() - 1);
+	
+	int w = ( width() - ctrlTabMenu_.width() ) / 2;
+	int h = ( height() - ctrlTabMenu_.height() ) / 2;
+	ctrlTabMenu_.popup(mapToGlobal(QPoint(w, h)));
+}
+
+void DocViewer::onCtrlTabSelected() {
+	LOGGER;
+	
+	QAction* act = qobject_cast<QAction*>(sender());
+	if ( act != 0 ) {
+		QString fileName = act->data().toString();
+		emit docOpenRequested(fileName);
+	}
+}
+
+bool DocViewer::eventFilter(QObject *obj, QEvent *e) {
+	if ( ctrlTabMenu_.isVisible() && e->type() == QEvent::KeyRelease ) {
+		QKeyEvent* keyEvent = static_cast<QKeyEvent*>(e);
+		
+		if ( (keyEvent->modifiers() & Qt::ControlModifier) == false ) {
+			QString fileName = ctrlTabMenu_.activeAction()->data().toString();
+			emit docOpenRequested(fileName);
+			ctrlTabMenu_.hide();
+		}
+		return true;
+	}
+	else {
+		return QObject::eventFilter(obj, e);
+	}
+}
+
 void DocViewer::goToNumberedDoc() {
 	LOGGER;
 	
@@ -241,23 +303,13 @@ void DocViewer::onDocModified(bool modified) {
 		int index = tab1_->indexOf(doc);
 		if ( index >= 0 ) {
 			tab1_->setTabText(index, Juff::docTitle(doc->fileName(), doc->isModified()));
-			if ( doc->isModified() )
-//				tab1_->setTabIcon(index, QIcon(":doc_modified"));
-				tab1_->setTabIcon(index, QIcon(":doc_icon_red"));
-			else
-//				tab1_->setTabIcon(index, QIcon(":doc_unmodified"));
-				tab1_->setTabIcon(index, QIcon(":doc_icon"));
+			tab1_->setTabIcon(index, Juff::docIcon(doc));
 		}
 		else {
 			index = tab2_->indexOf(doc);
 			if ( index >= 0 ) {
 				tab2_->setTabText(index, Juff::docTitle(doc->fileName(), doc->isModified()));
-				if ( doc->isModified() )
-//					tab2_->setTabIcon(index, QIcon(":doc_modified"));
-					tab2_->setTabIcon(index, QIcon(":doc_icon_red"));
-				else
-//					tab2_->setTabIcon(index, QIcon(":doc_unmodified"));
-					tab2_->setTabIcon(index, QIcon(":doc_icon"));
+				tab2_->setTabIcon(index, Juff::docIcon(doc));
 			}
 			Log::warning("Document that emitted a signal is not owned by DocViewer");
 		}
@@ -271,7 +323,10 @@ void DocViewer::onDocCloseRequested(Juff::Document* doc, Juff::TabWidget* tw) {
 	if ( oldIndex < 0 )
 		return;
 	
-	doc->deleteLater();
+	bool ok;
+	emit docCloseRequested(doc, ok);
+	if ( !ok )
+		return;
 	
 	if ( tw->count() == 0 ) {
 //		tw->hide();
@@ -333,7 +388,7 @@ void DocViewer::onTabRemoved(Juff::TabWidget* tw) {
 }
 
 void DocViewer::onDocFocused() {
-	LOGGER;
+//	LOGGER;
 	
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {
@@ -342,6 +397,9 @@ void DocViewer::onDocFocused() {
 			emit docActivated(doc);
 		}
 		
+		docStack_.removeAll(doc);
+		docStack_.prepend(doc);
+			
 		if ( tab1_->indexOf(doc) >= 0 )
 			curTab_ = tab1_;
 		else
@@ -355,10 +413,7 @@ Juff::TabWidget* DocViewer::anotherPanel(Juff::TabWidget* tw) {
 }
 
 void DocViewer::addDoc(Juff::Document* doc, Juff::TabWidget* tabWidget) {
-//	QIcon icon(doc->isModified() ? ":doc_modified" : ":doc_unmodified");
-	QIcon icon(doc->isModified() ? ":doc_icon_red" : ":doc_icon");
-	
-	tabWidget->addTab(doc, icon, Juff::docTitle(doc->fileName(), doc->isModified()));
+	tabWidget->addTab(doc, Juff::docIcon(doc), Juff::docTitle(doc->fileName(), doc->isModified()));
 	tabWidget->setCurrentWidget(doc);
 	
 	doc->init();

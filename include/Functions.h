@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_FUNCTIONS_H__
 #define __JUFFED_FUNCTIONS_H__
 
+#include <QIcon>
 #include <QString>
 
 namespace Juff {
@@ -30,6 +31,8 @@ bool isNoname(Juff::Document*);
 
 QString docTitle(const QString& fileName, bool modified);
 QString docTitle(Juff::Document*);
+
+QIcon docIcon(Juff::Document*);
 
 }
 

@@ -17,6 +17,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 //	Qt includes
+#include <QColor>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
@@ -151,6 +152,11 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 #else
 			return "Monospace";
 #endif
+	}
+	else if ( section == "QSci" ) {
+		if ( key == "matchedBraceBgColor" ) {
+			return QColor(255, 200, 140);
+		}
 	}
 	else if ( section == "toolBarVisible" ) {
 		return true;

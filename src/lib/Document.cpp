@@ -20,11 +20,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "AppInfo.h"
 #include "Functions.h"
+#include "IconManager.h"
 #include "Log.h"
 
-//#include <QMessageBox>
+#include <QAbstractButton>
+#include <QMessageBox>
 #include <QProcess>
 #include <QTextCodec>
+#include <QTimer>
 
 QString mapCharset(const QString& encaName) {
 	if ( encaName == "windows-1251" ) {
@@ -55,6 +58,10 @@ Document::Document(const QString& fileName)
 	}
 	codec_ = QTextCodec::codecForLocale();
 	charset_ = codec_->name();
+	
+	
+	modCheckTimer_ = new QTimer(this);
+	connect(modCheckTimer_, SIGNAL(timeout()), SLOT(checkLastModified()));
 }
 
 // This constructor is being used for creating clones
@@ -174,6 +181,80 @@ bool Document::saveAs(const QString& fileName, QString& error) {
 	else {
 		fileName_ = oldName;
 		return false;
+	}
+}
+
+bool Document::save(QString&) {
+	lastModified_ = QFileInfo(fileName_).lastModified();
+	return true;
+}
+
+void Document::startCheckingTimer() {
+	if ( !fileName_.isEmpty() && !Juff::isNoname(this) ) {
+		lastModified_ = QFileInfo(fileName_).lastModified();
+		modCheckTimer_->start(1000);
+	}
+}
+
+void Document::stopCheckingTimer() {
+	modCheckTimer_->stop();
+}
+
+void Document::checkLastModified() {
+	QFileInfo fi(fileName_);
+	if ( fi.exists() ) {
+		if ( fi.lastModified() > lastModified_ ) {
+			if ( checkingMutex_.tryLock() ) {
+				QString question = tr("The file '%1' was modified by external program.").arg(Juff::docTitle(this)) + "\n";
+				question += tr("What do you want to do?");
+				QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, 
+						QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, this);
+				QAbstractButton* btn = msgBox.button(QMessageBox::Save);
+				if ( btn ) {
+					btn->setText(tr("Save current"));
+					btn->setIcon(IconManager::instance()->icon(Juff::FileSave));
+				}
+				btn = msgBox.button(QMessageBox::Open);
+				if ( btn ) {
+					btn->setText(tr("Reload from disk"));
+					btn->setIcon(IconManager::instance()->icon(Juff::FileReload));
+				}
+				btn = msgBox.button(QMessageBox::Cancel);
+				if ( btn ) {
+					btn->setText(tr("Ignore"));
+				}
+
+				int res = msgBox.exec();
+				switch (res) {
+					case QMessageBox::Open:
+						//	Reload
+						reload();
+						lastModified_ = QFileInfo(fileName_).lastModified();
+						break;
+						
+					case QMessageBox::Save:
+					{
+						//	Save
+						QString err;
+//						save(fileName_, charset(), err);
+						save(err);
+						lastModified_ = QFileInfo(fileName_).lastModified();
+					}
+						break;
+						
+					case QMessageBox::Cancel:
+						//	Nothing to do. In this case we just make 
+						//	local "check date" equal to file's real 
+						//	"last modified date" on file system (to 
+						//	prevent asking "What to do" again)
+						lastModified_ = fi.lastModified();
+						break;
+					
+					default: ;
+				}
+				checkingMutex_.unlock();
+			}
+		}
 	}
 }
 

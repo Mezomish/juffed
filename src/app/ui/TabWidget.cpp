@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QFileInfo>
+#include <QKeyEvent>
 #include <QMenu>
 #include <QPushButton>
 #include <QUrl>
@@ -151,8 +152,7 @@ void TabWidget::onDocListNeedsToBeShown() {
 	for ( int i = 0; i < n; ++i ) {
 		Juff::Document* doc = qobject_cast<Juff::Document*>(widget(i));
 		if ( doc != 0 ) {
-			QIcon icon = QIcon( (doc->isModified() ? ":doc_icon_red" : ":doc_icon") );
-			docListBtn_->menu_->addAction(icon, Juff::docTitle(doc), this, SLOT(onDocMenuItemSelected()))->setData(i);
+			docListBtn_->menu_->addAction(Juff::docIcon(doc), Juff::docTitle(doc), this, SLOT(onDocMenuItemSelected()))->setData(i);
 		}
 	}
 }
@@ -238,6 +238,20 @@ void TabWidget::dropEvent(QDropEvent* e) {
 	}
 }
 
+void TabWidget::keyPressEvent(QKeyEvent* e) {
+	if ( e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab ) {
+		if ( e->modifiers() & Qt::ControlModifier ) {
+			if ( e->modifiers() & Qt::ShiftModifier ) {
+				emit docStackCalled(false);
+			}
+			else {
+				emit docStackCalled(true);
+			}
+			return;
+		}
+	}
+	
+	QTabWidget::keyPressEvent(e);
+}
 
 } // namespace Juff
-

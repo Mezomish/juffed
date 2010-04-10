@@ -26,12 +26,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "EditorSettings.h"
 #include "LexerStorage.h"
 #include "MainSettings.h"
+#include "QSciSettings.h"
 
 #include <QFile>
 #include <QTextCodec>
 #include <QTextStream>
 #include <QVBoxLayout>
 #include <QPrintDialog>
+#include <QScrollBar>
 #include <QSplitter>
 
 //#include <Qsci/qsciscintilla.h>
@@ -69,7 +71,8 @@ public:
 		edit->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 		edit->setAutoIndent(true);
 		edit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
-//		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
+		
+		edit->setMatchedBraceBackgroundColor(QSciSettings::get(QSciSettings::MatchedBraceBgColor));
 
 		edit->setMarginLineNumbers(1, true);
 		edit->setMarginSensitivity(1, true);
@@ -106,6 +109,7 @@ public:
 	JuffScintilla* curEdit_;
 	QString syntax_;
 	QSplitter* spl_;
+	QTimer* hlTimer_;
 //	QWidget* parent_;
 };
 
@@ -138,10 +142,20 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 		lexName = LexerStorage::instance()->lexerName(fileName);
 	}
 
-	int_->syntax_ = lexName;
 	setLexer(lexName);
 	
 	applySettings();
+	
+	QAction* hlWordAct = new QAction("", this);
+	hlWordAct->setShortcut(QKeySequence("Ctrl+H"));
+	connect(hlWordAct, SIGNAL(triggered()), SLOT(highlightWord()));
+	addAction(hlWordAct);
+	
+	startCheckingTimer();
+	
+	int_->hlTimer_ = new QTimer();
+	connect(int_->hlTimer_, SIGNAL(timeout()), SLOT(highlightWord()));
+	int_->hlTimer_->setSingleShot(true);
 }
 
 /*SciDoc::SciDoc(Juff::Document* doc) : Juff::Document(doc) {
@@ -198,12 +212,12 @@ void SciDoc::reload() {
 	if ( !Juff::isNoname(this) ) {
 		int line, col;
 		getCursorPos(line, col);
-//		int scroll = curScrollPos();
+		int scroll = scrollPos();
 		readFile();
 		setModified(false);
-		if ( line >=0 && col >= 0 ) {
+		if ( line >= 0 && col >= 0 ) {
 			setCursorPos(line, col);
-//			setScrollPos(scroll);
+			setScrollPos(scroll);
 		}
 	}
 }
@@ -355,7 +369,6 @@ void SciDoc::setSyntax(const QString& lexName) {
 		return;
 	
 	QString oldSyntax = int_->syntax_;
-	int_->syntax_ = lexName;
 	setLexer(lexName);
 //	updateClone();
 	
@@ -365,6 +378,15 @@ void SciDoc::setSyntax(const QString& lexName) {
 // End of Document API implementation
 ////////////////////////////////////////////////////////////////////////////////
 
+int SciDoc::scrollPos() const {
+	if ( int_->curEdit_ == NULL ) return 0;
+	return int_->curEdit_->verticalScrollBar()->value();
+}
+
+void SciDoc::setScrollPos(int pos) {
+	if ( int_->curEdit_ == NULL ) return;
+	int_->curEdit_->verticalScrollBar()->setValue(pos);
+}
 
 
 
@@ -753,6 +775,17 @@ void SciDoc::removeLine() {
 	}
 }
 
+void SciDoc::highlightWord() {
+	LOGGER;
+	
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+	
+	QString word = edit->wordUnderCursor();
+	edit->highlightText(word);
+}
+
+
 
 
 void SciDoc::readFile() {
@@ -789,18 +822,31 @@ bool SciDoc::save(QString& error) {
 		stripTrailingSpaces();
 
 	QFile file(fileName());
+	stopCheckingTimer();
 	if ( file.open(QIODevice::WriteOnly) ) {
 		QString text("");
 		text = int_->edit1_->text();
 		file.write(codec()->fromUnicode(text));
 		file.close();
+		Document::save(error);
 		int_->edit1_->setModified(false);
+		startCheckingTimer();
 		return true;
 	}
 	else {
 		error = tr("Can't open file for writing");
+		startCheckingTimer();
 		return false;
 	}
+}
+
+bool SciDoc::saveAs(const QString& fileName, QString& error) {
+	bool result = Document::saveAs(fileName, error);
+	if ( result ) {
+		QString lexName = LexerStorage::instance()->lexerName(this->fileName());
+		setLexer(lexName);
+	}
+	return result;
 }
 
 void SciDoc::setLexer(const QString& lexName) {
@@ -808,6 +854,8 @@ void SciDoc::setLexer(const QString& lexName) {
 
 	if ( lexName.isEmpty() )
 		return;
+	
+	int_->syntax_ = lexName;
 	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName);
 //	loadAutocompletionAPI(lexName, lexer);
 	int_->edit1_->setLexer(lexer);
@@ -895,6 +943,9 @@ void SciDoc::applySettings() {
 // SLOTS
 
 void SciDoc::onCursorMoved(int line, int col) {
+	if ( int_->hlTimer_->isActive() )
+		int_->hlTimer_->stop();
+	int_->hlTimer_->start(500);
 	emit cursorPosChanged(line, col);
 }
 

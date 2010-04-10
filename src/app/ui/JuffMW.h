@@ -55,6 +55,8 @@ public:
 	void hideFindDialog();
 	void getSearchParams(Juff::SearchParams&);
 
+	void applySettings();
+
 signals:
 	void closeRequested(bool&);
 	void searchRequested(const Juff::SearchParams&);

@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "JuffScintilla.h"
 
+#include "QSciSettings.h"
+
 #include <QScrollBar>
 
 #include <Qsci/qscicommandset.h>
@@ -32,7 +34,7 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	rLine2_ = -1;
 	rCol2_ = -1;
 
-	initHighlightingStyle(WORD_HIGHLIGHT, QColor(180, 230, 180));
+	initHighlightingStyle(WORD_HIGHLIGHT, QSciSettings::get(QSciSettings::WordHLColor));
 	
 	contextMenu_ = new QMenu();
 /*	CommandStorage* st = CommandStorage::instance();

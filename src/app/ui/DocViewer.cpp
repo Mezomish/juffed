@@ -432,3 +432,21 @@ void DocViewer::closePanel(Juff::TabWidget* tabWidget) {
 	}
 	spl_->setSizes(list);
 }
+
+
+void DocViewer::applySettings() {
+	// 1st panel
+	int n = tab1_->count();
+	for ( int i = 0; i < n; ++i ) {
+		Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
+		if ( doc != 0 )
+			doc->applySettings();
+	}
+	// 2nd panel
+	n = tab2_->count();
+	for ( int i = 0; i < n; ++i ) {
+		Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));
+		if ( doc != 0 )
+			doc->applySettings();
+	}
+}

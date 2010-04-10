@@ -64,6 +64,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #include "FileTypeSettings.h"
 #include "EditorSettings.h"
+#include "QSciSettings.h"
 
 #include "Log.h"
 #include <stdio.h>
@@ -775,7 +776,7 @@ QsciLexer* LexerStorage::lexer(const QString& lexerName) {
 }
 
 QColor LexerStorage::curLineColor(const QString& name) const {
-	return lsInt_->curLineColors_.value(name, EditorSettings::get(EditorSettings::CurLineColor));
+	return lsInt_->curLineColors_.value(name, QSciSettings::get(QSciSettings::CurLineColor));
 }
 
 QColor LexerStorage::selectionBgColor(const QString& name) const {

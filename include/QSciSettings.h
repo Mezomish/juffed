@@ -26,10 +26,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class QSciSettings : public Settings {
 public:
 	enum ColorKey {
-		MatchedBraceBgColor,
+		MatchingBraceBgColor,
+		IndentsColor,
+		WordHLColor,
+		CurLineColor,
+	};
+	enum BoolKey {
+		ShowIndents,
+		HighlightMatchingBrace,
+		HighlightCurLine,
+		HighlightCurWord,
 	};
 	
+	static void set(BoolKey, bool);
 	static void set(ColorKey, const QColor&);
+	
+	static bool    get(BoolKey);
 	static QColor  get(ColorKey);
 };
 

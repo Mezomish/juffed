@@ -78,6 +78,8 @@ public:
 	virtual bool whitespacesVisible() const;
 	virtual bool lineEndingsVisible() const;
 	
+	virtual void applySettings();
+	
 	void toUpperCase();
 	void toLowerCase();
 	void swapLines();
@@ -109,7 +111,7 @@ protected:
 private:
 	void readFile();
 	void setLexer(const QString& lexName);
-	void applySettings();
+//	void applySettings();
 	
 	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 	void uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);

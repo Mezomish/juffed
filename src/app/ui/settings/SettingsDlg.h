@@ -24,18 +24,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class QPushButton;
 class MultiPage;
-
-class MainSettingsPage;
-class ViewSettingsPage;
-class EditorSettingsPage;
-class CharsetsSettingsPage;
-//class AutocompleteSettingsPage;
 class PluginPage;
-class PrintingPage;
-//class FileTypesPage;
-class SyntaxPage;
 
 class SettingsItem;
+class SettingsPage;
 
 class SettingsDlg : public QDialog {
 Q_OBJECT
@@ -46,6 +38,7 @@ public:
 	int exec();
 	bool isPluginEnabled(const QString&);
 	void addPluginSettingsPage(const QString&, QWidget*);
+	void setEditorsPages(const QWidgetList&);
 
 signals:
 	void applied();
@@ -53,7 +46,7 @@ signals:
 protected slots:
 	void apply();
 	void ok();
-	void somethingChanged(bool);
+//	void somethingChanged(bool);
 
 private:
 	void init();
@@ -63,17 +56,10 @@ private:
 	QPushButton* cancelBtn_;
 	MultiPage* mp_;
 
-	MainSettingsPage* pageMain_;
-	ViewSettingsPage* pageView_;
-	EditorSettingsPage* pageEditor_;
-	CharsetsSettingsPage* pageCharsets_;
-//	AutocompleteSettingsPage* pageAC_;
-	SyntaxPage* pageSyntax_;
-//	FileTypesPage* fileTypesPage_;
-	PrintingPage* printingPage_;
 	QWidget* pluginsMainPage_;
 	QMap<QString, PluginPage*> pluginPages_;
-	QList<SettingsItem*> items_;
+	QList<SettingsPage*> pages_;
+//	QList<SettingsItem*> items_;
 };
 
 #endif // __JUFF_SETTINGS_DLG_H__

@@ -68,6 +68,8 @@ public:
 	*/
 	QStringList docNamesList(int panel = 0) const;
 
+	void applySettings();
+
 signals:
 	void docActivated(Juff::Document*);
 	void docOpenRequested(const QString&);

@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QWidget>
 
 class MultiPageInterior;
+class SettingsPage;
 class QString;
 class QTreeWidgetItem;
 
@@ -31,11 +32,11 @@ public:
 	MultiPage(QWidget* = 0);
 	virtual ~MultiPage();
 
-	void addPage(const QString& pageTitle, QWidget*);
-	void addChildPage(const QString& parentTitle, const QString& pageTitle, QWidget*);
+	SettingsPage* addPage(const QString& pageTitle, SettingsPage*);
+	void addChildPage(const QString& parentTitle, const QString& pageTitle, SettingsPage*);
 	int pageCount() const;
-	QWidget* currentPage() const;
-	QWidget* page(const QString&) const;
+	SettingsPage* currentPage() const;
+	SettingsPage* page(const QString&) const;
 	int currentIndex() const;
 	void selectPage(int);
 	QStringList getChildrenTitles(const QString&);

@@ -27,6 +27,7 @@ class QStatusBar;
 
 #include <QMap>
 #include <QString>
+#include <QWidgetList>
 
 namespace Juff {
 	class Document;
@@ -44,6 +45,7 @@ public:
 	void initMenuActions(Juff::MenuID, QMenu*);
 	void initStatusBar(QStatusBar*);
 	void setCurDocType(const QString&);
+	QWidgetList editorsPages() const;
 
 private:
 	void initEngines();

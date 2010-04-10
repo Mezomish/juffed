@@ -112,12 +112,6 @@ QString EditorSettings::get(StringKey key) {
 
 QColor EditorSettings::get(ColorKey key) {
 	switch (key) {
-		case CurLineColor :
-		{
-			QColor deflt(240, 240, 255);
-			QColor c = Settings::value("editor", "curLineColor").value<QColor>();
-			return c.isValid() ? c : deflt;
-		}
 		case SelectionBgColor :
 		{
 			QColor deflt(150, 150, 155);
@@ -142,10 +136,6 @@ QColor EditorSettings::get(ColorKey key) {
 
 void EditorSettings::set(ColorKey key, const QColor& c) {
 	switch (key) {
-		case CurLineColor :
-			Settings::setValue("editor", "curLineColor", c);
-			break;
-		
 		case SelectionBgColor :
 			Settings::setValue("editor", "selectionBgColor", c);
 			break;

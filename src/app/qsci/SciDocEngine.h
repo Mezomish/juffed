@@ -40,6 +40,8 @@ public:
 	virtual void activate(bool act = true);
 	virtual void deactivate(bool deact = true);
 
+	virtual QWidget* settingsPage() const;
+	
 public slots:
 	void slotUpperCase();
 	void slotLowerCase();
@@ -63,6 +65,7 @@ private:
 	QMap<QString, QAction*> syntaxActions_;
 	Juff::StatusLabel* syntaxLabel_;
 	QActionGroup* syntaxGroup_;
+	QWidget* settingsPage_;
 };
 
 #endif // __JUFFED_SCI_DOC_ENGINE_H__

@@ -303,6 +303,9 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	loadProject();
 	
 	settingsDlg_ = new SettingsDlg(mw_);
+	connect(settingsDlg_, SIGNAL(applied()), SLOT(onSettingsApplied()));
+	settingsDlg_->setEditorsPages(docManager_->editorsPages());
+	
 	search_ = new SearchEngine(this, mw_);
 }
 
@@ -833,6 +836,13 @@ void JuffEd::onDocOpenRequested(const QString& fileName) {
 
 void JuffEd::onDocCloseRequested(Juff::Document* doc, bool& ok) {
 	ok = closeDocWithConfirmation(doc);
+}
+
+void JuffEd::onSettingsApplied() {
+	LOGGER;
+	
+	viewer_->applySettings();
+	mw_->applySettings();
 }
 
 #ifdef Q_OS_UNIX

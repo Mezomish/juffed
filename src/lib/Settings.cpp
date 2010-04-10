@@ -154,9 +154,14 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 #endif
 	}
 	else if ( section == "QSci" ) {
-		if ( key == "matchedBraceBgColor" ) {
-			return QColor(255, 200, 140);
-		}
+		if ( key == "matchingBraceBgColor" )   return QColor(255, 200, 140);
+		if ( key == "indentsColor" )           return QColor(160, 160, 160);
+		if ( key == "wordHLColor" )            return QColor(200, 210, 240);
+		if ( key == "curLineColor" )           return QColor(240, 240, 255);
+		if ( key == "showIndents" )            return true;
+		if ( key == "highlightCurLine" )       return true;
+		if ( key == "highlightMatchingBrace" ) return true;
+		if ( key == "highlightCurWord" )       return false;
 	}
 	else if ( section == "toolBarVisible" ) {
 		return true;

@@ -98,6 +98,8 @@ public:
 	virtual bool whitespacesVisible() const { return false;}
 	virtual bool lineEndingsVisible() const { return false;}
 	
+	virtual void applySettings() {}
+	
 	// This method must be reimplemented ONLY (!!!) in NullDoc
 	virtual bool isNull() const { return false; }
 

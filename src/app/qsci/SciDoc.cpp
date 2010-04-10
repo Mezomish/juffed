@@ -66,14 +66,10 @@ public:
 		LOGGER;
 		JuffScintilla* edit = new JuffScintilla();
 		edit->setUtf8(true);
-//		edit->setIndentationGuidesForegroundColor(EditorSettings::defaultFontColor());
-//		edit->setIndentationGuidesBackgroundColor(TextDoEditorSettings::defaultBgColor());
 		edit->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 		edit->setAutoIndent(true);
 		edit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 		
-		edit->setMatchedBraceBackgroundColor(QSciSettings::get(QSciSettings::MatchedBraceBgColor));
-
 		edit->setMarginLineNumbers(1, true);
 		edit->setMarginSensitivity(1, true);
 		edit->setMarginWidth(2, 12);
@@ -873,20 +869,34 @@ void SciDoc::setLexer(const QString& lexName) {
 void SciDoc::applySettings() {
 	LOGGER;
 	
-//	QFont font(EditorSettings::font());
-//	LexerStorage::instance()->updateLexers(font);
 	setShowLineNumbers(EditorSettings::get(EditorSettings::ShowLineNumbers));
-
-//	QsciScintilla* edits[] = { docInt_->edit1_, docInt_->edit2_ };
+	
+	QFont font = EditorSettings::font();
+	LexerStorage::instance()->updateLexers(font);
+	
 	QsciScintilla* edits[] = { int_->edit1_, int_->edit2_, NULL };
 	for (int i = 0; edits[i] != NULL; ++i ) {
 		QsciScintilla* edit = edits[i];
-//		QsciScintilla* edit = int_->edit1_;
-
-
+		
 		edit->setTabWidth(EditorSettings::get(EditorSettings::TabWidth));
 		edit->setIndentationsUseTabs(EditorSettings::get(EditorSettings::UseTabs));
-
+		
+		edit->setIndentationGuides(QSciSettings::get(QSciSettings::ShowIndents));
+		edit->setIndentationGuidesForegroundColor(QSciSettings::get(QSciSettings::IndentsColor));
+		edit->setIndentationGuidesBackgroundColor(EditorSettings::get(EditorSettings::DefaultBgColor));
+		
+		QColor selBgColor = EditorSettings::get(EditorSettings::SelectionBgColor);
+		edit->setSelectionBackgroundColor(selBgColor);
+		if ( selBgColor.red() + selBgColor.green() + selBgColor.blue() < 3 * 255 / 2)
+			edit->setSelectionForegroundColor(QColor(255, 255, 255));
+		else
+			edit->setSelectionForegroundColor(QColor(0, 0, 0));
+		
+		if ( QSciSettings::get(QSciSettings::HighlightMatchingBrace) )
+			edit->setMatchedBraceBackgroundColor(QSciSettings::get(QSciSettings::MatchingBraceBgColor));
+		else
+			edit->setMatchedBraceBackgroundColor(EditorSettings::get(EditorSettings::DefaultBgColor));
+		
 		int lInd = EditorSettings::get(EditorSettings::LineLengthIndicator);
 		if ( lInd > 0 ) {
 			edit->setEdgeMode(QsciScintilla::EdgeLine);
@@ -896,7 +906,7 @@ void SciDoc::applySettings() {
 			edit->setEdgeMode(QsciScintilla::EdgeNone);
 		}
 		
-		edit->setCaretLineVisible(true);
+		edit->setCaretLineVisible(QSciSettings::get(QSciSettings::HighlightCurLine));
 //		edit->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
 		edit->setCaretLineBackgroundColor(LexerStorage::instance()->curLineColor(syntax()));
 //		edit->setIndentationGuides(TextDocSettings::showIndents());
@@ -904,9 +914,10 @@ void SciDoc::applySettings() {
 //		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
 		if ( QsciLexer* lexer = edit->lexer() ) {
 //			lexer->setFont(font, -1);
-			edit->setCaretForegroundColor(lexer->defaultColor());
+//			edit->setCaretForegroundColor(lexer->defaultColor());
 //			edit->setIndentationGuidesForegroundColor(TextDocSettings::indentsColor());
-			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
+//			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
+
 		}
 //		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
 		

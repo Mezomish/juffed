@@ -130,6 +130,7 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/settings/SettingsDlg.h
 	src/app/ui/settings/SettingsCheckItem.h
 	src/app/ui/settings/SettingsItem.h
+	src/app/ui/settings/SettingsPage.h
 	src/app/ui/settings/SettingsSelectItem.h
 
 	# TODO : move this to a plugin!
@@ -170,6 +171,7 @@ SET ( juffed_app_SRCS
 	src/app/ui/settings/SettingsDlg.cpp
 	src/app/ui/settings/SettingsCheckItem.cpp
 	src/app/ui/settings/SettingsItem.cpp
+	src/app/ui/settings/SettingsPage.cpp
 	src/app/ui/settings/SettingsSelectItem.cpp
 
 	# TODO : move this to a plugin!
@@ -204,6 +206,7 @@ SET ( juffed_app_UIS
 	src/app/ui/forms/MainSettingsPage.ui
 	src/app/ui/forms/SessionDlg.ui
 	src/app/ui/forms/ViewSettingsPage.ui
+	src/app/qsci/forms/QSciSettings.ui
 )
 
 SET ( juffed_app_RESOURCES

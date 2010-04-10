@@ -18,12 +18,51 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDocEngine.h"
 
+#include "../ui/settings/ColorButton.h"
 #include "LexerStorage.h"
 #include "Log.h"
+#include "QSciSettings.h"
 #include "SciDoc.h"
+#include "../ui/settings/SettingsPage.h"
+#include "../ui/settings/SettingsCheckItem.h"
 
 #include <QAction>
 #include <QMenu>
+
+#include "ui_QSciSettings.h"
+class QSciSettingsPage : public SettingsPage {
+public:
+	QSciSettingsPage() : SettingsPage(0) {
+		ui_.setupUi(this);
+		
+		indentsColorBtn_ = new ColorButton(ui_.indentsColorBtn, QSciSettings::get(QSciSettings::IndentsColor));
+		matchingBraceColorBtn_ = new ColorButton(ui_.matchingBraceColorBtn, QSciSettings::get(QSciSettings::MatchingBraceBgColor));
+		curLineColorBtn_ = new ColorButton(ui_.curLineColorBtn, QSciSettings::get(QSciSettings::CurLineColor));
+		
+		items_
+			<< new SettingsCheckItem("QSci", "highlightCurLine", ui_.curLineChk)
+			<< new SettingsCheckItem("QSci", "highlightMatchingBrace", ui_.matchingBraceChk)
+			<< new SettingsCheckItem("QSci", "showIndents", ui_.indentsChk)
+		;
+	}
+	
+	virtual void init() {}
+	virtual void apply() {
+		QSciSettings::set(QSciSettings::IndentsColor, indentsColorBtn_->color());
+		QSciSettings::set(QSciSettings::MatchingBraceBgColor, matchingBraceColorBtn_->color());
+		QSciSettings::set(QSciSettings::CurLineColor, curLineColorBtn_->color());
+		
+		SettingsPage::apply();
+	}
+	
+private:
+	Ui::QSciSettings ui_;
+
+	ColorButton* indentsColorBtn_;
+	ColorButton* matchingBraceColorBtn_;
+	ColorButton* curLineColorBtn_;
+};
+
 
 SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
 	syntaxGroup_ = new QActionGroup(this);
@@ -42,6 +81,8 @@ SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
 	syntaxLabel_->setToolTip(QObject::tr("Syntax highlighting"));
 	syntaxLabel_->setMenu(syntaxMenu_);
 	syntaxLabel_->hide();
+	
+	settingsPage_ = new QSciSettingsPage();
 }
 
 Juff::Document* SciDocEngine::createDoc(const QString& fileName) const {
@@ -230,3 +271,13 @@ void SciDocEngine::onDocFocused() {
 		syntaxLabel_->setText(doc->syntax());
 	}
 }
+
+QWidget* SciDocEngine::settingsPage() const {
+	settingsPage_->setWindowTitle("QScintilla");
+	return settingsPage_;
+}
+
+
+
+
+

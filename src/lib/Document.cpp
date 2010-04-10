@@ -259,4 +259,3 @@ void Document::checkLastModified() {
 }
 
 }
-

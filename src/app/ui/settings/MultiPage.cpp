@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "MultiPage.h"
 
 #include "Log.h"
+#include "SettingsPage.h"
 
 //	Qt headers
 #include <QtCore/QString>
@@ -57,7 +58,7 @@ public:
 	QWidget* panel_;
 	QHBoxLayout* panelLayout_;
 
-	QMap<QTreeWidgetItem*, QWidget*> pages_;
+	QMap<QTreeWidgetItem*, SettingsPage*> pages_;
 };
 
 
@@ -71,7 +72,7 @@ MultiPage::~MultiPage() {
 	delete mpInt_;
 }
 
-void MultiPage::addPage(const QString& title, QWidget* w) {
+SettingsPage* MultiPage::addPage(const QString& title, SettingsPage* w) {
 	JUFFENTRY2;
 	QTreeWidgetItem* it = new QTreeWidgetItem(QStringList(title));
 	mpInt_->tree_->addTopLevelItem(it);
@@ -82,9 +83,11 @@ void MultiPage::addPage(const QString& title, QWidget* w) {
 		selectPage(0);
 	else
 		selectPage(currentIndex());
+	
+	return w;
 }
 
-void MultiPage::addChildPage(const QString& parentTitle, const QString& pageTitle, QWidget* w) {
+void MultiPage::addChildPage(const QString& parentTitle, const QString& pageTitle, SettingsPage* w) {
 	JUFFENTRY2;
 	QList<QTreeWidgetItem*> items = mpInt_->tree_->findItems(parentTitle, Qt::MatchFixedString);
 	if ( !items.isEmpty() ) {
@@ -106,11 +109,11 @@ int MultiPage::pageCount() const {
 	return mpInt_->pages_.count();
 }
 
-QWidget* MultiPage::currentPage() const {
+SettingsPage* MultiPage::currentPage() const {
 	return mpInt_->pages_[mpInt_->tree_->currentItem()];
 }
 
-QWidget* MultiPage::page(const QString& title) const {
+SettingsPage* MultiPage::page(const QString& title) const {
 	QList<QTreeWidgetItem*> items = mpInt_->tree_->findItems(title, Qt::MatchFixedString);
 	if ( items.count() > 0 ) {
 		QTreeWidgetItem* item = items[0];

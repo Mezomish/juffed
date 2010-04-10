@@ -47,7 +47,6 @@ public:
 	enum ColorKey {
 		DefaultBgColor,
 		DefaultFontColor,
-		CurLineColor,
 		SelectionBgColor,
 	};
 	

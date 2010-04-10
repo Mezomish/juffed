@@ -246,3 +246,9 @@ void JuffMW::moveEvent(QMoveEvent*) {
 	LOGGER;
 	MainSettings::setGeometry(geometry());
 }
+
+
+
+void JuffMW::applySettings() {
+}
+

@@ -36,6 +36,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "IconManager.h"
 #include "Log.h"
 #include "MultiPage.h"
+#include "PluginPage.h"
 #include "MainSettings.h"
 #include "../../PluginManager.h"
 #include "PluginSettings.h"
@@ -43,19 +44,30 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //#include "AutocompleteSettings.h"
 //#include "PrintSettings.h"
 #include "SettingsItem.h"
+#include "SettingsPage.h"
 
-#include "ui_MainSettingsPage.h"
 
 #include "SettingsCheckItem.h"
 #include "SettingsSelectItem.h"
 
-class MainSettingsPage : public QWidget {
+#include "ui_MainSettingsPage.h"
+class MainSettingsPage : public SettingsPage {
 public:
-	MainSettingsPage() : QWidget() {
+	MainSettingsPage(QWidget* parent) : SettingsPage(parent) {
 		ui.setupUi(this);
 	}
 
-	void init(QList<SettingsItem*>& items) {
+	virtual void init() {
+		items_
+			  << new SettingsCheckItem("main", "exitOnLastDocClosed", ui.exitOnLastDocClosedChk)
+			  << new SettingsCheckItem("main", "syncOpenDialogToCurDoc", ui.syncOpenDlgChk)
+			  << new SettingsCheckItem("main", "makeBackupOnSave", ui.makeBackupChk)
+			  << new SettingsCheckItem("main", "stripTrailingSpaces", ui.stripSpacesChk)
+			  << new SettingsCheckItem("main", "singleInstance", ui.singleInstanceChk)
+		;
+	}
+	
+/*	void init(QList<SettingsItem*>& items) {
 		JUFFDEBUG("Initialization: main page");
 //		int startupVariant = MainSettings::startupVariant();
 //		switch (startupVariant) {
@@ -72,22 +84,17 @@ public:
 //				ui.showSessionDlgBtn->setChecked(true);
 //		}
 
-		items
-			  << new SettingsCheckItem("main", "exitOnLastDocClosed", ui.exitOnLastDocClosedChk)
-			  << new SettingsCheckItem("main", "syncOpenDialogToCurDoc", ui.syncOpenDlgChk)
-			  << new SettingsCheckItem("main", "makeBackupOnSave", ui.makeBackupChk)
-			  << new SettingsCheckItem("main", "stripTrailingSpaces", ui.stripSpacesChk)
-			  << new SettingsCheckItem("main", "singleInstance", ui.singleInstanceChk)
-		;
 #ifndef Q_OS_UNIX
 //		ui.singleInstanceChk->hide();
 #endif
-	}
+	}*/
 
+private:
 	Ui::MainSettingsPage ui;
 };
 
-#include "ui_ViewSettingsPage.h"
+
+/*#include "ui_ViewSettingsPage.h"
 
 class ViewSettingsPage : public QWidget {
 public:
@@ -116,13 +123,14 @@ public:
 	}
 	
 	Ui::ViewSettingsPage ui;
-};
+};*/
+
 
 #include "ui_EditorSettingsPage.h"
 
-class EditorSettingsPage : public QWidget {
+class EditorSettingsPage : public SettingsPage {
 public:
-	EditorSettingsPage() : QWidget () {
+	EditorSettingsPage(QWidget* parent) : SettingsPage(parent) {
 		LOGGER;
 	
 		ui.setupUi(this);
@@ -130,7 +138,7 @@ public:
 		//	Creating ColorButton extensions. We shouldn't delete them
 		//	manually 'cause they will be deleted automatically when their 
 		//	parent buttons are deleted
-		curLineColorBtn_ = new ColorButton(ui.curLineColorBtn, EditorSettings::get(EditorSettings::CurLineColor));
+//		curLineColorBtn_ = new ColorButton(ui.curLineColorBtn, EditorSettings::get(EditorSettings::CurLineColor));
 //		markersColorBtn_ = new ColorButton(ui.markerColorBtn, TextDocSettings::markersColor());
 		fontColorBtn_ = new ColorButton(ui.fontColorBtn, EditorSettings::get(EditorSettings::DefaultFontColor));
 		bgColorBtn_ = new ColorButton(ui.bgColorBtn, EditorSettings::get(EditorSettings::DefaultBgColor));
@@ -139,8 +147,8 @@ public:
 		selectionBgColorBtn_ = new ColorButton(ui.selectionBgColorBtn, EditorSettings::get(EditorSettings::SelectionBgColor));
 	}
 	
-	void init(QList<SettingsItem*>& items) {
-		Log::debug("Initialization: editor page");
+	virtual void init() {
+//		Log::debug("Initialization: editor page");
 		ui.fontCmb->setCurrentFont(EditorSettings::font());
 		ui.fontSizeSpin->setValue(EditorSettings::font().pointSize());
 		int chars = EditorSettings::get(EditorSettings::LineLengthIndicator);
@@ -154,12 +162,41 @@ public:
 		}
 		ui.tabStopWidthSpin->setValue(EditorSettings::get(EditorSettings::TabWidth));
 
-		items << new SettingsCheckItem("editor", "highlightCurrentLine", ui.hlCurLineChk)
-			  << new SettingsCheckItem("editor", "showIndents", ui.showIndentsChk)
-			  << new SettingsCheckItem("editor", "replaceTabsWithSpaces", ui.replaceTabsChk)
-			  << new SettingsCheckItem("editor", "backspaceUnindents", ui.unindentChk);
+		items_
+//			<< new SettingsCheckItem("editor", "highlightCurrentLine", ui.hlCurLineChk)
+//			<< new SettingsCheckItem("editor", "showIndents", ui.showIndentsChk)
+			<< new SettingsCheckItem("editor", "replaceTabsWithSpaces", ui.replaceTabsChk)
+			<< new SettingsCheckItem("editor", "backspaceUnindents", ui.unindentChk);
 	}
 	
+	virtual void apply() {
+		LOGGER;
+		
+		QFont font(ui.fontCmb->currentFont());
+		font.setPointSize(ui.fontSizeSpin->value());
+		EditorSettings::setFont(font);
+
+		if ( ui.showLineLengthChk->isChecked() ) {
+			EditorSettings::set(EditorSettings::LineLengthIndicator, ui.lineLengthSpin->value());
+		}
+		else {
+			EditorSettings::set(EditorSettings::LineLengthIndicator, -ui.lineLengthSpin->value());
+		}
+		// colors
+	//	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
+//		EditorSettings::set(EditorSettings::CurLineColor, curLineColorBtn_->color());
+		EditorSettings::set(EditorSettings::DefaultFontColor, fontColorBtn_->color());
+		EditorSettings::set(EditorSettings::DefaultBgColor, bgColorBtn_->color());
+	//	TextDocSettings::setMatchedBraceBgColor(pageEditor_->braceColorBtn_->color());
+	//	TextDocSettings::setIndentsColor(pageEditor_->indentsColorBtn_->color());
+		EditorSettings::set(EditorSettings::SelectionBgColor, selectionBgColorBtn_->color());
+
+		EditorSettings::set(EditorSettings::TabWidth, ui.tabStopWidthSpin->value());
+		
+		SettingsPage::apply();
+	}
+	
+private:
 	Ui::EditorSettingsPage ui;
 	ColorButton* curLineColorBtn_;
 	ColorButton* markersColorBtn_;
@@ -189,7 +226,7 @@ public:
 	Ui::AutocompletePage ui;
 };*/
 
-class PrintingPage: public QWidget {
+/*class PrintingPage: public QWidget {
 public:
 	PrintingPage() : QWidget() {
 		QVBoxLayout* vBox = new QVBoxLayout(this);
@@ -210,11 +247,11 @@ public:
 	QCheckBox* keepColorsChk_;
 	QCheckBox* keepBgColorChk_;
 	QCheckBox* alwaysWrapChk_;
-};
+};*/
 
 //#include "FileTypesPage.h"
-#include "CharsetsSettingsPage.h"
-#include "PluginPage.h"
+//#include "CharsetsSettingsPage.h"
+//#include "PluginPage.h"
 #include "JuffPlugin.h"
 
 /////////////////////////////////////////////////////////////
@@ -234,24 +271,20 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	connect(cancelBtn_, SIGNAL(clicked()), SLOT(reject()));
 	//	create multipage
 	mp_ = new MultiPage();
-	pageMain_ = new MainSettingsPage();
-	pageView_ = new ViewSettingsPage();
-	pageEditor_ = new EditorSettingsPage();
-	pageCharsets_ = new CharsetsSettingsPage();
-//	pageAC_ = new AutocompleteSettingsPage();
-//	fileTypesPage_ = new FileTypesPage();
-	printingPage_ = new PrintingPage();
-	mp_->addPage(tr("General"), pageMain_);
-	mp_->addPage(tr("View"), pageView_);
-	mp_->addPage(tr("Editor"), pageEditor_);
-//	mp_->addPage(tr("Autocompletion"), pageAC_);
-	mp_->addPage(tr("Charsets"), pageCharsets_);
-//	mp_->addPage(tr("File types"), fileTypesPage_);
-	mp_->addPage(tr("Printing"), printingPage_);
+
+	pages_
+		<< mp_->addPage(tr("Editor"), new EditorSettingsPage(this))
+		<< mp_->addPage(tr("General"), new MainSettingsPage(this))
+//		<< mp_->addPage(tr("View"), new ViewSettingsPage())
+//		<< mp_->addPage(tr("Autocompletion"), new AutocompleteSettingsPage())
+//		<< mp_->addPage(tr("Charsets"), new CharsetsSettingsPage())
+//		<< mp_->addPage(tr("File types"), new FileTypesPage())
+//		<< mp_->addPage(tr("Printing"), new PrintingPage())
+	;
 
 	//	plugins
-	pluginsMainPage_ = new QWidget();
-	mp_->addPage(tr("Plugins"), pluginsMainPage_);
+//	pluginsMainPage_ = new QWidget();
+//	pages_ << mp_->addPage(tr("Plugins"), new PluginsMainPage());
 
 	// layouts
 	QHBoxLayout* btnLayout = new QHBoxLayout();
@@ -269,39 +302,38 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 }
 
 SettingsDlg::~SettingsDlg() {
-	items_.clear();
-	delete pageCharsets_;
-	delete pageEditor_;
-	delete pageMain_;
-//	delete pageAC_;
-//	delete fileTypesPage_;
-	delete pageView_;
-	delete pluginsMainPage_;
+//	items_.clear();
 	delete mp_;
 }
 
 void SettingsDlg::init() {
 	LOGGER;
 	
-	if ( SettingsItem::notifier() != 0 )
-		connect(SettingsItem::notifier(), SIGNAL(hasChangedItems(bool)), SLOT(somethingChanged(bool)));
+//	if ( SettingsItem::notifier() != 0 )
+//		connect(SettingsItem::notifier(), SIGNAL(hasChangedItems(bool)), SLOT(somethingChanged(bool)));
 
-	pageMain_->init(items_);
-	pageView_->init(items_);
-	pageEditor_->init(items_);
-//	pageAC_->init(items_);
-	printingPage_->init(items_);
-	
-	//	charsets page
-	pageCharsets_->init();
+	foreach (SettingsPage* page, pages_)
+		page->init();
 }
 
 void SettingsDlg::addPluginSettingsPage(const QString& name, QWidget* page) {
-	PluginPage* plPage = new PluginPage(name, page);
-	mp_->addChildPage(tr("Plugins"), name, plPage);
-	pluginPages_[name] = plPage;
-	plPage->enablePage(PluginSettings::pluginEnabled(name));
+//	PluginPage* plPage = new PluginPage(name, page);
+//	mp_->addChildPage(tr("Plugins"), name, plPage);
+//	pluginPages_[name] = plPage;
+//	plPage->enablePage(PluginSettings::pluginEnabled(name));
 }
+
+void SettingsDlg::setEditorsPages(const QWidgetList& list) {
+	LOGGER;
+	foreach (QWidget* w, list) {
+		SettingsPage* page = qobject_cast<SettingsPage*>(w);
+		if ( page != 0 ) {
+			mp_->addChildPage(tr("Editor"), w->windowTitle(), page);
+			pages_ << page;
+		}
+	}
+}
+
 
 int SettingsDlg::exec() {
 	init();
@@ -309,7 +341,8 @@ int SettingsDlg::exec() {
 }
 
 void SettingsDlg::apply() {
-	foreach (SettingsItem* sItem, items_) {
+	LOGGER;
+/*	foreach (SettingsItem* sItem, items_) {
 		sItem->writeValue();
 	}
 
@@ -353,7 +386,11 @@ void SettingsDlg::apply() {
 	}
 
 //	fileTypesPage_->apply();
+*/
 
+	foreach (SettingsPage* page, pages_)
+		page->apply();
+	
 	emit applied();
 }
 
@@ -371,6 +408,6 @@ bool SettingsDlg::isPluginEnabled(const QString& pluginName) {
 }
 
 
-void SettingsDlg::somethingChanged(bool changed) {
+//void SettingsDlg::somethingChanged(bool changed) {
 //	JUFFWARNING(QString("Something is changed: ").arg(changed));
-}
+//}

@@ -123,6 +123,7 @@ private slots:
 	void onCloseRequested(bool&);
 	void onDocCloseRequested(Juff::Document*, bool&);
 	void onDocOpenRequested(const QString&);
+	void onSettingsApplied();
 
 private:
 	/**

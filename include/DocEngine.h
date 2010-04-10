@@ -48,6 +48,8 @@ public:
 	virtual void activate(bool act = true);
 	virtual void deactivate(bool deact = true);
 
+	virtual QWidget* settingsPage() const { return 0; }
+	
 protected:
 	void addAction(Juff::MenuID, QMenu*, QAction*);
 	

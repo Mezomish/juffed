@@ -44,6 +44,8 @@ private slots:
 	void onFileRemoved(const QString&);
 	void onItemDoubleClicked(QTreeWidgetItem*, int);
 	void onContextMenuRequested(const QPoint&);
+	
+	void onOpenFile();
 	void onRemoveFromProject();
 
 private:

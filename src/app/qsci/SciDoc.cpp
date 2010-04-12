@@ -824,7 +824,7 @@ bool SciDoc::save(QString& error) {
 		text = int_->edit1_->text();
 		file.write(codec()->fromUnicode(text));
 		file.close();
-		Document::save(error);
+//		Document::save(error);
 		int_->edit1_->setModified(false);
 		startCheckingTimer();
 		return true;

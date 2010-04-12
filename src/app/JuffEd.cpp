@@ -68,7 +68,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	tree_ = new ProjectTree(this);
 	tree_->setProject(prj_);
-	QDockWidget* dock = new QDockWidget();
+	QDockWidget* dock = new QDockWidget(tree_->windowTitle());
+	dock->setObjectName(tree_->windowTitle());
 	dock->setWidget(tree_);
 	mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
 	

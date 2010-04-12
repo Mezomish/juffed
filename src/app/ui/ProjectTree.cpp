@@ -34,6 +34,7 @@ enum {
 };
 
 ProjectTree::ProjectTree(Juff::DocHandlerInt* handler) : QWidget() {
+	setWindowTitle(tr("Project"));
 	docHandler_ = handler;
 	
 	prj_ = NULL;
@@ -53,6 +54,7 @@ ProjectTree::ProjectTree(Juff::DocHandlerInt* handler) : QWidget() {
 	prjMenu_ = new QMenu();
 	fileMenu_ = new QMenu();
 	
+	fileMenu_->setDefaultAction(fileMenu_->addAction(tr("Open file"), this, SLOT(onOpenFile())));
 	fileMenu_->addAction(tr("Remove from project"), this, SLOT(onRemoveFromProject()));
 }
 
@@ -104,7 +106,13 @@ void ProjectTree::parsePrjItem(Juff::Project* prj, QTreeWidgetItem* parent) {
 			else
 				tree_->addTopLevelItem(fileItem);
 			
-			fileItem->setIcon(0, QIcon(":doc_icon"));
+			QString ext = QFileInfo(file).suffix().toLower();
+			if ( ext == "h" )
+				fileItem->setIcon(0, QIcon(":file_h"));
+			else if ( ext == "cpp" )
+				fileItem->setIcon(0, QIcon(":file_cpp"));
+			else
+				fileItem->setIcon(0, QIcon(":file_generic"));
 			fileItem->setData(0, ItemType, "file");
 			fileItem->setData(0, FilePath, file);
 		}
@@ -149,14 +157,36 @@ void ProjectTree::onContextMenuRequested(const QPoint& point) {
 	}
 }
 
+
+// Context menu actions
+
 void ProjectTree::onRemoveFromProject() {
 	LOGGER;
 	
 	QTreeWidgetItem* item = tree_->currentItem();
 	if ( item != 0 ) {
-		prj_->removeFile(item->data(0, FilePath).toString());
+		QString type = item->data(0, ItemType).toString();
+		if ( type.compare("file") == 0 ) {
+			QString path = item->data(0, FilePath).toString();
+			prj_->removeFile(path);
+		}
 	}
 }
+
+void ProjectTree::onOpenFile() {
+	LOGGER;
+	
+	QTreeWidgetItem* item = tree_->currentItem();
+	if ( item != 0 ) {
+		QString type = item->data(0, ItemType).toString();
+		if ( type.compare("file") == 0 ) {
+			QString path = item->data(0, FilePath).toString();
+			openFile(path);
+		}
+	}
+}
+
+
 
 void ProjectTree::openFile(const QString& filePath) {
 	docHandler_->openDoc(filePath);

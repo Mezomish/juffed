@@ -5,6 +5,9 @@
 		<file alias="doc_icon">../images/16/doc_icon.png</file>
 		<file alias="doc_icon_red">../images/16/doc_icon_red.png</file>
 		<file alias="close">../images/16/close.png</file>
+		<file alias="file_generic">../images/16/mimetypes/text-x-generic.png</file>
+		<file alias="file_h">../images/16/mimetypes/text-x-chdr.png</file>
+		<file alias="file_cpp">../images/16/mimetypes/text-x-c++src.png</file>
 		
 		<file alias="juffed_32.png">../images/32/juffed_32.png</file>
 		<file alias="juffed_48.png">../images/48/juffed_48.png</file>

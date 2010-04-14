@@ -15,6 +15,12 @@ public:
 	Juff::Document* currentDocument() const;
 	
 	/**
+	* Returns document by file name or NullDoc if there is no such document opened.
+	* See "Document.h" for details.
+	*/
+	Juff::Document* document(const QString& fileName) const;
+	
+	/**
 	* Returns current project.
 	* See "Project.h" for details.
 	*/

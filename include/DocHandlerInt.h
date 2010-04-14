@@ -32,6 +32,11 @@ public:
 	virtual Juff::Document* curDoc() const = 0;
 
 	/**
+	* Returns document by file name. If there is no such document opened then returns a NullDoc.
+	*/
+	virtual Juff::Document* getDoc(const QString&) const = 0;
+
+	/**
 	* Returns current project.
 	*/
 	virtual Juff::Project* curPrj() const = 0;

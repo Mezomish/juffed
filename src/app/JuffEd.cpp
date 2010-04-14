@@ -950,6 +950,10 @@ Juff::Document* JuffEd::curDoc() const {
 	return viewer_->currentDoc();
 }
 
+Juff::Document* JuffEd::getDoc(const QString& fileName) const {
+	return viewer_->document(fileName);
+}
+
 Juff::Project* JuffEd::curPrj() const {
 	return prj_;
 }

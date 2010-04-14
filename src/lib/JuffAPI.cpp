@@ -20,6 +20,10 @@ Juff::Document* JuffAPI::currentDocument() const {
 	return int_->handler_->curDoc();
 }
 
+Juff::Document* JuffAPI::document(const QString& fileName) const {
+	return int_->handler_->getDoc(fileName);
+}
+
 Juff::Project* JuffAPI::currentProject() const {
 	return int_->handler_->curPrj();
 }

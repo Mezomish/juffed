@@ -74,7 +74,14 @@ void ProjectTree::updateTree() {
 	if ( prj_ == NULL )
 		return;
 	
-	parsePrjItem(prj_, 0);
+	if ( !prj_->name().isEmpty() ) {
+		QTreeWidgetItem* root = new QTreeWidgetItem(QStringList() << prj_->name());
+		tree_->addTopLevelItem(root);
+		root->setExpanded(true);
+		parsePrjItem(prj_, root);
+	}
+	else
+		parsePrjItem(prj_, 0);
 }
 
 void ProjectTree::parsePrjItem(Juff::Project* prj, QTreeWidgetItem* parent) {

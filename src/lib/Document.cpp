@@ -1,3 +1,4 @@
+#include <QDebug>
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2010 Mikhail Murzin
@@ -185,11 +186,14 @@ bool Document::saveAs(const QString& fileName, QString& error) {
 }
 
 bool Document::save(QString&) {
+	LOGGER;
 	lastModified_ = QFileInfo(fileName_).lastModified();
+	qDebug() << "'Last modified' from saved file:" << lastModified_;
 	return true;
 }
 
 void Document::startCheckingTimer() {
+	LOGGER;
 	if ( !fileName_.isEmpty() && !Juff::isNoname(this) ) {
 		lastModified_ = QFileInfo(fileName_).lastModified();
 		modCheckTimer_->start(1000);
@@ -197,13 +201,19 @@ void Document::startCheckingTimer() {
 }
 
 void Document::stopCheckingTimer() {
+	LOGGER;
 	modCheckTimer_->stop();
 }
 
 void Document::checkLastModified() {
+//	LOGGER;
 	QFileInfo fi(fileName_);
 	if ( fi.exists() ) {
 		if ( fi.lastModified() > lastModified_ ) {
+			
+			qDebug() << "Current 'last modified'    :" << lastModified_;
+			qDebug() << "Real file's 'last modified':" << fi.lastModified();
+			
 			if ( checkingMutex_.tryLock() ) {
 				QString question = tr("The file '%1' was modified by external program.").arg(Juff::docTitle(this)) + "\n";
 				question += tr("What do you want to do?");

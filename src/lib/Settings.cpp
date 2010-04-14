@@ -115,15 +115,17 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "syncOpenDialogToCurDoc" ) return true;
 		if ( key == "saveSessionOnClose" )     return true;
 		if ( key == "makeBackupOnSave" )       return true;
-		if ( key == "exitOnLastDocClosed" )    return false;
-		if ( key == "stripTrailingSpaces" )    return false;
+//		if ( key == "exitOnLastDocClosed" )    return false;
+//		if ( key == "stripTrailingSpaces" )    return false;
 		if ( key == "singleInstance" )         return true;
-		if ( key == "closeButtonsOnTabs" )     return false;
-		if ( key == "closeTabsInOrderOfUse" )  return false;
+//		if ( key == "closeButtonsOnTabs" )     return false;
+//		if ( key == "closeTabsInOrderOfUse" )  return false;
 		if ( key == "iconTheme" )              return "<default>";
 		if ( key == "lastOpenDir" )            return QDir::homePath();
 		if ( key == "lastSaveDir" )            return QDir::homePath();
 		if ( key == "geometry" )               return QRect(50, 50, 800, 600);
+		if ( key == "fsHideToolBar" )          return true;
+		if ( key == "fsHideStatusBar" )        return true;
 	}
 	else if ( section == "autocomplete" ) {
 		if ( key == "useDocument" )   return false;
@@ -154,7 +156,8 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 #endif
 	}
 	else if ( section == "QSci" ) {
-		if ( key == "matchingBraceBgColor" )   return QColor(255, 200, 140);
+		if ( key == "matchingBraceBgColor" )   return QColor(140, 120, 255);
+		if ( key == "matchingBraceFgColor" )   return QColor(255, 255, 255);
 		if ( key == "indentsColor" )           return QColor(160, 160, 160);
 		if ( key == "wordHLColor" )            return QColor(200, 210, 240);
 		if ( key == "curLineColor" )           return QColor(240, 240, 255);

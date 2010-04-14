@@ -37,8 +37,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QFileDialog>
 #include <QHBoxLayout>
 #include <QInputDialog>
+#include <QMenuBar>
 #include <QMessageBox>
 #include <QStatusBar>
+#include <QToolBar>
 #include <QVBoxLayout>
 
 struct Helper {
@@ -206,6 +208,13 @@ void JuffMW::getSearchParams(Juff::SearchParams&) {
 ////////////////////////////////////////////////////////////////////////////////
 // Information display
 
+void JuffMW::addToolBar(QToolBar* tb) {
+	LOGGER;
+	
+	QMainWindow::addToolBar(tb);
+	allToolBars_ << tb;
+}
+
 void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
 	if ( maxWidth > 0 )
 		w->setMaximumWidth(maxWidth);
@@ -247,6 +256,36 @@ void JuffMW::moveEvent(QMoveEvent*) {
 	MainSettings::setGeometry(geometry());
 }
 
+void JuffMW::toggleFullscreen() {
+	LOGGER;
+	
+	setWindowState(windowState() ^ Qt::WindowFullScreen);
+	
+	bool isFSNow = windowState() & Qt::WindowFullScreen;
+	if ( isFSNow ) {
+//		if ( MainSettings::get(MainSettings::FSHideMenubar) )
+//			menuBar()->hide();
+		if ( MainSettings::get(MainSettings::FSHideStatusbar) )
+			statusBar()->hide();
+		if ( MainSettings::get(MainSettings::FSHideToolbar) ) {
+			hiddenToolBars_.clear();
+			foreach (QToolBar* tb, allToolBars_) {
+				if ( tb->isVisible() ) {
+					tb->hide();
+					hiddenToolBars_ << tb;
+				}
+			}
+		}
+	}
+	else {
+//		menuBar()->show();
+		statusBar()->show();
+		
+		foreach (QToolBar* tb, hiddenToolBars_) {
+			tb->show();
+		}
+	}
+}
 
 
 void JuffMW::applySettings() {

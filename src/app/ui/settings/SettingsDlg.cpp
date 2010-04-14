@@ -64,6 +64,9 @@ public:
 			  << new SettingsCheckItem("main", "makeBackupOnSave", ui.makeBackupChk)
 			  << new SettingsCheckItem("main", "stripTrailingSpaces", ui.stripSpacesChk)
 			  << new SettingsCheckItem("main", "singleInstance", ui.singleInstanceChk)
+//			  << new SettingsCheckItem("main", "fsHideMenubar", ui.fsHideMenubarChk)
+			  << new SettingsCheckItem("main", "fsHideToolbar", ui.fsHideToolbarChk)
+			  << new SettingsCheckItem("main", "fsHideStatusbar", ui.fsHideStatusbarChk)
 		;
 	}
 	

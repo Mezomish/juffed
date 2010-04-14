@@ -892,10 +892,15 @@ void SciDoc::applySettings() {
 		else
 			edit->setSelectionForegroundColor(QColor(0, 0, 0));
 		
-		if ( QSciSettings::get(QSciSettings::HighlightMatchingBrace) )
+		if ( QSciSettings::get(QSciSettings::HighlightMatchingBrace) ) {
 			edit->setMatchedBraceBackgroundColor(QSciSettings::get(QSciSettings::MatchingBraceBgColor));
-		else
+			edit->setMatchedBraceForegroundColor(QSciSettings::get(QSciSettings::MatchingBraceFgColor));
+		}
+		else {
 			edit->setMatchedBraceBackgroundColor(EditorSettings::get(EditorSettings::DefaultBgColor));
+			edit->setMatchedBraceForegroundColor(EditorSettings::get(EditorSettings::DefaultFontColor));
+		}
+		
 		
 		int lInd = EditorSettings::get(EditorSettings::LineLengthIndicator);
 		if ( lInd > 0 ) {

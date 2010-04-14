@@ -52,6 +52,18 @@ void MainSettings::set(BoolKey key, bool value) {
 			Settings::setValue("main", "makeBackupOnSave", value);
 			break;
 		
+//		case FSHideMenubar :
+//			Settings::setValue("main", "fsHideMenubar", value);
+//			break;
+		
+		case FSHideToolbar :
+			Settings::setValue("main", "fsHideToolbar", value);
+			break;
+		
+		case FSHideStatusbar :
+			Settings::setValue("main", "fsHideStatusbar", value);
+			break;
+		
 		default: ;
 	}
 }
@@ -91,6 +103,18 @@ bool MainSettings::get(BoolKey key) {
 		
 		case MakeBackupCopy :
 			return Settings::boolValue("main", "makeBackupOnSave");
+		
+//		case FSHideMenubar :
+//			return Settings::boolValue("main", "fsHideMenubar");
+//			break;
+		
+		case FSHideToolbar :
+			return Settings::boolValue("main", "fsHideToolbar");
+			break;
+		
+		case FSHideStatusbar :
+			return Settings::boolValue("main", "fsHideStatusbar");
+			break;
 		
 		default :
 			return false;

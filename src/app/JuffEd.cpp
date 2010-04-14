@@ -127,7 +127,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	connect(st->action(Juff::AboutQt), SIGNAL(triggered()), mw_, SLOT(aboutQt()));
 
 	// toolbar
-	QToolBar* tb = mw_->addToolBar("Main");
+	QToolBar* tb = new QToolBar("Main");
+	mw_->addToolBar(tb);
 	int sz = IconManager::instance()->iconSize();
 	tb->setIconSize(QSize(sz, sz));
 	tb->addAction(st->action(Juff::FileNew));
@@ -151,8 +152,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	QMenu* fileMenu = *( menus_.insert(Juff::MenuFile, new QMenu(tr("&File"))) );
 	prjMenu_ = new QMenu(tr("Project"));
-	fileMenu->addMenu(prjMenu_);
-	fileMenu->addSeparator();
+//	fileMenu->addMenu(prjMenu_);
+//	fileMenu->addSeparator();
 	{
 		Juff::ActionID ids[] = { Juff::FileNew, Juff::FileOpen, Juff::FileSave, 
 		                         Juff::FileSaveAs, Juff::FileSaveAll, Juff::FileReload, Juff::FileRename,
@@ -169,7 +170,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	// project
 	{
-		Juff::ActionID ids[] = { Juff::PrjNew, Juff::PrjOpen, Juff::PrjSaveAs,
+		Juff::ActionID ids[] = { Juff::PrjNew, Juff::PrjOpen, //Juff::PrjSaveAs,
 		                         Juff::PrjClose, Juff::PrjAddFile, Juff::NullID };
 		for (int i = 0; ids[i] != Juff::NullID; i++) {
 			if ( ids[i] == Juff::Separator )
@@ -246,6 +247,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	mw_->menuBar()->addMenu(searchMenu);
 	mw_->menuBar()->addMenu(formatMenu);
 	initPlugins();
+	mw_->menuBar()->addMenu(prjMenu_);
 	mw_->menuBar()->addMenu(toolsMenu);
 	mw_->menuBar()->addMenu(helpMenu);
 	
@@ -453,6 +455,8 @@ void JuffEd::slotPrjNew() {
 	QString prjFile = mw_->getSavePrjName(tr("New project"));
 	if ( !prjFile.isEmpty() ) {
 		// store the last used directory
+		if ( QFileInfo(prjFile).suffix().toLower() != "xml" )
+			prjFile += ".xml";
 		MainSettings::set(MainSettings::LastDir, QFileInfo(prjFile).absolutePath());
 		
 		if ( closeProject() )
@@ -695,7 +699,7 @@ void JuffEd::slotZoom100(){
 void JuffEd::slotFullscreen() {
 	LOGGER;
 	
-	mw_->setWindowState(mw_->windowState() ^ Qt::WindowFullScreen);
+	mw_->toggleFullscreen();
 }
 
 void JuffEd::slotSettings() {

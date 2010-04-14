@@ -44,6 +44,11 @@ QColor QSciSettings::get(ColorKey key) {
 			QColor c = Settings::value("QSci", "matchingBraceBgColor").value<QColor>();
 			return c.isValid() ? c : defaultValue("QSci", "matchingBraceBgColor").value<QColor>();
 		}
+		case MatchingBraceFgColor :
+		{
+			QColor c = Settings::value("QSci", "matchingBraceFgColor").value<QColor>();
+			return c.isValid() ? c : defaultValue("QSci", "matchingBraceFgColor").value<QColor>();
+		}
 		case IndentsColor :
 		{
 			QColor c = Settings::value("QSci", "indentsColor").value<QColor>();
@@ -77,6 +82,10 @@ void QSciSettings::set(ColorKey key, const QColor& c) {
 	switch (key) {
 		case MatchingBraceBgColor :
 			Settings::setValue("QSci", "matchingBraceBgColor", c);
+			break;
+		
+		case MatchingBraceFgColor :
+			Settings::setValue("QSci", "matchingBraceFgColor", c);
 			break;
 		
 		case IndentsColor :

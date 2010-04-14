@@ -27,6 +27,7 @@ class QSciSettings : public Settings {
 public:
 	enum ColorKey {
 		MatchingBraceBgColor,
+		MatchingBraceFgColor,
 		IndentsColor,
 		WordHLColor,
 		CurLineColor,

@@ -36,6 +36,9 @@ public:
 		SingleInstance,
 		StripTrailingSpaces,
 		MakeBackupCopy,
+//		FSHideMenubar,
+		FSHideToolbar,
+		FSHideStatusbar,
 	};
 //	static void set(IntKey, int);
 	static void set(BoolKey, bool);

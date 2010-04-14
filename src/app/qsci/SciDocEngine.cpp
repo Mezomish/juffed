@@ -36,7 +36,8 @@ public:
 		ui_.setupUi(this);
 		
 		indentsColorBtn_ = new ColorButton(ui_.indentsColorBtn, QSciSettings::get(QSciSettings::IndentsColor));
-		matchingBraceColorBtn_ = new ColorButton(ui_.matchingBraceColorBtn, QSciSettings::get(QSciSettings::MatchingBraceBgColor));
+		matchingBraceBgColorBtn_ = new ColorButton(ui_.matchingBraceBgColorBtn, QSciSettings::get(QSciSettings::MatchingBraceBgColor));
+		matchingBraceFgColorBtn_ = new ColorButton(ui_.matchingBraceFgColorBtn, QSciSettings::get(QSciSettings::MatchingBraceFgColor));
 		curLineColorBtn_ = new ColorButton(ui_.curLineColorBtn, QSciSettings::get(QSciSettings::CurLineColor));
 		
 		items_
@@ -49,7 +50,8 @@ public:
 	virtual void init() {}
 	virtual void apply() {
 		QSciSettings::set(QSciSettings::IndentsColor, indentsColorBtn_->color());
-		QSciSettings::set(QSciSettings::MatchingBraceBgColor, matchingBraceColorBtn_->color());
+		QSciSettings::set(QSciSettings::MatchingBraceBgColor, matchingBraceBgColorBtn_->color());
+		QSciSettings::set(QSciSettings::MatchingBraceFgColor, matchingBraceFgColorBtn_->color());
 		QSciSettings::set(QSciSettings::CurLineColor, curLineColorBtn_->color());
 		
 		SettingsPage::apply();
@@ -59,7 +61,8 @@ private:
 	Ui::QSciSettings ui_;
 
 	ColorButton* indentsColorBtn_;
-	ColorButton* matchingBraceColorBtn_;
+	ColorButton* matchingBraceBgColorBtn_;
+	ColorButton* matchingBraceFgColorBtn_;
 	ColorButton* curLineColorBtn_;
 };
 

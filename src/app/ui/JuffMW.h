@@ -49,11 +49,16 @@ public:
 
 	// information display
 	void addStatusWidget(QWidget*, int);
+	void addToolBar(QToolBar*);
 	void message(const QIcon& icon, const QString& title, const QString& message, int timeout = 10);
 
 	void showFindDialog();
 	void hideFindDialog();
 	void getSearchParams(Juff::SearchParams&);
+
+//	bool isFullScreen() const;
+//	void goFullScreen(bool);
+	void toggleFullscreen();
 
 	void applySettings();
 
@@ -78,6 +83,8 @@ private:
 	FindDlg* findDlg_;
 	QWidget* statusWidget_;
 	QHBoxLayout* statusLayout_;
+	QList<QToolBar*> allToolBars_;
+	QList<QToolBar*> hiddenToolBars_;
 };
 
 #endif // __JUFFED_MAIN_WINDOW_H__

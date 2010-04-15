@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QMessageBox>
 
 #include "SearchEngine.h"
 
@@ -7,7 +8,10 @@
 #include "JuffMW.h"
 #include "Log.h"
 
+enum Answer { Yes, No, All, Cancel };
 void stepOver(Juff::Document* doc, bool forward);
+Answer confirm(QWidget* w);
+bool doReplace(Juff::Document*, const Juff::SearchParams&, bool&, int&);
 
 SearchEngine::SearchEngine(Juff::DocHandlerInt* handler, JuffMW* mw) : QObject() {
 	handler_ = handler;
@@ -36,12 +40,12 @@ void SearchEngine::clearSelection(Juff::Document* doc) {
 }
 
 void SearchEngine::find(Juff::Document* doc) {
-	mw_->showFindDialog();
+	mw_->showFindDialog(false);
 
 	keepVariables(doc);
 }
 
-void SearchEngine::findNext(Juff::Document* doc) {
+bool SearchEngine::findNext(Juff::Document* doc) {
 	// in case the document is different
 	keepVariables(doc);
 	params_.backwards = false;
@@ -49,13 +53,13 @@ void SearchEngine::findNext(Juff::Document* doc) {
 	if ( !startFind(doc) ) {
 		stepOver(doc, true);
 		if ( !startFind(doc) ) {
-			mw_->message(QIcon(), "", tr("Line '%1' was not found").arg(params_.findWhat));
-			return;
+			return false;
 		}
 	}
+	return true;
 }
 
-void SearchEngine::findPrev(Juff::Document* doc) {
+bool SearchEngine::findPrev(Juff::Document* doc) {
 	// in case the document is different
 	keepVariables(doc);
 	params_.backwards = true;
@@ -63,11 +67,18 @@ void SearchEngine::findPrev(Juff::Document* doc) {
 	if ( !startFind(doc) ) {
 		stepOver(doc, false);
 		if ( !startFind(doc) ) {
-			mw_->message(QIcon(), "", tr("Text '%1' was not found").arg(params_.findWhat));
-			return;
+			return false;
 		}
 	}
+	return true;
 }
+
+void SearchEngine::replace(Juff::Document* doc) {
+	mw_->showFindDialog(true);
+
+	keepVariables(doc);
+}
+
 
 
 void SearchEngine::onSearchRequested(const Juff::SearchParams& params) {
@@ -77,10 +88,20 @@ void SearchEngine::onSearchRequested(const Juff::SearchParams& params) {
 	if ( doc->isNull() ) return;
 
 	params_ = params;
+	
+	if ( params.replace ) {
+		replace(doc, params);
+		return;
+	}
+	
+	bool found;
 	if ( params.backwards )
-		findPrev(doc);
+		found = findPrev(doc);
 	else
-		findNext(doc);
+		found = findNext(doc);
+	
+	if ( !found )
+		mw_->message(QIcon(), "", tr("Line '%1' was not found").arg(params_.findWhat));
 }
 
 int SearchEngine::findAt(const QString& line, bool forward, int& length) {
@@ -188,6 +209,29 @@ bool SearchEngine::startFind(Juff::Document* doc) {
 	return false;
 }
 
+void SearchEngine::replace(Juff::Document* doc, const Juff::SearchParams& params) {
+	bool cancelled = false;
+	bool replaceAll = false;
+	int count = 0;
+	
+	if ( params.backwards ) {
+		while ( !cancelled && findPrev(doc) ) {
+			if ( !doReplace(doc, params, replaceAll, count) ) {
+				cancelled = true;
+			}
+		}
+	}
+	else {
+		while ( !cancelled && findNext(doc) ) {
+			if ( !doReplace(doc, params, replaceAll, count) ) {
+				cancelled = true;
+			}
+		}
+	}
+	if ( count > 0 )
+		QMessageBox::information(doc, tr("Information"), tr("Replacement finished (%1 replacements were made)").arg(count));
+}
+
 void stepOver(Juff::Document* doc, bool forward) {
 	int row(0), col(0);
 	if ( !forward ) {
@@ -200,4 +244,80 @@ void stepOver(Juff::Document* doc, bool forward) {
 	}
 
 	doc->setCursorPos(row, col);
+}
+
+Answer confirm(QWidget* w) {
+	Answer answer = No;
+	QMessageBox::StandardButton btn = QMessageBox::question(w, QObject::tr("Confirmation"), 
+			QObject::tr("Replace this text?"), 
+			QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll | QMessageBox::Cancel, 
+			QMessageBox::Yes);
+
+	switch (btn) {
+		case QMessageBox::Yes:
+			answer = Yes;
+				break;
+		case QMessageBox::No:
+			answer = No;
+			break;
+		case QMessageBox::Cancel:
+			answer = Cancel;
+			break;
+		case QMessageBox::YesToAll:
+			answer = All;
+			break;
+		default: ;
+	}
+
+	return answer;
+}
+
+QString processSelection(Juff::Document* doc, const Juff::SearchParams& params) {
+	QString selectedText;
+	doc->getSelectedText(selectedText);
+	QString targetText = params.replaceWith;
+	if ( params.regExp ) {
+		QRegExp regExp(params.findWhat);
+		regExp.setCaseSensitivity(params.caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
+		if ( regExp.exactMatch(selectedText) ) {
+			QStringList matches = regExp.capturedTexts();
+			int n = matches.size();
+			for ( int i = 0; i < n; ++i ) {
+				targetText.replace(QString("\\%1").arg(i), matches[i]);
+			}
+		}
+		else
+			return "";
+	}
+	return targetText;
+}
+
+bool doReplace(Juff::Document* doc, const Juff::SearchParams& params, bool& replaceAll, int& count) {
+	if ( replaceAll ) {
+		doc->replaceSelectedText(processSelection(doc, params));
+		++count;
+		return true;
+	}
+	else {
+		Answer answer = confirm(doc);
+		switch (answer) {
+			case Cancel:
+				return false;
+			
+			case Yes :
+				doc->replaceSelectedText(processSelection(doc, params));
+				++count;
+				break;
+			
+			case No :
+				break;
+			;
+			case All :
+				doc->replaceSelectedText(processSelection(doc, params));
+				++count;
+				replaceAll = true;
+				break;
+		}
+	}
+	return true;
 }

@@ -597,6 +597,8 @@ void JuffEd::slotFindPrev() {
 
 void JuffEd::slotReplace() {
 	LOGGER;
+	
+	search_->replace(curDoc());
 }
 
 void JuffEd::slotGotoLine() {

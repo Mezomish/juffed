@@ -166,6 +166,10 @@ void FindDlg::setReplaceMode(bool replaceMode) {
 		uiFind.findBtn->setText(tr("Find"));
 //		uiFind.findBtn->setIcon(IconManager::instance()->getIcon(ID_FIND));
 		setWindowTitle(tr("Find"));
+		if ( uiFind.multiLineChk->isChecked() )
+			uiFind.mlEd->setFocus();
+		else
+			uiFind.findCmb->setFocus();
 	}
 	if (uiFind.replaceChk->isChecked() != replaceMode)
 		uiFind.replaceChk->setChecked(replaceMode);
@@ -175,10 +179,14 @@ void FindDlg::multiLineChecked(bool chk) {
 	if ( chk ) {
 		uiFind.lowerSpacer->changeSize(0, 0, QSizePolicy::Minimum, QSizePolicy::Fixed);
 		uiFind.mlEd->setText(uiFind.findCmb->currentText());
+		if ( uiFind.findCmb->hasFocus() )
+			uiFind.mlEd->setFocus();
 	}
 	else {
 		uiFind.findCmb->setEditText(uiFind.mlEd->toPlainText());
 		uiFind.lowerSpacer->changeSize(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+		if ( uiFind.mlEd->hasFocus() )
+			uiFind.findCmb->setFocus();
 	}
 }
 

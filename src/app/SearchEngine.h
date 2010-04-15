@@ -16,8 +16,10 @@ public:
 	SearchEngine(Juff::DocHandlerInt*, JuffMW*);
 
 	void find(Juff::Document*);
-	void findNext(Juff::Document*);
-	void findPrev(Juff::Document*);
+	bool findNext(Juff::Document*);
+	bool findPrev(Juff::Document*);
+	void replace(Juff::Document*);
+
 
 protected slots:
 	void onSearchRequested(const Juff::SearchParams&);
@@ -27,6 +29,7 @@ private:
 	void clearSelection(Juff::Document*);
 
 	bool startFind(Juff::Document*);
+	void replace(Juff::Document*, const Juff::SearchParams&);
 
 	bool performSearch(Juff::Document*);
 	int findAt(const QString&, bool forward, int& length);

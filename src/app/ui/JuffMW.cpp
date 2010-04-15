@@ -189,7 +189,8 @@ bool JuffMW::askForSave(const QStringList& filesIn, QStringList& filesOut) {
 	}
 }
 
-void JuffMW::showFindDialog() {
+void JuffMW::showFindDialog(bool replace) {
+	findDlg_->setReplaceMode(replace);
 	if ( findDlg_->exec() == QDialog::Accepted ) {
 		emit searchRequested(findDlg_->params());
 	}

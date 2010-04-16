@@ -22,7 +22,7 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.6.0)
 SET ( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 
 SET ( JUFFED "juffed" CACHE STRING "Name of the executeable" )
-SET ( JUFFLIB "jufflib" CACHE STRING "Name of the library" )
+SET ( JUFFLIB "juff" CACHE STRING "Name of the library" )
 
 
 #Version
@@ -213,6 +213,17 @@ SET ( juffed_app_RESOURCES
 	src/app/Resources.qrc
 )
 
+SET ( juffed_TS
+	l10n/juffed_de.ts
+	l10n/juffed_fr.ts
+	l10n/juffed_pl.ts
+	l10n/juffed_pt.ts
+	l10n/juffed_ru.ts
+	l10n/juffed_sp.ts
+	l10n/juffed_zh_CN.ts
+	l10n/juffed_cs.ts
+)
+
 SET ( juffed_DEV_HEADERS
 	include/AppInfo.h
 	${CMAKE_BINARY_DIR}/AppInfo.win.h
@@ -250,6 +261,7 @@ QT4_ADD_RESOURCES ( juffed_lib_RESOURCES ${juffed_lib_RESOURCES} )
 QT4_AUTOMOC ( ${juffed_lib_SRCS} )
 QT4_AUTOMOC ( ${juffed_app_SRCS} )
 QT4_WRAP_UI ( juffed_app_UIS_H ${juffed_app_UIS} )
+QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
 
 # include directories
 INCLUDE_DIRECTORIES(
@@ -261,7 +273,7 @@ INCLUDE_DIRECTORIES(
 	./include
 )
 
-ADD_LIBRARY ( jufflib SHARED
+ADD_LIBRARY ( ${JUFFLIB} SHARED
 	${juffed_lib_SRCS}
 	${juffed_lib_MOC_SRCS}
 	${juffed_lib_RESOURCES} 
@@ -275,7 +287,7 @@ ADD_EXECUTABLE ( ${JUFFED}
 	${juffed_app_MOC_SRCS} 
 	${juffed_app_UIS_H}
 	${juffed_app_RESOURCES} 
-#	${juffed_QM} 
+	${juffed_QM} 
 )
 
 TARGET_LINK_LIBRARIES ( ${JUFFLIB}
@@ -468,7 +480,7 @@ configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.win.h.cmake" "${CMAKE_BINARY_
 INSTALL ( TARGETS ${JUFFED} DESTINATION ${BIN_INSTALL_DIR} )
 INSTALL ( TARGETS ${JUFFLIB} DESTINATION ${LIB_INSTALL_DIR} )
 
-#INSTALL ( FILES ${juffed_QM} DESTINATION ${DATA_INSTALL_DIR}/l10n )
+INSTALL ( FILES ${juffed_QM} DESTINATION ${DATA_INSTALL_DIR}/l10n )
 INSTALL ( DIRECTORY hlschemes DESTINATION ${DATA_INSTALL_DIR} PATTERN ".svn" EXCLUDE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ )
 INSTALL ( DIRECTORY apis DESTINATION ${DATA_INSTALL_DIR} PATTERN "*.svn" EXCLUDE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ )
 INSTALL ( FILES juffed.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/pixmaps )

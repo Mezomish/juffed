@@ -101,7 +101,7 @@ void SearchEngine::onSearchRequested(const Juff::SearchParams& params) {
 		found = findNext(doc);
 	
 	if ( !found )
-		mw_->message(QIcon(), "", tr("Line '%1' was not found").arg(params_.findWhat));
+		mw_->message(QIcon(), "", tr("Text '%1' was not found").arg(params_.findWhat));
 }
 
 int SearchEngine::findAt(const QString& line, bool forward, int& length) {

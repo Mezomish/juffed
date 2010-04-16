@@ -70,7 +70,7 @@ private:
 SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
 	syntaxGroup_ = new QActionGroup(this);
 	
-	syntaxMenu_ = new QMenu(tr("Syntax"));
+	syntaxMenu_ = new QMenu(tr("&Syntax"));
 	connect(syntaxMenu_, SIGNAL(aboutToShow()), SLOT(onMenuAboutToBeShown()));
 	QStringList syntaxes = syntaxList();
 	foreach (QString syntax, syntaxes) {
@@ -115,8 +115,8 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 		{
 			addAction(id, menu, createAction(tr("UPPER CASE"), QKeySequence("Ctrl+U"), SLOT(slotUpperCase())));
 			addAction(id, menu, createAction(tr("lower case"), QKeySequence("Shift+Ctrl+U"), SLOT(slotLowerCase())));
-			addAction(id, menu, createAction(tr("Move up"), QKeySequence("Alt+Up"), SLOT(slotMoveUp())));
-			addAction(id, menu, createAction(tr("Move down"), QKeySequence("Alt+Down"), SLOT(slotMoveDown())));
+			addAction(id, menu, createAction(tr("Move line up"), QKeySequence("Alt+Up"), SLOT(slotMoveUp())));
+			addAction(id, menu, createAction(tr("Move line down"), QKeySequence("Alt+Down"), SLOT(slotMoveDown())));
 			addAction(id, menu, createAction(tr("Duplicate text"), QKeySequence("Ctrl+D"), SLOT(slotDuplicate())));
 			addAction(id, menu, createAction(tr("Remove lines"), QKeySequence("Ctrl+L"), SLOT(slotRemoveLines())));
 			addAction(id, menu, createAction(tr("Comment lines"), QKeySequence("Ctrl+/"), SLOT(slotCommentLines())));

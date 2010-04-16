@@ -196,6 +196,8 @@ void Document::startCheckingTimer() {
 	LOGGER;
 	if ( !fileName_.isEmpty() && !Juff::isNoname(this) ) {
 		lastModified_ = QFileInfo(fileName_).lastModified();
+		qDebug() << "'Last modified' from file:" << lastModified_;
+		qDebug() << "'Last modified' saved    :" << QFileInfo(fileName_).lastModified();
 		modCheckTimer_->start(1000);
 	}
 }

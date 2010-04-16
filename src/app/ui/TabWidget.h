@@ -67,7 +67,7 @@ private:
 	QString docName(int) const;
 
 	int menuRequestedIndex_;
-	int index_;
+	int selfIndex_;
 	DocListButton* docListBtn_;
 };
 

@@ -16,8 +16,10 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QDebug>
 #include "ProjectTree.h"
 
+#include "CommandStorage.h"
 #include "DocHandlerInt.h"
 #include "Functions.h"
 #include "Log.h"
@@ -56,6 +58,9 @@ ProjectTree::ProjectTree(Juff::DocHandlerInt* handler) : QWidget() {
 	
 	fileMenu_->setDefaultAction(fileMenu_->addAction(tr("Open file"), this, SLOT(onOpenFile())));
 	fileMenu_->addAction(tr("Remove from project"), this, SLOT(onRemoveFromProject()));
+	
+	prjMenu_->addAction(CommandStorage::instance()->action(Juff::PrjAddFile));
+	prjMenu_->addAction(CommandStorage::instance()->action(Juff::PrjClose));
 }
 
 void ProjectTree::setProject(Juff::Project* prj) {
@@ -77,6 +82,7 @@ void ProjectTree::updateTree() {
 	if ( !prj_->name().isEmpty() ) {
 		QTreeWidgetItem* root = new QTreeWidgetItem(QStringList() << prj_->name());
 		tree_->addTopLevelItem(root);
+		root->setData(0, ItemType, "project");
 		root->setExpanded(true);
 		parsePrjItem(prj_, root);
 	}

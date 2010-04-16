@@ -233,7 +233,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 		}
 	}
 	
-	QMenu* formatMenu = *( menus_.insert(Juff::MenuFormat, new QMenu(tr("&Format"))) );
+	QMenu* formatMenu = *( menus_.insert(Juff::MenuFormat, new QMenu(tr("Fo&rmat"))) );
 	QMenu* toolsMenu = *( menus_.insert(Juff::MenuTools, new QMenu(tr("&Tools"))) );
 	QMenu* helpMenu = *( menus_.insert(Juff::MenuHelp, new QMenu(tr("&Help"))) );
 	
@@ -254,7 +254,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	openWithCharsetGr_ = new QActionGroup(this);
 	setCharsetGr_ = new QActionGroup(this);
 	charsetMenu_ = new QMenu(tr("Charset"));
-	openWithCharsetMenu_ = new QMenu(tr("Open with..."));
+	openWithCharsetMenu_ = new QMenu(tr("Open with charset..."));
 	setCharsetMenu_ = new QMenu(tr("Set charset"));
 	initCharsetMenus();
 	charsetMenu_->addMenu(openWithCharsetMenu_);
@@ -519,6 +519,9 @@ void JuffEd::slotPrjAddFile() {
 			
 			// notify plugins
 			emit projectFileAdded(prj_, file);
+			
+			// open the document
+			openDoc(file);
 		}
 		// store the last used directory
 		MainSettings::set(MainSettings::LastDir, QFileInfo(file).absolutePath());

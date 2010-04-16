@@ -148,6 +148,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "highlightCurrentLine" )  return true;
 		if ( key == "replaceTabsWithSpaces" ) return false;
 		if ( key == "backspaceUnindents" )    return false;
+		if ( key == "fontSize" )              return 10;
 		if ( key == "fontFamily" )
 #ifdef Q_OS_WIN32
 			return "Courier New";

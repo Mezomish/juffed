@@ -961,7 +961,8 @@ void SciDoc::applySettings() {
 void SciDoc::onCursorMoved(int line, int col) {
 	if ( int_->hlTimer_->isActive() )
 		int_->hlTimer_->stop();
-	int_->hlTimer_->start(500);
+	if ( QSciSettings::get(QSciSettings::HighlightCurWord) )
+		int_->hlTimer_->start(500);
 	emit cursorPosChanged(line, col);
 }
 

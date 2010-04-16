@@ -62,7 +62,7 @@ TabWidget::TabWidget() : QTabWidget() {
 	setAcceptDrops(true);
 	
 	static int ind = 0;
-	index_ = ind++;
+	selfIndex_ = ind++;
 	
 	docListBtn_ = new DocListButton(QIcon());
 	docListBtn_->setToolTip(tr("Documents list"));
@@ -101,7 +101,7 @@ void TabWidget::initDocMenu(int index, QMenu* menu) {
 		menu->addSeparator();
 //		if ( doc->supportsAction(Juff::FileClone) && !doc->hasClone() )
 //			menu->addAction(tr("Clone to another panel"), this, SLOT(cloneDoc()));
-		if ( index_ == 0 )
+		if ( selfIndex_ == 0 )
 			menu->addAction(tr("Move to the right panel"), this, SLOT(moveDoc()));
 		else
 			menu->addAction(tr("Move to the left panel"), this, SLOT(moveDoc()));

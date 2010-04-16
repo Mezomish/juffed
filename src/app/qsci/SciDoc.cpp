@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDoc.h"
 
+#include "AutocompleteSettings.h"
 #include "Functions.h"
 #include "JuffScintilla.h"
 #include "Log.h"
@@ -933,23 +934,23 @@ void SciDoc::applySettings() {
 			edit->setSelectionForegroundColor(QColor(255, 255, 255));
 		else
 			edit->setSelectionForegroundColor(QColor(0, 0, 0));
-
+*/
 		//	autocompletion
-		edit->setAutoCompletionThreshold(AutocompleteSettings::threshold());
-		edit->setAutoCompletionReplaceWord(AutocompleteSettings::replaceWord());
-		edit->setAutoCompletionCaseSensitivity(AutocompleteSettings::caseSensitive());
-		if ( AutocompleteSettings::useDocument() ) {
-			if ( AutocompleteSettings::useApis() )
+		edit->setAutoCompletionThreshold(AutocompleteSettings::get(AutocompleteSettings::Threshold));
+		edit->setAutoCompletionReplaceWord(AutocompleteSettings::get(AutocompleteSettings::ReplaceWord));
+		edit->setAutoCompletionCaseSensitivity(AutocompleteSettings::get(AutocompleteSettings::CaseSensitive));
+		if ( AutocompleteSettings::get(AutocompleteSettings::UseDocument) ) {
+			if ( AutocompleteSettings::get(AutocompleteSettings::UseApis) )
 				edit->setAutoCompletionSource(QsciScintilla::AcsAll);
 			else
 				edit->setAutoCompletionSource(QsciScintilla::AcsDocument);
 		}
 		else {
-			if ( AutocompleteSettings::useApis() )
+			if ( AutocompleteSettings::get(AutocompleteSettings::UseApis) )
 				edit->setAutoCompletionSource(QsciScintilla::AcsAPIs);
 			else
 				edit->setAutoCompletionSource(QsciScintilla::AcsNone);
-		}*/
+		}
 	}
 }
 

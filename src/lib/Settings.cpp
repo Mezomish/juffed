@@ -132,6 +132,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "useApis" )       return false;
 		if ( key == "replaceWord" )   return false;
 		if ( key == "caseSensitive" ) return false;
+		if ( key == "threshold" )     return 2;
 	}
 	else if ( section == "charset" ) {
 		return true;

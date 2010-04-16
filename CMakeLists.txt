@@ -75,6 +75,7 @@ SET ( juffed_lib_MOC_HEADERS
 )
 
 SET ( juffed_lib_SRCS
+	src/lib/AutocompleteSettings.cpp
 	src/lib/CharsetSettings.cpp
 	src/lib/EditorSettings.cpp
 	src/lib/FileTypeSettings.cpp
@@ -228,6 +229,7 @@ SET ( juffed_DEV_HEADERS
 	include/AppInfo.h
 	${CMAKE_BINARY_DIR}/AppInfo.win.h
 	${CMAKE_BINARY_DIR}/AppInfo.nix.h
+	include/AutocompleteSettings.h
 	include/CharsetSettings.h
 	include/CommandStorage.h
 	include/Document.h

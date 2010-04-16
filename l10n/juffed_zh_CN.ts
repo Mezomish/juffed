@@ -308,47 +308,27 @@ newly created/opened docs</source>
     <name>Juff</name>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;文件</translation>
-    </message>
-    <message>
-        <source>Project</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;文件</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;编辑</translation>
+        <translation type="obsolete">&amp;编辑</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;显示</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fo&amp;rmat</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;显示</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;工具</translation>
+        <translation type="obsolete">&amp;工具</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>&amp;帮助</translation>
+        <translation type="obsolete">&amp;帮助</translation>
     </message>
     <message>
         <source>Charset</source>
-        <translation>编码</translation>
-    </message>
-    <message>
-        <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set charset</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">编码</translation>
     </message>
 </context>
 <context>
@@ -698,15 +678,15 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="obsolete">&amp;文件</translation>
+        <translation>&amp;文件</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="obsolete">&amp;编辑</translation>
+        <translation>&amp;编辑</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation type="obsolete">&amp;显示</translation>
+        <translation>&amp;显示</translation>
     </message>
     <message>
         <source>&amp;Markers</source>
@@ -714,15 +694,15 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation type="obsolete">&amp;工具</translation>
+        <translation>&amp;工具</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="obsolete">&amp;帮助</translation>
+        <translation>&amp;帮助</translation>
     </message>
     <message>
         <source>Charset</source>
-        <translation type="obsolete">编码</translation>
+        <translation>编码</translation>
     </message>
     <message>
         <source>Recent files</source>
@@ -814,6 +794,42 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Line: %1, Col: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fo&amp;rmat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open with charset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursor position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File full name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current character set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines count</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -943,15 +959,15 @@ Do you want to save your changes?</source>
     <name>MessageWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>border: solid 1px #000000;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1037,18 +1053,6 @@ Do you want to save your changes?</source>
     <message>
         <source>Recent files</source>
         <translation type="obsolete">最近的文件</translation>
-    </message>
-    <message>
-        <source>Cursor position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File full name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lines count</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Session</source>
@@ -1271,10 +1275,6 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Chinese Simplified translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current character set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

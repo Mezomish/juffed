@@ -263,47 +263,27 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     <name>Juff</name>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Fichier</translation>
+        <translation type="obsolete">&amp;Fichier</translation>
     </message>
     <message>
         <source>Project</source>
-        <translation>Projet</translation>
+        <translation type="obsolete">Projet</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Edition</translation>
+        <translation type="obsolete">&amp;Edition</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Affichage</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fo&amp;rmat</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Affichage</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;Outils</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Outils</translation>
     </message>
     <message>
         <source>Charset</source>
-        <translation>Encodage</translation>
-    </message>
-    <message>
-        <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set charset</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Encodage</translation>
     </message>
 </context>
 <context>
@@ -593,6 +573,66 @@ Voulez-vous enregistrer les changements?</translation>
         <source>Line: %1, Col: %2</source>
         <translation>Ligne: %1, Col: %2</translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Fichier</translation>
+    </message>
+    <message>
+        <source>Project</source>
+        <translation>Projet</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edition</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Affichage</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fo&amp;rmat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Outils</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>Aide</translation>
+    </message>
+    <message>
+        <source>Charset</source>
+        <translation>Encodage</translation>
+    </message>
+    <message>
+        <source>Open with charset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursor position</source>
+        <translation>Position du curseur</translation>
+    </message>
+    <message>
+        <source>File full name</source>
+        <translation>Nom complet du fichier</translation>
+    </message>
+    <message>
+        <source>Current character set</source>
+        <translation>Charset actuel</translation>
+    </message>
+    <message>
+        <source>Lines count</source>
+        <translation>Nombre de lignes</translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -721,15 +761,15 @@ Voulez-vous enregistrer les changements?</translation>
     <name>MessageWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">Formulaire</translation>
+        <translation>Formulaire</translation>
     </message>
     <message>
         <source>border: solid 1px #000000;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -743,11 +783,11 @@ Voulez-vous enregistrer les changements?</translation>
     <name>ProjectTree</name>
     <message>
         <source>Project</source>
-        <translation type="unfinished">Projet</translation>
+        <translation>Projet</translation>
     </message>
     <message>
         <source>Open file</source>
-        <translation type="unfinished">Ouvrir fichier</translation>
+        <translation>Ouvrir fichier</translation>
     </message>
     <message>
         <source>Remove from project</source>
@@ -782,7 +822,7 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>Lines count</source>
-        <translation>Nombre de lignes</translation>
+        <translation type="obsolete">Nombre de lignes</translation>
     </message>
     <message>
         <source>Noname</source>
@@ -1046,11 +1086,11 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Cursor position</source>
-        <translation>Position du curseur</translation>
+        <translation type="obsolete">Position du curseur</translation>
     </message>
     <message>
         <source>File full name</source>
-        <translation>Nom complet du fichier</translation>
+        <translation type="obsolete">Nom complet du fichier</translation>
     </message>
     <message>
         <source>Syntax highlighting scheme</source>
@@ -1114,7 +1154,7 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Current character set</source>
-        <translation>Charset actuel</translation>
+        <translation type="obsolete">Charset actuel</translation>
     </message>
     <message>
         <source>Advanced text editor</source>

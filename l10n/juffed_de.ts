@@ -271,47 +271,35 @@ anstelle von nur einer Leerstelle</translation>
     <name>Juff</name>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Datei</translation>
+        <translation type="obsolete">&amp;Datei</translation>
     </message>
     <message>
         <source>Project</source>
-        <translation>Projekt</translation>
+        <translation type="obsolete">Projekt</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Bearbeiten</translation>
+        <translation type="obsolete">&amp;Bearbeiten</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Ansicht</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Ansicht</translation>
     </message>
     <message>
         <source>Fo&amp;rmat</source>
-        <translation>Fo&amp;rmat</translation>
+        <translation type="obsolete">Fo&amp;rmat</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;Einstellungen</translation>
+        <translation type="obsolete">&amp;Einstellungen</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>Hilfe</translation>
+        <translation type="obsolete">Hilfe</translation>
     </message>
     <message>
         <source>Charset</source>
-        <translation>Zeichensatz</translation>
-    </message>
-    <message>
-        <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set charset</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Zeichensatz</translation>
     </message>
 </context>
 <context>
@@ -629,6 +617,66 @@ Wollen Sie die Änderungen speichern?</translation>
         <source>Line: %1, Col: %2</source>
         <translation>Zeile: %1, Spalte: %2</translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Datei</translation>
+    </message>
+    <message>
+        <source>Project</source>
+        <translation>Projekt</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Bearbeiten</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Ansicht</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fo&amp;rmat</source>
+        <translation>Fo&amp;rmat</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Einstellungen</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>&amp;Hilfe</translation>
+    </message>
+    <message>
+        <source>Charset</source>
+        <translation>Zeichensatz</translation>
+    </message>
+    <message>
+        <source>Open with charset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursor position</source>
+        <translation>Schreibmarkenposition</translation>
+    </message>
+    <message>
+        <source>File full name</source>
+        <translation>Vollständiger Dateiname</translation>
+    </message>
+    <message>
+        <source>Current character set</source>
+        <translation>Ausgewählter Zeichensatz</translation>
+    </message>
+    <message>
+        <source>Lines count</source>
+        <translation>Zeilenanzahl</translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -757,15 +805,15 @@ Wollen Sie die Änderungen speichern?</translation>
     <name>MessageWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">Formular</translation>
+        <translation>Formular</translation>
     </message>
     <message>
         <source>border: solid 1px #000000;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -870,7 +918,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Lines count</source>
-        <translation>Zeilenanzahl</translation>
+        <translation type="obsolete">Zeilenanzahl</translation>
     </message>
     <message>
         <source>Current character set: %1</source>
@@ -1094,11 +1142,11 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Cursor position</source>
-        <translation>Schreibmarkenposition</translation>
+        <translation type="obsolete">Schreibmarkenposition</translation>
     </message>
     <message>
         <source>File full name</source>
-        <translation>Vollständiger Dateiname</translation>
+        <translation type="obsolete">Vollständiger Dateiname</translation>
     </message>
     <message>
         <source>Syntax highlighting scheme</source>
@@ -1166,7 +1214,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Current character set</source>
-        <translation>Ausgewählter Zeichensatz</translation>
+        <translation type="obsolete">Ausgewählter Zeichensatz</translation>
     </message>
     <message>
         <source>Advanced text editor</source>

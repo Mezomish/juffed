@@ -223,47 +223,19 @@ whole indent instead of removind single whitespace</source>
     <name>Juff</name>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Archivo</translation>
-    </message>
-    <message>
-        <source>Project</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Archivo</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Editar</translation>
+        <translation type="obsolete">&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Ver</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fo&amp;rmat</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Ver</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;Herramientas</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set charset</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Herramientas</translation>
     </message>
 </context>
 <context>
@@ -400,6 +372,66 @@ whole indent instead of removind single whitespace</source>
         <source>Line: %1, Col: %2</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Archivo</translation>
+    </message>
+    <message>
+        <source>Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Ver</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fo&amp;rmat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Herramientas</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open with charset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursor position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File full name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current character set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines count</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -499,15 +531,15 @@ Do you want to save your changes?</source>
     <name>MessageWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>border: solid 1px #000000;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -545,10 +577,6 @@ Do you want to save your changes?</source>
     <message>
         <source>&amp;View</source>
         <translation type="obsolete">&amp;Ver</translation>
-    </message>
-    <message>
-        <source>Lines count</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>About</source>
@@ -739,14 +767,6 @@ Do you want to save your changes?</source>
         <translation>Acerca de Qt</translation>
     </message>
     <message>
-        <source>Cursor position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File full name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Reload</source>
         <translation type="unfinished"></translation>
     </message>
@@ -760,10 +780,6 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Chinese Simplified translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current character set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

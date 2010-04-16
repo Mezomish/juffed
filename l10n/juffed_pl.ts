@@ -253,47 +253,19 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
     <name>Juff</name>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Plik</translation>
-    </message>
-    <message>
-        <source>Project</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Plik</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Edycja</translation>
+        <translation type="obsolete">&amp;Edycja</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Widok</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fo&amp;rmat</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Widok</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;Narzędzia</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Charset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set charset</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Narzędzia</translation>
     </message>
 </context>
 <context>
@@ -533,6 +505,66 @@ Czy chcesz zachować swoje zmiany?</translation>
         <source>Line: %1, Col: %2</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Plik</translation>
+    </message>
+    <message>
+        <source>Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edycja</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Widok</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fo&amp;rmat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Narzędzia</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open with charset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursor position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File full name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current character set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines count</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -661,15 +693,15 @@ Czy chcesz zachować swoje zmiany?</translation>
     <name>MessageWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>border: solid 1px #000000;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -707,10 +739,6 @@ Czy chcesz zachować swoje zmiany?</translation>
     <message>
         <source>&amp;View</source>
         <translation type="obsolete">&amp;Widok</translation>
-    </message>
-    <message>
-        <source>Lines count</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Noname</source>
@@ -969,14 +997,6 @@ Rozpocząć od początku?</translation>
         <translation type="obsolete">&amp;Składnia</translation>
     </message>
     <message>
-        <source>Cursor position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File full name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Reload</source>
         <translation>Wczytaj ponownie</translation>
     </message>
@@ -994,10 +1014,6 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>Chinese Simplified translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current character set</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

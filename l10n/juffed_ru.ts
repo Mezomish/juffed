@@ -294,47 +294,47 @@ whole indent instead of removind single whitespace</source>
     <name>Juff</name>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Файл</translation>
+        <translation type="obsolete">&amp;Файл</translation>
     </message>
     <message>
         <source>Project</source>
-        <translation>Проект</translation>
+        <translation type="obsolete">Проект</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Правка</translation>
+        <translation type="obsolete">&amp;Правка</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Вид</translation>
+        <translation type="obsolete">&amp;Вид</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation>Поиск</translation>
+        <translation type="obsolete">Поиск</translation>
     </message>
     <message>
         <source>Fo&amp;rmat</source>
-        <translation>Фор&amp;мат</translation>
+        <translation type="obsolete">Фор&amp;мат</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;Инструменты</translation>
+        <translation type="obsolete">&amp;Инструменты</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>Справка</translation>
+        <translation type="obsolete">Справка</translation>
     </message>
     <message>
         <source>Charset</source>
-        <translation>Кодировка</translation>
+        <translation type="obsolete">Кодировка</translation>
     </message>
     <message>
         <source>Open with charset...</source>
-        <translation>Открыть в кодировке...</translation>
+        <translation type="obsolete">Открыть в кодировке...</translation>
     </message>
     <message>
         <source>Set charset</source>
-        <translation>Установить кодировку</translation>
+        <translation type="obsolete">Установить кодировку</translation>
     </message>
 </context>
 <context>
@@ -665,6 +665,66 @@ Do you want to proceed?</source>
         <source>Line: %1, Col: %2</source>
         <translation>Стр: %1, Стлб: %2</translation>
     </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Файл</translation>
+    </message>
+    <message>
+        <source>Project</source>
+        <translation>Проект</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Правка</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Вид</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation>По&amp;иск</translation>
+    </message>
+    <message>
+        <source>Fo&amp;rmat</source>
+        <translation>Фор&amp;мат</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation type="unfinished">Инст&amp;рументы</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>&amp;Справка</translation>
+    </message>
+    <message>
+        <source>Charset</source>
+        <translation>Кодировка</translation>
+    </message>
+    <message>
+        <source>Open with charset...</source>
+        <translation>Открыть в кодировке...</translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation>Установить кодировку</translation>
+    </message>
+    <message>
+        <source>Cursor position</source>
+        <translation>Позиция курсора</translation>
+    </message>
+    <message>
+        <source>File full name</source>
+        <translation>Полное имя файла</translation>
+    </message>
+    <message>
+        <source>Current character set</source>
+        <translation>Текущая кодировка</translation>
+    </message>
+    <message>
+        <source>Lines count</source>
+        <translation>Количество строк в файле</translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -873,7 +933,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Lines count</source>
-        <translation>Количество строк в файле</translation>
+        <translation type="obsolete">Количество строк в файле</translation>
     </message>
     <message>
         <source>Noname</source>
@@ -1141,11 +1201,11 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Cursor position</source>
-        <translation>Позиция курсора</translation>
+        <translation type="obsolete">Позиция курсора</translation>
     </message>
     <message>
         <source>File full name</source>
-        <translation>Полное имя файла</translation>
+        <translation type="obsolete">Полное имя файла</translation>
     </message>
     <message>
         <source>Character set</source>
@@ -1213,7 +1273,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Current character set</source>
-        <translation>Текущая кодировка</translation>
+        <translation type="obsolete">Текущая кодировка</translation>
     </message>
     <message>
         <source>Advanced text editor</source>
@@ -1334,7 +1394,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Unindent lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Уменьшить отступ</translation>
     </message>
 </context>
 <context>

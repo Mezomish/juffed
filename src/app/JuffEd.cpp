@@ -20,7 +20,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "JuffEd.h"
 
-#include "AppInfo.h"
 #include "CharsetSettings.h"
 #include "CommandStorage.h"
 #include "Document.h"
@@ -38,11 +37,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QAction>
 #include <QActionGroup>
 #include <QApplication>
+#include <QFileInfo>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QToolBar>
-#include <QTranslator>
 
 // TODO : remove this to a plugin!
 #include <QDockWidget>
@@ -55,14 +54,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	prj_ = new Juff::Project(prjName);
 	
 	charsetMenu_ = openWithCharsetMenu_ = setCharsetMenu_ = NULL;
-	
-/*	QString lng = AppInfo::language();
-	QTranslator translator;
-	if ( translator.load("juffed_" + lng, AppInfo::translationPath()) ) {
-		if ( !translator.isEmpty() ) {
-			qApp->installTranslator(&translator);
-		}
-	}*/
 	
 	mw_ = new JuffMW();
 	
@@ -150,8 +141,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	// Menu //////
 	
-	QMenu* fileMenu = *( menus_.insert(Juff::MenuFile, new QMenu(tr("&File"))) );
-	prjMenu_ = new QMenu(tr("Project"));
+	QMenu* fileMenu = *( menus_.insert(Juff::MenuFile, new QMenu(JuffEd::tr("&File"))) );
+	prjMenu_ = new QMenu(JuffEd::tr("Project"));
 //	fileMenu->addMenu(prjMenu_);
 //	fileMenu->addSeparator();
 	{
@@ -180,7 +171,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 		}
 	}
 	
-	QMenu* editMenu = *( menus_.insert(Juff::MenuEdit, new QMenu(tr("&Edit"))) );
+	QMenu* editMenu = *( menus_.insert(Juff::MenuEdit, new QMenu(JuffEd::tr("&Edit"))) );
 	{
 		Juff::ActionID ids[] = { Juff::EditUndo, Juff::EditRedo, Juff::Separator,
 		                         Juff::EditCut, Juff::EditCopy, Juff::EditPaste,
@@ -197,7 +188,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 		}
 	}
 	
-	QMenu* viewMenu = *( menus_.insert(Juff::MenuView, new QMenu(tr("&View"))) );
+	QMenu* viewMenu = *( menus_.insert(Juff::MenuView, new QMenu(JuffEd::tr("&View"))) );
 	{
 		Juff::ActionID ids[] = { Juff::ViewWrapWords, Juff::ViewLineNumbers, Juff::ViewWhitespaces,
 		                         Juff::ViewLineEndings,
@@ -218,7 +209,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	st->action(Juff::ViewWhitespaces)->setChecked(EditorSettings::get(EditorSettings::ShowWhitespaces));
 	st->action(Juff::ViewLineEndings)->setChecked(EditorSettings::get(EditorSettings::ShowLineEnds));
 	
-	QMenu* searchMenu = *( menus_.insert(Juff::MenuSearch, new QMenu(tr("&Search"))) );
+	QMenu* searchMenu = *( menus_.insert(Juff::MenuSearch, new QMenu(JuffEd::tr("&Search"))) );
 	{
 		Juff::ActionID ids[] = { Juff::Find, Juff::FindNext, Juff::FindPrev,
 		                         Juff::Replace,
@@ -233,9 +224,9 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 		}
 	}
 	
-	QMenu* formatMenu = *( menus_.insert(Juff::MenuFormat, new QMenu(tr("Fo&rmat"))) );
-	QMenu* toolsMenu = *( menus_.insert(Juff::MenuTools, new QMenu(tr("&Tools"))) );
-	QMenu* helpMenu = *( menus_.insert(Juff::MenuHelp, new QMenu(tr("&Help"))) );
+	QMenu* formatMenu = *( menus_.insert(Juff::MenuFormat, new QMenu(JuffEd::tr("Fo&rmat"))) );
+	QMenu* toolsMenu = *( menus_.insert(Juff::MenuTools, new QMenu(JuffEd::tr("&Tools"))) );
+	QMenu* helpMenu = *( menus_.insert(Juff::MenuHelp, new QMenu(JuffEd::tr("&Help"))) );
 	
 	toolsMenu->addAction(st->action(Juff::Settings));
 	helpMenu->addAction(st->action(Juff::About));
@@ -253,9 +244,9 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	openWithCharsetGr_ = new QActionGroup(this);
 	setCharsetGr_ = new QActionGroup(this);
-	charsetMenu_ = new QMenu(tr("Charset"));
-	openWithCharsetMenu_ = new QMenu(tr("Open with charset..."));
-	setCharsetMenu_ = new QMenu(tr("Set charset"));
+	charsetMenu_ = new QMenu(JuffEd::tr("Charset"));
+	openWithCharsetMenu_ = new QMenu(JuffEd::tr("Open with charset..."));
+	setCharsetMenu_ = new QMenu(JuffEd::tr("Set charset"));
 	initCharsetMenus();
 	charsetMenu_->addMenu(openWithCharsetMenu_);
 	charsetMenu_->addMenu(setCharsetMenu_);
@@ -283,10 +274,10 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	charsetL_ = new Juff::StatusLabel("");
 	linesL_ = new Juff::StatusLabel("");
 	posL_->setMinimumWidth(130);
-	posL_->setToolTip(QObject::tr("Cursor position"));
-	nameL_->setToolTip(QObject::tr("File full name"));
-	charsetL_->setToolTip(QObject::tr("Current character set"));
-	linesL_->setToolTip(QObject::tr("Lines count"));
+	posL_->setToolTip(JuffEd::tr("Cursor position"));
+	nameL_->setToolTip(JuffEd::tr("File full name"));
+	charsetL_->setToolTip(JuffEd::tr("Current character set"));
+	linesL_->setToolTip(JuffEd::tr("Lines count"));
 	charsetL_->setMenu(charsetMenu_);
 	connect(linesL_, SIGNAL(clicked()), SLOT(slotGotoLine()));
 	connect(posL_, SIGNAL(clicked()), SLOT(slotGotoLine()));
@@ -452,7 +443,7 @@ void JuffEd::slotFileExit() {
 void JuffEd::slotPrjNew() {
 	LOGGER;
 	
-	QString prjFile = mw_->getSavePrjName(tr("New project"));
+	QString prjFile = mw_->getSavePrjName(JuffEd::tr("New project"));
 	if ( !prjFile.isEmpty() ) {
 		// store the last used directory
 		if ( QFileInfo(prjFile).suffix().toLower() != "xml" )
@@ -502,7 +493,7 @@ void JuffEd::slotPrjRename() {
 void JuffEd::slotPrjSaveAs() {
 	LOGGER;
 	
-//	QString prjName = mw_->getSavePrjName(tr("Save project as..."));
+//	QString prjName = mw_->getSavePrjName(JuffEd::tr("Save project as..."));
 //	if ( !prjName.isEmpty() ) {
 //	}
 }
@@ -1000,7 +991,7 @@ QStringList JuffEd::docList() const {
 
 
 void JuffEd::reportError(const QString& error) {
-	QMessageBox::warning(mw_, tr("Error"), error);
+	QMessageBox::warning(mw_, JuffEd::tr("Error"), error);
 }
 
 bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
@@ -1142,13 +1133,13 @@ void JuffEd::updateGUI(Juff::Document* doc) {
 }
 
 void JuffEd::updateLineCount(Juff::Document* doc) {
-	linesL_->setText(tr("Lines: %1").arg(doc->lineCount()));
+	linesL_->setText(JuffEd::tr("Lines: %1").arg(doc->lineCount()));
 }
 
 void JuffEd::updateCursorPos(Juff::Document* doc) {
 	int line, col;
 	doc->getCursorPos(line, col);
-	posL_->setText(tr("Line: %1, Col: %2").arg(line+1).arg(col+1));
+	posL_->setText(JuffEd::tr("Line: %1, Col: %2").arg(line+1).arg(col+1));
 }
 
 

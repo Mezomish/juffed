@@ -17,14 +17,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "../3rd_party/qtsingleapplication/qtsingleapplication.h"
+#include "AppInfo.h"
 #include "JuffEd.h"
 #include "MainSettings.h"
 
 #include <QFileInfo>
+#include <QTranslator>
 
 void initApp(QApplication& app) {
 	app.setOrganizationName("juff");
 	app.setApplicationName("juffed");
+
+	QString lng = AppInfo::language();
+	QTranslator* translator = new QTranslator();
+	if ( translator->load("juffed_" + lng, AppInfo::translationPath()) ) {
+		if ( !translator->isEmpty() ) {
+			app.installTranslator(translator);
+		}
+	}
+	
 }
 
 void processParams(JuffEd& juffed, QStringList params) {

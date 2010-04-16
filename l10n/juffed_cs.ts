@@ -251,47 +251,27 @@ namísto pouze jednoho prázdného místa</translation>
     <name>Juff</name>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Soubor</translation>
-    </message>
-    <message>
-        <source>Project</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Soubor</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>&amp;Úpravy</translation>
+        <translation type="obsolete">&amp;Úpravy</translation>
     </message>
     <message>
         <source>&amp;View</source>
-        <translation>&amp;Pohled</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Pohled</translation>
     </message>
     <message>
         <source>Fo&amp;rmat</source>
-        <translation>Fo&amp;rmát</translation>
+        <translation type="obsolete">Fo&amp;rmát</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>&amp;Nástroje</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Nástroje</translation>
     </message>
     <message>
         <source>Charset</source>
-        <translation>Soubor znaků</translation>
-    </message>
-    <message>
-        <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set charset</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Soubor znaků</translation>
     </message>
 </context>
 <context>
@@ -562,6 +542,66 @@ Chcete pokračovat?</translation>
     <message>
         <source>Line: %1, Col: %2</source>
         <translation>Řádek: %1, sloupec: %2</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Soubor</translation>
+    </message>
+    <message>
+        <source>Project</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Úpravy</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation>&amp;Pohled</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fo&amp;rmat</source>
+        <translation>Fo&amp;rmát</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Nástroje</translation>
+    </message>
+    <message>
+        <source>&amp;Help</source>
+        <translation>Nápověda</translation>
+    </message>
+    <message>
+        <source>Charset</source>
+        <translation>Soubor znaků</translation>
+    </message>
+    <message>
+        <source>Open with charset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursor position</source>
+        <translation>Poloha ukazovátka</translation>
+    </message>
+    <message>
+        <source>File full name</source>
+        <translation>Úplný název souboru</translation>
+    </message>
+    <message>
+        <source>Current character set</source>
+        <translation>Nynější soubor znaků</translation>
+    </message>
+    <message>
+        <source>Lines count</source>
+        <translation>Počet řádků</translation>
     </message>
 </context>
 <context>
@@ -844,7 +884,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>File full name</source>
-        <translation>Úplný název souboru</translation>
+        <translation type="obsolete">Úplný název souboru</translation>
     </message>
     <message>
         <source>Current character set: %1</source>
@@ -884,7 +924,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Lines count</source>
-        <translation>Počet řádků</translation>
+        <translation type="obsolete">Počet řádků</translation>
     </message>
     <message>
         <source>Reload</source>
@@ -996,7 +1036,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Current character set</source>
-        <translation>Nynější soubor znaků</translation>
+        <translation type="obsolete">Nynější soubor znaků</translation>
     </message>
     <message>
         <source>Advanced text editor</source>
@@ -1060,7 +1100,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Cursor position</source>
-        <translation>Poloha ukazovátka</translation>
+        <translation type="obsolete">Poloha ukazovátka</translation>
     </message>
     <message>
         <source>Line endings</source>

@@ -938,7 +938,7 @@ void SciDoc::applySettings() {
 		//	autocompletion
 		edit->setAutoCompletionThreshold(AutocompleteSettings::get(AutocompleteSettings::Threshold));
 		edit->setAutoCompletionReplaceWord(AutocompleteSettings::get(AutocompleteSettings::ReplaceWord));
-		edit->setAutoCompletionCaseSensitivity(AutocompleteSettings::get(AutocompleteSettings::CaseSensitive));
+//		edit->setAutoCompletionCaseSensitivity(AutocompleteSettings::get(AutocompleteSettings::CaseSensitive));
 		if ( AutocompleteSettings::get(AutocompleteSettings::UseDocument) ) {
 			if ( AutocompleteSettings::get(AutocompleteSettings::UseApis) )
 				edit->setAutoCompletionSource(QsciScintilla::AcsAll);
@@ -951,6 +951,7 @@ void SciDoc::applySettings() {
 			else
 				edit->setAutoCompletionSource(QsciScintilla::AcsNone);
 		}
+		edit->setAutoCompletionCaseSensitivity(false);
 	}
 }
 

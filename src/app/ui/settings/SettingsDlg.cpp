@@ -41,7 +41,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "../../PluginManager.h"
 #include "PluginSettings.h"
 #include "EditorSettings.h"
-//#include "AutocompleteSettings.h"
+#include "AutocompleteSettings.h"
 //#include "PrintSettings.h"
 #include "SettingsItem.h"
 #include "SettingsPage.h"
@@ -210,24 +210,31 @@ private:
 	ColorButton* selectionBgColorBtn_;
 };
 
-//#include "ui_AutocompleteSettingsPage.h"
+#include "ui_AutocompleteSettingsPage.h"
 
-/*class AutocompleteSettingsPage : public QWidget {
+class AutocompleteSettingsPage : public SettingsPage {
 public:
-	AutocompleteSettingsPage() : QWidget() {
+	AutocompleteSettingsPage(QWidget* parent) : SettingsPage(parent) {
 		ui.setupUi(this);
+		
+		ui.matchCaseChk->hide();
 	}
 	
-	void init(QList<SettingsItem*>& items) {
-		items << new SettingsCheckItem("autocomplete", "useDocument", ui.useDocumentChk)
-			  << new SettingsCheckItem("autocomplete", "useApis", ui.useApiChk)
-			  << new SettingsCheckItem("autocomplete", "replaceWord", ui.replaceWordChk)
-			  << new SettingsCheckItem("autocomplete", "caseSensitive", ui.matchCaseChk);
-		ui.thresholdSpin->setValue(AutocompleteSettings::threshold());
+	virtual void init() {
+		items_ << new SettingsCheckItem("autocomplete", "useDocument", ui.useDocumentChk)
+			<< new SettingsCheckItem("autocomplete", "useApis", ui.useApiChk)
+			<< new SettingsCheckItem("autocomplete", "replaceWord", ui.replaceWordChk)
+			<< new SettingsCheckItem("autocomplete", "caseSensitive", ui.matchCaseChk);
+		ui.thresholdSpin->setValue(AutocompleteSettings::get(AutocompleteSettings::Threshold));
+	}
+	
+	virtual void apply() {
+		AutocompleteSettings::set(AutocompleteSettings::Threshold, ui.thresholdSpin->value());
+		SettingsPage::apply();
 	}
 	
 	Ui::AutocompletePage ui;
-};*/
+};
 
 /*class PrintingPage: public QWidget {
 public:
@@ -276,10 +283,10 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	mp_ = new MultiPage();
 
 	pages_
+		<< mp_->addPage(tr("Autocompletion"), new AutocompleteSettingsPage(this))
 		<< mp_->addPage(tr("Editor"), new EditorSettingsPage(this))
 		<< mp_->addPage(tr("General"), new MainSettingsPage(this))
 //		<< mp_->addPage(tr("View"), new ViewSettingsPage())
-//		<< mp_->addPage(tr("Autocompletion"), new AutocompleteSettingsPage())
 //		<< mp_->addPage(tr("Charsets"), new CharsetsSettingsPage())
 //		<< mp_->addPage(tr("File types"), new FileTypesPage())
 //		<< mp_->addPage(tr("Printing"), new PrintingPage())

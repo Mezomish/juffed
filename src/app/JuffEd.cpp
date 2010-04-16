@@ -333,7 +333,7 @@ void JuffEd::slotFileOpen() {
 	
 	QString fileName;
 	foreach (fileName, files) {
-		createDoc(fileName);
+		openDoc(fileName);
 	}
 	
 	// store the last used directory

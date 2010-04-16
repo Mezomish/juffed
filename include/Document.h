@@ -141,6 +141,7 @@ private:
 	QDateTime lastModified_;
 	QTimer* modCheckTimer_;
 	QMutex checkingMutex_;
+	QMutex lastModMutex_;
 };
 
 }

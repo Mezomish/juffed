@@ -187,17 +187,21 @@ bool Document::saveAs(const QString& fileName, QString& error) {
 
 bool Document::save(QString&) {
 	LOGGER;
+	lastModMutex_.lock();
 	lastModified_ = QFileInfo(fileName_).lastModified();
 	qDebug() << "'Last modified' from saved file:" << lastModified_;
+	lastModMutex_.unlock();
 	return true;
 }
 
 void Document::startCheckingTimer() {
 	LOGGER;
 	if ( !fileName_.isEmpty() && !Juff::isNoname(this) ) {
+		lastModMutex_.lock();
 		lastModified_ = QFileInfo(fileName_).lastModified();
 		qDebug() << "'Last modified' from file:" << lastModified_;
 		qDebug() << "'Last modified' saved    :" << QFileInfo(fileName_).lastModified();
+		lastModMutex_.unlock();
 		modCheckTimer_->start(1000);
 	}
 }
@@ -211,6 +215,7 @@ void Document::checkLastModified() {
 //	LOGGER;
 	QFileInfo fi(fileName_);
 	if ( fi.exists() ) {
+		lastModMutex_.lock();
 		if ( fi.lastModified() > lastModified_ ) {
 			
 			qDebug() << "Current 'last modified'    :" << lastModified_;
@@ -267,6 +272,7 @@ void Document::checkLastModified() {
 				checkingMutex_.unlock();
 			}
 		}
+		lastModMutex_.unlock();
 	}
 }
 

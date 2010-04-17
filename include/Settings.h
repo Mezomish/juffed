@@ -43,7 +43,7 @@ protected:
 	static void setValue(const QString& section, const QString& key, const QVariant& value);
 //
 //	static QStringList sectionList();
-//	static QStringList keyList(const QString& section);
+	static QStringList keyList(const QString& section);
 
 private:
 	class SettingsData;

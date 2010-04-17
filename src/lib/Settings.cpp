@@ -103,11 +103,11 @@ void Settings::setValue(const QString& section, const QString& key, const QVaria
 /*QStringList Settings::sectionList() {
 	return settData_->data_.keys();
 }
-
+*/
 QStringList Settings::keyList(const QString& section) {
 	return settData_->data_[section].keys();
 }
-*/
+
 
 
 QVariant Settings::defaultValue(const QString& section, const QString& key) {

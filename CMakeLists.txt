@@ -79,6 +79,7 @@ SET ( juffed_lib_SRCS
 	src/lib/CharsetSettings.cpp
 	src/lib/EditorSettings.cpp
 	src/lib/FileTypeSettings.cpp
+	src/lib/KeySettings.cpp
 	src/lib/MainSettings.cpp
 	src/lib/PluginSettings.cpp
 	src/lib/Settings.cpp
@@ -242,6 +243,7 @@ SET ( juffed_DEV_HEADERS
 	include/IconManager.h
 	include/JuffAPI.h
 	include/JuffPlugin.h
+	include/KeySettings.h
 	include/Log.h
 	include/MainSettings.h
 	include/NullDoc.h

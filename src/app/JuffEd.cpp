@@ -54,6 +54,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	prj_ = new Juff::Project(prjName);
 	
 	charsetMenu_ = openWithCharsetMenu_ = setCharsetMenu_ = NULL;
+	dockMenu_ = new QMenu(JuffEd::tr("Dock windows"));
 	
 	mw_ = new JuffMW();
 	
@@ -232,6 +233,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	QMenu* toolsMenu = *( menus_.insert(Juff::MenuTools, new QMenu(JuffEd::tr("&Tools"))) );
 	QMenu* helpMenu = *( menus_.insert(Juff::MenuHelp, new QMenu(JuffEd::tr("&Help"))) );
 	
+	toolsMenu->addMenu(dockMenu_);
 	toolsMenu->addAction(st->action(Juff::Settings));
 	helpMenu->addAction(st->action(Juff::About));
 	helpMenu->addAction(st->action(Juff::AboutQt));
@@ -1196,7 +1198,7 @@ void JuffEd::initPlugins() {
 		dock->setWidget(w);
 		mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
 		
-//		docksMenu_->addAction(dock->toggleViewAction());
+		dockMenu_->addAction(dock->toggleViewAction());
 	}
 }
 

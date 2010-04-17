@@ -188,6 +188,7 @@ private:
 	QMenu* openWithCharsetMenu_;
 	QMenu* setCharsetMenu_;
 	QMenu* prjMenu_;
+	QMenu* dockMenu_;
 	QActionGroup* openWithCharsetGr_;
 	QActionGroup* setCharsetGr_;
 	

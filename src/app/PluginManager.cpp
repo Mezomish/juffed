@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "PluginManager.h"
 
+#include "AppInfo.h"
 #include "JuffPlugin.h"
 #include "Log.h"
 #include "DocHandlerInt.h"
@@ -40,18 +41,18 @@ void PluginManager::loadPlugins() {
 	LOGGER;
 	//	user's plugins
 //	QDir pluginDir(AppInfo::configDirPath() + "/plugins");
-	QDir pluginDir("../plugins");
+/*	QDir pluginDir("../plugins");
 	foreach (QString fileName, pluginDir.entryList(QStringList() << "*.so", QDir::Files)) {
 		QString path = pluginDir.absoluteFilePath(fileName);
 		loadPlugin(path);
-	}
+	}*/
 	
 	//	global plugins
-/*	QDir gPluginDir(AppInfo::appDirPath() + "/plugins");
+	QDir gPluginDir(AppInfo::appDirPath() + "/plugins");
 	foreach (QString fileName, gPluginDir.entryList(QDir::Files)) {
 		QString path = gPluginDir.absoluteFilePath(fileName);
 		loadPlugin(path);
-	}*/
+	}
 	
 /*	foreach (QString type, pmInt_->docks_.keys()) {
 		pmInt_->gui_->addDocks(type, pmInt_->docks_[type]);

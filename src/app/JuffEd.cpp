@@ -57,6 +57,9 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	mw_ = new JuffMW();
 	
+	settingsDlg_ = new SettingsDlg(mw_);
+	connect(settingsDlg_, SIGNAL(applied()), SLOT(onSettingsApplied()));
+	
 	tree_ = new ProjectTree(this);
 	tree_->setProject(prj_);
 	QDockWidget* dock = new QDockWidget(tree_->windowTitle());
@@ -257,6 +260,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	mw_->setViewer(viewer_);
 	
 	docManager_ = new DocManager(this);
+	settingsDlg_->setEditorsPages(docManager_->editorsPages());
 	
 	connect(viewer_, SIGNAL(docActivated(Juff::Document*)), SLOT(onDocActivated(Juff::Document*)));
 	connect(viewer_, SIGNAL(docOpenRequested(const QString&)), SLOT(onDocOpenRequested(const QString&)));
@@ -295,10 +299,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	docManager_->initStatusBar(mw_->statusBar());
 	
 	loadProject();
-	
-	settingsDlg_ = new SettingsDlg(mw_);
-	connect(settingsDlg_, SIGNAL(applied()), SLOT(onSettingsApplied()));
-	settingsDlg_->setEditorsPages(docManager_->editorsPages());
 	
 	search_ = new SearchEngine(this, mw_);
 }

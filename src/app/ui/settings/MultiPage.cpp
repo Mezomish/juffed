@@ -89,10 +89,8 @@ SettingsPage* MultiPage::addPage(const QString& title, SettingsPage* w) {
 
 void MultiPage::addChildPage(const QString& parentTitle, const QString& pageTitle, SettingsPage* w) {
 	LOGGER;
-	qDebug("DDDD");
 	QList<QTreeWidgetItem*> items = mpInt_->tree_->findItems(parentTitle, Qt::MatchFixedString);
 	if ( !items.isEmpty() ) {
-		qDebug("AAA");
 		QTreeWidgetItem* p = items[0];
 
 		QTreeWidgetItem* it = new QTreeWidgetItem(p, QStringList(pageTitle));

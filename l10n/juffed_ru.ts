@@ -691,7 +691,7 @@ Do you want to proceed?</source>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation type="unfinished">Инст&amp;рументы</translation>
+        <translation>Инст&amp;рументы</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -853,15 +853,15 @@ Do you want to save your changes?</source>
     <name>MessageWidget</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>border: solid 1px #000000;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>x</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1109,7 +1109,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>New project</source>
-        <translation>Закрыть</translation>
+        <translation>Новый проект</translation>
     </message>
     <message>
         <source>Open project</source>
@@ -1316,7 +1316,7 @@ Continue from the beginning?</source>
     <name>QSciSettings</name>
     <message>
         <source>QSciSettings</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Indents color</source>

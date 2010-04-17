@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 #include "DocHandlerInt.h"
 #include "PluginNotifier.h"
+#include "PluginSettings.h"
 #include "ui/settings/SettingsDlg.h"
 
 #include <QDir>
@@ -103,11 +104,12 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 		if ( plugin ) {
 
 			//	Check if we need to load it
-//			if ( !PluginSettings::pluginEnabled(plugin->name()) ) {
-//				pmInt_->gui_->addPluginSettingsPage(plugin->name(), 0);
-//				Log::debug("Plugin is disabled in Settings");
-//				return;
-//			}
+			if ( !PluginSettings::pluginEnabled(plugin->name()) ) {
+				dlg->addPluginSettingsPage(plugin->name(), plugin->title(), 0);
+				loader.unload();
+				Log::debug("Plugin is disabled in Settings");
+				return;
+			}
 
 			//	Check if plugin with the same name was already loaded.
 			//	If is was then exit.
@@ -119,8 +121,7 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 			plugin->init();
 			
 			plugins_ << plugin;
-//			if ( plugin->settingsPage() != 0 )
-				dlg->addPluginSettingsPage(plugin->name(), plugin->title(), plugin->settingsPage());
+			dlg->addPluginSettingsPage(plugin->name(), plugin->title(), plugin->settingsPage());
 //			if ( pmInt_->addPlugin(plugin) ) {
 //
 				Log::debug(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name()));

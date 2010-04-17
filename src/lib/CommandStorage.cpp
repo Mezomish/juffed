@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "CommandStorage.h"
 
 #include "IconManager.h"
+#include "KeySettings.h"
 #include "Log.h"
 
 #include <QAction>
@@ -229,3 +230,17 @@ QKeySequence CommandStorage::shortcut(Juff::ActionID id) const {
 	}
 //	return shortcuts_.value(id, QKeySequence());
 }
+
+void CommandStorage::updateShortcuts() {
+//	JUFFENTRY;
+	QList<Juff::ActionID> ids = actionIDs();
+	foreach (Juff::ActionID id, ids) {
+		QAction* a = action(id);
+		if ( NULL != a ) {
+			if ( KeySettings::contains(id) ) {
+				a->setShortcut(KeySettings::keySequence(id));
+			}
+		}
+	}
+}
+

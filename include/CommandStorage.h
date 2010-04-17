@@ -31,6 +31,7 @@ public:
 
 	QAction* action(Juff::ActionID) const;
 	QList<Juff::ActionID> actionIDs() const;
+	void updateShortcuts();
 
 private:
 	CommandStorage();

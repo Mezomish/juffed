@@ -73,6 +73,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	// actions
 	CommandStorage* st = CommandStorage::instance();
+	st->updateShortcuts();
 	connect(st->action(Juff::FileNew), SIGNAL(triggered()), this, SLOT(slotFileNew()));
 	connect(st->action(Juff::FileOpen), SIGNAL(triggered()), this, SLOT(slotFileOpen()));
 	connect(st->action(Juff::FileRename), SIGNAL(triggered()), this, SLOT(slotFileRename()));
@@ -844,6 +845,9 @@ void JuffEd::onSettingsApplied() {
 	
 	viewer_->applySettings();
 	mw_->applySettings();
+	pluginMgr_.applySettings();
+	
+	CommandStorage::instance()->updateShortcuts();
 }
 
 #ifdef Q_OS_UNIX

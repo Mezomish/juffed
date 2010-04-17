@@ -145,3 +145,10 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 		Log::debug("Empty plugin instance");
 	}
 }
+
+void PluginManager::applySettings() {
+	LOGGER;
+	foreach (JuffPlugin* plugin, plugins_) {
+		plugin->applySettings();
+	}
+}

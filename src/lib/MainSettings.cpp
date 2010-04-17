@@ -142,3 +142,10 @@ QRect MainSettings::geometry() {
 	return Settings::value("main", "geometry", defaultValue("main", "geometry")).toRect();
 }
 
+void MainSettings::setMwState(const QByteArray& state) {
+	Settings::setValue("main", "mwState", state); 
+}
+
+QByteArray MainSettings::mwState() {
+	return Settings::value("main", "mwState").toByteArray(); 
+}

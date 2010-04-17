@@ -61,6 +61,8 @@ public:
 	void toggleFullscreen();
 
 	void applySettings();
+	void saveState();
+	void restoreState();
 
 signals:
 	void closeRequested(bool&);

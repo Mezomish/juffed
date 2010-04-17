@@ -291,11 +291,11 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	mw_->addStatusWidget(nameL_, -1);
 	mw_->addStatusWidget(linesL_, 80);
 	mw_->addStatusWidget(charsetL_, 60);
-
 	posL_->hide();
 	nameL_->hide();
 	charsetL_->hide();
 	linesL_->hide();
+	mw_->restoreState();
 	
 	docManager_->initStatusBar(mw_->statusBar());
 	
@@ -830,6 +830,8 @@ void JuffEd::onCloseRequested(bool& confirm) {
 			confirm = false;
 		}
 	}
+	if ( confirm )
+		mw_->saveState();
 }
 
 void JuffEd::onDocOpenRequested(const QString& fileName) {

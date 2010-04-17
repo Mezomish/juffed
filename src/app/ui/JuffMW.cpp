@@ -292,3 +292,13 @@ void JuffMW::toggleFullscreen() {
 void JuffMW::applySettings() {
 }
 
+void JuffMW::saveState() {
+	MainSettings::setMwState(QMainWindow::saveState());
+//	guiManager_.saveLastStates();
+}
+
+void JuffMW::restoreState() {
+	//	restore the position of toolbars and docks
+	QMainWindow::restoreState(MainSettings::mwState());
+//	guiManager_.loadLastStates();
+}

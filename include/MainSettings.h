@@ -44,11 +44,13 @@ public:
 	static void set(BoolKey, bool);
 	static void set(StringKey, const QString&);
 	static void setGeometry(const QRect&);
-
+	static void setMwState(const QByteArray&);
+	
 //	static int     get(IntKey);
 	static bool    get(BoolKey);
 	static QString get(StringKey);
 	static QRect geometry();
+	static QByteArray mwState();
 //	static QColor  get(ColorKey);
 };
 

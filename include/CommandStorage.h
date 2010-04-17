@@ -30,6 +30,7 @@ public:
 	static CommandStorage* instance();
 
 	QAction* action(Juff::ActionID) const;
+	QList<Juff::ActionID> actionIDs() const;
 
 private:
 	CommandStorage();
@@ -37,7 +38,6 @@ private:
 
 	QString title(Juff::ActionID) const;
 	QKeySequence shortcut(Juff::ActionID) const;
-	QList<Juff::ActionID> actionIDs() const;
 
 	class Interior;
 	Interior* int_;

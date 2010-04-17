@@ -51,6 +51,10 @@ QAction* CommandStorage::action(Juff::ActionID id) const {
 	return int_->actions_.value(id, NULL);
 }
 
+QList<Juff::ActionID> CommandStorage::actionIDs() const {
+	return int_->actions_.keys();
+}
+
 void CommandStorage::createActions() {
 	LOGGER;
 	

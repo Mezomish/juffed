@@ -22,8 +22,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QVBoxLayout>
 #include "Log.h"
 
-PluginPage::PluginPage(const QString& pluginName, QWidget* page) : 
-	SettingsPage(0), 
+PluginPage::PluginPage(const QString& pluginName, QWidget* page, QWidget* parent) : 
+	SettingsPage(parent), 
 	enabled_(true), 
 	name_(pluginName) {
 

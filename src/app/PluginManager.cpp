@@ -119,7 +119,7 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 			plugin->init();
 			
 			plugins_ << plugin;
-			if ( plugin->settingsPage() != 0 )
+//			if ( plugin->settingsPage() != 0 )
 				dlg->addPluginSettingsPage(plugin->name(), plugin->title(), plugin->settingsPage());
 //			if ( pmInt_->addPlugin(plugin) ) {
 //

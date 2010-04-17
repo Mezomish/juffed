@@ -26,7 +26,7 @@ class QCheckBox;
 class PluginPage : public SettingsPage {
 Q_OBJECT
 public:
-	PluginPage(const QString& pluginName, QWidget* page);
+	PluginPage(const QString& pluginName, QWidget* page, QWidget* parent);
 	virtual ~PluginPage();
 	virtual void init() {}
 	

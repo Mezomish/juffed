@@ -16,6 +16,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <QDebug>
 #include "SettingsDlg.h"
 
 //	Qt headers
@@ -330,9 +331,13 @@ void SettingsDlg::init() {
 
 void SettingsDlg::addPluginSettingsPage(const QString& name, const QString& title, QWidget* page) {
 	LOGGER;
-	PluginPage* plPage = new PluginPage(title, page);
+	PluginPage* plPage = new PluginPage(title, page, this);
+	qDebug("1");
+	qDebug() << plPage;
 	mp_->addChildPage(tr("Plugins"), title, plPage);
+	qDebug("1");
 	pluginPages_[name] = plPage;
+	qDebug("1");
 	plPage->enablePage(PluginSettings::pluginEnabled(name));
 }
 

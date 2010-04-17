@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class JuffAPI;
 class JuffPlugin;
+class SettingsDlg;
 
 namespace Juff {
 	class DocHandlerInt;
@@ -36,14 +37,14 @@ public:
 	PluginManager(Juff::DocHandlerInt*, Juff::PluginNotifier*);
 	virtual ~PluginManager();
 
-	void loadPlugins();
+	void loadPlugins(SettingsDlg*);
 
 	Juff::MenuList menus() const;
 	Juff::ActionList actions(Juff::MenuID) const;
 	QWidgetList docks() const;
 
 private:
-	void loadPlugin(const QString&);
+	void loadPlugin(const QString&, SettingsDlg*);
 
 	QList<JuffPlugin*> plugins_;
 	JuffAPI* api_;

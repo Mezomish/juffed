@@ -1171,7 +1171,7 @@ void JuffEd::initCharsetMenus() {
 }
 
 void JuffEd::initPlugins() {
-	pluginMgr_.loadPlugins();
+	pluginMgr_.loadPlugins(settingsDlg_);
 	
 	// menus
 	Juff::MenuList menus = pluginMgr_.menus();

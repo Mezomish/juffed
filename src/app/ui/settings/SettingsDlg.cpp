@@ -259,6 +259,12 @@ public:
 	QCheckBox* alwaysWrapChk_;
 };*/
 
+class PluginsMainPage : public SettingsPage {
+public:
+	PluginsMainPage(QWidget* parent) : SettingsPage(parent) {}
+	virtual void init() {}
+};
+
 //#include "FileTypesPage.h"
 //#include "CharsetsSettingsPage.h"
 //#include "PluginPage.h"
@@ -282,19 +288,15 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	//	create multipage
 	mp_ = new MultiPage();
 
-	pages_
-		<< mp_->addPage(tr("Autocompletion"), new AutocompleteSettingsPage(this))
-		<< mp_->addPage(tr("Editor"), new EditorSettingsPage(this))
-		<< mp_->addPage(tr("General"), new MainSettingsPage(this))
+	pages_ << mp_->addPage(tr("General"), new MainSettingsPage(this));
+	pages_ << mp_->addPage(tr("Editor"), new EditorSettingsPage(this));
+	pages_ << mp_->addPage(tr("Autocompletion"), new AutocompleteSettingsPage(this));
+	pages_ << mp_->addPage(tr("Plugins"), new PluginsMainPage(this));
 //		<< mp_->addPage(tr("View"), new ViewSettingsPage())
 //		<< mp_->addPage(tr("Charsets"), new CharsetsSettingsPage())
 //		<< mp_->addPage(tr("File types"), new FileTypesPage())
 //		<< mp_->addPage(tr("Printing"), new PrintingPage())
 	;
-
-	//	plugins
-//	pluginsMainPage_ = new QWidget();
-//	pages_ << mp_->addPage(tr("Plugins"), new PluginsMainPage());
 
 	// layouts
 	QHBoxLayout* btnLayout = new QHBoxLayout();
@@ -326,11 +328,12 @@ void SettingsDlg::init() {
 		page->init();
 }
 
-void SettingsDlg::addPluginSettingsPage(const QString& name, QWidget* page) {
-//	PluginPage* plPage = new PluginPage(name, page);
-//	mp_->addChildPage(tr("Plugins"), name, plPage);
-//	pluginPages_[name] = plPage;
-//	plPage->enablePage(PluginSettings::pluginEnabled(name));
+void SettingsDlg::addPluginSettingsPage(const QString& name, const QString& title, QWidget* page) {
+	LOGGER;
+	PluginPage* plPage = new PluginPage(title, page);
+	mp_->addChildPage(tr("Plugins"), title, plPage);
+	pluginPages_[name] = plPage;
+	plPage->enablePage(PluginSettings::pluginEnabled(name));
 }
 
 void SettingsDlg::setEditorsPages(const QWidgetList& list) {
@@ -383,7 +386,7 @@ void SettingsDlg::apply() {
 
 	//	charsets
 	pageCharsets_->applySettings();
-
+*/
 	//	plugins
 	QStringList plugins = pluginPages_.keys();
 	foreach (QString plName, plugins) {
@@ -394,7 +397,7 @@ void SettingsDlg::apply() {
 			PluginSettings::setPluginEnabled(plName, page->pageEnabled());
 		}
 	}
-
+/*
 //	fileTypesPage_->apply();
 */
 

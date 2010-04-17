@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 #include "DocHandlerInt.h"
 #include "PluginNotifier.h"
+#include "ui/settings/SettingsDlg.h"
 
 #include <QDir>
 #include <QPluginLoader>
@@ -37,7 +38,7 @@ PluginManager::~PluginManager() {
 	delete api_;
 }
 
-void PluginManager::loadPlugins() {
+void PluginManager::loadPlugins(SettingsDlg* dlg) {
 	LOGGER;
 	//	user's plugins
 //	QDir pluginDir(AppInfo::configDirPath() + "/plugins");
@@ -51,7 +52,7 @@ void PluginManager::loadPlugins() {
 	QDir gPluginDir(AppInfo::appDirPath() + "/plugins");
 	foreach (QString fileName, gPluginDir.entryList(QDir::Files)) {
 		QString path = gPluginDir.absoluteFilePath(fileName);
-		loadPlugin(path);
+		loadPlugin(path, dlg);
 	}
 	
 /*	foreach (QString type, pmInt_->docks_.keys()) {
@@ -83,7 +84,7 @@ QWidgetList PluginManager::docks() const {
 
 #include "EditorSettings.h"
 
-void PluginManager::loadPlugin(const QString& path) {
+void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 	LOGGER;
 
 	qDebug() << "                     FONT:" << EditorSettings::font();
@@ -118,6 +119,8 @@ void PluginManager::loadPlugin(const QString& path) {
 			plugin->init();
 			
 			plugins_ << plugin;
+			if ( plugin->settingsPage() != 0 )
+				dlg->addPluginSettingsPage(plugin->name(), plugin->title(), plugin->settingsPage());
 //			if ( pmInt_->addPlugin(plugin) ) {
 //
 				Log::debug(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name()));

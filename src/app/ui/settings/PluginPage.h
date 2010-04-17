@@ -21,14 +21,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class QCheckBox;
 
-#include <QtGui/QWidget>
+#include "SettingsPage.h"
 
-class PluginPage : public QWidget {
+class PluginPage : public SettingsPage {
 Q_OBJECT
 public:
 	PluginPage(const QString& pluginName, QWidget* page);
 	virtual ~PluginPage();
-
+	virtual void init() {}
+	
 	bool pageEnabled() const;
 	QString name() const { return name_; }
 

@@ -126,6 +126,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "geometry" )               return QRect(50, 50, 800, 600);
 		if ( key == "fsHideToolBar" )          return true;
 		if ( key == "fsHideStatusBar" )        return true;
+		if ( key == "language" )               return AppInfo::language();
 	}
 	else if ( section == "autocomplete" ) {
 		if ( key == "useDocument" )   return false;

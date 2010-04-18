@@ -28,7 +28,8 @@ void initApp(QApplication& app) {
 	app.setOrganizationName("juff");
 	app.setApplicationName("juffed");
 
-	QString lng = AppInfo::language();
+//	QString lng = AppInfo::language();
+	QString lng = MainSettings::get(MainSettings::Language);
 	QTranslator* translator = new QTranslator();
 	if ( translator->load("juffed_" + lng, AppInfo::translationPath()) ) {
 		if ( !translator->isEmpty() ) {

@@ -77,6 +77,10 @@ void MainSettings::set(StringKey key, const QString& value) {
 		case LastDir :
 			Settings::setValue("main", "lastOpenDir", value);
 			break;
+		
+		case Language :
+			Settings::setValue("main", "language", value);
+			break;
 	}
 }
 
@@ -128,6 +132,9 @@ QString MainSettings::get(StringKey key) {
 		
 		case LastDir:
 			return Settings::stringValue("main", "lastOpenDir");
+		
+		case Language :
+			return Settings::stringValue("main", "language");
 		
 		default:
 			return "";

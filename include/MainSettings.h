@@ -26,6 +26,7 @@ public:
 	enum StringKey {
 		LastProject,
 		LastDir,
+		Language,
 	};
 	
 	enum BoolKey {

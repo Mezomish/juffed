@@ -68,6 +68,34 @@ public:
 			  << new SettingsCheckItem("main", "fsHideToolbar", ui.fsHideToolbarChk)
 			  << new SettingsCheckItem("main", "fsHideStatusbar", ui.fsHideStatusbarChk)
 		;
+		
+		QMap<QString, QString> lngs;
+		lngs["cs"] = tr("Czech");
+		lngs["de"] = tr("German");
+		lngs["en"] = tr("English");
+		lngs["fr"] = tr("French");
+		lngs["pl"] = tr("Polish");
+		lngs["pt"] = tr("Portuguese");
+		lngs["ru"] = tr("Russian");
+		lngs["sp"] = tr("Spanish");
+		lngs["zh"] = tr("Chinese (simplified)");
+		
+		QMap<QString, QString>::iterator it = lngs.begin();
+		for ( ; it != lngs.end(); it++) {
+			ui.languageCmb->addItem(it.value(), it.key());
+		}
+		QString language = MainSettings::get(MainSettings::Language).left(2);
+		int index = ui.languageCmb->findData(language);
+		if ( index >= 0 )
+			ui.languageCmb->setCurrentIndex(index);
+		else
+			ui.languageCmb->setCurrentIndex(ui.languageCmb->findText(tr("English")));
+	}
+	
+	virtual void apply() {
+		SettingsPage::apply();
+		int index = ui.languageCmb->currentIndex();
+		MainSettings::set(MainSettings::Language, ui.languageCmb->itemData(index).toString());
 	}
 	
 /*	void init(QList<SettingsItem*>& items) {

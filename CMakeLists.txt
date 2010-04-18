@@ -222,7 +222,7 @@ SET ( juffed_TS
 	l10n/juffed_pt.ts
 	l10n/juffed_ru.ts
 	l10n/juffed_sp.ts
-	l10n/juffed_zh_CN.ts
+	l10n/juffed_zh.ts
 	l10n/juffed_cs.ts
 )
 

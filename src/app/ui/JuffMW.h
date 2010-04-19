@@ -56,8 +56,7 @@ public:
 	void hideFindDialog();
 	void getSearchParams(Juff::SearchParams&);
 
-//	bool isFullScreen() const;
-//	void goFullScreen(bool);
+	bool isFullScreen() const;
 	void toggleFullscreen();
 
 	void applySettings();

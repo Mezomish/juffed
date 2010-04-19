@@ -257,6 +257,10 @@ void JuffMW::moveEvent(QMoveEvent*) {
 	MainSettings::setGeometry(geometry());
 }
 
+bool JuffMW::isFullScreen() const {
+	return windowState() & Qt::WindowFullScreen;
+}
+
 void JuffMW::toggleFullscreen() {
 	LOGGER;
 	

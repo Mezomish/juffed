@@ -68,6 +68,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	dock->setObjectName(tree_->windowTitle());
 	dock->setWidget(tree_);
 	mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
+	dockMenu_->addAction(dock->toggleViewAction());
 	
 	foreach (QMenu* menu, menus_.values()) {
 		mw_->menuBar()->addMenu(menu);
@@ -704,6 +705,9 @@ void JuffEd::slotZoom100(){
 void JuffEd::slotFullscreen() {
 	LOGGER;
 	
+	if ( !mw_->isFullScreen() )
+		mw_->saveState();
+	
 	mw_->toggleFullscreen();
 }
 
@@ -838,7 +842,7 @@ void JuffEd::onCloseRequested(bool& confirm) {
 			confirm = false;
 		}
 	}
-	if ( confirm )
+	if ( confirm && !mw_->isFullScreen() )
 		mw_->saveState();
 }
 

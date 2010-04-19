@@ -126,6 +126,8 @@ private slots:
 	void onDocOpenRequested(const QString&);
 	void onSettingsApplied();
 
+	void initRecentFilesMenu();
+
 private:
 	/**
 	* This methods opens or activates a doc with given file 
@@ -177,6 +179,7 @@ private:
 	void updateGUI(Juff::Document*);
 	void updateLineCount(Juff::Document*);
 	void updateCursorPos(Juff::Document*);
+	void addToRecentFiles(const QString&);
 
 	// fields
 	Juff::Project* prj_;
@@ -187,6 +190,7 @@ private:
 	QMenu* charsetMenu_;
 	QMenu* openWithCharsetMenu_;
 	QMenu* setCharsetMenu_;
+	QMenu* recentFilesMenu_;
 	QMenu* prjMenu_;
 	QMenu* dockMenu_;
 	QMenu* tbMenu_;
@@ -202,6 +206,7 @@ private:
 	PluginManager pluginMgr_;
 	SettingsDlg* settingsDlg_;
 	SearchEngine* search_;
+	QStringList recentFiles_;
 };
 
 #endif // __JUFFED_JUFFED_H__

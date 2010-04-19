@@ -46,6 +46,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // TODO : remove this to a plugin!
 #include <QDockWidget>
 
+static const int RecentFilesCount = 10;
 
 JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(this, this) {
 	LOGGER;
@@ -56,6 +57,18 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	charsetMenu_ = openWithCharsetMenu_ = setCharsetMenu_ = NULL;
 	dockMenu_ = new QMenu(JuffEd::tr("Dock windows"));
 	tbMenu_ = new QMenu(JuffEd::tr("Toolbars"));
+
+	recentFilesMenu_ = new QMenu(JuffEd::tr("Recent files"));
+	connect(recentFilesMenu_, SIGNAL(aboutToShow()), SLOT(initRecentFilesMenu()));
+	QString recentFiles = MainSettings::get(MainSettings::RecentFiles);
+	if ( !recentFiles.isEmpty() ) {
+		QStringList fileList = recentFiles.split(";");
+		int count = fileList.count();
+		for(int i = count - 1; i >= 0; --i) {
+			const QString& fileName = fileList.at(i);
+			addToRecentFiles(fileName);
+		}
+	}
 	
 	mw_ = new JuffMW();
 	
@@ -168,6 +181,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 				fileMenu->addAction(st->action(ids[i]));
 		}
 	}
+	fileMenu->insertMenu(st->action(Juff::FileSave), recentFilesMenu_);
 	
 	// project
 	{
@@ -344,6 +358,9 @@ void JuffEd::slotFileOpen() {
 	QString fileName;
 	foreach (fileName, files) {
 		openDoc(fileName);
+		
+		if ( !Juff::isNoname(fileName) )
+			addToRecentFiles(fileName);
 	}
 	
 	// store the last used directory
@@ -1188,6 +1205,21 @@ void JuffEd::initCharsetMenus() {
 	}
 }
 
+void JuffEd::initRecentFilesMenu() {
+	recentFilesMenu_->clear();
+	
+	foreach (QString fileName, recentFiles_) {
+		recentFilesMenu_->addAction(fileName, this, SLOT(fileRecent()));
+	}
+	
+	if ( recentFiles_.count() == 0 )
+		recentFilesMenu_->setEnabled(false);
+	else
+		recentFilesMenu_->setEnabled(true);
+}
+
+
+
 void JuffEd::initPlugins() {
 	pluginMgr_.loadPlugins(settingsDlg_);
 	
@@ -1234,4 +1266,13 @@ QString JuffEd::openDialogDirectory() const {
 		return QFileInfo(doc->fileName()).absolutePath();
 	else
 		return MainSettings::get(MainSettings::LastDir);
+}
+
+void JuffEd::addToRecentFiles(const QString& fileName) {
+	recentFiles_.removeAll(fileName);
+	recentFiles_.push_front(fileName);
+	if ( recentFiles_.count() > RecentFilesCount )
+		recentFiles_.removeLast();
+
+	MainSettings::set(MainSettings::RecentFiles, recentFiles_.join(";"));
 }

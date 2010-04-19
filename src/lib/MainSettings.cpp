@@ -81,6 +81,10 @@ void MainSettings::set(StringKey key, const QString& value) {
 		case Language :
 			Settings::setValue("main", "language", value);
 			break;
+		
+		case RecentFiles :
+			Settings::setValue("main", "recentFiles", value);
+			break;
 	}
 }
 
@@ -135,6 +139,9 @@ QString MainSettings::get(StringKey key) {
 		
 		case Language :
 			return Settings::stringValue("main", "language");
+		
+		case RecentFiles :
+			return Settings::stringValue("main", "recentFiles");
 		
 		default:
 			return "";

@@ -27,6 +27,7 @@ public:
 		LastProject,
 		LastDir,
 		Language,
+		RecentFiles,
 	};
 	
 	enum BoolKey {

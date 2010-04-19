@@ -55,6 +55,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	charsetMenu_ = openWithCharsetMenu_ = setCharsetMenu_ = NULL;
 	dockMenu_ = new QMenu(JuffEd::tr("Dock windows"));
+	tbMenu_ = new QMenu(JuffEd::tr("Toolbars"));
 	
 	mw_ = new JuffMW();
 	
@@ -124,7 +125,10 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 
 	// toolbar
 	QToolBar* tb = new QToolBar("Main");
+	tb->setObjectName("Main toolbar");
 	mw_->addToolBar(tb);
+	tbMenu_->addAction(tb->toggleViewAction());
+	
 	int sz = IconManager::instance()->iconSize();
 	tb->setIconSize(QSize(sz, sz));
 	tb->addAction(st->action(Juff::FileNew));
@@ -233,7 +237,9 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	QMenu* toolsMenu = *( menus_.insert(Juff::MenuTools, new QMenu(JuffEd::tr("&Tools"))) );
 	QMenu* helpMenu = *( menus_.insert(Juff::MenuHelp, new QMenu(JuffEd::tr("&Help"))) );
 	
+	toolsMenu->addMenu(tbMenu_);
 	toolsMenu->addMenu(dockMenu_);
+	toolsMenu->addSeparator();
 	toolsMenu->addAction(st->action(Juff::Settings));
 	helpMenu->addAction(st->action(Juff::About));
 	helpMenu->addAction(st->action(Juff::AboutQt));

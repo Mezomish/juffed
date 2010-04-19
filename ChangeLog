@@ -1,3 +1,84 @@
+2010-04-18:
+* Restored nearly all functionality existed in version 0.8.1. Known regresions:
+  * can't select line ending (Win/Mac/Unix)
+  * missing markers
+  * can't change split orientation
+  * small bugs here and there :)
+
+2010-03-31:
+* Merged redesigned version from experimental branch. New features:
+  * two panels
+  * moving blocks up and down
+  * switch between documents with Ctrl+Tab
+  * full screen mode
+  * current word highlighting
+  * quick document selection
+
+
+===============================
+0.8.1
+===============================
+
+2010-02-10:
+* Applied patchset from David Stegbauer:
+  * Removed unneeded debug outputs
+  * Pascal Lexer Correction
+  * Updated juffed.desktop translations
+  * QString::arg: Argument missing: Found sceme
+  * QObject::connect: Cannot connect (null)::hasChangedItems(bool)
+
+2010-01-30:
+* Added: Czech localization (thanks to Pavel Fric)
+
+
+===============================
+0.8
+===============================
+
+2010-01-26:
+* fixed the bug that caused incomplete localizations
+
+2010-01-21:
+* fixed startup notification in taskbar
+* updated .desktop file
+
+-------------------------------
+0.8 beta 1
+-------------------------------
+
+2009-11-05:
+* Added: CSS configuring
+* Added: warning when changing charset on modified file
+* Updated localizations
+* Fixed: make_tarball script for proper handling non-dev releases
+
+2009-11-02:
+* Added: API file for HTML
+
+2009-10-28:
+* Fixed: problems with getting active edit
+* Fixed: bug with not responding on commands if the splitted view 
+  is activated (removed 2nd tabwidget completely for this release)
+* Removed: confirmation dialog when reaching the end of text while searching text
+* Fixed: introduced bug with modification status on tabs
+* Localizations updated
+
+2009-10-27:
+* Added rpath in case JuffEd was built and installed with a non-standard prefix
+
+2009-10-26:
+* Merged from trunk: fix for '_empty_session_' in 'Save session as' dialog
+* Merged from trunk: fix for more 'printer-friendly' printing when using 
+  a theme with dark background
+* Merged from trunk: added settings page for printing options
+
+2009-10-24:
+* Localization updated (German)
+
+2009-10-23:
+* Fixed: activating window when passing a file to existing instance (on Windows)
+* Final fix for title bar
+
 2009-10-22:
 * Fixed: '_empty_session_' in title (now for real :))
 

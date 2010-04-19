@@ -1,17 +1,12 @@
 # juffed CMakeLists.txt
 # 
-#
-# To build juffed, you will need cmake 2.4.3 (should also work with 2.4.0 and above
-# but not tested). To build the application run this commands:
+# To build juffed, you will need cmake 2.6.0.
+# To build the application run this commands:
 # 
-#	mkdir cbuild
-#	cd cbuild
-#	cmake ../
+#	mkdir build
+#	cd build
+#	cmake .. -DCMAKE_INSTALL_PREFIX=/usr (or whatever prefix you'd like)
 #	make
-# 
-# If you don't know cmake, here are some links for you:
-# 	http://wiki.qtcentre.org/index.php?title=Compiling_Qt4_apps_with_CMake
-# 	http://qtnode.net/wiki/Qt_with_cmake#cmake_for_Qt_4
 
 PROJECT (juffed)
 CMAKE_MINIMUM_REQUIRED (VERSION 2.6.0)
@@ -320,41 +315,6 @@ SET( CMAKE_VERBOSE_MAKEFILE  ON )
 #SET ( juffed_RCS
 #	src/juffed.rc
 #)
-#
-#SET ( juffed_TS
-#	l10n/juffed_de.ts
-#	l10n/juffed_fr.ts
-#	l10n/juffed_pl.ts
-#	l10n/juffed_pt.ts
-#	l10n/juffed_ru.ts
-#	l10n/juffed_sp.ts
-#	l10n/juffed_zh_CN.ts
-#	l10n/juffed_cs.ts
-#)
-#
-#SET ( juffed_includes
-#	include/AppInfo.h
-#	include/AutocompleteSettings.h
-#	include/CharsetsSettings.h
-#	include/CommandStorage.h
-#	include/Functions.h
-#	include/IconManager.h
-#	include/Juff.h
-#	include/JuffPlugin.h
-#	include/KeySettings.h
-#	include/License.h
-#	include/Log.h
-#	include/MainSettings.h
-#	include/ManagerInterface.h
-#	include/Parameter.h
-#	include/PluginSettings.h
-#	include/PrintSettings.h
-#	include/Settings.h
-#	include/SettingsItem.h
-#	include/SettingsCheckItem.h
-#	include/SettingsSelectItem.h
-#	include/TextDocSettings.h
-#)
 
 #SET (QT_USE_QTXML TRUE)
 #INCLUDE (${QT_USE_FILE})
@@ -363,24 +323,6 @@ SET( CMAKE_VERBOSE_MAKEFILE  ON )
 configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.nix.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.nix.h" @ONLY)
 configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.win.h.cmake" "${CMAKE_BINARY_DIR}/AppInfo.win.h" @ONLY)
 #configure_file ("${CMAKE_SOURCE_DIR}/cmake/version.cmake" "${CMAKE_BINARY_DIR}/version.real" @ONLY)
-
-# qt4 actions
-#QT4_WRAP_UI ( juffed_UIS_H ${juffed_UIS} )
-#QT4_WRAP_CPP ( juffed_MOC_SRCS ${juffed_MOC_HDRS} )
-#QT4_WRAP_CPP ( libjuffed_MOC_SRCS ${libjuffed_MOC_HDRS} )
-#QT4_ADD_RESOURCES ( juffed_RESOURCES ${juffed_RESOURCES} )
-#QT4_AUTOMOC ( ${juffed_SRCS} )
-#QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
-
-# definitions for the project
-#ADD_DEFINITIONS(
-#	-Wall 
-#	-DQT_NO_DEBUG
-#	-DQT_NO_DEBUG_STREAM
-#	-DJUFF_DEBUG
-#	-DJUFF_FULL_DEBUG
-#	${QT_DEFINITIONS}
-#)
 
 # find TCL lexer
 #find_path ( QSCI_TCL_LEXER qscilexertcl.h ${LIBQSCINTILLA2_INCLUDE_DIR} )

@@ -129,9 +129,6 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/settings/SettingsItem.h
 	src/app/ui/settings/SettingsPage.h
 	src/app/ui/settings/SettingsSelectItem.h
-
-	# TODO : move this to a plugin!
-	src/app/ui/ProjectTree.h
 )
 
 SET ( juffed_app_SRCS
@@ -170,9 +167,6 @@ SET ( juffed_app_SRCS
 	src/app/ui/settings/SettingsItem.cpp
 	src/app/ui/settings/SettingsPage.cpp
 	src/app/ui/settings/SettingsSelectItem.cpp
-
-	# TODO : move this to a plugin!
-	src/app/ui/ProjectTree.cpp
 )
 
 IF ( WIN32 )

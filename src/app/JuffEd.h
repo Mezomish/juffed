@@ -41,10 +41,6 @@ namespace Juff {
 #include "PluginNotifier.h"
 
 
-// TODO : move this to a plugin!
-#include "ProjectTree.h"
-
-
 class JuffEd : public Juff::PluginNotifier, public Juff::DocHandlerInt {
 Q_OBJECT
 public:
@@ -191,7 +187,6 @@ private:
 	QMenu* openWithCharsetMenu_;
 	QMenu* setCharsetMenu_;
 	QMenu* recentFilesMenu_;
-	QMenu* prjMenu_;
 	QMenu* dockMenu_;
 	QMenu* tbMenu_;
 	QActionGroup* openWithCharsetGr_;
@@ -202,7 +197,6 @@ private:
 	Juff::StatusLabel* charsetL_;
 	Juff::StatusLabel* linesL_;
 	
-	ProjectTree* tree_;
 	PluginManager pluginMgr_;
 	SettingsDlg* settingsDlg_;
 	SearchEngine* search_;

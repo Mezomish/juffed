@@ -16,8 +16,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#include <QDebug>
-
 #include "JuffEd.h"
 
 #include "CharsetSettings.h"
@@ -37,22 +35,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QAction>
 #include <QActionGroup>
 #include <QApplication>
+#include <QDockWidget>
 #include <QFileInfo>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QToolBar>
 
-// TODO : remove this to a plugin!
-#include <QDockWidget>
-
 static const int RecentFilesCount = 10;
 
 JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(this, this) {
 	LOGGER;
-	
-	QString prjName = MainSettings::get(MainSettings::LastProject);
-	prj_ = new Juff::Project(prjName);
 	
 	charsetMenu_ = openWithCharsetMenu_ = setCharsetMenu_ = NULL;
 	dockMenu_ = new QMenu(JuffEd::tr("Dock windows"));
@@ -74,14 +67,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	settingsDlg_ = new SettingsDlg(mw_);
 	connect(settingsDlg_, SIGNAL(applied()), SLOT(onSettingsApplied()));
-	
-	tree_ = new ProjectTree(this);
-	tree_->setProject(prj_);
-	QDockWidget* dock = new QDockWidget(tree_->windowTitle());
-	dock->setObjectName(tree_->windowTitle());
-	dock->setWidget(tree_);
-	mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
-	dockMenu_->addAction(dock->toggleViewAction());
 	
 	foreach (QMenu* menu, menus_.values()) {
 		mw_->menuBar()->addMenu(menu);
@@ -165,9 +150,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	// Menu //////
 	
 	QMenu* fileMenu = *( menus_.insert(Juff::MenuFile, new QMenu(JuffEd::tr("&File"))) );
-	prjMenu_ = new QMenu(JuffEd::tr("Project"));
-//	fileMenu->addMenu(prjMenu_);
-//	fileMenu->addSeparator();
 	{
 		Juff::ActionID ids[] = { Juff::FileNew, Juff::FileOpen, Juff::FileSave, 
 		                         Juff::FileSaveAs, Juff::FileSaveAll, Juff::FileReload, Juff::FileRename,
@@ -182,18 +164,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 		}
 	}
 	fileMenu->insertMenu(st->action(Juff::FileSave), recentFilesMenu_);
-	
-	// project
-	{
-		Juff::ActionID ids[] = { Juff::PrjNew, Juff::PrjOpen, //Juff::PrjSaveAs,
-		                         Juff::PrjClose, Juff::PrjAddFile, Juff::NullID };
-		for (int i = 0; ids[i] != Juff::NullID; i++) {
-			if ( ids[i] == Juff::Separator )
-				prjMenu_->addSeparator();
-			else
-				prjMenu_->addAction(st->action(ids[i]));
-		}
-	}
 	
 	QMenu* editMenu = *( menus_.insert(Juff::MenuEdit, new QMenu(JuffEd::tr("&Edit"))) );
 	{
@@ -265,7 +235,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	mw_->menuBar()->addMenu(searchMenu);
 	mw_->menuBar()->addMenu(formatMenu);
 	initPlugins();
-	mw_->menuBar()->addMenu(prjMenu_);
 	mw_->menuBar()->addMenu(toolsMenu);
 	mw_->menuBar()->addMenu(helpMenu);
 	
@@ -322,7 +291,9 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	docManager_->initStatusBar(mw_->statusBar());
 	
-	loadProject();
+	
+	QString prjName = MainSettings::get(MainSettings::LastProject);
+	createProject(prjName);
 	
 	search_ = new SearchEngine(this, mw_);
 }
@@ -940,9 +911,6 @@ void JuffEd::createProject(const QString& fileName) {
 	
 	// notify plugins
 	emit projectOpened(prj_);
-	
-	// TODO : remove later
-	tree_->setProject(prj_);
 }
 
 bool JuffEd::closeProject() {

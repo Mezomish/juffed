@@ -12,6 +12,7 @@ enum Answer { Yes, No, All, Cancel };
 void stepOver(Juff::Document* doc, bool forward);
 Answer confirm(QWidget* w);
 bool doReplace(Juff::Document*, const Juff::SearchParams&, bool&, int&);
+QString selectedTextForSearch(Juff::Document*);
 
 SearchEngine::SearchEngine(Juff::DocHandlerInt* handler, JuffMW* mw) : QObject() {
 	handler_ = handler;
@@ -40,9 +41,9 @@ void SearchEngine::clearSelection(Juff::Document* doc) {
 }
 
 void SearchEngine::find(Juff::Document* doc) {
-	mw_->showFindDialog(false);
-
 	keepVariables(doc);
+
+	mw_->showFindDialog(selectedTextForSearch(doc), false);
 }
 
 bool SearchEngine::findNext(Juff::Document* doc) {
@@ -74,9 +75,9 @@ bool SearchEngine::findPrev(Juff::Document* doc) {
 }
 
 void SearchEngine::replace(Juff::Document* doc) {
-	mw_->showFindDialog(true);
-
 	keepVariables(doc);
+
+	mw_->showFindDialog(selectedTextForSearch(doc), true);
 }
 
 
@@ -320,4 +321,15 @@ bool doReplace(Juff::Document* doc, const Juff::SearchParams& params, bool& repl
 		}
 	}
 	return true;
+}
+
+QString selectedTextForSearch(Juff::Document* doc) {
+	QString text;
+	if ( doc->hasSelectedText() ) {
+		int line1, line2, col1, col2;
+		doc->getSelection(line1, col1, line2, col2);
+		if ( line1 == line2 )
+			doc->getSelectedText(text);
+	}
+	return text;
 }

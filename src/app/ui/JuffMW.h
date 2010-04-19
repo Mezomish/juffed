@@ -52,7 +52,7 @@ public:
 	void addToolBar(QToolBar*);
 	void message(const QIcon& icon, const QString& title, const QString& message, int timeout = 10);
 
-	void showFindDialog(bool replace = false);
+	void showFindDialog(const QString&, bool replace = false);
 	void hideFindDialog();
 	void getSearchParams(Juff::SearchParams&);
 

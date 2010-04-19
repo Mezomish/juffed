@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 QString FindDlg::lastString_ = "";
 QString FindDlg::lastReplaceText_ = "";
-bool FindDlg::matchCase_ = true;
+bool FindDlg::matchCase_ = false;
 bool FindDlg::backward_ = false;
 bool FindDlg::regExpMode_ = false;
 bool FindDlg::wholeWords_ = false;
@@ -156,23 +156,21 @@ void FindDlg::keyPressEvent(QKeyEvent* e) {
 
 void FindDlg::setReplaceMode(bool replaceMode) {
 	if (replaceMode) {
-		uiFind.findBtn->setText(tr("Replace"));
-//		uiFind.findBtn->setIcon(IconManager::instance()->getIcon(ID_REPLACE));
 		setWindowTitle(tr("Replace"));
-		uiFind.replaceCmb->setFocus();
+		uiFind.findBtn->setText(tr("Replace"));
+		uiFind.findBtn->setIcon(IconManager::instance()->icon(Juff::Replace));
 		uiFind.replaceCmb->lineEdit()->selectAll();
 	}
 	else {
-		uiFind.findBtn->setText(tr("Find"));
-//		uiFind.findBtn->setIcon(IconManager::instance()->getIcon(ID_FIND));
 		setWindowTitle(tr("Find"));
-		if ( uiFind.multiLineChk->isChecked() )
-			uiFind.mlEd->setFocus();
-		else
-			uiFind.findCmb->setFocus();
+		uiFind.findBtn->setText(tr("Find"));
+		uiFind.findBtn->setIcon(IconManager::instance()->icon(Juff::Find));
 	}
-	if (uiFind.replaceChk->isChecked() != replaceMode)
-		uiFind.replaceChk->setChecked(replaceMode);
+	uiFind.replaceChk->setChecked(replaceMode);
+	if ( uiFind.multiLineChk->isChecked() )
+		uiFind.mlEd->setFocus();
+	else
+		uiFind.findCmb->setFocus();
 }
 
 void FindDlg::multiLineChecked(bool chk) {

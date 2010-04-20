@@ -136,6 +136,9 @@ QString JuffMW::getSaveFileName(const QString& curFileName, const QString& filte
 	if ( !curFileName.isEmpty() && !Juff::isNoname(curFileName) ) {
 		fileName = curFileName;
 	}
+	else {
+		fileName = MainSettings::get(MainSettings::LastDir);
+	}
 	return QFileDialog::getSaveFileName(this, tr("Save %1 as...").arg(Juff::docTitle(curFileName, false)), fileName, filters);
 }
 

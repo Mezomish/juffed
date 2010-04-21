@@ -5,7 +5,6 @@
 
 #include "Document.h"
 #include "DocHandlerInt.h"
-#include "PluginNotifier.h"
 #include "Project.h"
 
 class JuffAPI : public QObject {

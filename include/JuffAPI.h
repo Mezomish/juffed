@@ -7,6 +7,10 @@
 #include "DocHandlerInt.h"
 #include "Project.h"
 
+namespace Juff {
+	class PluginNotifier;
+};
+
 class JuffAPI : public QObject {
 Q_OBJECT
 public:

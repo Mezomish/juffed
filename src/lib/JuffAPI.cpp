@@ -1,5 +1,7 @@
 #include "JuffAPI.h"
 
+#include "PluginNotifier.h"
+
 class JuffAPI::Interior {
 public:
 	Juff::DocHandlerInt* handler_;

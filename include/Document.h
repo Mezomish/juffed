@@ -37,18 +37,88 @@ public:
 	Document(const QString&);
 	virtual ~Document();
 
+	/**
+	* Returns document's file name on disk or a string like "Noname N" if 
+	* the document was not saved yet (where N is some number). This file 
+	* name is unique for a document within application's running time.
+	*/
 	QString fileName() const;
+	
+	/**
+	* Returns document's line count.
+	*/
+	virtual int lineCount() const { return 0; }
+	
+	/**
+	* Returns whether document is modified.
+	*/
+	virtual bool isModified() const { return false; }
+	
+	/**
+	* Returns whether document has selected text.
+	*/
+	virtual bool hasSelectedText() const { return false; }
+	
+	/**
+	* Lets to obtain document's selection coordinates.
+	* Params:
+	*        line1 - the line number where selection starts
+	*        col1  - the position of selection beginning (within \param line1)
+	*        line2 - the line number where selection ends
+	*        col2  - the position of selection end (within \param line2)
+	*
+	* If there is no selection then line1 == line2 and row1 == row2 and they 
+	* reflect current cursor position.
+	*
+	* Returns true if successful, otherwise (e.g. document doesn't support 
+	* text selection) returns false;
+	*/
+	virtual bool getSelection(int& line1, int& col1, int& line2, int& col2) const { return false; }
+
+	/**
+	* Lets to obtain curent selection text.
+	*
+	* Returns true if successful, otherwise (e.g. document doesn't support 
+	* text selection) returns false;
+	*/
+	virtual bool getSelectedText(QString&) const { return false; }
+	
+	/**
+	* Lets to obtain document's text.
+	*
+	* Returns true if successful, otherwise (e.g. document doesn't support 
+	* text) returns false;
+	*/
+	virtual bool getText(QString&) const { return false; }
+	
+	/**
+	* Lets to obtain \param n-th line of text.
+	*
+	* Returns true if successful, otherwise (e.g. document doesn't support 
+	* text) returns false;
+	*/
+	virtual bool getTextLine(int n, QString&) const { return false; }
+	
+	/**
+	* Lets to obtain document's cursor coordinates.
+	* Params:
+	*        line - line number where the cursor is
+	*        col  - the cursor position within a line
+	*
+	* Returns true if successful, otherwise (e.g. document doesn't support 
+	* text) returns false;
+	*/
+	virtual bool getCursorPos(int&, int&) const { return false; }
+	
+	/**
+	* Returns document's charset.
+	*/
 	QString charset() const { return charset_; }
+	/**
+	* Sets document's charset. Doesn't convert document's text, just sets the attribute.
+	*/
 	void setCharset(const QString&);
 	
-	virtual int lineCount() const { return 0; }
-	virtual bool isModified() const { return false; }
-	virtual bool hasSelectedText() const { return false; }
-	virtual bool getSelection(int&, int&, int&, int&) const { return false; }
-	virtual bool getSelectedText(QString&) const { return false; }
-	virtual bool getText(QString&) const { return false; }
-	virtual QString textLine(int) const { return QString(); }
-	virtual bool getCursorPos(int&, int&) const { return false; }
 	virtual QString syntax() const { return ""; }
 	virtual void setModified(bool) {}
 	virtual void setSelection(int, int, int, int) {}

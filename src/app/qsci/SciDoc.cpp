@@ -294,14 +294,15 @@ bool SciDoc::getText(QString& text) const {
 	return true;
 }
 
-QString SciDoc::textLine(int line) const {
-	if ( int_->curEdit_ == NULL ) return QString();
+bool SciDoc::getTextLine(int line, QString& str) const {
+	if ( int_->curEdit_ == NULL ) return false;
 	
 	if ( line >=0 && line < lineCount() ) {
-		return int_->curEdit_->text(line);
+		str = int_->curEdit_->text(line);
+		return true;
 	}
 	else {
-		return QString();
+		return false;
 	}
 }
 

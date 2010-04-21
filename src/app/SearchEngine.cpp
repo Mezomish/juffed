@@ -237,7 +237,9 @@ void stepOver(Juff::Document* doc, bool forward) {
 	int row(0), col(0);
 	if ( !forward ) {
 		row = doc->lineCount() - 1;
-		col = doc->textLine(row).length();
+		QString textLine;
+		doc->getTextLine(row, textLine);
+		col = textLine.length();
 	}
 	else {
 		row = 0;

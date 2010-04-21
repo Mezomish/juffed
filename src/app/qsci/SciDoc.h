@@ -35,7 +35,7 @@ public:
 	virtual bool getSelection(int&, int&, int&, int&) const;
 	virtual bool getSelectedText(QString&) const;
 	virtual bool getText(QString&) const;
-	virtual QString textLine(int) const;
+	virtual bool getTextLine(int, QString&) const;
 	virtual bool getCursorPos(int&, int&) const;
 	virtual QString syntax() const;
 	virtual void setModified(bool);

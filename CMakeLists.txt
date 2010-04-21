@@ -65,6 +65,7 @@ SET (CMAKE_INSTALL_RPATH "${LIB_INSTALL_DIR}")
 
 SET ( juffed_lib_MOC_HEADERS
 	include/Document.h
+	include/JuffAPI.h
 	include/Project.h
 	include/PluginNotifier.h
 )
@@ -236,7 +237,7 @@ SET ( juffed_DEV_HEADERS
 	include/Log.h
 	include/MainSettings.h
 	include/NullDoc.h
-	include/PluginNotifier.h
+#	include/PluginNotifier.h
 	include/PluginSettings.h
 	include/Project.h
 	include/QSciSettings.h

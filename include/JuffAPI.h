@@ -1,12 +1,15 @@
 #ifndef __JUFFED_PLUGIN_API_H__
 #define __JUFFED_PLUGIN_API_H__
 
+#include <QObject>
+
 #include "Document.h"
 #include "DocHandlerInt.h"
 #include "PluginNotifier.h"
 #include "Project.h"
 
-class JuffAPI {
+class JuffAPI : public QObject {
+Q_OBJECT
 public:
 	/**
 	* Returns current document or NullDoc if there is no current document.
@@ -25,12 +28,6 @@ public:
 	* See "Project.h" for details.
 	*/
 	Juff::Project* currentProject() const;
-	
-	/**
-	* Returns PluginNotifier object that emits signals when certain events occur.
-	* See "PluginNotifier.h" for details.
-	*/
-	Juff::PluginNotifier* notifier() const;
 
 
 	/**
@@ -63,6 +60,27 @@ public:
 	JuffAPI(Juff::DocHandlerInt*, Juff::PluginNotifier*);
 	/// Destructor
 	virtual ~JuffAPI();
+	
+signals:
+	// document notifications
+	void docOpened(Juff::Document*);
+	void docActivated(Juff::Document*);
+	void docClosed(Juff::Document*);
+	void docRenamed(Juff::Document*, const QString& oldName);
+	void docModified(Juff::Document*);
+	void docTextChanged(Juff::Document*);
+	void docSyntaxChanged(Juff::Document*, const QString& oldSyntax);
+	void docCharsetChanged(Juff::Document*, const QString& oldCharset);
+
+	// project notifications
+	void projectOpened(Juff::Project*);
+	void projectRenamed(Juff::Project*, const QString& oldName, const QString& oldPath);
+	void projectFileAdded(Juff::Project*, const QString&);
+	void projectFileRemoved(Juff::Project*, const QString&);
+	void projectSubProjectAdded(Juff::Project*, Juff::Project*);
+	void projectSubProjectRemoved(Juff::Project*, Juff::Project*);
+	void projectAboutToBeClosed(Juff::Project*);
+	
 private:
 	class Interior;
 	Interior* int_;

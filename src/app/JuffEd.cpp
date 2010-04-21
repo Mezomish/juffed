@@ -507,7 +507,7 @@ void JuffEd::slotPrjAddFile() {
 			prj_->addFile(file);
 			
 			// notify plugins
-			emit projectFileAdded(prj_, file);
+//			emit projectFileAdded(prj_, file);
 			
 			// open the document
 			openDoc(file);
@@ -792,6 +792,22 @@ void JuffEd::onDocRenamed(const QString& oldName) {
 	}
 }
 
+void JuffEd::onPrjFileAdded(const QString& file) {
+	LOGGER;
+	
+	Juff::Project* prj = qobject_cast<Juff::Project*>(sender());
+	if ( prj != 0 )
+		emit projectFileAdded(prj, file);
+}
+
+void JuffEd::onPrjFileRemoved(const QString& file) {
+	LOGGER;
+	
+	Juff::Project* prj = qobject_cast<Juff::Project*>(sender());
+	if ( prj != 0 )
+		emit projectFileRemoved(prj, file);
+}
+
 void JuffEd::onCloseRequested(bool& confirm) {
 	LOGGER;
 
@@ -907,6 +923,10 @@ Juff::Document* JuffEd::createDoc(const QString& fileName) {
 void JuffEd::createProject(const QString& fileName) {
 	prj_ = new Juff::Project(fileName);
 	MainSettings::set(MainSettings::LastProject, prj_->fileName());
+	
+	connect(prj_, SIGNAL(fileAdded(const QString&)), SLOT(onPrjFileAdded(const QString&)));
+	connect(prj_, SIGNAL(fileRemoved(const QString&)), SLOT(onPrjFileRemoved(const QString&)));
+	
 	loadProject();
 	
 	// notify plugins

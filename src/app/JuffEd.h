@@ -117,6 +117,9 @@ private slots:
 	void onDocLineCountChanged(int);
 	void onDocActivated(Juff::Document*);
 	void onDocRenamed(const QString&);
+	void onPrjFileAdded(const QString&);
+	void onPrjFileRemoved(const QString&);
+	
 	void onCloseRequested(bool&);
 	void onDocCloseRequested(Juff::Document*, bool&);
 	void onDocOpenRequested(const QString&);

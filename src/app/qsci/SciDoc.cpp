@@ -412,7 +412,7 @@ void SciDoc::gotoLine(int line) {
 }
 
 void SciDoc::setWrapWords(bool wrap) {
-	LOGGER;
+//	LOGGER;
 	
 	if ( wrap ) {
 		int_->edit1_->setWrapMode(QsciScintilla::WrapWord);
@@ -425,14 +425,14 @@ void SciDoc::setWrapWords(bool wrap) {
 }
 
 void SciDoc::setShowLineNumbers(bool show) {
-	LOGGER;
+//	LOGGER;
 	
 	int_->edit1_->showLineNumbers(show);
 	int_->edit2_->showLineNumbers(show);
 }
 
 void SciDoc::setShowWhitespaces(bool show) {
-	LOGGER;
+//	LOGGER;
 	
 	int_->edit1_->setWhitespaceVisibility(show ? QsciScintilla::WsVisible : QsciScintilla::WsInvisible);
 	int_->edit2_->setWhitespaceVisibility(show ? QsciScintilla::WsVisible : QsciScintilla::WsInvisible);
@@ -442,7 +442,7 @@ void SciDoc::setShowWhitespaces(bool show) {
 }
 
 void SciDoc::setShowLineEndings(bool show) {
-	LOGGER;
+//	LOGGER;
 	
 	int_->edit1_->setEolVisibility(show);
 	int_->edit2_->setEolVisibility(show);

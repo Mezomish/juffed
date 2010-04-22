@@ -252,12 +252,12 @@ void JuffMW::closeEvent(QCloseEvent* e) {
 }
 
 void JuffMW::resizeEvent(QResizeEvent*) {
-	LOGGER;
+//	LOGGER;
 	MainSettings::setGeometry(geometry());
 }
 
 void JuffMW::moveEvent(QMoveEvent*) {
-	LOGGER;
+//	LOGGER;
 	MainSettings::setGeometry(geometry());
 }
 

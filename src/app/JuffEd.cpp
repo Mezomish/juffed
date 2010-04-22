@@ -782,7 +782,7 @@ void JuffEd::onDocCharsetChanged(const QString& oldCharset) {
 }
 
 void JuffEd::onDocLineCountChanged(int lines) {
-	LOGGER;
+//	LOGGER;
 	
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {

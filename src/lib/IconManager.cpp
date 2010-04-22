@@ -30,29 +30,22 @@ public:
 		size_ = 16;
 		theme_ = "<default>";
 		
-		iconNames_[Juff::FileNew]      = "document-new.png";
-		iconNames_[Juff::FileOpen]     = "document-open.png";
-		iconNames_[Juff::FileSave]     = "document-save.png";
-		iconNames_[Juff::FileSaveAs]   = "document-save-as.png";
-//		iconNames_[Juff::FileSaveAll]  = "";
-		iconNames_[Juff::FileReload]   = "view-refresh.png";
-		iconNames_[Juff::FilePrint]    = "document-print.png";
-//		iconNames_[Juff::FileRename]   = "";
-//		iconNames_[Juff::FileClose]    = "";
-//		iconNames_[Juff::FileCloseAll] = "";
-		iconNames_[Juff::FilePrint]    = "document-print";
-		iconNames_[Juff::FileExit]     = "system-log-out";
+		iconNames_[Juff::FileNew]        = "document-new.png";
+		iconNames_[Juff::FileOpen]       = "document-open.png";
+		iconNames_[Juff::FileSave]       = "document-save.png";
+		iconNames_[Juff::FileSaveAs]     = "document-save-as.png";
+		iconNames_[Juff::FileReload]     = "view-refresh.png";
+		iconNames_[Juff::FilePrint]      = "document-print.png";
+		iconNames_[Juff::FilePrint]      = "document-print";
+		iconNames_[Juff::FileExit]       = "system-log-out";
 
-		iconNames_[Juff::EditUndo]     = "edit-undo.png";
-		iconNames_[Juff::EditRedo]     = "edit-redo.png";
-		iconNames_[Juff::EditCut]      = "edit-cut.png";
-		iconNames_[Juff::EditCopy]     = "edit-copy.png";
-		iconNames_[Juff::EditPaste]    = "edit-paste.png";
-		iconNames_[Juff::Find]     = "edit-find.png";
-//		iconNames_[Juff::EditFindNext] = "";
-//		iconNames_[Juff::EditFindPrev] = "";
-		iconNames_[Juff::Replace]  = "edit-find-replace.png";
-		iconNames_[Juff::GotoLine] = "";
+		iconNames_[Juff::EditUndo]       = "edit-undo.png";
+		iconNames_[Juff::EditRedo]       = "edit-redo.png";
+		iconNames_[Juff::EditCut]        = "edit-cut.png";
+		iconNames_[Juff::EditCopy]       = "edit-copy.png";
+		iconNames_[Juff::EditPaste]      = "edit-paste.png";
+		iconNames_[Juff::Find]           = "edit-find.png";
+		iconNames_[Juff::Replace]        = "edit-find-replace.png";
 		
 		iconNames_[Juff::ViewZoomIn]     = "zoomIn.png";
 		iconNames_[Juff::ViewZoomOut]    = "zoomOut.png";
@@ -62,7 +55,6 @@ public:
 	
 	int size_;
 	QString theme_;
-//	QMap<Juff::ActionID, QIcon> icons_;
 	QMap<Juff::ActionID, QString> iconNames_;
 };
 
@@ -95,8 +87,6 @@ void IconManager::setIconTheme(const QString& theme) {
 
 QIcon IconManager::icon(Juff::ActionID id) const {
 //	LOGGER;
-//	if ( icons_.contains(id) )
-//		return icons_[id];
 	switch ( id ) {
 		case Juff::PrjNew : return QIcon(":project.png");
 		case Juff::PrjOpen : return QIcon(":project-open.png");

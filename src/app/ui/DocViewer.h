@@ -27,7 +27,6 @@ namespace Juff {
 	class DocHandlerInt;
 }
 
-//#include <QTabWidget>
 #include <QList>
 #include <QMenu>
 #include <QSplitter>
@@ -73,8 +72,6 @@ public:
 
 signals:
 	void docActivated(Juff::Document*);
-//	void docOpenRequested(const QString&);
-//	void docCloseRequested(Juff::Document*, bool&);
 
 public slots:
 	void nextDoc();
@@ -83,7 +80,6 @@ public slots:
 private slots:
 	void goToNumberedDoc();
 	void onDocModified(bool);
-//	void onDocCloseRequested(Juff::Document*, Juff::TabWidget*);
 //	void onDocCloneRequested(Juff::Document*, Juff::TabWidget*);
 	void onDocMoveRequested(Juff::Document*, Juff::TabWidget*);
 	void onTabRemoved(Juff::TabWidget*);

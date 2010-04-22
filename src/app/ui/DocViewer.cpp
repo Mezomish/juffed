@@ -30,7 +30,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QAction>
 #include <QKeyEvent>
 #include <QMenu>
-//#include <QTabBar>
 #include <QVBoxLayout>
 
 DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(this) {
@@ -54,10 +53,8 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 	for (int i = 0; tabWidgets[i] != NULL; ++i) {
 		Juff::TabWidget* tw = tabWidgets[i];
 		
-//		connect(tw, SIGNAL(requestDocClose(Juff::Document*, Juff::TabWidget*)), SLOT(onDocCloseRequested(Juff::Document*, Juff::TabWidget*)));
 //		connect(tw, SIGNAL(requestDocClone(Juff::Document*, Juff::TabWidget*)), SLOT(onDocCloneRequested(Juff::Document*, Juff::TabWidget*)));
 		connect(tw, SIGNAL(requestDocMove(Juff::Document*, Juff::TabWidget*)), SLOT(onDocMoveRequested(Juff::Document*, Juff::TabWidget*)));
-//		connect(tw, SIGNAL(requestDocOpen(const QString&)), SIGNAL(docOpenRequested(const QString&)));
 		connect(tw, SIGNAL(tabRemoved(Juff::TabWidget*)), SLOT(onTabRemoved(Juff::TabWidget*)));
 		connect(tw, SIGNAL(docStackCalled(bool)), SLOT(onDocStackCalled(bool)));
 	}
@@ -261,7 +258,6 @@ void DocViewer::onCtrlTabSelected() {
 	QAction* act = qobject_cast<QAction*>(sender());
 	if ( act != 0 ) {
 		QString fileName = act->data().toString();
-//		emit docOpenRequested(fileName);
 		handler_->openDoc(fileName);
 	}
 }
@@ -272,7 +268,6 @@ bool DocViewer::eventFilter(QObject *obj, QEvent *e) {
 		
 		if ( (keyEvent->modifiers() & Qt::ControlModifier) == false ) {
 			QString fileName = ctrlTabMenu_.activeAction()->data().toString();
-//			emit docOpenRequested(fileName);
 			handler_->openDoc(fileName);
 			ctrlTabMenu_.hide();
 		}
@@ -321,42 +316,7 @@ void DocViewer::onDocModified(bool modified) {
 	}
 }
 
-/*void DocViewer::onDocCloseRequested(Juff::Document* doc, Juff::TabWidget* tw) {
-	LOGGER;
-	
-	int oldIndex = tw->indexOf(doc);
-	if ( oldIndex < 0 )
-		return;
-	
-	bool ok;
-	emit docCloseRequested(doc, ok);
-	if ( !ok )
-		return;
-	
-	if ( tw->count() == 0 ) {
-//		tw->hide();
-		Juff::TabWidget* tw2 = (tw == tab1_ ? tab2_ : tab1_);
-		if ( tw2->count() == 0 ) {
-			tab2_->hide();
-			curTab_ = tab1_;
-		}
-		else {
-			tab1_->hide();
-			curTab_ = tab2_;
-		}
-	}
-	else {
-		if ( tw->currentIndex() == oldIndex ) {
-			Juff::Document* newCurDoc = qobject_cast<Juff::Document*>(tw->currentWidget());
-			if ( newCurDoc != 0 ) {
-				curTab_ = tw;
-//				emit docActivated(newCurDoc);
-			}
-		}
-	}
-}
-
-void DocViewer::onDocCloneRequested(Juff::Document*, Juff::TabWidget* tw) {
+/*void DocViewer::onDocCloneRequested(Juff::Document*, Juff::TabWidget* tw) {
 	LOGGER;
 }*/
 

@@ -28,13 +28,6 @@ namespace Juff {
 TabBar::TabBar(Juff::TabWidget* widget) : QTabBar(), index_(-1), tabMenu_(NULL), tabWidget_(widget) {
 	setFocusPolicy(Qt::NoFocus);
 	
-//	tabMenu_ = new QMenu();
-//	tabMenu_->addAction(tr("Clone"), this, SLOT(cloneDoc()));
-//	tabMenu_->addAction(tr("Close"), this, SLOT(closeDoc()));
-//	tabMenu_->addSeparator();
-//	tabMenu_->addAction(CommandStorage::instance()->action(ID_FILE_CLOSE_ALL));
-//	tabMenu_->addAction(CommandStorage::instance()->action(ID_FILE_SAVE_ALL));
-
 #if QT_VERSION >= 0x040500
 	setMovable(true);
 #endif

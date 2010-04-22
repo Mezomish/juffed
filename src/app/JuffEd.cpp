@@ -256,8 +256,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	settingsDlg_->setEditorsPages(docManager_->editorsPages());
 	
 	connect(viewer_, SIGNAL(docActivated(Juff::Document*)), SLOT(onDocActivated(Juff::Document*)));
-	connect(viewer_, SIGNAL(docOpenRequested(const QString&)), SLOT(onDocOpenRequested(const QString&)));
-	connect(viewer_, SIGNAL(docCloseRequested(Juff::Document*, bool&)), SLOT(onDocCloseRequested(Juff::Document*, bool&)));
 	connect(mw_, SIGNAL(closeRequested(bool&)), SLOT(onCloseRequested(bool&)));
 	
 	// engines actions
@@ -860,21 +858,16 @@ void JuffEd::onCloseRequested(bool& confirm) {
 		mw_->saveState();
 }
 
-void JuffEd::onDocOpenRequested(const QString& fileName) {
-	openDoc(fileName);
-}
-
-void JuffEd::onDocCloseRequested(Juff::Document* doc, bool& ok) {
-	ok = closeDocWithConfirmation(doc);
-}
-
 void JuffEd::onSettingsApplied() {
 	LOGGER;
 	
+	pluginMgr_.applySettings();
 	viewer_->applySettings();
 	mw_->applySettings();
-	pluginMgr_.applySettings();
 	
+	emit settingsApplied();
+	
+	// TODO : move to the Keybindings plugin
 	CommandStorage::instance()->updateShortcuts();
 }
 

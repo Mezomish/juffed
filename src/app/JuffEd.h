@@ -60,6 +60,7 @@ public:
 	virtual QStringList docList() const;
 
 public slots:
+	// slots from menu actions
 	void slotFileNew();
 	void slotFileOpen();
 	void slotFileSave();
@@ -71,7 +72,6 @@ public slots:
 	void slotFileCloseAll();
 	void slotFilePrint();
 	void slotFileExit();
-
 
 	void slotPrjNew();
 	void slotPrjOpen();
@@ -122,8 +122,6 @@ private slots:
 	void onPrjFileRemoved(const QString&);
 	
 	void onCloseRequested(bool&);
-	void onDocCloseRequested(Juff::Document*, bool&);
-	void onDocOpenRequested(const QString&);
 	void onSettingsApplied();
 
 	void initRecentFilesMenu();

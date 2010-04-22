@@ -119,14 +119,49 @@ public:
 	*/
 	void setCharset(const QString&);
 	
+	/**
+	* Returns the current document's syntax highlighting scheme.
+	* Returns "none" if no scheme is set.
+	*/
 	virtual QString syntax() const { return ""; }
-	virtual void setModified(bool) {}
-	virtual void setSelection(int, int, int, int) {}
+	
+	/**
+	* Sets the syntax highlighting scheme. If the scheme is not 
+	* supported nothing happens. If it is supported then scheme changes and API
+	* emits a signal "docSyntaxChanged(const QString& oldSyntax)".
+	*/
+	virtual void setSyntax(const QString& syntax) {}
+	
+	/**
+	* Sets the document's selection.
+	*/
+	virtual void setSelection(int line1, int col1, int line2, int col2) {}
+	
+	/**
+	* Sets the cursor to ( \param line, \param col ) position.
+	*/
+	virtual void setCursorPos(int line, int col) {}
+	
+	/**
+	* Removes selected text.
+	*/
 	virtual void removeSelectedText() {}
-	virtual void replaceSelectedText(const QString&) {}
+	
+	/**
+	* Sets the 'modified' flag to the document.
+	*/
+	virtual void setModified(bool) {}
+	
+	/**
+	* Replaces the currently selected text with \param text. If there was
+	* no selectin text then inserts \param text at the current cursor position.
+	*/
+	virtual void replaceSelectedText(const QString& text) {}
+	
+	/**
+	* Inserts the \param text at the current cursor position.
+	*/
 	virtual void insertText(const QString&) {}
-	virtual void setCursorPos(int, int) {}
-	virtual void setSyntax(const QString& lexName) {}
 	
 	
 //	Juff::Document* clone() const { return clone_; }

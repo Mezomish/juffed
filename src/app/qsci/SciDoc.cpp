@@ -37,7 +37,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QScrollBar>
 #include <QSplitter>
 
-//#include <Qsci/qsciscintilla.h>
 #include <Qsci/qsciprinter.h>
 #include <Qsci/qscilexer.h>
 
@@ -91,12 +90,6 @@ public:
 	void setCurrentEdit(JuffScintilla* edit) {
 		LOGGER;
 		
-//		if ( edit == edit1_ )
-//			qDebug() << "edit1";
-//		else if ( edit == edit2_ )
-//			qDebug() << "edit2";
-//		else
-//			qDebug() << "edit ??";
 		curEdit_ = edit;
 		spl_->setFocusProxy(edit);
 	}
@@ -107,7 +100,6 @@ public:
 	QString syntax_;
 	QSplitter* spl_;
 	QTimer* hlTimer_;
-//	QWidget* parent_;
 };
 
 SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
@@ -550,7 +542,6 @@ void SciDoc::moveDown() {
 	if ( hasSelectedText() ) {
 		int line1, line2, col1, col2;
 		getSelection(line1, col1, line2, col2);
-//		int n = lineCount();
 		
 		int realLine2 = line2;
 		if ( col2 == 0 )

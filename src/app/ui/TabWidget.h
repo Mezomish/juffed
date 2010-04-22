@@ -37,10 +37,8 @@ public:
 	void initDocMenu(int, QMenu*);
 
 signals:
-//	void requestDocClose(Juff::Document*, Juff::TabWidget*);
 //	void requestDocClone(Juff::Document*, Juff::TabWidget*);
 	void requestDocMove(Juff::Document*, Juff::TabWidget*);
-//	void requestDocOpen(const QString&);
 	void tabRemoved(Juff::TabWidget*);
 	void docStackCalled(bool forward);
 

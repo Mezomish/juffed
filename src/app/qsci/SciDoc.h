@@ -111,7 +111,6 @@ protected:
 private:
 	void readFile();
 	void setLexer(const QString& lexName);
-//	void applySettings();
 	
 	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 	void uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);

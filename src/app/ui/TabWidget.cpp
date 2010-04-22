@@ -170,7 +170,6 @@ void TabWidget::onTabCloseRequested(int index) {
 	QWidget* tab = widget(index);
 	Juff::Document* doc = qobject_cast<Juff::Document*>(tab);
 	if ( doc != 0 ) {
-//		emit requestDocClose(doc, this);
 		handler_->closeDoc(doc->fileName());
 	}
 }
@@ -263,7 +262,6 @@ void TabWidget::dropEvent(QDropEvent* e) {
 #endif
 
 			if ( !name.isEmpty() ) {
-//				emit requestDocOpen(name);
 				handler_->openDoc(name);
 			}
 		}

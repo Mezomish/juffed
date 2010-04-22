@@ -98,7 +98,6 @@ SET ( juffed_lib_RESOURCES
 )
 
 SET ( juffed_app_MOC_HEADERS
-	src/app/DocManager.h
 	src/app/JuffEd.h
 	src/app/SearchEngine.h
 	src/app/qsci/JuffScintilla.h
@@ -116,7 +115,6 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/TabWidget.h
 	src/3rd_party/qtsingleapplication/qtsinglecoreapplication.h
 	src/3rd_party/qtsingleapplication/qtsingleapplication.h
-	src/3rd_party/qtsingleapplication/qtlockedfile.h
 	src/3rd_party/qtsingleapplication/qtlocalpeer.h
 	
 	# settings
@@ -304,7 +302,7 @@ TARGET_LINK_LIBRARIES ( ${JUFFED} ${JUFFLIB}
 
 
 # verbose is off by default
-SET( CMAKE_VERBOSE_MAKEFILE  ON )
+SET ( CMAKE_VERBOSE_MAKEFILE  ON )
 
 
 #SET ( juffed_RCS

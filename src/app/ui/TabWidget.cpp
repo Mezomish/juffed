@@ -19,8 +19,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TabWidget.h"
 
 #include "Document.h"
+#include "DocHandlerInt.h"
 #include "Functions.h"
+#include "IconManager.h"
 #include "Log.h"
+#include "Project.h"
 #include "TabBar.h"
 
 #include <QApplication>
@@ -56,7 +59,9 @@ public:
 
 const int DocListButton::sz = 24;
 
-TabWidget::TabWidget() : QTabWidget() {
+TabWidget::TabWidget(Juff::DocHandlerInt* handler) : QTabWidget() {
+	handler_ = handler;
+	
 	setTabBar(new Juff::TabBar(this));
 	connect(tabBar(), SIGNAL(requestTabClose(int)), SLOT(onTabCloseRequested(int)));
 	setAcceptDrops(true);
@@ -105,6 +110,15 @@ void TabWidget::initDocMenu(int index, QMenu* menu) {
 			menu->addAction(tr("Move to the right panel"), this, SLOT(moveDoc()));
 		else
 			menu->addAction(tr("Move to the left panel"), this, SLOT(moveDoc()));
+		
+		Juff::Project* prj = handler_->curPrj();
+		// TODO : add an accurate check whether the file is a part of the project
+		if ( prj != 0 && !prj->isNoname() ) {
+			if ( !prj->files().contains(doc->fileName()) )
+				menu->addAction(tr("Add to project"), this, SLOT(addFileToProject()))->setIcon(IconManager::instance()->icon(Juff::PrjAddFile));
+			else
+				menu->addAction(tr("Remove from project"), this, SLOT(removeFileFromProject()))->setIcon(IconManager::instance()->icon(Juff::PrjRemoveFile));
+		}
 	}
 	else {
 		menuRequestedIndex_ = -1;
@@ -134,13 +148,30 @@ void TabWidget::copyDirPath() {
 	}
 }
 
+void TabWidget::addFileToProject() {
+	QString fileName = docName(menuRequestedIndex_);
+	if ( !fileName.isEmpty() ) {
+		Juff::Project* prj = handler_->curPrj();
+		prj->addFile(fileName);
+	}
+}
+
+void TabWidget::removeFileFromProject() {
+	QString fileName = docName(menuRequestedIndex_);
+	if ( !fileName.isEmpty() ) {
+		Juff::Project* prj = handler_->curPrj();
+		prj->removeFile(fileName);
+	}
+}
+
 void TabWidget::onTabCloseRequested(int index) {
 	LOGGER;
 	
 	QWidget* tab = widget(index);
 	Juff::Document* doc = qobject_cast<Juff::Document*>(tab);
 	if ( doc != 0 ) {
-		emit requestDocClose(doc, this);
+//		emit requestDocClose(doc, this);
+		handler_->closeDoc(doc->fileName());
 	}
 }
 
@@ -232,7 +263,8 @@ void TabWidget::dropEvent(QDropEvent* e) {
 #endif
 
 			if ( !name.isEmpty() ) {
-				emit requestDocOpen(name);
+//				emit requestDocOpen(name);
+				handler_->openDoc(name);
 			}
 		}
 	}

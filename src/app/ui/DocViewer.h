@@ -24,6 +24,7 @@ class QAction;
 namespace Juff {
 	class Document;
 	class TabWidget;
+	class DocHandlerInt;
 }
 
 //#include <QTabWidget>
@@ -34,7 +35,7 @@ namespace Juff {
 class DocViewer : public QWidget {
 Q_OBJECT
 public:
-	DocViewer();
+	DocViewer(Juff::DocHandlerInt*);
 	void addDoc(Juff::Document*);
 	void removeDoc(Juff::Document*);
 	Juff::Document* currentDoc() const;
@@ -72,8 +73,8 @@ public:
 
 signals:
 	void docActivated(Juff::Document*);
-	void docOpenRequested(const QString&);
-	void docCloseRequested(Juff::Document*, bool&);
+//	void docOpenRequested(const QString&);
+//	void docCloseRequested(Juff::Document*, bool&);
 
 public slots:
 	void nextDoc();
@@ -82,8 +83,8 @@ public slots:
 private slots:
 	void goToNumberedDoc();
 	void onDocModified(bool);
-	void onDocCloseRequested(Juff::Document*, Juff::TabWidget*);
-	void onDocCloneRequested(Juff::Document*, Juff::TabWidget*);
+//	void onDocCloseRequested(Juff::Document*, Juff::TabWidget*);
+//	void onDocCloneRequested(Juff::Document*, Juff::TabWidget*);
 	void onDocMoveRequested(Juff::Document*, Juff::TabWidget*);
 	void onTabRemoved(Juff::TabWidget*);
 	void onDocFocused();
@@ -102,6 +103,7 @@ private:
 	QAction* nextAct_;
 	QAction* prevAct_;
 
+	Juff::DocHandlerInt* handler_;
 	Juff::TabWidget* tab1_;
 	Juff::TabWidget* tab2_;
 	Juff::TabWidget* curTab_;

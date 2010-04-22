@@ -248,7 +248,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	charsetMenu_->addMenu(setCharsetMenu_);
 	formatMenu->addMenu(charsetMenu_);
 	
-	viewer_ = new DocViewer();
+	viewer_ = new DocViewer(this);
 //	mw_->setCentralWidget(viewer_);
 	mw_->setViewer(viewer_);
 	

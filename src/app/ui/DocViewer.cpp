@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "DocViewer.h"
 
 #include "Document.h"
+#include "DocHandlerInt.h"
 #include "Functions.h"
 #include "Log.h"
 #include "NullDoc.h"
@@ -32,15 +33,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //#include <QTabBar>
 #include <QVBoxLayout>
 
-DocViewer::DocViewer() : QWidget(), ctrlTabMenu_(this) {
+DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(this) {
+	handler_ = handler;
+	
 	spl_ = new QSplitter(this);
 	QVBoxLayout* vBox = new QVBoxLayout(this);
 	vBox->addWidget(spl_);
 	vBox->setContentsMargins(0, 0, 0, 0);
 	setLayout(vBox);
 
-	tab1_ = new Juff::TabWidget();
-	tab2_ = new Juff::TabWidget();
+	tab1_ = new Juff::TabWidget(handler);
+	tab2_ = new Juff::TabWidget(handler);
 	spl_->addWidget(tab1_);
 	spl_->addWidget(tab2_);
 	curTab_ = tab1_;
@@ -51,10 +54,10 @@ DocViewer::DocViewer() : QWidget(), ctrlTabMenu_(this) {
 	for (int i = 0; tabWidgets[i] != NULL; ++i) {
 		Juff::TabWidget* tw = tabWidgets[i];
 		
-		connect(tw, SIGNAL(requestDocClose(Juff::Document*, Juff::TabWidget*)), SLOT(onDocCloseRequested(Juff::Document*, Juff::TabWidget*)));
-		connect(tw, SIGNAL(requestDocClone(Juff::Document*, Juff::TabWidget*)), SLOT(onDocCloneRequested(Juff::Document*, Juff::TabWidget*)));
+//		connect(tw, SIGNAL(requestDocClose(Juff::Document*, Juff::TabWidget*)), SLOT(onDocCloseRequested(Juff::Document*, Juff::TabWidget*)));
+//		connect(tw, SIGNAL(requestDocClone(Juff::Document*, Juff::TabWidget*)), SLOT(onDocCloneRequested(Juff::Document*, Juff::TabWidget*)));
 		connect(tw, SIGNAL(requestDocMove(Juff::Document*, Juff::TabWidget*)), SLOT(onDocMoveRequested(Juff::Document*, Juff::TabWidget*)));
-		connect(tw, SIGNAL(requestDocOpen(const QString&)), SIGNAL(docOpenRequested(const QString&)));
+//		connect(tw, SIGNAL(requestDocOpen(const QString&)), SIGNAL(docOpenRequested(const QString&)));
 		connect(tw, SIGNAL(tabRemoved(Juff::TabWidget*)), SLOT(onTabRemoved(Juff::TabWidget*)));
 		connect(tw, SIGNAL(docStackCalled(bool)), SLOT(onDocStackCalled(bool)));
 	}
@@ -258,7 +261,8 @@ void DocViewer::onCtrlTabSelected() {
 	QAction* act = qobject_cast<QAction*>(sender());
 	if ( act != 0 ) {
 		QString fileName = act->data().toString();
-		emit docOpenRequested(fileName);
+//		emit docOpenRequested(fileName);
+		handler_->openDoc(fileName);
 	}
 }
 
@@ -268,7 +272,8 @@ bool DocViewer::eventFilter(QObject *obj, QEvent *e) {
 		
 		if ( (keyEvent->modifiers() & Qt::ControlModifier) == false ) {
 			QString fileName = ctrlTabMenu_.activeAction()->data().toString();
-			emit docOpenRequested(fileName);
+//			emit docOpenRequested(fileName);
+			handler_->openDoc(fileName);
 			ctrlTabMenu_.hide();
 		}
 		return true;
@@ -316,7 +321,7 @@ void DocViewer::onDocModified(bool modified) {
 	}
 }
 
-void DocViewer::onDocCloseRequested(Juff::Document* doc, Juff::TabWidget* tw) {
+/*void DocViewer::onDocCloseRequested(Juff::Document* doc, Juff::TabWidget* tw) {
 	LOGGER;
 	
 	int oldIndex = tw->indexOf(doc);
@@ -353,7 +358,7 @@ void DocViewer::onDocCloseRequested(Juff::Document* doc, Juff::TabWidget* tw) {
 
 void DocViewer::onDocCloneRequested(Juff::Document*, Juff::TabWidget* tw) {
 	LOGGER;
-}
+}*/
 
 void DocViewer::onDocMoveRequested(Juff::Document* doc, Juff::TabWidget* tw) {
 	LOGGER;

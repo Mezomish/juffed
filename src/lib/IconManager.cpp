@@ -97,6 +97,13 @@ QIcon IconManager::icon(Juff::ActionID id) const {
 //	LOGGER;
 //	if ( icons_.contains(id) )
 //		return icons_[id];
+	switch ( id ) {
+		case Juff::PrjNew : return QIcon(":project.png");
+		case Juff::PrjOpen : return QIcon(":project-open.png");
+		case Juff::PrjAddFile : return QIcon(":project-add-file.png");
+		case Juff::PrjRemoveFile : return QIcon(":project-remove-file.png");
+		default:;
+	}
 
 	if ( int_->theme_.compare("<default>") == 0 ) {
 		return defaultIcon(id);

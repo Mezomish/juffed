@@ -52,6 +52,7 @@ typedef enum {
 	PrjClose,
 	PrjSaveAs,
 	PrjAddFile,
+	PrjRemoveFile,
 	PrjRename,
 	//
 	EditUndo,

@@ -27,19 +27,20 @@ namespace Juff {
 
 class Document;
 class DocListButton;
+class DocHandlerInt;
 
 class TabWidget : public QTabWidget {
 Q_OBJECT
 public:
-	TabWidget();
+	TabWidget(Juff::DocHandlerInt*);
 
 	void initDocMenu(int, QMenu*);
 
 signals:
-	void requestDocClose(Juff::Document*, Juff::TabWidget*);
-	void requestDocClone(Juff::Document*, Juff::TabWidget*);
+//	void requestDocClose(Juff::Document*, Juff::TabWidget*);
+//	void requestDocClone(Juff::Document*, Juff::TabWidget*);
 	void requestDocMove(Juff::Document*, Juff::TabWidget*);
-	void requestDocOpen(const QString&);
+//	void requestDocOpen(const QString&);
 	void tabRemoved(Juff::TabWidget*);
 	void docStackCalled(bool forward);
 
@@ -49,6 +50,8 @@ protected slots:
 	void copyFileName();
 	void copyFilePath();
 	void copyDirPath();
+	void addFileToProject();
+	void removeFileFromProject();
 //	void onDocListPressed();
 
 protected:
@@ -66,6 +69,7 @@ private slots:
 private:
 	QString docName(int) const;
 
+	Juff::DocHandlerInt* handler_;
 	int menuRequestedIndex_;
 	int selfIndex_;
 	DocListButton* docListBtn_;

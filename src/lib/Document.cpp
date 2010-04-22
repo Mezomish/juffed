@@ -104,6 +104,7 @@ void Document::setCodec(QTextCodec* codec) {
 }
 
 void Document::setCharset(const QString& charset) {
+	LOGGER;
 	QTextCodec* codec = QTextCodec::codecForName(charset.toAscii());
 	if ( codec != 0 ) {
 		QString oldCharset = charset_;

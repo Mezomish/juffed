@@ -85,12 +85,17 @@ void DocViewer::addDoc(Juff::Document* doc) {
 	LOGGER;
 	
 	connect(doc, SIGNAL(modified(bool)), SLOT(onDocModified(bool)));
+	
+	// If we want to prevent 'docActivated()' signal to be emitted when
+	// adding a new doc then comment the following line and uncomment the
+	// same line below it.
+	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
 
 	addDoc(doc, curTab_);
 	
 	// It's better to have it after adding to TabWidget to avoid
 	// emitting the signal 'docActivated()' during the document creation.
-	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
+//	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
 	
 	docStack_.prepend(doc);
 }

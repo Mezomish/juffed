@@ -763,6 +763,16 @@ void JuffEd::onDocTextChanged() {
 	}
 }
 
+void JuffEd::onDocSyntaxChanged(const QString& oldSyntax) {
+	LOGGER;
+	
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
+	if ( doc != 0 ) {
+		// notify plugins
+		emit docSyntaxChanged(doc, oldSyntax);
+	}
+}
+
 void JuffEd::onDocLineCountChanged(int lines) {
 	LOGGER;
 	
@@ -957,6 +967,7 @@ void JuffEd::initDoc(Juff::Document* doc) {
 	connect(doc, SIGNAL(cursorPosChanged(int, int)), SLOT(onDocCursorMoved(int, int)));
 	connect(doc, SIGNAL(lineCountChanged(int)), SLOT(onDocLineCountChanged(int)));
 	connect(doc, SIGNAL(textChanged()), SLOT(onDocTextChanged()));
+	connect(doc, SIGNAL(syntaxChanged(const QString&)), SLOT(onDocSyntaxChanged(const QString&)));
 	connect(doc, SIGNAL(renamed(const QString&)), SLOT(onDocRenamed(const QString&)));
 	
 	updateMenus(doc);

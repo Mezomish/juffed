@@ -33,6 +33,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #endif
 
 #include "ColorButton.h"
+#include "CommandStorage.h"
 #include "IconManager.h"
 #include "Log.h"
 #include "MultiPage.h"
@@ -125,15 +126,18 @@ private:
 };
 
 
-/*#include "ui_ViewSettingsPage.h"
+#include "ui_ViewSettingsPage.h"
 
-class ViewSettingsPage : public QWidget {
+class ViewSettingsPage : public SettingsPage {
 public:
-	ViewSettingsPage() : QWidget() {
+	ViewSettingsPage(QWidget* parent) : SettingsPage(parent) {
 		ui.setupUi(this);
+		
+		ui.iconThemeCmb->hide();
+		ui.label_2->hide();
 	}
 
-	void init(QList<SettingsItem*>& items) {
+	virtual void init() {
 		//	icon themes
 		JUFFDEBUG("Initialization: icon theme");
 //		QStringList themes = IconManager::instance()->themeList();
@@ -141,20 +145,25 @@ public:
 //		ui.iconThemeCmb->addItem("<default>");
 //		ui.iconThemeCmb->addItems(themes);
 
-		items << new SettingsSelectItem("main", "iconTheme", ui.iconThemeCmb, SettingsSelectItem::StringMode)
-		      << new SettingsSelectItem("main", "toolButtonStyle", ui.toolButtonStyleCmb, SettingsSelectItem::IndexMode)
+		items_
+//			  << new SettingsSelectItem("main", "iconTheme", ui.iconThemeCmb, SettingsSelectItem::StringMode)
+			  << new SettingsSelectItem("main", "toolButtonStyle", ui.toolButtonStyleCmb, SettingsSelectItem::IndexMode)
 			  << new SettingsSelectItem("main", "iconSize", ui.iconSizeCmb, SettingsSelectItem::IndexMode)
 			  << new SettingsSelectItem("main", "tabPosition", ui.tabPositionCmb, SettingsSelectItem::IndexMode)
 		;
-#if QT_VERSION >= 0x040500
-		items << new SettingsCheckItem("main", "closeButtonsOnTabs", ui.closeBtnsChk);
-#else
-		ui.closeBtnsChk->hide();
-#endif
+	}
+	
+	virtual void apply() {
+		SettingsPage::apply();
+		
+		int sz = MainSettings::get(MainSettings::IconSize);
+		int size = ( sz == 1 ? 24 : (sz == 2 ? 32 : 16) );
+		IconManager::instance()->setIconSize(size);
+		CommandStorage::instance()->updateIcons();
 	}
 	
 	Ui::ViewSettingsPage ui;
-};*/
+};
 
 
 #include "ui_EditorSettingsPage.h"
@@ -317,10 +326,10 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	mp_ = new MultiPage();
 
 	pages_ << mp_->addPage(tr("General"), new MainSettingsPage(this));
+	pages_ << mp_->addPage(tr("View"), new ViewSettingsPage(this));
 	pages_ << mp_->addPage(tr("Editor"), new EditorSettingsPage(this));
 	pages_ << mp_->addPage(tr("Autocompletion"), new AutocompleteSettingsPage(this));
 	pages_ << mp_->addPage(tr("Plugins"), new PluginsMainPage(this));
-//		<< mp_->addPage(tr("View"), new ViewSettingsPage())
 //		<< mp_->addPage(tr("Charsets"), new CharsetsSettingsPage())
 //		<< mp_->addPage(tr("File types"), new FileTypesPage())
 //		<< mp_->addPage(tr("Printing"), new PrintingPage())

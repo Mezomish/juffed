@@ -20,7 +20,7 @@
    <property name="spacing">
     <number>3</number>
    </property>
-   <item row="7" column="2">
+   <item row="6" column="2">
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -142,13 +142,6 @@
        <string>East</string>
       </property>
      </item>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QCheckBox" name="closeBtnsChk">
-     <property name="text">
-      <string>Close button on each tab</string>
-     </property>
     </widget>
    </item>
   </layout>

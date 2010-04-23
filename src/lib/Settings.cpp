@@ -127,6 +127,9 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "fsHideToolBar" )          return true;
 		if ( key == "fsHideStatusBar" )        return true;
 		if ( key == "language" )               return AppInfo::language();
+		if ( key == "tabPosition" )            return 0;
+		if ( key == "toolButtonStyle" )        return 0;
+		if ( key == "iconSize" )               return 0;
 	}
 	else if ( section == "autocomplete" ) {
 		if ( key == "useDocument" )   return false;

@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "DocHandlerInt.h"
 #include "Functions.h"
 #include "Log.h"
+#include "MainSettings.h"
 #include "NullDoc.h"
 #include "TabWidget.h"
 
@@ -419,4 +420,8 @@ void DocViewer::applySettings() {
 		if ( doc != 0 )
 			doc->applySettings();
 	}
+
+	QTabWidget::TabPosition position = (QTabWidget::TabPosition)MainSettings::get(MainSettings::TabPosition);
+	tab1_->setTabPosition(position);
+	tab2_->setTabPosition(position);
 }

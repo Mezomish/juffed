@@ -42,13 +42,20 @@ public:
 		FSHideToolbar,
 		FSHideStatusbar,
 	};
-//	static void set(IntKey, int);
+	
+	enum IntKey {
+		ToolButtonStyle,
+		TabPosition,
+		IconSize,
+	};
+	
+	static void set(IntKey, int);
 	static void set(BoolKey, bool);
 	static void set(StringKey, const QString&);
 	static void setGeometry(const QRect&);
 	static void setMwState(const QByteArray&);
 	
-//	static int     get(IntKey);
+	static int     get(IntKey);
 	static bool    get(BoolKey);
 	static QString get(StringKey);
 	static QRect geometry();

@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Document.h"
 #include "FindDlg.h"
 #include "Functions.h"
+#include "IconManager.h"
 #include "JumpToFileDlg.h"
 #include "License.h"
 #include "MainSettings.h"
@@ -109,6 +110,8 @@ JuffMW::JuffMW() : QMainWindow() {
 	statusLayout_ = new QHBoxLayout(statusWidget_);
 	statusLayout_->setContentsMargins(1, 1, 1, 1);
 	statusBar()->addWidget(statusWidget_, 1);
+	
+	applySettings();
 }
 
 void JuffMW::setViewer(QWidget* w) {
@@ -298,6 +301,13 @@ void JuffMW::toggleFullscreen() {
 
 
 void JuffMW::applySettings() {
+	int sz = MainSettings::get(MainSettings::IconSize);
+	int size = ( sz == 1 ? 24 : (sz == 2 ? 32 : 16) );
+	
+	setToolButtonStyle((Qt::ToolButtonStyle)MainSettings::get(MainSettings::ToolButtonStyle));
+	setIconSize(QSize(size, size));
+	foreach (QToolBar* tb, allToolBars_)
+		tb->setIconSize(QSize(size, size));
 }
 
 void JuffMW::saveState() {

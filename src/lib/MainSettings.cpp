@@ -22,6 +22,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QRect>
 
+void MainSettings::set(IntKey key, int value) {
+	switch (key) {
+		case ToolButtonStyle :
+			Settings::setValue("main", "toolButtonStyle", value);
+			break;
+		
+		case TabPosition :
+			Settings::setValue("main", "tabPosition", value);
+			break;
+		
+		case IconSize :
+			Settings::setValue("main", "iconSize", value);
+			break;
+	}
+}
+
 void MainSettings::set(BoolKey key, bool value) {
 	switch (key) {
 		case SyncToCurDoc :
@@ -88,6 +104,23 @@ void MainSettings::set(StringKey key, const QString& value) {
 	}
 }
 
+
+int MainSettings::get(IntKey key) {
+	switch (key) {
+		case ToolButtonStyle :
+			return Settings::intValue("main", "toolButtonStyle");
+			break;
+		
+		case TabPosition :
+			return Settings::intValue("main", "tabPosition");
+			break;
+		
+		case IconSize :
+			return Settings::intValue("main", "iconSize");
+			break;
+	}
+	return -1;
+}
 
 bool MainSettings::get(BoolKey key) {
 	switch (key) {

@@ -244,3 +244,12 @@ void CommandStorage::updateShortcuts() {
 	}
 }
 
+void CommandStorage::updateIcons() {
+	QList<Juff::ActionID> ids = actionIDs();
+	foreach (Juff::ActionID id, ids) {
+		QAction* a = action(id);
+		if ( NULL != a ) {
+			a->setIcon(IconManager::instance()->icon(id));
+		}
+	}
+}

@@ -27,11 +27,34 @@ class IconManager {
 public:
 	static IconManager* instance();
 	
-	QIcon icon(Juff::ActionID) const;
+	/**
+	* Returns an icon of the current icon theme and the current size 
+	* for the specified \param id. If the current theme doesn't contain
+	* an appropriate icon then returns a built-in icon (from "<default>" theme).
+	* If there is no default icon the returns an empty icon QIcon().
+	*/
+	QIcon icon(Juff::ActionID id) const;
+
+	/**
+	* Returns the current icon size. The default size is 16.
+	*/
 	int iconSize() const;
-	void setIconSize(int);
+
+	/**
+	* Sets the icon size to \param size.
+	*/
+	void setIconSize(int size);
+
+	/**
+	* Returns the current icon theme. It can be the name of some system icon
+	* theme or the default value "<default>" (built-in icons).
+	*/
 	QString iconTheme() const;
-	void setIconTheme(const QString&);
+	
+	/**
+	* Sets the icon theme to \param theme.
+	*/
+	void setIconTheme(const QString& theme);
 	
 private:
 	IconManager();

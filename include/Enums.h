@@ -21,6 +21,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 namespace Juff {
 
+/**
+ * This enum contains IDs for all menus listed in 
+ * menu bar (except for menus added by plugins).
+ */
 typedef enum {
 	MenuFile,
 	MenuEdit,
@@ -31,6 +35,10 @@ typedef enum {
 	MenuHelp,
 } MenuID;
 
+/**
+ * This enum contains IDs for all menu actions (except 
+ * for actions added by plugins).
+ */
 typedef enum {
 	NullID,
 	Separator,

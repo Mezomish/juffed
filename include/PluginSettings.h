@@ -25,15 +25,6 @@ class JuffPlugin;
 
 class PluginSettings : public Settings {
 public:
-	/** Returns if plugin with name \a pluginName is
-	 *  enabled (supposed to be loaded).
-	 */
-	static bool pluginEnabled(const QString& pluginName);
-
-	/**
-	 */
-	static void setPluginEnabled(const QString& pluginName, bool enabled);
-
 	/**
 	 * set()
 	 *
@@ -75,6 +66,11 @@ public:
 	 * Returns an integer value with a key \param key for \param plugin.
 	 */
 	static int getInt(const JuffPlugin* plugin, const QString& key);
+	
+	
+	// These two methods are used by SettingsDlg and PluginManager.
+	static bool pluginEnabled(const QString& pluginName);
+	static void setPluginEnabled(const QString& pluginName, bool enabled);
 };
 
 #endif // __JUFFED_PLUGINS_SETTINGS_H__

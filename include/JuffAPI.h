@@ -65,24 +65,102 @@ public:
 	virtual ~JuffAPI();
 	
 signals:
-	// document notifications
-	void docOpened(Juff::Document*);
-	void docActivated(Juff::Document*);
-	void docClosed(Juff::Document*);
-	void docRenamed(Juff::Document*, const QString& oldName);
-	void docModified(Juff::Document*);
-	void docTextChanged(Juff::Document*);
-	void docSyntaxChanged(Juff::Document*, const QString& oldSyntax);
-	void docCharsetChanged(Juff::Document*, const QString& oldCharset);
 
-	// project notifications
-	void projectOpened(Juff::Project*);
-	void projectRenamed(Juff::Project*, const QString& oldName, const QString& oldPath);
-	void projectFileAdded(Juff::Project*, const QString&);
-	void projectFileRemoved(Juff::Project*, const QString&);
-	void projectSubProjectAdded(Juff::Project*, Juff::Project*);
-	void projectSubProjectRemoved(Juff::Project*, Juff::Project*);
-	void projectAboutToBeClosed(Juff::Project*);
+	///////////////////////////////////////
+	// Document notifications
+	///////////////////////////////////////
+
+	/**
+	* Emitted when the document \param doc is opened (or created).
+	*/
+	void docOpened(Juff::Document* doc);
+	
+	/**
+	* Emitted when the document \param doc is activated. It happens when
+	* user opens, closes or switches documents. If there is no documents 
+	* any more then \param doc is a NullDoc.
+	*/
+	void docActivated(Juff::Document* doc);
+	
+	/**
+	* Emitted when the document \param doc is closed.
+	*/
+	void docClosed(Juff::Document* doc);
+	
+	/**
+	* Emitted when the document \param doc is renamed.
+	* By the moment the signal is emitted the \param doc already has 
+	* a new name. The old file name can be found in \param oldName.
+	*/
+	void docRenamed(Juff::Document* doc, const QString& oldName);
+	
+	/**
+	* Emitted when the document \param doc changes its modification status.
+	* The current status can be obtained by calling doc->isModified();
+	*/
+	void docModified(Juff::Document* doc);
+	
+	/**
+	* Emitted when the document \param doc changes its text.
+	*/
+	void docTextChanged(Juff::Document* doc);
+	
+	/**
+	* Emitted when the syntax highlighting scheme for document \param doc 
+	* is changed.
+	* The old syntax scheme can be found in \param oldSyntax.
+	*/
+	void docSyntaxChanged(Juff::Document* doc, const QString& oldSyntax);
+	
+	/**
+	* Emitted when the encoding for document \param doc is changed.
+	* The old encoding can be found in \param oldEncoding.
+	*/
+	void docCharsetChanged(Juff::Document* doc, const QString& oldEncoding);
+
+
+	///////////////////////////////////////
+	// Project notifications
+	///////////////////////////////////////
+
+	/**
+	* Emitted when the project \param prj is opened.
+	*/
+	void projectOpened(Juff::Project* prj);
+	
+	/**
+	* Emitted when the project \param prj is renamed.
+	* By the time the signal is emitted \param prj already has a new name 
+	* and a new path. The old name and path can be found in \param oldName 
+	* and \param oldPath respectively.
+	*/
+	void projectRenamed(Juff::Project* prj, const QString& oldName, const QString& oldPath);
+	
+	/**
+	* Emitted when the file \param fileName is added to the project \param prj.
+	*/
+	void projectFileAdded(Juff::Project* prj, const QString& fileName);
+	
+	/**
+	* Emitted when the file \param fileName is removed from th project \param prj.
+	*/
+	void projectFileRemoved(Juff::Project* prj, const QString& fileName);
+	
+	/**
+	* Emitted when the project \param subPrj is added to the project \param prj
+	* as a sub-project.
+	*/
+	void projectSubProjectAdded(Juff::Project* prj, Juff::Project* subPrj);
+	
+	/**
+	* Emitted when the sub-project \param subPrj is removed from the project \param prj.
+	*/
+	void projectSubProjectRemoved(Juff::Project* prj, Juff::Project* subPrj);
+	
+	/**
+	* Emitted when the project \param prj is going to be closed.
+	*/
+	void projectAboutToBeClosed(Juff::Project* prj);
 	
 private:
 	class Interior;

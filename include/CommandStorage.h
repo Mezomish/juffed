@@ -29,9 +29,25 @@ class CommandStorage {
 public:
 	static CommandStorage* instance();
 
-	QAction* action(Juff::ActionID) const;
+	/**
+	* Returns an action with given \param id.
+	* For the list of all available actions see the file Enums.h.
+	*/
+	QAction* action(Juff::ActionID id) const;
+
+	/**
+	* Returns a list of all available actions.
+	*/
 	QList<Juff::ActionID> actionIDs() const;
+
+	/**
+	* Updates actions' shortcuts using current settings.
+	*/
 	void updateShortcuts();
+
+	/**
+	* Updates actions' icons using current settings.
+	*/
 	void updateIcons();
 
 private:

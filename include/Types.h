@@ -29,13 +29,49 @@ typedef QList<QMenu*> MenuList;
 typedef QList<QAction*> ActionList;
 
 typedef struct {
+	/**
+	* The string needs to be find.
+	*/
 	QString findWhat;
+	
+	/**
+	* The string used for replaces (can be 
+	* a regular expression - see 'regExp' parameter).
+	*/
 	QString replaceWith;
+	
+	/**
+	* The flag indicating whether the currently called action
+	* was 'Find' or 'Replace'.
+	*/
 	bool replace;
+	
+	/**
+	* The flag indicating whether the search should be case-sensitive.
+	*/
 	bool caseSensitive;
+	
+	/**
+	* The flag indicating whether the search is going to be performed
+	* backwards (up to the document's top).
+	*/
 	bool backwards;
+	
+	/**
+	* The flag indicating whether the search should be only for 
+	* the whole words.
+	*/
 	bool wholeWords;
+	
+	/**
+	* The flag indicating whether the search string is a regular expression.
+	*/
 	bool regExp;
+	
+	/**
+	* The flag indicating whether the regular is multi-line.
+	* TODO : add more detailed explanation here
+	*/
 	bool multiLine;
 } SearchParams;
 

@@ -30,14 +30,18 @@ class QToolBar;
 
 class JuffPlugin {
 public:
-	JuffPlugin() {
-		api_ = 0;
-	}
-
-	void setAPI(JuffAPI* api) {
-		api_ = api;
-	}
-
+	/**
+	* This method is called after plugin is loaded and all handlers are set.
+	* If the plugin connects to any signals from JuffAPI (gotten by calling 
+	* the "api()" method) then these connections should be performed in this 
+	* method.
+	*
+	* WARNING!!! WARNING!!! WARNING!!!
+	* ----------------------------------------------------------------
+	* DO NOT connect any signals in plugin's constructor since        
+	* calling the "api()" method from the constructor will return 0.  
+	* ----------------------------------------------------------------
+	*/
 	virtual void init() {}
 	
 	////////////////////////////////////////////////////////
@@ -45,29 +49,22 @@ public:
 	////////////////////////////////////////////////////////
 
 	/**
-	* name()
-	*
 	* Returns plugin's unique name. Must NOT be translated.
 	*/
 	virtual QString name() const = 0;
 	
 	/**
-	* title()
-	*
 	* Returns plugin's title. Can be translated.
+	* If not reimplemented then returns JuffPlugin::name().
 	*/
 	virtual QString title() const { return name(); }
 	
 	/**
-	* description()
-	*
 	* Returns plugin's short description.
 	*/
 	virtual QString description() const = 0;
 
 	/**
-	* targetEngine()
-	*
 	* Returns the engine this plugin is intended for.
 	*/
 	virtual QString targetEngine() const = 0;
@@ -79,49 +76,37 @@ public:
 	////////////////////////////////////////////////////////
 
 	/**
-	* menu()
-	*
 	* Returns the QMenu of the plugin. 
 	* Reimplement this method if you need you own menu.
 	*/
 	virtual QMenu* menu() const { return 0; }
 
 	/**
-	* mainMenuActions()
-	*
-	* Returns list of actions that should be added to menu
-	* with given MenuID.
-	* Reimplement this method if you need to add items to main menu.
+	* Returns list of actions that should be added to menu with given MenuID.
+	* Reimplement this method if you need to add items to main menu. For the
+	* list of available menu IDs see the file Enums.h.
 	*/
 	virtual Juff::ActionList mainMenuActions(Juff::MenuID) const { return Juff::ActionList(); }
 	
 	/**
-	* toolBar()
-	*
-	* Returns the QToolBarof the plugin. 
+	* Returns the QToolBar of the plugin. 
 	* Reimplement this method if you need you own toolbar.
 	*/
 	virtual QToolBar* toolBar() const { return 0; }
 
 	/**
-	* contextMenuActions()
-	*
 	* Returns list of actions to be added to document's context menu.
-	* Reimplement this method if your plugin adds some.
+	* If you need to add a sub-menu use QMenu::menuAction() method.
 	*/
 	virtual Juff::ActionList contextMenuActions() const { return Juff::ActionList(); }
 	
 	/**
-	* dockList()
-	*
 	* Returns the list of dock windows of the plugin. 
 	* Reimplement this method if you have dock window(s).
 	*/
 	virtual QWidgetList dockList() const { return QWidgetList(); }
 	
 	/**
-	* settingsPage()
-	*
 	* Returns the settings page of the plugin. 
 	* Reimplement this method if your plugin has settings page.
 	*/
@@ -131,20 +116,20 @@ public:
 	* applySettings()
 	*
 	* Called when 'Apply' or "OK' button in 'Settings' dialog was pressed.
+	* Use this method to store settings from plugin's settings page.
 	*/
 	virtual void applySettings() { }
 
 	/**
-	* dockPosition()
-	*
 	* Returns the default position of plugin's dock widget.
+	* (Not implemented yet)
 	*/
 	virtual Qt::DockWidgetArea dockPosition(QWidget*) const { return Qt::LeftDockWidgetArea; }
 
 
 
 protected:
-	/// accessor to JuffAPI
+	/// accessor to JuffAPI object
 	JuffAPI* api() const { return api_; }
 	
 private:

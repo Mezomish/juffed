@@ -30,6 +30,7 @@ TabBar::TabBar(Juff::TabWidget* widget) : QTabBar(), index_(-1), tabMenu_(NULL),
 	
 #if QT_VERSION >= 0x040500
 	setMovable(true);
+	setTabsClosable(true);
 #endif
 }
 

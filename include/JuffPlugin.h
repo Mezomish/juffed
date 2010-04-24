@@ -127,6 +127,8 @@ public:
 	virtual Qt::DockWidgetArea dockPosition(QWidget*) const { return Qt::LeftDockWidgetArea; }
 
 
+	JuffPlugin() { api_ = 0; }
+	void setAPI(JuffAPI* api) { api_ = api; }
 
 protected:
 	/// accessor to JuffAPI object

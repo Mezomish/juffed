@@ -38,7 +38,7 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 
 	if ( e->button() & Qt::MidButton ) {
 		int index = tabAt(e->pos());
-		emit requestTabClose(index);
+		emit tabCloseRequested(index);
 	}
 	else if ( e->button() & Qt::RightButton ) {
 		index_ = tabAt(e->pos());
@@ -66,7 +66,7 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 void TabBar::closeDoc() {
 	LOGGER;
 	
-	emit requestTabClose(index_);
+	emit tabCloseRequested(index_);
 }
 
 } // namespace Juff

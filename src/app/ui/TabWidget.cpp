@@ -63,7 +63,7 @@ TabWidget::TabWidget(Juff::DocHandlerInt* handler) : QTabWidget() {
 	handler_ = handler;
 	
 	setTabBar(new Juff::TabBar(this));
-	connect(tabBar(), SIGNAL(requestTabClose(int)), SLOT(onTabCloseRequested(int)));
+	connect(tabBar(), SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
 	setAcceptDrops(true);
 	
 	static int ind = 0;

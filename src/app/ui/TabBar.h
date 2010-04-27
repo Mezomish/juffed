@@ -31,9 +31,6 @@ Q_OBJECT
 public:
 	TabBar(Juff::TabWidget*);
 
-signals:
-	void requestTabClose(int);
-
 protected slots:
 //	void cloneDoc();
 	void closeDoc();

@@ -141,6 +141,7 @@ private:
 	void initDoc(Juff::Document*);
 	void initCharsetMenus();
 	void initPlugins();
+	void addPluginMenus(Juff::MenuID, QMenu*);
 	void loadProject();
 	QString openDialogDirectory() const;
 	void reportError(const QString&);

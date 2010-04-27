@@ -238,6 +238,16 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	mw_->menuBar()->addMenu(toolsMenu);
 	mw_->menuBar()->addMenu(helpMenu);
 	
+	// plugin menus
+	addPluginMenus(Juff::MenuFile,   fileMenu  );
+	addPluginMenus(Juff::MenuEdit,   editMenu  );
+	addPluginMenus(Juff::MenuView,   viewMenu  );
+	addPluginMenus(Juff::MenuSearch, searchMenu);
+	addPluginMenus(Juff::MenuFormat, formatMenu);
+	addPluginMenus(Juff::MenuTools,  toolsMenu );
+	addPluginMenus(Juff::MenuHelp,   helpMenu  );
+	
+	
 	openWithCharsetGr_ = new QActionGroup(this);
 	setCharsetGr_ = new QActionGroup(this);
 	charsetMenu_ = new QMenu(JuffEd::tr("Charset"));
@@ -1244,6 +1254,13 @@ void JuffEd::initPlugins() {
 		mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
 		
 		dockMenu_->addAction(dock->toggleViewAction());
+	}
+}
+
+void JuffEd::addPluginMenus(Juff::MenuID id, QMenu* menu) {
+	Juff::ActionList actions = pluginMgr_.actions(id);
+	foreach (QAction* act, actions) {
+		menu->addAction(act);
 	}
 }
 

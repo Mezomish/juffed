@@ -350,6 +350,7 @@ void SciDoc::setCursorPos(int line, int col) {
 	if ( int_->curEdit_ == NULL ) return;
 	
 	int_->curEdit_->setCursorPosition(line, col);
+	int_->curEdit_->setFocus();
 }
 
 void SciDoc::setSyntax(const QString& lexName) {
@@ -407,8 +408,10 @@ void SciDoc::paste() {
 }
 
 void SciDoc::gotoLine(int line) {
-	if ( int_->curEdit_ != NULL )
-		int_->curEdit_->setCursorPosition(line, 0);
+	if ( int_->curEdit_ == NULL ) return;
+		
+	int_->curEdit_->setCursorPosition(line, 0);
+	int_->curEdit_->setFocus();
 }
 
 void SciDoc::setWrapWords(bool wrap) {

@@ -63,7 +63,8 @@ public:
 	JuffAPI(Juff::DocHandlerInt*, Juff::PluginNotifier*);
 	/// Destructor
 	virtual ~JuffAPI();
-	
+
+
 signals:
 
 	///////////////////////////////////////
@@ -161,6 +162,16 @@ signals:
 	* Emitted when the project \param prj is going to be closed.
 	*/
 	void projectAboutToBeClosed(Juff::Project* prj);
+
+
+	///////////////////////////////////////
+	// Misc
+	///////////////////////////////////////
+
+	/**
+	* Emitted after all settings were applied
+	*/
+	void settingsApplied();
 	
 private:
 	class Interior;

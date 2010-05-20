@@ -28,6 +28,7 @@ JuffAPI::JuffAPI(Juff::DocHandlerInt* handler, Juff::PluginNotifier* notifier) :
 	connect(notifier, SIGNAL(projectSubProjectAdded(Juff::Project*, Juff::Project*)), SIGNAL(projectSubProjectAdded(Juff::Project*, Juff::Project*)));
 	connect(notifier, SIGNAL(projectSubProjectRemoved(Juff::Project*, Juff::Project*)), SIGNAL(projectSubProjectRemoved(Juff::Project*, Juff::Project*)));
 	connect(notifier, SIGNAL(projectAboutToBeClosed(Juff::Project*)), SIGNAL(projectAboutToBeClosed(Juff::Project*)));
+	connect(notifier, SIGNAL(settingsApplied()), SIGNAL(settingsApplied()));
 }
 
 JuffAPI::~JuffAPI() {

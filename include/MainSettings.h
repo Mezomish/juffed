@@ -19,9 +19,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_MAIN_SETTINGS_H__
 #define __JUFFED_MAIN_SETTINGS_H__
 
-#include "Settings.h"
+#include <QByteArray>
+#include <QRect>
+#include <QString>
 
-class MainSettings :  public Settings {
+class MainSettings {
 public:
 	enum StringKey {
 		LastProject,

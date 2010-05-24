@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Settings.h"
 
-class CharsetSettings : public Settings {
+class CharsetSettings {
 public:
 	static QStringList getCharsetsList();
 	static bool charsetEnabled(const QString& charset);

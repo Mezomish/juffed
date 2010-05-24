@@ -20,12 +20,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
 QStringList FileTypeSettings::getTypeList() {
-	return Settings::value("filetypes", "types").toStringList();
+	return Settings::instance()->value("filetypes", "types").toStringList();
 }
 
 QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
-	if ( Settings::valueExists("filetypes-filenames", type) ) {
-		return Settings::value("filetypes-filenames", type).toStringList();
+	if ( Settings::instance()->valueExists("filetypes-filenames", type) ) {
+		return Settings::instance()->value("filetypes-filenames", type).toStringList();
 	}
 	else {
 		QStringList list;
@@ -79,8 +79,8 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 }
 
 QStringList FileTypeSettings::getFirstLinePatterns(const QString& type) {
-	if ( Settings::valueExists("filetypes-firstlines", type) ) {
-		return Settings::value("filetypes-firstlines", type).toStringList();
+	if ( Settings::instance()->valueExists("filetypes-firstlines", type) ) {
+		return Settings::instance()->value("filetypes-firstlines", type).toStringList();
 	}
 	else {
 		QStringList list;
@@ -107,14 +107,14 @@ QStringList FileTypeSettings::getFirstLinePatterns(const QString& type) {
 }
 
 void FileTypeSettings::setTypeList(const QStringList& list) {
-	Settings::setValue("filetypes", "types", list);
+	Settings::instance()->setValue("filetypes", "types", list);
 }
 
 void FileTypeSettings::setFileNamePatterns(const QString& type, const QStringList& list) {
-	Settings::setValue("filetypes-filenames", type, list);
+	Settings::instance()->setValue("filetypes-filenames", type, list);
 }
 
 void FileTypeSettings::setFirstLinePatterns(const QString& type, const QStringList& list) {
-	Settings::setValue("filetypes-firstlines", type, list);
+	Settings::instance()->setValue("filetypes-firstlines", type, list);
 }
 

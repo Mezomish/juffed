@@ -17,12 +17,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "KeySettings.h"
+#include "Settings.h"
 
 QKeySequence KeySettings::keySequence(Juff::ActionID id) {
 	QString idStr = QString::number(id);
 	if ( idStr.isEmpty() )
 		return QKeySequence();
-	QString s = Settings::stringValue("keys", idStr);
+	QString s = Settings::instance()->stringValue("keys", idStr);
 	return QKeySequence(s);
 }
 
@@ -30,10 +31,10 @@ void KeySettings::setKeySequence(Juff::ActionID id, const QKeySequence& seq) {
 	QString idStr = QString::number(id);
 	if ( idStr.isEmpty() )
 		return;
-	Settings::setValue("keys", idStr, seq.toString());
+	Settings::instance()->setValue("keys", idStr, seq.toString());
 }
 
 bool KeySettings::contains(Juff::ActionID id) {
-	return keyList("keys").contains(QString::number(id));
+	return Settings::instance()->keyList("keys").contains(QString::number(id));
 }
 

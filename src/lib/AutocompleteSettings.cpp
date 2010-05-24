@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 void AutocompleteSettings::set(IntKey key, int value) {
 	switch ( key ) {
 		case Threshold :
-			Settings::setValue("autocomplete", "threshold", value);
+			Settings::instance()->setValue("autocomplete", "threshold", value);
 			break;
 	}
 }
@@ -29,19 +29,19 @@ void AutocompleteSettings::set(IntKey key, int value) {
 void AutocompleteSettings::set(BoolKey key, bool value) {
 	switch ( key ) {
 		case ReplaceWord :
-			Settings::setValue("autocomplete", "replaceWord", value);
+			Settings::instance()->setValue("autocomplete", "replaceWord", value);
 			break;
 
 		case CaseSensitive :
-			Settings::setValue("autocomplete", "caseSensitive", value);
+			Settings::instance()->setValue("autocomplete", "caseSensitive", value);
 			break;
 
 		case UseDocument :
-			Settings::setValue("autocomplete", "useDocument", value);
+			Settings::instance()->setValue("autocomplete", "useDocument", value);
 			break;
 
 		case UseApis :
-			Settings::setValue("autocomplete", "useApis", value);
+			Settings::instance()->setValue("autocomplete", "useApis", value);
 			break;
 	}
 }
@@ -50,22 +50,22 @@ void AutocompleteSettings::set(BoolKey key, bool value) {
 int AutocompleteSettings::get(IntKey key) {
 	switch ( key ) {
 		case Threshold :
-			return Settings::intValue("autocomplete", "threshold");
+			return Settings::instance()->intValue("autocomplete", "threshold");
 	}
 }
 
 bool AutocompleteSettings::get(BoolKey key) {
 	switch ( key ) {
 		case ReplaceWord :
-			return Settings::boolValue("autocomplete", "replaceWord");
+			return Settings::instance()->boolValue("autocomplete", "replaceWord");
 
 		case CaseSensitive :
-			return Settings::boolValue("autocomplete", "caseSensitive");
+			return Settings::instance()->boolValue("autocomplete", "caseSensitive");
 
 		case UseDocument :
-			return Settings::boolValue("autocomplete", "useDocument");
+			return Settings::instance()->boolValue("autocomplete", "useDocument");
 
 		case UseApis :
-			return Settings::boolValue("autocomplete", "useApis");
+			return Settings::instance()->boolValue("autocomplete", "useApis");
 	}
 }

@@ -17,49 +17,50 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "PluginSettings.h"
+#include "Settings.h"
 
 #include "JuffPlugin.h"
 
 bool PluginSettings::pluginEnabled(const QString& pluginName) {
-	return Settings::boolValue("Plugins", pluginName);
+	return Settings::instance()->boolValue("Plugins", pluginName);
 }
 
 void PluginSettings::setPluginEnabled(const QString& pluginName, bool enabled) {
-	Settings::setValue("Plugins", pluginName, enabled);
+	Settings::instance()->setValue("Plugins", pluginName, enabled);
 }
 
 void PluginSettings::set(const JuffPlugin* plugin, const QString& key, const QString& value) {
 	if ( plugin )
-		Settings::setValue(plugin->name(), key, value);
+		Settings::instance()->setValue(plugin->name(), key, value);
 }
 
 void PluginSettings::set(const JuffPlugin* plugin, const QString& key, bool value) {
 	if ( plugin )
-		Settings::setValue(plugin->name(), key, value);
+		Settings::instance()->setValue(plugin->name(), key, value);
 }
 
 void PluginSettings::set(const JuffPlugin* plugin, const QString& key, int value) {
 	if ( plugin )
-		Settings::setValue(plugin->name(), key, value);
+		Settings::instance()->setValue(plugin->name(), key, value);
 }
 
 QString PluginSettings::getString(const JuffPlugin* plugin, const QString& key) {
 	if ( plugin )
-		return Settings::stringValue(plugin->name(), key);
+		return Settings::instance()->stringValue(plugin->name(), key);
 	else
 		return "";
 }
 
 bool PluginSettings::getBool(const JuffPlugin* plugin, const QString& key) {
 	if ( plugin )
-		return Settings::boolValue(plugin->name(), key);
+		return Settings::instance()->boolValue(plugin->name(), key);
 	else
 		return false;
 }
 
 int PluginSettings::getInt(const JuffPlugin* plugin, const QString& key) {
 	if ( plugin )
-		return Settings::intValue(plugin->name(), key);
+		return Settings::instance()->intValue(plugin->name(), key);
 	else
 		return -1;
 }

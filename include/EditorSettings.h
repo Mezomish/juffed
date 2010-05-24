@@ -19,12 +19,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_EDITOR_SETTINGS_H__
 #define __JUFFED_EDITOR_SETTINGS_H__
 
-#include "Settings.h"
-
 #include <QColor>
 #include <QFont>
 
-class EditorSettings : public Settings {
+class EditorSettings {
 public:
 	enum IntKey {
 		FontSize,

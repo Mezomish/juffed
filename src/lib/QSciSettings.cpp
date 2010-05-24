@@ -17,20 +17,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "QSciSettings.h"
+#include "Settings.h"
 
 bool QSciSettings::get(BoolKey key) {
 	switch (key) {
 		case ShowIndents :
-			return Settings::boolValue("QSci", "showIndents");
+			return Settings::instance()->boolValue("QSci", "showIndents");
 		
 		case HighlightMatchingBrace :
-			return Settings::boolValue("QSci", "highlightMatchingBrace");
+			return Settings::instance()->boolValue("QSci", "highlightMatchingBrace");
 		
 		case HighlightCurLine :
-			return Settings::boolValue("QSci", "highlightCurLine");
+			return Settings::instance()->boolValue("QSci", "highlightCurLine");
 		
 		case HighlightCurWord :
-			return Settings::boolValue("QSci", "highlightCurWord");
+			return Settings::instance()->boolValue("QSci", "highlightCurWord");
 		
 		
 	}
@@ -41,28 +42,28 @@ QColor QSciSettings::get(ColorKey key) {
 	switch (key) {
 		case MatchingBraceBgColor :
 		{
-			QColor c = Settings::value("QSci", "matchingBraceBgColor").value<QColor>();
-			return c.isValid() ? c : defaultValue("QSci", "matchingBraceBgColor").value<QColor>();
+			QColor c = Settings::instance()->value("QSci", "matchingBraceBgColor").value<QColor>();
+			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "matchingBraceBgColor").value<QColor>();
 		}
 		case MatchingBraceFgColor :
 		{
-			QColor c = Settings::value("QSci", "matchingBraceFgColor").value<QColor>();
-			return c.isValid() ? c : defaultValue("QSci", "matchingBraceFgColor").value<QColor>();
+			QColor c = Settings::instance()->value("QSci", "matchingBraceFgColor").value<QColor>();
+			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "matchingBraceFgColor").value<QColor>();
 		}
 		case IndentsColor :
 		{
-			QColor c = Settings::value("QSci", "indentsColor").value<QColor>();
-			return c.isValid() ? c : defaultValue("QSci", "indentsColor").value<QColor>();
+			QColor c = Settings::instance()->value("QSci", "indentsColor").value<QColor>();
+			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "indentsColor").value<QColor>();
 		}
 		case WordHLColor :
 		{
-			QColor c = Settings::value("QSci", "wordHLColor").value<QColor>();
-			return c.isValid() ? c : defaultValue("QSci", "wordHLColor").value<QColor>();
+			QColor c = Settings::instance()->value("QSci", "wordHLColor").value<QColor>();
+			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "wordHLColor").value<QColor>();
 		}
 		case CurLineColor :
 		{
-			QColor c = Settings::value("QSci", "curLineColor").value<QColor>();
-			return c.isValid() ? c : defaultValue("QSci", "curLineColor").value<QColor>();
+			QColor c = Settings::instance()->value("QSci", "curLineColor").value<QColor>();
+			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "curLineColor").value<QColor>();
 		}
 	}
 	return QColor();
@@ -73,7 +74,7 @@ QColor QSciSettings::get(ColorKey key) {
 void QSciSettings::set(BoolKey key, bool value) {
 	switch (key) {
 		case ShowIndents:
-			Settings::setValue("QSci", "showIndents", value);
+			Settings::instance()->setValue("QSci", "showIndents", value);
 			break;
 	}
 }
@@ -81,23 +82,23 @@ void QSciSettings::set(BoolKey key, bool value) {
 void QSciSettings::set(ColorKey key, const QColor& c) {
 	switch (key) {
 		case MatchingBraceBgColor :
-			Settings::setValue("QSci", "matchingBraceBgColor", c);
+			Settings::instance()->setValue("QSci", "matchingBraceBgColor", c);
 			break;
 		
 		case MatchingBraceFgColor :
-			Settings::setValue("QSci", "matchingBraceFgColor", c);
+			Settings::instance()->setValue("QSci", "matchingBraceFgColor", c);
 			break;
 		
 		case IndentsColor :
-			Settings::setValue("QSci", "indentsColor", c);
+			Settings::instance()->setValue("QSci", "indentsColor", c);
 			break;
 		
 		case WordHLColor :
-			Settings::setValue("QSci", "wordHLColor", c);
+			Settings::instance()->setValue("QSci", "wordHLColor", c);
 			break;
 		
 		case CurLineColor :
-			Settings::setValue("QSci", "curLineColor", c);
+			Settings::instance()->setValue("QSci", "curLineColor", c);
 			break;
 	}
 }

@@ -17,23 +17,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "MainSettings.h"
+#include "Settings.h"
 
-#include "Log.h"
+//#include "Log.h"
 
 #include <QRect>
 
 void MainSettings::set(IntKey key, int value) {
 	switch (key) {
 		case ToolButtonStyle :
-			Settings::setValue("main", "toolButtonStyle", value);
+			Settings::instance()->setValue("main", "toolButtonStyle", value);
 			break;
 		
 		case TabPosition :
-			Settings::setValue("main", "tabPosition", value);
+			Settings::instance()->setValue("main", "tabPosition", value);
 			break;
 		
 		case IconSize :
-			Settings::setValue("main", "iconSize", value);
+			Settings::instance()->setValue("main", "iconSize", value);
 			break;
 	}
 }
@@ -41,43 +42,43 @@ void MainSettings::set(IntKey key, int value) {
 void MainSettings::set(BoolKey key, bool value) {
 	switch (key) {
 		case SyncToCurDoc :
-			Settings::setValue("main", "syncOpenDialogToCurDoc", value);
+			Settings::instance()->setValue("main", "syncOpenDialogToCurDoc", value);
 			break;
 		
 		case Maximized :
-			Settings::setValue("main", "isMaximized", value);
+			Settings::instance()->setValue("main", "isMaximized", value);
 			break;
 		
 		case FullScreen :
-			Settings::setValue("main", "isFullScreen", value);
+			Settings::instance()->setValue("main", "isFullScreen", value);
 			break;
 		
 		case ExitOnLastDocClosed :
-			Settings::setValue("main", "exitOnLastDocClosed", value);
+			Settings::instance()->setValue("main", "exitOnLastDocClosed", value);
 			break;
 		
 		case SingleInstance :
-			Settings::setValue("main", "singleInstance", value);
+			Settings::instance()->setValue("main", "singleInstance", value);
 			break;
 		
 		case StripTrailingSpaces :
-			Settings::setValue("main", "stripTrailingSpaces", value);
+			Settings::instance()->setValue("main", "stripTrailingSpaces", value);
 			break;
 		
 		case MakeBackupCopy :
-			Settings::setValue("main", "makeBackupOnSave", value);
+			Settings::instance()->setValue("main", "makeBackupOnSave", value);
 			break;
 		
 //		case FSHideMenubar :
-//			Settings::setValue("main", "fsHideMenubar", value);
+//			Settings::instance()->setValue("main", "fsHideMenubar", value);
 //			break;
 		
 		case FSHideToolbar :
-			Settings::setValue("main", "fsHideToolbar", value);
+			Settings::instance()->setValue("main", "fsHideToolbar", value);
 			break;
 		
 		case FSHideStatusbar :
-			Settings::setValue("main", "fsHideStatusbar", value);
+			Settings::instance()->setValue("main", "fsHideStatusbar", value);
 			break;
 		
 		default: ;
@@ -87,19 +88,19 @@ void MainSettings::set(BoolKey key, bool value) {
 void MainSettings::set(StringKey key, const QString& value) {
 	switch (key) {
 		case LastProject :
-			Settings::setValue("main", "lastProject", value);
+			Settings::instance()->setValue("main", "lastProject", value);
 			break;
 		
 		case LastDir :
-			Settings::setValue("main", "lastOpenDir", value);
+			Settings::instance()->setValue("main", "lastOpenDir", value);
 			break;
 		
 		case Language :
-			Settings::setValue("main", "language", value);
+			Settings::instance()->setValue("main", "language", value);
 			break;
 		
 		case RecentFiles :
-			Settings::setValue("main", "recentFiles", value);
+			Settings::instance()->setValue("main", "recentFiles", value);
 			break;
 	}
 }
@@ -108,15 +109,15 @@ void MainSettings::set(StringKey key, const QString& value) {
 int MainSettings::get(IntKey key) {
 	switch (key) {
 		case ToolButtonStyle :
-			return Settings::intValue("main", "toolButtonStyle");
+			return Settings::instance()->intValue("main", "toolButtonStyle");
 			break;
 		
 		case TabPosition :
-			return Settings::intValue("main", "tabPosition");
+			return Settings::instance()->intValue("main", "tabPosition");
 			break;
 		
 		case IconSize :
-			return Settings::intValue("main", "iconSize");
+			return Settings::instance()->intValue("main", "iconSize");
 			break;
 	}
 	return -1;
@@ -125,36 +126,36 @@ int MainSettings::get(IntKey key) {
 bool MainSettings::get(BoolKey key) {
 	switch (key) {
 		case SyncToCurDoc :
-			return Settings::boolValue("main", "syncOpenDialogToCurDoc");
+			return Settings::instance()->boolValue("main", "syncOpenDialogToCurDoc");
 		
 		case Maximized :
-			return Settings::boolValue("main", "isMaximized");
+			return Settings::instance()->boolValue("main", "isMaximized");
 		
 		case FullScreen :
-			return Settings::boolValue("main", "isFullScreen");
+			return Settings::instance()->boolValue("main", "isFullScreen");
 		
 		case ExitOnLastDocClosed :
-			return Settings::boolValue("main", "exitOnLastDocClosed");
+			return Settings::instance()->boolValue("main", "exitOnLastDocClosed");
 		
 		case SingleInstance :
-			return Settings::boolValue("main", "singleInstance");
+			return Settings::instance()->boolValue("main", "singleInstance");
 		
 		case StripTrailingSpaces :
-			return Settings::boolValue("main", "stripTrailingSpaces");
+			return Settings::instance()->boolValue("main", "stripTrailingSpaces");
 		
 		case MakeBackupCopy :
-			return Settings::boolValue("main", "makeBackupOnSave");
+			return Settings::instance()->boolValue("main", "makeBackupOnSave");
 		
 //		case FSHideMenubar :
-//			return Settings::boolValue("main", "fsHideMenubar");
+//			return Settings::instance()->boolValue("main", "fsHideMenubar");
 //			break;
 		
 		case FSHideToolbar :
-			return Settings::boolValue("main", "fsHideToolbar");
+			return Settings::instance()->boolValue("main", "fsHideToolbar");
 			break;
 		
 		case FSHideStatusbar :
-			return Settings::boolValue("main", "fsHideStatusbar");
+			return Settings::instance()->boolValue("main", "fsHideStatusbar");
 			break;
 		
 		default :
@@ -165,16 +166,16 @@ bool MainSettings::get(BoolKey key) {
 QString MainSettings::get(StringKey key) {
 	switch (key) {
 		case LastProject :
-			return Settings::stringValue("main", "lastProject");
+			return Settings::instance()->stringValue("main", "lastProject");
 		
 		case LastDir:
-			return Settings::stringValue("main", "lastOpenDir");
+			return Settings::instance()->stringValue("main", "lastOpenDir");
 		
 		case Language :
-			return Settings::stringValue("main", "language");
+			return Settings::instance()->stringValue("main", "language");
 		
 		case RecentFiles :
-			return Settings::stringValue("main", "recentFiles");
+			return Settings::instance()->stringValue("main", "recentFiles");
 		
 		default:
 			return "";
@@ -182,17 +183,17 @@ QString MainSettings::get(StringKey key) {
 }
 
 void MainSettings::setGeometry(const QRect& rect) {
-	Settings::setValue("main", "geometry", rect);
+	Settings::instance()->setValue("main", "geometry", rect);
 }
 
 QRect MainSettings::geometry() {
-	return Settings::value("main", "geometry", defaultValue("main", "geometry")).toRect();
+	return Settings::instance()->value("main", "geometry", Settings::instance()->defaultValue("main", "geometry")).toRect();
 }
 
 void MainSettings::setMwState(const QByteArray& state) {
-	Settings::setValue("main", "mwState", state); 
+	Settings::instance()->setValue("main", "mwState", state); 
 }
 
 QByteArray MainSettings::mwState() {
-	return Settings::value("main", "mwState").toByteArray(); 
+	return Settings::instance()->value("main", "mwState").toByteArray(); 
 }

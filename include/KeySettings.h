@@ -22,9 +22,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QKeySequence>
 
 #include "Enums.h"
-#include "Settings.h"
 
-class KeySettings : public Settings {
+class KeySettings {
 public:
 	static QKeySequence keySequence(Juff::ActionID);
 	static void setKeySequence(Juff::ActionID, const QKeySequence&);

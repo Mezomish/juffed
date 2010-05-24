@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #include "JuffEd.h"
 #include "MainSettings.h"
+#include "Settings.h"
 
 #include <QFileInfo>
 #include <QTranslator>
@@ -83,7 +84,7 @@ int runNotSingle(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-	Settings::read("juff", "juffed");
+	Settings::instance()->read("juff", "juffed");
 	if ( MainSettings::get(MainSettings::SingleInstance) )
 		return runSingle(argc, argv);
 	else 

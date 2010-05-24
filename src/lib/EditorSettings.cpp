@@ -17,19 +17,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "EditorSettings.h"
+#include "Settings.h"
 
 void EditorSettings::set(IntKey key, int value) {
 	switch (key) {
 		case FontSize :
-			Settings::setValue("editor", "fontSize", value);
+			Settings::instance()->setValue("editor", "fontSize", value);
 			break;
 
 		case TabWidth :
-			Settings::setValue("editor", "tabStopWidth", value);
+			Settings::instance()->setValue("editor", "tabStopWidth", value);
 			break;
 
 		case LineLengthIndicator :
-			Settings::setValue("editor", "lineLengthIndicator", value);
+			Settings::instance()->setValue("editor", "lineLengthIndicator", value);
 			break;
 	}
 }
@@ -37,23 +38,23 @@ void EditorSettings::set(IntKey key, int value) {
 void EditorSettings::set(BoolKey key, bool value) {
 	switch (key) {
 		case UseTabs :
-			Settings::setValue("editor", "replaceTabsWithSpaces", !value);
+			Settings::instance()->setValue("editor", "replaceTabsWithSpaces", !value);
 			break;
 
 		case ShowLineNumbers :
-			Settings::setValue("editor", "showLineNumbers", value);
+			Settings::instance()->setValue("editor", "showLineNumbers", value);
 			break;
 
 		case ShowWhitespaces :
-			Settings::setValue("editor", "showWhitespaces", value);
+			Settings::instance()->setValue("editor", "showWhitespaces", value);
 			break;
 
 		case ShowLineEnds :
-			Settings::setValue("editor", "showLineEnds", value);
+			Settings::instance()->setValue("editor", "showLineEnds", value);
 			break;
 
 		case WrapWords :
-			Settings::setValue("editor", "wrapWords", value);
+			Settings::instance()->setValue("editor", "wrapWords", value);
 			break;
 	}
 }
@@ -61,7 +62,7 @@ void EditorSettings::set(BoolKey key, bool value) {
 void EditorSettings::set(StringKey key, const QString& value) {
 	switch (key) {
 		case FontFamily :
-			Settings::setValue("editor", "fontFamily", value);
+			Settings::instance()->setValue("editor", "fontFamily", value);
 			break;
 	}
 }
@@ -71,13 +72,13 @@ void EditorSettings::set(StringKey key, const QString& value) {
 int EditorSettings::get(IntKey key) {
 	switch (key) {
 		case FontSize :
-			return Settings::intValue("editor", "fontSize");
+			return Settings::instance()->intValue("editor", "fontSize");
 
 		case TabWidth :
-			return Settings::intValue("editor", "tabStopWidth");
+			return Settings::instance()->intValue("editor", "tabStopWidth");
 
 		case LineLengthIndicator :
-			return Settings::intValue("editor", "lineLengthIndicator");
+			return Settings::instance()->intValue("editor", "lineLengthIndicator");
 	}
 	return -1;
 }
@@ -85,19 +86,19 @@ int EditorSettings::get(IntKey key) {
 bool EditorSettings::get(BoolKey key) {
 	switch (key) {
 		case UseTabs :
-			return !Settings::boolValue("editor", "replaceTabsWithSpaces");
+			return !Settings::instance()->boolValue("editor", "replaceTabsWithSpaces");
 
 		case ShowLineNumbers :
-			return Settings::boolValue("editor", "showLineNumbers");
+			return Settings::instance()->boolValue("editor", "showLineNumbers");
 
 		case ShowWhitespaces :
-			return Settings::boolValue("editor", "showWhitespaces");
+			return Settings::instance()->boolValue("editor", "showWhitespaces");
 
 		case ShowLineEnds :
-			return Settings::boolValue("editor", "showLineEnds");
+			return Settings::instance()->boolValue("editor", "showLineEnds");
 
 		case WrapWords :
-			return Settings::boolValue("editor", "wrapWords");
+			return Settings::instance()->boolValue("editor", "wrapWords");
 	}
 	return false;
 }
@@ -105,7 +106,7 @@ bool EditorSettings::get(BoolKey key) {
 QString EditorSettings::get(StringKey key) {
 	switch (key) {
 		case FontFamily :
-			return stringValue("editor", "fontFamily");
+			return Settings::instance()->stringValue("editor", "fontFamily");
 	}
 	return "";
 }
@@ -115,19 +116,19 @@ QColor EditorSettings::get(ColorKey key) {
 		case SelectionBgColor :
 		{
 			QColor deflt(150, 150, 155);
-			QColor c = Settings::value("editor", "selectionBgColor").value<QColor>();
+			QColor c = Settings::instance()->value("editor", "selectionBgColor").value<QColor>();
 			return c.isValid() ? c : deflt;
 		}
 		case DefaultBgColor :
 		{
 			QColor deflt(255, 255, 255);
-			QColor c = Settings::value("editor", "defaultBgColor").value<QColor>();
+			QColor c = Settings::instance()->value("editor", "defaultBgColor").value<QColor>();
 			return c.isValid() ? c : deflt;
 		}
 		case DefaultFontColor :
 		{
 			QColor deflt(0, 0, 0);
-			QColor c = Settings::value("editor", "defaultFontColor").value<QColor>();
+			QColor c = Settings::instance()->value("editor", "defaultFontColor").value<QColor>();
 			return c.isValid() ? c : deflt;
 		}
 	}
@@ -137,15 +138,15 @@ QColor EditorSettings::get(ColorKey key) {
 void EditorSettings::set(ColorKey key, const QColor& c) {
 	switch (key) {
 		case SelectionBgColor :
-			Settings::setValue("editor", "selectionBgColor", c);
+			Settings::instance()->setValue("editor", "selectionBgColor", c);
 			break;
 		
 		case DefaultBgColor :
-			Settings::setValue("editor", "defaultBgColor", c);
+			Settings::instance()->setValue("editor", "defaultBgColor", c);
 			break;
 		
 		case DefaultFontColor :
-			Settings::setValue("editor", "defaultFontColor", c);
+			Settings::instance()->setValue("editor", "defaultFontColor", c);
 			break;
 	}
 }

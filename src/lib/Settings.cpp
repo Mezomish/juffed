@@ -28,6 +28,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 #include "Settings.h"
 
+Settings* Settings::instance_ = NULL;
+
+Settings* Settings::instance() {
+	if ( instance_ == NULL )
+		instance_ = new Settings();
+	return instance_;
+}
+
 typedef QMap<QString, QVariant> Section;
 typedef QMap<QString, Section> SettingsMap;
 
@@ -36,7 +44,10 @@ public:
 	SettingsMap data_;
 };
 
-Settings::SettingsData* Settings::settData_ = new Settings::SettingsData();
+Settings::Settings() {
+	settData_ = new Settings::SettingsData();
+}
+
 
 //int Settings::count() {
 //	return settData_->data_.count();

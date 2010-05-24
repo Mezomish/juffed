@@ -311,7 +311,7 @@ JuffEd::~JuffEd() {
 	delete settingsDlg_;
 	delete search_;
 	
-	Settings::write("juff", "juffed");
+	Settings::instance()->write("juff", "juffed");
 	
 	if ( prj_ != NULL )
 		delete prj_;

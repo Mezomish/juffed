@@ -81,9 +81,9 @@ QStringList CharsetSettings::getCharsetsList() {
 }
 
 bool CharsetSettings::charsetEnabled(const QString& charset) { 
-	return Settings::boolValue("charset", charset); 
+	return Settings::instance()->boolValue("charset", charset); 
 }
 
 void CharsetSettings::setCharsetEnabled(const QString& charset, bool enable) { 
-	Settings::setValue("charset", charset, enable); 
+	Settings::instance()->setValue("charset", charset, enable); 
 }

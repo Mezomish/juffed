@@ -25,29 +25,43 @@ class QString;
 #include <QtCore/QVariant>
 
 class Settings {
+	friend class AutocompleteSettings;
+	friend class CharsetSettings;
+	friend class EditorSettings;
+	friend class FileTypeSettings;
+	friend class KeySettings;
+	friend class MainSettings;
+	friend class PluginSettings;
+	friend class QSciSettings;
+
 public:
-	static void read(const QString&, const QString&);
-	static void write(const QString&, const QString&);
+	static Settings* instance();
+
+	void read(const QString&, const QString&);
+	void write(const QString&, const QString&);
 
 //	static int count();
 
-	static QVariant defaultValue(const QString& section, const QString& key);
+	QVariant defaultValue(const QString& section, const QString& key);
 
 protected:
-	static bool valueExists(const QString& section, const QString& key);
-	static int intValue(const QString& section, const QString& key);
-	static bool boolValue(const QString& section, const QString& key);
-	static QString stringValue(const QString& section, const QString& key);
-	static QVariant value(const QString& section, const QString& key, const QVariant& defValue = QVariant());
+	bool valueExists(const QString& section, const QString& key);
+	int intValue(const QString& section, const QString& key);
+	bool boolValue(const QString& section, const QString& key);
+	QString stringValue(const QString& section, const QString& key);
+	QVariant value(const QString& section, const QString& key, const QVariant& defValue = QVariant());
 //
-	static void setValue(const QString& section, const QString& key, const QVariant& value);
+	void setValue(const QString& section, const QString& key, const QVariant& value);
 //
 //	static QStringList sectionList();
-	static QStringList keyList(const QString& section);
+	QStringList keyList(const QString& section);
 
+	static Settings* instance_;
 private:
+	Settings();
+	
 	class SettingsData;
-	static SettingsData* settData_;
+	SettingsData* settData_;
 };
 
 #endif // __JUFFED_SETTINGS_H__

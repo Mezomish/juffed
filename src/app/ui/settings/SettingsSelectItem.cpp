@@ -17,6 +17,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "SettingsSelectItem.h"
+#include "Settings.h"
 
 #include <QtGui/QComboBox>
 
@@ -34,11 +35,11 @@ SettingsSelectItem::SettingsSelectItem(const QString& section, const QString& ke
 
 void SettingsSelectItem::readValue() {
 	if ( mode_ == IndexMode ) {
-		curIndex_ = Settings::intValue(section_, key_);
+		curIndex_ = Settings::instance()->intValue(section_, key_);
 		comboBox_->setCurrentIndex(curIndex_);
 	}
 	else {
-		curString_ = Settings::stringValue(section_, key_);
+		curString_ = Settings::instance()->stringValue(section_, key_);
 		int index = comboBox_->findText(curString_);
 		if ( index >= 0 )
 			comboBox_->setCurrentIndex(index);
@@ -50,11 +51,11 @@ void SettingsSelectItem::readValue() {
 void SettingsSelectItem::writeValue() {
 	if ( mode_ == IndexMode ) {
 		curIndex_ = comboBox_->currentIndex();
-		Settings::setValue(section_, key_, curIndex_);
+		Settings::instance()->setValue(section_, key_, curIndex_);
 	}
 	else {
 		curString_ = comboBox_->currentText();
-		Settings::setValue(section_, key_, curString_);
+		Settings::instance()->setValue(section_, key_, curString_);
 	}
 	oneLessChanged();
 //	if ( comboBox_->isComboed() != curValue_ ) {

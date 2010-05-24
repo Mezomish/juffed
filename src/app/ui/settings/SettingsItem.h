@@ -21,8 +21,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QtCore/QObject>
 
-#include "Settings.h"
-
 class SettingsChangeNotifier : public QObject {
 Q_OBJECT
 public:
@@ -35,7 +33,7 @@ signals:
 	void hasChangedItems(bool);
 };
 
-class SettingsItem : public Settings {
+class SettingsItem {
 public:
 	virtual void readValue() = 0;
 	virtual void writeValue() = 0;

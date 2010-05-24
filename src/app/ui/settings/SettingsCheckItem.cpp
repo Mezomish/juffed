@@ -17,6 +17,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "SettingsCheckItem.h"
+#include "Settings.h"
 
 #include <QtGui/QCheckBox>
 
@@ -33,14 +34,14 @@ SettingsCheckItem::SettingsCheckItem(const QString& section, const QString& key,
 }
 
 void SettingsCheckItem::readValue() {
-	curValue_ = Settings::boolValue(section_, key_);
+	curValue_ = Settings::instance()->boolValue(section_, key_);
 	checkBox_->setChecked(curValue_);
 }
 
 void SettingsCheckItem::writeValue() {
 	if ( checkBox_->isChecked() != curValue_ ) {
 		curValue_ = checkBox_->isChecked();
-		Settings::setValue(section_, key_, curValue_);
+		Settings::instance()->setValue(section_, key_, curValue_);
 		oneLessChanged();
 	}
 }

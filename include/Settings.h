@@ -33,6 +33,8 @@ class Settings {
 	friend class MainSettings;
 	friend class PluginSettings;
 	friend class QSciSettings;
+	friend class SettingsCheckItem;
+	friend class SettingsSelectItem;
 
 public:
 	static Settings* instance();
@@ -57,6 +59,7 @@ protected:
 	QStringList keyList(const QString& section);
 
 	static Settings* instance_;
+
 private:
 	Settings();
 	

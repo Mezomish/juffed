@@ -69,7 +69,7 @@ public:
 	virtual void paste();
 	virtual void gotoLine(int);
 
-	virtual bool find(const Juff::SearchParams&);
+//	virtual bool find(const Juff::SearchParams&);
 
 	virtual void setWrapWords(bool);
 	virtual void setShowLineNumbers(bool);

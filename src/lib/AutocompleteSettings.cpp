@@ -52,6 +52,7 @@ int AutocompleteSettings::get(IntKey key) {
 		case Threshold :
 			return Settings::instance()->intValue("autocomplete", "threshold");
 	}
+	return -1;
 }
 
 bool AutocompleteSettings::get(BoolKey key) {
@@ -68,4 +69,5 @@ bool AutocompleteSettings::get(BoolKey key) {
 		case UseApis :
 			return Settings::instance()->boolValue("autocomplete", "useApis");
 	}
+	return false;
 }

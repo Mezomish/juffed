@@ -161,14 +161,14 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 		if ( !codecName.isEmpty() )
 			setCharset(codecName);
 		readFile();
-		setEol(guessEol(fileName));
+		setEol(eol);
 		int_->edit1_->setModified(false);
 
 		//	syntax highlighting
 		lexName = LexerStorage::instance()->lexerName(fileName);
 	}
 	else
-		setEol(guessEol(fileName));
+		setEol(eol);
 
 	setLexer(lexName);
 	
@@ -901,10 +901,10 @@ SciDoc::Eol SciDoc::eol() const {
 	switch ( int_->curEdit_->eolMode() ) {
 		case QsciScintilla::EolWindows :
 			return EolWin;
-		case QsciScintilla::EolUnix :
-			return EolUnix;
 		case QsciScintilla::EolMac:
 			return EolMac;
+		default :
+			return EolUnix;
 	}
 }
 
@@ -1095,8 +1095,8 @@ void SciDoc::stripTrailingSpaces() {
 }
 
 
-bool SciDoc::find(const Juff::SearchParams& params) {
+//bool SciDoc::find(const Juff::SearchParams& params) {
 //	if ( int_->curEdit_ == NULL) return false;
 		
 //	int_->curEdit_->find(params.findWhat);
-}
+//}

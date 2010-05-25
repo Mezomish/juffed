@@ -147,7 +147,7 @@ bool SearchEngine::startFind(Juff::Document* doc) {
 	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
 	int initialRow = -1, initialCol = -1;
 	doc->getCursorPos(initialRow, initialCol);
-	int lineIndex = 0;
+//	int lineIndex = 0;
 	if (initialRow < 0 || initialCol < 0)
 		return false;
 

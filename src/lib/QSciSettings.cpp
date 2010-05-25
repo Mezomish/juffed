@@ -76,6 +76,18 @@ void QSciSettings::set(BoolKey key, bool value) {
 		case ShowIndents:
 			Settings::instance()->setValue("QSci", "showIndents", value);
 			break;
+		
+		case HighlightMatchingBrace :
+			Settings::instance()->setValue("QSci", "highlightMatchingBrace", value);
+			break;
+		
+		case HighlightCurLine :
+			Settings::instance()->setValue("QSci", "highlightCurLine", value);
+			break;
+		
+		case HighlightCurWord :
+			Settings::instance()->setValue("QSci", "highlightCurWord", value);
+			break;
 	}
 }
 

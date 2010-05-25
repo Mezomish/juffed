@@ -71,8 +71,8 @@ JuffScintilla::~JuffScintilla() {
 	delete contextMenu_;
 }
 
-bool JuffScintilla::find(const Juff::SearchParams&) {
-}
+//bool JuffScintilla::find(const Juff::SearchParams&) {
+//}
 
 /*bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
 	if ( flags.multiLine )

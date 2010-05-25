@@ -56,6 +56,11 @@ public:
 	QSciSettingsPage() : SettingsPage(0) {
 		ui_.setupUi(this);
 		
+		connect(ui_.curLineChk, SIGNAL(toggled(bool)), ui_.curLineColorBtn, SLOT(setEnabled(bool)));
+		connect(ui_.matchingBraceChk, SIGNAL(toggled(bool)), ui_.matchingBraceFgColorBtn, SLOT(setEnabled(bool)));
+		connect(ui_.matchingBraceChk, SIGNAL(toggled(bool)), ui_.matchingBraceBgColorBtn, SLOT(setEnabled(bool)));
+		connect(ui_.indentsChk, SIGNAL(toggled(bool)), ui_.indentsColorBtn, SLOT(setEnabled(bool)));
+		
 		indentsColorBtn_ = new ColorButton(ui_.indentsColorBtn, QSciSettings::get(QSciSettings::IndentsColor));
 		matchingBraceBgColorBtn_ = new ColorButton(ui_.matchingBraceBgColorBtn, QSciSettings::get(QSciSettings::MatchingBraceBgColor));
 		matchingBraceFgColorBtn_ = new ColorButton(ui_.matchingBraceFgColorBtn, QSciSettings::get(QSciSettings::MatchingBraceFgColor));
@@ -66,6 +71,11 @@ public:
 			<< new SettingsCheckItem("QSci", "highlightMatchingBrace", ui_.matchingBraceChk)
 			<< new SettingsCheckItem("QSci", "showIndents", ui_.indentsChk)
 		;
+		
+		ui_.curLineColorBtn->setEnabled(ui_.curLineChk->isChecked());
+		ui_.matchingBraceBgColorBtn->setEnabled(ui_.matchingBraceChk->isChecked());
+		ui_.matchingBraceFgColorBtn->setEnabled(ui_.matchingBraceChk->isChecked());
+		ui_.indentsColorBtn->setEnabled(ui_.indentsChk->isChecked());
 	}
 	
 	virtual void init() {}

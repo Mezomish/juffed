@@ -30,6 +30,27 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QMenu>
 
 #include "ui_QSciSettings.h"
+
+QIcon eolIcon(SciDoc::Eol eol) {
+	switch ( eol ) {
+		case SciDoc::EolWin  : return QIcon(":win");
+		case SciDoc::EolMac  : return QIcon(":mac");
+		case SciDoc::EolUnix : return QIcon(":tux");
+		default :;
+	}
+	return QIcon();
+}
+
+QString eolText(SciDoc::Eol eol) {
+	switch ( eol ) {
+		case SciDoc::EolWin  : return SciDocEngine::tr("Win");
+		case SciDoc::EolMac  : return SciDocEngine::tr("Mac");
+		case SciDoc::EolUnix : return SciDocEngine::tr("Unix");
+		default :;
+	}
+	return "";
+}
+
 class QSciSettingsPage : public SettingsPage {
 public:
 	QSciSettingsPage() : SettingsPage(0) {
@@ -69,6 +90,7 @@ private:
 
 SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
 	syntaxGroup_ = new QActionGroup(this);
+	eolGroup_ = new QActionGroup(this);
 	
 	syntaxMenu_ = new QMenu(tr("&Syntax"));
 	connect(syntaxMenu_, SIGNAL(aboutToShow()), SLOT(onMenuAboutToBeShown()));
@@ -80,10 +102,26 @@ SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
 		syntaxGroup_->addAction(action);
 	}
 	
+	eolMenu_ = new QMenu(tr("Line endings"));
+	SciDoc::Eol eols[] = { SciDoc::EolWin, SciDoc::EolMac, SciDoc::EolUnix };
+	for (int i = 0; i < 3; i++ ) {
+		SciDoc::Eol eol = eols[i];
+		QAction* act = eolMenu_->addAction(eolIcon(eol), eolText(eol), this, SLOT(slotEolChanged()));
+		act->setCheckable(true);
+		act->setData(eol);
+		eolActions_[eol] = act;
+		eolGroup_->addAction(act);
+	}
+	
 	syntaxLabel_ = new Juff::StatusLabel("");
 	syntaxLabel_->setToolTip(QObject::tr("Syntax highlighting"));
 	syntaxLabel_->setMenu(syntaxMenu_);
 	syntaxLabel_->hide();
+	
+	eolLabel_ = new Juff::StatusLabel("");
+	eolLabel_->setToolTip(QObject::tr("Line endings"));
+	eolLabel_->setMenu(eolMenu_);
+	eolLabel_->hide();
 	
 	settingsPage_ = new QSciSettingsPage();
 }
@@ -112,7 +150,6 @@ QAction* SciDocEngine::createAction(const QString& title, const QKeySequence& ke
 void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 	switch (id) {
 		case Juff::MenuEdit :
-		{
 			addAction(id, menu, createAction(tr("UPPER CASE"), QKeySequence("Ctrl+U"), SLOT(slotUpperCase())));
 			addAction(id, menu, createAction(tr("lower case"), QKeySequence("Shift+Ctrl+U"), SLOT(slotLowerCase())));
 			addAction(id, menu, createAction(tr("Move line up"), QKeySequence("Alt+Up"), SLOT(slotMoveUp())));
@@ -122,16 +159,15 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 			addAction(id, menu, createAction(tr("Comment lines"), QKeySequence("Ctrl+/"), SLOT(slotCommentLines())));
 			addAction(id, menu, createAction(tr("Comment block"), QKeySequence("Shift+Ctrl+/"), SLOT(slotCommentBlock())));
 			addAction(id, menu, createAction(tr("Unindent lines"), QKeySequence("Shift+Tab"), SLOT(slotUnindent())));
-			
-			
 			break;
-		}
 		
 		case Juff::MenuView :
-		{
 			addAction(id, menu, syntaxMenu_->menuAction());
 			break;
-		}
+		
+		case Juff::MenuFormat :
+			addAction(id, menu, eolMenu_->menuAction());
+			break;
 		
 		default:;
 	}
@@ -139,13 +175,14 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 
 QWidgetList SciDocEngine::statusWidgets() {
 	QWidgetList  list;
-	list << syntaxLabel_;
+	list << syntaxLabel_ << eolLabel_;
 	return list;
 }
 
 void SciDocEngine::activate(bool act) {
 	LOGGER;
 	syntaxLabel_->show();
+	eolLabel_->show();
 	DocEngine::activate(act);
 }
 
@@ -249,6 +286,18 @@ void SciDocEngine::slotSyntaxChanged() {
 	}
 }
 
+void SciDocEngine::slotEolChanged() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	QAction* action = qobject_cast<QAction*>(sender());
+	if ( doc != 0 && action != 0 ) {
+		SciDoc::Eol eol = (SciDoc::Eol)action->data().toInt();
+		eolLabel_->setPixmap(eolIcon(eol).pixmap(16, 16));
+		doc->setEol(eol);
+	}
+}
+
 void SciDocEngine::onMenuAboutToBeShown() {
 	LOGGER;
 	
@@ -272,6 +321,11 @@ void SciDocEngine::onDocFocused() {
 	SciDoc* doc = qobject_cast<SciDoc*>(sender());
 	if ( doc != 0 ) {
 		syntaxLabel_->setText(doc->syntax());
+		
+		SciDoc::Eol eol = doc->eol();
+		eolLabel_->setPixmap(eolIcon(eol).pixmap(16, 16));
+		
+		eolActions_[eol]->setChecked(true);
 	}
 }
 

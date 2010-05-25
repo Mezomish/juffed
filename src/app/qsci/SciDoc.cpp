@@ -40,6 +40,41 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <Qsci/qsciprinter.h>
 #include <Qsci/qscilexer.h>
 
+SciDoc::Eol guessEol(const QString& fileName) {
+#ifdef Q_OS_WIN32
+	// Windows
+	SciDoc::Eol eol = SciDoc::EolWin;
+#else
+	// Not windows. Can be Mac or other Unix-like
+#ifdef Q_WS_MAC
+	// Mac
+	SciDoc::Eol eol = SciDoc::EolMac;
+#else
+	// Other Unix-like
+	SciDoc::Eol eol = SciDoc::EolUnix;
+#endif
+#endif
+
+	if ( !fileName.isEmpty() && !Juff::isNoname(fileName) ) {
+		QFile file(fileName);
+		if ( file.open(QIODevice::ReadOnly) ) {
+			QString line = QString::fromLocal8Bit(file.readLine().constData());
+			QRegExp re(".*(\r?\n?)");
+			if ( re.exactMatch(line) ) {
+				QString ending = re.cap(1);
+				if ( ending == "\r\n" ) {
+					eol = SciDoc::EolWin;
+				}
+				else if ( ending == "\r" ) {
+					eol = SciDoc::EolMac;
+				}
+			}
+			file.close();
+		}
+	}
+	return eol;
+}
+
 class SciDoc::Interior {
 public:
 	Interior(QWidget* w) {
@@ -120,16 +155,20 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 	}
 	
 	QString lexName = "none";
+	SciDoc::Eol eol = guessEol(fileName);
 	if ( !fileName.isEmpty() && !Juff::isNoname(fileName) ) {
 		QString codecName = Document::guessCharset(fileName);
 		if ( !codecName.isEmpty() )
 			setCharset(codecName);
 		readFile();
+		setEol(guessEol(fileName));
 		int_->edit1_->setModified(false);
 
 		//	syntax highlighting
 		lexName = LexerStorage::instance()->lexerName(fileName);
 	}
+	else
+		setEol(guessEol(fileName));
 
 	setLexer(lexName);
 	
@@ -858,7 +897,41 @@ void SciDoc::setLexer(const QString& lexName) {
 //	int_->edit1_->showLineNumbers(show);
 //	int_->edit2_->showLineNumbers(show);
 //}
+SciDoc::Eol SciDoc::eol() const {
+	switch ( int_->curEdit_->eolMode() ) {
+		case QsciScintilla::EolWindows :
+			return EolWin;
+		case QsciScintilla::EolUnix :
+			return EolUnix;
+		case QsciScintilla::EolMac:
+			return EolMac;
+	}
+}
 
+void SciDoc::setEol(SciDoc::Eol eol) {
+	switch ( eol ) {
+		case EolWin :
+			int_->edit1_->setEolMode(QsciScintilla::EolWindows);
+			int_->edit2_->setEolMode(QsciScintilla::EolWindows);
+			int_->edit1_->convertEols(QsciScintilla::EolWindows);
+			int_->edit2_->convertEols(QsciScintilla::EolWindows);
+			break;
+		
+		case EolUnix :
+			int_->edit1_->setEolMode(QsciScintilla::EolUnix);
+			int_->edit2_->setEolMode(QsciScintilla::EolUnix);
+			int_->edit1_->convertEols(QsciScintilla::EolUnix);
+			int_->edit2_->convertEols(QsciScintilla::EolUnix);
+			break;
+		
+		case EolMac :
+			int_->edit1_->setEolMode(QsciScintilla::EolMac);
+			int_->edit2_->setEolMode(QsciScintilla::EolMac);
+			int_->edit1_->convertEols(QsciScintilla::EolMac);
+			int_->edit2_->convertEols(QsciScintilla::EolMac);
+			break;
+	}
+}
 
 
 

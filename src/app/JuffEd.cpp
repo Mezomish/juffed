@@ -271,6 +271,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	// engines actions
 	docManager_->initMenuActions(Juff::MenuEdit, editMenu);
 	docManager_->initMenuActions(Juff::MenuView, viewMenu);
+	docManager_->initMenuActions(Juff::MenuFormat, formatMenu);
 	
 	
 	// statusbar

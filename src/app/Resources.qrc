@@ -12,5 +12,8 @@
 		
 		<file alias="juffed_32.png">../images/32/juffed_32.png</file>
 		<file alias="juffed_48.png">../images/48/juffed_48.png</file>
+		<file alias="win">../images/win.png</file>
+		<file alias="mac">../images/mac.png</file>
+		<file alias="tux">../images/tux.png</file>
 	</qresource>
 </RCC>

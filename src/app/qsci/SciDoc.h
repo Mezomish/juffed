@@ -26,6 +26,12 @@ class JuffScintilla;
 class SciDoc : public Juff::Document {
 Q_OBJECT
 public:
+	enum Eol {
+		EolWin,
+		EolMac,
+		EolUnix,
+	};
+	
 	SciDoc(const QString&);
 	virtual ~SciDoc();
 
@@ -94,6 +100,8 @@ public:
 	
 	int scrollPos() const;
 	void setScrollPos(int);
+	SciDoc::Eol eol() const;
+	void setEol(SciDoc::Eol);
 	
 public slots:
 	void highlightWord();
@@ -111,7 +119,7 @@ protected:
 private:
 	void readFile();
 	void setLexer(const QString& lexName);
-	
+
 	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 	void uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 	void stripTrailingSpaces();

@@ -23,6 +23,7 @@ class QActionGroup;
 
 #include "DocEngine.h"
 #include "StatusLabel.h"
+#include "SciDoc.h"
 
 #include <QObject>
 #include <QKeySequence>
@@ -52,6 +53,7 @@ public slots:
 	void slotDuplicate();
 	void slotUnindent();
 	void slotRemoveLines();
+	void slotEolChanged();
 
 protected slots:
 	void slotSyntaxChanged();
@@ -62,9 +64,13 @@ private:
 	QAction* createAction(const QString&, const QKeySequence&, const char*);
 
 	QMenu* syntaxMenu_;
+	QMenu* eolMenu_;
 	QMap<QString, QAction*> syntaxActions_;
+	QMap<SciDoc::Eol, QAction*> eolActions_;
 	Juff::StatusLabel* syntaxLabel_;
+	Juff::StatusLabel* eolLabel_;
 	QActionGroup* syntaxGroup_;
+	QActionGroup* eolGroup_;
 	QWidget* settingsPage_;
 };
 

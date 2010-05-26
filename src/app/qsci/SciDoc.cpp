@@ -106,7 +106,7 @@ public:
 		edit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 		
 		edit->setMarginLineNumbers(1, true);
-		edit->setMarginSensitivity(1, true);
+//		edit->setMarginSensitivity(1, true);
 		edit->setMarginWidth(2, 12);
 		//	set the 1st margin accept markers 
 		//	number 1 and 2 (binary mask 00000110 == 6)

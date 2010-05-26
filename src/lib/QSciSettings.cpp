@@ -33,6 +33,9 @@ bool QSciSettings::get(BoolKey key) {
 		case HighlightCurWord :
 			return Settings::instance()->boolValue("QSci", "highlightCurWord");
 		
+		case JumpOverWordParts :
+			return Settings::instance()->boolValue("QSci", "jumpOverWordParts");
+		
 		
 	}
 	return false;
@@ -87,6 +90,10 @@ void QSciSettings::set(BoolKey key, bool value) {
 		
 		case HighlightCurWord :
 			Settings::instance()->setValue("QSci", "highlightCurWord", value);
+			break;
+		
+		case JumpOverWordParts :
+			Settings::instance()->setValue("QSci", "jumpOverWordParts", value);
 			break;
 	}
 }

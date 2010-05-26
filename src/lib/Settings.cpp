@@ -182,6 +182,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "highlightCurLine" )       return true;
 		if ( key == "highlightMatchingBrace" ) return true;
 		if ( key == "highlightCurWord" )       return false;
+		if ( key == "jumpOverWordParts" )      return false;
 	}
 	else if ( section == "toolBarVisible" ) {
 		return true;

@@ -422,6 +422,8 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 		}
 	}
 	else {
+		bool eclipseStyle = QSciSettings::get(QSciSettings::JumpOverWordParts);
+		
 		int key = e->key();
 		switch ( key ) {
 			case Qt::Key_Enter :
@@ -429,6 +431,68 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 				beginUndoAction();
 				QsciScintilla::keyPressEvent(e);
 				endUndoAction();
+				break;
+			
+			case Qt::Key_Left :
+				if ( eclipseStyle ) {
+					if ( e->modifiers() & Qt::ControlModifier )
+						if ( e->modifiers() & Qt::ShiftModifier )
+							SendScintilla(SCI_WORDPARTLEFTEXTEND);
+						else
+							SendScintilla(SCI_WORDPARTLEFT);
+					else
+						QsciScintilla::keyPressEvent(e);
+				}
+				else {
+					QsciScintilla::keyPressEvent(e);
+				}
+				break;
+				
+			case Qt::Key_Right :
+				if ( eclipseStyle ) {
+					if ( e->modifiers() & Qt::ControlModifier )
+						if ( e->modifiers() & Qt::ShiftModifier )
+							SendScintilla(SCI_WORDPARTRIGHTEXTEND);
+						else
+							SendScintilla(SCI_WORDPARTRIGHT);
+					else
+						QsciScintilla::keyPressEvent(e);
+				}
+				else {
+					QsciScintilla::keyPressEvent(e);
+				}
+				break;
+				
+			case Qt::Key_Backspace :
+				if ( eclipseStyle ) {
+					if ( e->modifiers() & Qt::ControlModifier ) {
+						beginUndoAction();
+						SendScintilla(SCI_WORDPARTLEFTEXTEND);
+						removeSelectedText();
+						endUndoAction();
+					}
+					else
+						QsciScintilla::keyPressEvent(e);
+				}
+				else {
+					QsciScintilla::keyPressEvent(e);
+				}
+				break;
+			
+			case Qt::Key_Delete :
+				if ( eclipseStyle ) {
+					if ( e->modifiers() & Qt::ControlModifier ) {
+						beginUndoAction();
+						SendScintilla(SCI_WORDPARTRIGHTEXTEND);
+						removeSelectedText();
+						endUndoAction();
+					}
+					else
+						QsciScintilla::keyPressEvent(e);
+				}
+				else {
+					QsciScintilla::keyPressEvent(e);
+				}
 				break;
 			
 			default:

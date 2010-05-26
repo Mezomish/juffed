@@ -37,6 +37,7 @@ public:
 		HighlightMatchingBrace,
 		HighlightCurLine,
 		HighlightCurWord,
+		JumpOverWordParts,
 	};
 	
 	static void set(BoolKey, bool);

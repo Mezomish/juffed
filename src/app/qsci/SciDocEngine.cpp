@@ -166,6 +166,8 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 			addAction(id, menu, createAction(tr("Move line down"), QKeySequence("Alt+Down"), SLOT(slotMoveDown())));
 			addAction(id, menu, createAction(tr("Duplicate text"), QKeySequence("Ctrl+D"), SLOT(slotDuplicate())));
 			addAction(id, menu, createAction(tr("Remove lines"), QKeySequence("Ctrl+L"), SLOT(slotRemoveLines())));
+			addAction(id, menu, createAction(tr("Remove the beginning of the line"), QKeySequence("Shift+Ctrl+Backspace"), SLOT(slotRemoveLineLeft())));
+			addAction(id, menu, createAction(tr("Remove the end of the line"), QKeySequence("Shift+Ctrl+Delete"), SLOT(slotRemoveLineRight())));
 			addAction(id, menu, createAction(tr("Comment lines"), QKeySequence("Ctrl+/"), SLOT(slotCommentLines())));
 			addAction(id, menu, createAction(tr("Comment block"), QKeySequence("Shift+Ctrl+/"), SLOT(slotCommentBlock())));
 			addAction(id, menu, createAction(tr("Unindent lines"), QKeySequence("Shift+Tab"), SLOT(slotUnindent())));
@@ -283,7 +285,23 @@ void SciDocEngine::slotRemoveLines() {
 	}
 }
 
+void SciDocEngine::slotRemoveLineLeft() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->removeLineLeft();
+	}
+}
 
+void SciDocEngine::slotRemoveLineRight() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->removeLineRight();
+	}
+}
 
 void SciDocEngine::slotSyntaxChanged() {
 	LOGGER;

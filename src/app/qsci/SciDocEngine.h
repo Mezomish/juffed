@@ -53,6 +53,8 @@ public slots:
 	void slotDuplicate();
 	void slotUnindent();
 	void slotRemoveLines();
+	void slotRemoveLineLeft();
+	void slotRemoveLineRight();
 	void slotEolChanged();
 
 protected slots:

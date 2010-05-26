@@ -97,6 +97,8 @@ public:
 	void duplicateText();
 	void unindent();
 	void removeLine();
+	void removeLineLeft();
+	void removeLineRight();
 	
 	int scrollPos() const;
 	void setScrollPos(int);

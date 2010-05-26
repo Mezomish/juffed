@@ -806,6 +806,18 @@ void SciDoc::removeLine() {
 	}
 }
 
+void SciDoc::removeLineLeft() {
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+	edit->SendScintilla(QsciScintilla::SCI_DELLINELEFT);
+}
+
+void SciDoc::removeLineRight() {
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+	edit->SendScintilla(QsciScintilla::SCI_DELLINERIGHT);
+}
+
 void SciDoc::highlightWord() {
 	LOGGER;
 	

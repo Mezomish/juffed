@@ -422,7 +422,18 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 		}
 	}
 	else {
-		QsciScintilla::keyPressEvent(e);
+		int key = e->key();
+		switch ( key ) {
+			case Qt::Key_Enter :
+			case Qt::Key_Return :
+				beginUndoAction();
+				QsciScintilla::keyPressEvent(e);
+				endUndoAction();
+				break;
+			
+			default:
+				QsciScintilla::keyPressEvent(e);
+		}
 	}
 }
 

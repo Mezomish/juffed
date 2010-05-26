@@ -50,7 +50,7 @@ svn up
 DEV=`grep DEV CMakeLists.txt | grep SET | grep 1`
 if [ -n "$DEV" ]; then 
 	REVISION=`LC_ALL=C svn info | grep Revision | cut -d" " -f2-`
-	VERSION=`cat version`".$REVISION"
+	VERSION=`cat base_version`".$REVISION"
 else
 	VERSION=`cat version`
 fi

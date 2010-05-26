@@ -174,6 +174,7 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 			break;
 		
 		case Juff::MenuView :
+			addAction(id, menu, createAction(tr("Fold/Unfold all"), QKeySequence(""), SLOT(slotFoldUnfoldAll())));
 			addAction(id, menu, syntaxMenu_->menuAction());
 			break;
 		
@@ -302,6 +303,16 @@ void SciDocEngine::slotRemoveLineRight() {
 		doc->removeLineRight();
 	}
 }
+
+void SciDocEngine::slotFoldUnfoldAll() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->foldUnfoldAll();
+	}
+}
+
 
 void SciDocEngine::slotSyntaxChanged() {
 	LOGGER;

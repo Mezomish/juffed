@@ -818,6 +818,12 @@ void SciDoc::removeLineRight() {
 	edit->SendScintilla(QsciScintilla::SCI_DELLINERIGHT);
 }
 
+void SciDoc::foldUnfoldAll() {
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+	edit->foldAll(true);
+}
+
 void SciDoc::highlightWord() {
 	LOGGER;
 	

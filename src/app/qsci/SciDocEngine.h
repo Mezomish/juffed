@@ -56,6 +56,7 @@ public slots:
 	void slotRemoveLineLeft();
 	void slotRemoveLineRight();
 	void slotEolChanged();
+	void slotFoldUnfoldAll();
 
 protected slots:
 	void slotSyntaxChanged();

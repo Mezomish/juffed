@@ -99,6 +99,7 @@ public:
 	void removeLine();
 	void removeLineLeft();
 	void removeLineRight();
+	void foldUnfoldAll();
 	
 	int scrollPos() const;
 	void setScrollPos(int);

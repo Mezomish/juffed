@@ -444,6 +444,14 @@ void JuffEd::slotFileExit() {
 	}
 }
 
+void JuffEd::slotFileRecent() {
+	LOGGER;
+	
+	QAction* act = qobject_cast<QAction*>(sender());
+	if ( act != 0 )
+		openDoc(act->text());
+}
+
 ////////////////////////////////////////
 // Project
 
@@ -1223,7 +1231,7 @@ void JuffEd::initRecentFilesMenu() {
 	recentFilesMenu_->clear();
 	
 	foreach (QString fileName, recentFiles_) {
-		recentFilesMenu_->addAction(fileName, this, SLOT(fileRecent()));
+		recentFilesMenu_->addAction(fileName, this, SLOT(slotFileRecent()));
 	}
 	
 	if ( recentFiles_.count() == 0 )

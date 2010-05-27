@@ -72,6 +72,7 @@ public slots:
 	void slotFileCloseAll();
 	void slotFilePrint();
 	void slotFileExit();
+	void slotFileRecent();
 
 	void slotPrjNew();
 	void slotPrjOpen();

@@ -109,7 +109,7 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/FindDlg.h
 	src/app/ui/JuffMW.h
 	src/app/ui/JumpToFileDlg.h
-	src/app/ui/MessageWidget.h
+	src/app/ui/Popup.h
 	src/app/ui/SelectFilesDlg.h
 	src/app/ui/StatusLabel.h
 	src/app/ui/TabBar.h
@@ -146,7 +146,7 @@ SET ( juffed_app_SRCS
 	src/app/ui/FindDlg.cpp
 	src/app/ui/JuffMW.cpp
 	src/app/ui/JumpToFileDlg.cpp
-	src/app/ui/MessageWidget.cpp
+	src/app/ui/Popup.cpp
 	src/app/ui/SelectFilesDlg.cpp
 	src/app/ui/StatusLabel.cpp
 	src/app/ui/TabBar.cpp
@@ -186,7 +186,6 @@ ENDIF ( UNIX )
 SET ( juffed_app_UIS
 	src/app/ui/forms/FindDlg.ui
 	src/app/ui/forms/JumpToFileDlg.ui
-	src/app/ui/forms/MessageWidget.ui
 	src/app/ui/forms/SelectFilesDlg.ui
 	
 	# settings

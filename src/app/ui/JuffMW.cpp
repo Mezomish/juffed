@@ -31,7 +31,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "JumpToFileDlg.h"
 #include "License.h"
 #include "MainSettings.h"
-#include "MessageWidget.h"
+#include "Popup.h"
 #include "SelectFilesDlg.h"
 
 #include <QCloseEvent>
@@ -42,7 +42,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QMessageBox>
 #include <QStatusBar>
 #include <QToolBar>
-#include <QVBoxLayout>
 
 struct Helper {
 	QString name;
@@ -97,14 +96,9 @@ JuffMW::JuffMW() : QMainWindow() {
 	setGeometry(MainSettings::geometry());
 	setWindowIcon(QIcon(":juffed_32.png"));
 	
-	mainWidget_ = new QWidget();
-	vBox_ = new QVBoxLayout();
-	vBox_->setContentsMargins(0, 0, 0, 0);
-	mainWidget_->setLayout(vBox_);
-	setCentralWidget(mainWidget_);
-	
 	aboutDlg_ = createAboutDlg(this);
 	findDlg_ = new FindDlg(this, false);
+	popup_ = NULL;
 	
 	statusWidget_ = new QWidget();
 	statusLayout_ = new QHBoxLayout(statusWidget_);
@@ -115,7 +109,12 @@ JuffMW::JuffMW() : QMainWindow() {
 }
 
 void JuffMW::setViewer(QWidget* w) {
-	vBox_->addWidget(w);
+	mainWidget_ = w;
+	setCentralWidget(w);
+	popup_ = new Popup(w);
+	popup_->setGeometry(100, 50, w->width() - 150, 50);
+	popup_->hide();
+	w->installEventFilter(this);
 }
 
 void JuffMW::about() {
@@ -230,15 +229,24 @@ void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
 }
 
 void JuffMW::message(const QIcon& icon, const QString& title, const QString& message, int timeout) {
-	MessageWidget* msg = new MessageWidget(QIcon(), title, message, timeout, this);
-	vBox_->insertWidget(0, msg);
-	vBox_->setStretchFactor(msg, 0);
-//	vBox_->addWidget(msg);
+	popup_->popup(message);
 }
 
 
 
 ////////////////////////////////////////////////////////////////////////////////
+
+bool JuffMW::eventFilter(QObject* obj, QEvent* e) {
+	if ( obj == mainWidget_ ) {
+		if ( e->type() == QEvent::Resize ) {
+			QResizeEvent* rszEvent = static_cast<QResizeEvent*>(e);
+			if ( popup_ != NULL ) {
+				popup_->setGeometry(100, 50, rszEvent->size().width() - 150, 50);
+			}
+		}
+	}
+	return QMainWindow::eventFilter(obj, e);
+}
 
 void JuffMW::closeEvent(QCloseEvent* e) {
 	LOGGER;

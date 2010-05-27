@@ -23,6 +23,7 @@ class AboutDlg;
 class FindDlg;
 class QHBoxLayout;
 class QVBoxLayout;
+class Popup;
 
 #include "Types.h"
 
@@ -75,17 +76,19 @@ protected:
 	virtual void closeEvent(QCloseEvent*);
 	virtual void resizeEvent(QResizeEvent*);
 	virtual void moveEvent(QMoveEvent*);
-	
+	virtual bool eventFilter(QObject*, QEvent*);
+
 private:
 	QWidget* viewer_;
 	QWidget* mainWidget_;
-	QVBoxLayout* vBox_;
 	AboutDlg* aboutDlg_;
 	FindDlg* findDlg_;
 	QWidget* statusWidget_;
 	QHBoxLayout* statusLayout_;
 	QList<QToolBar*> allToolBars_;
 	QList<QToolBar*> hiddenToolBars_;
+
+	Popup* popup_;
 };
 
 #endif // __JUFFED_MAIN_WINDOW_H__

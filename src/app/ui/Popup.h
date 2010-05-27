@@ -16,27 +16,36 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef __JUFFED_MESSAGE_WIDGET_H__
-#define __JUFFED_MESSAGE_WIDGET_H__
+#ifndef __JUFFED_POPUP_H__
+#define __JUFFED_POPUP_H__
 
-#include "ui_MessageWidget.h"
+#include <QFrame>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QTimer>
 
-class MessageWidget : public QWidget {
+class Popup : public QFrame {
 Q_OBJECT
 public:
-	MessageWidget(const QIcon&, const QString&, const QString&, int, QWidget*);
-	virtual ~MessageWidget();
+	Popup(QWidget* parent);
+	void popup(const QString& msg, int seconds = 10);
 
-public slots:
-//	void closeMsg();
+protected slots:
+	void onTimer();
 
 protected:
-	virtual void mouseDoubleClickEvent(QMouseEvent*);
-	virtual void timerEvent(QTimerEvent*);
+	virtual void enterEvent(QEvent* event);
+	virtual void leaveEvent(QEvent* event);
+	virtual void mousePressEvent(QMouseEvent*);
 
 private:
-	Ui::MessageWidget ui_;
-	int countDown_;
+	void setAlpha(int alpha);
+
+	QLabel* messageL_;
+	QLabel* timerL_;
+	QTimer* timer_;
+	int timerTicks_;
 };
 
-#endif // __JUFFED_MESSAGE_WIDGET_H__
+#endif // __JUFFED_POPUP_H__

@@ -230,7 +230,7 @@ void SearchEngine::replace(Juff::Document* doc, const Juff::SearchParams& params
 		}
 	}
 	if ( count > 0 )
-		QMessageBox::information(doc, tr("Information"), tr("Replacement finished (%1 replacements were made)").arg(count));
+		mw_->message(QIcon(), "", tr("Replacement finished (%1 replacements were made)").arg(count));
 }
 
 void stepOver(Juff::Document* doc, bool forward) {

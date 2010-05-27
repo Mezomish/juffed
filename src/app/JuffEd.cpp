@@ -1048,7 +1048,7 @@ QStringList JuffEd::docList() const {
 
 
 void JuffEd::reportError(const QString& error) {
-	QMessageBox::warning(mw_, JuffEd::tr("Error"), error);
+	mw_->message(QIcon(), "", error);
 }
 
 bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {

@@ -49,23 +49,26 @@ public:
 	/**
 	 * getString()
 	 *
-	 * Returns a string value with a key \param key for \param plugin.
+	 * Returns a string value with a key \param key for \param plugin 
+	 * or \param defaultValue if such a \param key doesn't exist.
 	 */
-	static QString getString(const JuffPlugin* plugin, const QString& key);
+	static QString getString(const JuffPlugin* plugin, const QString& key, const QString& defaultValue = "");
 
 	/**
 	 * getBool()
 	 *
-	 * Returns a bool value with a key \param key for \param plugin.
+	 * Returns a bool value with a key \param key for \param plugin
+	 * or \param defaultValue if such a \param key doesn't exist.
 	 */
-	static bool getBool(const JuffPlugin* plugin, const QString& key);
+	static bool getBool(const JuffPlugin* plugin, const QString& key, bool defaultValue = false);
 
 	/**
 	 * getInt()
 	 *
-	 * Returns an integer value with a key \param key for \param plugin.
+	 * Returns an integer value with a key \param key for \param plugin
+	 * or \param defaultValue if such a \param key doesn't exist.
 	 */
-	static int getInt(const JuffPlugin* plugin, const QString& key);
+	static int getInt(const JuffPlugin* plugin, const QString& key, int defaultValue = -1);
 	
 	
 	// These two methods are used by SettingsDlg and PluginManager.

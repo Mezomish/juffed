@@ -44,23 +44,32 @@ void PluginSettings::set(const JuffPlugin* plugin, const QString& key, int value
 		Settings::instance()->setValue(plugin->name(), key, value);
 }
 
-QString PluginSettings::getString(const JuffPlugin* plugin, const QString& key) {
+QString PluginSettings::getString(const JuffPlugin* plugin, const QString& key, const QString& defaultValue) {
 	if ( plugin )
-		return Settings::instance()->stringValue(plugin->name(), key);
+		if ( Settings::instance()->valueExists(plugin->name(), key) )
+			return Settings::instance()->stringValue(plugin->name(), key);
+		else
+			return defaultValue;
 	else
 		return "";
 }
 
-bool PluginSettings::getBool(const JuffPlugin* plugin, const QString& key) {
+bool PluginSettings::getBool(const JuffPlugin* plugin, const QString& key, bool defaultValue) {
 	if ( plugin )
-		return Settings::instance()->boolValue(plugin->name(), key);
+		if ( Settings::instance()->valueExists(plugin->name(), key) )
+			return Settings::instance()->boolValue(plugin->name(), key);
+		else
+			return defaultValue;
 	else
 		return false;
 }
 
-int PluginSettings::getInt(const JuffPlugin* plugin, const QString& key) {
+int PluginSettings::getInt(const JuffPlugin* plugin, const QString& key, int defaultValue) {
 	if ( plugin )
-		return Settings::instance()->intValue(plugin->name(), key);
+		if ( Settings::instance()->valueExists(plugin->name(), key) )
+			return Settings::instance()->intValue(plugin->name(), key);
+		else
+			return defaultValue;
 	else
 		return -1;
 }

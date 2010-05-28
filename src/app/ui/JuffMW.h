@@ -79,6 +79,8 @@ protected:
 	virtual bool eventFilter(QObject*, QEvent*);
 
 private:
+	void resizePopup(int);
+
 	QWidget* viewer_;
 	QWidget* mainWidget_;
 	AboutDlg* aboutDlg_;

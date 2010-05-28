@@ -102,7 +102,7 @@ void SearchEngine::onSearchRequested(const Juff::SearchParams& params) {
 		found = findNext(doc);
 	
 	if ( !found )
-		mw_->message(QIcon(), "", tr("Text '%1' was not found").arg(params_.findWhat));
+		mw_->message(QIcon(), tr("Search"), tr("Text '%1' was not found").arg(params_.findWhat));
 }
 
 int SearchEngine::findAt(const QString& line, bool forward, int& length) {
@@ -230,7 +230,7 @@ void SearchEngine::replace(Juff::Document* doc, const Juff::SearchParams& params
 		}
 	}
 	if ( count > 0 )
-		mw_->message(QIcon(), "", tr("Replacement finished (%1 replacements were made)").arg(count));
+		mw_->message(QIcon(), tr("Replace"), tr("Replacement finished (%1 replacements were made)").arg(count));
 }
 
 void stepOver(Juff::Document* doc, bool forward) {

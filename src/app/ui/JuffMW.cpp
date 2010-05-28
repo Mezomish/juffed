@@ -109,9 +109,12 @@ JuffMW::JuffMW() : QMainWindow() {
 }
 
 void JuffMW::setViewer(QWidget* w) {
+	LOGGER;
+	
 	mainWidget_ = w;
 	setCentralWidget(w);
 	popup_ = new Popup(w);
+	resizePopup(w->width());
 	w->installEventFilter(this);
 }
 
@@ -227,7 +230,7 @@ void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
 }
 
 void JuffMW::message(const QIcon& icon, const QString& title, const QString& message, int timeout) {
-	popup_->popup(message);
+	popup_->popup(title, message);
 }
 
 
@@ -239,11 +242,20 @@ bool JuffMW::eventFilter(QObject* obj, QEvent* e) {
 		if ( e->type() == QEvent::Resize ) {
 			QResizeEvent* rszEvent = static_cast<QResizeEvent*>(e);
 			if ( popup_ != NULL ) {
-				popup_->setGeometry(80, popup_->y(), rszEvent->size().width() - 160, 80);
+				resizePopup(rszEvent->size().width());
 			}
 		}
 	}
 	return QMainWindow::eventFilter(obj, e);
+}
+
+void JuffMW::resizePopup(int parentWidth) {
+	if ( parentWidth - 160 <= popup_->maximumWidth() )
+		popup_->setGeometry(80, popup_->y(), parentWidth - 160, 80);
+	else {
+		int ppWidth = popup_->maximumWidth();
+		popup_->setGeometry( (parentWidth - ppWidth) / 2, popup_->y(), ppWidth, 80);
+	}
 }
 
 void JuffMW::closeEvent(QCloseEvent* e) {

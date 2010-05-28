@@ -24,15 +24,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QLabel>
 #include <QPushButton>
 #include <QTimer>
+#include <QTimeLine>
 
 class Popup : public QFrame {
 Q_OBJECT
 public:
 	Popup(QWidget* parent);
 	void popup(const QString& msg, int seconds = 10);
+	void dismiss();
 
 protected slots:
 	void onTimer();
+	void makeStep(int);
 
 protected:
 	virtual void enterEvent(QEvent* event);
@@ -44,8 +47,10 @@ private:
 
 	QLabel* messageL_;
 	QLabel* timerL_;
-	QTimer* timer_;
 	int timerTicks_;
+	QTimer* timer_;
+	QTimeLine* timeLine_;
+	bool hidden_;
 };
 
 #endif // __JUFFED_POPUP_H__

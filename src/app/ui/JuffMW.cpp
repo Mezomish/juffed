@@ -112,8 +112,6 @@ void JuffMW::setViewer(QWidget* w) {
 	mainWidget_ = w;
 	setCentralWidget(w);
 	popup_ = new Popup(w);
-	popup_->setGeometry(100, 50, w->width() - 150, 50);
-	popup_->hide();
 	w->installEventFilter(this);
 }
 
@@ -241,7 +239,7 @@ bool JuffMW::eventFilter(QObject* obj, QEvent* e) {
 		if ( e->type() == QEvent::Resize ) {
 			QResizeEvent* rszEvent = static_cast<QResizeEvent*>(e);
 			if ( popup_ != NULL ) {
-				popup_->setGeometry(100, 50, rszEvent->size().width() - 150, 50);
+				popup_->setGeometry(80, popup_->y(), rszEvent->size().width() - 160, 80);
 			}
 		}
 	}

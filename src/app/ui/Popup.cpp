@@ -20,10 +20,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 static const int AlphaSolid       = 220;
 static const int AlphaTransparent = 150;
+static const int Height           = 80;
+static const int StepCount        = 40;
 
 Popup::Popup(QWidget* parent) : QFrame(parent) {
 	setFrameShape(QFrame::Box);
 	setFrameShadow(QFrame::Raised);
+	
+	setGeometry(0, -Height, 100, Height);
+	hidden_ = true;
 	
 	messageL_ = new QLabel("");
 	messageL_->setAlignment(Qt::AlignCenter);
@@ -42,6 +47,10 @@ Popup::Popup(QWidget* parent) : QFrame(parent) {
 	
 	timer_ = new QTimer();
 	connect(timer_, SIGNAL(timeout()), SLOT(onTimer()));
+	
+	timeLine_ = new QTimeLine(300);
+	timeLine_->setFrameRange(0, StepCount);
+	connect(timeLine_, SIGNAL(frameChanged(int)), SLOT(makeStep(int)));
 }
 
 void Popup::popup(const QString& msg, int seconds) {
@@ -50,7 +59,8 @@ void Popup::popup(const QString& msg, int seconds) {
 	timerL_->setText(QString::number(timerTicks_));
 	timer_->start(1000);
 	
-	show();
+	hidden_ = true;
+	timeLine_->start();
 }
 
 void Popup::setAlpha(int alpha) {
@@ -71,7 +81,7 @@ void Popup::leaveEvent(QEvent* event) {
 
 void Popup::mousePressEvent(QMouseEvent*) {
 	timer_->stop();
-	hide();
+	dismiss();
 }
 
 void Popup::onTimer() {
@@ -79,6 +89,20 @@ void Popup::onTimer() {
 	timerL_->setText(QString::number(timerTicks_));
 	if ( timerTicks_ == 0 ) {
 		timer_->stop();
-		hide();
+		dismiss();
 	}
+}
+
+void Popup::makeStep(int frame) {
+	static const int step = Height / StepCount;
+	if ( hidden_ )
+		setGeometry(80, step * frame - Height, width(), 80);
+	else
+		setGeometry(80, step * (StepCount - frame) - Height, width(), 80);
+}
+
+void Popup::dismiss() {
+	timeLine_->stop();
+	hidden_ = false;
+	timeLine_->start();
 }

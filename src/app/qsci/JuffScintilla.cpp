@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "QSciSettings.h"
 
 #include <QScrollBar>
+#include <QDebug>
 
 #include <Qsci/qscicommandset.h>
 
@@ -422,81 +423,92 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 		}
 	}
 	else {
+		// not rectangular selection
 		bool eclipseStyle = QSciSettings::get(QSciSettings::JumpOverWordParts);
 		
 		int key = e->key();
-		switch ( key ) {
-			case Qt::Key_Enter :
-			case Qt::Key_Return :
-				beginUndoAction();
-				QsciScintilla::keyPressEvent(e);
-				endUndoAction();
-				break;
-			
-			case Qt::Key_Left :
-				if ( eclipseStyle ) {
-					if ( e->modifiers() & Qt::ControlModifier )
+		if ( e->modifiers() & Qt::ControlModifier ) {
+			// control hotkeys
+			switch ( key ) {
+				case Qt::Key_Left :
+					if ( eclipseStyle ) {
 						if ( e->modifiers() & Qt::ShiftModifier )
 							SendScintilla(SCI_WORDPARTLEFTEXTEND);
 						else
 							SendScintilla(SCI_WORDPARTLEFT);
-					else
+					}
+					else {
 						QsciScintilla::keyPressEvent(e);
-				}
-				else {
-					QsciScintilla::keyPressEvent(e);
-				}
-				break;
+					}
+					break;
 				
-			case Qt::Key_Right :
-				if ( eclipseStyle ) {
-					if ( e->modifiers() & Qt::ControlModifier )
+				case Qt::Key_Right :
+					if ( eclipseStyle ) {
 						if ( e->modifiers() & Qt::ShiftModifier )
 							SendScintilla(SCI_WORDPARTRIGHTEXTEND);
 						else
 							SendScintilla(SCI_WORDPARTRIGHT);
-					else
+					}
+					else {
 						QsciScintilla::keyPressEvent(e);
-				}
-				else {
-					QsciScintilla::keyPressEvent(e);
-				}
-				break;
+					}
+					break;
 				
-			case Qt::Key_Backspace :
-				if ( eclipseStyle ) {
-					if ( e->modifiers() & Qt::ControlModifier ) {
+				case Qt::Key_Backspace :
+					if ( eclipseStyle ) {
 						beginUndoAction();
 						SendScintilla(SCI_WORDPARTLEFTEXTEND);
 						removeSelectedText();
 						endUndoAction();
 					}
-					else
+					else {
 						QsciScintilla::keyPressEvent(e);
-				}
-				else {
-					QsciScintilla::keyPressEvent(e);
-				}
-				break;
-			
-			case Qt::Key_Delete :
-				if ( eclipseStyle ) {
-					if ( e->modifiers() & Qt::ControlModifier ) {
+					}
+					break;
+				
+				case Qt::Key_Delete :
+					if ( eclipseStyle ) {
 						beginUndoAction();
 						SendScintilla(SCI_WORDPARTRIGHTEXTEND);
 						removeSelectedText();
 						endUndoAction();
 					}
-					else
+					else {
 						QsciScintilla::keyPressEvent(e);
-				}
-				else {
+					}
+					break;
+				
+					case Qt::Key_Space :
+					{
+						// Dirty hack but looks like it works :)
+						// To display auto-completion box we "imitate"
+						// entering the previous char. We do not enter it,
+						// we just emit the notifying signal that triggers
+						// displaying the auto-completion box.
+						int pos = SendScintilla(SCI_GETCURRENTPOS);
+						if ( pos > 0 ) {
+							int ch = SendScintilla(SCI_GETCHARAT, pos - 1);
+							emit SCN_CHARADDED(ch);
+						}
+					}
+						break;
+					
+				default:
 					QsciScintilla::keyPressEvent(e);
-				}
-				break;
-			
-			default:
-				QsciScintilla::keyPressEvent(e);
+			}
+		}
+		else {
+			// hotkeys without Control
+			switch ( key ) {
+				case Qt::Key_Enter :
+				case Qt::Key_Return :
+					beginUndoAction();
+					QsciScintilla::keyPressEvent(e);
+					endUndoAction();
+					break;
+				default:
+					QsciScintilla::keyPressEvent(e);
+			}
 		}
 	}
 }

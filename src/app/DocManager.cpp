@@ -63,7 +63,7 @@ Juff::Document* DocManager::openDoc(const QString& fileName, const QString& type
 }
 
 void DocManager::initMenuActions(Juff::MenuID id, QMenu* menu) {
-	LOGGER;
+//	LOGGER;
 	
 	foreach (DocEngine* eng, engines_) {
 		eng->initMenuActions(id, menu);
@@ -83,7 +83,7 @@ void DocManager::initStatusBar(QStatusBar* sb) {
 }
 
 void DocManager::setCurDocType(const QString& type) {
-	LOGGER;
+//	LOGGER;
 
 	QMap<QString, DocEngine*>::iterator it = engines_.begin();
 	for (; it != engines_.end(); it++) {

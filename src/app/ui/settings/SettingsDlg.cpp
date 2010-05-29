@@ -171,7 +171,7 @@ public:
 class EditorSettingsPage : public SettingsPage {
 public:
 	EditorSettingsPage(QWidget* parent) : SettingsPage(parent) {
-		LOGGER;
+//		LOGGER;
 	
 		ui.setupUi(this);
 
@@ -366,7 +366,7 @@ void SettingsDlg::init() {
 }
 
 void SettingsDlg::addPluginSettingsPage(const QString& name, const QString& title, QWidget* page) {
-	LOGGER;
+//	LOGGER;
 	PluginPage* plPage = new PluginPage(title, page, this);
 	mp_->addChildPage(tr("Plugins"), title, plPage);
 	pluginPages_[name] = plPage;

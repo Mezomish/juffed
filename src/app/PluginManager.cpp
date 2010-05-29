@@ -83,9 +83,9 @@ QWidgetList PluginManager::docks() const {
 #include "EditorSettings.h"
 
 void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
-	LOGGER;
+//	LOGGER;
 
-	qDebug() << "                     FONT:" << EditorSettings::font();
+//	qDebug() << "                     FONT:" << EditorSettings::font();
 	
 	QPluginLoader loader(path);
 	if ( !loader.load() ) {
@@ -93,7 +93,7 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 		return;
 	}
 	
-	qDebug() << "                     FONT:" << EditorSettings::font();
+//	qDebug() << "                     FONT:" << EditorSettings::font();
 	
 	QObject *obj = loader.instance();
 	if ( obj ) {

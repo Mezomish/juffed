@@ -48,7 +48,7 @@ void DocEngine::addAction(Juff::MenuID id, QMenu* menu, QAction* action) {
 }
 
 void DocEngine::activate(bool act) {
-	LOGGER;
+//	LOGGER;
 	
 	foreach (QList<QAction*> list, actionsMap_) {
 		foreach (QAction* act, list) {
@@ -58,7 +58,7 @@ void DocEngine::activate(bool act) {
 }
 
 void DocEngine::deactivate(bool deact) {
-	LOGGER;
+//	LOGGER;
 	
 	foreach (QList<QAction*> list, actionsMap_) {
 		foreach (QAction* act, list) {

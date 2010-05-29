@@ -158,7 +158,7 @@ void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 }
 
 void LSInterior::readCustomStyle(const QString& name) {
-	LOGGER;
+//	LOGGER;
 	
 	QDomDocument doc("JuffScheme");
 	QString nm = name;
@@ -166,7 +166,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 	QString fileName = QString("%1.xml").arg(nm);
 	fileName = AppInfo::configDirPath() + "/hlschemes/" + fileName;
 
-	Log::debug(QString("Reading custom style from file '%1'...").arg(fileName), true);
+//	Log::debug(QString("Reading custom style from file '%1'...").arg(fileName), true);
 
 	QFile file(fileName);
 	if ( !file.open(QIODevice::ReadOnly) ) {
@@ -174,7 +174,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 		return;
 	}
 	else {
-		Log::debug(QString("File '%1' opened successfully").arg(fileName), true);
+//		Log::debug(QString("File '%1' opened successfully").arg(fileName), true);
 	}
 
 	QString err;
@@ -186,7 +186,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 		return;
 	}
 	else {
-		Log::debug(QString("File '%1' was parsed successfully").arg(fileName), true);
+//		Log::debug(QString("File '%1' was parsed successfully").arg(fileName), true);
 	}
 	
 	file.close();
@@ -216,7 +216,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 	}
 
 
-	Log::debug(QString("Preparing to create a lexer '%1'").arg(name));
+//	Log::debug(QString("Preparing to create a lexer '%1'").arg(name));
 
 	Scheme* scheme = NULL;
 	
@@ -532,15 +532,15 @@ void LSInterior::readCustomStyle(const QString& name) {
 #endif	//	JUFF_FORTRAN_LEXER
 
 
-	Log::debug("Exiting readCustomStyle()");
+//	Log::debug("Exiting readCustomStyle()");
 }
 
 void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
-	LOGGER;
+//	LOGGER;
 	
 	QsciLexer* lex = lexers_.value(name, 0);
 	if ( lex != 0 ) {
-		Log::debug("Have a lexer");
+//		Log::debug("Have a lexer");
 		
 		lex->setFont(font, -1);
 
@@ -551,10 +551,10 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 			lex->setPaper(EditorSettings::get(EditorSettings::DefaultBgColor), -1);
 		}
 		else {
-			Log::debug(QString("Lexer is not 'none'"));
+//			Log::debug(QString("Lexer is not 'none'"));
 			
 			if ( schemes_.contains(name) ) {
-				Log::debug(QString("Found scheme %1").arg(name));
+//				Log::debug(QString("Found scheme %1").arg(name));
 				Scheme* scheme = schemes_[name];
 			
 				QFont f(font);
@@ -599,7 +599,7 @@ void LSInterior::applyCustomStyle(const QString& name, const QFont& font) {
 		}
 		lex->refreshProperties();
 	}
-	Log::debug("Exiting applyCustomStyle()");
+//	Log::debug("Exiting applyCustomStyle()");
 }
 
 QsciLexer* LSInterior::lexer(const QString& name) {

@@ -63,7 +63,7 @@ public:
 
 
 MultiPage::MultiPage(QWidget* parent) : QWidget(parent) {
-	JUFFENTRY2;
+//	JUFFENTRY2;
 	mpInt_ = new MultiPageInterior(this);
 	connect(mpInt_->tree_, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)), SLOT(changeCurrentItem(QTreeWidgetItem*, QTreeWidgetItem*)));
 }
@@ -73,7 +73,7 @@ MultiPage::~MultiPage() {
 }
 
 SettingsPage* MultiPage::addPage(const QString& title, SettingsPage* w) {
-	JUFFENTRY2;
+//	JUFFENTRY2;
 	QTreeWidgetItem* it = new QTreeWidgetItem(QStringList(title));
 	mpInt_->tree_->addTopLevelItem(it);
 	w->setParent(mpInt_->panel_);
@@ -88,7 +88,7 @@ SettingsPage* MultiPage::addPage(const QString& title, SettingsPage* w) {
 }
 
 void MultiPage::addChildPage(const QString& parentTitle, const QString& pageTitle, SettingsPage* w) {
-	LOGGER;
+//	LOGGER;
 	QList<QTreeWidgetItem*> items = mpInt_->tree_->findItems(parentTitle, Qt::MatchFixedString);
 	if ( !items.isEmpty() ) {
 		QTreeWidgetItem* p = items[0];

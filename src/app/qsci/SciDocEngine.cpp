@@ -193,14 +193,14 @@ QWidgetList SciDocEngine::statusWidgets() {
 }
 
 void SciDocEngine::activate(bool act) {
-	LOGGER;
+//	LOGGER;
 	syntaxLabel_->show();
 	eolLabel_->show();
 	DocEngine::activate(act);
 }
 
 void SciDocEngine::deactivate(bool deact) {
-	LOGGER;
+//	LOGGER;
 	syntaxLabel_->hide();
 	DocEngine::deactivate(deact);
 }

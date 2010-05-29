@@ -107,7 +107,7 @@ bool Project::addSubProject(Project* sub) {
 }
 
 bool Project::addFile(const QString& file) {
-	LOGGER;
+//	LOGGER;
 	
 	if ( hasSubProjects() ) {
 		return false;
@@ -168,7 +168,7 @@ QStringList Project::files() const {
 
 
 bool Project::save() {
-	LOGGER;
+//	LOGGER;
 	
 	QFile file(fileName());
 	if ( file.open(QIODevice::WriteOnly) ) {
@@ -189,7 +189,7 @@ bool Project::save() {
 }
 
 void Project::storeProject(QDomDocument& doc, QDomElement& prjEl, Project* prj) {
-	LOGGER;
+//	LOGGER;
 	
 	if ( prj->hasFiles() ) {
 		// files

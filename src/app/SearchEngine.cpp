@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Document.h"
 #include "JuffMW.h"
+#include "Log.h"
 #include "SearchPopup.h"
 
 int findInString(const QString& line, const Juff::SearchParams& params, int& length);
@@ -35,7 +36,26 @@ SearchEngine::SearchEngine(Juff::DocHandlerInt* handler, JuffMW* mw) : QObject()
 	connect(searchPopup_, SIGNAL(searchRequested()), SLOT(onSearchRequested()));
 	connect(searchPopup_, SIGNAL(findNext()), SLOT(onFindNext()));
 	connect(searchPopup_, SIGNAL(findPrev()), SLOT(onFindPrev()));
+	connect(searchPopup_, SIGNAL(replaceNext()), SLOT(onReplaceNext()));
+	connect(searchPopup_, SIGNAL(replacePrev()), SLOT(onReplacePrev()));
+	connect(searchPopup_, SIGNAL(replaceAll()), SLOT(onReplaceAll()));
 	connect(searchPopup_, SIGNAL(closed()), SLOT(onDlgClosed()));
+}
+
+void SearchEngine::setCurDoc(Juff::Document* doc) {
+	if ( doc_ != NULL ) {
+		clearSelection();
+		doc_->clearHighlighting();
+		restorePosition();
+	}
+	
+	doc_ = doc;
+	
+	onSearchRequested();
+	
+//	searchPopup_->hideReplace();
+//	searchPopup_->show();
+	searchPopup_->focusOnFind();
 }
 
 void SearchEngine::find(Juff::Document* doc) {
@@ -46,7 +66,7 @@ void SearchEngine::find(Juff::Document* doc) {
 	
 	searchPopup_->hideReplace();
 	searchPopup_->show();
-	searchPopup_->setFindFocus();
+	searchPopup_->focusOnFind();
 }
 
 void SearchEngine::findNext(Juff::Document* doc) {
@@ -63,20 +83,15 @@ void SearchEngine::findPrev(Juff::Document* doc) {
 	doc_->setFocus();
 }
 
-void SearchEngine::setCurDoc(Juff::Document* doc) {
-	if ( doc_ != NULL ) {
-		clearSelection();
-		doc_->clearHighlighting();
-		restorePosition();
-	}
-	
+void SearchEngine::replace(Juff::Document* doc) {
 	doc_ = doc;
+	storePosition();
+//	mw_->showFindDialog(selectedTextForSearch(doc), false);
+	searchPopup_->setFindText(selectedTextForSearch(doc));
 	
-	onSearchRequested();
-	
-//	searchPopup_->hideReplace();
-//	searchPopup_->show();
-	searchPopup_->setFindFocus();
+	searchPopup_->showReplace();
+	searchPopup_->show();
+	searchPopup_->focusOnFind();
 }
 
 void SearchEngine::storePosition() {
@@ -91,6 +106,8 @@ void SearchEngine::restorePosition() {
 	doc_->setCursorPos(row_, col_);
 }
 
+
+
 void SearchEngine::onSearchRequested() {
 	clearSelection();
 	doc_->clearHighlighting();
@@ -99,7 +116,7 @@ void SearchEngine::onSearchRequested() {
 	if ( findWhat.isEmpty() ) {
 		
 		searchPopup_->highlightRed(false);
-		searchPopup_->setFindFocus();
+		searchPopup_->focusOnFind();
 		return;
 	}
 	
@@ -107,7 +124,7 @@ void SearchEngine::onSearchRequested() {
 		if ( !findBeforeCursor() ) {
 //			mw_->message(QIcon(), tr("Search"), tr("Text '%1' was not found").arg(findWhat));
 			searchPopup_->highlightRed(true);
-			searchPopup_->setFindFocus();
+			searchPopup_->focusOnFind();
 		}
 		else {
 			searchPopup_->highlightRed(false);
@@ -123,15 +140,9 @@ void SearchEngine::onFindNext() {
 	
 	int line1, col1, line2, col2;
 	doc_->getSelection(line1, col1, line2, col2);
-//	if ( !params_.backwards ) {
-		doc_->setCursorPos(line2, col2);
-		if ( !findAfterCursor() ) {
-			if ( !findBeforeCursor() ) {
-//				mw_->message(QIcon(), tr("Search"), tr("Text '%1' was not found").arg(params.findWhat));
-				searchPopup_->setFindFocus();
-			}
-		}
-//	}
+	doc_->setCursorPos(line2, col2);
+	if ( findNext() )
+		searchPopup_->focusOnFind();
 }
 
 void SearchEngine::onFindPrev() {
@@ -139,20 +150,65 @@ void SearchEngine::onFindPrev() {
 	
 	int line1, col1, line2, col2;
 	doc_->getSelection(line1, col1, line2, col2);
-//	if ( !params_.backwards ) {
-		doc_->setCursorPos(line1, col1);
-		if ( !findBeforeCursor() ) {
-			if ( !findAfterCursor() ) {
-//				mw_->message(QIcon(), tr("Search"), tr("Text '%1' was not found").arg(params.findWhat));
-				searchPopup_->setFindFocus();
-			}
-		}
-//	}
+	doc_->setCursorPos(line1, col1);
+	if ( findPrev() )
+		searchPopup_->focusOnFind();
+}
+
+void SearchEngine::onReplaceNext() {
+	LOGGER;
+	
+	if ( doc_ == NULL || doc_->isNull() ) return;
+	const Juff::SearchParams& params = searchPopup_->searchParams();
+	
+	if ( doc_->hasSelectedText() ) {
+		doc_->replaceSelectedText(params.replaceWith, true);
+		findNext();
+		searchPopup_->focusOnReplace();
+	}
+}
+
+void SearchEngine::onReplacePrev() {
+	LOGGER;
+	
+	if ( doc_ == NULL || doc_->isNull() ) return;
+	const Juff::SearchParams& params = searchPopup_->searchParams();
+	
+	if ( doc_->hasSelectedText() ) {
+		doc_->replaceSelectedText(params.replaceWith, false);
+		findPrev();
+		searchPopup_->focusOnReplace();
+	}
+}
+
+void SearchEngine::onReplaceAll() {
+	LOGGER;
+	
+	if ( doc_ == NULL || doc_->isNull() ) return;
+	const Juff::SearchParams& params = searchPopup_->searchParams();
+	
+	storePosition();
+	doc_->setCursorPos(0, 0);
+	int replacesMade = 0;
+	while ( findAfterCursor() ) {
+		doc_->replaceSelectedText(params.replaceWith, true);
+		++replacesMade;
+//		onFindNext();
+	}
+	searchPopup_->focusOnReplace();
+	
+	restorePosition();
+	
+	mw_->message(QIcon(), tr("Replace"), tr("Replacement finished (%1 replacements were made)").arg(replacesMade), 5);
+	// TODO : display notification here
 }
 
 void SearchEngine::onDlgClosed() {
 	doc_->clearHighlighting();
 }
+
+
+
 
 
 void SearchEngine::clearSelection() {
@@ -166,6 +222,24 @@ void SearchEngine::clearSelection() {
 	else {
 		doc_->setCursorPos(line2, col2);
 	}
+}
+
+bool SearchEngine::findNext() {
+	if ( !findAfterCursor() ) {
+		if ( !findBeforeCursor() ) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool SearchEngine::findPrev() {
+	if ( !findBeforeCursor() ) {
+		if ( !findAfterCursor() ) {
+			return false;
+		}
+	}
+	return true;
 }
 
 bool SearchEngine::findAfterCursor() {
@@ -205,7 +279,7 @@ bool SearchEngine::findAfterCursor() {
 			if ( index >= 0 ) {
 				doc_->highlightOccurence(params);
 				doc_->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
-				searchPopup_->setFindFocus();
+				searchPopup_->focusOnFind();
 				return true;
 			}
 
@@ -233,7 +307,7 @@ bool SearchEngine::findAfterCursor() {
 			if ( index >= 0 ) {
 				doc_->highlightOccurence(params);
 				doc_->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
-				searchPopup_->setFindFocus();
+				searchPopup_->focusOnFind();
 				return true;
 			}
 
@@ -282,7 +356,7 @@ bool SearchEngine::findBeforeCursor() {
 			if ( index >= 0 ) {
 				doc_->highlightOccurence(params);
 				doc_->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
-				searchPopup_->setFindFocus();
+				searchPopup_->focusOnFind();
 				return true;
 			}
 			
@@ -308,7 +382,7 @@ bool SearchEngine::findBeforeCursor() {
 			if ( index >= 0 ) {
 				doc_->highlightOccurence(params);
 				doc_->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
-				searchPopup_->setFindFocus();
+				searchPopup_->focusOnFind();
 				return true;
 			}
 			

@@ -210,6 +210,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>findCmb</tabstop>
+  <tabstop>findPrevBtn</tabstop>
+  <tabstop>findNextBtn</tabstop>
+  <tabstop>replaceCmb</tabstop>
+  <tabstop>replacePrevBtn</tabstop>
+  <tabstop>replaceNextBtn</tabstop>
+  <tabstop>replaceAllBtn</tabstop>
+  <tabstop>caseSensitiveChk</tabstop>
+  <tabstop>wholeWordsChk</tabstop>
+  <tabstop>closeBtn</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

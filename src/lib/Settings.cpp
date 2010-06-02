@@ -179,6 +179,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "wordHLColor" )            return QColor(190, 200, 240);
 		if ( key == "searchHLColor" )          return QColor(255, 128, 0);
 		if ( key == "curLineColor" )           return QColor(240, 240, 255);
+		if ( key == "markersColor" )           return QColor(170, 170, 250);
 		if ( key == "showIndents" )            return true;
 		if ( key == "highlightCurLine" )       return true;
 		if ( key == "highlightMatchingBrace" ) return true;

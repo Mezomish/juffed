@@ -47,7 +47,7 @@ public:
 	virtual void setModified(bool);
 	virtual void setSelection(int, int, int, int);
 	virtual void removeSelectedText();
-	virtual void replaceSelectedText(const QString&);
+	virtual void replaceSelectedText(const QString&, bool cursorToTheEnd = true);
 	virtual void insertText(const QString&);
 	virtual void setCursorPos(int, int);
 	virtual void setSyntax(const QString& lexName);
@@ -107,6 +107,11 @@ public:
 	void setScrollPos(int);
 	SciDoc::Eol eol() const;
 	void setEol(SciDoc::Eol);
+	
+	void addMarker(int);
+	void removeMarker(int);
+	void removeAllMarkers();
+	QList<int> markers() const;
 	
 public slots:
 	void highlightWord();

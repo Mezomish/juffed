@@ -32,6 +32,7 @@ public:
 		WordHLColor,
 		SearchHLColor,
 		CurLineColor,
+		MarkersColor,
 	};
 	enum BoolKey {
 		ShowIndents,

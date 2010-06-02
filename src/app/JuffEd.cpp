@@ -274,6 +274,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	docManager_->initMenuActions(Juff::MenuEdit, editMenu);
 	docManager_->initMenuActions(Juff::MenuView, viewMenu);
 	docManager_->initMenuActions(Juff::MenuFormat, formatMenu);
+	docManager_->initMenuActions(Juff::MenuSearch, searchMenu);
 	
 	
 	// statusbar
@@ -609,7 +610,7 @@ void JuffEd::slotFindPrev() {
 void JuffEd::slotReplace() {
 	LOGGER;
 	
-//	search_->replace(curDoc());
+	search_->replace(curDoc());
 }
 
 void JuffEd::slotGotoLine() {

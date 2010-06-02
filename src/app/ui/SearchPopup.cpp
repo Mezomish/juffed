@@ -16,6 +16,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include "Log.h"
 #include "SearchPopup.h"
 
 #include <QLineEdit>
@@ -40,11 +41,16 @@ SearchPopup::SearchPopup() : QWidget() {
 	connect(ui.closeBtn, SIGNAL(clicked()), SLOT(dismiss()));
 	
 	QLineEdit* findEdit = ui.findCmb->lineEdit();
-	connect(findEdit, SIGNAL(textChanged(const QString&)), SLOT(onTextChanged(const QString&)));
+	QLineEdit* replaceEdit = ui.replaceCmb->lineEdit();
+	connect(findEdit, SIGNAL(textChanged(const QString&)), SLOT(onFindTextChanged(const QString&)));
 	connect(findEdit, SIGNAL(returnPressed()), SLOT(slotFindNext()));
+	connect(replaceEdit, SIGNAL(returnPressed()), SLOT(slotReplaceNext()));
 	
 	connect(ui.findNextBtn, SIGNAL(clicked()), SLOT(slotFindNext()));
 	connect(ui.findPrevBtn, SIGNAL(clicked()), SLOT(slotFindPrev()));
+	connect(ui.replaceNextBtn, SIGNAL(clicked()), SLOT(slotReplaceNext()));
+	connect(ui.replacePrevBtn, SIGNAL(clicked()), SLOT(slotReplacePrev()));
+	connect(ui.replaceAllBtn, SIGNAL(clicked()), SLOT(slotReplaceAll()));
 	connect(ui.caseSensitiveChk, SIGNAL(toggled(bool)), SLOT(onCaseSensitiveChecked(bool)));
 	connect(ui.wholeWordsChk, SIGNAL(toggled(bool)), SLOT(onWholeWordsChecked(bool)));
 }
@@ -53,10 +59,16 @@ void SearchPopup::setFindText(const QString& text) {
 	ui.findCmb->lineEdit()->setText(text);
 }
 
-void SearchPopup::setFindFocus(bool selectAll) {
+void SearchPopup::focusOnFind(bool selectAll) {
 	ui.findCmb->lineEdit()->setFocus();
 	if ( selectAll )
 		ui.findCmb->lineEdit()->selectAll();
+}
+
+void SearchPopup::focusOnReplace(bool selectAll) {
+	ui.replaceCmb->lineEdit()->setFocus();
+	if ( selectAll )
+		ui.replaceCmb->lineEdit()->selectAll();
 }
 
 Juff::SearchParams SearchPopup::searchParams() const {
@@ -93,8 +105,9 @@ void SearchPopup::highlightRed(bool highlight) {
 	ui.findCmb->lineEdit()->setPalette(plt);
 }
 
+////////////////////////////////////////////////////////////
 
-void SearchPopup::onTextChanged(const QString& text) {
+void SearchPopup::onFindTextChanged(const QString& text) {
 	params_.findWhat = text;
 	params_.backwards = false;
 	emit searchRequested();
@@ -120,4 +133,27 @@ void SearchPopup::slotFindPrev() {
 	emit findPrev();
 }
 
+void SearchPopup::slotReplaceNext() {
+	LOGGER;
+	params_.backwards = false;
+	params_.replace = true;
+	params_.replaceWith = ui.replaceCmb->lineEdit()->text();
+	emit replaceNext();
+}
+
+void SearchPopup::slotReplacePrev() {
+	LOGGER;
+	params_.backwards = true;
+	params_.replace = true;
+	params_.replaceWith = ui.replaceCmb->lineEdit()->text();
+	emit replacePrev();
+}
+
+void SearchPopup::slotReplaceAll() {
+	LOGGER;
+//	params_.backwards = true;
+	params_.replace = true;
+	params_.replaceWith = ui.replaceCmb->lineEdit()->text();
+	emit replaceAll();
+}
 

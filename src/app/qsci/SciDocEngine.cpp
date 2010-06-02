@@ -182,6 +182,14 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 			addAction(id, menu, eolMenu_->menuAction());
 			break;
 		
+		case Juff::MenuSearch :
+			menu->addSeparator();
+			addAction(id, menu, createAction(tr("Add/Remove marker"), QKeySequence("Ctrl+B"), SLOT(slotMarkerAddRemove())));
+			addAction(id, menu, createAction(tr("Next marker"), QKeySequence("Ctrl+Alt+PgDown"), SLOT(slotMarkerNext())));
+			addAction(id, menu, createAction(tr("Previous marker"), QKeySequence("Ctrl+Alt+PgUp"), SLOT(slotMarkerPrev())));
+			addAction(id, menu, createAction(tr("Remove all markers"), QKeySequence(""), SLOT(slotMarkerRemoveAll())));
+			break;
+		
 		default:;
 	}
 }
@@ -312,6 +320,84 @@ void SciDocEngine::slotFoldUnfoldAll() {
 		doc->foldUnfoldAll();
 	}
 }
+
+void SciDocEngine::slotMarkerAddRemove() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		int line, col;
+		doc->getCursorPos(line, col);
+		QList<int> markers = doc->markers();
+		if ( markers.contains(line) )
+			doc->removeMarker(line);
+		else
+			doc->addMarker(line);
+	}
+}
+
+void SciDocEngine::slotMarkerRemoveAll() {
+	LOGGER;
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->removeAllMarkers();
+	}
+}
+
+void SciDocEngine::slotMarkerNext() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		int line, col;
+		doc->getCursorPos(line, col);
+		QList<int> markers = doc->markers();
+		if ( markers.count() == 0 )
+			return;
+		bool found = false;
+		foreach (int marker, markers) {
+			if ( marker > line ) {
+				doc->setCursorPos(marker, 0);
+				return;
+			}
+		}
+		
+		// If we're here then no markers were found 
+		// after the current line - need to go to the 
+		// very 1st marker
+		doc->setCursorPos(markers[0], 0);
+	}
+}
+
+void SciDocEngine::slotMarkerPrev() {
+	LOGGER;
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		int line, col;
+		doc->getCursorPos(line, col);
+		QList<int> markers = doc->markers();
+		if ( markers.count() == 0 )
+			return;
+		
+		int prevMarker = markers[markers.count() - 1];
+		foreach (int marker, markers) {
+			if ( marker < line ) {
+				prevMarker = marker;
+			}
+			else {
+				doc->setCursorPos(prevMarker, 0);
+				return;
+			}
+		}
+		
+		// If we're here then all markers are before 
+		// the current line - need to go to the 
+		// last marker
+		doc->setCursorPos(markers[markers.count() - 1], 0);
+	}
+}
+
+
 
 
 void SciDocEngine::slotSyntaxChanged() {

@@ -40,6 +40,7 @@ public:
 	void find(Juff::Document*);
 	void findNext(Juff::Document*);
 	void findPrev(Juff::Document*);
+	void replace(Juff::Document*);
 	
 	void storePosition();
 	void restorePosition();
@@ -48,11 +49,37 @@ protected slots:
 	void onSearchRequested();
 	void onFindNext();
 	void onFindPrev();
+	void onReplaceNext();
+	void onReplacePrev();
+	void onReplaceAll();
 	void onDlgClosed();
 
 private:
 	void clearSelection();
+
+	/**
+	* Performs a search FORWARD for an occurence specified by SearchParams
+	* that can be obtained from SearchPopup.
+	* Returns true if found something, otherwise returns false.
+	*/
+	bool findNext();
+	/**
+	* Performs a search BACKWARD for an occurence specified by SearchParams
+	* that can be obtained from SearchPopup.
+	* Returns true if found something, otherwise returns false.
+	*/
+	bool findPrev();
+
+	/**
+	* Tries to find an occurence AFTER the current cursor position.
+	* Returns true if found something, otherwise returns false.
+	*/
 	bool findAfterCursor();
+
+	/**
+	* Tries to find an occurence BEFORE the current cursor position.
+	* Returns true if found something, otherwise returns false.
+	*/
 	bool findBeforeCursor();
 
 	JuffMW* mw_;

@@ -30,12 +30,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "QSciSettings.h"
 
 #include <QFile>
-#include <QTextCodec>
-#include <QTextStream>
-#include <QVBoxLayout>
+#include <QPainter>
+#include <QPixmap>
 #include <QPrintDialog>
 #include <QScrollBar>
 #include <QSplitter>
+#include <QTextCodec>
+#include <QTextStream>
+#include <QVBoxLayout>
 
 #include <Qsci/qsciprinter.h>
 #include <Qsci/qscilexer.h>
@@ -75,6 +77,30 @@ SciDoc::Eol guessEol(const QString& fileName) {
 	return eol;
 }
 
+QPixmap markerPixmap(const QColor& color, const QColor& bgColor) {
+	QPixmap px(16, 16);
+	px.fill(bgColor);
+	
+	QPainter p(&px);
+	int red   = color.red();
+	int green = color.green();
+	int blue  = color.blue();
+	
+	QColor light(red + (255 - red) / 2, green + (255 - green) / 2, blue + (255 - blue) / 2);
+	QColor dark(red / 2, green / 2, blue / 2);
+	
+	QRadialGradient gr(0.4, 0.4, 0.5, 0.4, 0.4);
+	gr.setCoordinateMode(QGradient::ObjectBoundingMode);
+	gr.setColorAt(0, light);
+	gr.setColorAt(1, dark);
+	p.setPen(dark);
+	p.setBrush(gr);
+	p.drawEllipse(0, 0, 15, 15);
+
+	p.end();
+	return px;
+}
+
 class SciDoc::Interior {
 public:
 	Interior(QWidget* w) {
@@ -106,19 +132,27 @@ public:
 		edit->setAutoIndent(true);
 		edit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 		
+		// margins
+		QColor marginsBgColor(220, 220, 220);
+		edit->setMarginLineNumbers(0, false);
 		edit->setMarginLineNumbers(1, true);
-//		edit->setMarginSensitivity(1, true);
+		edit->setMarginSensitivity(0, true);
+		edit->setMarginWidth(0, 20);
 		edit->setMarginWidth(2, 12);
-		//	set the 1st margin accept markers 
-		//	number 1 and 2 (binary mask 00000110 == 6)
-		edit->setMarginMarkerMask(1, 6);
-		edit->markerDefine(QsciScintilla::RightTriangle, 1);
-		edit->markerDefine(QsciScintilla::Background, 2);
-		edit->setMarkerForegroundColor(QColor(100, 100, 100));
-//		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
-//		edit->setMarginsBackgroundColor(QColor(50, 50, 50));
+		edit->setMarginsBackgroundColor(marginsBgColor);
 //		edit->setMarginsForegroundColor(QColor(150, 150, 150));
 //		edit->setFoldMarginColors(QColor(150, 150, 150), QColor(50, 50, 50));
+		
+		// markers
+		QColor mColor = QSciSettings::get(QSciSettings::MarkersColor);
+		edit->markerDefine(markerPixmap(mColor, marginsBgColor), 1);
+		edit->markerDefine(QsciScintilla::Background, 2);
+		//	Set the 0th margin accept markers numbered 1 and 2
+		//	Binary mask for markers 1 and 2 is 00000110 ( == 6 )
+		edit->setMarginMarkerMask(0, 6);
+		edit->setMarginMarkerMask(1, 0);
+		edit->setMarkerBackgroundColor(mColor);
+//		edit->setMarkerForegroundColor(QColor(100, 100, 100));
 
 		return edit;
 	}
@@ -136,6 +170,7 @@ public:
 	QString syntax_;
 	QSplitter* spl_;
 	QTimer* hlTimer_;
+	QList<int> markers_;
 };
 
 SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
@@ -366,12 +401,29 @@ void SciDoc::removeSelectedText() {
 	int_->curEdit_->removeSelectedText();
 }
 
-void SciDoc::replaceSelectedText(const QString& text) {
+void SciDoc::replaceSelectedText(const QString& text, bool cursorToTheEnd) {
 	if ( int_->curEdit_ == NULL ) return;
+	
+	int line1, col1, line2, col2;
+	int_->curEdit_->getSelection(&line1, &col1, &line2, &col2);
 	
 	int_->curEdit_->beginUndoAction();
 	removeSelectedText();
 	insertText(text);
+	if ( cursorToTheEnd ) {
+		int lineEndsCount = text.count(QRegExp("\r\n|\r|\n"));
+		if ( lineEndsCount == 0 ) {
+			int_->curEdit_->setCursorPosition(line1, col1 + text.length());
+		}
+		else {
+			QStringList insertedLines = text.split(QRegExp("\r\n|\r|\n"));
+			QString lastLine = insertedLines[insertedLines.count() - 1];
+			int_->curEdit_->setCursorPosition(line1 + lineEndsCount, lastLine.length());
+		}
+	}
+	else {
+		int_->curEdit_->setCursorPosition(line1, col1);
+	}
 	int_->curEdit_->endUndoAction();
 }
 
@@ -965,6 +1017,31 @@ void SciDoc::setEol(SciDoc::Eol eol) {
 	}
 }
 
+void SciDoc::addMarker(int line) {
+	int_->edit1_->markerAdd(line, 1);
+	int_->edit2_->markerAdd(line, 1);
+	int_->edit1_->markerAdd(line, 2);
+	int_->edit2_->markerAdd(line, 2);
+	int_->markers_ << line;
+	qSort(int_->markers_.begin(), int_->markers_.end());
+}
+
+void SciDoc::removeMarker(int line) {
+	int_->edit1_->markerDelete(line);
+	int_->edit2_->markerDelete(line);
+	int_->markers_.removeAll(line);
+}
+
+void SciDoc::removeAllMarkers() {
+	int_->edit1_->markerDeleteAll();
+	int_->edit2_->markerDeleteAll();
+	int_->markers_.clear();
+}
+
+QList<int> SciDoc::markers() const {
+	return int_->markers_;
+}
+
 
 
 void SciDoc::applySettings() {
@@ -1068,7 +1145,13 @@ void SciDoc::onCursorMoved(int line, int col) {
 	emit cursorPosChanged(line, col);
 }
 
-void SciDoc::onMarginClicked(int, int, Qt::KeyboardModifiers) {
+void SciDoc::onMarginClicked(int, int line, Qt::KeyboardModifiers) {
+	if ( int_->markers_.contains(line) ) {
+		removeMarker(line);
+	}
+	else {
+		addMarker(line);
+	}
 }
 
 void SciDoc::onLineCountChanged() {

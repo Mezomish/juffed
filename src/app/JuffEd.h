@@ -93,7 +93,7 @@ public slots:
 	void slotReplace();
 	void slotGotoLine();
 	void slotJumpToFile();
-	
+
 	void slotWrapWords();
 	void slotShowLineNumbers();
 	void slotShowWhitespaces();

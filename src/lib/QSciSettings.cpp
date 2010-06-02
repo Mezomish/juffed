@@ -73,6 +73,11 @@ QColor QSciSettings::get(ColorKey key) {
 			QColor c = Settings::instance()->value("QSci", "curLineColor").value<QColor>();
 			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "curLineColor").value<QColor>();
 		}
+		case MarkersColor :
+		{
+			QColor c = Settings::instance()->value("QSci", "markersColor").value<QColor>();
+			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "markersColor").value<QColor>();
+		}
 	}
 	return QColor();
 }
@@ -127,6 +132,10 @@ void QSciSettings::set(ColorKey key, const QColor& c) {
 		
 		case CurLineColor :
 			Settings::instance()->setValue("QSci", "curLineColor", c);
+			break;
+		
+		case MarkersColor :
+			Settings::instance()->setValue("QSci", "markersColor", c);
 			break;
 	}
 }

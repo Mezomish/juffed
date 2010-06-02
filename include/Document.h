@@ -164,7 +164,7 @@ public:
 	* Replaces the currently selected text with \param text. If there was
 	* no selectin text then inserts \param text at the current cursor position.
 	*/
-	virtual void replaceSelectedText(const QString& text) {}
+	virtual void replaceSelectedText(const QString& text, bool cursorToTheEnd = true) {}
 	
 	/**
 	* Inserts the \param text at the current cursor position.

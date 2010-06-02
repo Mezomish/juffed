@@ -30,7 +30,8 @@ public:
 	SearchPopup();
 
 	void setFindText(const QString&);
-	void setFindFocus(bool selectAll = false);
+	void focusOnFind(bool selectAll = false);
+	void focusOnReplace(bool selectAll = false);
 	Juff::SearchParams searchParams() const;
 	void highlightRed(bool highlight = true);
 
@@ -44,16 +45,19 @@ signals:
 	void findNext();
 	void findPrev();
 	void closed();
-//	void replaceNext();
-//	void replacePrev();
-//	void replaceAll();
+	void replaceNext();
+	void replacePrev();
+	void replaceAll();
 
 private slots:
-	void onTextChanged(const QString&);
+	void onFindTextChanged(const QString&);
 	void onCaseSensitiveChecked(bool);
 	void onWholeWordsChecked(bool);
 	void slotFindNext();
 	void slotFindPrev();
+	void slotReplaceNext();
+	void slotReplacePrev();
+	void slotReplaceAll();
 
 private:
 	Ui::SearchPopup ui;

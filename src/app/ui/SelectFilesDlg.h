@@ -28,8 +28,9 @@ public:
 
 	QStringList checkedFiles() const;
 
-	virtual void accept();
-	virtual void reject();
+public slots:
+	void slotSave();
+	void slotDontSave();
 
 private slots:
 	void onAllClicked();

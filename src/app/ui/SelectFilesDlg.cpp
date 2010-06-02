@@ -31,6 +31,10 @@ SelectFilesDlg::SelectFilesDlg(const QStringList& files, QWidget* parent) : QDia
 	connect(ui_.fileList, SIGNAL(itemChanged(QListWidgetItem*)),
 	        SLOT(onItemChanged(QListWidgetItem*)));
 	
+	connect(ui_.saveBtn, SIGNAL(clicked()), SLOT(slotSave()));
+	connect(ui_.dontSaveBtn, SIGNAL(clicked()), SLOT(slotDontSave()));
+	connect(ui_.dontCloseBtn, SIGNAL(clicked()), SLOT(reject()));
+	
 	foreach (QString fileName, files) {
 		QListWidgetItem* item = new QListWidgetItem(fileName);
 		item->setToolTip(fileName);
@@ -55,12 +59,14 @@ QStringList SelectFilesDlg::checkedFiles() const {
 	return list;
 }
 
-void SelectFilesDlg::accept() {
-	QDialog::accept();
+void SelectFilesDlg::slotSave() {
+	accept();
 }
 
-void SelectFilesDlg::reject() {
-	QDialog::reject();
+void SelectFilesDlg::slotDontSave() {
+	ui_.selectAllChk->setCheckState(Qt::Unchecked);
+	onAllClicked();
+	accept();
 }
 
 void SelectFilesDlg::onAllClicked() {
@@ -76,21 +82,18 @@ void SelectFilesDlg::onAllClicked() {
 void SelectFilesDlg::onItemChanged(QListWidgetItem* item) {
 	LOGGER;
 	
-	if ( item->checkState() == Qt::Unchecked ) {
-		ui_.selectAllChk->setChecked(false);
+	QStringList files = checkedFiles();
+	
+	if ( files.count() == ui_.fileList->count() ) {
+		ui_.selectAllChk->setChecked(true);
+		ui_.saveBtn->setText(tr("Save all"));
 	}
 	else {
-		int count = ui_.fileList->count();
-		bool allChecked = true;
-		for (int i = 0; i < count; ++i) {
-			QListWidgetItem* item = ui_.fileList->item(i);
-			if ( item->checkState() == Qt::Unchecked ) {
-				allChecked = false;
-				break;
-			}
-		}
-		if ( allChecked ) {
-			ui_.selectAllChk->setChecked(true);
-		}
+		ui_.selectAllChk->setChecked(false);
+		ui_.saveBtn->setText(tr("Save selected"));
+		if ( files.count() == 0 )
+			ui_.saveBtn->setEnabled(false);
+		else
+			ui_.saveBtn->setEnabled(true);
 	}
 }

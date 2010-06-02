@@ -1,204 +1,211 @@
-#include <QDebug>
-#include <QMessageBox>
+/*
+JuffEd - An advanced text editor
+Copyright 2007-2010 Mikhail Murzin
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License 
+version 2 as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
 
 #include "SearchEngine.h"
 
-#include "DocHandlerInt.h"
 #include "Document.h"
 #include "JuffMW.h"
-#include "Log.h"
+#include "SearchPopup.h"
 
-enum Answer { Yes, No, All, Cancel };
-void stepOver(Juff::Document* doc, bool forward);
-Answer confirm(QWidget* w);
-bool doReplace(Juff::Document*, const Juff::SearchParams&, bool&, int&);
-QString selectedTextForSearch(Juff::Document*);
+int findInString(const QString& line, const Juff::SearchParams& params, int& length);
+QString selectedTextForSearch(Juff::Document* doc);
+
 
 SearchEngine::SearchEngine(Juff::DocHandlerInt* handler, JuffMW* mw) : QObject() {
-	handler_ = handler;
 	mw_ = mw;
-
-	connect(mw_, SIGNAL(searchRequested(const Juff::SearchParams&)), SLOT(onSearchRequested(const Juff::SearchParams&)));
-}
-
-void SearchEngine::keepVariables(Juff::Document* doc) {
-	if ( doc->fileName() != fileName_ ) {
-		steppedOver_ = false;
-		doc->getCursorPos(startLine_, startCol_);
-		fileName_ = doc->fileName();
-	}
-}
-
-void SearchEngine::clearSelection(Juff::Document* doc) {
-	if ( doc->hasSelectedText() ) {
-		int line1, col1, line2, col2;
-		doc->getSelection(line1, col1, line2, col2);
-		if ( params_.backwards )
-			doc->setCursorPos(line1, col1);
-		else
-			doc->setCursorPos(line2, col2);
-	}
+	handler_ = handler;
+	searchPopup_ = mw_->searchPopup();
+	doc_ = NULL;
+	
+	connect(searchPopup_, SIGNAL(searchRequested()), SLOT(onSearchRequested()));
+	connect(searchPopup_, SIGNAL(findNext()), SLOT(onFindNext()));
+	connect(searchPopup_, SIGNAL(findPrev()), SLOT(onFindPrev()));
+	connect(searchPopup_, SIGNAL(closed()), SLOT(onDlgClosed()));
 }
 
 void SearchEngine::find(Juff::Document* doc) {
-	keepVariables(doc);
-
-	mw_->showFindDialog(selectedTextForSearch(doc), false);
-}
-
-bool SearchEngine::findNext(Juff::Document* doc) {
-	// in case the document is different
-	keepVariables(doc);
-	params_.backwards = false;
-
-	if ( !startFind(doc) ) {
-		stepOver(doc, true);
-		if ( !startFind(doc) ) {
-			return false;
-		}
-	}
-	return true;
-}
-
-bool SearchEngine::findPrev(Juff::Document* doc) {
-	// in case the document is different
-	keepVariables(doc);
-	params_.backwards = true;
-
-	if ( !startFind(doc) ) {
-		stepOver(doc, false);
-		if ( !startFind(doc) ) {
-			return false;
-		}
-	}
-	return true;
-}
-
-void SearchEngine::replace(Juff::Document* doc) {
-	keepVariables(doc);
-
-	mw_->showFindDialog(selectedTextForSearch(doc), true);
-}
-
-
-
-void SearchEngine::onSearchRequested(const Juff::SearchParams& params) {
-	LOGGER;
-
-	Juff::Document* doc = handler_->curDoc();
-	if ( doc->isNull() ) return;
-
-	params_ = params;
+	doc_ = doc;
+	storePosition();
+//	mw_->showFindDialog(selectedTextForSearch(doc), false);
+	searchPopup_->setFindText(selectedTextForSearch(doc));
 	
-	if ( params.replace ) {
-		replace(doc, params);
+	searchPopup_->hideReplace();
+	searchPopup_->show();
+	searchPopup_->setFindFocus();
+}
+
+void SearchEngine::findNext(Juff::Document* doc) {
+	doc_ = doc;
+	onFindNext();
+	doc_->clearHighlighting();
+	doc_->setFocus();
+}
+
+void SearchEngine::findPrev(Juff::Document* doc) {
+	doc_ = doc;
+	onFindPrev();
+	doc_->clearHighlighting();
+	doc_->setFocus();
+}
+
+void SearchEngine::setCurDoc(Juff::Document* doc) {
+	if ( doc_ != NULL ) {
+		clearSelection();
+		doc_->clearHighlighting();
+		restorePosition();
+	}
+	
+	doc_ = doc;
+	
+	onSearchRequested();
+	
+//	searchPopup_->hideReplace();
+//	searchPopup_->show();
+	searchPopup_->setFindFocus();
+}
+
+void SearchEngine::storePosition() {
+	if ( doc_ == NULL ) return;
+		
+	doc_->getCursorPos(row_, col_);
+}
+
+void SearchEngine::restorePosition() {
+	if ( doc_ == NULL ) return;
+		
+	doc_->setCursorPos(row_, col_);
+}
+
+void SearchEngine::onSearchRequested() {
+	clearSelection();
+	doc_->clearHighlighting();
+	
+	QString findWhat = searchPopup_->searchParams().findWhat;
+	if ( findWhat.isEmpty() ) {
+		
+		searchPopup_->highlightRed(false);
+		searchPopup_->setFindFocus();
 		return;
 	}
 	
-	bool found;
-	if ( params.backwards )
-		found = findPrev(doc);
-	else
-		found = findNext(doc);
-	
-	if ( !found )
-		mw_->message(QIcon(), tr("Search"), tr("Text '%1' was not found").arg(params_.findWhat));
-}
-
-int SearchEngine::findAt(const QString& line, bool forward, int& length) {
-	QString str = params_.findWhat;
-	QRegExp regExp;
-	if ( params_.wholeWords ) {
-		regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
-	}
-	else
-		regExp = QRegExp(str);
-	regExp.setCaseSensitivity(params_.caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
-
-	int index = -1;
-	if ( params_.regExp || params_.wholeWords ) {
-		index = ( forward ? line.indexOf(regExp) : line.lastIndexOf(regExp) );
-		length = regExp.matchedLength();
-		return index;
-	}
-	else {
-		if ( !params_.caseSensitive ) {
-			index = ( forward ? line.toLower().indexOf(str.toLower()) : line.toLower().lastIndexOf(str.toLower()) );
+	if ( !findAfterCursor() ) {
+		if ( !findBeforeCursor() ) {
+//			mw_->message(QIcon(), tr("Search"), tr("Text '%1' was not found").arg(findWhat));
+			searchPopup_->highlightRed(true);
+			searchPopup_->setFindFocus();
 		}
 		else {
-			index = ( forward ? line.indexOf(str) : line.lastIndexOf(str) );
-		}
-		length = str.length();
-		return index;
-	}
-}
-
-bool SearchEngine::startFind(Juff::Document* doc) {
-	if ( doc->isNull() ) return false;
-
-	QString text;
-	doc->getText(text);
-	clearSelection(doc);
-
-//	if ( params.multiLine )
-//		return findML(s, flags);
-
-	QString str = params_.findWhat;
-	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
-	int initialRow = -1, initialCol = -1;
-	doc->getCursorPos(initialRow, initialCol);
-//	int lineIndex = 0;
-	if (initialRow < 0 || initialCol < 0)
-		return false;
-
-	if ( !params_.backwards ) {
-		// forward search
-		QStringList::iterator it = lines.begin();
-
-		// step to the initial line
-		it += initialRow;
-		int lineIndex = initialRow;
-
-		bool firstLine = true;
-		while ( it != lines.end() ) {
-			QString line = (*it);
-			int indent = 0;
-
-			if ( firstLine ) {
-				line = line.right(line.length() - initialCol);
-				indent = initialCol;
-				firstLine = false;
-			}
-
-			int length;
-			int index = findAt(line, true, length);
-
-			if ( index >= 0 ) {
-				doc->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
-				return true;
-			}
-
-			it++;
-			lineIndex++;
+			searchPopup_->highlightRed(false);
 		}
 	}
 	else {
-		QStringList::iterator it = lines.end();
+		searchPopup_->highlightRed(false);
+	}
+}
 
-		// step to the initial row
-		it -= lines.count() - initialRow;
-		int lineIndex = initialRow;
-		while ( lineIndex >= 0 ) {
-			QString line = *it;
+void SearchEngine::onFindNext() {
+	if ( doc_ == NULL || doc_->isNull() ) return;
+	
+	int line1, col1, line2, col2;
+	doc_->getSelection(line1, col1, line2, col2);
+//	if ( !params_.backwards ) {
+		doc_->setCursorPos(line2, col2);
+		if ( !findAfterCursor() ) {
+			if ( !findBeforeCursor() ) {
+//				mw_->message(QIcon(), tr("Search"), tr("Text '%1' was not found").arg(params.findWhat));
+				searchPopup_->setFindFocus();
+			}
+		}
+//	}
+}
+
+void SearchEngine::onFindPrev() {
+	if ( doc_ == NULL || doc_->isNull() ) return;
+	
+	int line1, col1, line2, col2;
+	doc_->getSelection(line1, col1, line2, col2);
+//	if ( !params_.backwards ) {
+		doc_->setCursorPos(line1, col1);
+		if ( !findBeforeCursor() ) {
+			if ( !findAfterCursor() ) {
+//				mw_->message(QIcon(), tr("Search"), tr("Text '%1' was not found").arg(params.findWhat));
+				searchPopup_->setFindFocus();
+			}
+		}
+//	}
+}
+
+void SearchEngine::onDlgClosed() {
+	doc_->clearHighlighting();
+}
+
+
+void SearchEngine::clearSelection() {
+	if ( doc_ == NULL || doc_->isNull() ) return;
+	
+	int line1, col1, line2, col2;
+	doc_->getSelection(line1, col1, line2, col2);
+	if ( !searchPopup_->searchParams().backwards ) {
+		doc_->setCursorPos(line1, col1);
+	}
+	else {
+		doc_->setCursorPos(line2, col2);
+	}
+}
+
+bool SearchEngine::findAfterCursor() {
+	if ( doc_ == NULL || doc_->isNull() ) return false;
+	
+	QString text;
+	doc_->getText(text);
+	if ( text.isEmpty() )
+		return false;
+	
+	const Juff::SearchParams& params = searchPopup_->searchParams();
+	
+	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
+	int initialRow, initialCol;
+	doc_->getCursorPos(initialRow, initialCol);
+	
+	QStringList::iterator it;
+	QString line;
+	int lineIndex;
+	if ( params.backwards ) {
+		it = lines.end();
+		it--;
+		lineIndex = lines.count() - 1;
+		
+		while ( lineIndex >= initialRow ) {
+			line = (*it);
+			int indent = 0;
+
 			if ( lineIndex == initialRow ) {
-				line = line.left(initialCol);
+				line = line.right(line.length() - initialCol);
+				indent = initialCol;
 			}
 
 			int length;
-			int index = findAt(line, false, length);
+			int index = findInString(line, params, length);
 
 			if ( index >= 0 ) {
-				doc->setSelection(lineIndex, index, lineIndex, index + length);
+				doc_->highlightOccurence(params);
+				doc_->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
+				searchPopup_->setFindFocus();
 				return true;
 			}
 
@@ -206,124 +213,121 @@ bool SearchEngine::startFind(Juff::Document* doc) {
 			lineIndex--;
 		}
 	}
+	else {
+		it = lines.begin();
+		it += initialRow;
+		lineIndex = initialRow;
 
+		while ( it != lines.end() ) {
+			line = (*it);
+			int indent = 0;
+
+			if ( lineIndex == initialRow ) {
+				line = line.right(line.length() - initialCol);
+				indent = initialCol;
+			}
+
+			int length;
+			int index = findInString(line, params, length);
+
+			if ( index >= 0 ) {
+				doc_->highlightOccurence(params);
+				doc_->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
+				searchPopup_->setFindFocus();
+				return true;
+			}
+
+			it++;
+			lineIndex++;
+		}
+	}
 	return false;
 }
 
-void SearchEngine::replace(Juff::Document* doc, const Juff::SearchParams& params) {
-	bool cancelled = false;
-	bool replaceAll = false;
-	int count = 0;
+bool SearchEngine::findBeforeCursor() {
+	if ( doc_ == NULL || doc_->isNull() )
+		return false;
+	
+	QString text;
+	doc_->getText(text);
+	if ( text.isEmpty() )
+		return false;
+	
+	const Juff::SearchParams& params = searchPopup_->searchParams();
+	
+	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
+	int initialRow, initialCol;
+	doc_->getCursorPos(initialRow, initialCol);
+	
+	QString line;
+	int lineIndex;
+	QStringList::iterator it;
 	
 	if ( params.backwards ) {
-		while ( !cancelled && findPrev(doc) ) {
-			if ( !doReplace(doc, params, replaceAll, count) ) {
-				cancelled = true;
-			}
-		}
-	}
-	else {
-		while ( !cancelled && findNext(doc) ) {
-			if ( !doReplace(doc, params, replaceAll, count) ) {
-				cancelled = true;
-			}
-		}
-	}
-	if ( count > 0 )
-		mw_->message(QIcon(), tr("Replace"), tr("Replacement finished (%1 replacements were made)").arg(count));
-}
-
-void stepOver(Juff::Document* doc, bool forward) {
-	int row(0), col(0);
-	if ( !forward ) {
-		row = doc->lineCount() - 1;
-		QString textLine;
-		doc->getTextLine(row, textLine);
-		col = textLine.length();
-	}
-	else {
-		row = 0;
-		col = 0;
-	}
-
-	doc->setCursorPos(row, col);
-}
-
-Answer confirm(QWidget* w) {
-	Answer answer = No;
-	QMessageBox::StandardButton btn = QMessageBox::question(w, QObject::tr("Confirmation"), 
-			QObject::tr("Replace this text?"), 
-			QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll | QMessageBox::Cancel, 
-			QMessageBox::Yes);
-
-	switch (btn) {
-		case QMessageBox::Yes:
-			answer = Yes;
-				break;
-		case QMessageBox::No:
-			answer = No;
-			break;
-		case QMessageBox::Cancel:
-			answer = Cancel;
-			break;
-		case QMessageBox::YesToAll:
-			answer = All;
-			break;
-		default: ;
-	}
-
-	return answer;
-}
-
-QString processSelection(Juff::Document* doc, const Juff::SearchParams& params) {
-	QString selectedText;
-	doc->getSelectedText(selectedText);
-	QString targetText = params.replaceWith;
-	if ( params.regExp ) {
-		QRegExp regExp(params.findWhat);
-		regExp.setCaseSensitivity(params.caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
-		if ( regExp.exactMatch(selectedText) ) {
-			QStringList matches = regExp.capturedTexts();
-			int n = matches.size();
-			for ( int i = 0; i < n; ++i ) {
-				targetText.replace(QString("\\%1").arg(i), matches[i]);
-			}
-		}
-		else
-			return "";
-	}
-	return targetText;
-}
-
-bool doReplace(Juff::Document* doc, const Juff::SearchParams& params, bool& replaceAll, int& count) {
-	if ( replaceAll ) {
-		doc->replaceSelectedText(processSelection(doc, params));
-		++count;
-		return true;
-	}
-	else {
-		Answer answer = confirm(doc);
-		switch (answer) {
-			case Cancel:
-				return false;
+		lineIndex = initialRow;
+		it = lines.begin();
+		it += initialRow;
+		
+		while ( lineIndex >= 0 ) {
+			line = (*it);
 			
-			case Yes :
-				doc->replaceSelectedText(processSelection(doc, params));
-				++count;
-				break;
+			if ( lineIndex == initialRow ) {
+				line = line.left(initialCol);
+			}
 			
-			case No :
-				break;
-			;
-			case All :
-				doc->replaceSelectedText(processSelection(doc, params));
-				++count;
-				replaceAll = true;
-				break;
+			int length;
+			int indent = 0;
+			int index = findInString(line, searchPopup_->searchParams(), length);
+
+			if ( index >= 0 ) {
+				doc_->highlightOccurence(params);
+				doc_->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
+				searchPopup_->setFindFocus();
+				return true;
+			}
+			
+			it--;
+			lineIndex--;
 		}
 	}
-	return true;
+	else {
+		lineIndex = 0;
+		it = lines.begin();
+		
+		while ( lineIndex <= initialRow ) {
+			line = (*it);
+			
+			if ( lineIndex == initialRow ) {
+				line = line.left(initialCol);
+			}
+			
+			int length;
+			int indent = 0;
+			int index = findInString(line, searchPopup_->searchParams(), length);
+
+			if ( index >= 0 ) {
+				doc_->highlightOccurence(params);
+				doc_->setSelection(lineIndex, index + indent, lineIndex, index + indent + length);
+				searchPopup_->setFindFocus();
+				return true;
+			}
+			
+			it++;
+			lineIndex++;
+		}
+	}	
+	
+	return false;
 }
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////
+// Local helpers
 
 QString selectedTextForSearch(Juff::Document* doc) {
 	QString text;
@@ -334,4 +338,33 @@ QString selectedTextForSearch(Juff::Document* doc) {
 			doc->getSelectedText(text);
 	}
 	return text;
+}
+
+int findInString(const QString& line, const Juff::SearchParams& params, int& length) {
+	QString str = params.findWhat;
+	bool forward = !params.backwards;
+	QRegExp regExp;
+	if ( params.wholeWords ) {
+		regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
+	}
+	else
+		regExp = QRegExp(str);
+	regExp.setCaseSensitivity(params.caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
+
+	int index = -1;
+	if ( params.regExp || params.wholeWords ) {
+		index = ( forward ? line.indexOf(regExp) : line.lastIndexOf(regExp) );
+		length = regExp.matchedLength();
+		return index;
+	}
+	else {
+		if ( !params.caseSensitive ) {
+			index = ( forward ? line.toLower().indexOf(str.toLower()) : line.toLower().lastIndexOf(str.toLower()) );
+		}
+		else {
+			index = ( forward ? line.indexOf(str) : line.lastIndexOf(str) );
+		}
+		length = str.length();
+		return index;
+	}
 }

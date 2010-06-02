@@ -58,6 +58,7 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 		connect(tw, SIGNAL(requestDocMove(Juff::Document*, Juff::TabWidget*)), SLOT(onDocMoveRequested(Juff::Document*, Juff::TabWidget*)));
 		connect(tw, SIGNAL(tabRemoved(Juff::TabWidget*)), SLOT(onTabRemoved(Juff::TabWidget*)));
 		connect(tw, SIGNAL(docStackCalled(bool)), SLOT(onDocStackCalled(bool)));
+		connect(tw, SIGNAL(currentChanged(int)), SLOT(onCurrentChanged(int)));
 	}
 	
 	// next/prev doc
@@ -268,6 +269,15 @@ void DocViewer::onCtrlTabSelected() {
 	}
 }
 
+void DocViewer::onCurrentChanged(int index) {
+	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
+	if ( tw != 0 ) {
+		Juff::Document* doc = qobject_cast<Juff::Document*>(tw->currentWidget());
+		if ( doc != 0 )
+			emit docActivated(doc);
+	}
+}
+
 bool DocViewer::eventFilter(QObject *obj, QEvent *e) {
 	if ( ctrlTabMenu_.isVisible() && e->type() == QEvent::KeyRelease ) {
 		QKeyEvent* keyEvent = static_cast<QKeyEvent*>(e);
@@ -280,7 +290,7 @@ bool DocViewer::eventFilter(QObject *obj, QEvent *e) {
 		return true;
 	}
 	else {
-		return QObject::eventFilter(obj, e);
+		return QWidget::eventFilter(obj, e);
 	}
 }
 

@@ -106,10 +106,11 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/qsci/SciDocEngine.h
 	src/app/ui/AboutDlg.h
 	src/app/ui/DocViewer.h
-	src/app/ui/FindDlg.h
+#	src/app/ui/FindDlg.h
 	src/app/ui/JuffMW.h
 	src/app/ui/JumpToFileDlg.h
 	src/app/ui/Popup.h
+	src/app/ui/SearchPopup.h
 	src/app/ui/SelectFilesDlg.h
 	src/app/ui/StatusLabel.h
 	src/app/ui/TabBar.h
@@ -143,10 +144,11 @@ SET ( juffed_app_SRCS
 	src/app/qsci/SciDocEngine.cpp
 	src/app/ui/AboutDlg.cpp
 	src/app/ui/DocViewer.cpp
-	src/app/ui/FindDlg.cpp
+#	src/app/ui/FindDlg.cpp
 	src/app/ui/JuffMW.cpp
 	src/app/ui/JumpToFileDlg.cpp
 	src/app/ui/Popup.cpp
+	src/app/ui/SearchPopup.cpp
 	src/app/ui/SelectFilesDlg.cpp
 	src/app/ui/StatusLabel.cpp
 	src/app/ui/TabBar.cpp
@@ -184,9 +186,10 @@ IF ( UNIX )
 ENDIF ( UNIX )
 
 SET ( juffed_app_UIS
-	src/app/ui/forms/FindDlg.ui
+#	src/app/ui/forms/FindDlg.ui
 	src/app/ui/forms/JumpToFileDlg.ui
 	src/app/ui/forms/SelectFilesDlg.ui
+	src/app/ui/forms/SearchPopup.ui
 	
 	# settings
 	src/app/ui/forms/AutocompleteSettingsPage.ui

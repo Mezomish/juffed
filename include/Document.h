@@ -143,6 +143,14 @@ public:
 	virtual void setCursorPos(int line, int col) {}
 	
 	/**
+	*/
+	virtual void highlightOccurence(const Juff::SearchParams&) {}
+	
+	/**
+	*/
+	virtual void clearHighlighting() {}
+	
+	/**
 	* Removes selected text.
 	*/
 	virtual void removeSelectedText() {}

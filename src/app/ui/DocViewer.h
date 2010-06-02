@@ -86,6 +86,7 @@ private slots:
 	void onDocFocused();
 	void onDocStackCalled(bool);
 	void onCtrlTabSelected();
+	void onCurrentChanged(int);
 
 protected:
 	virtual bool eventFilter(QObject *obj, QEvent *e);

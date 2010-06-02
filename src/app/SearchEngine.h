@@ -1,46 +1,66 @@
+/*
+JuffEd - An advanced text editor
+Copyright 2007-2010 Mikhail Murzin
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License 
+version 2 as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+*/
+
 #ifndef __JUFFED_SEARCH_ENGINE_H__
 #define __JUFFED_SEARCH_ENGINE_H__
 
 class JuffMW;
-
-#include "Types.h"
+class SearchPopup;
 
 namespace Juff {
 	class Document;
 	class DocHandlerInt;
 }
 
-class SearchEngine : QObject {
+#include <QObject>
+#include "Types.h"
+
+class SearchEngine : public QObject {
 Q_OBJECT
 public:
 	SearchEngine(Juff::DocHandlerInt*, JuffMW*);
 
+	void setCurDoc(Juff::Document*);
+	// These methods are called to initiate a search
 	void find(Juff::Document*);
-	bool findNext(Juff::Document*);
-	bool findPrev(Juff::Document*);
-	void replace(Juff::Document*);
-
+	void findNext(Juff::Document*);
+	void findPrev(Juff::Document*);
+	
+	void storePosition();
+	void restorePosition();
 
 protected slots:
-	void onSearchRequested(const Juff::SearchParams&);
+	void onSearchRequested();
+	void onFindNext();
+	void onFindPrev();
+	void onDlgClosed();
 
 private:
-	void keepVariables(Juff::Document*);
-	void clearSelection(Juff::Document*);
+	void clearSelection();
+	bool findAfterCursor();
+	bool findBeforeCursor();
 
-	bool startFind(Juff::Document*);
-	void replace(Juff::Document*, const Juff::SearchParams&);
-
-	bool performSearch(Juff::Document*);
-	int findAt(const QString&, bool forward, int& length);
-	
 	JuffMW* mw_;
 	Juff::DocHandlerInt* handler_;
-	bool steppedOver_;
-	int startLine_;
-	int startCol_;
-	QString fileName_;
-	Juff::SearchParams params_;
+	SearchPopup* searchPopup_;
+	Juff::Document* doc_;
+	int row_;
+	int col_;
 };
 
 #endif // __JUFFED_SEARCH_ENGINE_H__

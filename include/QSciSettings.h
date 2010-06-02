@@ -30,6 +30,7 @@ public:
 		MatchingBraceFgColor,
 		IndentsColor,
 		WordHLColor,
+		SearchHLColor,
 		CurLineColor,
 	};
 	enum BoolKey {

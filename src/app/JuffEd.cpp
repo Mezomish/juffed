@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "MainSettings.h"
 #include "Project.h"
 #include "SearchEngine.h"
+#include "SearchPopup.h"
 #include "Settings.h"
 #include "StatusLabel.h"
 #include "settings/SettingsDlg.h"
@@ -267,6 +268,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	connect(viewer_, SIGNAL(docActivated(Juff::Document*)), SLOT(onDocActivated(Juff::Document*)));
 	connect(mw_, SIGNAL(closeRequested(bool&)), SLOT(onCloseRequested(bool&)));
+	connect(mw_, SIGNAL(searchPopupClosed()), SLOT(onSearchPopupClosed()));
 	
 	// engines actions
 	docManager_->initMenuActions(Juff::MenuEdit, editMenu);
@@ -607,7 +609,7 @@ void JuffEd::slotFindPrev() {
 void JuffEd::slotReplace() {
 	LOGGER;
 	
-	search_->replace(curDoc());
+//	search_->replace(curDoc());
 }
 
 void JuffEd::slotGotoLine() {
@@ -815,6 +817,9 @@ void JuffEd::onDocActivated(Juff::Document* doc) {
 	updateGUI(doc);
 	updateMenus(doc);
 	
+	if ( mw_->searchPopup()->isVisible() )
+		search_->setCurDoc(doc);
+	
 	// notify plugins
 	emit docActivated(doc);
 }
@@ -885,6 +890,12 @@ void JuffEd::onCloseRequested(bool& confirm) {
 	}
 	if ( confirm && !mw_->isFullScreen() )
 		mw_->saveState();
+}
+
+void JuffEd::onSearchPopupClosed() {
+	LOGGER;
+	
+	curDoc()->setFocus();
 }
 
 void JuffEd::onSettingsApplied() {
@@ -1145,7 +1156,7 @@ bool JuffEd::saveDocAs(Juff::Document* doc) {
 }
 
 void JuffEd::updateMenus(Juff::Document* doc) {
-	LOGGER;
+//	LOGGER;
 	
 	CommandStorage* st = CommandStorage::instance();
 	doc->setWrapWords(st->action(Juff::ViewWrapWords)->isChecked());

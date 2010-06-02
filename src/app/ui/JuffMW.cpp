@@ -25,13 +25,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #include "CommandStorage.h"
 #include "Document.h"
-#include "FindDlg.h"
+//#include "FindDlg.h"
 #include "Functions.h"
 #include "IconManager.h"
 #include "JumpToFileDlg.h"
 #include "License.h"
 #include "MainSettings.h"
 #include "Popup.h"
+#include "SearchPopup.h"
 #include "SelectFilesDlg.h"
 
 #include <QCloseEvent>
@@ -97,8 +98,11 @@ JuffMW::JuffMW() : QMainWindow() {
 	setWindowIcon(QIcon(":juffed_32.png"));
 	
 	aboutDlg_ = createAboutDlg(this);
-	findDlg_ = new FindDlg(this, false);
+//	findDlg_ = new FindDlg(this, false);
 	popup_ = NULL;
+	searchPopup_ = new SearchPopup();
+	
+//	connect(searchPopup_, SIGNAL(searchRequested(const Juff::SearchParams&)), SIGNAL(searchRequested(const Juff::SearchParams&)));
 	
 	statusWidget_ = new QWidget();
 	statusLayout_ = new QHBoxLayout(statusWidget_);
@@ -111,11 +115,19 @@ JuffMW::JuffMW() : QMainWindow() {
 void JuffMW::setViewer(QWidget* w) {
 	LOGGER;
 	
-	mainWidget_ = w;
-	setCentralWidget(w);
-	popup_ = new Popup(w);
-	resizePopup(w->width());
-	w->installEventFilter(this);
+	mainWidget_ = new QWidget();
+	QVBoxLayout* vBox = new QVBoxLayout(mainWidget_);
+	vBox->setContentsMargins(0, 0, 0, 0);
+	vBox->addWidget(w);
+	vBox->addWidget(searchPopup_);
+	vBox->setStretchFactor(w, 1);
+	vBox->setStretchFactor(searchPopup_, 0);
+	setCentralWidget(mainWidget_);
+	searchPopup_->hide();
+	
+	popup_ = new Popup(mainWidget_);
+	resizePopup(mainWidget_->width());
+	mainWidget_->installEventFilter(this);
 }
 
 void JuffMW::about() {
@@ -195,12 +207,23 @@ bool JuffMW::askForSave(const QStringList& filesIn, QStringList& filesOut) {
 	}
 }
 
-void JuffMW::showFindDialog(const QString& text, bool replace) {
-	findDlg_->setText(text);
-	findDlg_->setReplaceMode(replace);
-	if ( findDlg_->exec() == QDialog::Accepted ) {
-		emit searchRequested(findDlg_->params());
+/*void JuffMW::showFindDialog(const QString& text, bool replace) {
+//	findDlg_->setText(text);
+//	findDlg_->setReplaceMode(replace);
+	if ( searchPopup_->isHidden() ) {
+		searchPopup_->show();
 	}
+	searchPopup_->setFindText(text);
+	searchPopup_->setFindFocus();
+	
+	if ( replace )
+		searchPopup_->showReplace();
+	else
+		searchPopup_->hideReplace();
+//	if ( findDlg_->exec() == QDialog::Accepted ) {
+//		emit searchRequested(findDlg_->params());
+//	}
+	
 }
 
 void JuffMW::hideFindDialog() {
@@ -209,7 +232,17 @@ void JuffMW::hideFindDialog() {
 void JuffMW::getSearchParams(Juff::SearchParams&) {
 }
 
+bool JuffMW::searchPopupVisible() const {
+	return searchPopup_->isVisible();
+}
 
+void JuffMW::closeSearchPopup() {
+	searchPopup_->hide();
+}*/
+
+SearchPopup* JuffMW::searchPopup() const {
+	return searchPopup_;
+}
 
 
 
@@ -281,6 +314,23 @@ void JuffMW::moveEvent(QMoveEvent*) {
 //	LOGGER;
 	MainSettings::setGeometry(geometry());
 }
+
+void JuffMW::keyPressEvent(QKeyEvent* e) {
+	LOGGER;
+	
+	if ( searchPopup_->isVisible() ) {
+		if ( e->key() == Qt::Key_Escape ) {
+			if ( searchPopup_->isVisible() ) {
+				searchPopup_->dismiss();
+				
+				// notify JuffEd in order to get focus back to curDoc
+				emit searchPopupClosed();
+			}
+		}
+	}
+	QMainWindow::keyPressEvent(e);
+}
+
 
 bool JuffMW::isFullScreen() const {
 	return windowState() & Qt::WindowFullScreen;

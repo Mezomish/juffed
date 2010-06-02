@@ -78,7 +78,7 @@ SciDoc::Eol guessEol(const QString& fileName) {
 class SciDoc::Interior {
 public:
 	Interior(QWidget* w) {
-		LOGGER;
+//		LOGGER;
 		
 		curEdit_ = NULL;
 		
@@ -98,8 +98,9 @@ public:
 	}
 	
 	JuffScintilla* createEdit() {
-		LOGGER;
+//		LOGGER;
 		JuffScintilla* edit = new JuffScintilla();
+		edit->setFocusPolicy(Qt::ClickFocus);
 		edit->setUtf8(true);
 		edit->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 		edit->setAutoIndent(true);
@@ -123,7 +124,7 @@ public:
 	}
 	
 	void setCurrentEdit(JuffScintilla* edit) {
-		LOGGER;
+//		LOGGER;
 		
 		curEdit_ = edit;
 		spl_->setFocusProxy(edit);
@@ -138,7 +139,7 @@ public:
 };
 
 SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
-	LOGGER;
+//	LOGGER;
 	
 	int_ = new Interior(this);
 	
@@ -393,7 +394,7 @@ void SciDoc::setCursorPos(int line, int col) {
 }
 
 void SciDoc::setSyntax(const QString& lexName) {
-	LOGGER;
+//	LOGGER;
 
 	if ( lexName.isEmpty() )
 		return;
@@ -421,7 +422,7 @@ void SciDoc::setScrollPos(int pos) {
 
 
 void SciDoc::undo() {
-	LOGGER;
+//	LOGGER;
 	if ( int_->curEdit_ != NULL )
 		int_->curEdit_->undo();
 }
@@ -830,15 +831,28 @@ void SciDoc::highlightWord() {
 	JuffScintilla* edit = int_->curEdit_;
 	if ( edit == NULL ) return;
 	
+	if ( edit->hasSelectedText() )
+		return;
+	
 	QString word = edit->wordUnderCursor();
-	edit->highlightText(word);
+	edit->highlightText(JuffScintilla::HLCurrentWord, Juff::SearchParams());
+}
+
+void SciDoc::highlightOccurence(const Juff::SearchParams& params) {
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+		
+	edit->highlightText(JuffScintilla::HLSearch, params);
+}
+
+void SciDoc::clearHighlighting() {
+	int_->edit1_->highlightText(JuffScintilla::HLSearch, Juff::SearchParams());
+	int_->edit2_->highlightText(JuffScintilla::HLSearch, Juff::SearchParams());
 }
 
 
-
-
 void SciDoc::readFile() {
-	LOGGER;
+//	LOGGER;
 
 	QString text;
 	QFile file(fileName());
@@ -899,7 +913,7 @@ bool SciDoc::saveAs(const QString& fileName, QString& error) {
 }
 
 void SciDoc::setLexer(const QString& lexName) {
-	LOGGER;
+//	LOGGER;
 
 	if ( lexName.isEmpty() )
 		return;
@@ -954,7 +968,7 @@ void SciDoc::setEol(SciDoc::Eol eol) {
 
 
 void SciDoc::applySettings() {
-	LOGGER;
+//	LOGGER;
 	
 	setShowLineNumbers(EditorSettings::get(EditorSettings::ShowLineNumbers));
 	

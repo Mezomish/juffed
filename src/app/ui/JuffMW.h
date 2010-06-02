@@ -20,10 +20,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define __JUFFED_MAIN_WINDOW_H__
 
 class AboutDlg;
-class FindDlg;
+//class FindDlg;
 class QHBoxLayout;
 class QVBoxLayout;
 class Popup;
+class SearchPopup;
 
 #include "Types.h"
 
@@ -53,9 +54,12 @@ public:
 	void addToolBar(QToolBar*);
 	void message(const QIcon& icon, const QString& title, const QString& message, int timeout = 10);
 
-	void showFindDialog(const QString&, bool replace = false);
-	void hideFindDialog();
-	void getSearchParams(Juff::SearchParams&);
+	SearchPopup* searchPopup() const;
+//	void showFindDialog(const QString&, bool replace = false);
+//	void hideFindDialog();
+//	void getSearchParams(Juff::SearchParams&);
+//	bool searchPopupVisible() const;
+//	void closeSearchPopup();
 
 	bool isFullScreen() const;
 	void toggleFullscreen();
@@ -66,7 +70,8 @@ public:
 
 signals:
 	void closeRequested(bool&);
-	void searchRequested(const Juff::SearchParams&);
+//	void searchRequested(const Juff::SearchParams&);
+	void searchPopupClosed();
 
 public slots:
 	void about();
@@ -76,6 +81,7 @@ protected:
 	virtual void closeEvent(QCloseEvent*);
 	virtual void resizeEvent(QResizeEvent*);
 	virtual void moveEvent(QMoveEvent*);
+	virtual void keyPressEvent(QKeyEvent*);
 	virtual bool eventFilter(QObject*, QEvent*);
 
 private:
@@ -84,11 +90,12 @@ private:
 	QWidget* viewer_;
 	QWidget* mainWidget_;
 	AboutDlg* aboutDlg_;
-	FindDlg* findDlg_;
+//	FindDlg* findDlg_;
 	QWidget* statusWidget_;
 	QHBoxLayout* statusLayout_;
 	QList<QToolBar*> allToolBars_;
 	QList<QToolBar*> hiddenToolBars_;
+	SearchPopup* searchPopup_;
 
 	Popup* popup_;
 };

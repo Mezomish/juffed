@@ -63,6 +63,11 @@ QColor QSciSettings::get(ColorKey key) {
 			QColor c = Settings::instance()->value("QSci", "wordHLColor").value<QColor>();
 			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "wordHLColor").value<QColor>();
 		}
+		case SearchHLColor :
+		{
+			QColor c = Settings::instance()->value("QSci", "searchHLColor").value<QColor>();
+			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "searchHLColor").value<QColor>();
+		}
 		case CurLineColor :
 		{
 			QColor c = Settings::instance()->value("QSci", "curLineColor").value<QColor>();
@@ -114,6 +119,10 @@ void QSciSettings::set(ColorKey key, const QColor& c) {
 		
 		case WordHLColor :
 			Settings::instance()->setValue("QSci", "wordHLColor", c);
+			break;
+		
+		case SearchHLColor :
+			Settings::instance()->setValue("QSci", "searchHLColor", c);
 			break;
 		
 		case CurLineColor :

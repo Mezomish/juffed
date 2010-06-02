@@ -176,7 +176,8 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "matchingBraceBgColor" )   return QColor(255, 200, 140);
 		if ( key == "matchingBraceFgColor" )   return QColor(0, 0, 0);
 		if ( key == "indentsColor" )           return QColor(160, 160, 160);
-		if ( key == "wordHLColor" )            return QColor(200, 210, 240);
+		if ( key == "wordHLColor" )            return QColor(190, 200, 240);
+		if ( key == "searchHLColor" )          return QColor(255, 128, 0);
 		if ( key == "curLineColor" )           return QColor(240, 240, 255);
 		if ( key == "showIndents" )            return true;
 		if ( key == "highlightCurLine" )       return true;

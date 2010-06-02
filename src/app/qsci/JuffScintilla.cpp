@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //#include "CommandStorage.h"
 
 #define WORD_HIGHLIGHT     1
+#define SEARCH_HIGHLIGHT   2
 
 JuffScintilla::JuffScintilla() : QsciScintilla() {
 	rLine1_ = -1;
@@ -36,6 +37,7 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	rCol2_ = -1;
 
 	initHighlightingStyle(WORD_HIGHLIGHT, QSciSettings::get(QSciSettings::WordHLColor));
+	initHighlightingStyle(SEARCH_HIGHLIGHT, QSciSettings::get(QSciSettings::SearchHLColor));
 	
 	contextMenu_ = new QMenu();
 /*	CommandStorage* st = CommandStorage::instance();
@@ -541,16 +543,15 @@ void JuffScintilla::updateLineNumbers() {
 void JuffScintilla::clearHighlighting() {
 	SendScintilla(SCI_SETINDICATORCURRENT, WORD_HIGHLIGHT);
 	SendScintilla(SCI_INDICATORCLEARRANGE, 0, length());
+	SendScintilla(SCI_SETINDICATORCURRENT, SEARCH_HIGHLIGHT);
+	SendScintilla(SCI_INDICATORCLEARRANGE, 0, length());
 }
 
-void JuffScintilla::highlightText(const QString& text) {
-	if ( hasSelectedText() ) {
-		return;
-	}
-	
+void JuffScintilla::highlightText(HLMode mode, const Juff::SearchParams& params) {
 	clearHighlighting();
+	QString text = params.findWhat;
 	
-	if ( text.length() < 2 )
+	if ( text.length() < 1 )
 		return;
 	
 	int initialLine, initialCol;
@@ -558,11 +559,21 @@ void JuffScintilla::highlightText(const QString& text) {
 	int scrollPos = verticalScrollBar()->value();
 	
 	int line = 0, col = 0;
-	while ( findFirst(text, false, false, true, false, true, line, col) ) {
-		int start = SendScintilla(SCI_GETSELECTIONSTART);
-		int end = SendScintilla(SCI_GETSELECTIONEND);
-		highlight(start, end, WORD_HIGHLIGHT);
-		posToLineCol(end, line, col);
+	if ( mode == HLCurrentWord ) {
+		while ( findFirst(text, false, false, true, false, true, line, col) ) {
+			int start = SendScintilla(SCI_GETSELECTIONSTART);
+			int end = SendScintilla(SCI_GETSELECTIONEND);
+			highlight(start, end, WORD_HIGHLIGHT);
+			posToLineCol(end, line, col);
+		}
+	}
+	else if ( mode == HLSearch ) {
+		while ( findFirst(text, false, params.caseSensitive, params.wholeWords, false, true, line, col) ) {
+			int start = SendScintilla(SCI_GETSELECTIONSTART);
+			int end = SendScintilla(SCI_GETSELECTIONEND);
+			highlight(start, end, SEARCH_HIGHLIGHT);
+			posToLineCol(end, line, col);
+		}
 	}
 	
 	setCursorPosition(initialLine, initialCol);

@@ -124,6 +124,7 @@ private slots:
 	void onPrjFileRemoved(const QString&);
 	
 	void onCloseRequested(bool&);
+	void onSearchPopupClosed();
 	void onSettingsApplied();
 
 	void initRecentFilesMenu();

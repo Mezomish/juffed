@@ -28,7 +28,7 @@ namespace Juff {
 typedef QList<QMenu*> MenuList;
 typedef QList<QAction*> ActionList;
 
-typedef struct {
+struct SearchParams {
 	/**
 	* The string needs to be find.
 	*/
@@ -73,7 +73,18 @@ typedef struct {
 	* TODO : add more detailed explanation here
 	*/
 	bool multiLine;
-} SearchParams;
+	
+	SearchParams() {
+		findWhat      = "";
+		replaceWith   = "";
+		replace       = false;
+		caseSensitive = false;
+		backwards     = false;
+		wholeWords    = false;
+		regExp        = false;
+		multiLine     = false;
+	}
+};
 
 }
 

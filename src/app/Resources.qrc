@@ -5,6 +5,11 @@
 		<file alias="doc_icon">../images/16/doc_icon.png</file>
 		<file alias="doc_icon_red">../images/16/doc_icon_red.png</file>
 		<file alias="close">../images/16/close.png</file>
+		<file alias="find_prev">../images/16/find_prev.png</file>
+		<file alias="find_next">../images/16/find_next.png</file>
+		<file alias="replace_prev">../images/16/replace_prev.png</file>
+		<file alias="replace_next">../images/16/replace_next.png</file>
+		<file alias="replace_all">../images/16/replace_all.png</file>
 		
 		<file alias="file_generic">../images/mimetypes/text-x-generic.png</file>
 		<file alias="file_h">../images/mimetypes/text-x-chdr.png</file>

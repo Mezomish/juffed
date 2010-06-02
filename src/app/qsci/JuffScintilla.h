@@ -30,6 +30,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class JuffScintilla : public QsciScintilla {
 Q_OBJECT
 public:
+	enum HLMode {
+		HLCurrentWord,
+		HLSearch
+	};
 	JuffScintilla();
 	virtual ~JuffScintilla();
 
@@ -41,7 +45,7 @@ public:
 	bool lineNumbersVisible() const;
 
 	QString wordUnderCursor();
-	void highlightText(const QString&);
+	void highlightText(HLMode, const Juff::SearchParams&);
 
 signals:
 	void contextMenuCalled(int, int);

@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "TabBar.h"
 
 #include "Log.h"
+#include "CommandStorage.h"
 #include "TabWidget.h"
 
 #include <QMouseEvent>
@@ -52,6 +53,7 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 			tabMenu_->addSeparator();
 		
 		tabMenu_->addAction(tr("Close"), this, SLOT(closeDoc()));
+		tabMenu_->addAction(CommandStorage::instance()->action(Juff::FileCloseAll));
 		
 		tabMenu_->popup(e->globalPos());
 	}

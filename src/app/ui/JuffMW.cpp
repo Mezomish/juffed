@@ -61,7 +61,9 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	AboutDlg* dlg = new AboutDlg(parent);
 	dlg->setWindowTitle(QObject::tr("About"));
 	dlg->setProgramName(AppInfo::name() + " v" + AppInfo::version());
-	QString text = QString("   %1   <br><br>   Copyright &copy; 2007-2009 Mikhail Murzin   <br><br><a href=\"http://sourceforge.net/projects/juffed/\">http://sourceforge.net/projects/juffed/</a>").arg(QObject::tr("Advanced text editor"));
+	QString text = QString("   %1   <br><br>").arg(QObject::tr("Advanced text editor"));
+	text += "   Copyright &copy; 2007-2010 Mikhail Murzin   <br><br>";
+	text += "<a href=\"http://juffed.com/\">http://juffed.com</a>";
 	QString auth("<br>&nbsp;Mikhail Murzin a.k.a. Mezomish<br>&nbsp;&nbsp;<a href='mailto:mezomish@gmail.com'>mezomish@gmail.com</a>");
 	QList<Helper> helpers;
 	helpers << Helper("Eugene Pivnev", "ti.eugene@gmail.com", "mailto:ti.eugene@gmail.com", QObject::tr("Packaging"))
@@ -263,7 +265,7 @@ void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
 }
 
 void JuffMW::message(const QIcon& icon, const QString& title, const QString& message, int timeout) {
-	popup_->popup(title, message);
+	popup_->popup(title, message, timeout);
 }
 
 

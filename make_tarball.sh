@@ -58,10 +58,12 @@ fi
 DIR="juffed-${VERSION}"
 
 rm -rf $DIR 2>/dev/null
-mkdir $DIR
+#mkdir $DIR
 
 # checkout SVN
-svn co http://juffed.svn.sourceforge.net/svnroot/juffed/trunk $DIR
+#svn co http://juffed.svn.sourceforge.net/svnroot/juffed/trunk $DIR
+svn export http://juffed.svn.sourceforge.net/svnroot/juffed/trunk $DIR
+
 
 # set the proper version
 cat CMakeLists.txt | sed -r "s/DEV 1/DEV 0/" > $DIR/CMakeLists.txt

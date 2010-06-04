@@ -61,17 +61,20 @@ public slots:
 	void slotMarkerRemoveAll();
 	void slotMarkerNext();
 	void slotMarkerPrev();
+	void slotGotoMarker();
 
 protected slots:
 	void slotSyntaxChanged();
 	void onMenuAboutToBeShown();
 	void onDocFocused();
+	void updateMarkersMenu();
 
 private:
 	QAction* createAction(const QString&, const QKeySequence&, const char*);
 
 	QMenu* syntaxMenu_;
 	QMenu* eolMenu_;
+	QMenu* markersMenu_;
 	QMap<QString, QAction*> syntaxActions_;
 	QMap<SciDoc::Eol, QAction*> eolActions_;
 	Juff::StatusLabel* syntaxLabel_;

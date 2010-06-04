@@ -108,8 +108,7 @@ public:
 	SciDoc::Eol eol() const;
 	void setEol(SciDoc::Eol);
 	
-	void addMarker(int);
-	void removeMarker(int);
+	void toggleMarker(int);
 	void removeAllMarkers();
 	QList<int> markers() const;
 	

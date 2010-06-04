@@ -170,7 +170,6 @@ public:
 	QString syntax_;
 	QSplitter* spl_;
 	QTimer* hlTimer_;
-	QList<int> markers_;
 };
 
 SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
@@ -1017,29 +1016,33 @@ void SciDoc::setEol(SciDoc::Eol eol) {
 	}
 }
 
-void SciDoc::addMarker(int line) {
-	int_->edit1_->markerAdd(line, 1);
-	int_->edit2_->markerAdd(line, 1);
-	int_->edit1_->markerAdd(line, 2);
-	int_->edit2_->markerAdd(line, 2);
-	int_->markers_ << line;
-	qSort(int_->markers_.begin(), int_->markers_.end());
-}
-
-void SciDoc::removeMarker(int line) {
-	int_->edit1_->markerDelete(line);
-	int_->edit2_->markerDelete(line);
-	int_->markers_.removeAll(line);
+void SciDoc::toggleMarker(int line) {
+	QsciScintilla* edit = int_->curEdit_;
+	if ( edit == NULL )
+		return;
+	
+	if ( edit->markersAtLine(line) & 2 ) {
+		edit->markerDelete(line, 1);
+		edit->markerDelete(line, 2);
+	}
+	else {
+		edit->markerAdd(line, 1);
+		edit->markerAdd(line, 2);
+	}
 }
 
 void SciDoc::removeAllMarkers() {
 	int_->edit1_->markerDeleteAll();
 	int_->edit2_->markerDeleteAll();
-	int_->markers_.clear();
 }
 
 QList<int> SciDoc::markers() const {
-	return int_->markers_;
+	QList<int> markers;
+	int line = 0;
+	while ( (line = int_->edit1_->markerFindNext(line, 2)) >= 0 ) {
+		markers << line++;
+	}
+	return markers;
 }
 
 
@@ -1146,12 +1149,7 @@ void SciDoc::onCursorMoved(int line, int col) {
 }
 
 void SciDoc::onMarginClicked(int, int line, Qt::KeyboardModifiers) {
-	if ( int_->markers_.contains(line) ) {
-		removeMarker(line);
-	}
-	else {
-		addMarker(line);
-	}
+	toggleMarker(line);
 }
 
 void SciDoc::onLineCountChanged() {

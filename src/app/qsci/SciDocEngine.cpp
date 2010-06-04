@@ -123,6 +123,9 @@ SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
 		eolGroup_->addAction(act);
 	}
 	
+	markersMenu_ = new QMenu(tr("Markers"));
+	connect(markersMenu_, SIGNAL(aboutToShow()), SLOT(updateMarkersMenu()));
+	
 	syntaxLabel_ = new Juff::StatusLabel("");
 	syntaxLabel_->setToolTip(QObject::tr("Syntax highlighting"));
 	syntaxLabel_->setMenu(syntaxMenu_);
@@ -184,10 +187,7 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 		
 		case Juff::MenuSearch :
 			menu->addSeparator();
-			addAction(id, menu, createAction(tr("Add/Remove marker"), QKeySequence("Ctrl+B"), SLOT(slotMarkerAddRemove())));
-			addAction(id, menu, createAction(tr("Next marker"), QKeySequence("Ctrl+Alt+PgDown"), SLOT(slotMarkerNext())));
-			addAction(id, menu, createAction(tr("Previous marker"), QKeySequence("Ctrl+Alt+PgUp"), SLOT(slotMarkerPrev())));
-			addAction(id, menu, createAction(tr("Remove all markers"), QKeySequence(""), SLOT(slotMarkerRemoveAll())));
+			menu->addMenu(markersMenu_);
 			break;
 		
 		default:;
@@ -328,11 +328,7 @@ void SciDocEngine::slotMarkerAddRemove() {
 	if ( doc != 0 ) {
 		int line, col;
 		doc->getCursorPos(line, col);
-		QList<int> markers = doc->markers();
-		if ( markers.contains(line) )
-			doc->removeMarker(line);
-		else
-			doc->addMarker(line);
+		doc->toggleMarker(line);
 	}
 }
 
@@ -451,6 +447,8 @@ void SciDocEngine::onDocFocused() {
 		eolLabel_->setPixmap(eolIcon(eol).pixmap(16, 16));
 		
 		eolActions_[eol]->setChecked(true);
+		
+		updateMarkersMenu();
 	}
 }
 
@@ -459,7 +457,43 @@ QWidget* SciDocEngine::settingsPage() const {
 	return settingsPage_;
 }
 
+void SciDocEngine::updateMarkersMenu() {
+	markersMenu_->clear();
+	
+	markersMenu_->addAction(createAction(tr("Add/Remove marker"), QKeySequence("Ctrl+B"), SLOT(slotMarkerAddRemove())));
+	markersMenu_->addAction(createAction(tr("Next marker"), QKeySequence("Ctrl+Alt+PgDown"), SLOT(slotMarkerNext())));
+	markersMenu_->addAction(createAction(tr("Previous marker"), QKeySequence("Ctrl+Alt+PgUp"), SLOT(slotMarkerPrev())));
+	markersMenu_->addAction(createAction(tr("Remove all markers"), QKeySequence(""), SLOT(slotMarkerRemoveAll())));
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc == 0 )
+		return;
+	
+	QList<int> markers = doc->markers();
+	if ( markers.count() > 0 ) {
+		markersMenu_->addSeparator();
+		foreach (int marker, markers) {
+			QString lineStr;
+			doc->getTextLine(marker, lineStr);
+			lineStr = lineStr.simplified();
+			if ( lineStr.length() > 40 )
+				lineStr = lineStr.left(40) + " ...";
+			QAction* act = new QAction(QString("%1: %2").arg(marker+1).arg(lineStr), 0);
+			connect(act, SIGNAL(triggered()), this, SLOT(slotGotoMarker()));
+			markersMenu_->addAction(act);
+		}
+	}
+}
 
-
-
-
+void SciDocEngine::slotGotoMarker() {
+	QAction* act = qobject_cast<QAction*>(sender());
+	if ( act != 0 ) {
+		bool ok;
+		int lineNumber = act->text().section(':', 0, 0).toInt(&ok) - 1;
+		if ( ok ) {
+			SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+			if ( doc != 0 ) {
+				doc->setCursorPos(lineNumber, 0);
+			}
+		}
+	}
+}

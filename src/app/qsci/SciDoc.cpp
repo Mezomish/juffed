@@ -187,6 +187,7 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 		connect(edit, SIGNAL(linesChanged()), SLOT(onLineCountChanged()));
 		connect(edit, SIGNAL(focusReceived()), SLOT(onEditFocused()));
 		connect(edit, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
+		connect(edit, SIGNAL(markersMenuRequested(const QPoint&)), SIGNAL(markersMenuRequested(const QPoint&)));
 	}
 	
 	QString lexName = "none";

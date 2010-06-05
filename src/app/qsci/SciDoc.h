@@ -121,6 +121,9 @@ private slots:
 	void onLineCountChanged();
 	void onEditFocused();
 
+signals:
+	void markersMenuRequested(const QPoint&);
+
 protected:
 	SciDoc(Juff::Document*);
 //	virtual void updateClone();

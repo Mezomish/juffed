@@ -142,6 +142,7 @@ SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
 Juff::Document* SciDocEngine::createDoc(const QString& fileName) const {
 	SciDoc* doc = new SciDoc(fileName);
 	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
+	connect(doc, SIGNAL(markersMenuRequested(const QPoint&)), SLOT(onMarkersMenuRequested(const QPoint&)));
 	return doc;
 }
 
@@ -482,6 +483,10 @@ void SciDocEngine::updateMarkersMenu() {
 			markersMenu_->addAction(act);
 		}
 	}
+}
+
+void SciDocEngine::onMarkersMenuRequested(const QPoint& p) {
+	markersMenu_->popup(p);
 }
 
 void SciDocEngine::slotGotoMarker() {

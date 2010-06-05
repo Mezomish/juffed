@@ -284,6 +284,17 @@ void JuffScintilla::dropEvent(QDropEvent* e) {
 void JuffScintilla::contextMenuEvent(QContextMenuEvent* e) {
 	QPoint point = e->pos();
 	
+	int mWidth = marginWidth(0) + marginWidth(1); // width of two margins: markers' and line numbers'
+	if ( point.x() <= mWidth ) {
+		mWidth += marginWidth(2) + 5; // just in case :)
+		long pos = SendScintilla(SCI_POSITIONFROMPOINTCLOSE, point.x() + mWidth, point.y());
+		int line = SendScintilla(SCI_LINEFROMPOSITION, pos);
+		
+		setCursorPosition(line, 0);
+		emit markersMenuRequested(mapToGlobal(point));
+		return;
+	}
+	
 	/*
 	* The following piece of code has been taken from 
 	* QScintilla 2.3.2 source code in order to have this 

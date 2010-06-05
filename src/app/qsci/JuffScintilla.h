@@ -50,6 +50,7 @@ public:
 signals:
 	void contextMenuCalled(int, int);
 	void focusReceived();
+	void markersMenuRequested(const QPoint&);
 
 protected slots:
 	void updateLineNumbers();

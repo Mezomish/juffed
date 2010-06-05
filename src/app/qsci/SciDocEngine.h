@@ -68,6 +68,7 @@ protected slots:
 	void onMenuAboutToBeShown();
 	void onDocFocused();
 	void updateMarkersMenu();
+	void onMarkersMenuRequested(const QPoint&);
 
 private:
 	QAction* createAction(const QString&, const QKeySequence&, const char*);

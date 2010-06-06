@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "EditorSettings.h"
 #include "LexerStorage.h"
 #include "MainSettings.h"
+#include "../SearchResults.h"
 #include "QSciSettings.h"
 
 #include <QFile>
@@ -180,15 +181,15 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 	JuffScintilla* edits[] = { int_->edit1_, int_->edit2_ };
 	for ( int i = 0; i < 2; ++i) {
 		JuffScintilla* edit = edits[i];
-		connect(edit, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
 		connect(edit, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(onCursorMoved(int, int)));
 	//	connect(int_->edit1_, SIGNAL(contextMenuCalled(int, int)), this, SIGNAL(contextMenuCalled(int, int)));
 		connect(edit, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
-		connect(edit, SIGNAL(linesChanged()), SLOT(onLineCountChanged()));
 		connect(edit, SIGNAL(focusReceived()), SLOT(onEditFocused()));
-		connect(edit, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
 		connect(edit, SIGNAL(markersMenuRequested(const QPoint&)), SIGNAL(markersMenuRequested(const QPoint&)));
 	}
+	connect(int_->edit1_, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
+	connect(int_->edit1_, SIGNAL(linesChanged()), SLOT(onLineCountChanged()));
+	connect(int_->edit1_, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
 	
 	QString lexName = "none";
 	SciDoc::Eol eol = guessEol(fileName);
@@ -408,8 +409,14 @@ void SciDoc::replaceSelectedText(const QString& text, bool cursorToTheEnd) {
 	int_->curEdit_->getSelection(&line1, &col1, &line2, &col2);
 	
 	int_->curEdit_->beginUndoAction();
+	
+	// hack! hack! hack!
+	disconnect(int_->edit1_, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
 	removeSelectedText();
+	// hack! hack! hack!
+	connect(int_->edit1_, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
 	insertText(text);
+	
 	if ( cursorToTheEnd ) {
 		int lineEndsCount = text.count(QRegExp("\r\n|\r|\n"));
 		if ( lineEndsCount == 0 ) {
@@ -890,11 +897,13 @@ void SciDoc::highlightWord() {
 	edit->highlightText(JuffScintilla::HLCurrentWord, Juff::SearchParams());
 }
 
-void SciDoc::highlightOccurence(const Juff::SearchParams& params) {
-	JuffScintilla* edit = int_->curEdit_;
-	if ( edit == NULL ) return;
-		
-	edit->highlightText(JuffScintilla::HLSearch, params);
+void SciDoc::highlightSearchResults(const Juff::SearchResults* results) {
+	int count = results->count();
+	for ( int i = 0; i < count; i++ ) {
+		const Juff::SearchOccurence& occ = results->occurence(i);
+		int_->edit1_->highlight(JuffScintilla::HLSearch, occ.startRow, occ.startCol, occ.endRow, occ.endCol);
+		int_->edit2_->highlight(JuffScintilla::HLSearch, occ.startRow, occ.startCol, occ.endRow, occ.endCol);
+	}
 }
 
 void SciDoc::clearHighlighting() {

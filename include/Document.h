@@ -31,6 +31,8 @@ class QTimer;
 
 namespace Juff {
 
+class SearchResults;
+
 class Document : public QWidget {
 Q_OBJECT
 public:
@@ -144,7 +146,7 @@ public:
 	
 	/**
 	*/
-	virtual void highlightOccurence(const Juff::SearchParams&) {}
+	virtual void highlightSearchResults(const Juff::SearchResults*) {}
 	
 	/**
 	*/

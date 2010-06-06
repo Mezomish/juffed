@@ -110,6 +110,7 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/JuffMW.h
 	src/app/ui/JumpToFileDlg.h
 	src/app/ui/Popup.h
+	src/app/ui/SearchComboBox.h
 	src/app/ui/SearchPopup.h
 	src/app/ui/SelectFilesDlg.h
 	src/app/ui/StatusLabel.h
@@ -138,6 +139,7 @@ SET ( juffed_app_SRCS
 	src/app/main.cpp
 	src/app/PluginManager.cpp
 	src/app/SearchEngine.cpp
+	src/app/SearchResults.cpp
 	src/app/qsci/JuffScintilla.cpp
 	src/app/qsci/LexerStorage.cpp
 	src/app/qsci/SciDoc.cpp
@@ -149,6 +151,7 @@ SET ( juffed_app_SRCS
 	src/app/ui/JumpToFileDlg.cpp
 	src/app/ui/Popup.cpp
 	src/app/ui/SearchPopup.cpp
+	src/app/ui/SearchComboBox.cpp
 	src/app/ui/SelectFilesDlg.cpp
 	src/app/ui/StatusLabel.cpp
 	src/app/ui/TabBar.cpp

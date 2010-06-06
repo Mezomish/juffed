@@ -189,12 +189,12 @@ void JuffScintilla::posToLineCol(long pos, int& line, int& col) const {
 	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
 	col = (int)(pos - linpos);
 }
-/*
+
 long JuffScintilla::lineColToPos(int line, int col) const {
 	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
 	return linpos + col;
 }
-
+/*
 long JuffScintilla::curPos() const {
 	int line, col;
 	getCursorPosition(&line, &col);
@@ -558,6 +558,13 @@ void JuffScintilla::clearHighlighting() {
 	SendScintilla(SCI_INDICATORCLEARRANGE, 0, length());
 }
 
+void JuffScintilla::highlight(HLMode, int row1, int col1, int row2, int col2) {
+	int pos1 = lineColToPos(row1, col1);
+	int pos2 = lineColToPos(row2, col2);
+	highlight(pos1, pos2, SEARCH_HIGHLIGHT);
+}
+
+// TODO : refactor this method
 void JuffScintilla::highlightText(HLMode mode, const Juff::SearchParams& params) {
 	clearHighlighting();
 	QString text = params.findWhat;
@@ -575,14 +582,6 @@ void JuffScintilla::highlightText(HLMode mode, const Juff::SearchParams& params)
 			int start = SendScintilla(SCI_GETSELECTIONSTART);
 			int end = SendScintilla(SCI_GETSELECTIONEND);
 			highlight(start, end, WORD_HIGHLIGHT);
-			posToLineCol(end, line, col);
-		}
-	}
-	else if ( mode == HLSearch ) {
-		while ( findFirst(text, false, params.caseSensitive, params.wholeWords, false, true, line, col) ) {
-			int start = SendScintilla(SCI_GETSELECTIONSTART);
-			int end = SendScintilla(SCI_GETSELECTIONEND);
-			highlight(start, end, SEARCH_HIGHLIGHT);
 			posToLineCol(end, line, col);
 		}
 	}

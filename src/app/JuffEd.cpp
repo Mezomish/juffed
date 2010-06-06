@@ -592,25 +592,33 @@ void JuffEd::slotEditPaste() {
 void JuffEd::slotFind() {
 	LOGGER;
 	
-	search_->find(curDoc());
+//	search_->find(curDoc());
+	search_->setCurDoc(curDoc());
+	search_->find();
 }
 
 void JuffEd::slotFindNext() {
 	LOGGER;
 	
-	search_->findNext(curDoc());
+//	search_->findNext(curDoc());
+	search_->setCurDoc(curDoc());
+	search_->findNext();
 }
 
 void JuffEd::slotFindPrev() {
 	LOGGER;
 	
-	search_->findPrev(curDoc());
+//	search_->findPrev(curDoc());
+	search_->setCurDoc(curDoc());
+	search_->findPrev();
 }
 
 void JuffEd::slotReplace() {
 	LOGGER;
 	
-	search_->replace(curDoc());
+//	search_->replace(curDoc());
+	search_->setCurDoc(curDoc());
+	search_->replace();
 }
 
 void JuffEd::slotGotoLine() {

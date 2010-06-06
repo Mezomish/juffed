@@ -34,6 +34,7 @@ public:
 	void focusOnReplace(bool selectAll = false);
 	Juff::SearchParams searchParams() const;
 	void highlightRed(bool highlight = true);
+	void setSearchStatus(int, int);
 
 public slots:
 	void dismiss();
@@ -62,6 +63,7 @@ private slots:
 private:
 	Ui::SearchPopup ui;
 	Juff::SearchParams params_;
+//	QLabel* searchStatusL_;
 };
 
 #endif // __JUFFED_SEARCH_POPUP_H__

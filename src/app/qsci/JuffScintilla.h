@@ -45,7 +45,10 @@ public:
 	bool lineNumbersVisible() const;
 
 	QString wordUnderCursor();
+	
+	// TODO : refactor this method
 	void highlightText(HLMode, const Juff::SearchParams&);
+	void highlight(HLMode, int, int, int, int);
 
 signals:
 	void contextMenuCalled(int, int);

@@ -53,6 +53,16 @@ SearchPopup::SearchPopup() : QWidget() {
 	connect(ui.replaceAllBtn, SIGNAL(clicked()), SLOT(slotReplaceAll()));
 	connect(ui.caseSensitiveChk, SIGNAL(toggled(bool)), SLOT(onCaseSensitiveChecked(bool)));
 	connect(ui.wholeWordsChk, SIGNAL(toggled(bool)), SLOT(onWholeWordsChecked(bool)));
+	
+//	searchStatusL_ = new QLabel("", findEdit);
+//	searchStatusL_->setGeometry(200, 0, 100, 25);
+//	findEdit->setTextMargins(0, 0, 100, 0);
+//	searchStatusL_->setMaximumWidth(100);
+}
+
+void SearchPopup::setSearchStatus(int index, int total) {
+//	searchStatusL_->setText(tr("%1 of %2").arg(index+1).arg(total));
+	ui.findCmb->setSearchStatus(index, total);
 }
 
 void SearchPopup::setFindText(const QString& text) {
@@ -99,7 +109,7 @@ void SearchPopup::hideReplace() {
 void SearchPopup::highlightRed(bool highlight) {
 	QPalette plt = ui.findCmb->lineEdit()->palette();
 	if ( highlight )
-		plt.setColor(QPalette::Base, QColor(255, 200, 200));
+		plt.setColor(QPalette::Base, QColor(255, 180, 180));
 	else
 		plt.setColor(QPalette::Base, QColor(255, 255, 255));
 	ui.findCmb->lineEdit()->setPalette(plt);

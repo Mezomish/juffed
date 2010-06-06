@@ -51,7 +51,7 @@ public:
 	virtual void insertText(const QString&);
 	virtual void setCursorPos(int, int);
 	virtual void setSyntax(const QString& lexName);
-	virtual void highlightOccurence(const Juff::SearchParams&);
+	virtual void highlightSearchResults(const Juff::SearchResults*);
 	virtual void clearHighlighting();
 
 

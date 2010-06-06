@@ -34,7 +34,7 @@
     </widget>
    </item>
    <item row="0" column="2">
-    <widget class="QComboBox" name="findCmb">
+    <widget class="SearchComboBox" name="findCmb">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -46,7 +46,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="3">
+   <item row="0" column="4">
     <widget class="QPushButton" name="findPrevBtn">
      <property name="maximumSize">
       <size>
@@ -58,23 +58,7 @@
       <string>Find previous</string>
      </property>
      <property name="text">
-      <string>&lt;</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="4">
-    <widget class="QPushButton" name="findNextBtn">
-     <property name="maximumSize">
-      <size>
-       <width>30</width>
-       <height>26</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Find next</string>
-     </property>
-     <property name="text">
-      <string>&gt;</string>
+      <string>^</string>
      </property>
     </widget>
    </item>
@@ -104,7 +88,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="3">
+   <item row="2" column="4">
     <widget class="QPushButton" name="replacePrevBtn">
      <property name="maximumSize">
       <size>
@@ -116,23 +100,7 @@
       <string>Replace previous</string>
      </property>
      <property name="text">
-      <string>RP</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="4">
-    <widget class="QPushButton" name="replaceNextBtn">
-     <property name="maximumSize">
-      <size>
-       <width>30</width>
-       <height>26</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Replace next</string>
-     </property>
-     <property name="text">
-      <string>RN</string>
+      <string>^</string>
      </property>
     </widget>
    </item>
@@ -165,14 +133,14 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="7">
+   <item row="0" column="8">
     <widget class="QCheckBox" name="caseSensitiveChk">
      <property name="text">
       <string>Case sensitive</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="5">
+   <item row="2" column="6">
     <widget class="QPushButton" name="replaceAllBtn">
      <property name="maximumSize">
       <size>
@@ -184,11 +152,11 @@
       <string>Replace all</string>
      </property>
      <property name="text">
-      <string>RA</string>
+      <string>*</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="6">
+   <item row="2" column="7">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -201,22 +169,59 @@
      </property>
     </spacer>
    </item>
-   <item row="2" column="7">
+   <item row="2" column="8">
     <widget class="QCheckBox" name="wholeWordsChk">
      <property name="text">
       <string>Whole words</string>
      </property>
     </widget>
    </item>
+   <item row="0" column="3">
+    <widget class="QPushButton" name="findNextBtn">
+     <property name="maximumSize">
+      <size>
+       <width>30</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Find next</string>
+     </property>
+     <property name="text">
+      <string>v</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QPushButton" name="replaceNextBtn">
+     <property name="maximumSize">
+      <size>
+       <width>30</width>
+       <height>26</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Replace next</string>
+     </property>
+     <property name="text">
+      <string>v</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SearchComboBox</class>
+   <extends>QComboBox</extends>
+   <header>SearchComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>findCmb</tabstop>
   <tabstop>findPrevBtn</tabstop>
-  <tabstop>findNextBtn</tabstop>
   <tabstop>replaceCmb</tabstop>
   <tabstop>replacePrevBtn</tabstop>
-  <tabstop>replaceNextBtn</tabstop>
   <tabstop>replaceAllBtn</tabstop>
   <tabstop>caseSensitiveChk</tabstop>
   <tabstop>wholeWordsChk</tabstop>

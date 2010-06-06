@@ -25,6 +25,7 @@ class SearchPopup;
 namespace Juff {
 	class Document;
 	class DocHandlerInt;
+	class SearchResults;
 }
 
 #include <QObject>
@@ -34,16 +35,15 @@ class SearchEngine : public QObject {
 Q_OBJECT
 public:
 	SearchEngine(Juff::DocHandlerInt*, JuffMW*);
+	virtual ~SearchEngine();
 
 	void setCurDoc(Juff::Document*);
 	// These methods are called to initiate a search
-	void find(Juff::Document*);
-	void findNext(Juff::Document*);
-	void findPrev(Juff::Document*);
-	void replace(Juff::Document*);
+	void find();
+	void findNext();
+	void findPrev();
+	void replace();
 	
-	void storePosition();
-	void restorePosition();
 
 protected slots:
 	void onSearchRequested();
@@ -53,34 +53,17 @@ protected slots:
 	void onReplacePrev();
 	void onReplaceAll();
 	void onDlgClosed();
+	void onDocTextChanged();
 
 private:
 	void clearSelection();
+	void storePosition();
+	void restorePosition();
 
-	/**
-	* Performs a search FORWARD for an occurence specified by SearchParams
-	* that can be obtained from SearchPopup.
-	* Returns true if found something, otherwise returns false.
-	*/
-	bool findNext();
-	/**
-	* Performs a search BACKWARD for an occurence specified by SearchParams
-	* that can be obtained from SearchPopup.
-	* Returns true if found something, otherwise returns false.
-	*/
-	bool findPrev();
-
-	/**
-	* Tries to find an occurence AFTER the current cursor position.
-	* Returns true if found something, otherwise returns false.
-	*/
-	bool findAfterCursor();
-
-	/**
-	* Tries to find an occurence BEFORE the current cursor position.
-	* Returns true if found something, otherwise returns false.
-	*/
-	bool findBeforeCursor();
+	int selectNextOccurence();
+	int selectPrevOccurence();
+	
+	Juff::SearchResults* getSearchResults();
 
 	JuffMW* mw_;
 	Juff::DocHandlerInt* handler_;
@@ -88,6 +71,7 @@ private:
 	Juff::Document* doc_;
 	int row_;
 	int col_;
+	Juff::SearchResults* curResults_;
 };
 
 #endif // __JUFFED_SEARCH_ENGINE_H__

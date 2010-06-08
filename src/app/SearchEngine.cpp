@@ -332,7 +332,7 @@ void SearchEngine::onReplacePrev() {
 void SearchEngine::onReplaceAll() {
 	LOGGER;
 	
-	if ( doc_ == NULL || doc_->isNull() ) return;
+	if ( doc_ == NULL || doc_->isNull() || curResults_ == NULL ) return;
 	
 	const Juff::SearchParams& params = searchPopup_->searchParams();
 	
@@ -355,6 +355,9 @@ void SearchEngine::onReplaceAll() {
 	mw_->message(QIcon(), tr("Replace"), tr("Replacement finished (%1 replacements were made)").arg(replacesMade), 5);
 	
 	connect(doc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
+	
+	delete curResults_;
+	curResults_ = NULL;
 }
 
 void SearchEngine::onDlgClosed() {

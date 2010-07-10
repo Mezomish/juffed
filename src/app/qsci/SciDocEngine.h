@@ -52,6 +52,7 @@ public slots:
 	void slotCommentBlock();
 	void slotDuplicate();
 	void slotUnindent();
+	void slotInsertTab();
 	void slotRemoveLines();
 	void slotRemoveLineLeft();
 	void slotRemoveLineRight();

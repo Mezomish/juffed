@@ -155,7 +155,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	QMenu* fileMenu = *( menus_.insert(Juff::MenuFile, new QMenu(JuffEd::tr("&File"))) );
 	{
 		Juff::ActionID ids[] = { Juff::FileNew, Juff::FileOpen, Juff::FileSave, 
-		                         Juff::FileSaveAs, Juff::FileSaveAll, Juff::FileReload, Juff::FileRename,
+		                         Juff::FileSaveAs, Juff::FileRename, Juff::FileSaveAll, Juff::FileReload,
 		                         Juff::Separator, Juff::FileClose, Juff::FileCloseAll,
 		                         Juff::FilePrint,
 		                         Juff::Separator, Juff::FileExit, Juff::NullID };

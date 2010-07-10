@@ -175,6 +175,7 @@ void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
 			addAction(id, menu, createAction(tr("Comment lines"), QKeySequence("Ctrl+/"), SLOT(slotCommentLines())));
 			addAction(id, menu, createAction(tr("Comment block"), QKeySequence("Shift+Ctrl+/"), SLOT(slotCommentBlock())));
 			addAction(id, menu, createAction(tr("Unindent lines"), QKeySequence("Shift+Tab"), SLOT(slotUnindent())));
+			addAction(id, menu, createAction(tr("Insert 'Tab' character"), QKeySequence("Shift+Ctrl+Tab"), SLOT(slotInsertTab())));
 			break;
 		
 		case Juff::MenuView :
@@ -283,6 +284,15 @@ void SciDocEngine::slotUnindent() {
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
 		doc->unindent();
+	}
+}
+
+void SciDocEngine::slotInsertTab() {
+	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->insertTab();
 	}
 }
 

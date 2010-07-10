@@ -837,6 +837,15 @@ void SciDoc::unindent() {
 	}
 }
 
+void SciDoc::insertTab() {
+	LOGGER;
+	
+	JuffScintilla* edit = int_->curEdit_;
+	if ( edit == NULL ) return;
+	
+	edit->insert("\t");
+}
+
 void SciDoc::removeLine() {
 	LOGGER;
 	

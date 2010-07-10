@@ -98,6 +98,7 @@ public:
 	void toggleCommentBlock();
 	void duplicateText();
 	void unindent();
+	void insertTab();
 	void removeLine();
 	void removeLineLeft();
 	void removeLineRight();

@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "EditorSettings.h"
 #include "LexerStorage.h"
 #include "MainSettings.h"
-#include "../SearchResults.h"
+#include "SearchResults.h"
 #include "QSciSettings.h"
 
 #include <QFile>
@@ -897,7 +897,11 @@ void SciDoc::highlightWord() {
 	edit->highlightText(JuffScintilla::HLCurrentWord, Juff::SearchParams());
 }
 
-void SciDoc::highlightSearchResults(const Juff::SearchResults* results) {
+void SciDoc::highlightSearchResults() {
+	Juff::SearchResults* results = searchResults();
+	if ( results == NULL )
+		return;
+	
 	int count = results->count();
 	for ( int i = 0; i < count; i++ ) {
 		const Juff::SearchOccurence& occ = results->occurence(i);
@@ -907,6 +911,7 @@ void SciDoc::highlightSearchResults(const Juff::SearchResults* results) {
 }
 
 void SciDoc::clearHighlighting() {
+	LOGGER;
 	int_->edit1_->highlightText(JuffScintilla::HLSearch, Juff::SearchParams());
 	int_->edit2_->highlightText(JuffScintilla::HLSearch, Juff::SearchParams());
 }

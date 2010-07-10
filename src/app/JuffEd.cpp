@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2010 Mikhail Murzin
@@ -305,9 +307,9 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	
 	
 	QString prjName = MainSettings::get(MainSettings::LastProject);
-	createProject(prjName);
 	
 	search_ = new SearchEngine(this, mw_);
+	createProject(prjName);
 }
 
 JuffEd::~JuffEd() {
@@ -592,32 +594,24 @@ void JuffEd::slotEditPaste() {
 void JuffEd::slotFind() {
 	LOGGER;
 	
-//	search_->find(curDoc());
-	search_->setCurDoc(curDoc());
 	search_->find();
 }
 
 void JuffEd::slotFindNext() {
 	LOGGER;
 	
-//	search_->findNext(curDoc());
-	search_->setCurDoc(curDoc());
 	search_->findNext();
 }
 
 void JuffEd::slotFindPrev() {
 	LOGGER;
 	
-//	search_->findPrev(curDoc());
-	search_->setCurDoc(curDoc());
 	search_->findPrev();
 }
 
 void JuffEd::slotReplace() {
 	LOGGER;
 	
-//	search_->replace(curDoc());
-	search_->setCurDoc(curDoc());
 	search_->replace();
 }
 
@@ -826,7 +820,7 @@ void JuffEd::onDocActivated(Juff::Document* doc) {
 	updateGUI(doc);
 	updateMenus(doc);
 	
-	if ( mw_->searchPopup()->isVisible() )
+//	if ( mw_->searchPopup()->isVisible() )
 		search_->setCurDoc(doc);
 	
 	// notify plugins

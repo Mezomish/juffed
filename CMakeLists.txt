@@ -92,6 +92,7 @@ SET ( juffed_lib_SRCS
 	src/lib/NullDoc.cpp
 	src/lib/Project.cpp
 	src/lib/PluginNotifier.cpp
+	src/lib/SearchResults.cpp
 )
 
 SET ( juffed_lib_RESOURCES
@@ -139,7 +140,6 @@ SET ( juffed_app_SRCS
 	src/app/main.cpp
 	src/app/PluginManager.cpp
 	src/app/SearchEngine.cpp
-	src/app/SearchResults.cpp
 	src/app/qsci/JuffScintilla.cpp
 	src/app/qsci/LexerStorage.cpp
 	src/app/qsci/SciDoc.cpp
@@ -247,6 +247,7 @@ SET ( juffed_DEV_HEADERS
 	include/QSciSettings.h
 	include/Types.h
 	include/Settings.h
+	include/SearchResults.h
 )
 
 FIND_PACKAGE ( Qt4 REQUIRED )

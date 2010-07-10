@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Functions.h"
 #include "IconManager.h"
 #include "Log.h"
+#include "SearchResults.h"
 
 #include <QAbstractButton>
 #include <QMessageBox>
@@ -63,6 +64,8 @@ Document::Document(const QString& fileName)
 	
 	modCheckTimer_ = new QTimer(this);
 	connect(modCheckTimer_, SIGNAL(timeout()), SLOT(checkLastModified()));
+	
+	searchResults_ = NULL;
 }
 
 // This constructor is being used for creating clones
@@ -136,6 +139,19 @@ QString Document::guessCharset(const QString& fileName) {
 		return "";
 	}
 }
+
+void Document::setSearchResults(Juff::SearchResults* results) {
+	LOGGER;
+	clearHighlighting();
+	if ( searchResults_ != NULL )
+		delete searchResults_;
+	searchResults_ = results;
+}
+
+SearchResults* Document::searchResults() const {
+	return searchResults_;
+}
+
 
 /*bool Document::tryToClose(QString& error) {
 	// This method must NOT be called on Noname documents.

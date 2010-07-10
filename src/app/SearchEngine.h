@@ -59,6 +59,7 @@ private:
 	void clearSelection();
 	void storePosition();
 	void restorePosition();
+	void doChangeCurDoc(Juff::Document*);
 
 	int selectNextOccurence();
 	int selectPrevOccurence();
@@ -71,7 +72,6 @@ private:
 	Juff::Document* doc_;
 	int row_;
 	int col_;
-	Juff::SearchResults* curResults_;
 };
 
 #endif // __JUFFED_SEARCH_ENGINE_H__

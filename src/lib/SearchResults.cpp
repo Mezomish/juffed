@@ -20,6 +20,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 namespace Juff {
 
+SearchResults::SearchResults(const Juff::SearchParams& params) {
+	params_ = params;
+	visible_ = false;
+}
+
 int SearchResults::count() const {
 	return occurences_.count();
 }
@@ -66,6 +71,18 @@ int SearchResults::findIndexByCursorPos(int row, int col, bool forward) {
 
 void SearchResults::addOccurence(int row1, int col1, int row2, int col2) {
 	occurences_.append(SearchOccurence(row1, col1, row2, col2));
+}
+
+const Juff::SearchParams& SearchResults::params() const {
+	return params_;
+}
+
+void SearchResults::setVisible(bool visible) {
+	visible_ = visible;
+}
+
+bool SearchResults::isVisible() const {
+	return visible_;
 }
 
 }

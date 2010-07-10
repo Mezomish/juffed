@@ -146,7 +146,7 @@ public:
 	
 	/**
 	*/
-	virtual void highlightSearchResults(const Juff::SearchResults*) {}
+	virtual void highlightSearchResults() {}
 	
 	/**
 	*/
@@ -213,6 +213,9 @@ public:
 	virtual bool whitespacesVisible() const { return false;}
 	virtual bool lineEndingsVisible() const { return false;}
 	
+	void setSearchResults(Juff::SearchResults*);
+	SearchResults* searchResults() const;
+	
 	virtual void applySettings() {}
 	
 	// This method must be reimplemented ONLY (!!!) in NullDoc
@@ -257,6 +260,7 @@ private:
 	QTimer* modCheckTimer_;
 	QMutex checkingMutex_;
 	QMutex lastModMutex_;
+	Juff::SearchResults* searchResults_;
 };
 
 }

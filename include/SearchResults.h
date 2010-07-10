@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QVector>
 
+#include "Types.h"
+
 namespace Juff {
 
 struct SearchOccurence {
@@ -42,13 +44,20 @@ struct SearchOccurence {
 
 class SearchResults {
 public:
+	SearchResults(const Juff::SearchParams&);
+
 	int count() const;
 	SearchOccurence occurence(int) const;
 	int findIndexByCursorPos(int row, int col, bool forward);
 	void addOccurence(int, int, int, int);
+	const Juff::SearchParams& params() const;
+	void setVisible(bool visible);
+	bool isVisible() const;
 
 private:
+	Juff::SearchParams params_;
 	QVector<SearchOccurence> occurences_;
+	bool visible_;
 };
 
 }

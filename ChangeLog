@@ -1,3 +1,78 @@
+2010-08-08 :
+* Added missing files to 'debian' dir
+* Fixed 'control' file
+
+2010-07-10 :
+* Added Tab insertion menu item (needed sometimes when option 'Replace tabs with spaces' is used
+* Moved 'Rename file' menu item close to 'Save as'
+
+2010-06-07 :
+* Fixed a bug with 'Replace all'
+* Swapped 'find next'/'find prev' and 'replace next'/'replace prev' buttons
+* Fixed tab-order of search popup controls
+
+2010-06-06 :
+* Performance improvements:
+  * fixed several duplicated notifications
+  * significantly improved search performance
+
+2010-06-04 :
+* Added context menu to markers' margin
+
+2010-06-03 :
+* Added markers menu
+
+2010-06-02 :
+* Improvements to the dialog for saving multiple files when closing the program
+* Added a menu item 'Close all' to the tabbar menu
+* Added text replacing to the new popup search dialog
+* Added line markers
+
+2010-06-01 :
+* Changed find dialog from modal to popup at the bottom
+* Added 'search as you type'
+* Added highlighting all the occurences
+* Hopefully fixed focusing problem
+
+2010-05-27 :
+* Added manual displaying of auto-completion box
+* Made popup message window animated
+
+2010-05-26 :
+* Fixed opening recent files
+* Replaced some modal popups with modeless transparent ones
+
+2010-05-25 :
+* Added removing the line to the beginning and to the end
+* Added selecting lines by dragging mouse through line numbers
+* Fixed a problem with many undo steps when pressing Enter
+* Added jumping over word parts with Ctrl (Eclipse-style)
+* Added 'Fold/Unfold all' action
+
+2010-05-24 :
+* Added EOL handling
+
+2010-05-19 :
+* Fixed problem with focus when calling plugin API functions gotoLine/setCursorPos
+* Added notifying plugins when settings were applied
+
+2010-04-27 :
+* Adding menu items by plugins
+* Fixed closing tabs with close buttons
+
+2010-04-23 :
+* Added close buttons on tabs
+
+2010-04-22 :
+* Added settings for toolbar style, icons size and for tabbar position
+
+2010-04-21 :
+* Added 'Add to project' and 'Remove from project' actions to tab menu
+
+2010-04-19 :
+* Removed project tree (moved to a plugin)
+* Fixed getting the last dir when saving a file
+
 2010-04-18:
 * Restored nearly all functionality existed in version 0.8.1. Known regresions:
   * can't select line ending (Win/Mac/Unix)

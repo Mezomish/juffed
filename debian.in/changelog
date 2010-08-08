@@ -1,4 +1,4 @@
-juffed (@FULL_VERSION@) unstable; urgency=low
+juffed (@FULL_VERSION@) @DISTRIBUTION@; urgency=low
 
   * Initial Release.
 

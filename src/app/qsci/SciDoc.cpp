@@ -828,6 +828,7 @@ void SciDoc::unindent() {
 			}
 			edit->endUndoAction();
 		}
+		edit->setSelection(line1, 0, line2 + 1, 0);
 	}
 	else {
 		edit->getCursorPosition(&line1, &col1);

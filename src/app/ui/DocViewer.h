@@ -35,7 +35,7 @@ class DocViewer : public QWidget {
 Q_OBJECT
 public:
 	DocViewer(Juff::DocHandlerInt*);
-	void addDoc(Juff::Document*);
+	void addDoc(Juff::Document*, int panel = -1);
 	void removeDoc(Juff::Document*);
 	Juff::Document* currentDoc() const;
 	Juff::Document* document(const QString&) const;
@@ -48,7 +48,7 @@ public:
 	* If \param panel == 2 then returns the number of documents opened at the 2nd panel
 	* Otherwise returns 0
 	*/
-	int docCount(int panel = 0) const;
+	int docCount(int panel = -1) const;
 
 	/**
 	* Returns the list of documents opened at a specific panel or at both panels.

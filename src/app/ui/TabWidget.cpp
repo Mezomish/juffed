@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Functions.h"
 #include "IconManager.h"
 #include "Log.h"
+#include "MainSettings.h"
 #include "Project.h"
 #include "TabBar.h"
 
@@ -170,7 +171,12 @@ void TabWidget::onTabCloseRequested(int index) {
 	QWidget* tab = widget(index);
 	Juff::Document* doc = qobject_cast<Juff::Document*>(tab);
 	if ( doc != 0 ) {
-		handler_->closeDoc(doc->fileName());
+		if ( !MainSettings::get(MainSettings::ExitOnLastDocClosed) && count() == 1 && Juff::isNoname(doc) && !doc->isModified() ) {
+			return;
+		}
+		else {
+			handler_->closeDoc(doc->fileName());
+		}
 	}
 }
 
@@ -213,8 +219,10 @@ void TabWidget::tabRemoved(int) {
 	
 	emit tabRemoved(this);
 	
-	if ( count() == 0 )
+	if ( count() == 0 ) {
+		handler_->openDoc("", selfIndex_);
 		docListBtn_->hide();
+	}
 }
 
 

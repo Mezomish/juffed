@@ -83,7 +83,7 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 	ctrlTabMenu_.installEventFilter(this);
 }
 
-void DocViewer::addDoc(Juff::Document* doc) {
+void DocViewer::addDoc(Juff::Document* doc, int panel) {
 	LOGGER;
 	
 	connect(doc, SIGNAL(modified(bool)), SLOT(onDocModified(bool)));
@@ -93,7 +93,16 @@ void DocViewer::addDoc(Juff::Document* doc) {
 	// same line below it.
 	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
 
-	addDoc(doc, curTab_);
+	switch ( panel ) {
+		case 0 :
+			addDoc(doc, tab1_);
+			break;
+		case 1 :
+			addDoc(doc, tab2_);
+			break;
+		default:
+			addDoc(doc, curTab_);
+	}
 	
 	// It's better to have it after adding to TabWidget to avoid
 	// emitting the signal 'docActivated()' during the document creation.
@@ -157,12 +166,11 @@ bool DocViewer::activateDoc(const QString& fileName) {
 int DocViewer::docCount(int panel) const {
 	switch (panel) {
 		case 0 :
-			return tab1_->count() + tab2_->count();
-		case 1 :
 			return tab1_->count();
-		case 2 :
+		case 1 :
 			return tab2_->count();
-		default: return 0;
+		default :
+			return tab1_->count() + tab2_->count();
 	}
 }
 

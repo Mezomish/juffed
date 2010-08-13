@@ -1,3 +1,7 @@
+2010-08-12 :
+* Fixed: empty panel when closing the last tab
+* Fixed: empty second panel when running the app
+
 2010-08-10 :
 * Fixed: loosing selection when unindenting text
 

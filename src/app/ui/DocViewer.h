@@ -41,32 +41,34 @@ public:
 	Juff::Document* document(const QString&) const;
 	bool activateDoc(const QString&);
 
+	int currentPanel() const;
+
 	/**
 	* Returns the number of documents opened at a specific panel or at both panels.
-	* If \param panel == 0 then returns the number of ALL documents
-	* If \param panel == 1 then returns the number of documents opened at the 1st panel
-	* If \param panel == 2 then returns the number of documents opened at the 2nd panel
+	* If \param panel == -1 then returns the number of ALL documents
+	* If \param panel == 0  then returns the number of documents opened at the 1st panel
+	* If \param panel == 1  then returns the number of documents opened at the 2nd panel
 	* Otherwise returns 0
 	*/
 	int docCount(int panel = -1) const;
 
 	/**
 	* Returns the list of documents opened at a specific panel or at both panels.
-	* If \param panel == 0 then returns ALL documents
-	* If \param panel == 1 then returns documents opened at the 1st panel
-	* If \param panel == 2 then returns documents opened at the 2nd panel
+	* If \param panel == -1 then returns ALL documents
+	* If \param panel == 0  then returns documents opened at the 1st panel
+	* If \param panel == 1  then returns documents opened at the 2nd panel
 	* Otherwise returns an empty list
 	*/
-	QList<Juff::Document*> docList(int panel = 0) const;
+	QList<Juff::Document*> docList(int panel = -1) const;
 
 	/**
 	* Returns the list of document names opened at a specific panel or at both panels.
-	* If \param panel == 0 then returns names of ALL documents
-	* If \param panel == 1 then returns names of documents opened at the 1st panel
-	* If \param panel == 2 then returns names of documents opened at the 2nd panel
+	* If \param panel == -1 then returns names of ALL documents
+	* If \param panel == 0  then returns names of documents opened at the 1st panel
+	* If \param panel == 1  then returns names of documents opened at the 2nd panel
 	* Otherwise returns an empty list
 	*/
-	QStringList docNamesList(int panel = 0) const;
+	QStringList docNamesList(int panel = -1) const;
 
 	void applySettings();
 

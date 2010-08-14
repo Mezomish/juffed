@@ -1042,8 +1042,21 @@ Juff::Project* JuffEd::curPrj() const {
 void JuffEd::openDoc(const QString& fileName, int panel) {
 	LOGGER;
 	
-	if ( !viewer_->activateDoc(fileName) )
+	Juff::Document* doc = NULL;
+	if ( !viewer_->activateDoc(fileName) ) {
+		int curPanel = viewer_->currentPanel();
+		
+		// check if there is only one doc, if it's Noname and if it's unmodified
+		if ( viewer_->docCount(curPanel) == 1 ) {
+			doc = viewer_->docList(curPanel)[0];
+			if ( doc->isModified() || !Juff::isNoname(doc) )
+				doc = NULL;
+		}
 		createDoc(fileName, panel);
+		
+		if ( doc != NULL )
+			closeDocWithConfirmation(doc);
+	}
 }
 
 void JuffEd::closeDoc(const QString& fileName) {

@@ -83,6 +83,15 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 	ctrlTabMenu_.installEventFilter(this);
 }
 
+int DocViewer::currentPanel() const {
+	if ( curTab_ == tab1_ )
+		return 0;
+	else if ( curTab_ == tab2_ )
+		return 1;
+	else
+		return -1;
+}
+
 void DocViewer::addDoc(Juff::Document* doc, int panel) {
 	LOGGER;
 	
@@ -124,14 +133,14 @@ Juff::Document* DocViewer::currentDoc() const {
 }
 
 Juff::Document* DocViewer::document(const QString& fileName) const {
-	QList<Juff::Document*> docs = docList(1);
+	QList<Juff::Document*> docs = docList(0);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
 			return doc;
 		}
 	}
 	
-	docs = docList(2);
+	docs = docList(1);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
 			return doc;
@@ -142,7 +151,7 @@ Juff::Document* DocViewer::document(const QString& fileName) const {
 }
 
 bool DocViewer::activateDoc(const QString& fileName) {
-	QList<Juff::Document*> docs = docList(1);
+	QList<Juff::Document*> docs = docList(0);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
 			tab1_->setCurrentWidget(doc);
@@ -151,7 +160,7 @@ bool DocViewer::activateDoc(const QString& fileName) {
 		}
 	}
 	
-	docs = docList(2);
+	docs = docList(1);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
 			tab2_->setCurrentWidget(doc);
@@ -178,7 +187,7 @@ QList<Juff::Document*> DocViewer::docList(int panel) const {
 	QList<Juff::Document*> list;
 	
 	// 1st panel
-	if ( panel == 0 || panel == 1 ) {
+	if ( panel == -1 || panel == 0 ) {
 		int n = tab1_->count();
 		for (int i = 0; i < n; ++i) {
 			Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
@@ -187,7 +196,7 @@ QList<Juff::Document*> DocViewer::docList(int panel) const {
 		}
 	}
 	// 2nd panel
-	if ( panel == 0 || panel == 2 ) {
+	if ( panel == -1 || panel == 1 ) {
 		int n = tab2_->count();
 		for (int i = 0; i < n; ++i) {
 			Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));
@@ -201,7 +210,7 @@ QList<Juff::Document*> DocViewer::docList(int panel) const {
 QStringList DocViewer::docNamesList(int panel) const {
 	QStringList list;
 	// 1st panel
-	if ( panel == 0 || panel == 1 ) {
+	if ( panel == -1 || panel == 0 ) {
 		int n = tab1_->count();
 		for (int i = 0; i < n; ++i) {
 			Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
@@ -210,7 +219,7 @@ QStringList DocViewer::docNamesList(int panel) const {
 		}
 	}
 	// 2nd panel
-	if ( panel == 0 || panel == 2 ) {
+	if ( panel == -1 || panel == 1 ) {
 		int n = tab2_->count();
 		for (int i = 0; i < n; ++i) {
 			Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));

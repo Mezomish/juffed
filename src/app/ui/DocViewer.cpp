@@ -117,6 +117,7 @@ void DocViewer::addDoc(Juff::Document* doc, int panel) {
 	// emitting the signal 'docActivated()' during the document creation.
 //	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
 	
+	docStack_.removeAll(doc);
 	docStack_.prepend(doc);
 }
 

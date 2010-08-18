@@ -155,6 +155,9 @@ bool DocViewer::activateDoc(const QString& fileName) {
 	QList<Juff::Document*> docs = docList(0);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
+			if ( tab1_->width() == 0 ) {
+				spl_->setSizes(QList<int>() << spl_->width() / 2 << spl_->width() / 2);
+			}
 			tab1_->setCurrentWidget(doc);
 			doc->setFocus();
 			return true;
@@ -164,6 +167,8 @@ bool DocViewer::activateDoc(const QString& fileName) {
 	docs = docList(1);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
+			if ( tab2_->width() == 0 )
+				spl_->setSizes(QList<int>() << spl_->width() / 2 << spl_->width() / 2);
 			tab2_->setCurrentWidget(doc);
 			doc->setFocus();
 			return true;

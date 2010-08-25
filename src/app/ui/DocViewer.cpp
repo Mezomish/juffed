@@ -83,16 +83,7 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 	ctrlTabMenu_.installEventFilter(this);
 }
 
-int DocViewer::currentPanel() const {
-	if ( curTab_ == tab1_ )
-		return 0;
-	else if ( curTab_ == tab2_ )
-		return 1;
-	else
-		return -1;
-}
-
-void DocViewer::addDoc(Juff::Document* doc, int panel) {
+void DocViewer::addDoc(Juff::Document* doc) {
 	LOGGER;
 	
 	connect(doc, SIGNAL(modified(bool)), SLOT(onDocModified(bool)));
@@ -102,22 +93,12 @@ void DocViewer::addDoc(Juff::Document* doc, int panel) {
 	// same line below it.
 	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
 
-	switch ( panel ) {
-		case 0 :
-			addDoc(doc, tab1_);
-			break;
-		case 1 :
-			addDoc(doc, tab2_);
-			break;
-		default:
-			addDoc(doc, curTab_);
-	}
+	addDoc(doc, curTab_);
 	
 	// It's better to have it after adding to TabWidget to avoid
 	// emitting the signal 'docActivated()' during the document creation.
 //	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
 	
-	docStack_.removeAll(doc);
 	docStack_.prepend(doc);
 }
 
@@ -134,14 +115,14 @@ Juff::Document* DocViewer::currentDoc() const {
 }
 
 Juff::Document* DocViewer::document(const QString& fileName) const {
-	QList<Juff::Document*> docs = docList(0);
+	QList<Juff::Document*> docs = docList(1);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
 			return doc;
 		}
 	}
 	
-	docs = docList(1);
+	docs = docList(2);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
 			return doc;
@@ -152,23 +133,18 @@ Juff::Document* DocViewer::document(const QString& fileName) const {
 }
 
 bool DocViewer::activateDoc(const QString& fileName) {
-	QList<Juff::Document*> docs = docList(0);
+	QList<Juff::Document*> docs = docList(1);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
-			if ( tab1_->width() == 0 ) {
-				spl_->setSizes(QList<int>() << spl_->width() / 2 << spl_->width() / 2);
-			}
 			tab1_->setCurrentWidget(doc);
 			doc->setFocus();
 			return true;
 		}
 	}
 	
-	docs = docList(1);
+	docs = docList(2);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
-			if ( tab2_->width() == 0 )
-				spl_->setSizes(QList<int>() << spl_->width() / 2 << spl_->width() / 2);
 			tab2_->setCurrentWidget(doc);
 			doc->setFocus();
 			return true;
@@ -181,11 +157,12 @@ bool DocViewer::activateDoc(const QString& fileName) {
 int DocViewer::docCount(int panel) const {
 	switch (panel) {
 		case 0 :
-			return tab1_->count();
-		case 1 :
-			return tab2_->count();
-		default :
 			return tab1_->count() + tab2_->count();
+		case 1 :
+			return tab1_->count();
+		case 2 :
+			return tab2_->count();
+		default: return 0;
 	}
 }
 
@@ -193,7 +170,7 @@ QList<Juff::Document*> DocViewer::docList(int panel) const {
 	QList<Juff::Document*> list;
 	
 	// 1st panel
-	if ( panel == -1 || panel == 0 ) {
+	if ( panel == 0 || panel == 1 ) {
 		int n = tab1_->count();
 		for (int i = 0; i < n; ++i) {
 			Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
@@ -202,7 +179,7 @@ QList<Juff::Document*> DocViewer::docList(int panel) const {
 		}
 	}
 	// 2nd panel
-	if ( panel == -1 || panel == 1 ) {
+	if ( panel == 0 || panel == 2 ) {
 		int n = tab2_->count();
 		for (int i = 0; i < n; ++i) {
 			Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));
@@ -216,7 +193,7 @@ QList<Juff::Document*> DocViewer::docList(int panel) const {
 QStringList DocViewer::docNamesList(int panel) const {
 	QStringList list;
 	// 1st panel
-	if ( panel == -1 || panel == 0 ) {
+	if ( panel == 0 || panel == 1 ) {
 		int n = tab1_->count();
 		for (int i = 0; i < n; ++i) {
 			Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
@@ -225,7 +202,7 @@ QStringList DocViewer::docNamesList(int panel) const {
 		}
 	}
 	// 2nd panel
-	if ( panel == -1 || panel == 1 ) {
+	if ( panel == 0 || panel == 2 ) {
 		int n = tab2_->count();
 		for (int i = 0; i < n; ++i) {
 			Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));

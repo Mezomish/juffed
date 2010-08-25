@@ -53,7 +53,7 @@ public:
 	virtual Juff::Document* curDoc() const;
 	virtual Juff::Document* getDoc(const QString&) const;
 	virtual Juff::Project* curPrj() const;
-	virtual void openDoc(const QString&, int panel = -1);
+	virtual void openDoc(const QString&);
 	virtual void closeDoc(const QString&);
 	virtual void saveDoc(const QString&);
 	virtual int docCount() const;
@@ -134,7 +134,7 @@ private:
 	* This methods opens or activates a doc with given file 
 	* name or creates a new empty doc if \param fileName is empty.
 	*/
-	Juff::Document* createDoc(const QString& fileName, int panel = -1);
+	Juff::Document* createDoc(const QString& fileName);
 
 	void createProject(const QString& fileName);
 	bool closeProject();

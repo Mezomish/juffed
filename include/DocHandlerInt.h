@@ -44,7 +44,7 @@ public:
 	/**
 	* Opens a document with a given file name or activates it if it is already opened.
 	*/
-	virtual void openDoc(const QString&, int panel = -1) = 0;
+	virtual void openDoc(const QString&) = 0;
 
 	/**
 	* Closes the document with a given file name.

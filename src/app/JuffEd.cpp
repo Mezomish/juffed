@@ -384,35 +384,21 @@ void JuffEd::slotFileClose() {
 	if ( doc->isNull() )
 		return;
 	
-	if ( !MainSettings::get(MainSettings::ExitOnLastDocClosed)&& docCount() == 1 && Juff::isNoname(doc) && !doc->isModified() )
-		return;
-	
 	closeDocWithConfirmation(doc);
 	
-	if ( docCount() == 0 ) {
-		if ( MainSettings::get(MainSettings::ExitOnLastDocClosed) )
-			slotFileExit();
-		else
-			slotFileNew();
-	}
+	if ( docCount() == 0 && MainSettings::get(MainSettings::ExitOnLastDocClosed) )
+		slotFileExit();
 }
 
 void JuffEd::slotFileCloseAll() {
 	LOGGER;
 	
 	Juff::Document* doc = curDoc();
-	if ( !MainSettings::get(MainSettings::ExitOnLastDocClosed) && docCount() == 1 && Juff::isNoname(doc) && !doc->isModified() )
-		return;
-	
 	while ( !doc->isNull() ) {
 		if ( !closeDocWithConfirmation(doc) )
 			break;
 		doc = curDoc();
 	}
-	if ( MainSettings::get(MainSettings::ExitOnLastDocClosed) )
-		slotFileExit();
-	else
-		slotFileNew();
 }
 
 void JuffEd::slotFileSaveAll() {
@@ -957,7 +943,7 @@ void JuffEd::onMessageReceived(const QString& msg) {
 }
 
 
-Juff::Document* JuffEd::createDoc(const QString& fileName, int panel) {
+Juff::Document* JuffEd::createDoc(const QString& fileName) {
 	LOGGER;
 	
 	Juff::Document* doc;
@@ -968,7 +954,7 @@ Juff::Document* JuffEd::createDoc(const QString& fileName, int panel) {
 	
 	if ( !doc->isNull() ) {
 		initDoc(doc);
-		viewer_->addDoc(doc, panel);
+		viewer_->addDoc(doc);
 		if ( prj_->name().isEmpty() )
 			prj_->addFile(doc->fileName());
 		updateGUI(doc);
@@ -1039,24 +1025,11 @@ Juff::Project* JuffEd::curPrj() const {
 	return prj_;
 }
 
-void JuffEd::openDoc(const QString& fileName, int panel) {
+void JuffEd::openDoc(const QString& fileName) {
 	LOGGER;
 	
-	Juff::Document* doc = NULL;
-	if ( !viewer_->activateDoc(fileName) ) {
-		int curPanel = viewer_->currentPanel();
-		
-		// check if there is only one doc, if it's Noname and if it's unmodified
-		if ( viewer_->docCount(curPanel) == 1 ) {
-			doc = viewer_->docList(curPanel)[0];
-			if ( doc->isModified() || !Juff::isNoname(doc) )
-				doc = NULL;
-		}
-		createDoc(fileName, panel);
-		
-		if ( doc != NULL )
-			closeDocWithConfirmation(doc);
-	}
+	if ( !viewer_->activateDoc(fileName) )
+		createDoc(fileName);
 }
 
 void JuffEd::closeDoc(const QString& fileName) {
@@ -1326,10 +1299,8 @@ void JuffEd::loadProject() {
 		openDoc(file);
 	}
 	
-	if ( viewer_->docCount(0) == 0 )
-		createDoc("", 0);
-	if ( viewer_->docCount(1) == 0 )
-		createDoc("", 1);
+	if ( docCount() == 0 )
+		slotFileNew();
 }
 
 QString JuffEd::openDialogDirectory() const {

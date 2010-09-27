@@ -29,7 +29,7 @@ public:
 	static QString defaultPrjPath()  { return configDirPath() + "/empty_project.xml"; }
 	
 private:
-	static QString libPath()         { return "@LIB_PATH@; }
+	static QString libPath()         { return "@LIB_PATH@"; }
 };
 
 #endif

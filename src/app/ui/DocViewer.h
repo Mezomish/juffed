@@ -5,7 +5,6 @@ class QSplitter;
 
 #include <QWidget>
 
-#include "DocStateChangeListener.h"
 #include "Document.h"
 
 namespace Juff {

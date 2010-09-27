@@ -1,26 +1,9 @@
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2010 Mikhail Murzin
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
-#include <QDebug>
-
 #include "DocViewer.h"
 
-#include "Document.h"
+#include <QKeyEvent>
+#include <QSplitter>
+#include <QVBoxLayout>
+
 #include "DocHandlerInt.h"
 #include "Functions.h"
 #include "Log.h"
@@ -28,14 +11,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "NullDoc.h"
 #include "TabWidget.h"
 
-#include <QAction>
-#include <QKeyEvent>
-#include <QMenu>
-#include <QVBoxLayout>
+namespace Juff {
 
 DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(this) {
 	handler_ = handler;
-	
 	spl_ = new QSplitter(this);
 	QVBoxLayout* vBox = new QVBoxLayout(this);
 	vBox->addWidget(spl_);
@@ -47,6 +26,7 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 	spl_->addWidget(tab1_);
 	spl_->addWidget(tab2_);
 	curTab_ = tab1_;
+	curDoc_ = NullDoc::instance();
 	
 	spl_->setSizes(QList<int>() << spl_->width() << 0);
 	
@@ -78,28 +58,88 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 		connect(act, SIGNAL(triggered()), SLOT(goToNumberedDoc()));
 		addAction(act);
 	}
-	curDoc_ = NullDoc::instance();
+//	curTab_ = NULL;
 	
 	ctrlTabMenu_.installEventFilter(this);
 }
 
-void DocViewer::addDoc(Juff::Document* doc) {
-	LOGGER;
+void DocViewer::applySettings() {
+	// 1st panel
+	QList<Juff::Document*> docs = docList(Juff::PanelLeft);
+	foreach (Juff::Document* doc, docs) {
+		doc->applySettings();
+	}
 	
-	connect(doc, SIGNAL(modified(bool)), SLOT(onDocModified(bool)));
-	
-	// If we want to prevent 'docActivated()' signal to be emitted when
-	// adding a new doc then comment the following line and uncomment the
-	// same line below it.
-	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
+	// 2nd panel
+	docs = docList(Juff::PanelRight);
+	foreach (Juff::Document* doc, docs) {
+		doc->applySettings();
+	}
 
-	addDoc(doc, curTab_);
+	QTabWidget::TabPosition position = (QTabWidget::TabPosition)MainSettings::get(MainSettings::TabPosition);
+	tab1_->setTabPosition(position);
+	tab2_->setTabPosition(position);
+}
+
+PanelIndex DocViewer::currentPanel() const {
+	return curTab_ == tab1_ ? PanelLeft : PanelRight;
+}
+
+void DocViewer::showPanel(PanelIndex panel) {
+	int w = spl_->width() / 2;
+	if ( (panel == PanelLeft && spl_->sizes()[0] == 0) 
+	     || (panel == PanelRight && spl_->sizes()[1] == 0) ) {
+		spl_->setSizes(QList<int>() << w << w);
+	}
+}
+
+void DocViewer::hidePanel(PanelIndex panel) {
+	QList<int> list;
+	if ( panel == PanelLeft ) {
+		list << 0 << spl_->width();
+		curTab_ = tab2_;
+	}
+	else if ( panel == PanelRight ) {
+		list << spl_->width() << 0;
+		curTab_ = tab1_;
+	}
+	spl_->setSizes(list);
+}
+
+void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
+//	LOGGER;
 	
-	// It's better to have it after adding to TabWidget to avoid
-	// emitting the signal 'docActivated()' during the document creation.
-//	connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
+	QTabWidget* tabWidget = NULL;
+	switch ( panel ) {
+		case PanelCurrent : tabWidget = curTab_; break;
+		case PanelLeft    : tabWidget = tab1_;   break;
+		case PanelRight   : tabWidget = tab2_;   break;
+		default: ;
+	}
+
+	if ( tabWidget != NULL ) {
 	
-	docStack_.prepend(doc);
+		connect(doc, SIGNAL(modified(bool)), SLOT(onDocModified(bool)));
+		
+		// If we want to prevent 'docActivated()' signal to be emitted when
+		// adding a new doc then comment the following line and uncomment the
+		// same line below it.
+		connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
+
+
+		tabWidget->addTab(doc, Juff::docIcon(doc), Juff::docTitle(doc->fileName(), doc->isModified()));
+		tabWidget->setCurrentWidget(doc);
+		
+		doc->init();
+		doc->setFocus();
+		
+		// It's better to have it after adding to TabWidget to avoid
+		// emitting the signal 'docActivated()' during the document creation.
+//		connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
+		
+		docStack_.removeAll(doc);
+		docStack_.prepend(doc);
+	}
 }
 
 void DocViewer::removeDoc(Juff::Document* doc) {
@@ -107,6 +147,7 @@ void DocViewer::removeDoc(Juff::Document* doc) {
 }
 
 Juff::Document* DocViewer::currentDoc() const {
+//	LOGGER;
 	Juff::Document* doc = qobject_cast<Juff::Document*>(curTab_->currentWidget());
 	if ( doc != 0 )
 		return doc;
@@ -115,14 +156,14 @@ Juff::Document* DocViewer::currentDoc() const {
 }
 
 Juff::Document* DocViewer::document(const QString& fileName) const {
-	QList<Juff::Document*> docs = docList(1);
+	QList<Juff::Document*> docs = docList(Juff::PanelLeft);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
 			return doc;
 		}
 	}
 	
-	docs = docList(2);
+	docs = docList(Juff::PanelRight);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
 			return doc;
@@ -132,19 +173,43 @@ Juff::Document* DocViewer::document(const QString& fileName) const {
 	return NullDoc::instance();
 }
 
+Juff::Document* DocViewer::documentAt(int index, PanelIndex panel) const {
+	QTabWidget* tabWidget = NULL;
+	switch ( panel ) {
+		case PanelLeft    : tabWidget = tab1_; break;
+		case PanelRight   : tabWidget = tab2_; break;
+		case PanelCurrent : tabWidget = curTab_; break;
+		default:;
+	}
+	
+	if ( tabWidget == NULL )
+		return NullDoc::instance();
+	
+	Juff::Document* doc = qobject_cast<Juff::Document*>(tabWidget->widget(index));
+	if ( doc != 0 )
+		return doc;
+	else
+		return NullDoc::instance();
+}
+
 bool DocViewer::activateDoc(const QString& fileName) {
-	QList<Juff::Document*> docs = docList(1);
+	QList<Juff::Document*> docs = docList(Juff::PanelLeft);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
+			if ( tab1_->width() == 0 ) {
+				spl_->setSizes(QList<int>() << spl_->width() / 2 << spl_->width() / 2);
+			}
 			tab1_->setCurrentWidget(doc);
 			doc->setFocus();
 			return true;
 		}
 	}
 	
-	docs = docList(2);
+	docs = docList(Juff::PanelRight);
 	foreach (Juff::Document* doc, docs) {
 		if ( doc->fileName() == fileName ) {
+			if ( tab2_->width() == 0 )
+				spl_->setSizes(QList<int>() << spl_->width() / 2 << spl_->width() / 2);
 			tab2_->setCurrentWidget(doc);
 			doc->setFocus();
 			return true;
@@ -154,67 +219,8 @@ bool DocViewer::activateDoc(const QString& fileName) {
 	return false;
 }
 
-int DocViewer::docCount(int panel) const {
-	switch (panel) {
-		case 0 :
-			return tab1_->count() + tab2_->count();
-		case 1 :
-			return tab1_->count();
-		case 2 :
-			return tab2_->count();
-		default: return 0;
-	}
-}
-
-QList<Juff::Document*> DocViewer::docList(int panel) const {
-	QList<Juff::Document*> list;
-	
-	// 1st panel
-	if ( panel == 0 || panel == 1 ) {
-		int n = tab1_->count();
-		for (int i = 0; i < n; ++i) {
-			Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
-			if ( doc != 0 )
-				list << doc;
-		}
-	}
-	// 2nd panel
-	if ( panel == 0 || panel == 2 ) {
-		int n = tab2_->count();
-		for (int i = 0; i < n; ++i) {
-			Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));
-			if ( doc != 0 )
-				list << doc;
-		}
-	}
-	return list;
-}
-
-QStringList DocViewer::docNamesList(int panel) const {
-	QStringList list;
-	// 1st panel
-	if ( panel == 0 || panel == 1 ) {
-		int n = tab1_->count();
-		for (int i = 0; i < n; ++i) {
-			Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
-			if ( doc != 0 )
-				list << doc->fileName();
-		}
-	}
-	// 2nd panel
-	if ( panel == 0 || panel == 2 ) {
-		int n = tab2_->count();
-		for (int i = 0; i < n; ++i) {
-			Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));
-			if ( doc != 0 )
-				list << doc->fileName();
-		}
-	}
-	return list;
-}
-
 void DocViewer::nextDoc() {
-	LOGGER;
+//	LOGGER;
 	
 	int n = curTab_->count();
 	if ( n == 0 )
@@ -224,7 +230,7 @@ void DocViewer::nextDoc() {
 }
 
 void DocViewer::prevDoc() {
-	LOGGER;
+//	LOGGER;
 	
 	int n = curTab_->count();
 	if ( n == 0 )
@@ -233,7 +239,120 @@ void DocViewer::prevDoc() {
 	curTab_->setCurrentIndex( (curTab_->currentIndex() + n - 1) % n );
 }
 
+void DocViewer::goToNumberedDoc() {
+//	LOGGER;
+	
+	QAction* act = qobject_cast<QAction*>(sender());
+	if ( act == 0 )
+		return;
+	
+	int index = act->text().toInt();
+	if ( index == 0 )
+		index = 10;
+	curTab_->setCurrentIndex(index - 1);
+}
+
+int DocViewer::docCount(PanelIndex panel) const {
+	switch (panel) {
+		case PanelLeft :
+			return tab1_->count();
+		case PanelRight :
+			return tab2_->count();
+		case PanelAll :
+			return tab1_->count() + tab2_->count();
+		default :
+			return 0;
+	}
+}
+
+DocList DocViewer::docList(PanelIndex panel) const {
+	if ( panel == PanelCurrent )
+		return docList(currentPanel());
+	
+	QList<Juff::Document*> list;
+	
+	// 1st panel
+	if ( panel == PanelAll || panel == PanelLeft ) {
+		int n = tab1_->count();
+		for (int i = 0; i < n; ++i) {
+			Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
+			if ( doc != 0 )
+				list << doc;
+		}
+	}
+	// 2nd panel
+	if ( panel == PanelAll || panel == PanelRight ) {
+		int n = tab2_->count();
+		for (int i = 0; i < n; ++i) {
+			Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));
+			if ( doc != 0 )
+				list << doc;
+		}
+	}
+	return list;
+}
+
+QStringList DocViewer::docNamesList(PanelIndex panel) const {
+	if ( panel == PanelCurrent )
+		return docNamesList(currentPanel());
+	
+	QStringList list;
+	// 1st panel
+	if ( panel == PanelAll || panel == PanelLeft ) {
+		int n = tab1_->count();
+		for (int i = 0; i < n; ++i) {
+			Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
+			if ( doc != 0 )
+				list << doc->fileName();
+		}
+	}
+	// 2nd panel
+	if ( panel == PanelAll || panel == PanelRight ) {
+		int n = tab2_->count();
+		for (int i = 0; i < n; ++i) {
+			Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));
+			if ( doc != 0 )
+				list << doc->fileName();
+		}
+	}
+	return list;
+}
+
+
+
+void DocViewer::onDocMoveRequested(Juff::Document* doc, Juff::TabWidget* tw) {
+	Juff::PanelIndex panel = (tw == tab1_ ? Juff::PanelRight : Juff::PanelLeft);
+	addDoc(doc, panel);
+	
+	curTab_ = anotherPanel(tw);
+	if ( curTab_->width() == 0 ) {
+		spl_->setSizes(QList<int>() << spl_->width() / 2 << spl_->width() / 2);
+	}
+//	if ( tw->count() == 0 ) {
+//		closePanel(tw);
+//	}
+}
+
+void DocViewer::onTabRemoved(Juff::TabWidget* tw) {
+	LOGGER;
+	
+	Juff::TabWidget* tw2 = anotherPanel(tw);
+	if ( tw->count() == 0 ) {
+		if ( tw2->count() > 0 ) {
+//			closePanel(tw);
+			tw2->currentWidget()->setFocus();
+		}
+		else {
+			emit docActivated(NullDoc::instance());
+		}
+	}
+	else {
+		tw->currentWidget()->setFocus();
+	}
+}
+
 void DocViewer::buildCtrlTabMenu(int curItem) {
+//	LOGGER;
 	ctrlTabMenu_.clear();
 	
 	int i = 0;
@@ -246,8 +365,18 @@ void DocViewer::buildCtrlTabMenu(int curItem) {
 	}
 }
 
+void DocViewer::onCtrlTabSelected() {
+//	LOGGER;
+	
+	QAction* act = qobject_cast<QAction*>(sender());
+	if ( act != 0 ) {
+		QString fileName = act->data().toString();
+		handler_->openDoc(fileName);
+	}
+}
+
 void DocViewer::onDocStackCalled(bool direct) {
-	LOGGER;
+//	LOGGER;
 	
 	if ( direct )
 		buildCtrlTabMenu(1);
@@ -257,25 +386,6 @@ void DocViewer::onDocStackCalled(bool direct) {
 	int w = ( width() - ctrlTabMenu_.width() ) / 2;
 	int h = ( height() - ctrlTabMenu_.height() ) / 2;
 	ctrlTabMenu_.popup(mapToGlobal(QPoint(w, h)));
-}
-
-void DocViewer::onCtrlTabSelected() {
-	LOGGER;
-	
-	QAction* act = qobject_cast<QAction*>(sender());
-	if ( act != 0 ) {
-		QString fileName = act->data().toString();
-		handler_->openDoc(fileName);
-	}
-}
-
-void DocViewer::onCurrentChanged(int index) {
-	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
-	if ( tw != 0 ) {
-		Juff::Document* doc = qobject_cast<Juff::Document*>(tw->currentWidget());
-		if ( doc != 0 )
-			emit docActivated(doc);
-	}
 }
 
 bool DocViewer::eventFilter(QObject *obj, QEvent *e) {
@@ -294,77 +404,40 @@ bool DocViewer::eventFilter(QObject *obj, QEvent *e) {
 	}
 }
 
-void DocViewer::goToNumberedDoc() {
-	LOGGER;
-	
-	QAction* act = qobject_cast<QAction*>(sender());
-	if ( act == 0 )
-		return;
-	
-	int index = act->text().toInt();
-	if ( index == 0 )
-		index = 10;
-	curTab_->setCurrentIndex(index - 1);
+
+void DocViewer::onCurrentChanged(int index) {
+	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
+	if ( tw != 0 ) {
+		Juff::Document* doc = qobject_cast<Juff::Document*>(tw->currentWidget());
+		if ( doc != 0 ) {
+			doc->setFocus();
+//			emit docActivated(doc);
+		}
+	}
 }
 
 
 
-
-
 void DocViewer::onDocModified(bool modified) {
-	LOGGER;
+//	LOGGER;
 
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {
 		int index = tab1_->indexOf(doc);
 		if ( index >= 0 ) {
-			tab1_->setTabText(index, Juff::docTitle(doc->fileName(), doc->isModified()));
+			// doc belongs to 1st panel
+			tab1_->setTabText(index, Juff::docTitle(doc));
 			tab1_->setTabIcon(index, Juff::docIcon(doc));
 		}
 		else {
 			index = tab2_->indexOf(doc);
 			if ( index >= 0 ) {
-				tab2_->setTabText(index, Juff::docTitle(doc->fileName(), doc->isModified()));
+				// doc belongs tn 2nd panel
+				tab2_->setTabText(index, Juff::docTitle(doc));
 				tab2_->setTabIcon(index, Juff::docIcon(doc));
 			}
 			Log::warning("Document that emitted a signal is not owned by DocViewer");
 		}
-	}
-}
-
-/*void DocViewer::onDocCloneRequested(Juff::Document*, Juff::TabWidget* tw) {
-	LOGGER;
-}*/
-
-void DocViewer::onDocMoveRequested(Juff::Document* doc, Juff::TabWidget* tw) {
-	LOGGER;
-
-	Juff::TabWidget* tw2 = anotherPanel(tw);
-	curTab_ = tw2;
-	addDoc(doc, tw2);
-	if ( tw2->width() == 0 ) {
-		spl_->setSizes(QList<int>() << spl_->width() / 2 << spl_->width() / 2);
-	}
-	if ( tw->count() == 0 ) {
-		closePanel(tw);
-	}
-}
-
-void DocViewer::onTabRemoved(Juff::TabWidget* tw) {
-	LOGGER;
-	
-	Juff::TabWidget* tw2 = anotherPanel(tw);
-	if ( tw->count() == 0 ) {
-		if ( tw2->count() > 0 ) {
-			closePanel(tw);
-			tw2->currentWidget()->setFocus();
-		}
-		else {
-			emit docActivated(NullDoc::instance());
-		}
-	}
-	else {
-		tw->currentWidget()->setFocus();
 	}
 }
 
@@ -389,49 +462,18 @@ void DocViewer::onDocFocused() {
 }
 
 
-Juff::TabWidget* DocViewer::anotherPanel(Juff::TabWidget* tw) {
+/*void DocViewer::onDocModificationChanged(Juff::Document*) {
+}
+
+void DocViewer::onDocAddedToProject(Juff::Document*, Juff::Project*) {
+}
+
+void DocViewer::onDocRemovedFromProject(Juff::Document*, Juff::Project*) {
+}*/
+
+Juff::TabWidget* DocViewer::anotherPanel(Juff::TabWidget* tw) const {
 	return (tw == tab1_ ? tab2_ : tab1_);
 }
 
-void DocViewer::addDoc(Juff::Document* doc, Juff::TabWidget* tabWidget) {
-	tabWidget->addTab(doc, Juff::docIcon(doc), Juff::docTitle(doc->fileName(), doc->isModified()));
-	tabWidget->setCurrentWidget(doc);
-	
-	doc->init();
-	doc->setFocus();
-}
 
-void DocViewer::closePanel(Juff::TabWidget* tabWidget) {
-	QList<int> list;
-	if ( tabWidget == tab1_ ) {
-		list << 0 << spl_->width();
-		curTab_ = tab2_;
-	}
-	else {
-		list << spl_->width() << 0;
-		curTab_ = tab1_;
-	}
-	spl_->setSizes(list);
-}
-
-
-void DocViewer::applySettings() {
-	// 1st panel
-	int n = tab1_->count();
-	for ( int i = 0; i < n; ++i ) {
-		Juff::Document* doc = qobject_cast<Juff::Document*>(tab1_->widget(i));
-		if ( doc != 0 )
-			doc->applySettings();
-	}
-	// 2nd panel
-	n = tab2_->count();
-	for ( int i = 0; i < n; ++i ) {
-		Juff::Document* doc = qobject_cast<Juff::Document*>(tab2_->widget(i));
-		if ( doc != 0 )
-			doc->applySettings();
-	}
-
-	QTabWidget::TabPosition position = (QTabWidget::TabPosition)MainSettings::get(MainSettings::TabPosition);
-	tab1_->setTabPosition(position);
-	tab2_->setTabPosition(position);
-}
+} // namespace Juff

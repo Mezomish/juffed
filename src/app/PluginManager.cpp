@@ -41,14 +41,9 @@ PluginManager::~PluginManager() {
 
 void PluginManager::loadPlugins(SettingsDlg* dlg) {
 	LOGGER;
-	//	user's plugins
-	QDir pluginDir(AppInfo::configDirPath() + "/plugins");
-	foreach (QString fileName, pluginDir.entryList(QStringList() << "*.so", QDir::Files)) {
-		loadPlugin(pluginDir.absoluteFilePath(fileName), dlg);
-	}
 	
 	//	global plugins
-	QDir gPluginDir(AppInfo::appDirPath() + "/plugins");
+	QDir gPluginDir(AppInfo::pluginsPath());
 	foreach (QString fileName, gPluginDir.entryList(QDir::Files)) {
 		loadPlugin(gPluginDir.absoluteFilePath(fileName), dlg);
 	}

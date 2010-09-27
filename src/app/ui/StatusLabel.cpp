@@ -32,7 +32,7 @@ void StatusLabel::setMenu(QMenu* menu) {
 }
 
 void StatusLabel::mouseReleaseEvent(QMouseEvent* e) {
-	if ( menu_ ) {
+	if ( NULL != menu_ ) {
 		menu_->exec(e->globalPos());
 	}
 	else {

@@ -98,7 +98,7 @@ private:
 };
 
 
-SciDocEngine::SciDocEngine() : QObject(), DocEngine() {
+SciDocEngine::SciDocEngine() : QObject(), Juff::DocEngine() {
 	syntaxGroup_ = new QActionGroup(this);
 	eolGroup_ = new QActionGroup(this);
 	

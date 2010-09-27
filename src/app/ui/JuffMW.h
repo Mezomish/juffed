@@ -39,7 +39,8 @@ Q_OBJECT
 public:
 	JuffMW();
 
-	void setViewer(QWidget*);
+	void setMainWidget(QWidget*);
+
 	QString getOpenFileName(const QString& dir, const QString& filters);
 	QStringList getOpenFileNames(const QString& dir, const QString& filters);
 	QString getSaveFileName(const QString& curFileName, const QString& filters);
@@ -52,6 +53,7 @@ public:
 	// information display
 	void addStatusWidget(QWidget*, int);
 	void addToolBar(QToolBar*);
+	void addMenu(QMenu*);
 	void message(const QIcon& icon, const QString& title, const QString& message, int timeout = 10);
 
 	SearchPopup* searchPopup() const;
@@ -71,11 +73,10 @@ public:
 signals:
 	void closeRequested(bool&);
 //	void searchRequested(const Juff::SearchParams&);
-	void searchPopupClosed();
 
 public slots:
-	void about();
-	void aboutQt();
+	void slotAbout();
+	void slotAboutQt();
 
 protected:
 	virtual void closeEvent(QCloseEvent*);

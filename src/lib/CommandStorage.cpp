@@ -1,45 +1,43 @@
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2010 Mikhail Murzin
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
 #include "CommandStorage.h"
 
-#include "IconManager.h"
-#include "KeySettings.h"
-#include "Log.h"
-
 #include <QAction>
-#include <QKeySequence>
-#include <QMap>
+#include <QIcon>
+
+#include "Constants.h"
+#include "IconManager.h"
 
 CommandStorage* CommandStorage::instance_ = NULL;
 
-class CommandStorage::Interior {
-public:
-	Interior() {
-	}
+CommandStorage::CommandStorage() : QObject() {
+	keys_[FILE_NEW]     = QKeySequence("Ctrl+N");
+	keys_[FILE_OPEN]    = QKeySequence("Ctrl+O");
+	keys_[FILE_SAVE]    = QKeySequence("Ctrl+S");
+	keys_[FILE_SAVE_AS] = QKeySequence("Ctrl+Shift+S");
+	keys_[FILE_RELOAD]  = QKeySequence("F5");
+	keys_[FILE_CLOSE]   = QKeySequence("Ctrl+W");
+	keys_[FILE_PRINT]   = QKeySequence("Ctrl+P");
+	keys_[FILE_EXIT]    = QKeySequence("Ctrl+Q");
 	
-	QMap<Juff::ActionID, QAction*> actions_;
-//	QMap<Juff::ActionID, QKeySequence> shortcuts_;
-};
-
-CommandStorage::CommandStorage() {
-	int_ = new Interior();
-	createActions();
+	keys_[EDIT_UNDO]    = QKeySequence("Ctrl+Z");
+	keys_[EDIT_REDO]    = QKeySequence("Ctrl+Y");
+	keys_[EDIT_CUT]     = QKeySequence("Ctrl+X");
+	keys_[EDIT_COPY]    = QKeySequence("Ctrl+C");
+	keys_[EDIT_PASTE]   = QKeySequence("Ctrl+V");
+	
+	keys_[SEARCH_FIND]       = QKeySequence("Ctrl+F");
+	keys_[SEARCH_FIND_NEXT]  = QKeySequence("F3");
+	keys_[SEARCH_FIND_PREV]  = QKeySequence("Shift+F3");
+	keys_[SEARCH_REPLACE]    = QKeySequence("Ctrl+R");
+	keys_[SEARCH_GOTO_LINE]  = QKeySequence("Ctrl+G");
+	keys_[SEARCH_GOTO_FILE]  = QKeySequence("Shift+Ctrl+G");
+	
+	keys_[VIEW_ZOOM_IN]      = QKeySequence("Ctrl+=");
+	keys_[VIEW_ZOOM_OUT]     = QKeySequence("Ctrl+-");
+	keys_[VIEW_ZOOM_100]     = QKeySequence("Ctrl+0");
+	keys_[VIEW_FULLSCREEN]   = QKeySequence("F11");
+	
+	keys_[HELP_ABOUT]        = QKeySequence("F1");
+	// TODO : load keys from settings
 }
 
 CommandStorage* CommandStorage::instance() {
@@ -48,208 +46,29 @@ CommandStorage* CommandStorage::instance() {
 	return instance_;
 }
 
-QAction* CommandStorage::action(Juff::ActionID id) const {
-	return int_->actions_.value(id, NULL);
+void CommandStorage::addAction(const QString& key, const QString& name, QObject* obj, const char* slot) {
+	QAction* a = new QAction(IconManager::instance()->icon(key), name, obj);
+	a->setShortcut(shortcut(key));
+	connect(a, SIGNAL(triggered()), obj, slot);
+	actions_[key] = a;
 }
 
-QList<Juff::ActionID> CommandStorage::actionIDs() const {
-	return int_->actions_.keys();
+QAction* CommandStorage::action(const QString& key) const {
+	return actions_.value(key, NULL);
 }
 
-void CommandStorage::createActions() {
-	LOGGER;
-	
-	Juff::ActionID ids[] = {
-		Juff::FileNew,
-		Juff::FileOpen,
-		Juff::FileSave,
-		Juff::FileSaveAs,
-		Juff::FileSaveAll,
-		Juff::FileReload,
-		Juff::FileRename,
-		Juff::FileClose,
-		Juff::FileCloseAll,
-		Juff::FilePrint,
-		Juff::FileExit,
-		//
-		Juff::PrjNew,
-		Juff::PrjOpen,
-		Juff::PrjClose,
-		Juff::PrjSaveAs,
-		Juff::PrjAddFile,
-		//
-		Juff::EditUndo,
-		Juff::EditRedo,
-		Juff::EditCut,
-		Juff::EditCopy,
-		Juff::EditPaste,
-		Juff::GotoLine,
-		Juff::JumpToFile,
-		//
-		Juff::Find,
-		Juff::FindNext,
-		Juff::FindPrev,
-		Juff::Replace,
-		//
-		Juff::ViewLineNumbers,
-		Juff::ViewWrapWords,
-		Juff::ViewWhitespaces,
-		Juff::ViewLineEndings,
-		Juff::ViewZoomIn,
-		Juff::ViewZoomOut,
-		Juff::ViewZoom100,
-		Juff::ViewFullscreen,
-		//
-		Juff::Settings,
-		//
-		Juff::About,
-		Juff::AboutQt,
-		//
-		Juff::NullID
-	};
-	
-	for (int i = 0; ; ++i) {
-		Juff::ActionID id = ids[i];
-		if ( id == Juff::NullID )
-			break;
-		
-		QString text = title(id);
-		QIcon icon = IconManager::instance()->icon(id);
-		int_->actions_.insert(id, new QAction(icon, text, 0));
-		int_->actions_[id]->setShortcut(shortcut(id));
-	}
-	
-	int_->actions_[Juff::ViewLineNumbers]->setCheckable(true);
-	int_->actions_[Juff::ViewWrapWords]->setCheckable(true);
-	int_->actions_[Juff::ViewWhitespaces]->setCheckable(true);
-	int_->actions_[Juff::ViewLineEndings]->setCheckable(true);
-	int_->actions_[Juff::ViewFullscreen]->setCheckable(true);
-}
-
-QString CommandStorage::title(Juff::ActionID id) const {
-//	LOGGER;
-	
-	switch (id) {
-		case Juff::FileNew :      return QObject::tr("New");
-		case Juff::FileOpen :     return QObject::tr("Open");
-		case Juff::FileSave :     return QObject::tr("Save");
-		case Juff::FileSaveAs :   return QObject::tr("Save as");
-		case Juff::FileSaveAll :  return QObject::tr("Save all");
-		case Juff::FileReload :   return QObject::tr("Reload");
-		case Juff::FileRename :   return QObject::tr("Rename");
-		case Juff::FileClose :    return QObject::tr("Close");
-		case Juff::FileCloseAll : return QObject::tr("Close all");
-		case Juff::FilePrint :    return QObject::tr("Print");
-		case Juff::FileExit :     return QObject::tr("Exit");
-			
-		case Juff::PrjNew :       return QObject::tr("New project");
-		case Juff::PrjOpen :      return QObject::tr("Open project");
-		case Juff::PrjRename :    return QObject::tr("Rename project");
-		case Juff::PrjClose :     return QObject::tr("Close project");
-		case Juff::PrjSaveAs :    return QObject::tr("Save project as");
-		case Juff::PrjAddFile :   return QObject::tr("Add file to project");
-			
-		case Juff::EditUndo :     return QObject::tr("Undo");
-		case Juff::EditRedo :     return QObject::tr("Redo");
-		case Juff::EditCut :      return QObject::tr("Cut");
-		case Juff::EditCopy :     return QObject::tr("Copy");
-		case Juff::EditPaste :    return QObject::tr("Paste");
-		case Juff::GotoLine :     return QObject::tr("Go to line");
-		case Juff::JumpToFile:    return QObject::tr("Jump to file");
-		
-		case Juff::Find :         return QObject::tr("Find");
-		case Juff::FindNext :     return QObject::tr("Find next");
-		case Juff::FindPrev :     return QObject::tr("Find previous");
-		case Juff::Replace :      return QObject::tr("Replace");
-		
-		case Juff::ViewLineNumbers : return QObject::tr("Show line numbers");
-		case Juff::ViewWrapWords :   return QObject::tr("Wrap words");
-		case Juff::ViewWhitespaces : return QObject::tr("Show whitespaces");
-		case Juff::ViewLineEndings : return QObject::tr("Show line endings");
-		case Juff::ViewZoomIn :      return QObject::tr("Zoom in");
-		case Juff::ViewZoomOut :     return QObject::tr("Zoom out");
-		case Juff::ViewZoom100 :     return QObject::tr("Zoom 100%");
-		case Juff::ViewFullscreen :  return QObject::tr("Fullscreen");
-		
-		case Juff::Settings:         return QObject::tr("Settings");
-		
-		case Juff::About:            return QObject::tr("About");
-		case Juff::AboutQt:          return QObject::tr("About Qt");
-		
-		default:
-			return "<no title>";
-	}
-}
-
-QKeySequence CommandStorage::shortcut(Juff::ActionID id) const {
-//	LOGGER;
-	
-//	QKeySequence seq = KeySettings::keySequence(id);
-//	if ( !seq.isEmpty() )
-//		return seq;
-
-	switch (id) {
-		case Juff::FileNew :      return QKeySequence("Ctrl+N");
-		case Juff::FileOpen :     return QKeySequence("Ctrl+O");
-		case Juff::FileSave :     return QKeySequence("Ctrl+S");
-		case Juff::FileSaveAs :   return QKeySequence("Ctrl+Shift+S");
-//		case Juff::FileSaveAll :  return QKeySequence("");
-		case Juff::FileReload :   return QKeySequence("F5");
-//		case Juff::FileRename :   return QKeySequence("");
-		case Juff::FileClose :    return QKeySequence("Ctrl+W");
-//		case Juff::FileCloseAll : return QKeySequence("");
-		case Juff::FilePrint :    return QKeySequence("Ctrl+P");
-		case Juff::FileExit :     return QKeySequence("Ctrl+Q");
-		
-		case Juff::EditUndo :     return QKeySequence("Ctrl+Z");
-		case Juff::EditRedo :     return QKeySequence("Ctrl+Y");
-		case Juff::EditCut :      return QKeySequence("Ctrl+X");
-		case Juff::EditCopy :     return QKeySequence("Ctrl+C");
-		case Juff::EditPaste :    return QKeySequence("Ctrl+V");
-		case Juff::GotoLine :     return QKeySequence("Ctrl+G");
-		case Juff::JumpToFile :   return QKeySequence("Shift+Ctrl+G");
-		
-		case Juff::Find :         return QKeySequence("Ctrl+F");
-		case Juff::FindNext :     return QKeySequence("F3");
-		case Juff::FindPrev :     return QKeySequence("Shift+F3");
-		case Juff::Replace :      return QKeySequence("Ctrl+R");
-		
-//		case Juff::ViewLineNumbers : return QKeySequence("");
-		case Juff::ViewWrapWords :   return QKeySequence("F10");
-		case Juff::ViewWhitespaces : return QKeySequence("Ctrl+I");
-		case Juff::ViewLineEndings : return QKeySequence("Ctrl+E");
-		case Juff::ViewZoomIn :      return QKeySequence("Ctrl+=");
-		case Juff::ViewZoomOut :     return QKeySequence("Ctrl+-");
-		case Juff::ViewZoom100 :     return QKeySequence("Ctrl+0");
-		case Juff::ViewFullscreen :  return QKeySequence("F11");
-		
-		case Juff::About:            return QKeySequence("F1");
-		
-		default:
-			return QKeySequence("");
-	}
-//	return shortcuts_.value(id, QKeySequence());
-}
-
-void CommandStorage::updateShortcuts() {
-//	JUFFENTRY;
-	QList<Juff::ActionID> ids = actionIDs();
-	foreach (Juff::ActionID id, ids) {
-		QAction* a = action(id);
-		if ( NULL != a ) {
-			if ( KeySettings::contains(id) ) {
-				a->setShortcut(KeySettings::keySequence(id));
-			}
-		}
-	}
+QKeySequence CommandStorage::shortcut(const QString& key) const {
+	return keys_.value(key, QKeySequence());
 }
 
 void CommandStorage::updateIcons() {
-	QList<Juff::ActionID> ids = actionIDs();
-	foreach (Juff::ActionID id, ids) {
-		QAction* a = action(id);
-		if ( NULL != a ) {
-			a->setIcon(IconManager::instance()->icon(id));
-		}
+	QMap<QString, QAction*>::iterator it = actions_.begin();
+	while ( it != actions_.end() ) {
+		QString key = it.key();
+		QAction* act = it.value();
+		QIcon icon = IconManager::instance()->icon(key);
+		if ( !icon.isNull() )
+			act->setIcon(icon);
+		it++;
 	}
 }

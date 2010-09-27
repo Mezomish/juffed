@@ -39,7 +39,22 @@ SearchComboBox::SearchComboBox(QWidget* parent) : QComboBox(parent) {
 }
 
 void SearchComboBox::setSearchStatus(int index, int total) {
-	statusL_->setText(tr("%1 of %2").arg(index + 1).arg(total));
+	QPalette plt = lineEdit()->palette();
+	if ( lineEdit()->text().isEmpty() ) {
+		statusL_->setText("");
+		plt.setColor(QPalette::Base, QPalette().color(QPalette::Base));
+	}
+	else {
+		statusL_->setText(tr("%1 of %2").arg(index + 1).arg(total));
+		
+		if ( total == 0 ) {
+			plt.setColor(QPalette::Base, QColor(255, 180, 180));
+		}
+		else {
+			plt.setColor(QPalette::Base, QPalette().color(QPalette::Base));
+		}
+	}
+	lineEdit()->setPalette(plt);
 }
 
 void SearchComboBox::resizeEvent(QResizeEvent* e) {

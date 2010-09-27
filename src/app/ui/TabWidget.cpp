@@ -1,40 +1,20 @@
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2010 Mikhail Murzin
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
 #include "TabWidget.h"
-
-#include "Document.h"
-#include "DocHandlerInt.h"
-#include "Functions.h"
-#include "IconManager.h"
-#include "Log.h"
-#include "Project.h"
-#include "TabBar.h"
 
 #include <QApplication>
 #include <QClipboard>
-#include <QDragEnterEvent>
-#include <QDropEvent>
 #include <QFileInfo>
 #include <QKeyEvent>
 #include <QMenu>
 #include <QPushButton>
 #include <QUrl>
+
+#include "Document.h"
+#include "DocHandlerInt.h"
+#include "Enums.h"
+#include "Functions.h"
+#include "IconManager.h"
+#include "Log.h"
+#include "TabBar.h"
 
 namespace Juff {
 
@@ -64,6 +44,7 @@ TabWidget::TabWidget(Juff::DocHandlerInt* handler) : QTabWidget() {
 	
 	setTabBar(new Juff::TabBar(this));
 	connect(tabBar(), SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
+	connect(tabBar(), SIGNAL(closeAllRequested()), SLOT(onCloseAllRequested()));
 	setAcceptDrops(true);
 	
 	static int ind = 0;
@@ -77,18 +58,6 @@ TabWidget::TabWidget(Juff::DocHandlerInt* handler) : QTabWidget() {
 	connect(docListBtn_->menu(), SIGNAL(aboutToShow()), SLOT(onDocListNeedsToBeShown()));
 }
 
-QString TabWidget::docName(int index) const {
-	if ( index < 0 )
-		return "";
-	
-	QWidget* tab = widget(index);
-	Juff::Document* doc = qobject_cast<Juff::Document*>(tab);
-	if ( doc != 0 )
-		return doc->fileName();
-	else
-		return "";
-}
-
 void TabWidget::initDocMenu(int index, QMenu* menu) {
 	LOGGER;
 	
@@ -97,35 +66,61 @@ void TabWidget::initDocMenu(int index, QMenu* menu) {
 	if ( doc != 0 ) {
 		menuRequestedIndex_ = index;
 		
-		menu->addAction(tr("Copy file name to clipboard"), this, SLOT(copyFileName()));
+		menu->addAction(tr("Copy file name to clipboard"), this, SLOT(slotCopyFileName()));
 		if ( !Juff::isNoname(doc) ) {
-			menu->addAction(tr("Copy full file path to clipboard"), this, SLOT(copyFilePath()));
-			menu->addAction(tr("Copy file directory path to clipboard"), this, SLOT(copyDirPath()));
+			menu->addAction(tr("Copy full file path to clipboard"), this, SLOT(slotCopyFilePath()));
+			menu->addAction(tr("Copy file directory path to clipboard"), this, SLOT(slotCopyDirPath()));
 		}
 		
 		menu->addSeparator();
 //		if ( doc->supportsAction(Juff::FileClone) && !doc->hasClone() )
 //			menu->addAction(tr("Clone to another panel"), this, SLOT(cloneDoc()));
 		if ( selfIndex_ == 0 )
-			menu->addAction(tr("Move to the right panel"), this, SLOT(moveDoc()));
+			menu->addAction(tr("Move to the right panel"), this, SLOT(slotMoveDoc()));
 		else
-			menu->addAction(tr("Move to the left panel"), this, SLOT(moveDoc()));
+			menu->addAction(tr("Move to the left panel"), this, SLOT(slotMoveDoc()));
 		
-		Juff::Project* prj = handler_->curPrj();
+/*		Juff::Project* prj = handler_->curPrj();
 		// TODO : add an accurate check whether the file is a part of the project
 		if ( prj != 0 && !prj->isNoname() ) {
 			if ( !prj->files().contains(doc->fileName()) )
 				menu->addAction(tr("Add to project"), this, SLOT(addFileToProject()))->setIcon(IconManager::instance()->icon(Juff::PrjAddFile));
 			else
 				menu->addAction(tr("Remove from project"), this, SLOT(removeFileFromProject()))->setIcon(IconManager::instance()->icon(Juff::PrjRemoveFile));
-		}
+		}*/
 	}
 	else {
 		menuRequestedIndex_ = -1;
 	}
 }
 
-void TabWidget::copyFileName() {
+void TabWidget::tabInserted(int) {
+//	LOGGER;
+	
+	if ( count() > 0 )
+		docListBtn_->show();
+}
+
+void TabWidget::tabRemoved(int) {
+	LOGGER;
+	
+	emit tabRemoved(this);
+	
+	if ( count() == 0 )
+		docListBtn_->hide();
+}
+
+void TabWidget::slotMoveDoc() {
+	LOGGER;
+	
+	QWidget* tab = widget(menuRequestedIndex_);
+	Juff::Document* doc = qobject_cast<Juff::Document*>(tab);
+	if ( doc != 0 ) {
+		emit requestDocMove(doc, this);
+	}
+}
+
+void TabWidget::slotCopyFileName() {
 	QString fileName = docName(menuRequestedIndex_);
 	if ( !fileName.isEmpty() ) {
 		QString name = QFileInfo(fileName).fileName();
@@ -133,14 +128,14 @@ void TabWidget::copyFileName() {
 	}
 }
 
-void TabWidget::copyFilePath() {
+void TabWidget::slotCopyFilePath() {
 	QString fileName = docName(menuRequestedIndex_);
 	if ( !fileName.isEmpty() ) {
 		QApplication::clipboard()->setText(fileName);
 	}
 }
 
-void TabWidget::copyDirPath() {
+void TabWidget::slotCopyDirPath() {
 	QString fileName = docName(menuRequestedIndex_);
 	if ( !fileName.isEmpty() ) {
 		QString name = QFileInfo(fileName).absolutePath();
@@ -148,31 +143,7 @@ void TabWidget::copyDirPath() {
 	}
 }
 
-void TabWidget::addFileToProject() {
-	QString fileName = docName(menuRequestedIndex_);
-	if ( !fileName.isEmpty() ) {
-		Juff::Project* prj = handler_->curPrj();
-		prj->addFile(fileName);
-	}
-}
 
-void TabWidget::removeFileFromProject() {
-	QString fileName = docName(menuRequestedIndex_);
-	if ( !fileName.isEmpty() ) {
-		Juff::Project* prj = handler_->curPrj();
-		prj->removeFile(fileName);
-	}
-}
-
-void TabWidget::onTabCloseRequested(int index) {
-	LOGGER;
-	
-	QWidget* tab = widget(index);
-	Juff::Document* doc = qobject_cast<Juff::Document*>(tab);
-	if ( doc != 0 ) {
-		handler_->closeDoc(doc->fileName());
-	}
-}
 
 void TabWidget::onDocListNeedsToBeShown() {
 	LOGGER;
@@ -196,48 +167,38 @@ void TabWidget::onDocMenuItemSelected() {
 	}
 }
 
-//void TabWidget::onDocListPressed() {
-//	LOGGER;
-//	docListBtn_->men
-//}
-
-void TabWidget::tabInserted(int) {
+void TabWidget::onTabCloseRequested(int index) {
 	LOGGER;
 	
-	if ( count() > 0 )
-		docListBtn_->show();
-}
-
-void TabWidget::tabRemoved(int) {
-	LOGGER;
-	
-	emit tabRemoved(this);
-	
-	if ( count() == 0 )
-		docListBtn_->hide();
-}
-
-
-/*void TabWidget::cloneDoc() {
-	LOGGER;
-	
-	QWidget* tab = widget(menuRequestedIndex_);
+	QWidget* tab = widget(index);
 	Juff::Document* doc = qobject_cast<Juff::Document*>(tab);
 	if ( doc != 0 ) {
-		emit requestDocClone(doc, this);
-	}
-}*/
-
-void TabWidget::moveDoc() {
-	LOGGER;
-	
-	QWidget* tab = widget(menuRequestedIndex_);
-	Juff::Document* doc = qobject_cast<Juff::Document*>(tab);
-	if ( doc != 0 ) {
-		emit requestDocMove(doc, this);
+		handler_->closeDoc(doc->fileName());
 	}
 }
 
+void TabWidget::onCloseAllRequested() {
+	if ( selfIndex_ == 0 )
+		handler_->closeAllDocs(Juff::PanelLeft);
+	else if ( selfIndex_ == 1 )
+		handler_->closeAllDocs(Juff::PanelRight);
+}
+
+void TabWidget::keyPressEvent(QKeyEvent* e) {
+	if ( e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab ) {
+		if ( e->modifiers() & Qt::ControlModifier ) {
+			if ( e->modifiers() & Qt::ShiftModifier ) {
+				emit docStackCalled(false);
+			}
+			else {
+				emit docStackCalled(true);
+			}
+			return;
+		}
+	}
+	
+	QTabWidget::keyPressEvent(e);
+}
 
 void TabWidget::dragEnterEvent(QDragEnterEvent* e) {
 	LOGGER;
@@ -268,20 +229,17 @@ void TabWidget::dropEvent(QDropEvent* e) {
 	}
 }
 
-void TabWidget::keyPressEvent(QKeyEvent* e) {
-	if ( e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab ) {
-		if ( e->modifiers() & Qt::ControlModifier ) {
-			if ( e->modifiers() & Qt::ShiftModifier ) {
-				emit docStackCalled(false);
-			}
-			else {
-				emit docStackCalled(true);
-			}
-			return;
-		}
-	}
+QString TabWidget::docName(int index) const {
+	if ( index < 0 )
+		return "";
 	
-	QTabWidget::keyPressEvent(e);
+	QWidget* tab = widget(index);
+	Juff::Document* doc = qobject_cast<Juff::Document*>(tab);
+	if ( doc != 0 )
+		return doc->fileName();
+	else
+		return "";
 }
+
 
 } // namespace Juff

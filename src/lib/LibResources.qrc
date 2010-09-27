@@ -60,9 +60,5 @@
 		<file alias="16/zoomOut.png">../images/icons/16/zoomOut.png</file>
 		<file alias="16/view-fullscreen.png">../images/icons/16/view-fullscreen.png</file>
 		
-		<file alias="project.png">../images/project.png</file>
-		<file alias="project-open.png">../images/project-open.png</file>
-		<file alias="project-add-file.png">../images/project-add-file.png</file>
-		<file alias="project-remove-file.png">../images/project-remove-file.png</file>
 	</qresource>
 </RCC>

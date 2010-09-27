@@ -30,10 +30,9 @@ public:
 	SearchPopup();
 
 	void setFindText(const QString&);
-	void focusOnFind(bool selectAll = false);
-	void focusOnReplace(bool selectAll = false);
+	void setFocusOnFind(bool selectAll = false);
+	void setFocusOnReplace(bool selectAll = false);
 	Juff::SearchParams searchParams() const;
-	void highlightRed(bool highlight = true);
 	void setSearchStatus(int, int);
 
 public slots:
@@ -42,13 +41,14 @@ public slots:
 	void hideReplace();
 
 signals:
-	void searchRequested();
-	void findNext();
-	void findPrev();
+	void searchParamsChanged(const Juff::SearchParams&);
+//	void searchRequested();
+	void findNextRequested();
+	void findPrevRequested();
 	void closed();
-	void replaceNext();
-	void replacePrev();
-	void replaceAll();
+	void replaceNextRequested();
+	void replacePrevRequested();
+	void replaceAllRequested();
 
 private slots:
 	void onFindTextChanged(const QString&);
@@ -59,11 +59,11 @@ private slots:
 	void slotReplaceNext();
 	void slotReplacePrev();
 	void slotReplaceAll();
+	void slotShowReplace(bool);
 
 private:
 	Ui::SearchPopup ui;
 	Juff::SearchParams params_;
-//	QLabel* searchStatusL_;
 };
 
 #endif // __JUFFED_SEARCH_POPUP_H__

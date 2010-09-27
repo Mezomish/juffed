@@ -46,21 +46,11 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="replaceL">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Replace:</string>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="2">
     <widget class="QComboBox" name="replaceCmb">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
        <horstretch>0</horstretch>
@@ -110,6 +100,9 @@
    </item>
    <item row="2" column="7">
     <widget class="QPushButton" name="replaceAllBtn">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="maximumSize">
       <size>
        <width>30</width>
@@ -162,6 +155,9 @@
    </item>
    <item row="2" column="4">
     <widget class="QPushButton" name="replaceNextBtn">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="maximumSize">
       <size>
        <width>30</width>
@@ -194,6 +190,9 @@
    </item>
    <item row="2" column="3">
     <widget class="QPushButton" name="replacePrevBtn">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="maximumSize">
       <size>
        <width>30</width>
@@ -205,6 +204,38 @@
      </property>
      <property name="text">
       <string>^</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="replaceL">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Replace:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QCheckBox" name="replaceChk">
+     <property name="maximumSize">
+      <size>
+       <width>25</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </item>

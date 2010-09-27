@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Document.h"
 
 #include "AppInfo.h"
+#include "Constants.h"
 #include "Functions.h"
 #include "IconManager.h"
 #include "Log.h"
@@ -107,7 +108,7 @@ void Document::setCodec(QTextCodec* codec) {
 }
 
 void Document::setCharset(const QString& charset) {
-	LOGGER;
+//	LOGGER;
 	QTextCodec* codec = QTextCodec::codecForName(charset.toAscii());
 	if ( codec != 0 ) {
 		QString oldCharset = charset_;
@@ -212,14 +213,14 @@ bool Document::save(QString&) {
 }
 
 void Document::startCheckingTimer() {
-	LOGGER;
+//	LOGGER;
 	if ( !fileName_.isEmpty() && !Juff::isNoname(this) ) {
-		lastModMutex_.lock();
+/*		lastModMutex_.lock();
 		lastModified_ = QFileInfo(fileName_).lastModified();
 		qDebug() << "'Last modified' from file:" << lastModified_;
 		qDebug() << "'Last modified' saved    :" << QFileInfo(fileName_).lastModified();
 		lastModMutex_.unlock();
-		modCheckTimer_->start(1000);
+		modCheckTimer_->start(1000);*/
 	}
 }
 
@@ -235,8 +236,8 @@ void Document::checkLastModified() {
 		lastModMutex_.lock();
 		if ( fi.lastModified() > lastModified_ ) {
 			
-			qDebug() << "Current 'last modified'    :" << lastModified_;
-			qDebug() << "Real file's 'last modified':" << fi.lastModified();
+//			qDebug() << "Current 'last modified'    :" << lastModified_;
+//			qDebug() << "Real file's 'last modified':" << fi.lastModified();
 			
 			if ( checkingMutex_.tryLock() ) {
 				QString question = tr("The file '%1' was modified by external program.").arg(Juff::docTitle(this)) + "\n";
@@ -246,12 +247,13 @@ void Document::checkLastModified() {
 				QAbstractButton* btn = msgBox.button(QMessageBox::Save);
 				if ( btn ) {
 					btn->setText(tr("Save current"));
-					btn->setIcon(IconManager::instance()->icon(Juff::FileSave));
+//					btn->setIcon(IconManager::instance()->icon(Juff::FileSave));
+					btn->setIcon(IconManager::instance()->icon(FILE_SAVE));
 				}
 				btn = msgBox.button(QMessageBox::Open);
 				if ( btn ) {
 					btn->setText(tr("Reload from disk"));
-					btn->setIcon(IconManager::instance()->icon(Juff::FileReload));
+					btn->setIcon(IconManager::instance()->icon(FILE_RELOAD));
 				}
 				btn = msgBox.button(QMessageBox::Cancel);
 				if ( btn ) {

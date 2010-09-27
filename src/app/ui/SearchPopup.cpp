@@ -43,6 +43,9 @@ SearchPopup::SearchPopup() : QWidget() {
 	QLineEdit* findEdit = ui.findCmb->lineEdit();
 	QLineEdit* replaceEdit = ui.replaceCmb->lineEdit();
 	connect(findEdit, SIGNAL(textChanged(const QString&)), SLOT(onFindTextChanged(const QString&)));
+	connect(ui.caseSensitiveChk, SIGNAL(toggled(bool)), SLOT(onCaseSensitiveChecked(bool)));
+	connect(ui.wholeWordsChk, SIGNAL(toggled(bool)), SLOT(onWholeWordsChecked(bool)));
+	
 	connect(findEdit, SIGNAL(returnPressed()), SLOT(slotFindNext()));
 	connect(replaceEdit, SIGNAL(returnPressed()), SLOT(slotReplaceNext()));
 	
@@ -51,17 +54,10 @@ SearchPopup::SearchPopup() : QWidget() {
 	connect(ui.replaceNextBtn, SIGNAL(clicked()), SLOT(slotReplaceNext()));
 	connect(ui.replacePrevBtn, SIGNAL(clicked()), SLOT(slotReplacePrev()));
 	connect(ui.replaceAllBtn, SIGNAL(clicked()), SLOT(slotReplaceAll()));
-	connect(ui.caseSensitiveChk, SIGNAL(toggled(bool)), SLOT(onCaseSensitiveChecked(bool)));
-	connect(ui.wholeWordsChk, SIGNAL(toggled(bool)), SLOT(onWholeWordsChecked(bool)));
-	
-//	searchStatusL_ = new QLabel("", findEdit);
-//	searchStatusL_->setGeometry(200, 0, 100, 25);
-//	findEdit->setTextMargins(0, 0, 100, 0);
-//	searchStatusL_->setMaximumWidth(100);
+	connect(ui.replaceChk, SIGNAL(toggled(bool)), SLOT(slotShowReplace(bool)));
 }
 
 void SearchPopup::setSearchStatus(int index, int total) {
-//	searchStatusL_->setText(tr("%1 of %2").arg(index+1).arg(total));
 	ui.findCmb->setSearchStatus(index, total);
 }
 
@@ -69,13 +65,13 @@ void SearchPopup::setFindText(const QString& text) {
 	ui.findCmb->lineEdit()->setText(text);
 }
 
-void SearchPopup::focusOnFind(bool selectAll) {
+void SearchPopup::setFocusOnFind(bool selectAll) {
 	ui.findCmb->lineEdit()->setFocus();
 	if ( selectAll )
 		ui.findCmb->lineEdit()->selectAll();
 }
 
-void SearchPopup::focusOnReplace(bool selectAll) {
+void SearchPopup::setFocusOnReplace(bool selectAll) {
 	ui.replaceCmb->lineEdit()->setFocus();
 	if ( selectAll )
 		ui.replaceCmb->lineEdit()->selectAll();
@@ -91,56 +87,60 @@ void SearchPopup::dismiss() {
 }
 
 void SearchPopup::showReplace() {
-	ui.replaceL->show();
-	ui.replaceCmb->show();
-	ui.replacePrevBtn->show();
-	ui.replaceNextBtn->show();
-	ui.replaceAllBtn->show();
+//	ui.replaceL->show();
+//	ui.replaceCmb->show();
+//	ui.replacePrevBtn->show();
+//	ui.replaceNextBtn->show();
+//	ui.replaceAllBtn->show();
+	ui.replaceL->setEnabled(true);
+	ui.replaceCmb->setEnabled(true);
+	ui.replacePrevBtn->setEnabled(true);
+	ui.replaceNextBtn->setEnabled(true);
+	ui.replaceAllBtn->setEnabled(true);
+	if ( !ui.replaceChk->isChecked() )
+		ui.replaceChk->setChecked(true);
 }
 
 void SearchPopup::hideReplace() {
-	ui.replaceL->hide();
-	ui.replaceCmb->hide();
-	ui.replacePrevBtn->hide();
-	ui.replaceNextBtn->hide();
-	ui.replaceAllBtn->hide();
-}
-
-void SearchPopup::highlightRed(bool highlight) {
-	QPalette plt = ui.findCmb->lineEdit()->palette();
-	if ( highlight )
-		plt.setColor(QPalette::Base, QColor(255, 180, 180));
-	else
-		plt.setColor(QPalette::Base, QColor(255, 255, 255));
-	ui.findCmb->lineEdit()->setPalette(plt);
+//	ui.replaceL->hide();
+//	ui.replaceCmb->hide();
+//	ui.replacePrevBtn->hide();
+//	ui.replaceNextBtn->hide();
+//	ui.replaceAllBtn->hide();
+	ui.replaceL->setEnabled(false);
+	ui.replaceCmb->setEnabled(false);
+	ui.replacePrevBtn->setEnabled(false);
+	ui.replaceNextBtn->setEnabled(false);
+	ui.replaceAllBtn->setEnabled(false);
 }
 
 ////////////////////////////////////////////////////////////
 
 void SearchPopup::onFindTextChanged(const QString& text) {
+	LOGGER;
 	params_.findWhat = text;
 	params_.backwards = false;
-	emit searchRequested();
+	emit searchParamsChanged(params_);
 }
 
 void SearchPopup::onCaseSensitiveChecked(bool checked) {
 	params_.caseSensitive = checked;
-	emit searchRequested();
+	emit searchParamsChanged(params_);
 }
 
 void SearchPopup::onWholeWordsChecked(bool checked) {
 	params_.wholeWords = checked;
-	emit searchRequested();
+	emit searchParamsChanged(params_);
 }
 
 void SearchPopup::slotFindNext() {
 	params_.backwards = false;
-	emit findNext();
+	emit findNextRequested();
 }
 
 void SearchPopup::slotFindPrev() {
 	params_.backwards = true;
-	emit findPrev();
+	emit findPrevRequested();
 }
 
 void SearchPopup::slotReplaceNext() {
@@ -148,7 +148,7 @@ void SearchPopup::slotReplaceNext() {
 	params_.backwards = false;
 	params_.replace = true;
 	params_.replaceWith = ui.replaceCmb->lineEdit()->text();
-	emit replaceNext();
+	emit replaceNextRequested();
 }
 
 void SearchPopup::slotReplacePrev() {
@@ -156,14 +156,20 @@ void SearchPopup::slotReplacePrev() {
 	params_.backwards = true;
 	params_.replace = true;
 	params_.replaceWith = ui.replaceCmb->lineEdit()->text();
-	emit replacePrev();
+	emit replacePrevRequested();
 }
 
 void SearchPopup::slotReplaceAll() {
 	LOGGER;
-//	params_.backwards = true;
+	params_.backwards = false;
 	params_.replace = true;
 	params_.replaceWith = ui.replaceCmb->lineEdit()->text();
-	emit replaceAll();
+	emit replaceAllRequested();
 }
 
+void SearchPopup::slotShowReplace(bool show) {
+	if ( show )
+		showReplace();
+	else
+		hideReplace();
+}

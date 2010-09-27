@@ -23,13 +23,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "AboutDlg.h"
 #include "AppInfo.h"
-#include "CommandStorage.h"
+//#include "CommandStorage.h"
 #include "Document.h"
 //#include "FindDlg.h"
 #include "Functions.h"
 #include "IconManager.h"
 #include "JumpToFileDlg.h"
-#include "License.h"
+//#include "License.h"
 #include "MainSettings.h"
 #include "Popup.h"
 #include "SearchPopup.h"
@@ -90,7 +90,7 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	dlg->setText(text);
 	dlg->setAuthors(auth);
 	dlg->setThanks(thanks);
-	dlg->setLicense(License::licenseText, false);
+//	dlg->setLicense(License::licenseText, false);
 	dlg->resize(550, 350);
 	dlg->setIcon(QIcon(":juffed_48.png"));
 	
@@ -116,7 +116,7 @@ JuffMW::JuffMW() : QMainWindow() {
 	applySettings();
 }
 
-void JuffMW::setViewer(QWidget* w) {
+void JuffMW::setMainWidget(QWidget* w) {
 	LOGGER;
 	
 	mainWidget_ = new QWidget();
@@ -134,11 +134,11 @@ void JuffMW::setViewer(QWidget* w) {
 	mainWidget_->installEventFilter(this);
 }
 
-void JuffMW::about() {
+void JuffMW::slotAbout() {
 	aboutDlg_->exec();
 }
 
-void JuffMW::aboutQt() {
+void JuffMW::slotAboutQt() {
 	QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
@@ -246,6 +246,7 @@ void JuffMW::closeSearchPopup() {
 
 SearchPopup* JuffMW::searchPopup() const {
 	return searchPopup_;
+//	return NULL;
 }
 
 
@@ -258,6 +259,10 @@ void JuffMW::addToolBar(QToolBar* tb) {
 	
 	QMainWindow::addToolBar(tb);
 	allToolBars_ << tb;
+}
+
+void JuffMW::addMenu(QMenu* menu) {
+	menuBar()->addMenu(menu);
 }
 
 void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
@@ -320,15 +325,12 @@ void JuffMW::moveEvent(QMoveEvent*) {
 }
 
 void JuffMW::keyPressEvent(QKeyEvent* e) {
-	LOGGER;
+//	LOGGER;
 	
 	if ( searchPopup_->isVisible() ) {
 		if ( e->key() == Qt::Key_Escape ) {
 			if ( searchPopup_->isVisible() ) {
 				searchPopup_->dismiss();
-				
-				// notify JuffEd in order to get focus back to curDoc
-				emit searchPopupClosed();
 			}
 		}
 	}
@@ -341,7 +343,7 @@ bool JuffMW::isFullScreen() const {
 }
 
 void JuffMW::toggleFullscreen() {
-	LOGGER;
+//	LOGGER;
 	
 	setWindowState(windowState() ^ Qt::WindowFullScreen);
 	
@@ -373,8 +375,7 @@ void JuffMW::toggleFullscreen() {
 
 
 void JuffMW::applySettings() {
-	int sz = MainSettings::get(MainSettings::IconSize);
-	int size = ( sz == 1 ? 24 : (sz == 2 ? 32 : 16) );
+	int size = IconManager::instance()->size();
 	
 	setToolButtonStyle((Qt::ToolButtonStyle)MainSettings::get(MainSettings::ToolButtonStyle));
 	setIconSize(QSize(size, size));

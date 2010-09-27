@@ -46,7 +46,7 @@ public:
 	
 
 protected slots:
-	void onSearchRequested();
+	void onSearchParamsChanged(const Juff::SearchParams&);
 	void onFindNext();
 	void onFindPrev();
 	void onReplaceNext();
@@ -56,22 +56,22 @@ protected slots:
 	void onDocTextChanged();
 
 private:
-	void clearSelection();
-	void storePosition();
-	void restorePosition();
-	void doChangeCurDoc(Juff::Document*);
+//	void storePosition();
+//	void restorePosition();
+	void changeCurDoc(Juff::Document*);
 
 	int selectNextOccurence();
 	int selectPrevOccurence();
 	
-	Juff::SearchResults* getSearchResults();
+	void clearSelection();
+	Juff::SearchResults* performSearch(const Juff::SearchParams&);
 
 	JuffMW* mw_;
 	Juff::DocHandlerInt* handler_;
 	SearchPopup* searchPopup_;
-	Juff::Document* doc_;
-	int row_;
-	int col_;
+	Juff::Document* curDoc_;
+//	int row_;
+//	int col_;
 };
 
 #endif // __JUFFED_SEARCH_ENGINE_H__

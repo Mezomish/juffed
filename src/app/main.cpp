@@ -1,21 +1,3 @@
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2010 Mikhail Murzin
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
 #include "../3rd_party/qtsingleapplication/qtsingleapplication.h"
 #include "AppInfo.h"
 #include "JuffEd.h"
@@ -25,11 +7,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QFileInfo>
 #include <QTranslator>
 
-void initApp(QApplication& app) {
-	app.setOrganizationName("juff");
-	app.setApplicationName("juffed");
-
-//	QString lng = AppInfo::language();
+void loadTranslations(QApplication& app) {
 	QString lng = MainSettings::get(MainSettings::Language);
 	QTranslator* translator = new QTranslator();
 	if ( translator->load("juffed_" + lng, AppInfo::translationPath()) ) {
@@ -38,6 +16,14 @@ void initApp(QApplication& app) {
 		}
 	}
 	
+	// TODO : load plugins translations
+}
+
+void initApp(QApplication& app) {
+	app.setOrganizationName("juff");
+	app.setApplicationName("juffed");
+
+	loadTranslations(app);
 }
 
 void processParams(JuffEd& juffed, QStringList params) {
@@ -65,6 +51,7 @@ int runSingle(int argc, char* argv[]) {
 	QObject::connect(&app, SIGNAL(messageReceived(const QString&)), &juffed, SLOT(onMessageReceived(const QString&)));
 	app.setActivationWindow(juffed.mainWindow());
 
+	juffed.mainWindow()->setGeometry(50, 50, 1000, 800);
 	juffed.mainWindow()->show();
 	processParams(juffed, app.arguments());
 
@@ -77,6 +64,7 @@ int runNotSingle(int argc, char* argv[]) {
 
 	JuffEd juffed;
 
+	juffed.mainWindow()->setGeometry(50, 50, 1000, 800);
 	juffed.mainWindow()->show();
 	processParams(juffed, app.arguments());
 

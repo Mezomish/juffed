@@ -18,94 +18,70 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "IconManager.h"
 
-#include "Log.h"
-
+#include <QIcon>
 #include <QMap>
+
+#include "Constants.h"
+
+static QMap<QString, QString> IconFileNames;
 
 IconManager* IconManager::instance_ = NULL;
 
-class IconManager::Interior {
-public:
-	Interior() {
-		size_ = 16;
-		theme_ = "<default>";
-		
-		iconNames_[Juff::FileNew]        = "document-new.png";
-		iconNames_[Juff::FileOpen]       = "document-open.png";
-		iconNames_[Juff::FileSave]       = "document-save.png";
-		iconNames_[Juff::FileSaveAs]     = "document-save-as.png";
-		iconNames_[Juff::FileReload]     = "view-refresh.png";
-		iconNames_[Juff::FilePrint]      = "document-print.png";
-		iconNames_[Juff::FilePrint]      = "document-print";
-		iconNames_[Juff::FileExit]       = "system-log-out";
-
-		iconNames_[Juff::EditUndo]       = "edit-undo.png";
-		iconNames_[Juff::EditRedo]       = "edit-redo.png";
-		iconNames_[Juff::EditCut]        = "edit-cut.png";
-		iconNames_[Juff::EditCopy]       = "edit-copy.png";
-		iconNames_[Juff::EditPaste]      = "edit-paste.png";
-		iconNames_[Juff::Find]           = "edit-find.png";
-		iconNames_[Juff::Replace]        = "edit-find-replace.png";
-		
-		iconNames_[Juff::ViewZoomIn]     = "zoomIn.png";
-		iconNames_[Juff::ViewZoomOut]    = "zoomOut.png";
-		iconNames_[Juff::ViewZoom100]    = "zoom100.png";
-		iconNames_[Juff::ViewFullscreen] = "view-fullscreen.png";
-	}
-	
-	int size_;
-	QString theme_;
-	QMap<Juff::ActionID, QString> iconNames_;
-};
-
 IconManager::IconManager() {
-	LOGGER;
-	int_ = new Interior();
+	size_ = 16;
+	
+	IconFileNames[FILE_NEW]        = "document-new.png";
+	IconFileNames[FILE_OPEN]       = "document-open.png";
+	IconFileNames[FILE_SAVE]       = "document-save.png";
+	IconFileNames[FILE_SAVE_AS]    = "document-save-as.png";
+	IconFileNames[FILE_RELOAD]     = "view-refresh.png";
+	IconFileNames[FILE_PRINT]      = "document-print.png";
+	IconFileNames[FILE_EXIT]       = "system-log-out.png";
+	
+	IconFileNames[EDIT_UNDO]       = "edit-undo.png";
+	IconFileNames[EDIT_REDO]       = "edit-redo.png";
+	IconFileNames[EDIT_CUT]        = "edit-cut.png";
+	IconFileNames[EDIT_COPY]       = "edit-copy.png";
+	IconFileNames[EDIT_PASTE]      = "edit-paste.png";
+	
+	IconFileNames[SEARCH_FIND]     = "edit-find.png";
+	IconFileNames[SEARCH_REPLACE]  = "edit-find-replace.png";
+	
+	IconFileNames[VIEW_ZOOM_IN]    = "zoomIn.png";
+	IconFileNames[VIEW_ZOOM_OUT]   = "zoomOut.png";
+	IconFileNames[VIEW_ZOOM_100]   = "zoom100.png";
+	IconFileNames[VIEW_FULLSCREEN] = "view-fullscreen.png";
+	
+	IconFileNames[TOOLS_SETTINGS]  = "preferences-system.png";
 }
 
 IconManager* IconManager::instance() {
-	if ( instance_ == NULL)
+	if ( instance_ == NULL )
 		instance_ = new IconManager();
 	return instance_;
 }
 
-int IconManager::iconSize() const {
-	return int_->size_;
+void IconManager::setSize(int sz) {
+	size_ = sz;
 }
 
-void IconManager::setIconSize(int size) {
-	int_->size_ = size;
+int IconManager::size() const {
+	return size_;
 }
 
-QString IconManager::iconTheme() const {
-	return int_->theme_;
-}
-
-void IconManager::setIconTheme(const QString& theme) {
-	int_->theme_ = theme;
-}
-
-QIcon IconManager::icon(Juff::ActionID id) const {
-//	LOGGER;
-	switch ( id ) {
-		case Juff::PrjNew : return QIcon(":project.png");
-		case Juff::PrjOpen : return QIcon(":project-open.png");
-		case Juff::PrjAddFile : return QIcon(":project-add-file.png");
-		case Juff::PrjRemoveFile : return QIcon(":project-remove-file.png");
-		default:;
-	}
-
-	if ( int_->theme_.compare("<default>") == 0 ) {
-		return defaultIcon(id);
+QIcon IconManager::icon(const QString& key) const {
+	QString module = key.section(':', 0, 0);
+	QString name = key.section(':', 1, 1);
+	if ( module.compare("main") == 0 ) {
+		return defaultIcon(key);
 	}
 	
 	return QIcon();
 }
 
-QIcon IconManager::defaultIcon(Juff::ActionID id) const {
-//	LOGGER;
-	if ( int_->iconNames_.contains(id) ) {
-		return QIcon(QString(":%1/%2").arg(int_->size_).arg(int_->iconNames_[id]));
+QIcon IconManager::defaultIcon(const QString& key) const {
+	if ( IconFileNames.contains(key) ) {
+		return QIcon(QString(":%1/%2").arg(size_).arg(IconFileNames[key]));
 	}
 	else
 		return QIcon();

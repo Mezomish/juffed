@@ -81,6 +81,7 @@ public:
 		lngs["sp"] = tr("Spanish");
 		lngs["zh"] = tr("Chinese (simplified)");
 		
+		ui.languageCmb->clear();
 		QMap<QString, QString>::iterator it = lngs.begin();
 		for ( ; it != lngs.end(); it++) {
 			ui.languageCmb->addItem(it.value(), it.key());
@@ -155,11 +156,6 @@ public:
 	
 	virtual void apply() {
 		SettingsPage::apply();
-		
-		int sz = MainSettings::get(MainSettings::IconSize);
-		int size = ( sz == 1 ? 24 : (sz == 2 ? 32 : 16) );
-		IconManager::instance()->setIconSize(size);
-		CommandStorage::instance()->updateIcons();
 	}
 	
 	Ui::ViewSettingsPage ui;
@@ -392,12 +388,12 @@ int SettingsDlg::exec() {
 
 void SettingsDlg::apply() {
 	LOGGER;
-/*	foreach (SettingsItem* sItem, items_) {
-		sItem->writeValue();
-	}
+//	foreach (SettingsItem* sItem, items_) {
+//		sItem->writeValue();
+//	}
 
 	//	Editor page
-	QFont font(pageEditor_->ui.fontCmb->currentFont());
+/*	QFont font(pageEditor_->ui.fontCmb->currentFont());
 	font.setPointSize(pageEditor_->ui.fontSizeSpin->value());
 	EditorSettings::setFont(font);
 
@@ -422,8 +418,8 @@ void SettingsDlg::apply() {
 //	AutocompleteSettings::setThreshold(pageAC_->ui.thresholdSpin->value());
 
 	//	charsets
-	pageCharsets_->applySettings();
-*/
+	pageCharsets_->applySettings();*/
+
 	//	plugins
 	QStringList plugins = pluginPages_.keys();
 	foreach (QString plName, plugins) {

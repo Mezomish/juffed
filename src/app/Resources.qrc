@@ -1,24 +1,25 @@
 <RCC>
 	<qresource>
-		<file alias="doc_unmodified">../images/16/doc_unmodified16.png</file>
-		<file alias="doc_modified">../images/16/doc_modified16.png</file>
-		<file alias="doc_icon">../images/16/doc_icon.png</file>
-		<file alias="doc_icon_red">../images/16/doc_icon_red.png</file>
-		<file alias="close">../images/16/close.png</file>
-		<file alias="find_prev">../images/16/find_prev.png</file>
-		<file alias="find_next">../images/16/find_next.png</file>
-		<file alias="replace_prev">../images/16/replace_prev.png</file>
-		<file alias="replace_next">../images/16/replace_next.png</file>
-		<file alias="replace_all">../images/16/replace_all.png</file>
+		<file alias="doc_unmodified">../images/res/16/doc_unmodified16.png</file>
+		<file alias="doc_modified">../images/res/16/doc_modified16.png</file>
+		<file alias="doc_icon">../images/res/16/doc_icon.png</file>
+		<file alias="doc_icon_red">../images/res/16/doc_icon_red.png</file>
+		<file alias="close">../images/res/16/close.png</file>
+		<file alias="find_prev">../images/res/16/find_prev.png</file>
+		<file alias="find_next">../images/res/16/find_next.png</file>
+		<file alias="replace_prev">../images/res/16/replace_prev.png</file>
+		<file alias="replace_next">../images/res/16/replace_next.png</file>
+		<file alias="replace_all">../images/res/16/replace_all.png</file>
 		
 		<file alias="file_generic">../images/mimetypes/text-x-generic.png</file>
 		<file alias="file_h">../images/mimetypes/text-x-chdr.png</file>
 		<file alias="file_cpp">../images/mimetypes/text-x-c++src.png</file>
 		
-		<file alias="juffed_32.png">../images/32/juffed_32.png</file>
-		<file alias="juffed_48.png">../images/48/juffed_48.png</file>
-		<file alias="win">../images/win.png</file>
-		<file alias="mac">../images/mac.png</file>
-		<file alias="tux">../images/tux.png</file>
+		<file alias="juffed_32.png">../images/res/32/juffed_32.png</file>
+		<file alias="juffed_48.png">../images/res/48/juffed_48.png</file>
+		
+		<file alias="win">../images/res/16/win.png</file>
+		<file alias="mac">../images/res/16/mac.png</file>
+		<file alias="tux">../images/res/16/tux.png</file>
 	</qresource>
 </RCC>

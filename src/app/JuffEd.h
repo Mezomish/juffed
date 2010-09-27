@@ -1,99 +1,74 @@
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2010 Mikhail Murzin
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
-#ifndef __JUFFED_JUFFED_H__
-#define __JUFFED_JUFFED_H__
+#ifndef __JUFF_JUFFED_H__
+#define __JUFF_JUFFED_H__
 
 class QActionGroup;
 class QMenu;
+
+class JuffMW;
 class SettingsDlg;
 class SearchEngine;
+class PluginManager;
 
 namespace Juff {
+	class Document;
+	class DocViewer;
+	class DocEngine;
 	class Project;
 	class StatusLabel;
 }
 
 
 #include <QMap>
+#include <QWidget>
 
-#include "Enums.h"
-#include "JuffMW.h"
-#include "DocViewer.h"
-#include "DocManager.h"
 #include "DocHandlerInt.h"
-#include "PluginManager.h"
+#include "Enums.h"
 #include "PluginNotifier.h"
 
+//class SciDocEngine;
 
 class JuffEd : public Juff::PluginNotifier, public Juff::DocHandlerInt {
 Q_OBJECT
 public:
 	JuffEd();
 	virtual ~JuffEd();
-
 	QWidget* mainWindow() const;
 
-	// implementation of DocHandlerInt interface
+	// virtual methods from DocHandlerInt implemented
 	virtual Juff::Document* curDoc() const;
 	virtual Juff::Document* getDoc(const QString&) const;
 	virtual Juff::Project* curPrj() const;
-	virtual void openDoc(const QString&);
+	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent);
 	virtual void closeDoc(const QString&);
+	virtual void closeAllDocs(Juff::PanelIndex);
 	virtual void saveDoc(const QString&);
 	virtual int docCount() const;
 	virtual QStringList docList() const;
 
 public slots:
-	// slots from menu actions
 	void slotFileNew();
 	void slotFileOpen();
+	void slotFileRecent();
 	void slotFileSave();
 	void slotFileSaveAs();
+	void slotFileRename();
 	void slotFileSaveAll();
 	void slotFileReload();
-	void slotFileRename();
 	void slotFileClose();
 	void slotFileCloseAll();
 	void slotFilePrint();
 	void slotFileExit();
-	void slotFileRecent();
-
-	void slotPrjNew();
-	void slotPrjOpen();
-	void slotPrjRename();
-	void slotPrjClose();
-	void slotPrjSaveAs();
-	void slotPrjAddFile();
-
 	void slotEditUndo();
 	void slotEditRedo();
 	void slotEditCut();
 	void slotEditCopy();
 	void slotEditPaste();
-
 	void slotFind();
 	void slotFindNext();
 	void slotFindPrev();
 	void slotReplace();
 	void slotGotoLine();
-	void slotJumpToFile();
-
+	void slotGotoFile();
 	void slotWrapWords();
 	void slotShowLineNumbers();
 	void slotShowWhitespaces();
@@ -105,108 +80,79 @@ public slots:
 	
 	void slotOpenWithCharset();
 	void slotSetCharset();
-	
+
 	void slotSettings();
 	
-	// single application slot
 	void onMessageReceived(const QString&);
-	
-private slots:
+
+public slots:
 	void onDocModified(bool);
-	void onDocCursorMoved(int, int);
+	void onDocFocused();
+	void onDocCursorPosChanged(int, int);
+	void onDocLineCountChanged(int);
 	void onDocTextChanged();
 	void onDocSyntaxChanged(const QString&);
 	void onDocCharsetChanged(const QString&);
-	void onDocLineCountChanged(int);
-	void onDocActivated(Juff::Document*);
 	void onDocRenamed(const QString&);
-	void onPrjFileAdded(const QString&);
-	void onPrjFileRemoved(const QString&);
 	
+	void onDocActivated(Juff::Document*);
+
+private slots:
+	void initRecentFilesMenu();
 	void onCloseRequested(bool&);
-	void onSearchPopupClosed();
 	void onSettingsApplied();
 
-	void initRecentFilesMenu();
-
 private:
-	/**
-	* This methods opens or activates a doc with given file 
-	* name or creates a new empty doc if \param fileName is empty.
-	*/
-	Juff::Document* createDoc(const QString& fileName);
-
-	void createProject(const QString& fileName);
-	bool closeProject();
-
-	QString projectName() const;
-	void initDoc(Juff::Document*);
+	void initUI();
+	void loadPlugins();
+	void loadEngines();
+	void buildUI();
 	void initCharsetMenus();
-	void initPlugins();
-	void addPluginMenus(Juff::MenuID, QMenu*);
-	void loadProject();
-	QString openDialogDirectory() const;
-	void reportError(const QString&);
-	
-	/**
-	* If the \param document is modified asks a question if we
-	* want to save the doc.
-	* Returns:
-	*    true    : if the doc was closed (saved or not)
-	*    false   : if the user interrupted closing
-	*/
-	bool closeDocWithConfirmation(Juff::Document* document);
-	
-	/**
-	* Saves the document. The document MUST NOT be Noname - use saveDocAs instead.
-	* Returns:
-	*    true    : if the document was saved successfully
-	*    false   : if there was an error
-	*/
-	bool saveDoc(Juff::Document* document);
-	
-	/**
-	* Asks for a file name and saves the \param document with it.
-	* Returns:
-	*    true    : if the document was saved successfully
-	*    false   : if saving failed or was interrupted
-	*/
-	bool saveDocAs(Juff::Document* document);
-	
-	/**
-	* Updated menus according to current document's properties and document's type.
-	*/
-	void updateMenus(Juff::Document*);
 
-	void updateGUI(Juff::Document*);
+	QString openDialogDirectory() const;
+	Juff::DocEngine* engineForFileName(const QString&) const;
+	void reportError(const QString& error);
+	bool saveDoc(Juff::Document*);
+	bool saveDocAs(Juff::Document*);
+	bool closeDocWithConfirmation(Juff::Document*);
+	
+	void updateMW(Juff::Document*);
+	void updateDocView(Juff::Document*);
 	void updateLineCount(Juff::Document*);
 	void updateCursorPos(Juff::Document*);
 	void addToRecentFiles(const QString&);
 
-	// fields
-	Juff::Project* prj_;
-	JuffMW* mw_;
-	DocViewer* viewer_;
-	DocManager* docManager_;
+	void createProject(const QString& fileName);
+	bool closeProject();
+	QString projectName() const;
+	void loadProject();
+
+
+
+	QMap<QString, Juff::DocEngine*> engines_;
 	QMap<Juff::MenuID, QMenu*> menus_;
+
+	QMenu* recentFilesMenu_;
+	QActionGroup* openWithCharsetGr_;
+	QActionGroup* setCharsetGr_;
 	QMenu* charsetMenu_;
 	QMenu* openWithCharsetMenu_;
 	QMenu* setCharsetMenu_;
-	QMenu* recentFilesMenu_;
-	QMenu* dockMenu_;
-	QMenu* tbMenu_;
-	QActionGroup* openWithCharsetGr_;
-	QActionGroup* setCharsetGr_;
+	QMenu* docksMenu_;
+	
+	Juff::DocViewer* viewer_;
+	JuffMW* mw_;
+	SettingsDlg* settingsDlg_;
+	SearchEngine* search_;
+	PluginManager* pluginMgr_;
 	
 	Juff::StatusLabel* posL_;
 	Juff::StatusLabel* nameL_;
 	Juff::StatusLabel* charsetL_;
 	Juff::StatusLabel* linesL_;
 	
-	PluginManager pluginMgr_;
-	SettingsDlg* settingsDlg_;
-	SearchEngine* search_;
+	Juff::Project* prj_;
 	QStringList recentFiles_;
 };
 
-#endif // __JUFFED_JUFFED_H__
+#endif // __JUFF_JUFFED_H__

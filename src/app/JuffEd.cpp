@@ -1,58 +1,135 @@
 #include <QDebug>
 
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2010 Mikhail Murzin
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
 #include "JuffEd.h"
+
+#include <QDockWidget>
+#include <QFileInfo>
+#include <QMessageBox>
+#include <QToolBar>
+#include <QApplication>
 
 #include "CharsetSettings.h"
 #include "CommandStorage.h"
+#include "Constants.h"
 #include "Document.h"
+#include "DocViewer.h"
 #include "EditorSettings.h"
 #include "Functions.h"
 #include "IconManager.h"
+#include "JuffMW.h"
 #include "Log.h"
+#include "NullDoc.h"
 #include "MainSettings.h"
+#include "PluginManager.h"
 #include "Project.h"
 #include "SearchEngine.h"
-#include "SearchPopup.h"
 #include "Settings.h"
 #include "StatusLabel.h"
-#include "settings/SettingsDlg.h"
+#include "ui/settings/SettingsDlg.h"
 
-#include <QAction>
-#include <QActionGroup>
-#include <QApplication>
-#include <QDockWidget>
-#include <QFileInfo>
-#include <QMenu>
-#include <QMenuBar>
-#include <QMessageBox>
-#include <QToolBar>
+#include "SciDocEngine.h"
 
 static const int RecentFilesCount = 10;
 
-JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(this, this) {
-	LOGGER;
+JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
+	viewer_ = new Juff::DocViewer(this);
+	mw_ = new JuffMW();
+	mw_->setMainWidget(viewer_);
+	settingsDlg_ = new SettingsDlg(mw_);
+	connect(settingsDlg_, SIGNAL(applied()), SLOT(onSettingsApplied()));
 	
-	charsetMenu_ = openWithCharsetMenu_ = setCharsetMenu_ = NULL;
-	dockMenu_ = new QMenu(JuffEd::tr("Dock windows"));
-	tbMenu_ = new QMenu(JuffEd::tr("Toolbars"));
+	prj_ = NULL;
+	
+	connect(viewer_, SIGNAL(docActivated(Juff::Document*)), SLOT(onDocActivated(Juff::Document*)));
+	connect(mw_, SIGNAL(closeRequested(bool&)), SLOT(onCloseRequested(bool&)));
+	
+	// UI must be initialized before engines and plugins because 
+	// we need menus to be already created when loading engines and plugins.
+	initUI();
+	
+	loadEngines();
+	
+	pluginMgr_ = new PluginManager(this, this);
+	loadPlugins();
+	
+	buildUI();
+	search_ = new SearchEngine(this, mw_);
+	
+	QString prjName = MainSettings::get(MainSettings::LastProject);
+	createProject(prjName);
+	
+	onSettingsApplied();
+}
+
+JuffEd::~JuffEd() {
+	Settings::instance()->write("juff", "juffed");
+}
+
+void JuffEd::initUI() {
+	CommandStorage* st = CommandStorage::instance();
+	
+	st->addAction(FILE_NEW,         tr("&New"),     this, SLOT(slotFileNew()));
+	st->addAction(FILE_OPEN,        tr("&Open"),    this, SLOT(slotFileOpen()));
+	st->addAction(FILE_SAVE,        tr("&Save"),    this, SLOT(slotFileSave()));
+	st->addAction(FILE_SAVE_AS,     tr("Save as"), this, SLOT(slotFileSaveAs()));
+	st->addAction(FILE_SAVE_ALL,    tr("Save all"), this, SLOT(slotFileSaveAll()));
+	st->addAction(FILE_RELOAD,      tr("&Reload"),  this, SLOT(slotFileReload()));
+	st->addAction(FILE_RENAME,      tr("Rename"),  this, SLOT(slotFileRename()));
+	st->addAction(FILE_CLOSE,       tr("Close"),  this, SLOT(slotFileClose()));
+	st->addAction(FILE_CLOSE_ALL,   tr("Close All"),  this, SLOT(slotFileCloseAll()));
+	st->addAction(FILE_PRINT,       tr("&Print"),  this, SLOT(slotFilePrint()));
+	st->addAction(FILE_EXIT,        tr("Exit"),  this, SLOT(slotFileExit()));
+	
+	st->addAction(EDIT_UNDO,        tr("Undo"), this, SLOT(slotEditUndo()));
+	st->addAction(EDIT_REDO,        tr("Redo"), this, SLOT(slotEditRedo()));
+	st->addAction(EDIT_CUT,         tr("Cut"), this, SLOT(slotEditCut()));
+	st->addAction(EDIT_COPY,        tr("Copy"), this, SLOT(slotEditCopy()));
+	st->addAction(EDIT_PASTE,       tr("Paste"), this, SLOT(slotEditPaste()));
+	
+	st->addAction(SEARCH_FIND,      tr("Find"), this, SLOT(slotFind()));
+	st->addAction(SEARCH_FIND_NEXT, tr("Find next"), this, SLOT(slotFindNext()));
+	st->addAction(SEARCH_FIND_PREV, tr("Find previous"), this, SLOT(slotFindPrev()));
+	st->addAction(SEARCH_REPLACE,   tr("Replace"), this, SLOT(slotReplace()));
+	st->addAction(SEARCH_GOTO_LINE, tr("Go to line"), this, SLOT(slotGotoLine()));
+	st->addAction(SEARCH_GOTO_FILE, tr("Go to file"), this, SLOT(slotGotoFile()));
+	
+	st->addAction(VIEW_LINE_NUMBERS, tr("Display line numbers"), this, SLOT(slotShowLineNumbers()));
+	st->addAction(VIEW_WRAP_WORDS,   tr("Wrap words"), this, SLOT(slotWrapWords()));
+	st->addAction(VIEW_WHITESPACES,  tr("Show whitespaces and TABs"), this, SLOT(slotShowWhitespaces()));
+	st->addAction(VIEW_LINE_ENDINGS, tr("Show ends of lines"), this, SLOT(slotShowLineEndings()));
+	st->addAction(VIEW_ZOOM_IN,      tr("Zoom In"), this, SLOT(slotZoomIn()));
+	st->addAction(VIEW_ZOOM_OUT,     tr("Zoom Out"), this, SLOT(slotZoomOut()));
+	st->addAction(VIEW_ZOOM_100,     tr("Zoom 100%"), this, SLOT(slotZoom100()));
+	st->addAction(VIEW_FULLSCREEN,   tr("Fullscreen"), this, SLOT(slotFullscreen()));
+	
+	st->addAction(TOOLS_SETTINGS,    tr("Settings"), this, SLOT(slotSettings()));
+	st->addAction(HELP_ABOUT,        tr("About"), mw_, SLOT(slotAbout()));
+	st->addAction(HELP_ABOUT_QT,     tr("About Qt"), mw_, SLOT(slotAboutQt()));
+	
+	st->action(VIEW_WRAP_WORDS)->setCheckable(true);
+	st->action(VIEW_LINE_NUMBERS)->setCheckable(true);
+	st->action(VIEW_WHITESPACES)->setCheckable(true);
+	st->action(VIEW_LINE_ENDINGS)->setCheckable(true);
+	st->action(VIEW_WRAP_WORDS)->setChecked(EditorSettings::get(EditorSettings::WrapWords));
+	st->action(VIEW_LINE_NUMBERS)->setChecked(EditorSettings::get(EditorSettings::ShowLineNumbers));
+	st->action(VIEW_WHITESPACES)->setChecked(EditorSettings::get(EditorSettings::ShowWhitespaces));
+	st->action(VIEW_LINE_ENDINGS)->setChecked(EditorSettings::get(EditorSettings::ShowLineEnds));
+	
+	QMenu* fileMenu = new QMenu(tr("&File"));
+	QMenu* editMenu = new QMenu(tr("&Edit"));
+	QMenu* viewMenu = new QMenu(tr("&View"));
+	QMenu* searchMenu = new QMenu(tr("&Search"));
+	QMenu* formatMenu = new QMenu(tr("For&mat"));
+	QMenu* toolsMenu = new QMenu(tr("&Tools"));
+	QMenu* helpMenu = new QMenu(tr("&Help"));
+	
+	menus_[Juff::MenuFile] = fileMenu;
+	menus_[Juff::MenuEdit] = editMenu;
+	menus_[Juff::MenuView] = viewMenu;
+	menus_[Juff::MenuSearch] = searchMenu;
+	menus_[Juff::MenuFormat] = formatMenu;
+	menus_[Juff::MenuTools] = toolsMenu;
+	menus_[Juff::MenuHelp] = helpMenu;
 
 	recentFilesMenu_ = new QMenu(JuffEd::tr("Recent files"));
 	connect(recentFilesMenu_, SIGNAL(aboutToShow()), SLOT(initRecentFilesMenu()));
@@ -65,192 +142,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 			addToRecentFiles(fileName);
 		}
 	}
-	
-	mw_ = new JuffMW();
-	
-	settingsDlg_ = new SettingsDlg(mw_);
-	connect(settingsDlg_, SIGNAL(applied()), SLOT(onSettingsApplied()));
-	
-	foreach (QMenu* menu, menus_.values()) {
-		mw_->menuBar()->addMenu(menu);
-	}
-	
-	// actions
-	CommandStorage* st = CommandStorage::instance();
-	st->updateShortcuts();
-	connect(st->action(Juff::FileNew), SIGNAL(triggered()), this, SLOT(slotFileNew()));
-	connect(st->action(Juff::FileOpen), SIGNAL(triggered()), this, SLOT(slotFileOpen()));
-	connect(st->action(Juff::FileRename), SIGNAL(triggered()), this, SLOT(slotFileRename()));
-	connect(st->action(Juff::FileSave), SIGNAL(triggered()), this, SLOT(slotFileSave()));
-	connect(st->action(Juff::FileSaveAs), SIGNAL(triggered()), this, SLOT(slotFileSaveAs()));
-	connect(st->action(Juff::FileSaveAll), SIGNAL(triggered()), this, SLOT(slotFileSaveAll()));
-	connect(st->action(Juff::FileReload), SIGNAL(triggered()), this, SLOT(slotFileReload()));
-	connect(st->action(Juff::FileRename), SIGNAL(triggered()), this, SLOT(slotFileRename()));
-	connect(st->action(Juff::FileClose), SIGNAL(triggered()), this, SLOT(slotFileClose()));
-	connect(st->action(Juff::FileCloseAll), SIGNAL(triggered()), this, SLOT(slotFileCloseAll()));
-	connect(st->action(Juff::FilePrint), SIGNAL(triggered()), this, SLOT(slotFilePrint()));
-	connect(st->action(Juff::FileExit), SIGNAL(triggered()), this, SLOT(slotFileExit()));
-	
-	connect(st->action(Juff::PrjNew), SIGNAL(triggered()), this, SLOT(slotPrjNew()));
-	connect(st->action(Juff::PrjOpen), SIGNAL(triggered()), this, SLOT(slotPrjOpen()));
-//	connect(st->action(Juff::PrjRename), SIGNAL(triggered()), this, SLOT(slotPrjRename()));
-	connect(st->action(Juff::PrjClose), SIGNAL(triggered()), this, SLOT(slotPrjClose()));
-	connect(st->action(Juff::PrjSaveAs), SIGNAL(triggered()), this, SLOT(slotPrjSaveAs()));
-	connect(st->action(Juff::PrjAddFile), SIGNAL(triggered()), this, SLOT(slotPrjAddFile()));
-	
-	connect(st->action(Juff::EditUndo), SIGNAL(triggered()), this, SLOT(slotEditUndo()));
-	connect(st->action(Juff::EditRedo), SIGNAL(triggered()), this, SLOT(slotEditRedo()));
-	connect(st->action(Juff::EditCut), SIGNAL(triggered()), this, SLOT(slotEditCut()));
-	connect(st->action(Juff::EditCopy), SIGNAL(triggered()), this, SLOT(slotEditCopy()));
-	connect(st->action(Juff::EditPaste), SIGNAL(triggered()), this, SLOT(slotEditPaste()));
-	
-	connect(st->action(Juff::Find), SIGNAL(triggered()), this, SLOT(slotFind()));
-	connect(st->action(Juff::FindNext), SIGNAL(triggered()), this, SLOT(slotFindNext()));
-	connect(st->action(Juff::FindPrev), SIGNAL(triggered()), this, SLOT(slotFindPrev()));
-	connect(st->action(Juff::Replace), SIGNAL(triggered()), this, SLOT(slotReplace()));
-	connect(st->action(Juff::GotoLine), SIGNAL(triggered()), this, SLOT(slotGotoLine()));
-	connect(st->action(Juff::JumpToFile), SIGNAL(triggered()), this, SLOT(slotJumpToFile()));
-	
-	connect(st->action(Juff::ViewLineNumbers), SIGNAL(triggered()), this, SLOT(slotShowLineNumbers()));
-	connect(st->action(Juff::ViewWrapWords), SIGNAL(triggered()), this, SLOT(slotWrapWords()));
-	connect(st->action(Juff::ViewWhitespaces), SIGNAL(triggered()), this, SLOT(slotShowWhitespaces()));
-	connect(st->action(Juff::ViewLineEndings), SIGNAL(triggered()), this, SLOT(slotShowLineEndings()));
-	connect(st->action(Juff::ViewZoomIn), SIGNAL(triggered()), this, SLOT(slotZoomIn()));
-	connect(st->action(Juff::ViewZoomOut), SIGNAL(triggered()), this, SLOT(slotZoomOut()));
-	connect(st->action(Juff::ViewZoom100), SIGNAL(triggered()), this, SLOT(slotZoom100()));
-	connect(st->action(Juff::ViewFullscreen), SIGNAL(triggered()), this, SLOT(slotFullscreen()));
-	
-	connect(st->action(Juff::Settings), SIGNAL(triggered()), this, SLOT(slotSettings()));
-	
-	connect(st->action(Juff::About), SIGNAL(triggered()), mw_, SLOT(about()));
-	connect(st->action(Juff::AboutQt), SIGNAL(triggered()), mw_, SLOT(aboutQt()));
 
-	// toolbar
-	QToolBar* tb = new QToolBar("Main");
-	tb->setObjectName("Main toolbar");
-	mw_->addToolBar(tb);
-	tbMenu_->addAction(tb->toggleViewAction());
-	
-	int sz = IconManager::instance()->iconSize();
-	tb->setIconSize(QSize(sz, sz));
-	tb->addAction(st->action(Juff::FileNew));
-	tb->addAction(st->action(Juff::FileOpen));
-	tb->addAction(st->action(Juff::FileSave));
-	tb->addSeparator();
-	tb->addAction(st->action(Juff::FilePrint));
-	tb->addSeparator();
-	tb->addAction(st->action(Juff::EditUndo));
-	tb->addAction(st->action(Juff::EditRedo));
-	tb->addSeparator();
-	tb->addAction(st->action(Juff::EditCut));
-	tb->addAction(st->action(Juff::EditCopy));
-	tb->addAction(st->action(Juff::EditPaste));
-//	tb->addSeparator();
-//	tb->addAction(st->action(Juff::EditFind));
-//	tb->addAction(st->action(Juff::EditReplace));
-	
-	
-	// Menu //////
-	
-	QMenu* fileMenu = *( menus_.insert(Juff::MenuFile, new QMenu(JuffEd::tr("&File"))) );
-	{
-		Juff::ActionID ids[] = { Juff::FileNew, Juff::FileOpen, Juff::FileSave, 
-		                         Juff::FileSaveAs, Juff::FileRename, Juff::FileSaveAll, Juff::FileReload,
-		                         Juff::Separator, Juff::FileClose, Juff::FileCloseAll,
-		                         Juff::FilePrint,
-		                         Juff::Separator, Juff::FileExit, Juff::NullID };
-		for (int i = 0; ids[i] != Juff::NullID; i++) {
-			if ( ids[i] == Juff::Separator )
-				fileMenu->addSeparator();
-			else
-				fileMenu->addAction(st->action(ids[i]));
-		}
-	}
-	fileMenu->insertMenu(st->action(Juff::FileSave), recentFilesMenu_);
-	
-	QMenu* editMenu = *( menus_.insert(Juff::MenuEdit, new QMenu(JuffEd::tr("&Edit"))) );
-	{
-		Juff::ActionID ids[] = { Juff::EditUndo, Juff::EditRedo, Juff::Separator,
-		                         Juff::EditCut, Juff::EditCopy, Juff::EditPaste,
-		                         Juff::Separator,
-//			                     Juff::EditFind, Juff::EditFindNext,
-//		                         Juff::EditFindPrev, Juff::EditReplace, Juff::Separator,
-//		                         Juff::GotoLine, Juff::JumpToFile,
-		                         Juff::NullID };
-		for (int i = 0; ids[i] != Juff::NullID; i++) {
-			if ( ids[i] == Juff::Separator )
-				editMenu->addSeparator();
-			else
-				editMenu->addAction(st->action(ids[i]));
-		}
-	}
-	
-	QMenu* viewMenu = *( menus_.insert(Juff::MenuView, new QMenu(JuffEd::tr("&View"))) );
-	{
-		Juff::ActionID ids[] = { Juff::ViewWrapWords, Juff::ViewLineNumbers, Juff::ViewWhitespaces,
-		                         Juff::ViewLineEndings,
-		                         Juff::Separator,
-		                         Juff::ViewZoomIn, Juff::ViewZoomOut, Juff::ViewZoom100, 
-		                         Juff::Separator,
-		                         Juff::ViewFullscreen,
-		                         Juff::NullID };
-		for (int i = 0; ids[i] != Juff::NullID; i++) {
-			if ( ids[i] == Juff::Separator )
-				viewMenu->addSeparator();
-			else
-				viewMenu->addAction(st->action(ids[i]));
-		}
-	}
-	st->action(Juff::ViewWrapWords)->setChecked(EditorSettings::get(EditorSettings::WrapWords));
-	st->action(Juff::ViewLineNumbers)->setChecked(EditorSettings::get(EditorSettings::ShowLineNumbers));
-	st->action(Juff::ViewWhitespaces)->setChecked(EditorSettings::get(EditorSettings::ShowWhitespaces));
-	st->action(Juff::ViewLineEndings)->setChecked(EditorSettings::get(EditorSettings::ShowLineEnds));
-	
-	QMenu* searchMenu = *( menus_.insert(Juff::MenuSearch, new QMenu(JuffEd::tr("&Search"))) );
-	{
-		Juff::ActionID ids[] = { Juff::Find, Juff::FindNext, Juff::FindPrev,
-		                         Juff::Replace,
-		                         Juff::Separator,
-		                         Juff::GotoLine, Juff::JumpToFile,
-		                         Juff::NullID };
-		for (int i = 0; ids[i] != Juff::NullID; i++) {
-			if ( ids[i] == Juff::Separator )
-				searchMenu->addSeparator();
-			else
-				searchMenu->addAction(st->action(ids[i]));
-		}
-	}
-	
-	QMenu* formatMenu = *( menus_.insert(Juff::MenuFormat, new QMenu(JuffEd::tr("Fo&rmat"))) );
-	QMenu* toolsMenu = *( menus_.insert(Juff::MenuTools, new QMenu(JuffEd::tr("&Tools"))) );
-	QMenu* helpMenu = *( menus_.insert(Juff::MenuHelp, new QMenu(JuffEd::tr("&Help"))) );
-	
-	toolsMenu->addMenu(tbMenu_);
-	toolsMenu->addMenu(dockMenu_);
-	toolsMenu->addSeparator();
-	toolsMenu->addAction(st->action(Juff::Settings));
-	helpMenu->addAction(st->action(Juff::About));
-	helpMenu->addAction(st->action(Juff::AboutQt));
-	
-	mw_->menuBar()->addMenu(fileMenu);
-	mw_->menuBar()->addMenu(editMenu);
-	mw_->menuBar()->addMenu(viewMenu);
-	mw_->menuBar()->addMenu(searchMenu);
-	mw_->menuBar()->addMenu(formatMenu);
-	initPlugins();
-	mw_->menuBar()->addMenu(toolsMenu);
-	mw_->menuBar()->addMenu(helpMenu);
-	
-	// plugin menus
-	addPluginMenus(Juff::MenuFile,   fileMenu  );
-	addPluginMenus(Juff::MenuEdit,   editMenu  );
-	addPluginMenus(Juff::MenuView,   viewMenu  );
-	addPluginMenus(Juff::MenuSearch, searchMenu);
-	addPluginMenus(Juff::MenuFormat, formatMenu);
-	addPluginMenus(Juff::MenuTools,  toolsMenu );
-	addPluginMenus(Juff::MenuHelp,   helpMenu  );
-	
-	
 	openWithCharsetGr_ = new QActionGroup(this);
 	setCharsetGr_ = new QActionGroup(this);
 	charsetMenu_ = new QMenu(JuffEd::tr("Charset"));
@@ -259,24 +151,137 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	initCharsetMenus();
 	charsetMenu_->addMenu(openWithCharsetMenu_);
 	charsetMenu_->addMenu(setCharsetMenu_);
-	formatMenu->addMenu(charsetMenu_);
+
+	docksMenu_ = new QMenu(tr("Docks"));
+	toolsMenu->addMenu(docksMenu_);
+
+	QToolBar* mainToolBar = new QToolBar("mainToolBar");
+	mainToolBar->setObjectName("mainToolBar");
+	mainToolBar->addAction(st->action(FILE_NEW));
+	mainToolBar->addAction(st->action(FILE_OPEN));
+	mainToolBar->addAction(st->action(FILE_SAVE));
+	mainToolBar->addSeparator();
+	mainToolBar->addAction(st->action(FILE_PRINT));
+	mainToolBar->addSeparator();
+	mainToolBar->addAction(st->action(EDIT_UNDO));
+	mainToolBar->addAction(st->action(EDIT_REDO));
+	mainToolBar->addSeparator();
+	mainToolBar->addAction(st->action(EDIT_CUT));
+	mainToolBar->addAction(st->action(EDIT_COPY));
+	mainToolBar->addAction(st->action(EDIT_PASTE));
+	mainToolBar->addSeparator();
+	mainToolBar->addAction(st->action(SEARCH_FIND));
 	
-	viewer_ = new DocViewer(this);
-//	mw_->setCentralWidget(viewer_);
-	mw_->setViewer(viewer_);
+	mw_->addToolBar(mainToolBar);
+}
+
+void JuffEd::loadEngines() {
+	SciDocEngine* sciEng = new SciDocEngine();
+	sciEng->setDocHandler(this);
+	engines_[sciEng->type()] = sciEng;
+}
+
+void JuffEd::loadPlugins() {
+	pluginMgr_->loadPlugins(settingsDlg_);
 	
-	docManager_ = new DocManager(this);
-	settingsDlg_->setEditorsPages(docManager_->editorsPages());
+	// docks
+	QWidgetList widgets = pluginMgr_->docks();
+	foreach (QWidget* w, widgets) {
+		QString title = w->windowTitle();
+		QDockWidget* dock = new QDockWidget(title);
+		dock->setObjectName(title);
+		dock->setWidget(w);
+		mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
+		
+		docksMenu_->addAction(dock->toggleViewAction());
+	}
+}
+
+void JuffEd::buildUI() {
+	CommandStorage* st = CommandStorage::instance();
 	
-	connect(viewer_, SIGNAL(docActivated(Juff::Document*)), SLOT(onDocActivated(Juff::Document*)));
-	connect(mw_, SIGNAL(closeRequested(bool&)), SLOT(onCloseRequested(bool&)));
-	connect(mw_, SIGNAL(searchPopupClosed()), SLOT(onSearchPopupClosed()));
+	// FILE
+	QMenu* menu = menus_[Juff::MenuFile];
+	menu->addAction(st->action(FILE_NEW));
+	menu->addAction(st->action(FILE_OPEN));
+	menu->addMenu(recentFilesMenu_);
+	menu->addAction(st->action(FILE_SAVE));
+	menu->addAction(st->action(FILE_SAVE_AS));
+	menu->addAction(st->action(FILE_RENAME));
+	menu->addAction(st->action(FILE_SAVE_ALL));
+	menu->addAction(st->action(FILE_RELOAD));
+	menu->addSeparator();
+	menu->addAction(st->action(FILE_CLOSE));
+	menu->addAction(st->action(FILE_CLOSE_ALL));
+	menu->addAction(st->action(FILE_PRINT));
+	menu->addSeparator();
+	menu->addAction(st->action(FILE_EXIT));
 	
-	// engines actions
-	docManager_->initMenuActions(Juff::MenuEdit, editMenu);
-	docManager_->initMenuActions(Juff::MenuView, viewMenu);
-	docManager_->initMenuActions(Juff::MenuFormat, formatMenu);
-	docManager_->initMenuActions(Juff::MenuSearch, searchMenu);
+	// EDIT
+	menu = menus_[Juff::MenuEdit];
+	menu->addAction(st->action(EDIT_UNDO));
+	menu->addAction(st->action(EDIT_REDO));
+	menu->addSeparator();
+	menu->addAction(st->action(EDIT_CUT));
+	menu->addAction(st->action(EDIT_COPY));
+	menu->addAction(st->action(EDIT_PASTE));
+	menu->addSeparator();
+	
+	// VIEW
+	menu = menus_[Juff::MenuView];
+	menu->addAction(st->action(VIEW_WRAP_WORDS));
+	menu->addAction(st->action(VIEW_LINE_NUMBERS));
+	menu->addAction(st->action(VIEW_WHITESPACES));
+	menu->addAction(st->action(VIEW_LINE_ENDINGS));
+	menu->addSeparator();
+	menu->addAction(st->action(VIEW_ZOOM_IN));
+	menu->addAction(st->action(VIEW_ZOOM_OUT));
+	menu->addAction(st->action(VIEW_ZOOM_100));
+	menu->addSeparator();
+	menu->addAction(st->action(VIEW_FULLSCREEN));
+	
+	// SEARCH
+	menu = menus_[Juff::MenuSearch];
+	menu->addAction(st->action(SEARCH_FIND));
+	menu->addAction(st->action(SEARCH_FIND_NEXT));
+	menu->addAction(st->action(SEARCH_FIND_PREV));
+	menu->addAction(st->action(SEARCH_REPLACE));
+	menu->addSeparator();
+	menu->addAction(st->action(SEARCH_GOTO_LINE));
+	menu->addAction(st->action(SEARCH_GOTO_FILE));
+	menu->addSeparator();
+	
+	// FORMAT
+	menu = menus_[Juff::MenuFormat];
+	menu->addMenu(charsetMenu_);
+	
+	// TOOLS
+	menu = menus_[Juff::MenuTools];
+	menu->addAction(st->action(TOOLS_SETTINGS));
+	
+	// HELP
+	menu = menus_[Juff::MenuHelp];
+	menu->addAction(st->action(HELP_ABOUT));
+	menu->addAction(st->action(HELP_ABOUT_QT));
+	
+	Juff::MenuID menuIDs[] = { Juff::MenuFile, Juff::MenuEdit, Juff::MenuView, Juff::MenuSearch, 
+	                   Juff::MenuFormat, Juff::MenuTools, Juff::MenuHelp };
+	int i = 0;
+	while ( true ) {
+		Juff::MenuID id = menuIDs[i++];
+		QMenu* m = menus_.value(id, NULL);
+		if ( m != NULL ) {
+			// add engines' items
+			foreach(Juff::DocEngine* eng, engines_) {
+				eng->initMenuActions(id, m);
+			}
+			// add menu to the menubar
+			mw_->addMenu(m);
+		}
+		
+		if ( id == Juff::MenuLAST )
+			break;
+	}
 	
 	
 	// statusbar
@@ -301,563 +306,67 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt(), pluginMgr_(thi
 	nameL_->hide();
 	charsetL_->hide();
 	linesL_->hide();
-	mw_->restoreState();
 	
-	docManager_->initStatusBar(mw_->statusBar());
-	
-	
-	QString prjName = MainSettings::get(MainSettings::LastProject);
-	
-	search_ = new SearchEngine(this, mw_);
-	createProject(prjName);
+	// TODO : add restoring state
+//	mw_->restoreState();
 }
 
-JuffEd::~JuffEd() {
-	delete docManager_;
-	delete settingsDlg_;
-	delete search_;
+void JuffEd::initCharsetMenus() {
+	openWithCharsetMenu_->clear();
+	setCharsetMenu_->clear();
 	
-	Settings::instance()->write("juff", "juffed");
+	foreach (QAction* a, openWithCharsetGr_->actions())
+		openWithCharsetGr_->removeAction(a);
+
+	QStringList charsets = CharsetSettings::getCharsetsList();
+	foreach (QString charset, charsets) {
+		if ( CharsetSettings::charsetEnabled(charset) ) {
+			QAction* openAct = openWithCharsetMenu_->addAction(charset, this, SLOT(slotOpenWithCharset()));
+			openAct->setCheckable(true);
+			openWithCharsetGr_->addAction(openAct);
+			
+			QAction* setAct = setCharsetMenu_->addAction(charset, this, SLOT(slotSetCharset()));
+			setAct->setCheckable(true);
+			setCharsetGr_->addAction(setAct);
+			
+//			mInt_->charsetActions_[charset] = action;
+		}
+	}
+}
+
+void JuffEd::initRecentFilesMenu() {
+	recentFilesMenu_->clear();
 	
-	if ( prj_ != NULL )
-		delete prj_;
+	foreach (QString fileName, recentFiles_) {
+		recentFilesMenu_->addAction(fileName, this, SLOT(slotFileRecent()));
+	}
+	
+	if ( recentFiles_.count() == 0 )
+		recentFilesMenu_->setEnabled(false);
+	else
+		recentFilesMenu_->setEnabled(true);
 }
 
 QWidget* JuffEd::mainWindow() const {
 	return mw_;
 }
 
-void JuffEd::slotFileNew() {
+void JuffEd::onMessageReceived(const QString& msg) {
 	LOGGER;
 	
-	createDoc("");
-}
-
-void JuffEd::slotFileOpen() {
-	LOGGER;
-	
-	// TODO : proper filters here
-	QString filters = "All files (*)";
-	QStringList files = mw_->getOpenFileNames(openDialogDirectory(), filters);
-	
-	QString fileName;
-	foreach (fileName, files) {
-		openDoc(fileName);
-		
-		if ( !Juff::isNoname(fileName) )
-			addToRecentFiles(fileName);
+	QStringList params = msg.split("\n");
+	params.removeFirst();
+	foreach (QString param, params) {
+		if ( QFileInfo(param).exists() )
+			openDoc(param);
 	}
-	
-	// store the last used directory
-	MainSettings::set(MainSettings::LastDir, QFileInfo(fileName).absolutePath());
-}
-
-void JuffEd::slotFileSave() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( doc->isNull() )
-		return;
-	
-	if ( Juff::isNoname(doc) ) {
-		slotFileSaveAs();
-	}
-	else {
-		saveDoc(doc);
-	}
-}
-
-void JuffEd::slotFileSaveAs() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( doc->isNull() )
-		return;
-	
-	saveDocAs(doc);
-}
-
-void JuffEd::slotFileClose() {
-	LOGGER;
-
-	Juff::Document* doc = curDoc();
-	if ( doc->isNull() )
-		return;
-	
-	closeDocWithConfirmation(doc);
-	
-	if ( docCount() == 0 && MainSettings::get(MainSettings::ExitOnLastDocClosed) )
-		slotFileExit();
-}
-
-void JuffEd::slotFileCloseAll() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	while ( !doc->isNull() ) {
-		if ( !closeDocWithConfirmation(doc) )
-			break;
-		doc = curDoc();
-	}
-}
-
-void JuffEd::slotFileSaveAll() {
-	LOGGER;
-	
-	QList<Juff::Document*> docs = viewer_->docList();
-	foreach (Juff::Document* doc, docs) {
-		if ( Juff::isNoname(doc) )
-			saveDocAs(doc);
-		else
-			saveDoc(doc);
-	}
-}
-
-void JuffEd::slotFileReload() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( doc->isNull() )
-		return;
-	
-	doc->reload();
-}
-
-void JuffEd::slotFileRename() {
-	LOGGER;
-	
-}
-
-void JuffEd::slotFilePrint() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( doc->isNull() )
-		return;
-	
-	doc->print();
-}
-
-void JuffEd::slotFileExit() {
-	LOGGER;
-	
-	bool exit;
-	onCloseRequested(exit);
-	
-	if ( exit ) {
-		qApp->quit();
-	}
-}
-
-void JuffEd::slotFileRecent() {
-	LOGGER;
-	
-	QAction* act = qobject_cast<QAction*>(sender());
-	if ( act != 0 )
-		openDoc(act->text());
-}
-
-////////////////////////////////////////
-// Project
-
-void JuffEd::slotPrjNew() {
-	LOGGER;
-	
-	QString prjFile = mw_->getSavePrjName(JuffEd::tr("New project"));
-	if ( !prjFile.isEmpty() ) {
-		// store the last used directory
-		if ( QFileInfo(prjFile).suffix().toLower() != "xml" )
-			prjFile += ".xml";
-		MainSettings::set(MainSettings::LastDir, QFileInfo(prjFile).absolutePath());
-		
-		if ( closeProject() )
-			createProject(prjFile);
-		
-		// Notification signals are gonna be emitted 
-		// in closeProject and createProject
-	}
-}
-
-void JuffEd::slotPrjOpen() {
-	LOGGER;
-	
-	QString prjFile = mw_->getOpenFileName(openDialogDirectory(), "JuffEd XML Project Files (*.xml)");
-	if ( !prjFile.isEmpty() ) {
-		// store the last used directory
-		MainSettings::set(MainSettings::LastDir, QFileInfo(prjFile).absolutePath());
-		
-		if ( closeProject() )
-			createProject(prjFile);
-		
-		// Notification signals are gonna be emitted 
-		// in closeProject and createProject
-	}
-}
-
-void JuffEd::slotPrjClose() {
-	LOGGER;
-
-	if ( closeProject() )
-		createProject("");
-
-	// Notification signals are gonna be emitted 
-	// in closeProject and createProject
-}
-
-void JuffEd::slotPrjRename() {
-	LOGGER;
-	
-	// TODO : don't forget to emit a notification signal
-}
-
-void JuffEd::slotPrjSaveAs() {
-	LOGGER;
-	
-//	QString prjName = mw_->getSavePrjName(JuffEd::tr("Save project as..."));
-//	if ( !prjName.isEmpty() ) {
-//	}
-}
-
-void JuffEd::slotPrjAddFile() {
-	LOGGER;
-	
-	if ( prj_ != NULL ) {
-		// TODO : filters
-		QStringList fileList = mw_->getOpenFileNames(openDialogDirectory(), "All files (*)");
-		QString file;
-		foreach (file, fileList) {
-			prj_->addFile(file);
-			
-			// notify plugins
-//			emit projectFileAdded(prj_, file);
-			
-			// open the document
-			openDoc(file);
-		}
-		// store the last used directory
-		MainSettings::set(MainSettings::LastDir, QFileInfo(file).absolutePath());
-	}
-}
-
-////////////////////////////////////////
-// Edit
-
-void JuffEd::slotEditUndo() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->undo();
-	}
-}
-
-void JuffEd::slotEditRedo() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->redo();
-	}
-}
-
-void JuffEd::slotEditCut() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->cut();
-	}
-}
-
-void JuffEd::slotEditCopy() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->copy();
-	}
-}
-
-void JuffEd::slotEditPaste() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->paste();
-	}
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-// Find
-
-void JuffEd::slotFind() {
-	LOGGER;
-	
-	search_->find();
-}
-
-void JuffEd::slotFindNext() {
-	LOGGER;
-	
-	search_->findNext();
-}
-
-void JuffEd::slotFindPrev() {
-	LOGGER;
-	
-	search_->findPrev();
-}
-
-void JuffEd::slotReplace() {
-	LOGGER;
-	
-	search_->replace();
-}
-
-void JuffEd::slotGotoLine() {
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		int line = mw_->getGotoLineNumber(doc->lineCount());
-		if ( line >= 0 )
-			doc->gotoLine(line);
-	}
-}
-
-void JuffEd::slotJumpToFile() {
-	LOGGER;
-	
-	QStringList list = viewer_->docNamesList();
-	QString fileName = mw_->getJumpToFileName(list);
-	if ( !fileName.isEmpty() )
-		openDoc(fileName);
-}
-
-///////
-
-void JuffEd::slotWrapWords(){
-	LOGGER;
-	
-	bool checked = CommandStorage::instance()->action(Juff::ViewWrapWords)->isChecked();
-	EditorSettings::set(EditorSettings::WrapWords, checked);
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->setWrapWords(checked);
-	}
-}
-
-void JuffEd::slotShowLineNumbers(){
-	LOGGER;
-	
-	bool checked = CommandStorage::instance()->action(Juff::ViewLineNumbers)->isChecked();
-	EditorSettings::set(EditorSettings::ShowLineNumbers, checked);
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->setShowLineNumbers(checked);
-	}
-}
-
-void JuffEd::slotShowWhitespaces(){
-	LOGGER;
-	
-	bool checked = CommandStorage::instance()->action(Juff::ViewWhitespaces)->isChecked();
-	EditorSettings::set(EditorSettings::ShowWhitespaces, checked);
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->setShowWhitespaces(checked);
-	}
-}
-
-void JuffEd::slotShowLineEndings(){
-	LOGGER;
-	
-	bool checked = CommandStorage::instance()->action(Juff::ViewLineEndings)->isChecked();
-	EditorSettings::set(EditorSettings::ShowLineEnds, checked);
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->setShowLineEndings(checked);
-	}
-}
-
-void JuffEd::slotZoomIn(){
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->zoomIn();
-	}
-}
-
-void JuffEd::slotZoomOut(){
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->zoomOut();
-	}
-}
-
-void JuffEd::slotZoom100(){
-	LOGGER;
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->zoom100();
-	}
-}
-
-void JuffEd::slotFullscreen() {
-	LOGGER;
-	
-	if ( !mw_->isFullScreen() )
-		mw_->saveState();
-	
-	mw_->toggleFullscreen();
-}
-
-void JuffEd::slotSettings() {
-	LOGGER;
-	settingsDlg_->exec();
-}
-
-void JuffEd::slotOpenWithCharset() {
-	LOGGER;
-	
-	Juff::Document* doc = qobject_cast<Juff::Document*>(curDoc());
-	QAction* action = qobject_cast<QAction*>(sender());
-	if ( doc != 0 && action != 0 ) {
-		QString charset = doc->charset();
-		doc->setCharset(action->text());
-		doc->reload();
-	}
-}
-
-void JuffEd::slotSetCharset() {
-	LOGGER;
-	
-	Juff::Document* doc = qobject_cast<Juff::Document*>(curDoc());
-	QAction* action = qobject_cast<QAction*>(sender());
-	if ( doc != 0 && action != 0 ) {
-		QString charset = doc->charset();
-		doc->setCharset(action->text());
-	}
-}
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-// Slots
-
-void JuffEd::onDocModified(bool) {
-	LOGGER;
-
-	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
-	if ( doc != 0 ) {
-		updateGUI(doc);
-		
-		// notify plugins
-		emit docModified(doc);
-	}
-}
-
-void JuffEd::onDocCursorMoved(int line, int col) {
-//	LOGGER;
-	
-	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
-	if ( doc != 0 ) {
-		updateCursorPos(doc);
-	}
-}
-
-void JuffEd::onDocTextChanged() {
-//	LOGGER;
-	
-	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
-	if ( doc != 0 ) {
-		// notify plugins
-		emit docTextChanged(doc);
-	}
-}
-
-void JuffEd::onDocSyntaxChanged(const QString& oldSyntax) {
-	LOGGER;
-	
-	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
-	if ( doc != 0 ) {
-		// notify plugins
-		emit docSyntaxChanged(doc, oldSyntax);
-	}
-}
-
-void JuffEd::onDocCharsetChanged(const QString& oldCharset) {
-	LOGGER;
-	
-	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
-	if ( doc != 0 ) {
-		// notify plugins
-		emit docCharsetChanged(doc, oldCharset);
-	}
-}
-
-void JuffEd::onDocLineCountChanged(int lines) {
-//	LOGGER;
-	
-	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
-	if ( doc != 0 ) {
-		updateLineCount(doc);
-	}
-}
-
-void JuffEd::onDocActivated(Juff::Document* doc) {
-	LOGGER;
-
-	updateGUI(doc);
-	updateMenus(doc);
-	
-//	if ( mw_->searchPopup()->isVisible() )
-		search_->setCurDoc(doc);
-	
-	// notify plugins
-	emit docActivated(doc);
-}
-
-void JuffEd::onDocRenamed(const QString& oldName) {
-	LOGGER;
-	
-	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
-	if ( doc != 0 ) {
-		// notify plugins
-		emit docRenamed(doc, oldName);
-	}
-}
-
-void JuffEd::onPrjFileAdded(const QString& file) {
-	LOGGER;
-	
-	Juff::Project* prj = qobject_cast<Juff::Project*>(sender());
-	if ( prj != 0 )
-		emit projectFileAdded(prj, file);
-}
-
-void JuffEd::onPrjFileRemoved(const QString& file) {
-	LOGGER;
-	
-	Juff::Project* prj = qobject_cast<Juff::Project*>(sender());
-	if ( prj != 0 )
-		emit projectFileRemoved(prj, file);
 }
 
 void JuffEd::onCloseRequested(bool& confirm) {
 	LOGGER;
 
 	QMap <QString, Juff::Document*> unsaved;
-	QList<Juff::Document*> docs = viewer_->docList();
+	QList<Juff::Document*> docs = viewer_->docList(Juff::PanelAll);
 	foreach (Juff::Document* doc, docs)
 		if ( doc->isModified() )
 			unsaved[doc->fileName()] = doc;
@@ -895,124 +404,418 @@ void JuffEd::onCloseRequested(bool& confirm) {
 		mw_->saveState();
 }
 
-void JuffEd::onSearchPopupClosed() {
-	LOGGER;
-	
-	curDoc()->setFocus();
-}
-
 void JuffEd::onSettingsApplied() {
-	LOGGER;
+	int sz = MainSettings::get(MainSettings::IconSize);
+	int size = ( sz == 1 ? 24 : (sz == 2 ? 32 : 16) );
+	IconManager::instance()->setSize(size);
+	CommandStorage::instance()->updateIcons();
 	
-	pluginMgr_.applySettings();
+	// TODO : apply shortcuts
+//	CommandStorage::instance()->updateShortcuts();
+
+	// TODO : request applying settings from plugins
+//	pluginMgr_.applySettings();
+
 	viewer_->applySettings();
 	mw_->applySettings();
 	
+	// TODO : notify plugins
 	emit settingsApplied();
-	
-	// TODO : move to the Keybindings plugin
-	CommandStorage::instance()->updateShortcuts();
 }
 
-#ifdef Q_OS_UNIX
-//#include <X11/Xlib.h>
-//#include <QX11Info>
-#endif
-
-void JuffEd::onMessageReceived(const QString& msg) {
-	LOGGER;
-	
-	QStringList params = msg.split("\n");
-	params.removeFirst();
-	foreach (QString param, params) {
-		if ( QFileInfo(param).exists() )
-			openDoc(param);
-	}
-#ifdef Q_OS_UNIX
-//	Display* d = QX11Info::display();
-//	Window w = mw_->winId();
-//
-//	XSetWindowAttributes attr;
-//	attr.override_redirect = True;
-//
-//	XChangeWindowAttributes(d, w, CWOverrideRedirect, &attr);
-//	XRaiseWindow(d, w);
-//	XFlush(d); 
-//	XSync(d, False);
-#endif
-}
-
-
-Juff::Document* JuffEd::createDoc(const QString& fileName) {
-	LOGGER;
-	
-	Juff::Document* doc;
-	if ( fileName.isEmpty() )
-		doc = docManager_->newDoc();
-	else
-		doc = docManager_->openDoc(fileName);
-	
-	if ( !doc->isNull() ) {
-		initDoc(doc);
-		viewer_->addDoc(doc);
-		if ( prj_->name().isEmpty() )
-			prj_->addFile(doc->fileName());
-		updateGUI(doc);
-	}
-	
-	// notify plugins
-	emit docOpened(doc);
-	
-	return doc;
-}
-
-void JuffEd::createProject(const QString& fileName) {
-	prj_ = new Juff::Project(fileName);
-	MainSettings::set(MainSettings::LastProject, prj_->fileName());
-	
-	connect(prj_, SIGNAL(fileAdded(const QString&)), SLOT(onPrjFileAdded(const QString&)));
-	connect(prj_, SIGNAL(fileRemoved(const QString&)), SLOT(onPrjFileRemoved(const QString&)));
-	
-	loadProject();
-	
-	// notify plugins
-	emit projectOpened(prj_);
-}
-
-bool JuffEd::closeProject() {
-	if ( prj_ == NULL )
-		return true;
-	
-	slotFileCloseAll();
-	// check if all files were closed
-	if ( viewer_->docCount() > 0 )
-		return false;
-	
-	// notify plugins
-	emit projectAboutToBeClosed(prj_);
-	
-	delete prj_;
-	return true;
-}
-
-
-void JuffEd::initDoc(Juff::Document* doc) {
-	LOGGER;
-	
-	connect(doc, SIGNAL(modified(bool)), SLOT(onDocModified(bool)));
-	connect(doc, SIGNAL(cursorPosChanged(int, int)), SLOT(onDocCursorMoved(int, int)));
-	connect(doc, SIGNAL(lineCountChanged(int)), SLOT(onDocLineCountChanged(int)));
-	connect(doc, SIGNAL(textChanged()), SLOT(onDocTextChanged()));
-	connect(doc, SIGNAL(syntaxChanged(const QString&)), SLOT(onDocSyntaxChanged(const QString&)));
-	connect(doc, SIGNAL(charsetChanged(const QString&)), SLOT(onDocCharsetChanged(const QString&)));
-	connect(doc, SIGNAL(renamed(const QString&)), SLOT(onDocRenamed(const QString&)));
-	
-	updateMenus(doc);
-}
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Implementation of DocHandletInt interface
+// Public slots from QActions (menus and toolbars)
+////////////////////////////////////////////////////////////////////////////////
+//
+void JuffEd::slotFileNew() {
+//	LOGGER;
+	
+	openDoc("");
+}
+
+void JuffEd::slotFileOpen() {
+	// TODO : proper filters here
+	QString filters = "All files (*)";
+	QStringList files = mw_->getOpenFileNames(openDialogDirectory(), filters);
+	
+	QString fileName;
+	foreach (fileName, files) {
+		openDoc(fileName);
+	}
+	
+	// store the last used directory
+	MainSettings::set(MainSettings::LastDir, QFileInfo(fileName).absolutePath());
+}
+
+void JuffEd::slotFileRecent() {
+//	LOGGER;
+	
+	QAction* act = qobject_cast<QAction*>(sender());
+	if ( act != 0 )
+		openDoc(act->text());
+}
+
+void JuffEd::slotFileSave() {
+	Juff::Document* doc = curDoc();
+	if ( doc->isNull() )
+		return;
+	
+	if ( Juff::isNoname(doc) ) {
+		slotFileSaveAs();
+	}
+	else {
+		saveDoc(doc);
+	}
+}
+
+void JuffEd::slotFileSaveAs() {
+	Juff::Document* doc = curDoc();
+	if ( doc->isNull() )
+		return;
+	
+	saveDocAs(doc);
+}
+
+void JuffEd::slotFileRename() {
+	// TODO : add renaming file logic
+}
+
+void JuffEd::slotFileSaveAll() {
+	QList<Juff::Document*> docs = viewer_->docList(Juff::PanelAll);
+	foreach (Juff::Document* doc, docs) {
+		if ( Juff::isNoname(doc) )
+			saveDocAs(doc);
+		else
+			saveDoc(doc);
+	}
+}
+
+void JuffEd::slotFileReload() {
+	Juff::Document* doc = curDoc();
+	if ( doc->isNull() )
+		return;
+	
+	doc->reload();
+}
+
+void JuffEd::slotFileClose() {
+	Juff::Document* doc = curDoc();
+	if ( doc->isNull() )
+		return;
+	
+	// TODO : add processing the option 'Exit on last doc closed'
+//	if ( !MainSettings::get(MainSettings::ExitOnLastDocClosed)&& docCount(2) == 1 && Juff::isNoname(doc) && !doc->isModified() )
+//		return;
+	
+	closeDocWithConfirmation(doc);
+}
+
+void JuffEd::slotFileCloseAll() {
+	closeAllDocs(Juff::PanelAll);
+}
+
+void JuffEd::slotFilePrint() {
+//	LOGGER;
+	Juff::Document* doc = curDoc();
+	if ( doc->isNull() )
+		return;
+	
+	doc->print();
+}
+
+void JuffEd::slotFileExit() {
+//	LOGGER;
+
+	bool exit;
+	onCloseRequested(exit);
+	
+	if ( exit ) {
+		qApp->quit();
+	}
+}
+
+void JuffEd::slotEditUndo() {
+//	LOGGER;
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->undo();
+	}
+}
+
+void JuffEd::slotEditRedo() {
+//	LOGGER;
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->redo();
+	}
+}
+
+void JuffEd::slotEditCut(){
+//	LOGGER;
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->cut();
+	}
+}
+
+void JuffEd::slotEditCopy() {
+//	LOGGER;
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->copy();
+	}
+}
+
+void JuffEd::slotEditPaste() {
+//	LOGGER;
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->paste();
+	}
+}
+
+void JuffEd::slotFind() {
+	search_->find();
+}
+
+void JuffEd::slotFindNext() {
+	search_->findNext();
+}
+
+void JuffEd::slotFindPrev() {
+	search_->findPrev();
+}
+
+void JuffEd::slotReplace() {
+	search_->replace();
+}
+
+void JuffEd::slotGotoLine() {
+//	LOGGER;
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		int line = mw_->getGotoLineNumber(doc->lineCount());
+		if ( line >= 0 )
+			doc->gotoLine(line);
+	}
+}
+
+void JuffEd::slotGotoFile() {
+	QStringList list = viewer_->docNamesList(Juff::PanelAll);
+	QString fileName = mw_->getJumpToFileName(list);
+	if ( !fileName.isEmpty() )
+		openDoc(fileName);
+}
+
+void JuffEd::slotWrapWords(){
+//	LOGGER;
+	
+	bool checked = CommandStorage::instance()->action(VIEW_WRAP_WORDS)->isChecked();
+	EditorSettings::set(EditorSettings::WrapWords, checked);
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->setWrapWords(checked);
+	}
+}
+
+void JuffEd::slotShowLineNumbers(){
+//	LOGGER;
+	
+	bool checked = CommandStorage::instance()->action(VIEW_LINE_NUMBERS)->isChecked();
+	EditorSettings::set(EditorSettings::ShowLineNumbers, checked);
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->setShowLineNumbers(checked);
+	}
+}
+
+void JuffEd::slotShowWhitespaces(){
+//	LOGGER;
+	
+	bool checked = CommandStorage::instance()->action(VIEW_WHITESPACES)->isChecked();
+	EditorSettings::set(EditorSettings::ShowWhitespaces, checked);
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->setShowWhitespaces(checked);
+	}
+}
+
+void JuffEd::slotShowLineEndings(){
+//	LOGGER;
+	
+	bool checked = CommandStorage::instance()->action(VIEW_LINE_ENDINGS)->isChecked();
+	EditorSettings::set(EditorSettings::ShowLineEnds, checked);
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->setShowLineEndings(checked);
+	}
+}
+
+void JuffEd::slotZoomIn(){
+//	LOGGER;
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->zoomIn();
+	}
+}
+
+void JuffEd::slotZoomOut(){
+//	LOGGER;
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->zoomOut();
+	}
+}
+
+void JuffEd::slotZoom100(){
+//	LOGGER;
+	
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() ) {
+		doc->zoom100();
+	}
+}
+
+void JuffEd::slotFullscreen() {
+//	LOGGER;
+	
+	// TODO : add saving window's state when going fullscreen
+//	if ( !mw_->isFullScreen() )
+//		mw_->saveState();
+	
+	mw_->toggleFullscreen();
+}
+
+void JuffEd::slotOpenWithCharset() {
+	Juff::Document* doc = qobject_cast<Juff::Document*>(curDoc());
+	QAction* action = qobject_cast<QAction*>(sender());
+	if ( doc != 0 && action != 0 ) {
+		QString charset = doc->charset();
+		doc->setCharset(action->text());
+		doc->reload();
+	}
+}
+
+void JuffEd::slotSetCharset() {
+	Juff::Document* doc = qobject_cast<Juff::Document*>(curDoc());
+	QAction* action = qobject_cast<QAction*>(sender());
+	if ( doc != 0 && action != 0 ) {
+		QString charset = doc->charset();
+		doc->setCharset(action->text());
+	}
+}
+
+void JuffEd::slotSettings() {
+	settingsDlg_->exec();
+}
+
+//
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Private slots from document events
+////////////////////////////////////////////////////////////////////////////////
+//
+// Send notifications about these events to PluginManager and JuffMW.
+// Don't send to DocViewer - it catches them by its own.
+//
+void JuffEd::onDocModified(bool modified) {
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
+	if ( doc != 0 ) {
+		updateMW(doc);
+		
+		// notify plugins
+		emit docModified(doc);
+	}
+}
+
+void JuffEd::onDocFocused() {
+}
+
+void JuffEd::onDocCursorPosChanged(int, int) {
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
+	if ( doc != 0 ) {
+		updateCursorPos(doc);
+	}
+}
+
+void JuffEd::onDocLineCountChanged(int) {
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
+	if ( doc != 0 ) {
+		updateLineCount(doc);
+	}
+}
+
+void JuffEd::onDocTextChanged() {
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
+	if ( doc != 0 ) {
+		// notify plugins
+		emit docTextChanged(doc);
+	}
+}
+
+void JuffEd::onDocSyntaxChanged(const QString& oldSyntax) {
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
+	if ( doc != 0 ) {
+		// notify plugins
+		emit docSyntaxChanged(doc, oldSyntax);
+	}
+}
+
+void JuffEd::onDocCharsetChanged(const QString& oldCharset) {
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
+	if ( doc != 0 ) {
+		// notify plugins
+		emit docCharsetChanged(doc, oldCharset);
+	}
+}
+
+void JuffEd::onDocRenamed(const QString&) {
+}
+
+// this slot is connected to a signal from DocViewer
+void JuffEd::onDocActivated(Juff::Document* doc) {
+	updateMW(doc);
+	updateDocView(doc);
+	
+//	if ( mw_->searchPopup()->isVisible() )
+	search_->setCurDoc(doc);
+	
+	// notify plugins
+	emit docActivated(doc);
+}
+
+//
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// DocHandlerInt interface implementation
+////////////////////////////////////////////////////////////////////////////////
+//
 Juff::Document* JuffEd::curDoc() const {
 	return viewer_->currentDoc();
 }
@@ -1022,88 +825,97 @@ Juff::Document* JuffEd::getDoc(const QString& fileName) const {
 }
 
 Juff::Project* JuffEd::curPrj() const {
-	return prj_;
+	return NULL;
 }
 
-void JuffEd::openDoc(const QString& fileName) {
-	LOGGER;
-	
-	if ( !viewer_->activateDoc(fileName) )
-		createDoc(fileName);
+void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
+	// First try to activate an existing doc
+	if ( !viewer_->activateDoc(fileName) ) {
+		Juff::DocEngine* eng = engineForFileName(fileName);
+		if ( eng == NULL )
+			return;
+		Juff::Document* doc = eng->createDoc(fileName);
+		
+		connect(doc, SIGNAL(modified(bool)), SLOT(onDocModified(bool)));
+		connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
+		connect(doc, SIGNAL(cursorPosChanged(int, int)), SLOT(onDocCursorPosChanged(int, int)));
+		connect(doc, SIGNAL(lineCountChanged(int)), SLOT(onDocLineCountChanged(int)));
+		connect(doc, SIGNAL(textChanged()), SLOT(onDocTextChanged()));
+		connect(doc, SIGNAL(syntaxChanged(const QString&)), SLOT(onDocSyntaxChanged(const QString&)));
+		connect(doc, SIGNAL(charsetChanged(const QString&)), SLOT(onDocCharsetChanged(const QString&)));
+		connect(doc, SIGNAL(renamed(const QString&)), SLOT(onDocRenamed(const QString&)));
+		
+		if ( viewer_->docCount(panel) == 1 ) {
+			Juff::Document* firstDoc = viewer_->documentAt(0, panel);
+			if ( !firstDoc->isNull() && Juff::isNoname(firstDoc) && !firstDoc->isModified() )
+				closeDocWithConfirmation(firstDoc);
+		}
+		
+		viewer_->addDoc(doc, panel);
+		
+		updateDocView(doc);
+		doc->setFocus();
+		
+		if ( !Juff::isNoname(fileName) )
+			addToRecentFiles(fileName);
+		
+		// notify plugins
+		emit docOpened(doc, panel);
+	}
 }
 
 void JuffEd::closeDoc(const QString& fileName) {
-	LOGGER;
-	
 	Juff::Document* doc = viewer_->document(fileName);
 	if ( !doc->isNull() )
 		closeDocWithConfirmation(doc);
 }
 
-void JuffEd::saveDoc(const QString& fileName) {
-	LOGGER;
-	
-	Juff::Document* doc = viewer_->document(fileName);
-	if ( !doc->isNull() )
-		saveDoc(doc);
+void JuffEd::closeAllDocs(Juff::PanelIndex panel) {
+	Juff::DocList list = viewer_->docList(panel);
+	foreach (Juff::Document* doc, list) {
+		if ( !closeDocWithConfirmation(doc) )
+			break;
+	}
+}
+
+void JuffEd::saveDoc(const QString&) {
 }
 
 int JuffEd::docCount() const {
-	LOGGER;
-	return viewer_->docCount();
 }
 
 QStringList JuffEd::docList() const {
-	LOGGER;
-	return viewer_->docNamesList();
+	return QStringList();
+}
+//
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// PRIVATE
+
+//Juff::Document* JuffEd::createDoc(const QString& fileName) {
+//	return sciEngine_->createDoc(fileName);
+//}
+
+QString JuffEd::openDialogDirectory() const {
+	Juff::Document* doc = curDoc();
+	if ( !doc->isNull() && !Juff::isNoname(doc) && MainSettings::get(MainSettings::SyncToCurDoc) )
+		return QFileInfo(doc->fileName()).absolutePath();
+	else
+		return MainSettings::get(MainSettings::LastDir);
 }
 
-
-
+Juff::DocEngine* JuffEd::engineForFileName(const QString&) const {
+	return engines_.value("QSci", NULL);
+}
 
 void JuffEd::reportError(const QString& error) {
 	mw_->message(QIcon(), "", error);
-}
-
-bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
-	if ( doc == 0 || doc->isNull() )
-		return true;
-	
-	bool decidedToClose = true;
-	
-	if ( doc->isModified() ) {
-		switch (mw_->askForSave(doc->fileName())) {
-			case QMessageBox::Save :
-			{
-				bool confirmed = Juff::isNoname(doc) ? saveDocAs(doc) : saveDoc(doc);
-				decidedToClose = confirmed;
-				break;
-			}
-			
-			case QMessageBox::Cancel :
-				decidedToClose = false;
-				break;
-			
-			case QMessageBox::Discard :
-			default:;
-		}
-	}
-
-	if ( decidedToClose ) {
-		if ( prj_ != NULL && prj_->isNoname() )
-			prj_->removeFile(doc->fileName());
-		
-		// notify plugins
-		emit docClosed(doc);
-		
-		viewer_->removeDoc(doc);
-		
-		delete doc;
-		return true;
-	}
-	else {
-		return false;
-	}
 }
 
 bool JuffEd::saveDoc(Juff::Document* doc) {
@@ -1158,23 +970,48 @@ bool JuffEd::saveDocAs(Juff::Document* doc) {
 	}
 }
 
-void JuffEd::updateMenus(Juff::Document* doc) {
-//	LOGGER;
+bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
+	if ( doc == 0 || doc->isNull() )
+		return true;
 	
-	CommandStorage* st = CommandStorage::instance();
-	doc->setWrapWords(st->action(Juff::ViewWrapWords)->isChecked());
-	doc->setShowLineNumbers(st->action(Juff::ViewLineNumbers)->isChecked());
-	doc->setShowWhitespaces(st->action(Juff::ViewWhitespaces)->isChecked());
-	doc->setShowLineEndings(st->action(Juff::ViewLineEndings)->isChecked());
-//	CommandStorage::instance()->action(Juff::ViewWrapWords)->setChecked(doc->wrapWords());
-//	CommandStorage::instance()->action(Juff::ViewLineNumbers)->setChecked(doc->lineNumbersVisible());
-//	CommandStorage::instance()->action(Juff::ViewWhitespaces)->setChecked(doc->whitespacesVisible());
-//	CommandStorage::instance()->action(Juff::ViewLineEndings)->setChecked(doc->lineEndingsVisible());
+	bool decidedToClose = true;
 	
-	docManager_->setCurDocType(doc->type());
+	if ( doc->isModified() ) {
+		switch (mw_->askForSave(doc->fileName())) {
+			case QMessageBox::Save :
+			{
+				bool confirmed = Juff::isNoname(doc) ? saveDocAs(doc) : saveDoc(doc);
+				decidedToClose = confirmed;
+				break;
+			}
+			
+			case QMessageBox::Cancel :
+				decidedToClose = false;
+				break;
+			
+			case QMessageBox::Discard :
+			default:;
+		}
+	}
+
+	if ( decidedToClose ) {
+		if ( prj_ != NULL && prj_->isNoname() )
+			prj_->removeFile(doc->fileName());
+		
+		// notify plugins
+		emit docClosed(doc);
+		
+		viewer_->removeDoc(doc);
+		
+		delete doc;
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
-void JuffEd::updateGUI(Juff::Document* doc) {
+void JuffEd::updateMW(Juff::Document* doc) {
 	QString title;
 	if ( !doc->isNull() ) {
 		title = QString("%1 - ").arg(Juff::docTitle(doc));
@@ -1203,6 +1040,16 @@ void JuffEd::updateGUI(Juff::Document* doc) {
 	mw_->setWindowTitle(title);
 }
 
+void JuffEd::updateDocView(Juff::Document* doc) {
+	CommandStorage* st = CommandStorage::instance();
+	doc->setWrapWords(st->action(VIEW_WRAP_WORDS)->isChecked());
+	doc->setShowLineNumbers(st->action(VIEW_LINE_NUMBERS)->isChecked());
+	doc->setShowWhitespaces(st->action(VIEW_WHITESPACES)->isChecked());
+	doc->setShowLineEndings(st->action(VIEW_LINE_ENDINGS)->isChecked());
+	
+//	docManager_->setCurDocType(doc->type());
+}
+
 void JuffEd::updateLineCount(Juff::Document* doc) {
 	linesL_->setText(JuffEd::tr("Lines: %1").arg(doc->lineCount()));
 }
@@ -1213,78 +1060,39 @@ void JuffEd::updateCursorPos(Juff::Document* doc) {
 	posL_->setText(JuffEd::tr("Line: %1, Col: %2").arg(line+1).arg(col+1));
 }
 
+void JuffEd::addToRecentFiles(const QString& fileName) {
+	recentFiles_.removeAll(fileName);
+	recentFiles_.push_front(fileName);
+	if ( recentFiles_.count() > RecentFilesCount )
+		recentFiles_.removeLast();
 
-
-void JuffEd::initCharsetMenus() {
-	LOGGER;
-
-	openWithCharsetMenu_->clear();
-	setCharsetMenu_->clear();
-	
-	
-	foreach (QAction* a, openWithCharsetGr_->actions())
-		openWithCharsetGr_->removeAction(a);
-
-	QStringList charsets = CharsetSettings::getCharsetsList();
-	foreach (QString charset, charsets) {
-		if ( CharsetSettings::charsetEnabled(charset) ) {
-			QAction* openAct = openWithCharsetMenu_->addAction(charset, this, SLOT(slotOpenWithCharset()));
-			openAct->setCheckable(true);
-			openWithCharsetGr_->addAction(openAct);
-			
-			QAction* setAct = setCharsetMenu_->addAction(charset, this, SLOT(slotSetCharset()));
-			setAct->setCheckable(true);
-			setCharsetGr_->addAction(setAct);
-			
-//			mInt_->charsetActions_[charset] = action;
-		}
-	}
-}
-
-void JuffEd::initRecentFilesMenu() {
-	recentFilesMenu_->clear();
-	
-	foreach (QString fileName, recentFiles_) {
-		recentFilesMenu_->addAction(fileName, this, SLOT(slotFileRecent()));
-	}
-	
-	if ( recentFiles_.count() == 0 )
-		recentFilesMenu_->setEnabled(false);
-	else
-		recentFilesMenu_->setEnabled(true);
+	MainSettings::set(MainSettings::RecentFiles, recentFiles_.join(";"));
 }
 
 
 
-void JuffEd::initPlugins() {
-	pluginMgr_.loadPlugins(settingsDlg_);
+
+
+
+
+
+
+
+void JuffEd::createProject(const QString& fileName) {
+	prj_ = new Juff::Project(fileName);
+	MainSettings::set(MainSettings::LastProject, prj_->fileName());
 	
-	// menus
-	Juff::MenuList menus = pluginMgr_.menus();
-	foreach (QMenu* menu, menus)
-		mw_->menuBar()->addMenu(menu);
+	connect(prj_, SIGNAL(fileAdded(const QString&)), SLOT(onPrjFileAdded(const QString&)));
+	connect(prj_, SIGNAL(fileRemoved(const QString&)), SLOT(onPrjFileRemoved(const QString&)));
 	
-	// menu actions
-	// TODO
+	loadProject();
 	
-	// docks
-	QWidgetList widgets = pluginMgr_.docks();
-	foreach (QWidget* w, widgets) {
-		QString title = w->windowTitle();
-		QDockWidget* dock = new QDockWidget(title);
-		dock->setObjectName(title);
-		dock->setWidget(w);
-		mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
-		
-		dockMenu_->addAction(dock->toggleViewAction());
-	}
+	// notify plugins
+	emit projectOpened(prj_);
 }
 
-void JuffEd::addPluginMenus(Juff::MenuID id, QMenu* menu) {
-	Juff::ActionList actions = pluginMgr_.actions(id);
-	foreach (QAction* act, actions) {
-		menu->addAction(act);
-	}
+bool JuffEd::closeProject() {
+	return false;
 }
 
 QString JuffEd::projectName() const {
@@ -1294,28 +1102,14 @@ QString JuffEd::projectName() const {
 void JuffEd::loadProject() {
 	if ( prj_ == NULL ) return;
 	
+	if ( viewer_->docCount(Juff::PanelLeft) == 0 )
+		openDoc("", Juff::PanelLeft);
+	if ( viewer_->docCount(Juff::PanelRight) == 0 )
+		openDoc("", Juff::PanelRight);
+	
 	QStringList files = prj_->files();
 	foreach (QString file, files) {
-		openDoc(file);
+		// TODO : open files not only at left panel
+		openDoc(file, Juff::PanelLeft);
 	}
-	
-	if ( docCount() == 0 )
-		slotFileNew();
-}
-
-QString JuffEd::openDialogDirectory() const {
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() && !Juff::isNoname(doc) && MainSettings::get(MainSettings::SyncToCurDoc) )
-		return QFileInfo(doc->fileName()).absolutePath();
-	else
-		return MainSettings::get(MainSettings::LastDir);
-}
-
-void JuffEd::addToRecentFiles(const QString& fileName) {
-	recentFiles_.removeAll(fileName);
-	recentFiles_.push_front(fileName);
-	if ( recentFiles_.count() > RecentFilesCount )
-		recentFiles_.removeLast();
-
-	MainSettings::set(MainSettings::RecentFiles, recentFiles_.join(";"));
 }

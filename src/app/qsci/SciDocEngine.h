@@ -28,7 +28,7 @@ class QActionGroup;
 #include <QObject>
 #include <QKeySequence>
 
-class SciDocEngine : public QObject, public DocEngine {
+class SciDocEngine : public QObject, public Juff::DocEngine {
 Q_OBJECT
 public:
 	SciDocEngine();

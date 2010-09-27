@@ -34,14 +34,15 @@ SearchEngine::SearchEngine(Juff::DocHandlerInt* handler, JuffMW* mw) : QObject()
 	mw_ = mw;
 	handler_ = handler;
 	searchPopup_ = mw_->searchPopup();
-	doc_ = NULL;
+	curDoc_ = NULL;
 	
-	connect(searchPopup_, SIGNAL(searchRequested()), SLOT(onSearchRequested()));
-	connect(searchPopup_, SIGNAL(findNext()), SLOT(onFindNext()));
-	connect(searchPopup_, SIGNAL(findPrev()), SLOT(onFindPrev()));
-	connect(searchPopup_, SIGNAL(replaceNext()), SLOT(onReplaceNext()));
-	connect(searchPopup_, SIGNAL(replacePrev()), SLOT(onReplacePrev()));
-	connect(searchPopup_, SIGNAL(replaceAll()), SLOT(onReplaceAll()));
+//	connect(searchPopup_, SIGNAL(searchRequested()), SLOT(onSearchRequested()));
+	connect(searchPopup_, SIGNAL(searchParamsChanged(const Juff::SearchParams&)), SLOT(onSearchParamsChanged(const Juff::SearchParams&)));
+	connect(searchPopup_, SIGNAL(findNextRequested()), SLOT(onFindNext()));
+	connect(searchPopup_, SIGNAL(findPrevRequested()), SLOT(onFindPrev()));
+	connect(searchPopup_, SIGNAL(replaceNextRequested()), SLOT(onReplaceNext()));
+	connect(searchPopup_, SIGNAL(replacePrevRequested()), SLOT(onReplacePrev()));
+	connect(searchPopup_, SIGNAL(replaceAllRequested()), SLOT(onReplaceAll()));
 	connect(searchPopup_, SIGNAL(closed()), SLOT(onDlgClosed()));
 }
 
@@ -51,35 +52,38 @@ SearchEngine::~SearchEngine() {
 void SearchEngine::setCurDoc(Juff::Document* doc) {
 	LOGGER;
 	
-	doChangeCurDoc(doc);
+	changeCurDoc(doc);
 	
-	if ( searchPopup_->isVisible() )
-		find();
+//	if ( searchPopup_->isVisible() )
+//		find();
 }
 
 void SearchEngine::find() {
 	LOGGER;
 	
-	if ( doc_ == NULL || doc_->isNull() ) {
+	if ( curDoc_ == NULL || curDoc_->isNull() ) {
 		qDebug("No document specified for SearchEngine");
 		return;
 	}
 	
 	searchPopup_->hideReplace();
 	searchPopup_->show();
-	Juff::SearchResults* res = doc_->searchResults();
+	Juff::SearchResults* res = curDoc_->searchResults();
 	if ( res != NULL ) {
 		searchPopup_->setFindText(res->params().findWhat);
-		doc_->highlightSearchResults();
-		res->setVisible(true);
+		curDoc_->highlightSearchResults();
+//		res->setVisible(true);
 	}
-	searchPopup_->focusOnFind(true);
+	else {
+		searchPopup_->setFindText("");
+	}
+	searchPopup_->setFocusOnFind(true);
 }
 
 void SearchEngine::findNext() {
 	LOGGER;
 	
-	if ( doc_ == NULL || doc_->isNull() ) {
+	if ( curDoc_ == NULL || curDoc_->isNull() ) {
 		qDebug("No document specified for SearchEngine");
 		return;
 	}
@@ -88,14 +92,14 @@ void SearchEngine::findNext() {
 		onFindNext();
 	}
 	else {
-		Juff::SearchResults* res = doc_->searchResults();
+		Juff::SearchResults* res = curDoc_->searchResults();
 		if ( res == NULL ) {
 			find();
 		}
 		else {
 			if ( res->count() > 0 ) {
 				selectNextOccurence();
-				doc_->setFocus();
+				curDoc_->setFocus();
 			}
 			else {
 				// TODO :
@@ -107,7 +111,7 @@ void SearchEngine::findNext() {
 void SearchEngine::findPrev() {
 	LOGGER;
 	
-	if ( doc_ == NULL || doc_->isNull() ) {
+	if ( curDoc_ == NULL || curDoc_->isNull() ) {
 		qDebug("No document specified for SearchEngine");
 		return;
 	}
@@ -116,14 +120,14 @@ void SearchEngine::findPrev() {
 		onFindPrev();
 	}
 	else {
-		Juff::SearchResults* res = doc_->searchResults();
+		Juff::SearchResults* res = curDoc_->searchResults();
 		if ( res == NULL ) {
 			find();
 		}
 		else {
 			if ( res->count() > 0 ) {
 				selectPrevOccurence();
-				doc_->setFocus();
+				curDoc_->setFocus();
 			}
 			else {
 				// TODO :
@@ -135,62 +139,64 @@ void SearchEngine::findPrev() {
 void SearchEngine::replace() {
 	LOGGER;
 	
-	if ( doc_ == NULL || doc_->isNull() ) {
+	if ( curDoc_ == NULL || curDoc_->isNull() ) {
 		qDebug("No document specified for SearchEngine");
 		return;
 	}
 	
-	searchPopup_->setFindText(selectedTextForSearch(doc_));
+	searchPopup_->setFindText(selectedTextForSearch(curDoc_));
 	
 	searchPopup_->showReplace();
 	searchPopup_->show();
-	searchPopup_->focusOnFind(true);
+	searchPopup_->setFocusOnFind(true);
 }
 
-void SearchEngine::doChangeCurDoc(Juff::Document* doc) {
-	if ( NULL != doc_ ) {
-		doc_->disconnect(SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
+void SearchEngine::changeCurDoc(Juff::Document* doc) {
+	if ( NULL != curDoc_ ) {
+		curDoc_->disconnect(SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
 	}
-	doc_ = doc;
-	connect(doc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
+	curDoc_ = doc;
+	connect(curDoc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
 	
-	if ( doc->searchResults() != NULL )
-		searchPopup_->setVisible(doc->searchResults()->isVisible());
-	else
-		searchPopup_->hide();
+	searchPopup_->hide();
+	onDlgClosed();
+	
+//	if ( doc->searchResults() != NULL )
+//		searchPopup_->setVisible(doc->searchResults()->isVisible());
+//	else
+//		searchPopup_->hide();
 }
 
-void SearchEngine::storePosition() {
+/*void SearchEngine::storePosition() {
 	LOGGER;
-	if ( doc_ == NULL ) return;
+	if ( curDoc_ == NULL ) return;
 		
-	doc_->getCursorPos(row_, col_);
+	curDoc_->getCursorPos(row_, col_);
 }
 
 void SearchEngine::restorePosition() {
 	LOGGER;
-	if ( doc_ == NULL ) return;
+	if ( curDoc_ == NULL ) return;
 		
-	doc_->setCursorPos(row_, col_);
-}
+	curDoc_->setCursorPos(row_, col_);
+}*/
 
 
 
-void SearchEngine::onSearchRequested() {
+void SearchEngine::onSearchParamsChanged(const Juff::SearchParams& params) {
 	LOGGER;
 	clearSelection();
-	doc_->clearHighlighting();
+	curDoc_->clearHighlighting();
 	
-	const Juff::SearchParams& params = searchPopup_->searchParams();
+//	const Juff::SearchParams& params = searchPopup_->searchParams();
 	if ( params.findWhat.isEmpty() ) {
 		searchPopup_->setSearchStatus(-1, 0);
-		searchPopup_->focusOnFind();
-		searchPopup_->highlightRed(false);
+		searchPopup_->setFocusOnFind();
 		return;
 	}
 	
-	Juff::SearchResults* results = getSearchResults();
-	doc_->setSearchResults(results);
+	Juff::SearchResults* results = performSearch(params);
+	curDoc_->setSearchResults(results);
 	
 	if ( results == NULL ) {
 		qDebug("Error: SearchResults can't be NULL, probably it's an error in getSearchResults() method");
@@ -200,29 +206,27 @@ void SearchEngine::onSearchRequested() {
 	if ( results->count() > 0 ) {
 		selectNextOccurence();
 		if ( searchPopup_->isVisible() ) {
-			doc_->highlightSearchResults();
-			results->setVisible(true);
+			curDoc_->highlightSearchResults();
+//			results->setVisible(true);
 		}
-		searchPopup_->highlightRed(false);
 	}
 	else {
 		searchPopup_->setSearchStatus(-1, 0);
-		searchPopup_->highlightRed(true);
 	}
 	
-	searchPopup_->focusOnFind();
+	searchPopup_->setFocusOnFind();
 }
 
-Juff::SearchResults* SearchEngine::getSearchResults() {
-	if ( doc_ == NULL || doc_->isNull() ) return NULL;
+Juff::SearchResults* SearchEngine::performSearch(const Juff::SearchParams& params) {
+	if ( curDoc_ == NULL || curDoc_->isNull() ) return NULL;
 	
 	QString text;
-	doc_->getText(text);
+	curDoc_->getText(text);
 	
 	if ( text.isEmpty() )
 		return NULL;
 	
-	Juff::SearchParams params = searchPopup_->searchParams();
+//	Juff::SearchParams params = searchPopup_->searchParams();
 	if ( params.findWhat.isEmpty() )
 		return NULL;
 	
@@ -234,6 +238,7 @@ Juff::SearchResults* SearchEngine::getSearchResults() {
 		results = new Juff::SearchResults(params);
 		
 		QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
+		qDebug() << "Lines count: " << lines.size();
 		QStringList::iterator it = lines.begin();
 		int lineIndex = 0;
 		while ( it != lines.end() ) {
@@ -243,6 +248,7 @@ Juff::SearchResults* SearchEngine::getSearchResults() {
 			int indent = 0;
 			while ( pos >= 0 ) {
 				results->addOccurence(lineIndex, indent + pos, lineIndex, indent + pos + length);
+				qDebug() << "Occurence:" << lineIndex << ", " << indent + pos << ", " << lineIndex << ", " << indent + pos + length;
 				indent += pos + length;
 				lineStr = lineStr.remove(0, pos + length);
 				pos = findInString(lineStr, params, length);
@@ -262,14 +268,14 @@ Juff::SearchResults* SearchEngine::getSearchResults() {
 int SearchEngine::selectNextOccurence() {
 	// set the cursor to the end of selection
 	int line1, col1, line2, col2;
-	if ( doc_->hasSelectedText() ) {
-		doc_->getSelection(line1, col1, line2, col2);
+	if ( curDoc_->hasSelectedText() ) {
+		curDoc_->getSelection(line1, col1, line2, col2);
 	}
 	else {
-		doc_->getCursorPos(line2, col2);
+		curDoc_->getCursorPos(line2, col2);
 	}
 	
-	Juff::SearchResults* results = doc_->searchResults();
+	Juff::SearchResults* results = curDoc_->searchResults();
 	
 	// find the next occurence
 	int index = results->findIndexByCursorPos(line2, col2, true);
@@ -277,7 +283,7 @@ int SearchEngine::selectNextOccurence() {
 	if ( index >= 0 ) {
 		const Juff::SearchOccurence& occ = results->occurence(index);
 		// select it
-		doc_->setSelection(occ.startRow, occ.startCol, occ.endRow, occ.endCol);
+		curDoc_->setSelection(occ.startRow, occ.startCol, occ.endRow, occ.endCol);
 		// update search status
 		searchPopup_->setSearchStatus(index, results->count());
 	}
@@ -289,21 +295,21 @@ int SearchEngine::selectNextOccurence() {
 */
 int SearchEngine::selectPrevOccurence() {
 	int line1, col1, line2, col2;
-	if ( doc_->hasSelectedText() ) {
-		doc_->getSelection(line1, col1, line2, col2);
+	if ( curDoc_->hasSelectedText() ) {
+		curDoc_->getSelection(line1, col1, line2, col2);
 	}
 	else {
-		doc_->getCursorPos(line1, col1);
+		curDoc_->getCursorPos(line1, col1);
 	}
 	
-	Juff::SearchResults* results = doc_->searchResults();
+	Juff::SearchResults* results = curDoc_->searchResults();
 	
 	// find the previous occurence
 	int index = results->findIndexByCursorPos(line1, col1, false);
 	if ( index >= 0 ) {
 		const Juff::SearchOccurence& occ = results->occurence(index);
 		// select it
-		doc_->setSelection(occ.startRow, occ.startCol, occ.endRow, occ.endCol);
+		curDoc_->setSelection(occ.startRow, occ.startCol, occ.endRow, occ.endCol);
 		// update search status
 		searchPopup_->setSearchStatus(index, results->count());
 	}
@@ -313,9 +319,9 @@ int SearchEngine::selectPrevOccurence() {
 void SearchEngine::onFindNext() {
 	LOGGER;
 	
-	if ( doc_ == NULL || doc_->isNull() ) return;
+	if ( curDoc_ == NULL || curDoc_->isNull() ) return;
 	
-	Juff::SearchResults* results = doc_->searchResults();
+	Juff::SearchResults* results = curDoc_->searchResults();
 	
 	if ( results != NULL ) {
 		if ( results->count() == 0 ) {
@@ -323,17 +329,16 @@ void SearchEngine::onFindNext() {
 			return;
 		}
 		
-		doc_->highlightSearchResults();
+		curDoc_->highlightSearchResults();
 		selectNextOccurence();
-		searchPopup_->highlightRed(false);
 	}
-	searchPopup_->focusOnFind();
+	searchPopup_->setFocusOnFind();
 }
 
 void SearchEngine::onFindPrev() {
-	if ( doc_ == NULL || doc_->isNull() ) return;
+	if ( curDoc_ == NULL || curDoc_->isNull() ) return;
 	
-	Juff::SearchResults* results = doc_->searchResults();
+	Juff::SearchResults* results = curDoc_->searchResults();
 	
 	if ( results != NULL ) {
 		if ( results->count() == 0 ) {
@@ -341,89 +346,91 @@ void SearchEngine::onFindPrev() {
 			return;
 		}
 		
-		doc_->highlightSearchResults();
+		curDoc_->highlightSearchResults();
 		selectPrevOccurence();
-		searchPopup_->highlightRed(false);
 	}
-	searchPopup_->focusOnFind();
+	searchPopup_->setFocusOnFind();
 }
 
 void SearchEngine::onReplaceNext() {
 	LOGGER;
 	
-	if ( doc_ == NULL || doc_->isNull() ) return;
+	if ( curDoc_ == NULL || curDoc_->isNull() ) return;
 	const Juff::SearchParams& params = searchPopup_->searchParams();
 	
-	if ( doc_->hasSelectedText() ) {
-		doc_->replaceSelectedText(params.replaceWith, true);
+	if ( curDoc_->hasSelectedText() ) {
+		curDoc_->replaceSelectedText(params.replaceWith, true);
 	}
 	onFindNext();
-	searchPopup_->focusOnReplace();
+	searchPopup_->setFocusOnReplace(false);
 }
 
 void SearchEngine::onReplacePrev() {
 	LOGGER;
 	
-	if ( doc_ == NULL || doc_->isNull() ) return;
+	if ( curDoc_ == NULL || curDoc_->isNull() ) return;
 	const Juff::SearchParams& params = searchPopup_->searchParams();
 	
-	if ( doc_->hasSelectedText() ) {
-		doc_->replaceSelectedText(params.replaceWith, false);
+	if ( curDoc_->hasSelectedText() ) {
+		curDoc_->replaceSelectedText(params.replaceWith, false);
 	}
 	onFindPrev();
-	searchPopup_->focusOnReplace();
+	searchPopup_->setFocusOnReplace(false);
 }
 
 void SearchEngine::onReplaceAll() {
 	LOGGER;
 	
-	if ( doc_ == NULL || doc_->isNull() ) return;
+	if ( curDoc_ == NULL || curDoc_->isNull() ) return;
 	
-	Juff::SearchResults* results = doc_->searchResults();
+	Juff::SearchResults* results = curDoc_->searchResults();
 	if ( results == NULL ) return;
 	
 	const Juff::SearchParams& params = searchPopup_->searchParams();
 	
-	storePosition();
-	disconnect(doc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
+//	storePosition();
+	disconnect(curDoc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
 	
-	doc_->setCursorPos(0, 0);
+	curDoc_->setCursorPos(0, 0);
 	int replacesMade = 0;
 	int count = results->count();
 	for ( int i = count - 1; i >= 0; --i ) {
 		const Juff::SearchOccurence& occ = results->occurence(i);
-		doc_->setSelection(occ.startRow, occ.startCol, occ.endRow, occ.endCol);
-		doc_->replaceSelectedText(params.replaceWith);
+		curDoc_->setSelection(occ.startRow, occ.startCol, occ.endRow, occ.endCol);
+		curDoc_->replaceSelectedText(params.replaceWith);
 		replacesMade++;
 	}
-	searchPopup_->focusOnReplace();
+	searchPopup_->setFocusOnReplace();
 	
-	restorePosition();
+//	restorePosition();
 	
 	mw_->message(QIcon(), tr("Replace"), tr("Replacement finished (%1 replacements were made)").arg(replacesMade), 5);
 	
-	connect(doc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
+	connect(curDoc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
 	
-	doc_->setSearchResults(NULL);
+	curDoc_->setSearchResults(NULL);
 }
 
 void SearchEngine::onDlgClosed() {
 	LOGGER;
-	doc_->clearHighlighting();
-	if ( doc_->searchResults() != NULL )
-		doc_->searchResults()->setVisible(false);
+	curDoc_->clearHighlighting();
+//	if ( curDoc_->searchResults() != NULL )
+//		curDoc_->searchResults()->setVisible(false);
+	curDoc_->setFocus();
 }
 
 void SearchEngine::onDocTextChanged() {
 	LOGGER;
 	
 	clearSelection();
-	doc_->clearHighlighting();
+	curDoc_->clearHighlighting();
 	
-	Juff::SearchResults* results = getSearchResults();
-	doc_->setSearchResults(results);
+	Juff::SearchParams params = searchPopup_->searchParams();
+	params.backwards = false;
+	Juff::SearchResults* results = performSearch(params);
+	curDoc_->setSearchResults(results);
 	if ( searchPopup_->isVisible() ) {
-		doc_->highlightSearchResults();
+		curDoc_->highlightSearchResults();
 		searchPopup_->setSearchStatus(-1, results->count());
 	}
 }
@@ -432,15 +439,15 @@ void SearchEngine::onDocTextChanged() {
 
 void SearchEngine::clearSelection() {
 	LOGGER;
-	if ( doc_ == NULL || doc_->isNull() || !doc_->hasSelectedText() ) return;
+	if ( curDoc_ == NULL || curDoc_->isNull() || !curDoc_->hasSelectedText() ) return;
 	
 	int line1, col1, line2, col2;
-	doc_->getSelection(line1, col1, line2, col2);
+	curDoc_->getSelection(line1, col1, line2, col2);
 	if ( !searchPopup_->searchParams().backwards ) {
-		doc_->setCursorPos(line1, col1);
+		curDoc_->setCursorPos(line1, col1);
 	}
 	else {
-		doc_->setCursorPos(line2, col2);
+		curDoc_->setCursorPos(line2, col2);
 	}
 }
 
@@ -479,7 +486,12 @@ int findInString(const QString& line, const Juff::SearchParams& params, int& len
 	}
 	else {
 		if ( !params.caseSensitive ) {
-			index = ( forward ? line.toLower().indexOf(str.toLower()) : line.toLower().lastIndexOf(str.toLower()) );
+			index = ( forward ? line.indexOf(str, 0, Qt::CaseInsensitive) : line.lastIndexOf(str, -1, Qt::CaseInsensitive) );
+			if ( index >= 0 ) {
+				qDebug() << ( forward ? "FWD" : "BACK" );
+				qDebug() << "Line: " << line;
+				qDebug() << index;
+			}
 		}
 		else {
 			index = ( forward ? line.indexOf(str) : line.lastIndexOf(str) );

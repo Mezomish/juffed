@@ -1,113 +1,113 @@
-/*
-JuffEd - An advanced text editor
-Copyright 2007-2010 Mikhail Murzin
+#ifndef __JUFF_DOC_VIEWER_H__
+#define __JUFF_DOC_VIEWER_H__
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License 
-version 2 as published by the Free Software Foundation.
+class QSplitter;
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+#include <QWidget>
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
-#ifndef __JUFFED_VIEWER_H__
-#define __JUFFED_VIEWER_H__
-
-class QAction;
+#include "DocStateChangeListener.h"
+#include "Document.h"
 
 namespace Juff {
-	class Document;
-	class TabWidget;
-	class DocHandlerInt;
-}
 
-#include <QList>
-#include <QMenu>
-#include <QSplitter>
+class TabWidget;
+class DocHandlerInt;
 
 class DocViewer : public QWidget {
 Q_OBJECT
 public:
 	DocViewer(Juff::DocHandlerInt*);
-	void addDoc(Juff::Document*);
+
+	void applySettings();
+	
+	/**
+	* Returns the index of currently selected panel.
+	*/
+	PanelIndex currentPanel() const;
+	void addDoc(Juff::Document*, PanelIndex panel);
 	void removeDoc(Juff::Document*);
 	Juff::Document* currentDoc() const;
 	Juff::Document* document(const QString&) const;
+	Juff::Document* documentAt(int index, PanelIndex panel) const;
 	bool activateDoc(const QString&);
+	void showPanel(PanelIndex);
+	void hidePanel(PanelIndex);
 
 	/**
 	* Returns the number of documents opened at a specific panel or at both panels.
-	* If \param panel == 0 then returns the number of ALL documents
-	* If \param panel == 1 then returns the number of documents opened at the 1st panel
-	* If \param panel == 2 then returns the number of documents opened at the 2nd panel
-	* Otherwise returns 0
 	*/
-	int docCount(int panel = 0) const;
-
+	int docCount(PanelIndex) const;
+	
 	/**
 	* Returns the list of documents opened at a specific panel or at both panels.
-	* If \param panel == 0 then returns ALL documents
-	* If \param panel == 1 then returns documents opened at the 1st panel
-	* If \param panel == 2 then returns documents opened at the 2nd panel
-	* Otherwise returns an empty list
 	*/
-	QList<Juff::Document*> docList(int panel = 0) const;
-
+	DocList docList(PanelIndex) const;
+	
 	/**
 	* Returns the list of document names opened at a specific panel or at both panels.
-	* If \param panel == 0 then returns names of ALL documents
-	* If \param panel == 1 then returns names of documents opened at the 1st panel
-	* If \param panel == 2 then returns names of documents opened at the 2nd panel
 	* Otherwise returns an empty list
 	*/
-	QStringList docNamesList(int panel = 0) const;
+	QStringList docNamesList(PanelIndex) const;
 
-	void applySettings();
+
 
 signals:
 	void docActivated(Juff::Document*);
-
-public slots:
+	
+private slots:
 	void nextDoc();
 	void prevDoc();
-
-private slots:
 	void goToNumberedDoc();
-	void onDocModified(bool);
-//	void onDocCloneRequested(Juff::Document*, Juff::TabWidget*);
+	
+//protected slots:
 	void onDocMoveRequested(Juff::Document*, Juff::TabWidget*);
 	void onTabRemoved(Juff::TabWidget*);
-	void onDocFocused();
 	void onDocStackCalled(bool);
 	void onCtrlTabSelected();
 	void onCurrentChanged(int);
+
+	void onDocModified(bool);
+	void onDocFocused();
 
 protected:
 	virtual bool eventFilter(QObject *obj, QEvent *e);
 
 private:
-	void addDoc(Juff::Document*, Juff::TabWidget*);
-	void closePanel(Juff::TabWidget*);
-	Juff::TabWidget* anotherPanel(Juff::TabWidget*);
-	void buildCtrlTabMenu(int);
-
+	Juff::TabWidget* anotherPanel(Juff::TabWidget*) const;
+	void buildCtrlTabMenu(int curItem);
+	
 	QAction* nextAct_;
 	QAction* prevAct_;
 
 	Juff::DocHandlerInt* handler_;
+	QSplitter* spl_;
 	Juff::TabWidget* tab1_;
 	Juff::TabWidget* tab2_;
 	Juff::TabWidget* curTab_;
-	QSplitter* spl_;
 	Juff::Document* curDoc_;
 	QList<Juff::Document*> docStack_;
 	QMenu ctrlTabMenu_;
 };
 
-#endif // __JUFFED_VIEWER_H__
+} // namespace Juff
+
+#endif // __JUFF_DOC_VIEWER_H__
+
+
+
+
+#ifdef ALKJDSADLKASJ
+
+class DocViewer : public QWidget {
+Q_OBJECT
+public:
+	DocViewer(Juff::DocHandlerInt*);
+
+protected:
+
+private:
+	void closePanel(Juff::TabWidget*);
+
+	Juff::Document* curDoc_;
+};
+#endif

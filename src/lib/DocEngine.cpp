@@ -25,6 +25,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QAction>
 #include <QMenu>
 
+namespace Juff {
+
 Juff::DocHandlerInt* DocEngine::handler_ = NULL;
 
 void DocEngine::setDocHandler(Juff::DocHandlerInt* h) {
@@ -66,3 +68,5 @@ void DocEngine::deactivate(bool deact) {
 		}
 	}
 }
+
+} // namespace Juff

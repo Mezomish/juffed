@@ -22,7 +22,7 @@ namespace Juff {
 
 SearchResults::SearchResults(const Juff::SearchParams& params) {
 	params_ = params;
-	visible_ = false;
+//	visible_ = false;
 }
 
 int SearchResults::count() const {
@@ -77,12 +77,12 @@ const Juff::SearchParams& SearchResults::params() const {
 	return params_;
 }
 
-void SearchResults::setVisible(bool visible) {
-	visible_ = visible;
-}
-
-bool SearchResults::isVisible() const {
-	return visible_;
-}
+//void SearchResults::setVisible(bool visible) {
+//	visible_ = visible;
+//}
+//
+//bool SearchResults::isVisible() const {
+//	return visible_;
+//}
 
 }

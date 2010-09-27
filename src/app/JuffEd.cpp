@@ -59,6 +59,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	createProject(prjName);
 	
 	onSettingsApplied();
+
+	mw_->restoreState();
 }
 
 JuffEd::~JuffEd() {

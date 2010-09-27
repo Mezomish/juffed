@@ -20,30 +20,34 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define __JUFFED_COMMAND_STORAGE_H__
 
 class QAction;
+class QKeySequence;
 
-#include "Enums.h"
+#include <QObject>
+#include <QMap>
 
-#include <QKeySequence>
-
-class CommandStorage {
+class CommandStorage : public QObject {
 public:
 	static CommandStorage* instance();
+	
+	/**
+	* Adds an action with given \param key and given \param name attached to the \param slot of the \param obj.
+	*/
+	void addAction(const QString& key, const QString& name, QObject* obj, const char* slot);
 
 	/**
 	* Returns an action with given \param id.
-	* For the list of all available actions see the file Enums.h.
 	*/
-	QAction* action(Juff::ActionID id) const;
+	QAction* action(const QString& id) const;
 
 	/**
-	* Returns a list of all available actions.
+	* Returns shortcut for the action with given \param id.
 	*/
-	QList<Juff::ActionID> actionIDs() const;
+	QKeySequence shortcut(const QString& id) const;
 
 	/**
-	* Updates actions' shortcuts using current settings.
+	* Sets the \param shortcut for the action with a given \param key.
 	*/
-	void updateShortcuts();
+	void setShortcut(const QString& key, const QKeySequence& shortcut) const;
 
 	/**
 	* Updates actions' icons using current settings.
@@ -51,16 +55,11 @@ public:
 	void updateIcons();
 
 private:
-	CommandStorage();
-	void createActions();
-
-	QString title(Juff::ActionID) const;
-	QKeySequence shortcut(Juff::ActionID) const;
-
-	class Interior;
-	Interior* int_;
-	
 	static CommandStorage* instance_;
+	CommandStorage();
+
+	QMap<QString, QAction*> actions_;
+	QMap<QString, QKeySequence> keys_;
 };
 
 #endif // __JUFFED_COMMAND_STORAGE_H__

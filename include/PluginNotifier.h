@@ -22,6 +22,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QObject>
 #include <QString>
 
+#include "Enums.h"
+
 namespace Juff {
 
 class Project;
@@ -34,7 +36,7 @@ public:
 
 signals:
 	// document notifications
-	void docOpened(Juff::Document*);
+	void docOpened(Juff::Document*, Juff::PanelIndex);
 	void docActivated(Juff::Document*);
 	void docClosed(Juff::Document*);
 	void docRenamed(Juff::Document*, const QString& oldName);

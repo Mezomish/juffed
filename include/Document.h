@@ -263,6 +263,8 @@ private:
 	Juff::SearchResults* searchResults_;
 };
 
+typedef QList<Juff::Document*> DocList;
+
 }
 
 #endif // __JUFFED_DOCUMENT_H__

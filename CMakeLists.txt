@@ -102,6 +102,7 @@ SET ( juffed_lib_RESOURCES
 SET ( juffed_app_MOC_HEADERS
 	src/app/JuffEd.h
 	src/app/SearchEngine.h
+	src/app/PluginManager.h
 	src/app/qsci/JuffScintilla.h
 	src/app/qsci/SciDoc.h
 	src/app/qsci/SciDocEngine.h
@@ -124,7 +125,7 @@ SET ( juffed_app_MOC_HEADERS
 	# settings
 	src/app/ui/settings/CharsetsSettingsPage.h
 	src/app/ui/settings/ColorButton.h
-#	src/app/ui/settings/FileTypesPage.h
+	src/app/ui/settings/FileTypesPage.h
 	src/app/ui/settings/MultiPage.h
 	src/app/ui/settings/PluginPage.h
 	src/app/ui/settings/SettingsDlg.h
@@ -135,7 +136,7 @@ SET ( juffed_app_MOC_HEADERS
 )
 
 SET ( juffed_app_SRCS
-	src/app/DocManager.cpp
+#	src/app/DocManager.cpp
 	src/app/JuffEd.cpp
 	src/app/main.cpp
 	src/app/PluginManager.cpp
@@ -164,7 +165,7 @@ SET ( juffed_app_SRCS
 	# settings
 	src/app/ui/settings/CharsetsSettingsPage.cpp
 	src/app/ui/settings/ColorButton.cpp
-#	src/app/ui/settings/FileTypesPage.cpp
+	src/app/ui/settings/FileTypesPage.cpp
 	src/app/ui/settings/MultiPage.cpp
 	src/app/ui/settings/PluginPage.cpp
 	src/app/ui/settings/SettingsDlg.cpp
@@ -191,9 +192,8 @@ ENDIF ( UNIX )
 SET ( juffed_app_UIS
 #	src/app/ui/forms/FindDlg.ui
 	src/app/ui/forms/JumpToFileDlg.ui
-	src/app/ui/forms/SelectFilesDlg.ui
 	src/app/ui/forms/SearchPopup.ui
-	
+#	
 	# settings
 	src/app/ui/forms/AutocompleteSettingsPage.ui
 	src/app/ui/forms/CharsetsSettingsPage.ui
@@ -201,6 +201,7 @@ SET ( juffed_app_UIS
 	src/app/ui/forms/FileTypesPage.ui
 	src/app/ui/forms/MainSettingsPage.ui
 	src/app/ui/forms/SessionDlg.ui
+	src/app/ui/forms/SelectFilesDlg.ui
 	src/app/ui/forms/ViewSettingsPage.ui
 	src/app/qsci/forms/QSciSettings.ui
 )
@@ -227,6 +228,7 @@ SET ( juffed_DEV_HEADERS
 	include/AutocompleteSettings.h
 	include/CharsetSettings.h
 	include/CommandStorage.h
+	include/Constants.h
 	include/Document.h
 	include/DocEngine.h
 	include/DocHandlerInt.h
@@ -241,9 +243,9 @@ SET ( juffed_DEV_HEADERS
 	include/Log.h
 	include/MainSettings.h
 	include/NullDoc.h
-#	include/PluginNotifier.h
+	include/PluginNotifier.h
 	include/PluginSettings.h
-	include/Project.h
+#	include/Project.h
 	include/QSciSettings.h
 	include/Types.h
 	include/Settings.h

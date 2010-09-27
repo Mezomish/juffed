@@ -51,13 +51,13 @@ public:
 	int findIndexByCursorPos(int row, int col, bool forward);
 	void addOccurence(int, int, int, int);
 	const Juff::SearchParams& params() const;
-	void setVisible(bool visible);
-	bool isVisible() const;
+//	void setVisible(bool visible);
+//	bool isVisible() const;
 
 private:
 	Juff::SearchParams params_;
 	QVector<SearchOccurence> occurences_;
-	bool visible_;
+//	bool visible_;
 };
 
 }

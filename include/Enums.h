@@ -33,7 +33,15 @@ typedef enum {
 	MenuFormat,
 	MenuTools,
 	MenuHelp,
+	MenuLAST = MenuHelp,
 } MenuID;
+
+enum PanelIndex {
+	PanelCurrent,
+	PanelLeft,
+	PanelRight,
+	PanelAll
+};
 
 /**
  * This enum contains IDs for all menu actions (except 

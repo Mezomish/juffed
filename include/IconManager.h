@@ -19,51 +19,38 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_ICON_MANAGER_H__
 #define __JUFFED_ICON_MANAGER_H__
 
-#include <QIcon>
-
-#include "Enums.h"
+class QIcon;
+class QString;
 
 class IconManager {
 public:
 	static IconManager* instance();
-	
+
 	/**
 	* Returns an icon of the current icon theme and the current size 
-	* for the specified \param id. If the current theme doesn't contain
+	* for the specified \param key. If the current theme doesn't contain
 	* an appropriate icon then returns a built-in icon (from "<default>" theme).
 	* If there is no default icon the returns an empty icon QIcon().
 	*/
-	QIcon icon(Juff::ActionID id) const;
+	QIcon icon(const QString& key) const;
 
 	/**
 	* Returns the current icon size. The default size is 16.
 	*/
-	int iconSize() const;
+	int size() const;
 
 	/**
 	* Sets the icon size to \param size.
 	*/
-	void setIconSize(int size);
+	void setSize(int);
 
-	/**
-	* Returns the current icon theme. It can be the name of some system icon
-	* theme or the default value "<default>" (built-in icons).
-	*/
-	QString iconTheme() const;
-	
-	/**
-	* Sets the icon theme to \param theme.
-	*/
-	void setIconTheme(const QString& theme);
-	
 private:
-	IconManager();
-	QIcon defaultIcon(Juff::ActionID) const;
+	QIcon defaultIcon(const QString&) const;
 
-	class Interior;
-	Interior* int_;
-	
 	static IconManager* instance_;
+	IconManager();
+
+	int size_;
 };
 
 #endif // __JUFFED_ICON_MANAGER_H__

@@ -19,11 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_DOC_ENGINE_H__
 #define __JUFFED_DOC_ENGINE_H__
 
-namespace Juff {
-	class Document;
-	class DocHandlerInt;
-}
-
 class QAction;
 class QMenu;
 
@@ -34,6 +29,11 @@ class QMenu;
 #include <QString>
 #include <QStringList>
 #include <QWidgetList>
+
+namespace Juff {
+
+class Document;
+class DocHandlerInt;
 
 class DocEngine {
 public:
@@ -60,5 +60,7 @@ private:
 
 	static Juff::DocHandlerInt* handler_;
 };
+
+} // namespace Juff
 
 #endif // __JUFFED_DOC_ENGINE_H__

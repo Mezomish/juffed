@@ -16,15 +16,17 @@ class AppInfo {
 public:
 	static QString name()            { return "JuffEd"; }
 	static QString organization()    { return "Juff"; }
+	static QString version()         { return "@JUFFED_VERSION@"; }
+	static QString language()        { return QLocale::system().name(); }
+
+	static QString dataDirPath()     { return QCoreApplication::applicationDirPath(); }
+	static QString pluginsPath()     { return appDirPath() + "/plugins"; }
+	
 	static QString configDirPath()   { return QDir::homePath() + "/.config/" + organization().toLower(); }
 	static QString configFile()      { return configDirPath() + "/" + name().toLower() + ".conf"; }
 	static QString translationPath() { return appDirPath() + "/l10n"; }
-	static QString version()         { return "@JUFFED_VERSION@"; }
 	static QString logFile()         { return configDirPath() + "/juffed.log"; }
-	static QString language()        { return QLocale::system().name(); }
 	static QString defaultPrjPath()  { return configDirPath() + "/empty_project.xml"; }
-
-	static QString appDirPath()      { return QCoreApplication::applicationDirPath(); }
 };
 
 #endif

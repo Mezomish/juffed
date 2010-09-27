@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_DOC_HANDLER_INT_H__
 #define __JUFFED_DOC_HANDLER_INT_H__
 
+#include "Enums.h"
+
 namespace Juff {
 
 class Document;
@@ -44,13 +46,18 @@ public:
 	/**
 	* Opens a document with a given file name or activates it if it is already opened.
 	*/
-	virtual void openDoc(const QString&) = 0;
+	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent) = 0;
 
 	/**
 	* Closes the document with a given file name.
 	*/
 	virtual void closeDoc(const QString&) = 0;
 
+	/**
+	* Closes all document at the given panel.
+	*/
+	virtual void closeAllDocs(Juff::PanelIndex panel) = 0;
+	
 	/**
 	* Saves the document with a given file name.
 	*/

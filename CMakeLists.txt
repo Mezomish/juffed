@@ -245,7 +245,7 @@ SET ( juffed_DEV_HEADERS
 	include/NullDoc.h
 	include/PluginNotifier.h
 	include/PluginSettings.h
-#	include/Project.h
+	include/Project.h
 	include/QSciSettings.h
 	include/Types.h
 	include/Settings.h

@@ -48,6 +48,8 @@ SET (BIN_INSTALL_DIR
     CACHE PATH "Install path for executables"
 )
 
+SET (LIB_PATH "${CMAKE_INSTALL_PREFIX}/lib")
+
 SET (LIB_INSTALL_DIR
     "${CMAKE_INSTALL_PREFIX}/lib"
     CACHE PATH "Install path for libraries"

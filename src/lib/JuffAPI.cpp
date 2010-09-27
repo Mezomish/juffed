@@ -13,7 +13,7 @@ JuffAPI::JuffAPI(Juff::DocHandlerInt* handler, Juff::PluginNotifier* notifier) :
 	int_->handler_ = handler;
 	int_->notifier_ = notifier;
 	
-	connect(notifier, SIGNAL(docOpened(Juff::Document*)), SIGNAL(docOpened(Juff::Document*)));
+	connect(notifier, SIGNAL(docOpened(Juff::Document*, Juff::PanelIndex)), SIGNAL(docOpened(Juff::Document*, Juff::PanelIndex)));
 	connect(notifier, SIGNAL(docActivated(Juff::Document*)), SIGNAL(docActivated(Juff::Document*)));
 	connect(notifier, SIGNAL(docClosed(Juff::Document*)), SIGNAL(docClosed(Juff::Document*)));
 	connect(notifier, SIGNAL(docRenamed(Juff::Document*, const QString&)), SIGNAL(docRenamed(Juff::Document*, const QString&)));
@@ -48,8 +48,8 @@ Juff::Project* JuffAPI::currentProject() const {
 }
 
 
-void JuffAPI::openDoc(const QString& fileName) {
-	int_->handler_->openDoc(fileName);
+void JuffAPI::openDoc(const QString& fileName, Juff::PanelIndex panel) {
+	int_->handler_->openDoc(fileName, panel);
 }
 
 void JuffAPI::closeDoc(const QString& fileName) {

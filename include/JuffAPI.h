@@ -36,7 +36,7 @@ public:
 	/**
 	* Opens a document with a given file name or activates it if it is already opened.
 	*/
-	virtual void openDoc(const QString&);
+	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent);
 
 	/**
 	* Closes the document with a given file name.
@@ -74,7 +74,7 @@ signals:
 	/**
 	* Emitted when the document \param doc is opened (or created).
 	*/
-	void docOpened(Juff::Document* doc);
+	void docOpened(Juff::Document* doc, Juff::PanelIndex);
 	
 	/**
 	* Emitted when the document \param doc is activated. It happens when

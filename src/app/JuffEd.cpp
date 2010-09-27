@@ -74,6 +74,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 }
 
 JuffEd::~JuffEd() {
+	if ( prj_ != NULL )
+		delete prj_;
 	Settings::instance()->write("juff", "juffed");
 }
 
@@ -864,6 +866,7 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		}
 		
 		viewer_->addDoc(doc, panel);
+		prj_->addFile(doc->fileName());
 		
 		updateDocView(doc);
 		doc->setFocus();
@@ -1114,14 +1117,14 @@ QString JuffEd::projectName() const {
 void JuffEd::loadProject() {
 	if ( prj_ == NULL ) return;
 	
-	if ( viewer_->docCount(Juff::PanelLeft) == 0 )
-		openDoc("", Juff::PanelLeft);
-	if ( viewer_->docCount(Juff::PanelRight) == 0 )
-		openDoc("", Juff::PanelRight);
-	
 	QStringList files = prj_->files();
 	foreach (QString file, files) {
 		// TODO : open files not only at left panel
 		openDoc(file, Juff::PanelLeft);
 	}
+	
+	if ( viewer_->docCount(Juff::PanelLeft) == 0 )
+		openDoc("", Juff::PanelLeft);
+	if ( viewer_->docCount(Juff::PanelRight) == 0 )
+		openDoc("", Juff::PanelRight);
 }

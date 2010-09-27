@@ -26,6 +26,7 @@ public:
 	void addDoc(Juff::Document*, PanelIndex panel);
 	void removeDoc(Juff::Document*);
 	Juff::Document* currentDoc() const;
+	Juff::Document* currentDoc(PanelIndex) const;
 	Juff::Document* document(const QString&) const;
 	Juff::Document* documentAt(int index, PanelIndex panel) const;
 	bool activateDoc(const QString&);

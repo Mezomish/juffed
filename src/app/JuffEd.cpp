@@ -61,6 +61,16 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	onSettingsApplied();
 
 	mw_->restoreState();
+	
+	// hide the right panel if unneeded
+	if ( viewer_->docCount(Juff::PanelRight) == 1 ) {
+		Juff::Document* doc = viewer_->documentAt(0, Juff::PanelRight);
+		if ( Juff::isNoname(doc) && !doc->isModified() ) {
+			Juff::Document* curDoc = viewer_->currentDoc(Juff::PanelLeft);
+			viewer_->hidePanel(Juff::PanelRight);
+			openDoc(curDoc->fileName());
+		}
+	}
 }
 
 JuffEd::~JuffEd() {

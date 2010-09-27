@@ -149,10 +149,24 @@ void DocViewer::removeDoc(Juff::Document* doc) {
 Juff::Document* DocViewer::currentDoc() const {
 //	LOGGER;
 	Juff::Document* doc = qobject_cast<Juff::Document*>(curTab_->currentWidget());
-	if ( doc != 0 )
-		return doc;
-	else
+	return doc != 0 ? doc : NullDoc::instance();
+}
+
+Juff::Document* DocViewer::currentDoc(PanelIndex panel) const {
+	QTabWidget* tabWidget = NULL;
+	switch ( panel ) {
+		case PanelCurrent : tabWidget = curTab_; break;
+		case PanelLeft    : tabWidget = tab1_;   break;
+		case PanelRight   : tabWidget = tab2_;   break;
+		default: ;
+	}
+	
+	if ( tabWidget == NULL ) {
 		return NullDoc::instance();
+	}
+	
+	Juff::Document* doc = qobject_cast<Juff::Document*>(tabWidget->currentWidget());
+	return doc != 0 ? doc : NullDoc::instance();
 }
 
 Juff::Document* DocViewer::document(const QString& fileName) const {

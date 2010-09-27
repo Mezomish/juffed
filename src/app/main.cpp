@@ -51,7 +51,6 @@ int runSingle(int argc, char* argv[]) {
 	QObject::connect(&app, SIGNAL(messageReceived(const QString&)), &juffed, SLOT(onMessageReceived(const QString&)));
 	app.setActivationWindow(juffed.mainWindow());
 
-	juffed.mainWindow()->setGeometry(50, 50, 1000, 800);
 	juffed.mainWindow()->show();
 	processParams(juffed, app.arguments());
 
@@ -64,7 +63,6 @@ int runNotSingle(int argc, char* argv[]) {
 
 	JuffEd juffed;
 
-	juffed.mainWindow()->setGeometry(50, 50, 1000, 800);
 	juffed.mainWindow()->show();
 	processParams(juffed, app.arguments());
 

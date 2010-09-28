@@ -43,6 +43,7 @@ public:
 //		FSHideMenubar,
 		FSHideToolbar,
 		FSHideStatusbar,
+		UseCtrlTabMenu,
 	};
 	
 	enum IntKey {

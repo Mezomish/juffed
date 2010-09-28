@@ -14,6 +14,7 @@
 #include "Functions.h"
 #include "IconManager.h"
 #include "Log.h"
+#include "MainSettings.h"
 #include "TabBar.h"
 
 namespace Juff {
@@ -185,7 +186,7 @@ void TabWidget::onCloseAllRequested() {
 }
 
 void TabWidget::keyPressEvent(QKeyEvent* e) {
-	if ( e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab ) {
+	if ( MainSettings::get(MainSettings::UseCtrlTabMenu) && e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab ) {
 		if ( e->modifiers() & Qt::ControlModifier ) {
 			if ( e->modifiers() & Qt::ShiftModifier ) {
 				emit docStackCalled(false);

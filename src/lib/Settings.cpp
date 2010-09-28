@@ -129,6 +129,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 //		if ( key == "exitOnLastDocClosed" )    return false;
 //		if ( key == "stripTrailingSpaces" )    return false;
 		if ( key == "singleInstance" )         return true;
+		if ( key == "useCtrlTabMenu" )         return true;
 //		if ( key == "closeButtonsOnTabs" )     return false;
 //		if ( key == "closeTabsInOrderOfUse" )  return false;
 		if ( key == "iconTheme" )              return "<default>";

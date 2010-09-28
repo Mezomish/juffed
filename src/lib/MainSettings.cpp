@@ -81,6 +81,10 @@ void MainSettings::set(BoolKey key, bool value) {
 			Settings::instance()->setValue("main", "fsHideStatusbar", value);
 			break;
 		
+		case UseCtrlTabMenu :
+			Settings::instance()->setValue("main", "useCtrlTabMenu", value);
+			break;
+		
 		default: ;
 	}
 }
@@ -156,6 +160,10 @@ bool MainSettings::get(BoolKey key) {
 		
 		case FSHideStatusbar :
 			return Settings::instance()->boolValue("main", "fsHideStatusbar");
+			break;
+		
+		case UseCtrlTabMenu :
+			return Settings::instance()->boolValue("main", "useCtrlTabMenu");
 			break;
 		
 		default :

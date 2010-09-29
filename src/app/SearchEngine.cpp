@@ -238,7 +238,6 @@ Juff::SearchResults* SearchEngine::performSearch(const Juff::SearchParams& param
 		results = new Juff::SearchResults(params);
 		
 		QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
-		qDebug() << "Lines count: " << lines.size();
 		QStringList::iterator it = lines.begin();
 		int lineIndex = 0;
 		while ( it != lines.end() ) {
@@ -248,7 +247,6 @@ Juff::SearchResults* SearchEngine::performSearch(const Juff::SearchParams& param
 			int indent = 0;
 			while ( pos >= 0 ) {
 				results->addOccurence(lineIndex, indent + pos, lineIndex, indent + pos + length);
-				qDebug() << "Occurence:" << lineIndex << ", " << indent + pos << ", " << lineIndex << ", " << indent + pos + length;
 				indent += pos + length;
 				lineStr = lineStr.remove(0, pos + length);
 				pos = findInString(lineStr, params, length);
@@ -487,11 +485,6 @@ int findInString(const QString& line, const Juff::SearchParams& params, int& len
 	else {
 		if ( !params.caseSensitive ) {
 			index = ( forward ? line.indexOf(str, 0, Qt::CaseInsensitive) : line.lastIndexOf(str, -1, Qt::CaseInsensitive) );
-			if ( index >= 0 ) {
-				qDebug() << ( forward ? "FWD" : "BACK" );
-				qDebug() << "Line: " << line;
-				qDebug() << index;
-			}
 		}
 		else {
 			index = ( forward ? line.indexOf(str) : line.lastIndexOf(str) );

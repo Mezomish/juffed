@@ -153,7 +153,8 @@ void JuffEd::initUI() {
 		int count = fileList.count();
 		for(int i = count - 1; i >= 0; --i) {
 			const QString& fileName = fileList.at(i);
-			addToRecentFiles(fileName);
+			if ( !fileName.isEmpty() )
+				addToRecentFiles(fileName);
 		}
 	}
 
@@ -871,8 +872,8 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		updateDocView(doc);
 		doc->setFocus();
 		
-		if ( !Juff::isNoname(fileName) )
-			addToRecentFiles(fileName);
+		if ( !Juff::isNoname(doc->fileName()) )
+			addToRecentFiles(doc->fileName());
 		
 		// notify plugins
 		emit docOpened(doc, panel);

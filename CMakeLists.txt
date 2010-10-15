@@ -43,12 +43,15 @@ IF ( DEV )
 	SET ( JUFFED_VERSION "${BASE_VERSION}.${REV}" )
 ENDIF ( DEV )
 
-MESSAGE ( "${JUFFED} version: ${JUFFED_VERSION}" )
+MESSAGE ( STATUS "" )
+MESSAGE ( STATUS "${JUFFED} version: ${JUFFED_VERSION}" )
 
 
 ####################
 # Directories
 ####################
+
+INCLUDE ( cmake/LibSuffix.cmake )
 
 SET (BIN_INSTALL_DIR
     "${PREFIX}/bin"
@@ -56,7 +59,7 @@ SET (BIN_INSTALL_DIR
 )
 
 SET (LIB_INSTALL_DIR
-    "${PREFIX}/lib"
+    "${PREFIX}/lib${LIB_SUFFIX}"
     CACHE PATH "Install path for libraries"
 )
 

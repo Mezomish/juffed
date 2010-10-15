@@ -85,6 +85,18 @@ PanelIndex DocViewer::currentPanel() const {
 	return curTab_ == tab1_ ? PanelLeft : PanelRight;
 }
 
+PanelIndex DocViewer::panelOf(Juff::Document* doc) {
+	if ( tab1_->indexOf(doc) >= 0 ) {
+		return PanelLeft;
+	}
+	else if ( tab2_->indexOf(doc) >= 0 ) {
+		return PanelRight;
+	}
+	else {
+		return PanelNone;
+	}
+}
+
 void DocViewer::showPanel(PanelIndex panel) {
 	int w = spl_->width() / 2;
 	if ( (panel == PanelLeft && spl_->sizes()[0] == 0) 
@@ -129,6 +141,7 @@ void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 
 		tabWidget->addTab(doc, Juff::docIcon(doc), Juff::docTitle(doc->fileName(), doc->isModified()));
 		tabWidget->setCurrentWidget(doc);
+		showPanel(panel);
 		
 		doc->init();
 		doc->setFocus();

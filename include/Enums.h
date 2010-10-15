@@ -40,7 +40,8 @@ enum PanelIndex {
 	PanelCurrent,
 	PanelLeft,
 	PanelRight,
-	PanelAll
+	PanelAll,
+	PanelNone,
 };
 
 /**

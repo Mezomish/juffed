@@ -1013,12 +1013,21 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 		if ( prj_ != NULL && prj_->isNoname() )
 			prj_->removeFile(doc->fileName());
 		
-		// notify plugins
-		emit docClosed(doc);
+		Juff::PanelIndex panel = viewer_->panelOf(doc);
 		
 		viewer_->removeDoc(doc);
 		
+		// notify plugins
+		emit docClosed(doc);
+		
 		delete doc;
+		
+		if ( panel == Juff::PanelLeft || panel == Juff::PanelRight ) {
+			if ( viewer_->docCount(panel) == 0 ) {
+				openDoc("", panel);
+			}
+		}
+		
 		return true;
 	}
 	else {

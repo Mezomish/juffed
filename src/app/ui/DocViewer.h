@@ -23,6 +23,7 @@ public:
 	* Returns the index of currently selected panel.
 	*/
 	PanelIndex currentPanel() const;
+	PanelIndex panelOf(Juff::Document*);
 	void addDoc(Juff::Document*, PanelIndex panel);
 	void removeDoc(Juff::Document*);
 	Juff::Document* currentDoc() const;

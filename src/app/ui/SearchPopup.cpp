@@ -112,6 +112,8 @@ void SearchPopup::hideReplace() {
 	ui.replacePrevBtn->setEnabled(false);
 	ui.replaceNextBtn->setEnabled(false);
 	ui.replaceAllBtn->setEnabled(false);
+	if ( ui.replaceChk->isChecked() )
+		ui.replaceChk->setChecked(false);
 }
 
 ////////////////////////////////////////////////////////////

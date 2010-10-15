@@ -99,6 +99,7 @@ PanelIndex DocViewer::panelOf(Juff::Document* doc) {
 
 void DocViewer::showPanel(PanelIndex panel) {
 	int w = spl_->width() / 2;
+	
 	if ( (panel == PanelLeft && spl_->sizes()[0] == 0) 
 	     || (panel == PanelRight && spl_->sizes()[1] == 0) ) {
 		spl_->setSizes(QList<int>() << w << w);
@@ -141,7 +142,7 @@ void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 
 		tabWidget->addTab(doc, Juff::docIcon(doc), Juff::docTitle(doc->fileName(), doc->isModified()));
 		tabWidget->setCurrentWidget(doc);
-		showPanel(panel);
+		showPanel(panelOf(doc));
 		
 		doc->init();
 		doc->setFocus();

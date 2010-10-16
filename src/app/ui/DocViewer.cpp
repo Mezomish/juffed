@@ -139,8 +139,13 @@ void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 		// same line below it.
 		connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
 
-
-		tabWidget->addTab(doc, Juff::docIcon(doc), Juff::docTitle(doc->fileName(), doc->isModified()));
+		QString title = Juff::docTitle(doc->fileName(), doc->isModified());
+		int index = tabWidget->addTab(doc, Juff::docIcon(doc), title);
+		if ( Juff::isNoname(doc) )
+			tabWidget->setTabToolTip(index, title);
+		else
+			tabWidget->setTabToolTip(index, doc->fileName());
+		
 		tabWidget->setCurrentWidget(doc);
 		showPanel(panelOf(doc));
 		

@@ -242,6 +242,17 @@ void TabWidget::contextMenuEvent(QContextMenuEvent* e) {
 	}
 }
 
+void TabWidget::mouseDoubleClickEvent(QMouseEvent* e) {
+	if ( e->button() == Qt::LeftButton ) {
+		// need to set focus to this tab widget, otherwise 
+		// new doc will be created at active tab widget
+		// that can be other than 'this' object
+		currentWidget()->setFocus();
+		
+		CommandStorage::instance()->action(FILE_NEW)->trigger();
+	}
+}
+
 QString TabWidget::docName(int index) const {
 	if ( index < 0 )
 		return "";

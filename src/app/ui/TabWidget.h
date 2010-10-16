@@ -41,6 +41,7 @@ protected:
 	virtual void dragEnterEvent(QDragEnterEvent*);
 	virtual void dropEvent(QDropEvent*);
 	virtual void contextMenuEvent(QContextMenuEvent*);
+	virtual void mouseDoubleClickEvent(QMouseEvent*);
 
 private:
 	QString docName(int index) const;

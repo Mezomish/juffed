@@ -32,10 +32,10 @@
 static const int RecentFilesCount = 10;
 
 JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
+	mw_ = new JuffMW();
 	initActions();
 	
 	viewer_ = new Juff::DocViewer(this);
-	mw_ = new JuffMW();
 	mw_->setMainWidget(viewer_);
 	settingsDlg_ = new SettingsDlg(mw_);
 	connect(settingsDlg_, SIGNAL(applied()), SLOT(onSettingsApplied()));

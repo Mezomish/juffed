@@ -29,6 +29,13 @@ typedef QList<QMenu*> MenuList;
 typedef QList<QAction*> ActionList;
 
 struct SearchParams {
+	enum SearchMode {
+		PlainText,
+		WholeWords,
+		RegExp,
+		MultiLineRegExp,
+	};
+	
 	/**
 	* The string needs to be find.
 	*/
@@ -61,28 +68,14 @@ struct SearchParams {
 	* The flag indicating whether the search should be only for 
 	* the whole words.
 	*/
-	bool wholeWords;
-	
-	/**
-	* The flag indicating whether the search string is a regular expression.
-	*/
-	bool regExp;
-	
-	/**
-	* The flag indicating whether the regular is multi-line.
-	* TODO : add more detailed explanation here
-	*/
-	bool multiLine;
+	SearchMode mode;
 	
 	SearchParams() {
 		findWhat      = "";
 		replaceWith   = "";
 		replace       = false;
 		caseSensitive = false;
-		backwards     = false;
-		wholeWords    = false;
-		regExp        = false;
-		multiLine     = false;
+		mode          = PlainText;
 	}
 };
 

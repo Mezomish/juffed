@@ -16,6 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include "Constants.h"
+#include "IconManager.h"
 #include "Log.h"
 #include "SearchPopup.h"
 
@@ -24,6 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 SearchPopup::SearchPopup() : QWidget() {
 	ui.setupUi(this);
 	setMaximumHeight(65);
+	collapsed_ = true;
 	
 	ui.closeBtn->setIcon(QIcon(":close"));
 	ui.findPrevBtn->setIcon(QIcon(":find_prev"));
@@ -37,6 +40,8 @@ SearchPopup::SearchPopup() : QWidget() {
 	ui.replacePrevBtn->setText("");
 	ui.replaceNextBtn->setText("");
 	ui.replaceAllBtn->setText("");
+	ui.expandBtn->setText("");
+	ui.expandBtn->setIcon(IconManager::instance()->icon(SEARCH_REPLACE));
 	
 	connect(ui.closeBtn, SIGNAL(clicked()), SLOT(dismiss()));
 	
@@ -44,7 +49,6 @@ SearchPopup::SearchPopup() : QWidget() {
 	QLineEdit* replaceEdit = ui.replaceCmb->lineEdit();
 	connect(findEdit, SIGNAL(textChanged(const QString&)), SLOT(onFindTextChanged(const QString&)));
 	connect(ui.caseSensitiveChk, SIGNAL(toggled(bool)), SLOT(onCaseSensitiveChecked(bool)));
-	connect(ui.wholeWordsChk, SIGNAL(toggled(bool)), SLOT(onWholeWordsChecked(bool)));
 	
 	connect(findEdit, SIGNAL(returnPressed()), SLOT(slotFindNext()));
 	connect(replaceEdit, SIGNAL(returnPressed()), SLOT(slotReplaceNext()));
@@ -54,7 +58,12 @@ SearchPopup::SearchPopup() : QWidget() {
 	connect(ui.replaceNextBtn, SIGNAL(clicked()), SLOT(slotReplaceNext()));
 	connect(ui.replacePrevBtn, SIGNAL(clicked()), SLOT(slotReplacePrev()));
 	connect(ui.replaceAllBtn, SIGNAL(clicked()), SLOT(slotReplaceAll()));
-	connect(ui.replaceChk, SIGNAL(toggled(bool)), SLOT(slotShowReplace(bool)));
+	connect(ui.expandBtn, SIGNAL(toggled(bool)), SLOT(expand(bool)));
+	connect(ui.modeCmb, SIGNAL(currentIndexChanged(int)), SLOT(slotModeChanged(int)));
+}
+
+bool SearchPopup::isCollapsed() const {
+	return collapsed_;
 }
 
 void SearchPopup::setSearchStatus(int index, int total) {
@@ -86,34 +95,26 @@ void SearchPopup::dismiss() {
 	hide();
 }
 
-void SearchPopup::showReplace() {
-//	ui.replaceL->show();
-//	ui.replaceCmb->show();
-//	ui.replacePrevBtn->show();
-//	ui.replaceNextBtn->show();
-//	ui.replaceAllBtn->show();
-	ui.replaceL->setEnabled(true);
-	ui.replaceCmb->setEnabled(true);
-	ui.replacePrevBtn->setEnabled(true);
-	ui.replaceNextBtn->setEnabled(true);
-	ui.replaceAllBtn->setEnabled(true);
-	if ( !ui.replaceChk->isChecked() )
-		ui.replaceChk->setChecked(true);
-}
 
-void SearchPopup::hideReplace() {
-//	ui.replaceL->hide();
-//	ui.replaceCmb->hide();
-//	ui.replacePrevBtn->hide();
-//	ui.replaceNextBtn->hide();
-//	ui.replaceAllBtn->hide();
-	ui.replaceL->setEnabled(false);
-	ui.replaceCmb->setEnabled(false);
-	ui.replacePrevBtn->setEnabled(false);
-	ui.replaceNextBtn->setEnabled(false);
-	ui.replaceAllBtn->setEnabled(false);
-	if ( ui.replaceChk->isChecked() )
-		ui.replaceChk->setChecked(false);
+void SearchPopup::expand(bool show) {
+	if ( show ) {
+		ui.replaceL->show();
+		ui.replaceCmb->show();
+		ui.replacePrevBtn->show();
+		ui.replaceNextBtn->show();
+		ui.replaceAllBtn->show();
+		if ( !ui.expandBtn->isChecked() )
+			ui.expandBtn->setChecked(true);
+	}
+	else {
+		ui.replaceL->hide();
+		ui.replaceCmb->hide();
+		ui.replacePrevBtn->hide();
+		ui.replaceNextBtn->hide();
+		ui.replaceAllBtn->hide();
+		if ( ui.expandBtn->isChecked() )
+			ui.expandBtn->setChecked(false);
+	}
 }
 
 ////////////////////////////////////////////////////////////
@@ -127,11 +128,6 @@ void SearchPopup::onFindTextChanged(const QString& text) {
 
 void SearchPopup::onCaseSensitiveChecked(bool checked) {
 	params_.caseSensitive = checked;
-	emit searchParamsChanged(params_);
-}
-
-void SearchPopup::onWholeWordsChecked(bool checked) {
-	params_.wholeWords = checked;
 	emit searchParamsChanged(params_);
 }
 
@@ -169,9 +165,32 @@ void SearchPopup::slotReplaceAll() {
 	emit replaceAllRequested();
 }
 
-void SearchPopup::slotShowReplace(bool show) {
-	if ( show )
-		showReplace();
-	else
-		hideReplace();
+void SearchPopup::slotModeChanged(int item) {
+	switch ( item ) {
+		case 0 :
+			params_.mode = Juff::SearchParams::PlainText;
+//			ui.caseSensitiveChk->show();
+			break;
+		
+		case 1 :
+			params_.mode = Juff::SearchParams::WholeWords;
+//			ui.caseSensitiveChk->show();
+			break;
+		
+		case 2 :
+			params_.mode = Juff::SearchParams::RegExp;
+//			ui.caseSensitiveChk->hide();
+			break;
+		
+		case 3 :
+			params_.mode = Juff::SearchParams::MultiLineRegExp;
+//			ui.caseSensitiveChk->hide();
+			break;
+		
+		default:
+			params_.mode = Juff::SearchParams::PlainText;
+//			ui.caseSensitiveChk->show();
+	}
+	
+	emit searchParamsChanged(params_);
 }

@@ -34,11 +34,11 @@ public:
 	void setFocusOnReplace(bool selectAll = false);
 	Juff::SearchParams searchParams() const;
 	void setSearchStatus(int, int);
+	bool isCollapsed() const;
 
 public slots:
 	void dismiss();
-	void showReplace();
-	void hideReplace();
+	void expand(bool);
 
 signals:
 	void searchParamsChanged(const Juff::SearchParams&);
@@ -53,17 +53,17 @@ signals:
 private slots:
 	void onFindTextChanged(const QString&);
 	void onCaseSensitiveChecked(bool);
-	void onWholeWordsChecked(bool);
 	void slotFindNext();
 	void slotFindPrev();
 	void slotReplaceNext();
 	void slotReplacePrev();
 	void slotReplaceAll();
-	void slotShowReplace(bool);
+	void slotModeChanged(int);
 
 private:
 	Ui::SearchPopup ui;
 	Juff::SearchParams params_;
+	bool collapsed_;
 };
 
 #endif // __JUFFED_SEARCH_POPUP_H__

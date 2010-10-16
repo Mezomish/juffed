@@ -7,8 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>740</width>
-    <height>67</height>
+    <height>66</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -91,13 +97,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="9">
-    <widget class="QCheckBox" name="caseSensitiveChk">
-     <property name="text">
-      <string>Case sensitive</string>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="7">
     <widget class="QPushButton" name="replaceAllBtn">
      <property name="enabled">
@@ -117,7 +116,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="8">
+   <item row="2" column="8" colspan="3">
     <spacer name="horizontalSpacer">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -129,13 +128,6 @@
       </size>
      </property>
     </spacer>
-   </item>
-   <item row="2" column="9">
-    <widget class="QCheckBox" name="wholeWordsChk">
-     <property name="text">
-      <string>Whole words</string>
-     </property>
-    </widget>
    </item>
    <item row="0" column="4">
     <widget class="QPushButton" name="findNextBtn">
@@ -223,19 +215,63 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QCheckBox" name="replaceChk">
-     <property name="maximumSize">
+   <item row="0" column="10">
+    <widget class="QComboBox" name="modeCmb">
+     <item>
+      <property name="text">
+       <string>Plain text</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Whole words</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Regexp</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Multi-line regexp</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="0" column="8">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
       <size>
-       <width>25</width>
-       <height>16777215</height>
+       <width>40</width>
+       <height>20</height>
       </size>
      </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+    </spacer>
+   </item>
+   <item row="0" column="9">
+    <widget class="QCheckBox" name="caseSensitiveChk">
+     <property name="text">
+      <string>Case sensitive</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="7">
+    <widget class="QPushButton" name="expandBtn">
+     <property name="maximumSize">
+      <size>
+       <width>30</width>
+       <height>26</height>
+      </size>
      </property>
      <property name="text">
-      <string/>
+      <string>.</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -257,8 +293,6 @@
   <tabstop>replacePrevBtn</tabstop>
   <tabstop>replaceNextBtn</tabstop>
   <tabstop>replaceAllBtn</tabstop>
-  <tabstop>caseSensitiveChk</tabstop>
-  <tabstop>wholeWordsChk</tabstop>
  </tabstops>
  <resources/>
  <connections/>

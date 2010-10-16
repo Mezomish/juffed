@@ -66,7 +66,8 @@ void SearchEngine::find() {
 		return;
 	}
 	
-	searchPopup_->hideReplace();
+//	searchPopup_->hideReplace();
+	searchPopup_->expand(false);
 	searchPopup_->show();
 	Juff::SearchResults* res = curDoc_->searchResults();
 	if ( res != NULL ) {
@@ -146,7 +147,7 @@ void SearchEngine::replace() {
 	
 	searchPopup_->setFindText(selectedTextForSearch(curDoc_));
 	
-	searchPopup_->showReplace();
+	searchPopup_->expand(true);
 	searchPopup_->show();
 	searchPopup_->setFocusOnFind(true);
 }
@@ -226,12 +227,14 @@ Juff::SearchResults* SearchEngine::performSearch(const Juff::SearchParams& param
 	if ( text.isEmpty() )
 		return NULL;
 	
-//	Juff::SearchParams params = searchPopup_->searchParams();
 	if ( params.findWhat.isEmpty() )
 		return NULL;
 	
 	Juff::SearchResults* results = NULL;
-	if ( params.regExp ) {
+	/*if ( params.mode == Juff::SearchParams::RegExp ) {
+		// TODO : 
+	}
+	else*/ if ( params.mode == Juff::SearchParams::MultiLineRegExp ) {
 		// TODO : 
 	}
 	else {
@@ -469,7 +472,7 @@ int findInString(const QString& line, const Juff::SearchParams& params, int& len
 	QString str = params.findWhat;
 	bool forward = !params.backwards;
 	QRegExp regExp;
-	if ( params.wholeWords ) {
+	if ( params.mode == Juff::SearchParams::WholeWords ) {
 		regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
 	}
 	else
@@ -477,7 +480,7 @@ int findInString(const QString& line, const Juff::SearchParams& params, int& len
 	regExp.setCaseSensitivity(params.caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
 
 	int index = -1;
-	if ( params.regExp || params.wholeWords ) {
+	if ( params.mode != Juff::SearchParams::PlainText ) {
 		index = ( forward ? line.indexOf(regExp) : line.lastIndexOf(regExp) );
 		length = regExp.matchedLength();
 		return index;

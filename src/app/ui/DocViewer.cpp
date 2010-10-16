@@ -287,6 +287,8 @@ void DocViewer::goToNumberedDoc() {
 
 int DocViewer::docCount(PanelIndex panel) const {
 	switch (panel) {
+		case PanelCurrent :
+			return curTab_->count();
 		case PanelLeft :
 			return tab1_->count();
 		case PanelRight :

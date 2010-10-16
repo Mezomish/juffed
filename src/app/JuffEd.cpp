@@ -865,10 +865,13 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		connect(doc, SIGNAL(charsetChanged(const QString&)), SLOT(onDocCharsetChanged(const QString&)));
 		connect(doc, SIGNAL(renamed(const QString&)), SLOT(onDocRenamed(const QString&)));
 		
+		// determine if we need to close single unchanged noname doc
+		Juff::Document* nonameDocToClose = NULL;
 		if ( viewer_->docCount(panel) == 1 ) {
-			Juff::Document* firstDoc = viewer_->documentAt(0, panel);
-			if ( !firstDoc->isNull() && Juff::isNoname(firstDoc) && !firstDoc->isModified() )
-				closeDocWithConfirmation(firstDoc);
+			nonameDocToClose = viewer_->documentAt(0, panel);
+			if ( !Juff::isNoname(nonameDocToClose) || nonameDocToClose->isModified() ) {
+				nonameDocToClose = NULL;
+			}
 		}
 		
 		viewer_->addDoc(doc, panel);
@@ -876,9 +879,14 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		
 		updateDocView(doc);
 		doc->setFocus();
+		search_->setCurDoc(doc);
 		
 		if ( !Juff::isNoname(doc->fileName()) )
 			addToRecentFiles(doc->fileName());
+		
+		// close single unchanged noname doc
+		if ( nonameDocToClose != NULL )
+			closeDocWithConfirmation(nonameDocToClose);
 		
 		// notify plugins
 		emit docOpened(doc, panel);

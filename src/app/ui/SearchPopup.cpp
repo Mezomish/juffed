@@ -43,6 +43,9 @@ SearchPopup::SearchPopup() : QWidget() {
 	ui.expandBtn->setText("");
 	ui.expandBtn->setIcon(IconManager::instance()->icon(SEARCH_REPLACE));
 	
+	ui.findCmb->setInsertPolicy(QComboBox::InsertAtTop);
+	ui.replaceCmb->setInsertPolicy(QComboBox::InsertAtTop);
+	
 	connect(ui.closeBtn, SIGNAL(clicked()), SLOT(dismiss()));
 	
 	QLineEdit* findEdit = ui.findCmb->lineEdit();

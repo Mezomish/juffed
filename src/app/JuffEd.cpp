@@ -32,6 +32,8 @@
 static const int RecentFilesCount = 10;
 
 JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
+	initActions();
+	
 	viewer_ = new Juff::DocViewer(this);
 	mw_ = new JuffMW();
 	mw_->setMainWidget(viewer_);
@@ -79,7 +81,7 @@ JuffEd::~JuffEd() {
 	Settings::instance()->write("juff", "juffed");
 }
 
-void JuffEd::initUI() {
+void JuffEd::initActions() {
 	CommandStorage* st = CommandStorage::instance();
 	
 	st->addAction(FILE_NEW,         tr("&New"),     this, SLOT(slotFileNew()));
@@ -128,7 +130,10 @@ void JuffEd::initUI() {
 	st->action(VIEW_LINE_NUMBERS)->setChecked(EditorSettings::get(EditorSettings::ShowLineNumbers));
 	st->action(VIEW_WHITESPACES)->setChecked(EditorSettings::get(EditorSettings::ShowWhitespaces));
 	st->action(VIEW_LINE_ENDINGS)->setChecked(EditorSettings::get(EditorSettings::ShowLineEnds));
-	
+}
+
+void JuffEd::initUI() {
+	CommandStorage* st = CommandStorage::instance();
 	QMenu* fileMenu = new QMenu(tr("&File"));
 	QMenu* editMenu = new QMenu(tr("&Edit"));
 	QMenu* viewMenu = new QMenu(tr("&View"));

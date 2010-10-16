@@ -103,6 +103,7 @@ private slots:
 	void onSettingsApplied();
 
 private:
+	void initActions();
 	void initUI();
 	void loadPlugins();
 	void loadEngines();

@@ -8,6 +8,8 @@
 #include <QPushButton>
 #include <QUrl>
 
+#include "CommandStorage.h"
+#include "Constants.h"
 #include "Document.h"
 #include "DocHandlerInt.h"
 #include "Enums.h"
@@ -57,6 +59,10 @@ TabWidget::TabWidget(Juff::DocHandlerInt* handler) : QTabWidget() {
 	docListBtn_->hide();
 	
 	connect(docListBtn_->menu(), SIGNAL(aboutToShow()), SLOT(onDocListNeedsToBeShown()));
+	
+	contextMenu_ = new QMenu();
+	contextMenu_->addAction(CommandStorage::instance()->action(FILE_NEW));
+	contextMenu_->addAction(tr("Close all"), this, SLOT(onCloseAllRequested()));
 }
 
 void TabWidget::initDocMenu(int index, QMenu* menu) {
@@ -227,6 +233,12 @@ void TabWidget::dropEvent(QDropEvent* e) {
 				handler_->openDoc(name);
 			}
 		}
+	}
+}
+
+void TabWidget::contextMenuEvent(QContextMenuEvent* e) {
+	if ( tabBar()->tabAt(tabBar()->mapFromParent(e->pos())) < 0 ) {
+		contextMenu_->exec(e->globalPos());
 	}
 }
 

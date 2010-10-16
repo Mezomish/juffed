@@ -40,6 +40,7 @@ protected:
 	virtual void keyPressEvent(QKeyEvent*);
 	virtual void dragEnterEvent(QDragEnterEvent*);
 	virtual void dropEvent(QDropEvent*);
+	virtual void contextMenuEvent(QContextMenuEvent*);
 
 private:
 	QString docName(int index) const;
@@ -48,6 +49,7 @@ private:
 	int menuRequestedIndex_;
 	int selfIndex_;
 	DocListButton* docListBtn_;
+	QMenu* contextMenu_;
 };
 
 } // namespace Juff

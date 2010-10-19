@@ -1128,8 +1128,8 @@ void JuffEd::createProject(const QString& fileName) {
 	prj_ = new Juff::Project(fileName);
 	MainSettings::set(MainSettings::LastProject, prj_->fileName());
 	
-	connect(prj_, SIGNAL(fileAdded(const QString&)), SLOT(onPrjFileAdded(const QString&)));
-	connect(prj_, SIGNAL(fileRemoved(const QString&)), SLOT(onPrjFileRemoved(const QString&)));
+//	connect(prj_, SIGNAL(fileAdded(const QString&)), SLOT(onPrjFileAdded(const QString&)));
+//	connect(prj_, SIGNAL(fileRemoved(const QString&)), SLOT(onPrjFileRemoved(const QString&)));
 	
 	loadProject();
 	

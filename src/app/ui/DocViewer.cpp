@@ -68,7 +68,6 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 		connect(act, SIGNAL(triggered()), SLOT(goToNumberedDoc()));
 		addAction(act);
 	}
-//	curTab_ = NULL;
 	
 	ctrlTabMenu_.installEventFilter(this);
 }
@@ -161,8 +160,6 @@ void DocViewer::hidePanel(PanelIndex panel) {
 }
 
 void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
-//	LOGGER;
-	
 	Juff::TabWidget* tabWidget = NULL;
 	switch ( panel ) {
 		case PanelCurrent : tabWidget = curTab_; break;
@@ -210,7 +207,6 @@ void DocViewer::removeDocFromList(Juff::Document* doc) {
 }
 
 Juff::Document* DocViewer::currentDoc() const {
-//	LOGGER;
 	Juff::Document* doc = qobject_cast<Juff::Document*>(curTab_->currentWidget());
 	return doc != 0 ? doc : NullDoc::instance();
 }
@@ -297,8 +293,6 @@ bool DocViewer::activateDoc(const QString& fileName) {
 }
 
 void DocViewer::nextDoc() {
-//	LOGGER;
-	
 	int n = curTab_->count();
 	if ( n == 0 )
 		return;
@@ -307,8 +301,6 @@ void DocViewer::nextDoc() {
 }
 
 void DocViewer::prevDoc() {
-//	LOGGER;
-	
 	int n = curTab_->count();
 	if ( n == 0 )
 		return;
@@ -317,8 +309,6 @@ void DocViewer::prevDoc() {
 }
 
 void DocViewer::goToNumberedDoc() {
-//	LOGGER;
-	
 	QAction* act = qobject_cast<QAction*>(sender());
 	if ( act == 0 )
 		return;
@@ -436,7 +426,6 @@ void DocViewer::onTabRemoved(Juff::TabWidget* tw) {
 }
 
 void DocViewer::buildCtrlTabMenu(int curItem) {
-//	LOGGER;
 	ctrlTabMenu_.clear();
 	
 	int i = 0;
@@ -450,8 +439,6 @@ void DocViewer::buildCtrlTabMenu(int curItem) {
 }
 
 void DocViewer::onCtrlTabSelected() {
-//	LOGGER;
-	
 	QAction* act = qobject_cast<QAction*>(sender());
 	if ( act != 0 ) {
 		QString fileName = act->data().toString();
@@ -460,8 +447,6 @@ void DocViewer::onCtrlTabSelected() {
 }
 
 void DocViewer::onDocStackCalled(bool direct) {
-//	LOGGER;
-	
 	if ( direct )
 		buildCtrlTabMenu(1);
 	else
@@ -503,8 +488,6 @@ void DocViewer::onCurrentChanged(int index) {
 
 
 void DocViewer::onDocModified(bool modified) {
-//	LOGGER;
-
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {
 		int index = tab1_->indexOf(doc);
@@ -526,8 +509,6 @@ void DocViewer::onDocModified(bool modified) {
 }
 
 void DocViewer::onDocFocused() {
-//	LOGGER;
-	
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {
 		if ( doc != curDoc_ ) {

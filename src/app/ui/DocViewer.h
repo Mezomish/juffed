@@ -60,7 +60,6 @@ private slots:
 	void prevDoc();
 	void goToNumberedDoc();
 	
-//protected slots:
 	void onDocMoveRequested(Juff::Document*, Juff::TabWidget*);
 	void onTabRemoved(Juff::TabWidget*);
 	void onDocStackCalled(bool);
@@ -95,22 +94,3 @@ private:
 } // namespace Juff
 
 #endif // __JUFF_DOC_VIEWER_H__
-
-
-
-
-#ifdef ALKJDSADLKASJ
-
-class DocViewer : public QWidget {
-Q_OBJECT
-public:
-	DocViewer(Juff::DocHandlerInt*);
-
-protected:
-
-private:
-	void closePanel(Juff::TabWidget*);
-
-	Juff::Document* curDoc_;
-};
-#endif

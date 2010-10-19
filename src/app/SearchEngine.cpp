@@ -50,7 +50,7 @@ SearchEngine::~SearchEngine() {
 }
 
 void SearchEngine::setCurDoc(Juff::Document* doc) {
-	LOGGER;
+//	LOGGER;
 	
 	changeCurDoc(doc);
 	
@@ -413,7 +413,7 @@ void SearchEngine::onReplaceAll() {
 }
 
 void SearchEngine::onDlgClosed() {
-	LOGGER;
+//	LOGGER;
 	curDoc_->clearHighlighting();
 //	if ( curDoc_->searchResults() != NULL )
 //		curDoc_->searchResults()->setVisible(false);

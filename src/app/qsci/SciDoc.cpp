@@ -921,7 +921,7 @@ void SciDoc::highlightSearchResults() {
 }
 
 void SciDoc::clearHighlighting() {
-	LOGGER;
+//	LOGGER;
 	int_->edit1_->highlightText(JuffScintilla::HLSearch, Juff::SearchParams());
 	int_->edit2_->highlightText(JuffScintilla::HLSearch, Juff::SearchParams());
 }

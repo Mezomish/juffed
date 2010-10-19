@@ -117,8 +117,6 @@ JuffMW::JuffMW() : QMainWindow() {
 }
 
 void JuffMW::setMainWidget(QWidget* w) {
-	LOGGER;
-	
 	mainWidget_ = new QWidget();
 	QVBoxLayout* vBox = new QVBoxLayout(mainWidget_);
 	vBox->setContentsMargins(0, 0, 0, 0);
@@ -255,8 +253,6 @@ SearchPopup* JuffMW::searchPopup() const {
 // Information display
 
 void JuffMW::addToolBar(QToolBar* tb) {
-	LOGGER;
-	
 	QMainWindow::addToolBar(tb);
 	allToolBars_ << tb;
 }

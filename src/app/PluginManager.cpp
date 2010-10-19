@@ -40,8 +40,6 @@ PluginManager::~PluginManager() {
 }
 
 void PluginManager::loadPlugins(SettingsDlg* dlg) {
-	LOGGER;
-	
 	//	global plugins
 	QDir gPluginDir(AppInfo::pluginsPath());
 	foreach (QString fileName, gPluginDir.entryList(QDir::Files)) {

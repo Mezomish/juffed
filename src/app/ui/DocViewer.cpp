@@ -13,6 +13,15 @@
 
 namespace Juff {
 
+PanelIndex DocViewer::anotherPanel(PanelIndex panel) const {
+	switch ( panel ) {
+		case PanelLeft : return PanelRight;
+		case PanelRight : return PanelLeft;
+		case PanelCurrent : return ( curTab_ == tab1_ ? PanelRight : PanelLeft );
+		default : return PanelNone;
+	}
+}
+
 DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(this) {
 	handler_ = handler;
 	spl_ = new QSplitter(this);
@@ -29,6 +38,7 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 	curDoc_ = NullDoc::instance();
 	
 	spl_->setSizes(QList<int>() << spl_->width() << 0);
+	tab2_->hide();
 	
 	Juff::TabWidget* tabWidgets[] = { tab1_, tab2_, NULL };
 	for (int i = 0; tabWidgets[i] != NULL; ++i) {
@@ -97,32 +107,63 @@ PanelIndex DocViewer::panelOf(Juff::Document* doc) {
 	}
 }
 
+/**
+* Shows the specified panel and expands it. If the panel is already visible
+* and expanded then does nothing.
+*/
 void DocViewer::showPanel(PanelIndex panel) {
-	int w = spl_->width() / 2;
-	
-	if ( (panel == PanelLeft && spl_->sizes()[0] == 0) 
-	     || (panel == PanelRight && spl_->sizes()[1] == 0) ) {
+	if ( panel == PanelLeft ) {
+		if ( tab1_->isVisible() && tab1_->width() > 0 ) {
+			return;
+		}
+		
+		tab1_->setVisible(true);
+		int w = spl_->width() / 2;
+		spl_->setSizes(QList<int>() << w << w);
+	}
+	else if ( panel == PanelRight ) {
+		if ( tab2_->isVisible() && tab2_->width() > 0 ) {
+			return;
+		}
+		
+		tab2_->setVisible(true);
+		int w = spl_->width() / 2;
 		spl_->setSizes(QList<int>() << w << w);
 	}
 }
 
+
+/**
+* Collapses and hides the specified tab. Doesn't care about focused document - you need 
+* to take care of it by yourself.
+*/
 void DocViewer::hidePanel(PanelIndex panel) {
-	QList<int> list;
 	if ( panel == PanelLeft ) {
-		list << 0 << spl_->width();
+		if ( !tab2_->isVisible() || tab2_->width() == 0 ) {
+			// right tab is closed
+			return;
+		}
+		
+		spl_->setSizes(QList<int>() << 0 << spl_->width());
+		tab1_->hide();
 		curTab_ = tab2_;
 	}
 	else if ( panel == PanelRight ) {
-		list << spl_->width() << 0;
+		if ( !tab1_->isVisible() || tab1_->width() == 0 ) {
+			// left tab is closed
+			return;
+		}
+		
+		spl_->setSizes(QList<int>() << spl_->width() << 0);
+		tab2_->hide();
 		curTab_ = tab1_;
 	}
-	spl_->setSizes(list);
 }
 
 void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 //	LOGGER;
 	
-	QTabWidget* tabWidget = NULL;
+	Juff::TabWidget* tabWidget = NULL;
 	switch ( panel ) {
 		case PanelCurrent : tabWidget = curTab_; break;
 		case PanelLeft    : tabWidget = tab1_;   break;
@@ -138,7 +179,9 @@ void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 		// adding a new doc then comment the following line and uncomment the
 		// same line below it.
 		connect(doc, SIGNAL(focused()), SLOT(onDocFocused()));
-
+		
+		showPanel(panel);
+		
 		QString title = Juff::docTitle(doc->fileName(), doc->isModified());
 		int index = tabWidget->addTab(doc, Juff::docIcon(doc), title);
 		if ( Juff::isNoname(doc) )
@@ -147,10 +190,11 @@ void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 			tabWidget->setTabToolTip(index, doc->fileName());
 		
 		tabWidget->setCurrentWidget(doc);
-		showPanel(panelOf(doc));
+		curTab_ = tabWidget;
 		
 		doc->init();
 		doc->setFocus();
+		
 		
 		// It's better to have it after adding to TabWidget to avoid
 		// emitting the signal 'docActivated()' during the document creation.
@@ -161,7 +205,7 @@ void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 	}
 }
 
-void DocViewer::removeDoc(Juff::Document* doc) {
+void DocViewer::removeDocFromList(Juff::Document* doc) {
 	docStack_.removeAll(doc);
 }
 
@@ -356,25 +400,30 @@ QStringList DocViewer::docNamesList(PanelIndex panel) const {
 
 
 void DocViewer::onDocMoveRequested(Juff::Document* doc, Juff::TabWidget* tw) {
-	Juff::PanelIndex panel = (tw == tab1_ ? Juff::PanelRight : Juff::PanelLeft);
-	addDoc(doc, panel);
+	PanelIndex panel = (tw == tab1_ ? PanelRight : PanelLeft);
+	PanelIndex otherPanel = anotherPanel(panel);
 	
-	curTab_ = anotherPanel(tw);
-	if ( curTab_->width() == 0 ) {
-		spl_->setSizes(QList<int>() << spl_->width() / 2 << spl_->width() / 2);
+	addDoc(doc, panel);
+	if ( docCount(otherPanel) == 0 ) {
+		hidePanel(otherPanel);
 	}
-//	if ( tw->count() == 0 ) {
-//		closePanel(tw);
-//	}
+}
+
+Juff::PanelIndex DocViewer::panelIndexOf(TabWidget* tw) const {
+	if ( tw == tab1_ )
+		return Juff::PanelLeft;
+	else if ( tw == tab2_ )
+		return Juff::PanelRight;
+	else
+		return Juff::PanelNone;
 }
 
 void DocViewer::onTabRemoved(Juff::TabWidget* tw) {
 	LOGGER;
 	
-	Juff::TabWidget* tw2 = anotherPanel(tw);
+	Juff::TabWidget* tw2 = anotherTab(tw);
 	if ( tw->count() == 0 ) {
 		if ( tw2->count() > 0 ) {
-//			closePanel(tw);
 			tw2->currentWidget()->setFocus();
 		}
 		else {
@@ -506,7 +555,7 @@ void DocViewer::onDocAddedToProject(Juff::Document*, Juff::Project*) {
 void DocViewer::onDocRemovedFromProject(Juff::Document*, Juff::Project*) {
 }*/
 
-Juff::TabWidget* DocViewer::anotherPanel(Juff::TabWidget* tw) const {
+Juff::TabWidget* DocViewer::anotherTab(Juff::TabWidget* tw) const {
 	return (tw == tab1_ ? tab2_ : tab1_);
 }
 

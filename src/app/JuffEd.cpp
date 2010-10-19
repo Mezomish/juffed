@@ -63,16 +63,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	onSettingsApplied();
 
 	mw_->restoreState();
-	
-	// hide the right panel if unneeded
-	if ( viewer_->docCount(Juff::PanelRight) == 1 ) {
-		Juff::Document* doc = viewer_->documentAt(0, Juff::PanelRight);
-		if ( Juff::isNoname(doc) && !doc->isModified() ) {
-			Juff::Document* curDoc = viewer_->currentDoc(Juff::PanelLeft);
-			viewer_->hidePanel(Juff::PanelRight);
-			openDoc(curDoc->fileName());
-		}
-	}
 }
 
 JuffEd::~JuffEd() {
@@ -865,6 +855,7 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		connect(doc, SIGNAL(charsetChanged(const QString&)), SLOT(onDocCharsetChanged(const QString&)));
 		connect(doc, SIGNAL(renamed(const QString&)), SLOT(onDocRenamed(const QString&)));
 		
+		
 		// determine if we need to close single unchanged noname doc
 		Juff::Document* nonameDocToClose = NULL;
 		if ( viewer_->docCount(panel) == 1 ) {
@@ -881,12 +872,14 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		doc->setFocus();
 		search_->setCurDoc(doc);
 		
-		if ( !Juff::isNoname(doc->fileName()) )
+		if ( !Juff::isNoname(doc->fileName()) ) {
 			addToRecentFiles(doc->fileName());
+		}
 		
 		// close single unchanged noname doc
-		if ( nonameDocToClose != NULL )
+		if ( nonameDocToClose != NULL ) {
 			closeDocWithConfirmation(nonameDocToClose);
+		}
 		
 		// notify plugins
 		emit docOpened(doc, panel);
@@ -1028,17 +1021,32 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 			prj_->removeFile(doc->fileName());
 		
 		Juff::PanelIndex panel = viewer_->panelOf(doc);
+		Juff::PanelIndex anotherPanel = ( panel == Juff::PanelLeft ? Juff::PanelRight : Juff::PanelLeft );
 		
-		viewer_->removeDoc(doc);
+		if ( viewer_->docCount(panel) == 1 && viewer_->docCount(anotherPanel) == 0
+			 && !doc->isModified() && Juff::isNoname(doc) ) {
+			// this is a special case when there is only one doc is
+			// opened, is't Noname and unmodified. Don't close it but
+			// return true in case the close was called by closeEvent.
+			return true;
+		}
+		
+		viewer_->removeDocFromList(doc);
 		
 		// notify plugins
 		emit docClosed(doc);
 		
 		delete doc;
 		
-		if ( panel == Juff::PanelLeft || panel == Juff::PanelRight ) {
-			if ( viewer_->docCount(panel) == 0 ) {
+		// decide if we need to hide a panel that doesn't contain any docs
+		if ( viewer_->docCount(panel) == 0 ) {
+			if ( viewer_->docCount(anotherPanel) == 0 ) {
 				openDoc("", panel);
+			}
+			else {
+				viewer_->showPanel(anotherPanel);
+				viewer_->hidePanel(panel);
+				viewer_->currentDoc(anotherPanel)->setFocus();
 			}
 		}
 		
@@ -1146,8 +1154,7 @@ void JuffEd::loadProject() {
 		openDoc(file, Juff::PanelLeft);
 	}
 	
-	if ( viewer_->docCount(Juff::PanelLeft) == 0 )
+	if ( viewer_->docCount(Juff::PanelAll) == 0 ) {
 		openDoc("", Juff::PanelLeft);
-	if ( viewer_->docCount(Juff::PanelRight) == 0 )
-		openDoc("", Juff::PanelRight);
+	}
 }

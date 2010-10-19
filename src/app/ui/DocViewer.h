@@ -25,7 +25,7 @@ public:
 	PanelIndex currentPanel() const;
 	PanelIndex panelOf(Juff::Document*);
 	void addDoc(Juff::Document*, PanelIndex panel);
-	void removeDoc(Juff::Document*);
+	void removeDocFromList(Juff::Document*);
 	Juff::Document* currentDoc() const;
 	Juff::Document* currentDoc(PanelIndex) const;
 	Juff::Document* document(const QString&) const;
@@ -74,7 +74,9 @@ protected:
 	virtual bool eventFilter(QObject *obj, QEvent *e);
 
 private:
-	Juff::TabWidget* anotherPanel(Juff::TabWidget*) const;
+	Juff::TabWidget* anotherTab(Juff::TabWidget*) const;
+	PanelIndex anotherPanel(PanelIndex panel) const;
+	Juff::PanelIndex panelIndexOf(TabWidget*) const;
 	void buildCtrlTabMenu(int curItem);
 	
 	QAction* nextAct_;

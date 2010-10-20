@@ -984,7 +984,9 @@ bool JuffEd::saveDocAs(Juff::Document* doc) {
 		MainSettings::set(MainSettings::LastDir, QFileInfo(fileName).absolutePath());
 		
 		QString error;
+		QString oldName = doc->fileName();
 		if ( doc->saveAs(fileName, error) ) {
+			emit docRenamed(doc, oldName);
 			// saving succeeded - return true
 			return true;
 		}

@@ -415,7 +415,14 @@ void SciDoc::replaceSelectedText(const QString& text, bool cursorToTheEnd) {
 	removeSelectedText();
 	// hack! hack! hack!
 	connect(int_->edit1_, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
-	insertText(text);
+	
+	if ( text.isEmpty() ) {
+		// need to emit the signal manually
+		emit textChanged();
+	}
+	else {
+		insertText(text);
+	}
 	
 	if ( cursorToTheEnd ) {
 		int lineEndsCount = text.count(QRegExp("\r\n|\r|\n"));

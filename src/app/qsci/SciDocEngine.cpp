@@ -130,11 +130,13 @@ SciDocEngine::SciDocEngine() : QObject(), Juff::DocEngine() {
 	syntaxLabel_->setToolTip(QObject::tr("Syntax highlighting"));
 	syntaxLabel_->setMenu(syntaxMenu_);
 	syntaxLabel_->hide();
+	syntaxLabel_->setMaximumWidth(60);
 	
 	eolLabel_ = new Juff::StatusLabel("");
 	eolLabel_->setToolTip(QObject::tr("Line endings"));
 	eolLabel_->setMenu(eolMenu_);
 	eolLabel_->hide();
+	eolLabel_->setMaximumWidth(20);
 	
 	settingsPage_ = new QSciSettingsPage();
 }

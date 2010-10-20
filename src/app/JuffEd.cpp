@@ -317,6 +317,15 @@ void JuffEd::buildUI() {
 	charsetL_->hide();
 	linesL_->hide();
 	
+	// status widgets from engines
+	foreach(Juff::DocEngine* eng, engines_) {
+		QWidgetList statusWidgets = eng->statusWidgets();
+		foreach (QWidget* w, statusWidgets) {
+			mw_->addStatusWidget(w, -1);
+			w->show();
+		}
+	}
+
 	// TODO : add restoring state
 //	mw_->restoreState();
 }

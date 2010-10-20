@@ -83,9 +83,9 @@ void TabWidget::initDocMenu(int index, QMenu* menu) {
 //		if ( doc->supportsAction(Juff::FileClone) && !doc->hasClone() )
 //			menu->addAction(tr("Clone to another panel"), this, SLOT(cloneDoc()));
 		if ( selfIndex_ == 0 )
-			menu->addAction(tr("Move to the right panel"), this, SLOT(slotMoveDoc()));
+			menu->addAction(QIcon(":arrow_right"), tr("Move to the right panel"), this, SLOT(slotMoveDoc()));
 		else
-			menu->addAction(tr("Move to the left panel"), this, SLOT(slotMoveDoc()));
+			menu->addAction(QIcon(":arrow_left"), tr("Move to the left panel"), this, SLOT(slotMoveDoc()));
 		
 /*		Juff::Project* prj = handler_->curPrj();
 		// TODO : add an accurate check whether the file is a part of the project

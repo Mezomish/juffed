@@ -10,6 +10,8 @@
 		<file alias="replace_prev">../images/res/16/replace_prev.png</file>
 		<file alias="replace_next">../images/res/16/replace_next.png</file>
 		<file alias="replace_all">../images/res/16/replace_all.png</file>
+		<file alias="arrow_left">../images/res/16/arrow_left.png</file>
+		<file alias="arrow_right">../images/res/16/arrow_right.png</file>
 		
 		<file alias="file_generic">../images/mimetypes/text-x-generic.png</file>
 		<file alias="file_h">../images/mimetypes/text-x-chdr.png</file>

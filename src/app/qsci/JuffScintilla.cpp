@@ -25,7 +25,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <Qsci/qscicommandset.h>
 
-//#include "CommandStorage.h"
+#include "CommandStorage.h"
+#include "Constants.h"
 
 #define WORD_HIGHLIGHT     1
 #define SEARCH_HIGHLIGHT   2
@@ -40,17 +41,20 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	initHighlightingStyle(SEARCH_HIGHLIGHT, QSciSettings::get(QSciSettings::SearchHLColor));
 	
 	contextMenu_ = new QMenu();
-/*	CommandStorage* st = CommandStorage::instance();
-	contextMenu_->addAction(st->action(ID_EDIT_CUT));
-	contextMenu_->addAction(st->action(ID_EDIT_COPY));
-	contextMenu_->addAction(st->action(ID_EDIT_PASTE));
+	CommandStorage* st = CommandStorage::instance();
+	contextMenu_->addAction(st->action(EDIT_UNDO));
+	contextMenu_->addAction(st->action(EDIT_REDO));
 	contextMenu_->addSeparator();
-	contextMenu_->addAction(st->action(ID_FIND));
-	contextMenu_->addAction(st->action(ID_FIND_NEXT));
-	contextMenu_->addAction(st->action(ID_FIND_PREV));
-	contextMenu_->addAction(st->action(ID_REPLACE));
+	contextMenu_->addAction(st->action(EDIT_CUT));
+	contextMenu_->addAction(st->action(EDIT_COPY));
+	contextMenu_->addAction(st->action(EDIT_PASTE));
 	contextMenu_->addSeparator();
-	contextMenu_->addAction(st->action(ID_GOTO_LINE));*/
+/*	contextMenu_->addAction(st->action(SEARCH_FIND));
+	contextMenu_->addAction(st->action(SEARCH_FIND_NEXT));
+	contextMenu_->addAction(st->action(SEARCH_FIND_PREV));
+	contextMenu_->addAction(st->action(SEARCH_REPLACE));
+	contextMenu_->addSeparator();*/
+	contextMenu_->addAction(st->action(SEARCH_GOTO_LINE));
 	
 	connect(this, SIGNAL(linesChanged()), this, SLOT(updateLineNumbers()));
 	

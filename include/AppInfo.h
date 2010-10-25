@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #ifdef Q_OS_WIN
 #include "AppInfo.win.h"
+#elif defined APPLEBUNDLE
+#include "AppInfo.apple.h"
 #else
 #include "AppInfo.nix.h"
 #endif

@@ -1,52 +1,80 @@
-# - Try to find libqscintilla2
-# Once done this will define
+# - Try to find the QScintilla2 includes and library
+# which defines
 #
-#  LIBQSCINTILLA2_FOUND - system has libqscintilla2
-#  LIBQSCINTILLA2_INCLUDE_DIR - the libqscintilla2 include directory
-#  LIBQSCINTILLA2_LIBRARY - Link this to use libqscintilla2
+# QSCINTILLA_FOUND - system has QScintilla2
+# QSCINTILLA_INCLUDE_DIR - where to find qextscintilla.h
+# QSCINTILLA_LIBRARIES - the libraries to link against to use QScintilla
+# QSCINTILLA_LIBRARY - where to find the QScintilla library (not for general use)
+
+# copyright (c) 2007 Thomas Moenicke thomas.moenicke@kdemail.net
+#               2009 Petr Vanek petr@scribus.info
 #
-# based on FindLibArchive.cmake by Pino Toscano, <toscano.pino@tiscali.it>
-# Copyright (c) 2008, David Stegbauer, <daaste@gmail.com>
-#
-# Redistribution and use is allowed according to the terms of the BSD license.
-# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+# Redistribution and use is allowed according to the terms of the FreeBSD license.
 
-FIND_PACKAGE( Qt4 REQUIRED )
+IF(NOT QT4_FOUND)
+    INCLUDE(FindQt4)
+ENDIF(NOT QT4_FOUND)
 
-# QT4_FOUND
-# QT_INCLUDE_DIR /Qsci
-# QT_LIBRARY_DIR
+SET(QSCINTILLA_FOUND FALSE)
 
-if (QT4_FOUND)
-    include(CheckLibraryExists)
+IF(QT4_FOUND)
 
-    if (LIBQSCINTILLA2_LIBRARY AND LIBQSCINTILLA2_INCLUDE_DIR)
-        # in cache already
-        set(LIBQSCINTILLA2_FOUND TRUE)
-    else (LIBQSCINTILLA2_LIBRARY AND LIBQSCINTILLA2_INCLUDE_DIR)
+    # macosx specific tests for frameworks and include paths
+#    set (FRAMEWORK_INCLUDE_DIR "")
+#    if (APPLE)
+        # HACK to fixup macosx issue with QT_INCLUDE_DIR:
+        # QT_INCLUDE_DIR /opt/local/libexec/qt4-mac/include;/opt/local/libexec/qt4-mac/lib/QtCore.framework
+        # it should be only:
+        # QT_INCLUDE_DIR /opt/local/libexec/qt4-mac/include
+#        list(LENGTH QT_INCLUDE_DIR QT_INCLUDE_DIR_LENGTH)
+#        if (QT_INCLUDE_DIR_LENGTH)
+#            list(GET QT_INCLUDE_DIR 0 FRAMEWORK_INCLUDE_DIR) 
+#        endif (QT_INCLUDE_DIR_LENGTH)
+#    endif (APPLE)
 
-        find_path(LIBQSCINTILLA2_INCLUDE_DIR qsciscintilla.h
-            PATHS
-            ${QT_INCLUDE_DIR}/Qsci
-            ${CMAKE_INSTALL_PREFIX}/include/Qsci
-        )
 
-        find_library(LIBQSCINTILLA2_LIBRARY NAMES qscintilla2 libqscintilla2
-            PATHS
-            ${QT_LIBRARY_DIR}
-            ${CMAKE_INSTALL_PREFIX}/lib
-        )
+    FIND_PATH(QSCINTILLA_INCLUDE_DIR qsciglobal.h
+                # standard locations
+                /usr/include
+                /usr/include/Qsci
+                # qt4 location except mac's frameworks
+                "${QT_INCLUDE_DIR}/Qsci"
+                # mac's frameworks
+                ${FRAMEWORK_INCLUDE_DIR}/Qsci
+    )
 
-        include(FindPackageHandleStandardArgs)
-        FIND_PACKAGE_HANDLE_STANDARD_ARGS(LibQScintilla2 DEFAULT_MSG LIBQSCINTILLA2_INCLUDE_DIR LIBQSCINTILLA2_LIBRARY )
+    SET(QSCINTILLA_NAMES ${QSCINTILLA_NAMES} qscintilla2 libqscintilla2)
+    FIND_LIBRARY(QSCINTILLA_LIBRARY
+        NAMES ${QSCINTILLA_NAMES}
+        PATHS ${QT_LIBRARY_DIR}
+    )
 
-        # ensure that they are cached
-        set(LIBQSCINTILLA2_INCLUDE_DIR ${LIBQSCINTILLA2_INCLUDE_DIR} CACHE INTERNAL "The libqscintilla2 include path")
-        set(LIBQSCINTILLA2_LIBRARY ${LIBQSCINTILLA2_LIBRARY} CACHE INTERNAL "The libraries needed to use libqscintilla2")
+    IF (QSCINTILLA_LIBRARY AND QSCINTILLA_INCLUDE_DIR)
 
-    endif (LIBQSCINTILLA2_LIBRARY AND LIBQSCINTILLA2_INCLUDE_DIR)
-else (QT4_FOUND)
-    # Qt4 not found, qscintilla2 unusable even if found,
-    # so report no qscintilla2
-    set(LIBQSCINTILLA2_FOUND FALSE)
-endif (QT4_FOUND)
+        SET(QSCINTILLA_LIBRARIES ${QSCINTILLA_LIBRARY})
+        SET(QSCINTILLA_FOUND TRUE)
+
+        IF (CYGWIN)
+            IF(BUILD_SHARED_LIBS)
+            # No need to define QSCINTILLA_USE_DLL here, because it's default for Cygwin.
+            ELSE(BUILD_SHARED_LIBS)
+            SET (QSCINTILLA_DEFINITIONS -DQSCINTILLA_STATIC)
+            ENDIF(BUILD_SHARED_LIBS)
+        ENDIF (CYGWIN)
+
+    ENDIF (QSCINTILLA_LIBRARY AND QSCINTILLA_INCLUDE_DIR)
+ENDIF(QT4_FOUND)
+
+IF (QSCINTILLA_FOUND)
+  IF (NOT QScintilla_FIND_QUIETLY)
+    MESSAGE(STATUS "Found QScintilla2: ${QSCINTILLA_LIBRARY}")
+    MESSAGE(STATUS "         includes: ${QSCINTILLA_INCLUDE_DIR}")
+  ENDIF (NOT QScintilla_FIND_QUIETLY)
+ELSE (QSCINTILLA_FOUND)
+  IF (QScintilla_FIND_REQUIRED)
+    MESSAGE(FATAL_ERROR "Could not find QScintilla library")
+  ENDIF (QScintilla_FIND_REQUIRED)
+ENDIF (QSCINTILLA_FOUND)
+
+MARK_AS_ADVANCED(QSCINTILLA_INCLUDE_DIR QSCINTILLA_LIBRARY)
+

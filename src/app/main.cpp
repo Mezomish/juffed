@@ -23,6 +23,13 @@ void initApp(QApplication& app) {
 	app.setOrganizationName("juff");
 	app.setApplicationName("juffed");
 
+#ifdef APPLEBUNDLE
+    // If is the app built as an Apple Bundle, the libjuff is
+    // staically linked into the exe. Resources has to be initialized
+    // manually in this case. See Qt4 docs: The Qt Resource System.
+    Q_INIT_RESOURCE(LibResources);
+#endif
+
 	loadTranslations(app);
 }
 

@@ -159,6 +159,7 @@ SET ( juffed_DEV_HEADERS
 	include/AppInfo.h
 	${CMAKE_BINARY_DIR}/AppInfo.win.h
 	${CMAKE_BINARY_DIR}/AppInfo.nix.h
+    ${CMAKE_BINARY_DIR}/AppInfo.apple.h
 	include/AutocompleteSettings.h
 	include/CharsetSettings.h
 	include/CommandStorage.h

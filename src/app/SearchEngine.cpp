@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "SearchPopup.h"
 #include "SearchResults.h"
 
-int findInString(const QString& line, const Juff::SearchParams& params, int& length);
+int findInString(const QString& line, int, const Juff::SearchParams& params, int& length);
 QString selectedTextForSearch(Juff::Document* doc);
 
 
@@ -82,7 +82,7 @@ void SearchEngine::find() {
 }
 
 void SearchEngine::findNext() {
-	LOGGER;
+//	LOGGER;
 	
 	if ( curDoc_ == NULL || curDoc_->isNull() ) {
 		qDebug("No document specified for SearchEngine");
@@ -231,10 +231,7 @@ Juff::SearchResults* SearchEngine::performSearch(const Juff::SearchParams& param
 		return NULL;
 	
 	Juff::SearchResults* results = NULL;
-	/*if ( params.mode == Juff::SearchParams::RegExp ) {
-		// TODO : 
-	}
-	else*/ if ( params.mode == Juff::SearchParams::MultiLineRegExp ) {
+	if ( params.mode == Juff::SearchParams::MultiLineRegExp ) {
 		// TODO : 
 	}
 	else {
@@ -246,13 +243,20 @@ Juff::SearchResults* SearchEngine::performSearch(const Juff::SearchParams& param
 		while ( it != lines.end() ) {
 			QString lineStr = *it;
 			int length;
-			int pos = findInString(lineStr, params, length);
 			int indent = 0;
+			int pos = findInString(lineStr, indent, params, length);
 			while ( pos >= 0 ) {
-				results->addOccurence(lineIndex, indent + pos, lineIndex, indent + pos + length);
-				indent += pos + length;
-				lineStr = lineStr.remove(0, pos + length);
-				pos = findInString(lineStr, params, length);
+				if ( length > 0 ) {
+					results->addOccurence(lineIndex, pos, lineIndex, pos + length);
+				}
+				else {
+					// to prevent infinite loop when search ends with an empty string
+					length = 1;
+				}
+				
+				indent = pos + length;
+				
+				pos = findInString(lineStr, indent, params, length);
 			}
 			
 			lineIndex++;
@@ -318,7 +322,7 @@ int SearchEngine::selectPrevOccurence() {
 }
 
 void SearchEngine::onFindNext() {
-	LOGGER;
+//	LOGGER;
 	
 	if ( curDoc_ == NULL || curDoc_->isNull() ) return;
 	
@@ -468,9 +472,16 @@ QString selectedTextForSearch(Juff::Document* doc) {
 	return text;
 }
 
-int findInString(const QString& line, const Juff::SearchParams& params, int& length) {
+/**
+* It ignores 'backwards' flag and always searches forward. But we don't need searching
+* back since we are searching for all occurences at once.
+*/
+int findInString(const QString& line, int startFrom, const Juff::SearchParams& params, int& length) {
+	if ( line.isEmpty() ) {
+		return -1;
+	}
+	
 	QString str = params.findWhat;
-	bool forward = !params.backwards;
 	QRegExp regExp;
 	if ( params.mode == Juff::SearchParams::WholeWords ) {
 		regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
@@ -481,16 +492,16 @@ int findInString(const QString& line, const Juff::SearchParams& params, int& len
 
 	int index = -1;
 	if ( params.mode != Juff::SearchParams::PlainText ) {
-		index = ( forward ? line.indexOf(regExp) : line.lastIndexOf(regExp) );
+		index = line.indexOf(regExp, startFrom);
 		length = regExp.matchedLength();
 		return index;
 	}
 	else {
 		if ( !params.caseSensitive ) {
-			index = ( forward ? line.indexOf(str, 0, Qt::CaseInsensitive) : line.lastIndexOf(str, -1, Qt::CaseInsensitive) );
+			index = line.indexOf(str, startFrom, Qt::CaseInsensitive);
 		}
 		else {
-			index = ( forward ? line.indexOf(str) : line.lastIndexOf(str) );
+			index = line.indexOf(str, startFrom);
 		}
 		length = str.length();
 		return index;

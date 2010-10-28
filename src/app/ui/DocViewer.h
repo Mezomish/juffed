@@ -33,7 +33,17 @@ public:
 	bool activateDoc(const QString&);
 	void showPanel(PanelIndex);
 	void hidePanel(PanelIndex);
-
+	
+	/**
+	* Makes the document with index \par index current for panel \par panel.
+	*/
+	
+	int currentIndex(PanelIndex) const;
+	/**
+	* Returns the index of current document for panel \par panel.
+	*/
+	void setCurrentIndex(PanelIndex, int);
+	
 	/**
 	* Returns the number of documents opened at a specific panel or at both panels.
 	*/
@@ -73,9 +83,11 @@ protected:
 	virtual bool eventFilter(QObject *obj, QEvent *e);
 
 private:
-	Juff::TabWidget* anotherTab(Juff::TabWidget*) const;
+	Juff::TabWidget* anotherTabWidget(Juff::TabWidget*) const;
 	PanelIndex anotherPanel(PanelIndex panel) const;
 	Juff::PanelIndex panelIndexOf(TabWidget*) const;
+	Juff::TabWidget* getTabWidget(Juff::PanelIndex) const;
+
 	void buildCtrlTabMenu(int curItem);
 	
 	QAction* nextAct_;

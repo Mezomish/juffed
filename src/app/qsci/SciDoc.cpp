@@ -1240,6 +1240,36 @@ void SciDoc::stripTrailingSpaces() {
 }
 
 
+void SciDoc::setSessionParams(const Juff::SessionParams& params) {
+	Juff::SessionParams::const_iterator it = params.begin();
+	while ( it != params.end() ) {
+		QString key = it.key();
+		QString value = it.value();
+		if ( key.compare("scrollPos") == 0 ) {
+			setScrollPos(value.toInt());
+		}
+		else if ( key.compare("cursorPos") == 0 ) {
+			int row = value.section(';', 0, 0).toInt();
+			int col = value.section(';', 1, 1).toInt();
+			setCursorPos(row, col);
+		}
+		it++;
+	}
+}
+
+Juff::SessionParams SciDoc::sessionParams() const {
+	Juff::SessionParams params = Juff::Document::sessionParams();
+	
+	int row = -1, col = -1;
+	getCursorPos(row, col);
+	params["scrollPos"] = QString("%1").arg(scrollPos());
+	params["cursorPos"] = QString("%1;%2").arg(row).arg(col);
+	
+	return params;
+}
+
+
+
 //bool SciDoc::find(const Juff::SearchParams& params) {
 //	if ( int_->curEdit_ == NULL) return false;
 		

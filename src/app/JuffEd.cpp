@@ -3,11 +3,14 @@
 #include "JuffEd.h"
 
 #include <QDockWidget>
+#include <QDomDocument>
+#include <QDomElement>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QToolBar>
 #include <QApplication>
 
+#include "AppInfo.h"
 #include "CharsetSettings.h"
 #include "CommandStorage.h"
 #include "Constants.h"
@@ -57,8 +60,9 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	buildUI();
 	search_ = new SearchEngine(this, mw_);
 	
-	QString prjName = MainSettings::get(MainSettings::LastProject);
-	createProject(prjName);
+	if ( !loadSession("") ) {
+		createProject(MainSettings::get(MainSettings::LastProject));
+	}
 	
 	onSettingsApplied();
 
@@ -419,8 +423,12 @@ void JuffEd::onCloseRequested(bool& confirm) {
 			confirm = false;
 		}
 	}
-	if ( confirm && !mw_->isFullScreen() )
-		mw_->saveState();
+	if ( confirm ) {
+		if ( !mw_->isFullScreen() ) {
+			mw_->saveState();
+		}
+		saveSession(AppInfo::configDirPath() + "/session");
+	}
 }
 
 void JuffEd::onSettingsApplied() {
@@ -875,7 +883,8 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		}
 		
 		viewer_->addDoc(doc, panel);
-		prj_->addFile(doc->fileName());
+		if ( prj_ != NULL )
+			prj_->addFile(doc->fileName());
 		
 		updateDocView(doc);
 		doc->setFocus();
@@ -1028,7 +1037,7 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 	}
 
 	if ( decidedToClose ) {
-		if ( prj_ != NULL && prj_->isNoname() )
+		if ( prj_ != NULL )
 			prj_->removeFile(doc->fileName());
 		
 		Juff::PanelIndex panel = viewer_->panelOf(doc);
@@ -1167,5 +1176,154 @@ void JuffEd::loadProject() {
 	
 	if ( viewer_->docCount(Juff::PanelAll) == 0 ) {
 		openDoc("", Juff::PanelLeft);
+	}
+}
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Session
+
+bool JuffEd::loadSession(const QString& name) {
+	QString fileName;
+	if ( name.isEmpty() ) {
+		fileName = AppInfo::configDirPath() + "/session";
+	}
+	else {
+		fileName = name;
+	}
+	
+	
+	QDomDocument doc("JuffEd_Session");
+
+	QFile file(fileName);
+	if ( !file.open(QIODevice::ReadOnly) ) {
+		Log::warning(QString("Can't open file '%1'").arg(fileName));
+		return false;
+	}
+	else {
+		Log::debug(QString("File '%1' opened successfully").arg(fileName), true);
+	}
+
+	QString err;
+	int errLine, errCol;
+	if ( !doc.setContent(&file, &err, &errLine, &errCol) ) {
+		Log::debug(QString("File %1: XML reading error: '%2', line %3, column %4")
+				.arg(fileName).arg(err).arg(errLine).arg(errCol));
+		file.close();
+		return false;
+	}
+	else {
+		Log::debug(QString("File '%1' was parsed successfully").arg(fileName), true);
+	}
+	file.close();
+
+	QDomElement docElem = doc.documentElement();
+	return parseSession(docElem);
+}
+
+bool JuffEd::parseSession(QDomElement& sessEl) {
+	QDomNode subNode = sessEl.firstChild();
+
+	int leftCurIndex = -1, rightCurIndex = -1;
+	
+	while ( !subNode.isNull() ) {
+		QDomElement subEl = subNode.toElement();
+		QString tagName = subEl.tagName().toLower();
+		if ( tagName.compare("file") == 0 ) {
+			QString fileName = subEl.attribute("path", "");
+			QString panelStr = subEl.attribute("panel", "left");
+			Juff::PanelIndex panel = panelStr.compare("right") == 0 ? Juff::PanelRight : Juff::PanelLeft;
+			
+			if ( !fileName.isEmpty() ) {
+				openDoc(fileName, panel);
+				Juff::Document* doc = getDoc(fileName);
+				if ( !doc->isNull() ) {
+					Juff::SessionParams params;
+					QDomNamedNodeMap attrs = subEl.attributes();
+					for ( int i = 0; i < attrs.count(); ++i ) {
+						QDomAttr attr = attrs.item(i).toAttr();
+						if ( !attr.isNull() ) {
+							QString attrName = attr.name();
+							QString attrValue = attr.value();
+//							qDebug() << "Attr: " << attrName << ", Value: " << attrValue;
+							params[attrName] = attrValue;
+						}
+					}
+					doc->setSessionParams(params);
+				}
+			}
+		}
+		else if ( tagName.compare("view") == 0 ) {
+			leftCurIndex = subEl.attribute("leftCurIndex", "-1").toInt();
+			rightCurIndex = subEl.attribute("rightCurIndex", "-1").toInt();
+		}
+
+		subNode = subNode.nextSibling();
+	}
+	
+	if ( leftCurIndex >= 0 ) {
+		viewer_->setCurrentIndex(Juff::PanelLeft, leftCurIndex);
+	}
+	if ( rightCurIndex >= 0 ) {
+		viewer_->setCurrentIndex(Juff::PanelRight, rightCurIndex);
+	}
+	
+	return true;
+}
+
+void storeDocs(const Juff::DocList&, const QString&, QDomElement&, QDomDocument&);
+
+bool JuffEd::saveSession(const QString& fileName) {
+	QFile file(fileName);
+	if ( file.open(QIODevice::WriteOnly) ) {
+		
+		QDomDocument domDoc("JuffEd_Session");
+		QDomElement sessEl = domDoc.createElement("Session");
+		domDoc.appendChild(sessEl);
+		
+		storeDocs(viewer_->docList(Juff::PanelLeft),  "left",  sessEl, domDoc);
+		storeDocs(viewer_->docList(Juff::PanelRight), "right", sessEl, domDoc);
+		
+		QDomElement viewEl = domDoc.createElement("view");
+		viewEl.setAttribute("leftCurIndex", viewer_->currentIndex(Juff::PanelLeft));
+		viewEl.setAttribute("rightCurIndex", viewer_->currentIndex(Juff::PanelRight));
+		sessEl.appendChild(viewEl);
+		
+		file.write(domDoc.toByteArray());
+		file.close();
+		return true;
+	}
+	
+	// TODO : report error here
+	return false;
+}
+
+void storeDocs(const Juff::DocList& docs, const QString& panelStr, QDomElement& sessEl, QDomDocument& domDoc) {
+	LOGGER;
+	
+	foreach (Juff::Document* doc, docs) {
+		if ( !Juff::isNoname(doc) ) {
+			QDomElement el = domDoc.createElement("file");
+			el.setAttribute("path", doc->fileName());
+			el.setAttribute("panel", panelStr);
+			
+			Juff::SessionParams params = doc->sessionParams();
+			Juff::SessionParams::const_iterator it = params.begin();
+			
+			while ( it != params.end() ) {
+				QString key = it.key();
+				QString value = it.value();
+				if ( !key.isEmpty() && !value.isEmpty() ) {
+					el.setAttribute(key, value);
+				}
+				it++;
+			}
+			
+			sessEl.appendChild(el);
+		}
 	}
 }

@@ -8,6 +8,7 @@ class JuffMW;
 class SettingsDlg;
 class SearchEngine;
 class PluginManager;
+class QDomElement;
 
 namespace Juff {
 	class Document;
@@ -127,6 +128,10 @@ private:
 	bool closeProject();
 	QString projectName() const;
 	void loadProject();
+	
+	bool saveSession(const QString&);
+	bool loadSession(const QString&);
+	bool parseSession(QDomElement&);
 
 
 

@@ -212,20 +212,33 @@ Juff::Document* DocViewer::currentDoc() const {
 }
 
 Juff::Document* DocViewer::currentDoc(PanelIndex panel) const {
-	QTabWidget* tabWidget = NULL;
-	switch ( panel ) {
-		case PanelCurrent : tabWidget = curTab_; break;
-		case PanelLeft    : tabWidget = tab1_;   break;
-		case PanelRight   : tabWidget = tab2_;   break;
-		default: ;
-	}
-	
+	TabWidget* tabWidget = getTabWidget(panel);
 	if ( tabWidget == NULL ) {
 		return NullDoc::instance();
 	}
 	
 	Juff::Document* doc = qobject_cast<Juff::Document*>(tabWidget->currentWidget());
 	return doc != 0 ? doc : NullDoc::instance();
+}
+
+int DocViewer::currentIndex(PanelIndex panel) const {
+	TabWidget* tabWidget = getTabWidget(panel);
+	if ( tabWidget == NULL ) {
+		return -1;
+	}
+	
+	return tabWidget->currentIndex();
+}
+
+void DocViewer::setCurrentIndex(PanelIndex panel, int index) {
+	TabWidget* tabWidget = getTabWidget(panel);
+	if ( tabWidget == NULL ) {
+		return;
+	}
+	
+	if ( index >= 0 && index < tabWidget->count() ) {
+		tabWidget->setCurrentIndex(index);
+	}
 }
 
 Juff::Document* DocViewer::document(const QString& fileName) const {
@@ -247,16 +260,10 @@ Juff::Document* DocViewer::document(const QString& fileName) const {
 }
 
 Juff::Document* DocViewer::documentAt(int index, PanelIndex panel) const {
-	QTabWidget* tabWidget = NULL;
-	switch ( panel ) {
-		case PanelLeft    : tabWidget = tab1_; break;
-		case PanelRight   : tabWidget = tab2_; break;
-		case PanelCurrent : tabWidget = curTab_; break;
-		default:;
-	}
-	
-	if ( tabWidget == NULL )
+	TabWidget* tabWidget = getTabWidget(panel);
+	if ( tabWidget == NULL ) {
 		return NullDoc::instance();
+	}
 	
 	Juff::Document* doc = qobject_cast<Juff::Document*>(tabWidget->widget(index));
 	if ( doc != 0 )
@@ -411,7 +418,7 @@ Juff::PanelIndex DocViewer::panelIndexOf(TabWidget* tw) const {
 void DocViewer::onTabRemoved(Juff::TabWidget* tw) {
 	LOGGER;
 	
-	Juff::TabWidget* tw2 = anotherTab(tw);
+	Juff::TabWidget* tw2 = anotherTabWidget(tw);
 	if ( tw->count() == 0 ) {
 		if ( tw2->count() > 0 ) {
 			tw2->currentWidget()->setFocus();
@@ -536,7 +543,18 @@ void DocViewer::onDocAddedToProject(Juff::Document*, Juff::Project*) {
 void DocViewer::onDocRemovedFromProject(Juff::Document*, Juff::Project*) {
 }*/
 
-Juff::TabWidget* DocViewer::anotherTab(Juff::TabWidget* tw) const {
+Juff::TabWidget* DocViewer::getTabWidget(Juff::PanelIndex panel) const {
+	TabWidget* tabWidget = NULL;
+	switch ( panel ) {
+		case PanelLeft    : tabWidget = tab1_; break;
+		case PanelRight   : tabWidget = tab2_; break;
+		case PanelCurrent : tabWidget = curTab_; break;
+		default:;
+	}
+	return tabWidget;
+}
+
+Juff::TabWidget* DocViewer::anotherTabWidget(Juff::TabWidget* tw) const {
 	return (tw == tab1_ ? tab2_ : tab1_);
 }
 

@@ -173,6 +173,15 @@ public:
 	*/
 	virtual void insertText(const QString&) {}
 	
+	/**
+	* Sets params loaded from saved session.
+	*/
+	virtual void setSessionParams(const Juff::SessionParams&) {}
+	
+	/**
+	* Sets params for saving in session.
+	*/
+	virtual Juff::SessionParams sessionParams() const { return Juff::SessionParams(); }
 	
 //	Juff::Document* clone() const { return clone_; }
 //	bool hasClone() const { return clone_ != NULL; }

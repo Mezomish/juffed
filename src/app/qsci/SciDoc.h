@@ -54,6 +54,8 @@ public:
 	virtual void highlightSearchResults();
 	virtual void clearHighlighting();
 
+	virtual void setSessionParams(const Juff::SessionParams&);
+	virtual Juff::SessionParams sessionParams() const;
 
 	virtual QString type() const;
 //	virtual Juff::Document* createClone();

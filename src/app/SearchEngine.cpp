@@ -66,17 +66,32 @@ void SearchEngine::find() {
 		return;
 	}
 	
+	// check for selected text
+	QString selectedText;
+	if ( !searchPopup_->isVisible() && curDoc_->hasSelectedText() ) {
+		int line1, col1, line2, col2;
+		curDoc_->getSelection(line1, col1, line2, col2);
+		if ( line1 == line2 ) {
+			curDoc_->getSelectedText(selectedText);
+		}
+	}
+	
 //	searchPopup_->hideReplace();
 	searchPopup_->expand(false);
 	searchPopup_->show();
-	Juff::SearchResults* res = curDoc_->searchResults();
-	if ( res != NULL ) {
-		searchPopup_->setFindText(res->params().findWhat);
-		curDoc_->highlightSearchResults();
-//		res->setVisible(true);
+	if ( !selectedText.isEmpty() ) {
+		searchPopup_->setFindText(selectedText);
 	}
 	else {
-		searchPopup_->setFindText("");
+		Juff::SearchResults* res = curDoc_->searchResults();
+		if ( res != NULL ) {
+			searchPopup_->setFindText(res->params().findWhat);
+			curDoc_->highlightSearchResults();
+	//		res->setVisible(true);
+		}
+		else {
+			searchPopup_->setFindText("");
+		}
 	}
 	searchPopup_->setFocusOnFind(true);
 }

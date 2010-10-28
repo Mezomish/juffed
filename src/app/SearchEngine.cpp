@@ -53,9 +53,6 @@ void SearchEngine::setCurDoc(Juff::Document* doc) {
 //	LOGGER;
 	
 	changeCurDoc(doc);
-	
-//	if ( searchPopup_->isVisible() )
-//		find();
 }
 
 void SearchEngine::find() {
@@ -76,7 +73,6 @@ void SearchEngine::find() {
 		}
 	}
 	
-//	searchPopup_->hideReplace();
 	searchPopup_->expand(false);
 	searchPopup_->show();
 	if ( !selectedText.isEmpty() ) {
@@ -87,7 +83,6 @@ void SearchEngine::find() {
 		if ( res != NULL ) {
 			searchPopup_->setFindText(res->params().findWhat);
 			curDoc_->highlightSearchResults();
-	//		res->setVisible(true);
 		}
 		else {
 			searchPopup_->setFindText("");
@@ -176,11 +171,6 @@ void SearchEngine::changeCurDoc(Juff::Document* doc) {
 	
 	searchPopup_->hide();
 	onDlgClosed();
-	
-//	if ( doc->searchResults() != NULL )
-//		searchPopup_->setVisible(doc->searchResults()->isVisible());
-//	else
-//		searchPopup_->hide();
 }
 
 /*void SearchEngine::storePosition() {
@@ -204,7 +194,6 @@ void SearchEngine::onSearchParamsChanged(const Juff::SearchParams& params) {
 	clearSelection();
 	curDoc_->clearHighlighting();
 	
-//	const Juff::SearchParams& params = searchPopup_->searchParams();
 	if ( params.findWhat.isEmpty() ) {
 		searchPopup_->setSearchStatus(-1, 0);
 		searchPopup_->setFocusOnFind();
@@ -223,7 +212,6 @@ void SearchEngine::onSearchParamsChanged(const Juff::SearchParams& params) {
 		selectNextOccurence();
 		if ( searchPopup_->isVisible() ) {
 			curDoc_->highlightSearchResults();
-//			results->setVisible(true);
 		}
 	}
 	else {
@@ -434,8 +422,6 @@ void SearchEngine::onReplaceAll() {
 void SearchEngine::onDlgClosed() {
 //	LOGGER;
 	curDoc_->clearHighlighting();
-//	if ( curDoc_->searchResults() != NULL )
-//		curDoc_->searchResults()->setVisible(false);
 	curDoc_->setFocus();
 }
 

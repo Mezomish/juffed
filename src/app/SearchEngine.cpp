@@ -367,7 +367,21 @@ void SearchEngine::onReplaceNext() {
 	const Juff::SearchParams& params = searchPopup_->searchParams();
 	
 	if ( curDoc_->hasSelectedText() ) {
-		curDoc_->replaceSelectedText(params.replaceWith, true);
+		QString replaceWith = params.replaceWith;
+		if ( params.mode == Juff::SearchParams::RegExp || params.mode == Juff::SearchParams::MultiLineRegExp ) {
+			QRegExp regExp(params.findWhat);
+			QString selectedText;
+			curDoc_->getSelectedText(selectedText);
+			
+			if ( regExp.exactMatch(selectedText) ) {
+				QStringList matches = regExp.capturedTexts();
+				int n = matches.size();
+				for ( int i = 0; i < n; ++i ) {
+					replaceWith.replace(QString("\\%1").arg(i), matches[i]);
+				}
+			}
+		}
+		curDoc_->replaceSelectedText(replaceWith, true);
 	}
 	onFindNext();
 	searchPopup_->setFocusOnReplace(false);

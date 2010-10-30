@@ -28,6 +28,7 @@ private slots:
 	void onDocMenuItemSelected();
 	void onTabCloseRequested(int);
 	void onCloseAllRequested();
+	void onCloseAllOtherRequested();
 
 	void slotMoveDoc();
 	void slotCopyFileName();

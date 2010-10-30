@@ -33,6 +33,7 @@ public:
 	bool activateDoc(const QString&);
 	void showPanel(PanelIndex);
 	void hidePanel(PanelIndex);
+	void updateDocTitle(Juff::Document*);
 	
 	/**
 	* Makes the document with index \par index current for panel \par panel.

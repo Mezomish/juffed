@@ -202,6 +202,18 @@ void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 	}
 }
 
+void DocViewer::updateDocTitle(Juff::Document* doc) {
+	PanelIndex panel = panelOf(doc);
+	if ( panel == Juff::PanelLeft ) {
+		int index = tab1_->indexOf(doc);
+		tab1_->setTabText(index, Juff::docTitle(doc));
+	}
+	else if ( panel == Juff::PanelRight ) {
+		int index = tab2_->indexOf(doc);
+		tab2_->setTabText(index, Juff::docTitle(doc));
+	}
+}
+
 void DocViewer::removeDocFromList(Juff::Document* doc) {
 	docStack_.removeAll(doc);
 }
@@ -497,21 +509,7 @@ void DocViewer::onCurrentChanged(int index) {
 void DocViewer::onDocModified(bool modified) {
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {
-		int index = tab1_->indexOf(doc);
-		if ( index >= 0 ) {
-			// doc belongs to 1st panel
-			tab1_->setTabText(index, Juff::docTitle(doc));
-			tab1_->setTabIcon(index, Juff::docIcon(doc));
-		}
-		else {
-			index = tab2_->indexOf(doc);
-			if ( index >= 0 ) {
-				// doc belongs tn 2nd panel
-				tab2_->setTabText(index, Juff::docTitle(doc));
-				tab2_->setTabIcon(index, Juff::docIcon(doc));
-			}
-			Log::warning("Document that emitted a signal is not owned by DocViewer");
-		}
+		updateDocTitle(doc);
 	}
 }
 

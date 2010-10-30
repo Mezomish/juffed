@@ -33,6 +33,7 @@ public:
 
 signals:
 	void closeAllRequested();
+	void closeAllOtherRequested();
 
 protected slots:
 //	void cloneDoc();

@@ -48,6 +48,7 @@ TabWidget::TabWidget(Juff::DocHandlerInt* handler) : QTabWidget() {
 	setTabBar(new Juff::TabBar(this));
 	connect(tabBar(), SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
 	connect(tabBar(), SIGNAL(closeAllRequested()), SLOT(onCloseAllRequested()));
+	connect(tabBar(), SIGNAL(closeAllOtherRequested()), SLOT(onCloseAllOtherRequested()));
 	setAcceptDrops(true);
 	
 	static int ind = 0;
@@ -189,6 +190,11 @@ void TabWidget::onCloseAllRequested() {
 		handler_->closeAllDocs(Juff::PanelLeft);
 	else if ( selfIndex_ == 1 )
 		handler_->closeAllDocs(Juff::PanelRight);
+}
+
+void TabWidget::onCloseAllOtherRequested() {
+	LOGGER;
+	// TODO : add logic here
 }
 
 void TabWidget::keyPressEvent(QKeyEvent* e) {

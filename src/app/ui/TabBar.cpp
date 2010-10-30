@@ -55,6 +55,7 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 		
 		tabMenu_->addAction(tr("Close"), this, SLOT(closeDoc()));
 		tabMenu_->addAction(tr("Close all"), this, SIGNAL(closeAllRequested()));
+//		tabMenu_->addAction(tr("Close all other tabs"), this, SIGNAL(closeAllOtherRequested()));
 //		tabMenu_->addAction(CommandStorage::instance()->action(FILE_CLOSE_ALL));
 		
 		tabMenu_->popup(e->globalPos());

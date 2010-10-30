@@ -1,4 +1,4 @@
-#include <Qsci/qscilexerhaskell.h>
+#include "qscilexerhaskell.h"
 
 
 QsciLexerHaskell::QsciLexerHaskell(QObject *parent) :

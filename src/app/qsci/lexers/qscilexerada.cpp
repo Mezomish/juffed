@@ -1,4 +1,4 @@
-#include <Qsci/qscilexerada.h>
+#include "qscilexerada.h"
 
 
 QsciLexerAda::QsciLexerAda(QObject *parent) :

@@ -1,4 +1,4 @@
-#include <Qsci/qscilexerlisp.h>
+#include "qscilexerlisp.h"
 
 QsciLexerLisp::QsciLexerLisp(QObject *parent) :
     QsciLexer(parent)

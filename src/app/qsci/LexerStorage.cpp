@@ -39,19 +39,25 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <qscilexersql.h>
 #include <qscilexertex.h>
 
+#include "lexers/qscilexerada.h"
+#include "lexers/qscilexerasm.h"
+#include "lexers/qscilexerhaskell.h"
+#include "lexers/qscilexerlisp.h"
+#include "lexers/qscilexernsis.h"
+
 #ifdef JUFF_TCL_LEXER
 #include <qscilexertcl.h>
-#endif	//	JUFF_TCL_LEXER
+#endif // JUFF_TCL_LEXER
 
 #ifdef JUFF_PASCAL_LEXER
 #include <qscilexerpascal.h>
-#endif	//	JUFF_PASCAL_LEXER
+#endif // JUFF_PASCAL_LEXER
 
 #ifdef JUFF_FORTRAN_LEXER
 #include <qscilexerfortran.h>
-#endif	//	JUFF_FORTRAN_LEXER
+#endif // JUFF_FORTRAN_LEXER
 
-//	Qt headers
+// Qt headers
 #include <QtCore/QFileInfo>
 #include <QtCore/QMap>
 #include <QtCore/QStringList>
@@ -60,7 +66,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtXml/QDomElement>
 #include <QtXml/QDomNode>
 
-//	local headers
+// local headers
 #include "AppInfo.h"
 #include "FileTypeSettings.h"
 #include "EditorSettings.h"
@@ -697,7 +703,22 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 			newLexer = new QsciLexerFortran();
 		}
 #endif // JUFF_FORTRAN_LEXER
-
+		else if ( name.compare("Ada") == 0 ) {
+			newLexer = new QsciLexerAda();
+		}
+		else if ( name.compare("Asm") == 0 ) {
+			newLexer = new QsciLexerASM();
+		}
+		else if ( name.compare("Haskell") == 0 ) {
+			newLexer = new QsciLexerHaskell();
+		}
+		else if ( name.compare("Lisp") == 0 ) {
+			newLexer = new QsciLexerLisp();
+		}
+		else if ( name.compare("NSIS") == 0 ) {
+			newLexer = new QsciLexerNSIS();
+		}
+		
 		if ( newLexer != 0 ) {
 			lexers_[name] = newLexer;
 			if ( !name.isEmpty() && name.compare("none") != 0 ) {
@@ -789,14 +810,15 @@ QsciLexer* LexerStorage::lexerByFileName(const QString& fileName) {
 
 QStringList LexerStorage::lexersList() const {
 	QStringList list;
-	list << "none" << "Bash" << "Batch" << "C++" << "C#" << "CMake" << "CSS" 
-			<< "D" << "Diff" 
+	list << "none" << "Ada" << "Asm" << "Bash" << "Batch" << "C++" << "C#" 
+			<< "CMake" << "CSS" << "D" << "Diff" 
 			
 #ifdef JUFF_FORTRAN_LEXER
 			<< "Fortran"
 #endif	//	JUFF_FORTRAN_LEXER
 
-			<< "HTML" << "IDL" << "Java" << "JavaScript" << "Lua" << "Makefile" 
+			<< "Haskell" << "HTML" << "IDL" << "Java" << "JavaScript" << "Lisp" 
+			<< "Lua" << "Makefile" << "NSIS"
 
 #ifdef JUFF_PASCAL_LEXER
 			<< "Pascal"

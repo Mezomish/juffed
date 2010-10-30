@@ -29,50 +29,87 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 	}
 	else {
 		QStringList list;
-		if ( type == "Bash") 
+		if ( type == "Ada") {
+			list << "*.a";
+		}
+		else if ( type == "Asm") {
+			list << "*.s" << "*.asm" << "*.ash";
+		}
+		else if ( type == "Bash") {
 			list << "*.sh" << "*.run";
-		else if ( type == "Batch") 
+		}
+		else if ( type == "Batch") {
 			list << "*.bat";
-		else if ( type == "C++") 
+		}
+		else if ( type == "C++") {
 			list << "*.h" << "*.hpp" << "*.hxx" << "*.h++" << "*.c" << "*.cc" << "*.cpp" << "*.cxx" << "*.c++";
-		else if ( type == "C#") 
+		}
+		else if ( type == "C#") {
 			list << "*.cs";
-		else if ( type == "CMake") 
+		}
+		else if ( type == "CMake") {
 			list << "CMakeLists.txt" << "*.cmake";
-		else if ( type == "CSS") 
+		}
+		else if ( type == "CSS") {
 			list << "*.css";
-		else if ( type == "D") 
+		}
+		else if ( type == "D") {
 			list << "*.d" << "*.di";
-		else if ( type == "Diff") 
+		}
+		else if ( type == "Diff") {
 			list << "*.diff" << "*.patch";
-		else if ( type == "HTML") 
+		}
+		else if ( type == "Haskell") {
+			list << "*.hs" << "*.lhs";
+		}
+		else if ( type == "HTML") {
 			list << "*.htm*" << "*.[xd]htm*";
-		else if ( type == "IDL") 
+		}
+		else if ( type == "IDL") {
 			list << "*.idl";
-		else if ( type == "Java") 
+		}
+		else if ( type == "Java") {
 			list << "*.java";
-		else if ( type == "JavaScript") 
+		}
+		else if ( type == "JavaScript") {
 			list << "*.js";
-		else if ( type == "Lua") 
+		}
+		else if ( type == "Lisp") {
+			list << "*.lisp" << "*.lsp";
+		}
+		else if ( type == "Lua") {
 			list << "*.lua" << "*.tasklua";
-		else if ( type == "Makefile") 
+		}
+		else if ( type == "Makefile") {
 			list << "*Makefile*";
-		else if ( type == "Perl") 
+		}
+		else if ( type == "NSIS") {
+			list << "*.nsi" << "*.nsh";
+		}
+		else if ( type == "Perl") {
 			list << "*.p[lm]";
-		else if ( type == "Python") 
+		}
+		else if ( type == "Python") {
 			list << "*.py";
-		else if ( type == "PHP") 
+		}
+		else if ( type == "PHP") {
 			list << "*.php*";
-		else if ( type == "Ruby") 
+		}
+		else if ( type == "Ruby") {
 			list << "*.rb";
-		else if ( type == "SQL") 
+		}
+		else if ( type == "SQL") {
 			list << "*.sql";
-		else if ( type == "TeX") 
+		}
+		else if ( type == "TeX") {
 			list << "*.tex";
-		else if ( type == "XML") 
+		}
+		else if ( type == "XML") {
 			list << "*.xml";
-		else if ( type == "Fortran") 
+		}
+		else if ( type == "Fortran") {
 			list << "*.f" << "*.f77" << "*.f90";
+		}
 
 		return list;
 	}

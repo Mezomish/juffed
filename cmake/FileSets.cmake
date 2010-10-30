@@ -40,6 +40,14 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/qsci/JuffScintilla.h
 	src/app/qsci/SciDoc.h
 	src/app/qsci/SciDocEngine.h
+	
+	# lexers
+	src/app/qsci/lexers/qscilexerada.h
+	src/app/qsci/lexers/qscilexerasm.h
+	src/app/qsci/lexers/qscilexerhaskell.h
+	src/app/qsci/lexers/qscilexerlisp.h
+	src/app/qsci/lexers/qscilexernsis.h
+	
 	src/app/ui/AboutDlg.h
 	src/app/ui/DocViewer.h
 #	src/app/ui/FindDlg.h
@@ -79,6 +87,14 @@ SET ( juffed_app_SRCS
 	src/app/qsci/LexerStorage.cpp
 	src/app/qsci/SciDoc.cpp
 	src/app/qsci/SciDocEngine.cpp
+	
+	# lexers
+	src/app/qsci/lexers/qscilexerada.cpp
+	src/app/qsci/lexers/qscilexerasm.cpp
+	src/app/qsci/lexers/qscilexerhaskell.cpp
+	src/app/qsci/lexers/qscilexerlisp.cpp
+	src/app/qsci/lexers/qscilexernsis.cpp
+	
 	src/app/ui/AboutDlg.cpp
 	src/app/ui/DocViewer.cpp
 #	src/app/ui/FindDlg.cpp

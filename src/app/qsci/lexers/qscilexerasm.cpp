@@ -1,4 +1,4 @@
-#include <Qsci/qscilexerasm.h>
+#include "qscilexerasm.h"
 
 QsciLexerASM::QsciLexerASM(QObject *parent) :
     QsciLexer(parent)

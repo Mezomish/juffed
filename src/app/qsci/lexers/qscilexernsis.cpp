@@ -1,4 +1,4 @@
-#include <Qsci/qscilexernsis.h>
+#include "qscilexernsis.h"
 
 QsciLexerNSIS::QsciLexerNSIS(QObject *parent) :
     QsciLexer(parent)

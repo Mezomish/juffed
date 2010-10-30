@@ -63,6 +63,33 @@
     </message>
 </context>
 <context>
+    <name>Document</name>
+    <message>
+        <source>The file &apos;%1&apos; was modified by external program.</source>
+        <translation type="unfinished">Plik &apos;%1&apos; został zmodyfikowany przez zewnętrzny program.</translation>
+    </message>
+    <message>
+        <source>What do you want to do?</source>
+        <translation type="unfinished">Co chcesz zrobić?</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished">Uwaga</translation>
+    </message>
+    <message>
+        <source>Save current</source>
+        <translation type="unfinished">Zapisz bieżący</translation>
+    </message>
+    <message>
+        <source>Reload from disk</source>
+        <translation type="unfinished">Wczytaj ponownie z dysku</translation>
+    </message>
+    <message>
+        <source>Ignore</source>
+        <translation type="unfinished">Ignoruj</translation>
+    </message>
+</context>
+<context>
     <name>EditorSettingsPage</name>
     <message>
         <source>Size</source>
@@ -192,53 +219,19 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
     <name>FindDlg</name>
     <message>
         <source>Find</source>
-        <translation>Znajdź</translation>
-    </message>
-    <message>
-        <source>&amp;Find</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Znajdź</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Anuluj</translation>
-    </message>
-    <message>
-        <source>&amp;Replace</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Match &amp;case</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Backward</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Whole &amp;words only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Regular &amp;expression</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Multi-line</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Anuluj</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation>Zastąp</translation>
+        <translation type="obsolete">Zastąp</translation>
     </message>
     <message>
         <source>Backward</source>
         <translation type="obsolete">Wstecz</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;If &lt;b&gt;checked&lt;/b&gt;, all the text is treated like a single line. Symbols &apos;^&apos; and &apos;$&apos; are at the beginning and at the end of the document. In this mode you can search for multiline regexps using &apos;\r&apos; and &apos;\n&apos; symbols for line ends.&lt;/p&gt;
-
-&lt;p&gt;If &lt;b&gt;not checked&lt;/b&gt;, the regexp is applied to each line separately and each line has its own symbols &apos;^&apos; and &apos;$&apos; (at the beginning and at the end of the line).&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Match case</source>
@@ -267,32 +260,44 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
         <source>&amp;Tools</source>
         <translation type="obsolete">&amp;Narzędzia</translation>
     </message>
+    <message>
+        <source>&amp;Syntax</source>
+        <translation type="unfinished">&amp;Składnia</translation>
+    </message>
+    <message>
+        <source>Line endings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Markers</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Juff::Document</name>
     <message>
         <source>The file &apos;%1&apos; was modified by external program.</source>
-        <translation>Plik &apos;%1&apos; został zmodyfikowany przez zewnętrzny program.</translation>
+        <translation type="obsolete">Plik &apos;%1&apos; został zmodyfikowany przez zewnętrzny program.</translation>
     </message>
     <message>
         <source>What do you want to do?</source>
-        <translation>Co chcesz zrobić?</translation>
+        <translation type="obsolete">Co chcesz zrobić?</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Uwaga</translation>
+        <translation type="obsolete">Uwaga</translation>
     </message>
     <message>
         <source>Save current</source>
-        <translation>Zapisz bieżący</translation>
+        <translation type="obsolete">Zapisz bieżący</translation>
     </message>
     <message>
         <source>Reload from disk</source>
-        <translation>Wczytaj ponownie z dysku</translation>
+        <translation type="obsolete">Wczytaj ponownie z dysku</translation>
     </message>
     <message>
         <source>Ignore</source>
-        <translation>Ignoruj</translation>
+        <translation type="obsolete">Ignoruj</translation>
     </message>
 </context>
 <context>
@@ -459,6 +464,10 @@ Czy chcesz zachować swoje zmiany?</translation>
         <source>Close</source>
         <translation>Zamknij</translation>
     </message>
+    <message>
+        <source>Close all</source>
+        <translation type="unfinished">Zamknij wszystko</translation>
+    </message>
 </context>
 <context>
     <name>Juff::TabWidget</name>
@@ -486,17 +495,13 @@ Czy chcesz zachować swoje zmiany?</translation>
         <source>Move to the left panel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Close all</source>
+        <translation type="unfinished">Zamknij wszystko</translation>
+    </message>
 </context>
 <context>
     <name>JuffEd</name>
-    <message>
-        <source>New project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Lines: %1</source>
         <translation type="unfinished"></translation>
@@ -510,10 +515,6 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>&amp;Plik</translation>
     </message>
     <message>
-        <source>Project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Edit</source>
         <translation>&amp;Edycja</translation>
     </message>
@@ -523,10 +524,6 @@ Czy chcesz zachować swoje zmiany?</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fo&amp;rmat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -565,6 +562,150 @@ Czy chcesz zachować swoje zmiany?</translation>
         <source>Lines count</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Zapisz jako</translation>
+    </message>
+    <message>
+        <source>Save all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Reload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Zamknij</translation>
+    </message>
+    <message>
+        <source>Close All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit</source>
+        <translation type="unfinished">Wyjdź</translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation type="unfinished">Cofnij</translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <translation type="unfinished">Przywróć</translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation type="unfinished">Wytnij</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation type="unfinished">Kopiuj</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation type="unfinished">Wklej</translation>
+    </message>
+    <message>
+        <source>Find</source>
+        <translation type="unfinished">Znajdź</translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <translation type="unfinished">Znajdź następny</translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <translation type="unfinished">Znajdź poprzedni</translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished">Zastąp</translation>
+    </message>
+    <message>
+        <source>Go to line</source>
+        <translation type="unfinished">Idź do linii</translation>
+    </message>
+    <message>
+        <source>Go to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display line numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wrap words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show whitespaces and TABs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show ends of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom 100%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Ustawienia</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished">O programie</translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation type="unfinished">О Qt</translation>
+    </message>
+    <message>
+        <source>For&amp;mat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent files</source>
+        <translation type="unfinished">Ostatnio otwarte pliki</translation>
+    </message>
+    <message>
+        <source>Docks</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -601,6 +742,14 @@ Czy chcesz zachować swoje zmiany?</translation>
     <message>
         <source>Close document</source>
         <translation>Zamknij dokument</translation>
+    </message>
+    <message>
+        <source>Rename file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input new file name:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -688,20 +837,45 @@ Czy chcesz zachować swoje zmiany?</translation>
         <source>Strip trailing spaces</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>MessageWidget</name>
     <message>
-        <source>Form</source>
-        <translation></translation>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>border: solid 1px #000000;</source>
-        <translation></translation>
+        <source>Czech</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>x</source>
-        <translation></translation>
+        <source>German</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese (simplified)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -746,11 +920,11 @@ Czy chcesz zachować swoje zmiany?</translation>
     </message>
     <message>
         <source>Confirmation</source>
-        <translation>Potwierdzenie</translation>
+        <translation type="obsolete">Potwierdzenie</translation>
     </message>
     <message>
         <source>Replace this text?</source>
-        <translation>Zastąpić ten tekst?</translation>
+        <translation type="obsolete">Zastąpić ten tekst?</translation>
     </message>
     <message>
         <source>About</source>
@@ -814,43 +988,35 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation>Znajdź</translation>
+        <translation type="obsolete">Znajdź</translation>
     </message>
     <message>
         <source>New</source>
-        <translation>Nowy</translation>
+        <translation type="obsolete">Nowy</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Otwórz</translation>
+        <translation type="obsolete">Otwórz</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Zapisz</translation>
+        <translation type="obsolete">Zapisz</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Zapisz jako</translation>
-    </message>
-    <message>
-        <source>Save all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Zapisz jako</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Zamknij</translation>
+        <translation type="obsolete">Zamknij</translation>
     </message>
     <message>
         <source>Close all</source>
-        <translation>Zamknij wszystko</translation>
+        <translation type="obsolete">Zamknij wszystko</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation>Wyjdź</translation>
+        <translation type="obsolete">Wyjdź</translation>
     </message>
     <message>
         <source>New session</source>
@@ -870,99 +1036,43 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Cofnij</translation>
+        <translation type="obsolete">Cofnij</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Przywróć</translation>
+        <translation type="obsolete">Przywróć</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation>Wytnij</translation>
+        <translation type="obsolete">Wytnij</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation>Kopiuj</translation>
+        <translation type="obsolete">Kopiuj</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation>Wklej</translation>
+        <translation type="obsolete">Wklej</translation>
     </message>
     <message>
         <source>Find next</source>
-        <translation>Znajdź następny</translation>
+        <translation type="obsolete">Znajdź następny</translation>
     </message>
     <message>
         <source>Find previous</source>
-        <translation>Znajdź poprzedni</translation>
+        <translation type="obsolete">Znajdź poprzedni</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation>Zastąp</translation>
+        <translation type="obsolete">Zastąp</translation>
     </message>
     <message>
         <source>Go to line</source>
-        <translation>Idź do linii</translation>
-    </message>
-    <message>
-        <source>New project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rename project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Close project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save project as</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add file to project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Jump to file</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Idź do linii</translation>
     </message>
     <message>
         <source>Show line numbers</source>
-        <translation>Pokaż numery linii</translation>
-    </message>
-    <message>
-        <source>Wrap words</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show whitespaces</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show line endings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zoom in</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zoom out</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zoom 100%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Pokaż numery linii</translation>
     </message>
     <message>
         <source>Add/Remove marker</source>
@@ -982,11 +1092,11 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Ustawienia</translation>
+        <translation type="obsolete">Ustawienia</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation>О Qt</translation>
+        <translation type="obsolete">О Qt</translation>
     </message>
     <message>
         <source>&amp;Markers</source>
@@ -998,15 +1108,11 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>Reload</source>
-        <translation>Wczytaj ponownie</translation>
+        <translation type="obsolete">Wczytaj ponownie</translation>
     </message>
     <message>
         <source>Print</source>
-        <translation>Drukuj</translation>
-    </message>
-    <message>
-        <source>Packaging</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Drukuj</translation>
     </message>
     <message>
         <source>Patches</source>
@@ -1030,6 +1136,18 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>Noname %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line endings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Packaging, testing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1061,6 +1179,321 @@ Rozpocząć od początku?</translation>
     </message>
 </context>
 <context>
+    <name>QsciLexerASM</name>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CPU Instruction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Math Instruction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Directive Operand</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment Block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String EOL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Extended Instruction</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QsciLexerAda</name>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Illegal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfinished Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfinished String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keyword</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delimiter</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QsciLexerHaskell</name>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment Block 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment Block 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment Block 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Module</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Capital</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Class</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keyword</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Instance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QsciLexerLisp</name>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Multiline Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfinished String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Identifier</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Special</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keyword</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keyword 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QsciLexerNSIS</name>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double-quoted String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left-quoted String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right-quoted String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Function</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User Defined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Section Definition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subsection Definition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IFDEF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Macro</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>String Variable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Section Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Function Definition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SciDoc</name>
     <message>
         <source>This is a Noname file and shouldn&apos;t be saved directly</source>
@@ -1075,7 +1508,7 @@ Rozpocząć od początku?</translation>
     <name>SciDocEngine</name>
     <message>
         <source>&amp;Syntax</source>
-        <translation>&amp;Składnia</translation>
+        <translation type="obsolete">&amp;Składnia</translation>
     </message>
     <message>
         <source>UPPER CASE</source>
@@ -1113,19 +1546,133 @@ Rozpocząć od początku?</translation>
         <source>Unindent lines</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Win</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mac</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the beginning of the line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the end of the line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert &apos;Tab&apos; character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fold/Unfold all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add/Remove marker</source>
+        <translation type="unfinished">Dodaj/Usuń znacznik</translation>
+    </message>
+    <message>
+        <source>Next marker</source>
+        <translation type="unfinished">Następny znacznik</translation>
+    </message>
+    <message>
+        <source>Previous marker</source>
+        <translation type="unfinished">Poprzedni znacznik</translation>
+    </message>
+    <message>
+        <source>Remove all markers</source>
+        <translation type="unfinished">Usuń wszystkie znaczniki</translation>
+    </message>
+</context>
+<context>
+    <name>SearchComboBox</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SearchEngine</name>
     <message>
-        <source>Text &apos;%1&apos; was not found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Replacement finished (%1 replacements were made)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace</source>
+        <translation type="unfinished">Zastąp</translation>
+    </message>
+</context>
+<context>
+    <name>SearchPopup</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find next</source>
+        <translation type="unfinished">Znajdź następny</translation>
+    </message>
+    <message>
+        <source>v</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Find previous</source>
+        <translation type="unfinished">Znajdź poprzedni</translation>
+    </message>
+    <message>
+        <source>^</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plain text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Whole words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Regexp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Case sensitive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1141,6 +1688,22 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>Please select files you&apos;d like to save.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save all</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1199,11 +1762,15 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="obsolete">Widok</translation>
+        <translation type="unfinished">Widok</translation>
     </message>
     <message>
         <source>Autocompletion</source>
-        <translation type="obsolete">Autozakończenie</translation>
+        <translation type="unfinished">Autozakończenie</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1278,10 +1845,6 @@ Rozpocząć od początku?</translation>
     <message>
         <source>East</source>
         <translation>Wschód</translation>
-    </message>
-    <message>
-        <source>Close button on each tab</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Toolbar style</source>

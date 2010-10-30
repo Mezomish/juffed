@@ -40,6 +40,11 @@ public:
 	virtual ~Document();
 
 	/**
+	* Changes the document's file name.
+	*/
+	void setFileName(const QString&);
+	
+	/**
 	* Returns document's file name on disk or a string like "Noname N" if 
 	* the document was not saved yet (where N is some number). This file 
 	* name is unique for a document within application's running time.

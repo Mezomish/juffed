@@ -99,6 +99,9 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 
 JuffMW::JuffMW() : QMainWindow() {
 	setGeometry(MainSettings::geometry());
+	if ( MainSettings::get(MainSettings::Maximized) ) {
+		showMaximized();
+	}
 	setWindowIcon(QIcon(":juffed_32.png"));
 	
 	aboutDlg_ = createAboutDlg(this);
@@ -163,6 +166,10 @@ QString JuffMW::getSavePrjName(const QString& title) {
 	// TODO :
 	QString dir = "";
 	return QFileDialog::getSaveFileName(this, title, dir, "XML JuffEd Project Files (*.xml)");
+}
+
+QString JuffMW::getRenameFileName(const QString& curFileName) {
+	return QInputDialog::getText(this, tr("Rename file"), tr("Input new file name:"), QLineEdit::Normal, curFileName);
 }
 
 int JuffMW::getGotoLineNumber(int lineCount) {
@@ -302,7 +309,6 @@ void JuffMW::closeEvent(QCloseEvent* e) {
 	bool confirmed = true;
 	emit closeRequested(confirmed);
 	if ( confirmed ) {
-//		MainSettings::setWindowRect(geometry());
 		e->accept();
 	}
 	else {
@@ -310,19 +316,29 @@ void JuffMW::closeEvent(QCloseEvent* e) {
 	}
 }
 
-void JuffMW::resizeEvent(QResizeEvent*) {
-//	LOGGER;
-	MainSettings::setGeometry(geometry());
+void JuffMW::resizeEvent(QResizeEvent* e) {
+	LOGGER;
+	
+	QMainWindow::resizeEvent(e);
+	
+	if ( !isMaximized() ) {
+		MainSettings::setGeometry(geometry());
+	}
 }
 
-void JuffMW::moveEvent(QMoveEvent*) {
-//	LOGGER;
+void JuffMW::changeEvent(QEvent* e) {
+	if ( e->type() == QEvent::WindowStateChange ) {
+		MainSettings::set(MainSettings::Maximized, isMaximized());
+	}
+	QMainWindow::changeEvent(e);
+}
+
+void JuffMW::moveEvent(QMoveEvent* e) {
 	MainSettings::setGeometry(geometry());
+	QMainWindow::moveEvent(e);
 }
 
 void JuffMW::keyPressEvent(QKeyEvent* e) {
-//	LOGGER;
-	
 	if ( searchPopup_->isVisible() ) {
 		if ( e->key() == Qt::Key_Escape ) {
 			if ( searchPopup_->isVisible() ) {
@@ -339,12 +355,9 @@ bool JuffMW::isFullScreen() const {
 }
 
 void JuffMW::toggleFullscreen() {
-//	LOGGER;
-	
 	setWindowState(windowState() ^ Qt::WindowFullScreen);
 	
-	bool isFSNow = windowState() & Qt::WindowFullScreen;
-	if ( isFSNow ) {
+	if ( isFullScreen() ) {
 //		if ( MainSettings::get(MainSettings::FSHideMenubar) )
 //			menuBar()->hide();
 		if ( MainSettings::get(MainSettings::FSHideStatusbar) )
@@ -358,6 +371,7 @@ void JuffMW::toggleFullscreen() {
 				}
 			}
 		}
+		MainSettings::set(MainSettings::FullScreen, true);
 	}
 	else {
 //		menuBar()->show();
@@ -366,6 +380,7 @@ void JuffMW::toggleFullscreen() {
 		foreach (QToolBar* tb, hiddenToolBars_) {
 			tb->show();
 		}
+		MainSettings::set(MainSettings::FullScreen, false);
 	}
 }
 

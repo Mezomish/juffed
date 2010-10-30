@@ -91,6 +91,12 @@ Document::~Document() {
 	}*/
 }
 
+void Document::setFileName(const QString& newFileName) {
+	QString oldName = fileName_;
+	fileName_ = newFileName;
+	emit renamed(oldName);
+}
+
 QString Document::fileName() const {
 	return fileName_;
 }

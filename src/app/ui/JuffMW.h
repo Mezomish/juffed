@@ -45,6 +45,7 @@ public:
 	QStringList getOpenFileNames(const QString& dir, const QString& filters);
 	QString getSaveFileName(const QString& curFileName, const QString& filters);
 	QString getSavePrjName(const QString& title);
+	QString getRenameFileName(const QString& curFileName);
 	int getGotoLineNumber(int);
 	QString getJumpToFileName(const QStringList&);
 	int askForSave(const QString& fileName);
@@ -84,6 +85,7 @@ protected:
 	virtual void moveEvent(QMoveEvent*);
 	virtual void keyPressEvent(QKeyEvent*);
 	virtual bool eventFilter(QObject*, QEvent*);
+	virtual void changeEvent(QEvent*);
 
 private:
 	void resizePopup(int);

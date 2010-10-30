@@ -424,9 +424,7 @@ void JuffEd::onCloseRequested(bool& confirm) {
 		}
 	}
 	if ( confirm ) {
-		if ( !mw_->isFullScreen() ) {
-			mw_->saveState();
-		}
+		mw_->saveState();
 		saveSession(AppInfo::configDirPath() + "/session");
 	}
 }
@@ -506,7 +504,20 @@ void JuffEd::slotFileSaveAs() {
 }
 
 void JuffEd::slotFileRename() {
-	// TODO : add renaming file logic
+	Juff::Document* doc = curDoc();
+	if ( doc->isNull() || Juff::isNoname(doc) )
+		return;
+	
+	QString oldName = doc->fileName();
+	QFileInfo fi(oldName);
+	QString newName = mw_->getRenameFileName(fi.fileName());
+	if ( !newName.isEmpty() ) {
+		QString fullNewName = fi.absolutePath() + "/" + newName;
+		if ( QFile::rename(doc->fileName(), fullNewName) ) {
+			doc->setFileName(fullNewName);
+//			emit docRenamed(doc, oldName);
+		}
+	}
 }
 
 void JuffEd::slotFileSaveAll() {
@@ -815,7 +826,18 @@ void JuffEd::onDocCharsetChanged(const QString& oldCharset) {
 	}
 }
 
-void JuffEd::onDocRenamed(const QString&) {
+void JuffEd::onDocRenamed(const QString& oldName) {
+	LOGGER;
+	
+	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
+	if ( doc == 0 ) {
+		return;
+	}
+	
+	emit docRenamed(doc, oldName);
+	
+	viewer_->updateDocTitle(doc);
+	updateMW(doc);
 }
 
 // this slot is connected to a signal from DocViewer
@@ -995,7 +1017,6 @@ bool JuffEd::saveDocAs(Juff::Document* doc) {
 		QString error;
 		QString oldName = doc->fileName();
 		if ( doc->saveAs(fileName, error) ) {
-			emit docRenamed(doc, oldName);
 			// saving succeeded - return true
 			return true;
 		}

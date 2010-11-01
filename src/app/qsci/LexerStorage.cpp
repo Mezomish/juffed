@@ -718,6 +718,12 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if ( name.compare("NSIS") == 0 ) {
 			newLexer = new QsciLexerNSIS();
 		}
+		else if ( name.compare("NBC") == 0 ) {
+			newLexer = new QsciLexerASM();
+		}
+		else if ( name.compare("NXC") == 0 ) {
+			newLexer = new QsciLexerCPP();
+		}
 		
 		if ( newLexer != 0 ) {
 			lexers_[name] = newLexer;
@@ -818,7 +824,7 @@ QStringList LexerStorage::lexersList() const {
 #endif	//	JUFF_FORTRAN_LEXER
 
 			<< "Haskell" << "HTML" << "IDL" << "Java" << "JavaScript" << "Lisp" 
-			<< "Lua" << "Makefile" << "NSIS"
+			<< "Lua" << "Makefile" << "NBC" << "NSIS" << "NXC"
 
 #ifdef JUFF_PASCAL_LEXER
 			<< "Pascal"

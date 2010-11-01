@@ -83,8 +83,14 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 		else if ( type == "Makefile") {
 			list << "*Makefile*";
 		}
+		else if ( type == "NBC") {
+			list << "*.nbc";
+		}
 		else if ( type == "NSIS") {
 			list << "*.nsi" << "*.nsh";
+		}
+		else if ( type == "NXC") {
+			list << "*.nxc";
 		}
 		else if ( type == "Perl") {
 			list << "*.p[lm]";

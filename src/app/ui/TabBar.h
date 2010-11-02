@@ -33,11 +33,12 @@ public:
 
 signals:
 	void closeAllRequested();
-	void closeAllOtherRequested();
+	void closeAllOtherRequested(int);
 
 protected slots:
 //	void cloneDoc();
-	void closeDoc();
+	void onCloseDoc();
+	void onCloseOther();
 
 protected:
 	virtual void mouseReleaseEvent(QMouseEvent* e);

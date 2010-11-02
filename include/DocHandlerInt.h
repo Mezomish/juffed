@@ -59,14 +59,19 @@ public:
 	virtual void closeAllDocs(Juff::PanelIndex panel) = 0;
 	
 	/**
+	* Closes all document except for the given index at the given panel.
+	*/
+	virtual void closeAllOtherDocs(int index, Juff::PanelIndex panel) = 0;
+	
+	/**
 	* Saves the document with a given file name.
 	*/
 	virtual void saveDoc(const QString&) = 0;
 
 	/**
-	* Returns the number of currently opened documents.
+	* Returns the number of currently opened documents for the given panel.
 	*/
-	virtual int docCount() const = 0;
+	virtual int docCount(Juff::PanelIndex) const = 0;
 
 	/**
 	* Returns the list of currently opened documents.

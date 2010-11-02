@@ -42,8 +42,9 @@ public:
 	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent);
 	virtual void closeDoc(const QString&);
 	virtual void closeAllDocs(Juff::PanelIndex);
+	virtual void closeAllOtherDocs(int index, Juff::PanelIndex panel);
 	virtual void saveDoc(const QString&);
-	virtual int docCount() const;
+	virtual int docCount(Juff::PanelIndex) const;
 	virtual QStringList docList() const;
 
 public slots:

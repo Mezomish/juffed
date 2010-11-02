@@ -60,8 +60,8 @@ void JuffAPI::saveDoc(const QString& fileName) {
 	int_->handler_->saveDoc(fileName);
 }
 
-int JuffAPI::docCount() const {
-	return int_->handler_->docCount();
+int JuffAPI::docCount(Juff::PanelIndex panel) const {
+	return int_->handler_->docCount(panel);
 }
 
 QStringList JuffAPI::docList() const {

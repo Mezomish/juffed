@@ -940,11 +940,26 @@ void JuffEd::closeAllDocs(Juff::PanelIndex panel) {
 	}
 }
 
+void JuffEd::closeAllOtherDocs(int index, Juff::PanelIndex panel) {
+	Juff::DocList docs = viewer_->docList(panel);
+	Juff::Document* neededDoc = viewer_->documentAt(index, panel);
+	
+	if ( docs.count() == 0 || neededDoc->isNull() ) {
+		return;
+	}
+	
+	foreach (Juff::Document* doc, docs) {
+		if ( doc != neededDoc ) {
+			closeDocWithConfirmation(doc);
+		}
+	}
+}
+
 void JuffEd::saveDoc(const QString&) {
 }
 
-int JuffEd::docCount() const {
-	return viewer_->docCount(Juff::PanelAll);
+int JuffEd::docCount(Juff::PanelIndex panel) const {
+	return viewer_->docCount(panel);
 }
 
 QStringList JuffEd::docList() const {

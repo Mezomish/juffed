@@ -51,7 +51,7 @@ public:
 	/**
 	* Returns the number of currently opened documents.
 	*/
-	virtual int docCount() const;
+	virtual int docCount(Juff::PanelIndex) const;
 
 	/**
 	* Returns the list of currently opened documents.

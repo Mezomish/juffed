@@ -138,6 +138,6 @@ private:
 	JuffAPI* api_;
 };
 
-Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.62")
+Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.63")
 
 #endif	//	__JUFF_PLUGIN_H__

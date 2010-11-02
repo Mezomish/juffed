@@ -53,9 +53,9 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 		if ( !tabMenu_->isEmpty() )
 			tabMenu_->addSeparator();
 		
-		tabMenu_->addAction(tr("Close"), this, SLOT(closeDoc()));
+		tabMenu_->addAction(tr("Close"), this, SLOT(onCloseDoc()));
 		tabMenu_->addAction(tr("Close all"), this, SIGNAL(closeAllRequested()));
-//		tabMenu_->addAction(tr("Close all other tabs"), this, SIGNAL(closeAllOtherRequested()));
+		tabMenu_->addAction(tr("Close all other tabs"), this, SLOT(onCloseOther()));
 //		tabMenu_->addAction(CommandStorage::instance()->action(FILE_CLOSE_ALL));
 		
 		tabMenu_->popup(e->globalPos());
@@ -68,10 +68,14 @@ void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 /*void TabBar::cloneDoc() {
 }*/
 
-void TabBar::closeDoc() {
+void TabBar::onCloseDoc() {
 	LOGGER;
 	
 	emit tabCloseRequested(index_);
+}
+
+void TabBar::onCloseOther() {
+	emit closeAllOtherRequested(index_);
 }
 
 } // namespace Juff

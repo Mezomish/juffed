@@ -1089,6 +1089,7 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 		}
 		
 		viewer_->removeDocFromList(doc);
+		search_->setCurDoc(NULL);
 		
 		// notify plugins
 		emit docClosed(doc);

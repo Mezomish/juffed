@@ -435,8 +435,10 @@ void SearchEngine::onReplaceAll() {
 
 void SearchEngine::onDlgClosed() {
 //	LOGGER;
-	curDoc_->clearHighlighting();
-	curDoc_->setFocus();
+	if ( curDoc_ != NULL ) {
+		curDoc_->clearHighlighting();
+		curDoc_->setFocus();
+	}
 }
 
 void SearchEngine::onDocTextChanged() {

@@ -775,7 +775,7 @@ void JuffEd::slotSettings() {
 // Send notifications about these events to PluginManager and JuffMW.
 // Don't send to DocViewer - it catches them by its own.
 //
-void JuffEd::onDocModified(bool modified) {
+void JuffEd::onDocModified(bool) {
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {
 		updateMW(doc);
@@ -944,6 +944,7 @@ void JuffEd::saveDoc(const QString&) {
 }
 
 int JuffEd::docCount() const {
+	return viewer_->docCount(Juff::PanelAll);
 }
 
 QStringList JuffEd::docList() const {

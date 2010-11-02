@@ -76,6 +76,7 @@ namespace Log {
 #ifdef Q_OS_WIN
 		printToLog(str, canBeSkipped);
 #else
+		Q_UNUSED(canBeSkipped);
 		qDebug() << QDateTime::currentDateTime().toString("[hh:mm:ss]") << str;
 #endif
 }
@@ -96,6 +97,7 @@ namespace Log {
 #ifdef Q_OS_WIN
 		printToLog(str, canBeSkipped);
 #else
+		Q_UNUSED(canBeSkipped);
 		qWarning() << QDateTime::currentDateTime().toString("[hh:mm:ss]") << str;
 #endif
 	}

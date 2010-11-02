@@ -198,7 +198,7 @@ void TabWidget::onCloseAllOtherRequested() {
 }
 
 void TabWidget::keyPressEvent(QKeyEvent* e) {
-	if ( MainSettings::get(MainSettings::UseCtrlTabMenu) && e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab ) {
+	if ( MainSettings::get(MainSettings::UseCtrlTabMenu) && (e->key() == Qt::Key_Tab || e->key() == Qt::Key_Backtab) ) {
 		if ( e->modifiers() & Qt::ControlModifier ) {
 			if ( e->modifiers() & Qt::ShiftModifier ) {
 				emit docStackCalled(false);

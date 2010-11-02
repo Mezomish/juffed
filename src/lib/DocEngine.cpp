@@ -49,12 +49,12 @@ void DocEngine::addAction(Juff::MenuID id, QMenu* menu, QAction* action) {
 	menu->addAction(action);
 }
 
-void DocEngine::activate(bool act) {
+void DocEngine::activate(bool activate) {
 //	LOGGER;
 	
 	foreach (QList<QAction*> list, actionsMap_) {
 		foreach (QAction* act, list) {
-			act->setVisible(act);
+			act->setVisible(activate);
 		}
 	}
 }

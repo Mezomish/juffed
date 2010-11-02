@@ -275,6 +275,7 @@ void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
 }
 
 void JuffMW::message(const QIcon& icon, const QString& title, const QString& message, int timeout) {
+	Q_UNUSED(icon);
 	popup_->popup(title, message, timeout);
 }
 

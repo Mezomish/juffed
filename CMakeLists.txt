@@ -186,7 +186,7 @@ message(STATUS "Libs: ${QT_LIBRARIES}
 	${QSCINTILLA_LIBRARY} "
 )
 
-
+set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")
 
 #set ( juffed_RCS
 #	src/juffed.rc

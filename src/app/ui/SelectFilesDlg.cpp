@@ -79,7 +79,7 @@ void SelectFilesDlg::onAllClicked() {
 	}
 }
 
-void SelectFilesDlg::onItemChanged(QListWidgetItem* item) {
+void SelectFilesDlg::onItemChanged(QListWidgetItem*) {
 	LOGGER;
 	
 	QStringList files = checkedFiles();

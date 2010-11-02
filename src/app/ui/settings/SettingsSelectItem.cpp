@@ -65,7 +65,7 @@ void SettingsSelectItem::writeValue() {
 //	}
 }
 
-void SettingsSelectItem::onSelected(int item) {
+void SettingsSelectItem::onSelected(int) {
 	if ( mode_ == IndexMode ) {
 		if ( comboBox_->currentIndex() == curIndex_ )
 			oneLessChanged();

@@ -363,7 +363,6 @@ void SciDocEngine::slotMarkerNext() {
 		QList<int> markers = doc->markers();
 		if ( markers.count() == 0 )
 			return;
-		bool found = false;
 		foreach (int marker, markers) {
 			if ( marker > line ) {
 				doc->setCursorPos(marker, 0);

@@ -493,7 +493,7 @@ bool DocViewer::eventFilter(QObject *obj, QEvent *e) {
 }
 
 
-void DocViewer::onCurrentChanged(int index) {
+void DocViewer::onCurrentChanged(int) {
 	QTabWidget* tw = qobject_cast<QTabWidget*>(sender());
 	if ( tw != 0 ) {
 		Juff::Document* doc = qobject_cast<Juff::Document*>(tw->currentWidget());
@@ -506,7 +506,7 @@ void DocViewer::onCurrentChanged(int index) {
 
 
 
-void DocViewer::onDocModified(bool modified) {
+void DocViewer::onDocModified(bool) {
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc != 0 ) {
 		updateDocTitle(doc);

@@ -1130,13 +1130,12 @@ void SciDoc::applySettings() {
 //		edit->setIndentationGuides(TextDocSettings::showIndents());
 //		edit->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
 //		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
-		if ( QsciLexer* lexer = edit->lexer() ) {
+//		if ( QsciLexer* lexer = edit->lexer() ) {
 //			lexer->setFont(font, -1);
 //			edit->setCaretForegroundColor(lexer->defaultColor());
 //			edit->setIndentationGuidesForegroundColor(TextDocSettings::indentsColor());
 //			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
-
-		}
+//		}
 //		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
 		
 		// selection

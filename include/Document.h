@@ -80,7 +80,7 @@ public:
 	* Returns true if successful, otherwise (e.g. document doesn't support 
 	* text selection) returns false;
 	*/
-	virtual bool getSelection(int& line1, int& col1, int& line2, int& col2) const { return false; }
+	virtual bool getSelection(int&, int&, int&, int&) const { return false; }
 
 	/**
 	* Lets to obtain curent selection text.
@@ -104,7 +104,7 @@ public:
 	* Returns true if successful, otherwise (e.g. document doesn't support 
 	* text) returns false;
 	*/
-	virtual bool getTextLine(int n, QString&) const { return false; }
+	virtual bool getTextLine(int, QString&) const { return false; }
 	
 	/**
 	* Lets to obtain document's cursor coordinates.
@@ -137,17 +137,17 @@ public:
 	* supported nothing happens. If it is supported then scheme changes and API
 	* emits a signal "docSyntaxChanged(const QString& oldSyntax)".
 	*/
-	virtual void setSyntax(const QString& syntax) {}
+	virtual void setSyntax(const QString&) {}
 	
 	/**
 	* Sets the document's selection.
 	*/
-	virtual void setSelection(int line1, int col1, int line2, int col2) {}
+	virtual void setSelection(int, int, int, int) {}
 	
 	/**
 	* Sets the cursor to ( \param line, \param col ) position.
 	*/
-	virtual void setCursorPos(int line, int col) {}
+	virtual void setCursorPos(int, int) {}
 	
 	/**
 	*/
@@ -171,7 +171,7 @@ public:
 	* Replaces the currently selected text with \param text. If there was
 	* no selectin text then inserts \param text at the current cursor position.
 	*/
-	virtual void replaceSelectedText(const QString& text, bool cursorToTheEnd = true) {}
+	virtual void replaceSelectedText(const QString&, bool cursorToTheEnd = true) { Q_UNUSED(cursorToTheEnd); }
 	
 	/**
 	* Inserts the \param text at the current cursor position.
@@ -197,7 +197,12 @@ public:
 	virtual void print() {}
 	virtual void reload() {}
 	virtual bool save(QString& error);
-	virtual bool saveAs(const QString& fileName, QString& error);
+
+	/**
+	* 1st param: fileName
+	* 2nd param: error
+	*/
+	virtual bool saveAs(const QString&, QString&);
 	
 	/**
 	* Clone is not updated yet, you need to call updateClone() function

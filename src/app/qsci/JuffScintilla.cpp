@@ -511,7 +511,12 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 						break;
 					
 				default:
-					QsciScintilla::keyPressEvent(e);
+					if ( e->modifiers() & Qt::AltModifier ) {
+						return;
+					}
+					else {
+						QsciScintilla::keyPressEvent(e);
+					}
 			}
 		}
 		else {

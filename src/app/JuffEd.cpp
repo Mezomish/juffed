@@ -899,7 +899,7 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		Juff::Document* nonameDocToClose = NULL;
 		if ( viewer_->docCount(panel) == 1 ) {
 			nonameDocToClose = viewer_->documentAt(0, panel);
-			if ( !Juff::isNoname(nonameDocToClose) || nonameDocToClose->isModified() ) {
+			if ( !Juff::isNoname(nonameDocToClose) || nonameDocToClose->isModified() || Juff::isNoname(doc) ) {
 				nonameDocToClose = NULL;
 			}
 		}

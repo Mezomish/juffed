@@ -468,6 +468,7 @@ void JuffEd::slotFileOpen() {
 	QString fileName;
 	foreach (fileName, files) {
 		openDoc(fileName);
+		addToRecentFiles(fileName);
 	}
 	
 	// store the last used directory
@@ -478,8 +479,10 @@ void JuffEd::slotFileRecent() {
 //	LOGGER;
 	
 	QAction* act = qobject_cast<QAction*>(sender());
-	if ( act != 0 )
+	if ( act != 0 ) {
 		openDoc(act->text());
+		addToRecentFiles(act->text());
+	}
 }
 
 void JuffEd::slotFileSave() {
@@ -911,10 +914,6 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		updateDocView(doc);
 		doc->setFocus();
 		search_->setCurDoc(doc);
-		
-		if ( !Juff::isNoname(doc->fileName()) ) {
-			addToRecentFiles(doc->fileName());
-		}
 		
 		// close single unchanged noname doc
 		if ( nonameDocToClose != NULL ) {

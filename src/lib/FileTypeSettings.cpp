@@ -83,6 +83,9 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 		else if ( type == "Makefile") {
 			list << "*Makefile*";
 		}
+		else if ( type == "Matlab") {
+			list << "*.m";
+		}
 		else if ( type == "NBC") {
 			list << "*.nbc";
 		}

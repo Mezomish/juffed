@@ -44,6 +44,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "lexers/qscilexerhaskell.h"
 #include "lexers/qscilexerlisp.h"
 #include "lexers/qscilexernsis.h"
+#include "lexers/my/QsciLexerMatlab.h"
 
 #ifdef JUFF_TCL_LEXER
 #include <qscilexertcl.h>
@@ -724,6 +725,9 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if ( name.compare("NXC") == 0 ) {
 			newLexer = new QsciLexerCPP();
 		}
+		else if ( name.compare("Matlab") == 0 ) {
+			newLexer = new QsciLexerMatlab();
+		}
 		
 		if ( newLexer != 0 ) {
 			lexers_[name] = newLexer;
@@ -824,7 +828,7 @@ QStringList LexerStorage::lexersList() const {
 #endif	//	JUFF_FORTRAN_LEXER
 
 			<< "Haskell" << "HTML" << "IDL" << "Java" << "JavaScript" << "Lisp" 
-			<< "Lua" << "Makefile" << "NBC" << "NSIS" << "NXC"
+			<< "Lua" << "Makefile" << "Matlab" << "NBC" << "NSIS" << "NXC"
 
 #ifdef JUFF_PASCAL_LEXER
 			<< "Pascal"

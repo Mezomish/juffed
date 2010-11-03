@@ -47,6 +47,7 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/qsci/lexers/qscilexerhaskell.h
 	src/app/qsci/lexers/qscilexerlisp.h
 	src/app/qsci/lexers/qscilexernsis.h
+	src/app/qsci/lexers/my/QsciLexerMatlab.h
 	
 	src/app/ui/AboutDlg.h
 	src/app/ui/DocViewer.h
@@ -94,6 +95,7 @@ SET ( juffed_app_SRCS
 	src/app/qsci/lexers/qscilexerhaskell.cpp
 	src/app/qsci/lexers/qscilexerlisp.cpp
 	src/app/qsci/lexers/qscilexernsis.cpp
+	src/app/qsci/lexers/my/QsciLexerMatlab.cpp
 	
 	src/app/ui/AboutDlg.cpp
 	src/app/ui/DocViewer.cpp

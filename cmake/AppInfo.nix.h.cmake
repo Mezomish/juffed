@@ -20,7 +20,7 @@ public:
 	static QString language()        { return QLocale::system().name(); }
 
 	static QString dataDirPath()     { return "@DATA_INSTALL_DIR@"; }
-	static QString pluginsPath()     { return libPath() + "/" + name().toLower() + "/plugins"; }
+	static QString pluginsPath()     { return libPath() + "/" + name().toLower(); } // + "/plugins"; }
 
 	static QString configDirPath()   { return QDir::homePath() + "/.config/" + organization().toLower(); }
 	static QString configFile()      { return configDirPath() + "/" + name().toLower() + ".conf"; }

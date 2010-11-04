@@ -1,3 +1,5 @@
+OPTION(BUILD_PLUGINS "Build plugins from the externally linked SVN" ON)
+
 # juffed CMakeLists.txt
 # 
 # To build juffed, you will need cmake 2.6.0.
@@ -72,7 +74,13 @@ set (DATA_INSTALL_DIR
 
 
 
-find_package ( Qt4 REQUIRED )
+find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
+# WARNING: please, don't remove this include. It can result
+# in a debug vs release library clash in this case.
+# It means - in this case it's safe to link against QT_LIBRARIES.
+# No naming of the standalone libs is necessary (well, it's dangerous).
+include(${QT_USE_FILE})
+
 find_package ( QScintilla2 REQUIRED)
 
 include ( cmake/FileSets.cmake )
@@ -107,7 +115,19 @@ configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.apple.h.cmake" "${CMAKE_BINAR
 ####################
 
 # library
+add_library ( ${JUFFLIB} SHARED
+	${juffed_lib_SRCS}
+	${juffed_lib_MOC_SRCS}
+	${juffed_lib_RESOURCES} 
+)
+target_link_libraries ( ${JUFFLIB}
+	${QT_LIBRARIES}
+)
+
 if (APPLEBUNDLE)
+	message ( STATUS "Building as an apple bundle" )
+	set ( APPLE_PREFIX "${CMAKE_INSTALL_PREFIX}/${JUFFED}.app/Contents" )
+
 	add_definitions(-DAPPLEBUNDLE)
 	set(GUI_TYPE MACOSX_BUNDLE)
 	# create Info.plist file
@@ -122,38 +142,23 @@ if (APPLEBUNDLE)
 	set_source_files_properties(${CMAKE_SOURCE_DIR}/macosx/juffed.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 	# use icon for app bundle to be visible in finder
 	set(APPLE_BUNDLE_SOURCES ${CMAKE_SOURCE_DIR}/macosx/juffed.icns)
-
-	add_library ( ${JUFFLIB} STATIC
-		${juffed_lib_SRCS}
-		${juffed_lib_MOC_SRCS}
-		${juffed_lib_RESOURCES} 
-	)
-	target_link_libraries ( ${JUFFLIB}
-		${QT_LIBRARIES}
-		${QT_QTCORE_LIBRARY}
-		${QT_QTGUI_LIBRARY}
-		${QT_QTXML_LIBRARY}
-	)
-
+    # this is a must to load the lib correctly
+    set_target_properties( ${JUFFLIB} PROPERTIES
+                            INSTALL_NAME_DIR "@executable_path/../Libraries"
+                         )
 else (APPLEBUNDLE)
 	set(GUI_TYPE "")
 	set(APPLE_BUNDLE_SOURCES "")
-
-	add_library ( ${JUFFLIB} SHARED
-		${juffed_lib_SRCS}
-		${juffed_lib_MOC_SRCS}
-		${juffed_lib_RESOURCES} 
-	)
-	target_link_libraries ( ${JUFFLIB}
-		${QT_LIBRARIES}
-		${QT_QTCORE_LIBRARY}
-		${QT_QTGUI_LIBRARY}
-		${QT_QTXML_LIBRARY}
-	)
+    # now we want to use soversion etc.
 	if (NOT APPLE)
 		# this causes a build fail on mac (unix-like build)
 		set_target_properties ( ${JUFFLIB} PROPERTIES VERSION ${JUFFED_VERSION} SOVERSION ${BASE_VERSION} )
-	endif (NOT APPLE)
+    else (NOT APPLE)
+        # apple requires this one to keep sane dyn-linking
+        set_target_properties( ${JUFFLIB} PROPERTIES
+                                INSTALL_NAME_DIR ${LIB_INSTALL_DIR}
+                             )
+    endif (NOT APPLE)
 
 endif (APPLEBUNDLE)
 
@@ -169,24 +174,34 @@ add_executable ( ${JUFFED}
 	${juffed_QM} 
 	${APPLE_BUNDLE_SOURCES}
 )
+
 target_link_libraries ( ${JUFFED} ${JUFFLIB}
 	${QT_LIBRARIES}
-	${QT_QTCORE_LIBRARY}
-	${QT_QTGUI_LIBRARY}
-	${QT_QTXML_LIBRARY}
-	${QT_QTNETWORK_LIBRARY}
 	${QSCINTILLA_LIBRARY} 
 )
 
-message(STATUS "Libs: ${QT_LIBRARIES}
-	${QT_QTCORE_LIBRARY}
-	${QT_QTGUI_LIBRARY}
-	${QT_QTXML_LIBRARY}
-	${QT_QTNETWORK_LIBRARY}
-	${QSCINTILLA_LIBRARY} "
-)
-
 set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")
+
+if (BUILD_PLUGINS AND EXISTS ${CMAKE_SOURCE_DIR}/plugins)
+    message(STATUS "Plugins: all externally linked cmake-ready plugs will be built")
+    set(JUFFED_CMAKE_PLUGINS 1)
+    if (UNIX)
+        set(JUFFED_PLUGINS_DIR ${LIB_INSTALL_DIR}/juffed)
+    endif (UNIX)
+    if (APPLEBUNDLE)
+        set(JUFFED_PLUGINS_DIR ${APPLE_PREFIX}/plugins)
+    endif (APPLEBUNDLE)
+    if (WIN32)
+        set(JUFFED_PLUGINS_DIR ${CMAKE_INSTALL_PREFIX}/plugins)
+    endif(WIN32)
+    message(STATUS "Plugins: location = ${JUFFED_PLUGINS_DIR}")
+    # dive into external SVN link
+    set(JUFFED_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
+    set(JUFFED_LIBRARY ${JUFFLIB})
+    add_subdirectory(plugins)
+else ()
+    message(STATUS "Plugins: externally linked plugins will not be built")
+endif ()
 
 #set ( juffed_RCS
 #	src/juffed.rc
@@ -236,15 +251,12 @@ if (NOT APPLEBUNDLE)
 
 else (NOT APPLEBUNDLE)
 
-	message ( STATUS "Building as an apple bundle" )
-	set ( APPLE_PREFIX "${CMAKE_INSTALL_PREFIX}/${JUFFED}.app/Contents" )
-
 	install(CODE "message(STATUS \"Cleaning previously installed bundle (rm -r)\")")
 	install(CODE "execute_process(COMMAND rm -r ${CMAKE_INSTALL_PREFIX}/${JUFFED}.app)")
 
 	install( TARGETS ${JUFFED} DESTINATION "${CMAKE_INSTALL_PREFIX}" )
 	# lib is linked directly into binary in bundles to prevent Info.plist hacking
-	#install( TARGETS ${JUFFLIB} DESTINATION "${APPLE_PREFIX}/MacOS/" )
+	install( TARGETS ${JUFFLIB} DESTINATION "${APPLE_PREFIX}/Libraries" )
 	install ( FILES ${juffed_QM} DESTINATION "${APPLE_PREFIX}/Resources/l10n" )
 
 	install ( DIRECTORY hlschemes DESTINATION "${APPLE_PREFIX}/Resources" PATTERN ".svn" EXCLUDE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ )

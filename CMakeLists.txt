@@ -1,5 +1,3 @@
-OPTION(BUILD_PLUGINS "Build plugins from the externally linked SVN" ON)
-
 # juffed CMakeLists.txt
 # 
 # To build juffed, you will need cmake 2.6.0.
@@ -9,6 +7,8 @@ OPTION(BUILD_PLUGINS "Build plugins from the externally linked SVN" ON)
 # cd build
 # cmake .. -DCMAKE_INSTALL_PREFIX=/usr (or whatever prefix you'd like)
 # make
+
+option ( BUILD_PLUGINS "Build plugins from the externally linked SVN" ON )
 
 project (juffed)
 cmake_minimum_required (VERSION 2.6.0)
@@ -142,24 +142,23 @@ if (APPLEBUNDLE)
 	set_source_files_properties(${CMAKE_SOURCE_DIR}/macosx/juffed.icns PROPERTIES MACOSX_PACKAGE_LOCATION Resources)
 	# use icon for app bundle to be visible in finder
 	set(APPLE_BUNDLE_SOURCES ${CMAKE_SOURCE_DIR}/macosx/juffed.icns)
-    # this is a must to load the lib correctly
-    set_target_properties( ${JUFFLIB} PROPERTIES
-                            INSTALL_NAME_DIR "@executable_path/../Libraries"
-                         )
+	# this is a must to load the lib correctly
+	set_target_properties( ${JUFFLIB} PROPERTIES
+							INSTALL_NAME_DIR "@executable_path/../Libraries"
+						 )
 else (APPLEBUNDLE)
 	set(GUI_TYPE "")
 	set(APPLE_BUNDLE_SOURCES "")
-    # now we want to use soversion etc.
+	# now we want to use soversion etc.
 	if (NOT APPLE)
 		# this causes a build fail on mac (unix-like build)
 		set_target_properties ( ${JUFFLIB} PROPERTIES VERSION ${JUFFED_VERSION} SOVERSION ${BASE_VERSION} )
-    else (NOT APPLE)
-        # apple requires this one to keep sane dyn-linking
-        set_target_properties( ${JUFFLIB} PROPERTIES
-                                INSTALL_NAME_DIR ${LIB_INSTALL_DIR}
-                             )
-    endif (NOT APPLE)
-
+	else (NOT APPLE)
+		# apple requires this one to keep sane dyn-linking
+		set_target_properties( ${JUFFLIB} PROPERTIES
+								INSTALL_NAME_DIR ${LIB_INSTALL_DIR}
+							 )
+	endif (NOT APPLE)
 endif (APPLEBUNDLE)
 
 
@@ -183,24 +182,24 @@ target_link_libraries ( ${JUFFED} ${JUFFLIB}
 set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")
 
 if (BUILD_PLUGINS AND EXISTS ${CMAKE_SOURCE_DIR}/plugins)
-    message(STATUS "Plugins: all externally linked cmake-ready plugs will be built")
-    set(JUFFED_CMAKE_PLUGINS 1)
-    if (UNIX)
-        set(JUFFED_PLUGINS_DIR ${LIB_INSTALL_DIR}/juffed)
-    endif (UNIX)
-    if (APPLEBUNDLE)
-        set(JUFFED_PLUGINS_DIR ${APPLE_PREFIX}/plugins)
-    endif (APPLEBUNDLE)
-    if (WIN32)
-        set(JUFFED_PLUGINS_DIR ${CMAKE_INSTALL_PREFIX}/plugins)
-    endif(WIN32)
-    message(STATUS "Plugins: location = ${JUFFED_PLUGINS_DIR}")
-    # dive into external SVN link
-    set(JUFFED_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
-    set(JUFFED_LIBRARY ${JUFFLIB})
-    add_subdirectory(plugins)
+	message(STATUS "Plugins: all externally linked cmake-ready plugs will be built")
+	set(JUFFED_CMAKE_PLUGINS 1)
+	if (UNIX)
+		set(JUFFED_PLUGINS_DIR ${LIB_INSTALL_DIR}/juffed/plugins)
+	endif (UNIX)
+	if (APPLEBUNDLE)
+		set(JUFFED_PLUGINS_DIR ${APPLE_PREFIX}/plugins)
+	endif (APPLEBUNDLE)
+	if (WIN32)
+		set(JUFFED_PLUGINS_DIR ${CMAKE_INSTALL_PREFIX}/plugins)
+	endif(WIN32)
+	message(STATUS "Plugins: location = ${JUFFED_PLUGINS_DIR}")
+	# dive into external SVN link
+	set(JUFFED_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
+	set(JUFFED_LIBRARY ${JUFFLIB})
+	add_subdirectory(plugins)
 else ()
-    message(STATUS "Plugins: externally linked plugins will not be built")
+	message(STATUS "Plugins: externally linked plugins will not be built")
 endif ()
 
 #set ( juffed_RCS

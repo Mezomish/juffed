@@ -55,9 +55,12 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	loadEngines();
 	
 	pluginMgr_ = new PluginManager(this, this);
+        // buildUI() *must* go before loadPlugins() because
+        // it creates structures and widgets expected by loadPlugins()
+        buildUI();
 	loadPlugins();
 	
-	buildUI();
+
 	search_ = new SearchEngine(this, mw_);
 	
 	if ( !loadSession("") ) {
@@ -209,6 +212,27 @@ void JuffEd::loadPlugins() {
 		
 		docksMenu_->addAction(dock->toggleViewAction());
 	}
+
+        // toolbars
+        QWidgetList toolbars = pluginMgr_->toolbars();
+        foreach (QWidget* w, toolbars) {
+            QToolBar *bar = qobject_cast<QToolBar*>(w);
+            if (bar)
+                mw_->addToolBar(bar);
+        }
+
+        // load plugin actions into menues
+        QMapIterator<Juff::MenuID, QMenu*> menuiter(menus_);
+        while (menuiter.hasNext()) {
+            menuiter.next();
+            Juff::ActionList acts = pluginMgr_->actions(menuiter.key());
+            if (acts.count())
+            {
+                menuiter.value()->addSeparator();
+                menuiter.value()->addActions(acts);
+            }
+        }
+
 }
 
 void JuffEd::buildUI() {

@@ -73,6 +73,17 @@ QWidgetList PluginManager::docks() const {
 	return list;
 }
 
+QWidgetList PluginManager::toolbars() const {
+        QWidgetList list;
+        foreach (JuffPlugin* plugin, plugins_)
+        {
+            QToolBar * bar = plugin->toolBar();
+            if (bar)
+                list.append((QWidget*)bar);
+        }
+        return list;
+}
+
 #include "EditorSettings.h"
 
 void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {

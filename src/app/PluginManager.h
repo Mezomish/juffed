@@ -42,6 +42,7 @@ public:
 	Juff::MenuList menus() const;
 	Juff::ActionList actions(Juff::MenuID) const;
 	QWidgetList docks() const;
+        QWidgetList toolbars() const;
 	void applySettings();
 
 private:

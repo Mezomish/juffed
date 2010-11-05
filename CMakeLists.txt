@@ -152,7 +152,7 @@ else (APPLEBUNDLE)
 	# now we want to use soversion etc.
 	if (NOT APPLE)
 		# this causes a build fail on mac (unix-like build)
-		set_target_properties ( ${JUFFLIB} PROPERTIES VERSION ${JUFFED_VERSION} SOVERSION ${BASE_VERSION} )
+		set_target_properties ( ${JUFFLIB} PROPERTIES VERSION ${BASE_VERSION} SOVERSION ${BASE_VERSION} )
 	else (NOT APPLE)
 		# apple requires this one to keep sane dyn-linking
 		set_target_properties( ${JUFFLIB} PROPERTIES

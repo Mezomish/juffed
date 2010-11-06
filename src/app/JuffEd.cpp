@@ -55,12 +55,12 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	loadEngines();
 	
 	pluginMgr_ = new PluginManager(this, this);
-        // buildUI() *must* go before loadPlugins() because
-        // it creates structures and widgets expected by loadPlugins()
-        buildUI();
+	// buildUI() *must* go before loadPlugins() because
+	// it creates structures and widgets expected by loadPlugins()
+	buildUI();
+	
 	loadPlugins();
 	
-
 	search_ = new SearchEngine(this, mw_);
 	
 	if ( !loadSession("") ) {
@@ -212,27 +212,25 @@ void JuffEd::loadPlugins() {
 		
 		docksMenu_->addAction(dock->toggleViewAction());
 	}
+	
+	// toolbars
+	QWidgetList toolbars = pluginMgr_->toolbars();
+	foreach (QWidget* w, toolbars) {
+		QToolBar *bar = qobject_cast<QToolBar*>(w);
+		if ( bar != NULL )
+			mw_->addToolBar(bar);
+	}
 
-        // toolbars
-        QWidgetList toolbars = pluginMgr_->toolbars();
-        foreach (QWidget* w, toolbars) {
-            QToolBar *bar = qobject_cast<QToolBar*>(w);
-            if (bar)
-                mw_->addToolBar(bar);
-        }
-
-        // load plugin actions into menues
-        QMapIterator<Juff::MenuID, QMenu*> menuiter(menus_);
-        while (menuiter.hasNext()) {
-            menuiter.next();
-            Juff::ActionList acts = pluginMgr_->actions(menuiter.key());
-            if (acts.count())
-            {
-                menuiter.value()->addSeparator();
-                menuiter.value()->addActions(acts);
-            }
-        }
-
+	// load plugin actions into menues
+	QMapIterator<Juff::MenuID, QMenu*> menuiter(menus_);
+	while (menuiter.hasNext()) {
+		menuiter.next();
+		Juff::ActionList acts = pluginMgr_->actions(menuiter.key());
+		if ( acts.count() > 0 ) {
+			menuiter.value()->addSeparator();
+			menuiter.value()->addActions(acts);
+		}
+	}
 }
 
 void JuffEd::buildUI() {
@@ -1121,14 +1119,22 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 		
 		// decide if we need to hide a panel that doesn't contain any docs
 		if ( viewer_->docCount(panel) == 0 ) {
+			// yes, we need to hide it
+			// now check if there is no documents at all
 			if ( viewer_->docCount(anotherPanel) == 0 ) {
+				// no docs! create one
 				openDoc("", panel);
 			}
 			else {
+				// second panel contains docs
 				viewer_->showPanel(anotherPanel);
 				viewer_->hidePanel(panel);
 				viewer_->currentDoc(anotherPanel)->setFocus();
+				search_->setCurDoc(viewer_->currentDoc(anotherPanel));
 			}
+		}
+		else {
+			search_->setCurDoc(viewer_->currentDoc(panel));
 		}
 		
 		return true;

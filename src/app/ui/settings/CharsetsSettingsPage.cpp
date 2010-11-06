@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "CharsetSettings.h"
 #include "Log.h"
 
-CharsetsSettingsPage::CharsetsSettingsPage(QWidget* parent) : QWidget(parent) {
+CharsetsSettingsPage::CharsetsSettingsPage(QWidget* parent) : SettingsPage(parent) {
 	ui.setupUi(this);
 
 	connect(ui.checkAllBtn, SIGNAL(clicked()), SLOT(selectAll()));
@@ -44,7 +44,7 @@ void CharsetsSettingsPage::init() {
 	}
 }
 
-void CharsetsSettingsPage::applySettings() {
+void CharsetsSettingsPage::apply() {
 	for (int i = 0; i < ui.charsetsList->count(); i++) {
 		QListWidgetItem* item = ui.charsetsList->item(i);
 		QString text = item->text();

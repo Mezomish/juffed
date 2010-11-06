@@ -32,17 +32,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #endif
 
+#include "../../PluginManager.h"
+#include "AutocompleteSettings.h"
+#include "CharsetsSettingsPage.h"
 #include "ColorButton.h"
 #include "CommandStorage.h"
+#include "EditorSettings.h"
 #include "IconManager.h"
 #include "Log.h"
+#include "MainSettings.h"
 #include "MultiPage.h"
 #include "PluginPage.h"
-#include "MainSettings.h"
-#include "../../PluginManager.h"
 #include "PluginSettings.h"
-#include "EditorSettings.h"
-#include "AutocompleteSettings.h"
 //#include "PrintSettings.h"
 #include "SettingsItem.h"
 #include "SettingsPage.h"
@@ -325,8 +326,8 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	pages_ << mp_->addPage(tr("View"), new ViewSettingsPage(this));
 	pages_ << mp_->addPage(tr("Editor"), new EditorSettingsPage(this));
 	pages_ << mp_->addPage(tr("Autocompletion"), new AutocompleteSettingsPage(this));
+	pages_ << mp_->addPage(tr("Charsets"), new CharsetsSettingsPage());
 	pages_ << mp_->addPage(tr("Plugins"), new PluginsMainPage(this));
-//		<< mp_->addPage(tr("Charsets"), new CharsetsSettingsPage())
 //		<< mp_->addPage(tr("File types"), new FileTypesPage())
 //		<< mp_->addPage(tr("Printing"), new PrintingPage())
 	;

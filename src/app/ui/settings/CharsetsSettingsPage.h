@@ -22,17 +22,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //	Qt
 #include <QtGui/QWidget>
 
+// local
+#include "SettingsPage.h"
+
 //	ui
 #include "ui_CharsetsSettingsPage.h"
 
-class CharsetsSettingsPage : public QWidget {
+class CharsetsSettingsPage : public SettingsPage {
 Q_OBJECT
 public:
 	CharsetsSettingsPage(QWidget* parent = 0);
 	virtual ~CharsetsSettingsPage();
 
-	void init();
-	void applySettings();
+	virtual void init();
+	virtual void apply();
 
 public slots:
 	void selectAll();

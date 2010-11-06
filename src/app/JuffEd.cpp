@@ -456,6 +456,7 @@ void JuffEd::onSettingsApplied() {
 	int size = ( sz == 1 ? 24 : (sz == 2 ? 32 : 16) );
 	IconManager::instance()->setSize(size);
 	CommandStorage::instance()->updateIcons();
+	initCharsetMenus();
 	
 	// TODO : apply shortcuts
 //	CommandStorage::instance()->updateShortcuts();

@@ -121,6 +121,11 @@ public:
 	* Returns document's charset.
 	*/
 	QString charset() const { return charset_; }
+	
+	/**
+	*/
+	virtual void setText(const QString&) {}
+	
 	/**
 	* Sets document's charset. Doesn't convert document's text, just sets the attribute.
 	*/

@@ -362,6 +362,12 @@ bool SciDoc::getText(QString& text) const {
 	return true;
 }
 
+void SciDoc::setText(const QString& text) {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	int_->curEdit_->setText(text);
+}
+
 bool SciDoc::getTextLine(int line, QString& str) const {
 	if ( int_->curEdit_ == NULL ) return false;
 	

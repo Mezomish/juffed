@@ -63,12 +63,16 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	dlg->setProgramName(AppInfo::name() + " v" + AppInfo::version());
 	QString text = QString("   %1   <br><br>").arg(QObject::tr("Advanced text editor"));
 	text += "   Copyright &copy; 2007-2010 Mikhail Murzin   <br><br>";
-	text += "<a href=\"http://juffed.com/\">http://juffed.com</a>";
+	text += "<a href=\"http://juffed.com/\">http://juffed.com</a><br><br>";
+	text += "<a href=\"http://sourceforge.net/tracker/?group_id=205470&atid=993768\">Report a bug</a><br><br>";
+	text += "<a href=\"http://sourceforge.net/tracker/?group_id=205470&atid=993771\">Request a feature</a>";
+	
 	QString auth("<br>&nbsp;Mikhail Murzin a.k.a. Mezomish<br>&nbsp;&nbsp;<a href='mailto:mezomish@gmail.com'>mezomish@gmail.com</a>");
 	QList<Helper> helpers;
 	helpers
 			<< Helper("Eugene Pivnev", "ti.eugene@gmail.com", "mailto:ti.eugene@gmail.com", QObject::tr("Packaging, testing"))
 			<< Helper("Alexander Sokoloff", "sokoloff.a@gmail.com", "mailto:sokoloff.a@gmail.com", QObject::tr("Testing, design ideas, feature requests, SymbolBrowser plugin"))
+			<< Helper("Petr Vanek", "petr@scribus.info", "mailto:petr@scribus.info", QObject::tr("Patches, Mac OS X port, XML Formatter plugin"))
 			<< Helper("David Stegbauer", "daaste@gmail.com", "mailto:daaste@gmail.com", QObject::tr("Patches"))
 			<< Helper("Jarek", "ajep9691@wp.pl", "mailto:ajep9691@wp.pl", QObject::tr("Polish translation"))
 			<< Helper("Michael Gangolf", "miga@migaweb.de", "mailto:miga@migaweb.de", QObject::tr("German translation"))

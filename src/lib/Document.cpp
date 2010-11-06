@@ -220,13 +220,13 @@ bool Document::save(QString&) {
 
 void Document::startCheckingTimer() {
 //	LOGGER;
-	if ( !fileName_.isEmpty() && !Juff::isNoname(this) ) {
-/*		lastModMutex_.lock();
+	if ( !Juff::isNoname(this) ) {
+		lastModMutex_.lock();
 		lastModified_ = QFileInfo(fileName_).lastModified();
-		qDebug() << "'Last modified' from file:" << lastModified_;
-		qDebug() << "'Last modified' saved    :" << QFileInfo(fileName_).lastModified();
+//		qDebug() << "'Last modified' from file:" << lastModified_;
+//		qDebug() << "'Last modified' saved    :" << QFileInfo(fileName_).lastModified();
 		lastModMutex_.unlock();
-		modCheckTimer_->start(1000);*/
+		modCheckTimer_->start(1000);
 	}
 }
 
@@ -237,9 +237,9 @@ void Document::stopCheckingTimer() {
 
 void Document::checkLastModified() {
 //	LOGGER;
+	lastModMutex_.lock();
 	QFileInfo fi(fileName_);
 	if ( fi.exists() ) {
-		lastModMutex_.lock();
 		if ( fi.lastModified() > lastModified_ ) {
 			
 //			qDebug() << "Current 'last modified'    :" << lastModified_;
@@ -297,8 +297,8 @@ void Document::checkLastModified() {
 				checkingMutex_.unlock();
 			}
 		}
-		lastModMutex_.unlock();
 	}
+	lastModMutex_.unlock();
 }
 
 }

@@ -2,13 +2,13 @@
 
 #include "JuffEd.h"
 
+#include <QApplication>
 #include <QDockWidget>
 #include <QDomDocument>
 #include <QDomElement>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QToolBar>
-#include <QApplication>
 
 #include "AppInfo.h"
 #include "CharsetSettings.h"
@@ -462,13 +462,12 @@ void JuffEd::onSettingsApplied() {
 	// TODO : apply shortcuts
 //	CommandStorage::instance()->updateShortcuts();
 
-	// TODO : request applying settings from plugins
-//	pluginMgr_.applySettings();
+	pluginMgr_->applySettings();
 
 	viewer_->applySettings();
 	mw_->applySettings();
 	
-	// TODO : notify plugins
+	// notify plugins
 	emit settingsApplied();
 }
 
@@ -869,6 +868,7 @@ void JuffEd::onDocRenamed(const QString& oldName) {
 
 // this slot is connected to a signal from DocViewer
 void JuffEd::onDocActivated(Juff::Document* doc) {
+	LOGGER;
 	updateMW(doc);
 	updateDocView(doc);
 	

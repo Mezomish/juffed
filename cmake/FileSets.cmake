@@ -178,14 +178,14 @@ SET ( juffed_DEV_HEADERS
 	include/AppInfo.h
 	${CMAKE_BINARY_DIR}/AppInfo.win.h
 	${CMAKE_BINARY_DIR}/AppInfo.nix.h
-    ${CMAKE_BINARY_DIR}/AppInfo.apple.h
+	${CMAKE_BINARY_DIR}/AppInfo.apple.h
 	include/AutocompleteSettings.h
 	include/CharsetSettings.h
 	include/CommandStorage.h
 	include/Constants.h
-	include/Document.h
 	include/DocEngine.h
 	include/DocHandlerInt.h
+	include/Document.h
 	include/EditorSettings.h
 	include/Enums.h
 	include/FileTypeSettings.h
@@ -201,7 +201,7 @@ SET ( juffed_DEV_HEADERS
 	include/PluginSettings.h
 	include/Project.h
 	include/QSciSettings.h
-	include/Types.h
-	include/Settings.h
 	include/SearchResults.h
+	include/Settings.h
+	include/Types.h
 )

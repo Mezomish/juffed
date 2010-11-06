@@ -1,17 +1,31 @@
 Source: juffed
-Section: editors
 Priority: optional
 Maintainer: Mikhail Murzin <mezomish@gmail.com>
-Build-Depends: cdbs, debhelper (>= 7.0.50~), cmake, chrpath, libqt4-dev (>= 4.2),
- libqscintilla2-dev (>= 2.1)
+Build-Depends: cdbs, debhelper (>= 7.0.50~), cmake, libqt4-dev (>= 4.2), libqscintilla2-dev (>= 2.1)
 Standards-Version: 3.9.0
+Section: editors
 Homepage: http://juffed.com
 
 Package: juffed
+Section: editors
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Lightweight Qt 4 text editor
- JuffEd is a simple, cross-platform text editor written using the Qt 4 toolkit
+Description: Lightweight yet powerful Qt4 text editor
+ JuffEd is a simple, cross-platform text editor written using the Qt4 toolkit
  and the QScintilla library. It supports most features found in modern text
  editors, including syntax highlighting, bracket matching, switching encodings,
  sessions, and a plugin API.
+
+Package: juffed-plugins
+Section: editors
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, juffed
+Description: Plugins for JuffEd
+ for extending its functionality.
+
+Package: juffed-dev
+Section: editors
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, juffed
+Description: Header files for JuffEd
+ for writing own plugins.

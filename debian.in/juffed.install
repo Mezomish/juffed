@@ -1,0 +1,4 @@
+usr/bin/juffed
+usr/lib/*.so.*
+usr/lib/*.so
+usr/share/*

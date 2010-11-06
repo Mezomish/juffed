@@ -243,8 +243,8 @@ void JuffEd::buildUI() {
 	menu->addMenu(recentFilesMenu_);
 	menu->addAction(st->action(FILE_SAVE));
 	menu->addAction(st->action(FILE_SAVE_AS));
-	menu->addAction(st->action(FILE_RENAME));
 	menu->addAction(st->action(FILE_SAVE_ALL));
+	menu->addAction(st->action(FILE_RENAME));
 	menu->addAction(st->action(FILE_RELOAD));
 	menu->addSeparator();
 	menu->addAction(st->action(FILE_CLOSE));

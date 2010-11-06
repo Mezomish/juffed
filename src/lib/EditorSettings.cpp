@@ -41,6 +41,10 @@ void EditorSettings::set(BoolKey key, bool value) {
 			Settings::instance()->setValue("editor", "replaceTabsWithSpaces", !value);
 			break;
 
+		case BackspaceUnindents :
+			Settings::instance()->setValue("editor", "backspaceUnindents", value);
+			break;
+
 		case ShowLineNumbers :
 			Settings::instance()->setValue("editor", "showLineNumbers", value);
 			break;
@@ -87,6 +91,9 @@ bool EditorSettings::get(BoolKey key) {
 	switch (key) {
 		case UseTabs :
 			return !Settings::instance()->boolValue("editor", "replaceTabsWithSpaces");
+
+		case BackspaceUnindents :
+			return Settings::instance()->boolValue("editor", "backspaceUnindents");
 
 		case ShowLineNumbers :
 			return Settings::instance()->boolValue("editor", "showLineNumbers");

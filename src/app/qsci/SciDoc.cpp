@@ -1093,6 +1093,7 @@ void SciDoc::applySettings() {
 		
 		edit->setTabWidth(EditorSettings::get(EditorSettings::TabWidth));
 		edit->setIndentationsUseTabs(EditorSettings::get(EditorSettings::UseTabs));
+		edit->setBackspaceUnindents(EditorSettings::get(EditorSettings::BackspaceUnindents));
 		
 		edit->setIndentationGuides(QSciSettings::get(QSciSettings::ShowIndents));
 		edit->setIndentationGuidesForegroundColor(QSciSettings::get(QSciSettings::IndentsColor));

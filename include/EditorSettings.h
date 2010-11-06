@@ -32,6 +32,7 @@ public:
 	
 	enum BoolKey {
 		UseTabs,
+		BackspaceUnindents,
 		ShowLineNumbers,
 		ShowWhitespaces,
 		ShowLineEnds,

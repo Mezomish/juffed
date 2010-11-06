@@ -67,8 +67,6 @@ public:
 			  << new SettingsCheckItem("main", "stripTrailingSpaces", ui.stripSpacesChk)
 			  << new SettingsCheckItem("main", "singleInstance", ui.singleInstanceChk)
 //			  << new SettingsCheckItem("main", "fsHideMenubar", ui.fsHideMenubarChk)
-			  << new SettingsCheckItem("main", "fsHideToolbar", ui.fsHideToolbarChk)
-			  << new SettingsCheckItem("main", "fsHideStatusbar", ui.fsHideStatusbarChk)
 		;
 		
 		QMap<QString, QString> lngs;
@@ -152,6 +150,8 @@ public:
 			  << new SettingsSelectItem("main", "toolButtonStyle", ui.toolButtonStyleCmb, SettingsSelectItem::IndexMode)
 			  << new SettingsSelectItem("main", "iconSize", ui.iconSizeCmb, SettingsSelectItem::IndexMode)
 			  << new SettingsSelectItem("main", "tabPosition", ui.tabPositionCmb, SettingsSelectItem::IndexMode)
+			  << new SettingsCheckItem("main", "fsHideToolbar", ui.fsHideToolbarChk)
+			  << new SettingsCheckItem("main", "fsHideStatusbar", ui.fsHideStatusbarChk)
 		;
 	}
 	

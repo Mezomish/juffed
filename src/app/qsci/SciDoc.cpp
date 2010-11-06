@@ -186,6 +186,7 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 		connect(edit, SIGNAL(marginClicked(int, int, Qt::KeyboardModifiers)), SLOT(onMarginClicked(int, int, Qt::KeyboardModifiers)));
 		connect(edit, SIGNAL(focusReceived()), SLOT(onEditFocused()));
 		connect(edit, SIGNAL(markersMenuRequested(const QPoint&)), SIGNAL(markersMenuRequested(const QPoint&)));
+		connect(edit, SIGNAL(escapePressed()), SIGNAL(escapePressed()));
 	}
 	connect(int_->edit1_, SIGNAL(modificationChanged(bool)), this, SIGNAL(modified(bool)));
 	connect(int_->edit1_, SIGNAL(linesChanged()), SLOT(onLineCountChanged()));
@@ -1273,7 +1274,6 @@ Juff::SessionParams SciDoc::sessionParams() const {
 	
 	return params;
 }
-
 
 
 //bool SciDoc::find(const Juff::SearchParams& params) {

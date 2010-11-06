@@ -78,6 +78,7 @@ signals:
 public slots:
 	void slotAbout();
 	void slotAboutQt();
+	void hideSearchPopup();
 
 protected:
 	virtual void closeEvent(QCloseEvent*);

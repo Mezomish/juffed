@@ -127,6 +127,7 @@ private slots:
 
 signals:
 	void markersMenuRequested(const QPoint&);
+	void escapePressed();
 
 protected:
 	SciDoc(Juff::Document*);

@@ -258,6 +258,11 @@ SearchPopup* JuffMW::searchPopup() const {
 //	return NULL;
 }
 
+void JuffMW::hideSearchPopup() {
+	if ( searchPopup_->isVisible() ) {
+		searchPopup_->dismiss();
+	}
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////

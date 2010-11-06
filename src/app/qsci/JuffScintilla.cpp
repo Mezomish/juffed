@@ -528,6 +528,11 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 					QsciScintilla::keyPressEvent(e);
 					endUndoAction();
 					break;
+				
+				case Qt::Key_Escape :
+					emit escapePressed();
+					break;
+				
 				default:
 					QsciScintilla::keyPressEvent(e);
 			}

@@ -919,7 +919,7 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		connect(doc, SIGNAL(syntaxChanged(const QString&)), SLOT(onDocSyntaxChanged(const QString&)));
 		connect(doc, SIGNAL(charsetChanged(const QString&)), SLOT(onDocCharsetChanged(const QString&)));
 		connect(doc, SIGNAL(renamed(const QString&)), SLOT(onDocRenamed(const QString&)));
-		
+		connect(doc, SIGNAL(escapePressed()), mw_, SLOT(hideSearchPopup()));
 		
 		// determine if we need to close single unchanged noname doc
 		Juff::Document* nonameDocToClose = NULL;

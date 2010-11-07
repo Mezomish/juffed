@@ -590,8 +590,8 @@ void JuffScintilla::highlightText(HLMode mode, const Juff::SearchParams& params)
 	getCursorPosition(&initialLine, &initialCol);
 	int scrollPos = verticalScrollBar()->value();
 	
-	int line = 0, col = 0;
 	if ( mode == HLCurrentWord ) {
+		int line = 0, col = 0;
 		while ( findFirst(text, false, false, true, false, true, line, col) ) {
 			int start = SendScintilla(SCI_GETSELECTIONSTART);
 			int end = SendScintilla(SCI_GETSELECTIONEND);

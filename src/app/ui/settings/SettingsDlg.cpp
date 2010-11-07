@@ -82,7 +82,7 @@ public:
 		
 		ui.languageCmb->clear();
 		QMap<QString, QString>::iterator it = lngs.begin();
-		for ( ; it != lngs.end(); it++) {
+		for ( ; it != lngs.end(); ++it) {
 			ui.languageCmb->addItem(it.value(), it.key());
 		}
 		QString language = MainSettings::get(MainSettings::Language).left(2);
@@ -235,12 +235,12 @@ public:
 	
 private:
 	Ui::EditorSettingsPage ui;
-	ColorButton* curLineColorBtn_;
-	ColorButton* markersColorBtn_;
+//	ColorButton* curLineColorBtn_;
+//	ColorButton* markersColorBtn_;
 	ColorButton* fontColorBtn_;
 	ColorButton* bgColorBtn_;
-	ColorButton* braceColorBtn_;
-	ColorButton* indentsColorBtn_;
+//	ColorButton* braceColorBtn_;
+//	ColorButton* indentsColorBtn_;
 	ColorButton* selectionBgColorBtn_;
 };
 

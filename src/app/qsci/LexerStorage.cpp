@@ -149,9 +149,9 @@ void parseScheme(const QDomElement& schEl, StyleMap& styles) {
 	while ( !styleNode.isNull() ) {
 		QDomElement styleEl = styleNode.toElement();
 		if ( styleEl.tagName().toLower().compare("style") == 0 ) {
-			Style style;
 			QString name = styleEl.attribute("name", "");
 			if ( !name.isEmpty() ) {
+				Style style;
 				style.color = stringToColor(styleEl.attribute("color", defColorStr));
 				style.bgColor = stringToColor(styleEl.attribute("bgColor", defBgColorStr));
 				style.bold = stringToBool(styleEl.attribute("bold", defBoldStr));

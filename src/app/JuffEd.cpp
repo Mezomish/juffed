@@ -130,22 +130,13 @@ void JuffEd::initActions() {
 }
 
 void JuffEd::initUI() {
-	CommandStorage* st = CommandStorage::instance();
-	QMenu* fileMenu = new QMenu(tr("&File"));
-	QMenu* editMenu = new QMenu(tr("&Edit"));
-	QMenu* viewMenu = new QMenu(tr("&View"));
-	QMenu* searchMenu = new QMenu(tr("&Search"));
-	QMenu* formatMenu = new QMenu(tr("For&mat"));
-	QMenu* toolsMenu = new QMenu(tr("&Tools"));
-	QMenu* helpMenu = new QMenu(tr("&Help"));
-	
-	menus_[Juff::MenuFile] = fileMenu;
-	menus_[Juff::MenuEdit] = editMenu;
-	menus_[Juff::MenuView] = viewMenu;
-	menus_[Juff::MenuSearch] = searchMenu;
-	menus_[Juff::MenuFormat] = formatMenu;
-	menus_[Juff::MenuTools] = toolsMenu;
-	menus_[Juff::MenuHelp] = helpMenu;
+	menus_[Juff::MenuFile] = new QMenu(tr("&File"));
+	menus_[Juff::MenuEdit] = new QMenu(tr("&Edit"));
+	menus_[Juff::MenuView] = new QMenu(tr("&View"));
+	menus_[Juff::MenuSearch] = new QMenu(tr("&Search"));
+	menus_[Juff::MenuFormat] = new QMenu(tr("For&mat"));
+	menus_[Juff::MenuTools] = new QMenu(tr("&Tools"));
+	menus_[Juff::MenuHelp] = new QMenu(tr("&Help"));
 
 	recentFilesMenu_ = new QMenu(JuffEd::tr("Recent files"));
 	connect(recentFilesMenu_, SIGNAL(aboutToShow()), SLOT(initRecentFilesMenu()));
@@ -170,8 +161,10 @@ void JuffEd::initUI() {
 	charsetMenu_->addMenu(setCharsetMenu_);
 
 	docksMenu_ = new QMenu(tr("Docks"));
-	toolsMenu->addMenu(docksMenu_);
+	menus_[Juff::MenuTools]->addMenu(docksMenu_);
 
+	CommandStorage* st = CommandStorage::instance();
+	
 	QToolBar* mainToolBar = new QToolBar("mainToolBar");
 	mainToolBar->setObjectName("mainToolBar");
 	mainToolBar->addAction(st->action(FILE_NEW));

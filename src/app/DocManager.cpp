@@ -86,7 +86,7 @@ void DocManager::setCurDocType(const QString& type) {
 //	LOGGER;
 
 	QMap<QString, DocEngine*>::iterator it = engines_.begin();
-	for (; it != engines_.end(); it++) {
+	for (; it != engines_.end(); ++it) {
 		if ( it.key() == type ) {
 			it.value()->activate();
 		}
@@ -99,7 +99,7 @@ void DocManager::setCurDocType(const QString& type) {
 QWidgetList DocManager::editorsPages() const {
 	QWidgetList list;
 	QMap<QString, DocEngine*>::const_iterator it = engines_.begin();
-	for (; it != engines_.end(); it++) {
+	for (; it != engines_.end(); ++it) {
 		QWidget* w = it.value()->settingsPage();
 		if ( w != 0 )
 			list << w;

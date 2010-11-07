@@ -1,3 +1,5 @@
+#include <QDebug>
+
 /*
 JuffEd - An advanced text editor
 Copyright 2007-2010 Mikhail Murzin
@@ -21,7 +23,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "QSciSettings.h"
 
 #include <QScrollBar>
-#include <QDebug>
 
 #include <Qsci/qscicommandset.h>
 
@@ -365,7 +366,7 @@ void JuffScintilla::cancelRectInput() {
 }
 
 void JuffScintilla::keyPressEvent(QKeyEvent* e) {
-	if ( hasSelectedText() && SendScintilla(SCI_SELECTIONISRECTANGLE) ) {
+	if ( SendScintilla(SCI_SELECTIONISRECTANGLE) ) {
 		int line, col;
 		getCursorPosition(&line, &col);
 
@@ -396,44 +397,51 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 				break;
 
 			case Qt::Key_Backspace:
-				if ( rCol1_ == rCol2_ )
-					break;
-
-				if ( col == rCol1_ ) {
-					setSelection(rLine1_, rCol1_ , rLine2_, rCol2_);
+				if ( rCol1_ == rCol2_ ) {
+					beginUndoAction();
+					for ( int line = rLine1_; line <= rLine2_; ++line ) {
+						setSelection(line, rCol2_ - 1, line, rCol2_);
+						removeSelectedText();
+					}
+					endUndoAction();
+					setSelection(rLine1_, rCol2_ - 1, rLine2_, rCol2_ - 1);
 					SendScintilla(SCI_SETSELECTIONMODE, 1);
+					break;
 				}
+				// Else proceed to the Delete handler
+				// We don't have 'break' here exactly for
+				// this purpose
 				
-				beginUndoAction();
-				//	select the last character of each line and remove it
-				setSelection(rLine1_, rCol2_ - 1, rLine2_, rCol2_);
-				SendScintilla(SCI_SETSELECTIONMODE, 1);
-				removeSelectedText();
-				
-				--rCol2_;
-				
-				//	place new selection
-				setSelection(rLine1_, rCol1_, rLine2_, rCol2_);
-				SendScintilla(SCI_SETSELECTIONMODE, 1);
-				endUndoAction();
-				break;
-
 			case Qt::Key_Delete :
-				cancelRectInput();
-				QsciScintilla::keyPressEvent(e);
+				beginUndoAction();
+				for ( int line = rLine1_; line <= rLine2_; ++line ) {
+					setSelection(line, rCol1_, line, rCol2_);
+					removeSelectedText();
+				}
+				endUndoAction();
+//				cancelRectInput();
 				break;
 
 			default:
+				QString t = e->text();
+				if ( t.length() < 0 ) {
+					break;
+				}
+				
 				beginUndoAction();
 				if ( rCol1_ != rCol2_ ) {
 					//	TODO : probably need to remove selected text, but only once
+//					for ( int line = rLine1_; line <= rLine2_; ++line ) {
+//						setSelection(line, rCol1_, line, rCol2_);
+//						removeSelectedText();
+//					}
 				}
-				QString t = e->text();
 				for ( int i = line2; i >= line1; --i ) {
 					insertAt(t, i, rCol2_ );
 				}
 				if ( e->key() != Qt::Key_Enter && e->key() != Qt::Key_Return ) {
 					setSelection(rLine1_, rCol1_, rLine2_, rCol2_ + t.length());
+					SendScintilla(SCI_SETSELECTIONMODE, 0);
 					SendScintilla(SCI_SETSELECTIONMODE, 1);
 				}
 				endUndoAction();

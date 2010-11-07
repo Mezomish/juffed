@@ -67,6 +67,10 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 		createProject(MainSettings::get(MainSettings::LastProject));
 	}
 	
+	if ( viewer_->docCount(Juff::PanelAll) == 0 ) {
+		openDoc("", Juff::PanelLeft);
+	}
+	
 	onSettingsApplied();
 
 	mw_->restoreState();

@@ -204,13 +204,17 @@ void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 
 void DocViewer::updateDocTitle(Juff::Document* doc) {
 	PanelIndex panel = panelOf(doc);
+	TabWidget* tabWidget = NULL;
 	if ( panel == Juff::PanelLeft ) {
-		int index = tab1_->indexOf(doc);
-		tab1_->setTabText(index, Juff::docTitle(doc));
+		tabWidget = tab1_;
 	}
 	else if ( panel == Juff::PanelRight ) {
-		int index = tab2_->indexOf(doc);
-		tab2_->setTabText(index, Juff::docTitle(doc));
+		tabWidget = tab2_;
+	}
+	if ( tabWidget != NULL ) {
+		int index = tabWidget->indexOf(doc);
+		tabWidget->setTabText(index, Juff::docTitle(doc));
+		tabWidget->setTabIcon(index, QIcon( doc->isModified() ? ":doc_icon_red" : ":doc_icon"));
 	}
 }
 

@@ -114,7 +114,6 @@ SET ( juffed_app_SRCS
 	src/3rd_party/qtsingleapplication/qtsingleapplication.cpp
 	src/3rd_party/qtsingleapplication/qtlockedfile.cpp
 	src/3rd_party/qtsingleapplication/qtlocalpeer.cpp
-	src/3rd_party/utf/Utf8_16.cxx
 	
 	# settings
 	src/app/ui/settings/CharsetsSettingsPage.cpp

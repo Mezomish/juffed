@@ -27,6 +27,8 @@ SET ( juffed_lib_SRCS
 	src/lib/Project.cpp
 	src/lib/PluginNotifier.cpp
 	src/lib/SearchResults.cpp
+
+        src/3rd_party/utf/Utf8_16.cxx
 )
 
 SET ( juffed_lib_RESOURCES

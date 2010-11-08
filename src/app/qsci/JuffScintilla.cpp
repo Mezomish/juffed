@@ -33,11 +33,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define SEARCH_HIGHLIGHT   2
 
 JuffScintilla::JuffScintilla() : QsciScintilla() {
-	rLine1_ = -1;
-	rCol1_ = -1;
-	rLine2_ = -1;
-	rCol2_ = -1;
-
 	initHighlightingStyle(WORD_HIGHLIGHT, QSciSettings::get(QSciSettings::WordHLColor));
 	initHighlightingStyle(SEARCH_HIGHLIGHT, QSciSettings::get(QSciSettings::SearchHLColor));
 	
@@ -358,10 +353,6 @@ void JuffScintilla::wheelEvent(QWheelEvent* e) {
 }
 
 void JuffScintilla::cancelRectInput() {
-	rLine1_ = -1;
-	rCol1_ = -1;
-	rLine2_ = -1;
-	rCol2_ = -1;
 	SendScintilla(SCI_CANCEL);
 }
 
@@ -372,10 +363,11 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 
 		int line1, col1, line2, col2;
 		getSelection(&line1, &col1, &line2, &col2);
-		rLine1_ = qMin(line1, line2);
-		rCol1_ = qMin(col1, col2);
-		rLine2_ = qMax(line1, line2);
-		rCol2_ = qMax(col1, col2);
+		
+		int rLine1 = qMin(line1, line2);
+		int rCol1 = qMin(col1, col2);
+		int rLine2 = qMax(line1, line2);
+		int rCol2 = qMax(col1, col2);
 
 		switch ( e->key() ) {
 			case Qt::Key_Escape :
@@ -397,28 +389,45 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 				break;
 
 			case Qt::Key_Backspace:
-				if ( rCol1_ == rCol2_ ) {
+				if ( rCol1 == rCol2 ) {
 					beginUndoAction();
-					for ( int line = rLine1_; line <= rLine2_; ++line ) {
-						setSelection(line, rCol2_ - 1, line, rCol2_);
-						removeSelectedText();
-					}
+					deleteRectSelection(rLine1, rCol1 - 1, rLine2, rCol1);
 					endUndoAction();
-					setSelection(rLine1_, rCol2_ - 1, rLine2_, rCol2_ - 1);
+					setSelection(rLine1, rCol1 - 1, rLine2, rCol1 - 1);
 					SendScintilla(SCI_SETSELECTIONMODE, 1);
-					break;
 				}
-				// Else proceed to the Delete handler
-				// We don't have 'break' here exactly for
-				// this purpose
+				else {
+					beginUndoAction();
+					deleteRectSelection(rLine1, rCol1, rLine2, rCol2);
+					endUndoAction();
+//					cancelRectInput();
+					
+					
+//					setSelection(rLine1, rCol1, rLine2, rCol1);
+//					SendScintilla(SCI_SETSELECTIONMODE, 1);
+				}
+				break;
 				
 			case Qt::Key_Delete :
-				beginUndoAction();
-				for ( int line = rLine1_; line <= rLine2_; ++line ) {
-					setSelection(line, rCol1_, line, rCol2_);
-					removeSelectedText();
+				if ( rCol1 == rCol2 ) {
+					beginUndoAction();
+					deleteRectSelection(rLine1, rCol1, rLine2, rCol1 + 1);
+					endUndoAction();
+					setSelection(rLine1, rCol1, rLine2, rCol1);
+					SendScintilla(SCI_SETSELECTIONMODE, 1);
 				}
-				endUndoAction();
+				else {
+					beginUndoAction();
+					deleteRectSelection(rLine1, rCol1, rLine2, rCol2);
+					endUndoAction();
+					
+//					cancelRectInput();
+//					setSelection(rLine1, rCol1, rLine1, rCol1);
+//					SendScintilla(SCI_SETSELECTIONMODE, 0);
+//					setSelection(rLine1, rCol1, rLine2, rCol1);
+//					SendScintilla(SCI_SETSELECTIONMODE, 1);
+				}
+//				SendScintilla(SCI_SETSELECTIONMODE, 1);
 //				cancelRectInput();
 				break;
 
@@ -429,19 +438,18 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 				}
 				
 				beginUndoAction();
-				if ( rCol1_ != rCol2_ ) {
-					//	TODO : probably need to remove selected text, but only once
-//					for ( int line = rLine1_; line <= rLine2_; ++line ) {
-//						setSelection(line, rCol1_, line, rCol2_);
+				if ( rCol1 != rCol2 ) {
+					deleteRectSelection(rLine1, rCol1, rLine2, rCol2);
+//					for ( int line = rLine1; line <= rLine2; ++line ) {
+//						setSelection(line, rCol1, line, rCol2);
 //						removeSelectedText();
 //					}
 				}
 				for ( int i = line2; i >= line1; --i ) {
-					insertAt(t, i, rCol2_ );
+					insertAt(t, i, rCol1 );
 				}
 				if ( e->key() != Qt::Key_Enter && e->key() != Qt::Key_Return ) {
-					setSelection(rLine1_, rCol1_, rLine2_, rCol2_ + t.length());
-					SendScintilla(SCI_SETSELECTIONMODE, 0);
+					setSelection(rLine1, rCol1 + t.length(), rLine2, rCol1 + t.length());
 					SendScintilla(SCI_SETSELECTIONMODE, 1);
 				}
 				endUndoAction();
@@ -545,6 +553,13 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 					QsciScintilla::keyPressEvent(e);
 			}
 		}
+	}
+}
+
+void JuffScintilla::deleteRectSelection(int line1, int col1, int line2, int col2) {
+	for ( int line = line1; line <= line2; ++line ) {
+		setSelection(line, col1, line, col2);
+		removeSelectedText();
 	}
 }
 

@@ -70,6 +70,7 @@ protected:
 
 private:
 	void cancelRectInput();
+	void deleteRectSelection(int, int, int, int);
 	void posToLineCol(long pos, int& line, int& col) const;
 	long lineColToPos(int line, int col) const;
 	long curPos() const;
@@ -80,7 +81,6 @@ private:
 
 	QMenu* contextMenu_;
 	bool showLineNumbers_;
-	int rLine1_, rCol1_, rLine2_, rCol2_;
 };
 
 #endif

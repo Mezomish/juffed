@@ -31,7 +31,6 @@ namespace Juff {
 #include "Enums.h"
 #include "Types.h"
 
-
 class PluginManager {
 public:
 	PluginManager(Juff::DocHandlerInt*, Juff::PluginNotifier*);
@@ -41,8 +40,8 @@ public:
 
 	Juff::MenuList menus() const;
 	Juff::ActionList actions(Juff::MenuID) const;
+	Juff::ToolBarList toolbars() const;
 	QWidgetList docks() const;
-        QWidgetList toolbars() const;
 	void applySettings();
 
 private:

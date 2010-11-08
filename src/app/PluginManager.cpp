@@ -45,59 +45,53 @@ void PluginManager::loadPlugins(SettingsDlg* dlg) {
 	foreach (QString fileName, gPluginDir.entryList(QDir::Files)) {
 		loadPlugin(gPluginDir.absoluteFilePath(fileName), dlg);
 	}
-	
-/*	foreach (QString type, pmInt_->docks_.keys()) {
-		pmInt_->gui_->addDocks(type, pmInt_->docks_[type]);
-	}*/
 }
 
 Juff::MenuList PluginManager::menus() const {
 	Juff::MenuList menus;
-	foreach (JuffPlugin* plugin, plugins_)
-		if ( plugin->menu() != 0 )
+	foreach (JuffPlugin* plugin, plugins_) {
+		if ( plugin->menu() != 0 ) {
 			menus << plugin->menu();
+		}
+	}
 	return menus;
 }
 
 Juff::ActionList PluginManager::actions(Juff::MenuID id) const {
 	Juff::ActionList actions;
-	foreach (JuffPlugin* plugin, plugins_)
+	foreach (JuffPlugin* plugin, plugins_) {
 		actions << plugin->mainMenuActions(id);
+	}
 	return actions;
 }
 
 QWidgetList PluginManager::docks() const {
 	QWidgetList list;
-	foreach (JuffPlugin* plugin, plugins_)
+	foreach (JuffPlugin* plugin, plugins_) {
 		list << plugin->dockList();
+	}
 	return list;
 }
 
-QWidgetList PluginManager::toolbars() const {
-        QWidgetList list;
-        foreach (JuffPlugin* plugin, plugins_)
-        {
-            QToolBar * bar = plugin->toolBar();
-            if (bar)
-                list.append((QWidget*)bar);
-        }
-        return list;
+Juff::ToolBarList PluginManager::toolbars() const {
+	Juff::ToolBarList list;
+	foreach ( JuffPlugin* plugin, plugins_ ) {
+		QToolBar* bar = plugin->toolBar();
+		if ( NULL != bar ) {
+			list.append(bar);
+		}
+	}
+	return list;
 }
 
 #include "EditorSettings.h"
 
 void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
-//	LOGGER;
-
-//	qDebug() << "                     FONT:" << EditorSettings::font();
-	
 	QPluginLoader loader(path);
 	if ( !loader.load() ) {
 		Log::warning(QString("Plugin '%1' was NOT loaded: %2").arg(path).arg(loader.errorString()));
 		return;
 	}
-	
-//	qDebug() << "                     FONT:" << EditorSettings::font();
 	
 	QObject *obj = loader.instance();
 	if ( obj ) {

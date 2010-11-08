@@ -1277,10 +1277,3 @@ Juff::SessionParams SciDoc::sessionParams() const {
 	
 	return params;
 }
-
-
-//bool SciDoc::find(const Juff::SearchParams& params) {
-//	if ( int_->curEdit_ == NULL) return false;
-		
-//	int_->curEdit_->find(params.findWhat);
-//}

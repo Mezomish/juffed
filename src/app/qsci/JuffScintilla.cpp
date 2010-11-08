@@ -74,116 +74,6 @@ JuffScintilla::~JuffScintilla() {
 	delete contextMenu_;
 }
 
-//bool JuffScintilla::find(const Juff::SearchParams&) {
-//}
-
-/*bool JuffScintilla::find(const QString& s, const DocFindFlags& flags) {
-	if ( flags.multiLine )
-		return findML(s, flags);
-
-	QString str(s);
-	QString text = this->text();
-	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
-	int row(-1), col(-1);
-	this->getCursorPosition(&row, &col);
-	int lineIndex(0);
-	if (row < 0 || col < 0)
-		return false;
-
-	if ( !flags.backwards ) {
-		foreach (QString line, lines) {
-			if ( lineIndex < row ) {
-			}
-			else {
-				int indent(0);
-				if ( lineIndex == row ) {
-					line = line.right(line.length() - col);
-					indent = col;
-				}
-				int index(-1);
-				QRegExp regExp;
-				if ( flags.wholeWords ) {
-					regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
-				}
-				else
-					regExp = QRegExp(str);
-				regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-				if ( flags.isRegExp || flags.wholeWords ) {
-					index = line.indexOf(regExp);
-				}
-				else {
-					if ( !flags.matchCase ) {
-						str = str.toLower();
-						line = line.toLower();
-					}
-					index = line.indexOf(str);
-				}
-
-				if ( index >= 0 ) {
-					if ( flags.isRegExp ) {
-						this->setSelection(lineIndex, index + indent, lineIndex, index + indent + regExp.matchedLength());
-						this->ensureCursorVisible();
-					}
-					else {
-						this->setSelection(lineIndex, index + indent, lineIndex, index + indent + str.length());
-						this->ensureCursorVisible();
-					}
-					return true;
-				}
-			}
-			++lineIndex;
-		}
-	}
-	else {
-		QStringList::iterator it = lines.end();
-		it--;
-		int lineIndex = lines.count() - 1;
-		while ( lineIndex >= 0 ) {
-			if ( lineIndex > row ) {
-			}
-			else {
-				QString line = *it;
-				if ( lineIndex == row ) {
-					line = line.left(col);
-				}
-
-				int index(-1);
-				QRegExp regExp;
-				if ( flags.wholeWords )
-					regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
-				else
-					regExp = QRegExp(str);
-				regExp.setCaseSensitivity(flags.matchCase ? Qt::CaseSensitive : Qt::CaseInsensitive);
-				if ( flags.isRegExp || flags.wholeWords )
-					index = line.lastIndexOf(regExp);
-				else {
-					if ( !flags.matchCase ) {
-						str = str.toLower();
-						line = line.toLower();
-					}
-					index = line.lastIndexOf(str);
-				}
-
-				if ( index >= 0 ) {
-					if ( flags.isRegExp ) {
-						this->setSelection(lineIndex, index, lineIndex, index + regExp.matchedLength());
-						this->ensureCursorVisible();
-					}
-					else {
-						this->setSelection(lineIndex, index, lineIndex, index + str.length());
-						this->ensureCursorVisible();
-					}
-					return true;
-				}
-			}
-			lineIndex--;
-			it--;
-		}
-	}
-
-	return false;
-}*/
-
 void JuffScintilla::posToLineCol(long pos, int& line, int& col) const {
 	line = SendScintilla(SCI_LINEFROMPOSITION, pos);
 	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
@@ -194,12 +84,6 @@ long JuffScintilla::lineColToPos(int line, int col) const {
 	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
 	return linpos + col;
 }
-/*
-long JuffScintilla::curPos() const {
-	int line, col;
-	getCursorPosition(&line, &col);
-	return lineColToPos(line, col);
-}*/
 
 QString JuffScintilla::wordUnderCursor() {
 	int line, col;
@@ -258,18 +142,7 @@ QString JuffScintilla::wordUnderCursor() {
 		return false;
 	}
 }
-
-void JuffScintilla::replaceSelected(const QString& targetText, bool backwards) {
-	beginUndoAction();
-	removeSelectedText();
-	int r, c;
-	getCursorPosition(&r, &c);
-	insert(targetText);
-	if ( !backwards ) {
-		setCursorPosition(r, c + targetText.length());
-	}
-	endUndoAction();
-}*/
+*/
 
 void JuffScintilla::dragEnterEvent(QDragEnterEvent* e) {
 	if ( !e->mimeData()->hasUrls() )
@@ -564,12 +437,6 @@ void JuffScintilla::deleteRectSelection(int line1, int col1, int line2, int col2
 	}
 }
 
-/*void JuffScintilla::addContextMenuActions(const ActionList& list) {
-	foreach (QAction* a, list) {
-		contextMenu_->addAction(a);
-	}
-}
-*/
 void JuffScintilla::showLineNumbers(bool show) {
 	showLineNumbers_ = show;
 	updateLineNumbers();

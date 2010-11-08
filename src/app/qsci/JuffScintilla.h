@@ -37,10 +37,6 @@ public:
 	JuffScintilla();
 	virtual ~JuffScintilla();
 
-//	bool find(const Juff::SearchParams&);
-/*	bool find(const QString& s, const DocFindFlags& flags);
-	void replaceSelected(const QString& targetText, bool backwards);
-	void addContextMenuActions(const ActionList&);*/
 	void showLineNumbers(bool);
 	bool lineNumbersVisible() const;
 

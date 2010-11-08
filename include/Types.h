@@ -23,11 +23,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QList>
 #include <QMap>
 #include <QMenu>
+#include <QToolBar>
 
 namespace Juff {
 
 typedef QList<QMenu*> MenuList;
 typedef QList<QAction*> ActionList;
+typedef QList<QToolBar*> ToolBarList;
 typedef QMap<QString, QString> SessionParams;
 
 struct SearchParams {

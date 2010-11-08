@@ -56,8 +56,6 @@ protected slots:
 	void onDocTextChanged();
 
 private:
-//	void storePosition();
-//	void restorePosition();
 	void changeCurDoc(Juff::Document*);
 
 	int selectNextOccurence();
@@ -70,8 +68,6 @@ private:
 	Juff::DocHandlerInt* handler_;
 	SearchPopup* searchPopup_;
 	Juff::Document* curDoc_;
-//	int row_;
-//	int col_;
 };
 
 #endif // __JUFFED_SEARCH_ENGINE_H__

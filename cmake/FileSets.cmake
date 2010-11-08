@@ -36,7 +36,6 @@ SET ( juffed_lib_RESOURCES
 SET ( juffed_app_MOC_HEADERS
 	src/app/JuffEd.h
 	src/app/SearchEngine.h
-	src/app/PluginManager.h
 	src/app/qsci/JuffScintilla.h
 	src/app/qsci/SciDoc.h
 	src/app/qsci/SciDocEngine.h

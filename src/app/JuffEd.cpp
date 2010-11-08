@@ -211,11 +211,11 @@ void JuffEd::loadPlugins() {
 	}
 	
 	// toolbars
-	QWidgetList toolbars = pluginMgr_->toolbars();
-	foreach (QWidget* w, toolbars) {
-		QToolBar *bar = qobject_cast<QToolBar*>(w);
-		if ( bar != NULL )
+	Juff::ToolBarList toolbars = pluginMgr_->toolbars();
+	foreach (QToolBar* bar, toolbars) {
+		if ( bar != NULL ) {
 			mw_->addToolBar(bar);
+		}
 	}
 
 	// load plugin actions into menues
@@ -348,9 +348,6 @@ void JuffEd::buildUI() {
 			w->show();
 		}
 	}
-
-	// TODO : add restoring state
-//	mw_->restoreState();
 }
 
 void JuffEd::initCharsetMenus() {
@@ -537,7 +534,6 @@ void JuffEd::slotFileRename() {
 		QString fullNewName = fi.absolutePath() + "/" + newName;
 		if ( QFile::rename(doc->fileName(), fullNewName) ) {
 			doc->setFileName(fullNewName);
-//			emit docRenamed(doc, oldName);
 		}
 	}
 }
@@ -564,10 +560,6 @@ void JuffEd::slotFileClose() {
 	Juff::Document* doc = curDoc();
 	if ( doc->isNull() )
 		return;
-	
-	// TODO : add processing the option 'Exit on last doc closed'
-//	if ( !MainSettings::get(MainSettings::ExitOnLastDocClosed)&& docCount(2) == 1 && Juff::isNoname(doc) && !doc->isModified() )
-//		return;
 	
 	closeDocWithConfirmation(doc);
 }
@@ -658,7 +650,6 @@ void JuffEd::slotReplace() {
 }
 
 void JuffEd::slotGotoLine() {
-//	LOGGER;
 	Juff::Document* doc = curDoc();
 	if ( !doc->isNull() ) {
 		int line = mw_->getGotoLineNumber(doc->lineCount());
@@ -675,8 +666,6 @@ void JuffEd::slotGotoFile() {
 }
 
 void JuffEd::slotWrapWords(){
-//	LOGGER;
-	
 	bool checked = CommandStorage::instance()->action(VIEW_WRAP_WORDS)->isChecked();
 	EditorSettings::set(EditorSettings::WrapWords, checked);
 	
@@ -687,8 +676,6 @@ void JuffEd::slotWrapWords(){
 }
 
 void JuffEd::slotShowLineNumbers(){
-//	LOGGER;
-	
 	bool checked = CommandStorage::instance()->action(VIEW_LINE_NUMBERS)->isChecked();
 	EditorSettings::set(EditorSettings::ShowLineNumbers, checked);
 	
@@ -699,8 +686,6 @@ void JuffEd::slotShowLineNumbers(){
 }
 
 void JuffEd::slotShowWhitespaces(){
-//	LOGGER;
-	
 	bool checked = CommandStorage::instance()->action(VIEW_WHITESPACES)->isChecked();
 	EditorSettings::set(EditorSettings::ShowWhitespaces, checked);
 	
@@ -711,8 +696,6 @@ void JuffEd::slotShowWhitespaces(){
 }
 
 void JuffEd::slotShowLineEndings(){
-//	LOGGER;
-	
 	bool checked = CommandStorage::instance()->action(VIEW_LINE_ENDINGS)->isChecked();
 	EditorSettings::set(EditorSettings::ShowLineEnds, checked);
 	
@@ -723,8 +706,6 @@ void JuffEd::slotShowLineEndings(){
 }
 
 void JuffEd::slotZoomIn(){
-//	LOGGER;
-	
 	Juff::Document* doc = curDoc();
 	if ( !doc->isNull() ) {
 		doc->zoomIn();
@@ -732,8 +713,6 @@ void JuffEd::slotZoomIn(){
 }
 
 void JuffEd::slotZoomOut(){
-//	LOGGER;
-	
 	Juff::Document* doc = curDoc();
 	if ( !doc->isNull() ) {
 		doc->zoomOut();
@@ -741,8 +720,6 @@ void JuffEd::slotZoomOut(){
 }
 
 void JuffEd::slotZoom100(){
-//	LOGGER;
-	
 	Juff::Document* doc = curDoc();
 	if ( !doc->isNull() ) {
 		doc->zoom100();
@@ -750,12 +727,6 @@ void JuffEd::slotZoom100(){
 }
 
 void JuffEd::slotFullscreen() {
-//	LOGGER;
-	
-	// TODO : add saving window's state when going fullscreen
-//	if ( !mw_->isFullScreen() )
-//		mw_->saveState();
-	
 	mw_->toggleFullscreen();
 }
 
@@ -868,7 +839,6 @@ void JuffEd::onDocActivated(Juff::Document* doc) {
 	updateMW(doc);
 	updateDocView(doc);
 	
-//	if ( mw_->searchPopup()->isVisible() )
 	search_->setCurDoc(doc);
 	
 	// notify plugins
@@ -1001,10 +971,6 @@ QStringList JuffEd::docList() const {
 
 ////////////////////////////////////////////////////////////////////////////////
 // PRIVATE
-
-//Juff::Document* JuffEd::createDoc(const QString& fileName) {
-//	return sciEngine_->createDoc(fileName);
-//}
 
 QString JuffEd::openDialogDirectory() const {
 	Juff::Document* doc = curDoc();
@@ -1321,7 +1287,6 @@ bool JuffEd::parseSession(QDomElement& sessEl) {
 						if ( !attr.isNull() ) {
 							QString attrName = attr.name();
 							QString attrValue = attr.value();
-//							qDebug() << "Attr: " << attrName << ", Value: " << attrValue;
 							params[attrName] = attrValue;
 						}
 					}

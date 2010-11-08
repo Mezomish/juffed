@@ -547,6 +547,7 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 				
 				case Qt::Key_Escape :
 					emit escapePressed();
+					QsciScintilla::keyPressEvent(e);
 					break;
 				
 				default:

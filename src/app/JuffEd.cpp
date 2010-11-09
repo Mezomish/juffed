@@ -1095,6 +1095,7 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 			if ( viewer_->docCount(anotherPanel) == 0 ) {
 				// no docs! create one
 				openDoc("", panel);
+				updateMW(curDoc());
 			}
 			else {
 				// second panel contains docs

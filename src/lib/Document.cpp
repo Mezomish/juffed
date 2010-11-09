@@ -31,7 +31,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QProcess>
 #include <QTextCodec>
 #include <QTimer>
-#include "../3rd_party/utf/Utf8_16.h"
 
 QString mapCharset(const QString& encaName) {
 	if ( encaName == "windows-1251" ) {
@@ -144,27 +143,25 @@ QString Document::guessCharset(const QString& fileName) {
 		return mapCharset(output);
 	}
 	else {
+		// test for BOM
 		QFile file(fileName);
 		if ( file.open(QFile::ReadOnly) ) {
-			char buf[10];
-			int len = file.read(buf, 10);
+			char buf[3];
+			int len = file.read(buf, 3);
 			
-			// Test for UTF
-			Utf8_16_Read utfread;
-			utfread.convert(buf, len);
-			switch ( utfread.getEncoding() ) {
-				case Utf8_16::eUtf8:
+			if ( len == 3 ) {
+				unsigned char* uBuf = reinterpret_cast<unsigned char*>(buf);
+				if ( uBuf[0] == 0xEF && uBuf[1] == 0xBB && uBuf[2] == 0xBF ) {
 					output = "UTF-8";
-				
-				case Utf8_16::eUtf16BigEndian:
+				}
+				else if ( uBuf[0] == 0xFE && uBuf[1] == 0xFF && uBuf[2] == 0x00 ) {
 					output = "UTF-16BE";
-				
-				case Utf8_16::eUtf16LittleEndian:
+				}
+				else if ( uBuf[0] == 0xFF && uBuf[1] == 0xFE && uBuf[2] == 0x00 ) {
 					output = "UTF-16LE";
-				
-				default:
-					output = "";
+				}
 			}
+			file.close();
 		}
 		
 		return output;

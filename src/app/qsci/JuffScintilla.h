@@ -36,7 +36,10 @@ public:
 	};
 	JuffScintilla();
 	virtual ~JuffScintilla();
-
+	
+	virtual void cut();
+	virtual void paste();
+	
 	void showLineNumbers(bool);
 	bool lineNumbersVisible() const;
 
@@ -66,6 +69,8 @@ protected:
 
 private:
 	void cancelRectInput();
+	void getOrderedSelection(int&, int&, int&, int&);
+	void deleteRectSelection();
 	void deleteRectSelection(int, int, int, int);
 	void posToLineCol(long pos, int& line, int& col) const;
 	long lineColToPos(int line, int col) const;

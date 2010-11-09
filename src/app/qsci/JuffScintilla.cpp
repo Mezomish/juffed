@@ -22,12 +22,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "QSciSettings.h"
 
+#include <QApplication>
+#include <QClipboard>
 #include <QScrollBar>
 
 #include <Qsci/qscicommandset.h>
 
 #include "CommandStorage.h"
 #include "Constants.h"
+#include "Log.h"
 
 #define WORD_HIGHLIGHT     1
 #define SEARCH_HIGHLIGHT   2
@@ -235,13 +238,8 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 		getCursorPosition(&line, &col);
 
 		int line1, col1, line2, col2;
-		getSelection(&line1, &col1, &line2, &col2);
+		getOrderedSelection(line1, col1, line2, col2);
 		
-		int rLine1 = qMin(line1, line2);
-		int rCol1 = qMin(col1, col2);
-		int rLine2 = qMax(line1, line2);
-		int rCol2 = qMax(col1, col2);
-
 		switch ( e->key() ) {
 			case Qt::Key_Escape :
 				setSelection(line, col, line, col);
@@ -262,16 +260,16 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 				break;
 
 			case Qt::Key_Backspace:
-				if ( rCol1 == rCol2 ) {
+				if ( col1 == col2 ) {
 					beginUndoAction();
-					deleteRectSelection(rLine1, rCol1 - 1, rLine2, rCol1);
+					deleteRectSelection(line1, col1 - 1, line2, col1);
 					endUndoAction();
-					setSelection(rLine1, rCol1 - 1, rLine2, rCol1 - 1);
+					setSelection(line1, col1 - 1, line2, col1 - 1);
 					SendScintilla(SCI_SETSELECTIONMODE, 1);
 				}
 				else {
 					beginUndoAction();
-					deleteRectSelection(rLine1, rCol1, rLine2, rCol2);
+					deleteRectSelection(line1, col1, line2, col2);
 					endUndoAction();
 //					cancelRectInput();
 					
@@ -282,16 +280,16 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 				break;
 				
 			case Qt::Key_Delete :
-				if ( rCol1 == rCol2 ) {
+				if ( col1 == col2 ) {
 					beginUndoAction();
-					deleteRectSelection(rLine1, rCol1, rLine2, rCol1 + 1);
+					deleteRectSelection(line1, col1, line2, col1 + 1);
 					endUndoAction();
-					setSelection(rLine1, rCol1, rLine2, rCol1);
+					setSelection(line1, col1, line2, col1);
 					SendScintilla(SCI_SETSELECTIONMODE, 1);
 				}
 				else {
 					beginUndoAction();
-					deleteRectSelection(rLine1, rCol1, rLine2, rCol2);
+					deleteRectSelection(line1, col1, line2, col2);
 					endUndoAction();
 					
 //					cancelRectInput();
@@ -305,24 +303,24 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 				break;
 
 			default:
+				if ( e->modifiers() & Qt::ControlModifier ) {
+					break;
+				}
+				
 				QString t = e->text();
 				if ( t.length() < 0 ) {
 					break;
 				}
 				
 				beginUndoAction();
-				if ( rCol1 != rCol2 ) {
-					deleteRectSelection(rLine1, rCol1, rLine2, rCol2);
-//					for ( int line = rLine1; line <= rLine2; ++line ) {
-//						setSelection(line, rCol1, line, rCol2);
-//						removeSelectedText();
-//					}
+				if ( col1 != col2 && t.length() > 0 ) {
+					deleteRectSelection(line1, col1, line2, col2);
 				}
 				for ( int i = line2; i >= line1; --i ) {
-					insertAt(t, i, rCol1 );
+					insertAt(t, i, col1);
 				}
 				if ( e->key() != Qt::Key_Enter && e->key() != Qt::Key_Return ) {
-					setSelection(rLine1, rCol1 + t.length(), rLine2, rCol1 + t.length());
+					setSelection(line1, col1 + t.length(), line2, col1 + t.length());
 					SendScintilla(SCI_SETSELECTIONMODE, 1);
 				}
 				endUndoAction();
@@ -428,6 +426,52 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 			}
 		}
 	}
+}
+
+void JuffScintilla::cut() {
+	if ( SendScintilla(SCI_SELECTIONISRECTANGLE) ) {
+		beginUndoAction();
+		copy();
+		deleteRectSelection();
+		endUndoAction();
+	}
+	else {
+		QsciScintilla::cut();
+	}
+}
+
+void JuffScintilla::paste() {
+	if ( SendScintilla(SCI_SELECTIONISRECTANGLE) ) {
+		QString text = QApplication::clipboard()->text();
+		int line1, col1, line2, col2;
+		getOrderedSelection(line1, col1, line2, col2);
+		
+		beginUndoAction();
+		deleteRectSelection(line1, col1, line2, col2);
+		for ( int line = line2; line >= line1; --line ) {
+			insertAt(text, line, col1);
+		}
+		endUndoAction();
+	}
+	else {
+		QsciScintilla::paste();
+	}
+}
+
+void JuffScintilla::getOrderedSelection(int& rLine1, int& rCol1, int& rLine2, int& rCol2) {
+	int line1, col1, line2, col2;
+	getSelection(&line1, &col1, &line2, &col2);
+	
+	rLine1 = qMin(line1, line2);
+	rCol1 = qMin(col1, col2);
+	rLine2 = qMax(line1, line2);
+	rCol2 = qMax(col1, col2);
+}
+
+void JuffScintilla::deleteRectSelection() {
+	int line1, col1, line2, col2;
+	getOrderedSelection(line1, col1, line2, col2);
+	deleteRectSelection(line1, col1, line2, col2);
 }
 
 void JuffScintilla::deleteRectSelection(int line1, int col1, int line2, int col2) {

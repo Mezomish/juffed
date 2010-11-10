@@ -36,6 +36,9 @@ class SearchResults;
 class Document : public QWidget {
 Q_OBJECT
 public:
+	
+	static bool isNoname(const QString&, bool* ok = NULL);
+	
 	Document(const QString&);
 	virtual ~Document();
 
@@ -52,6 +55,16 @@ public:
 	QString fileName() const;
 	
 	/**
+	* Returns document title that will be displayed in tab bar and window title.
+	*/
+	virtual QString title() const;
+	
+	/**
+	* Returns document title with modification status.
+	*/
+	virtual QString titleWithModification() const;
+	
+	/**
 	* Returns document's line count.
 	*/
 	virtual int lineCount() const { return 0; }
@@ -60,6 +73,16 @@ public:
 	* Returns whether document is modified.
 	*/
 	virtual bool isModified() const { return false; }
+	
+	/**
+	* Returns document's icon for tab bar.
+	*/
+	virtual QIcon icon() const;
+	
+	/**
+	* Returns whether the document is a Noname doc.
+	*/
+	virtual bool isNoname() const;
 	
 	/**
 	* Returns whether document has selected text.

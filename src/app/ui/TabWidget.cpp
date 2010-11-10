@@ -75,7 +75,7 @@ void TabWidget::initDocMenu(int index, QMenu* menu) {
 		menuRequestedIndex_ = index;
 		
 		menu->addAction(tr("Copy file name to clipboard"), this, SLOT(slotCopyFileName()));
-		if ( !Juff::isNoname(doc) ) {
+		if ( !doc->isNoname() ) {
 			menu->addAction(tr("Copy full file path to clipboard"), this, SLOT(slotCopyFilePath()));
 			menu->addAction(tr("Copy file directory path to clipboard"), this, SLOT(slotCopyDirPath()));
 		}
@@ -161,7 +161,7 @@ void TabWidget::onDocListNeedsToBeShown() {
 	for ( int i = 0; i < n; ++i ) {
 		Juff::Document* doc = qobject_cast<Juff::Document*>(widget(i));
 		if ( doc != 0 ) {
-			docListBtn_->menu_->addAction(Juff::docIcon(doc), Juff::docTitle(doc), this, SLOT(onDocMenuItemSelected()))->setData(i);
+			docListBtn_->menu_->addAction(doc->icon(), doc->title(), this, SLOT(onDocMenuItemSelected()))->setData(i);
 		}
 	}
 }

@@ -179,9 +179,9 @@ void DocViewer::addDoc(Juff::Document* doc, PanelIndex panel) {
 		
 		showPanel(panel);
 		
-		QString title = Juff::docTitle(doc->fileName(), doc->isModified());
-		int index = tabWidget->addTab(doc, Juff::docIcon(doc), title);
-		if ( Juff::isNoname(doc) )
+		QString title = doc->title();
+		int index = tabWidget->addTab(doc, doc->icon(), title);
+		if ( doc->isNoname() )
 			tabWidget->setTabToolTip(index, title);
 		else
 			tabWidget->setTabToolTip(index, doc->fileName());
@@ -213,7 +213,7 @@ void DocViewer::updateDocTitle(Juff::Document* doc) {
 	}
 	if ( tabWidget != NULL ) {
 		int index = tabWidget->indexOf(doc);
-		tabWidget->setTabText(index, Juff::docTitle(doc));
+		tabWidget->setTabText(index, doc->titleWithModification());
 		tabWidget->setTabIcon(index, QIcon( doc->isModified() ? ":doc_icon_red" : ":doc_icon"));
 	}
 }
@@ -453,7 +453,7 @@ void DocViewer::buildCtrlTabMenu(int curItem) {
 	
 	int i = 0;
 	foreach (Juff::Document* doc, docStack_) {
-		QAction* act = ctrlTabMenu_.addAction(Juff::docIcon(doc), Juff::docTitle(doc), this, SLOT(onCtrlTabSelected()));
+		QAction* act = ctrlTabMenu_.addAction(doc->icon(), doc->title(), this, SLOT(onCtrlTabSelected()));
 		act->setData(doc->fileName());
 		if ( i == curItem )
 			ctrlTabMenu_.setActiveAction(act);

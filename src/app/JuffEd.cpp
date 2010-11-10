@@ -419,7 +419,7 @@ void JuffEd::onCloseRequested(bool& confirm) {
 			foreach (QString fileName, toSave) {
 				Juff::Document* doc = unsaved.value(fileName, 0);
 				if ( 0 != doc ) {
-					if ( Juff::isNoname(fileName) ) {
+					if ( Juff::Document::isNoname(fileName) ) {
 						if ( !saveDocAs(doc) ) {
 							// saving failed or was cancelled
 							confirm = false;
@@ -506,7 +506,7 @@ void JuffEd::slotFileSave() {
 	if ( doc->isNull() )
 		return;
 	
-	if ( Juff::isNoname(doc) ) {
+	if ( doc->isNoname() ) {
 		slotFileSaveAs();
 	}
 	else {
@@ -524,7 +524,7 @@ void JuffEd::slotFileSaveAs() {
 
 void JuffEd::slotFileRename() {
 	Juff::Document* doc = curDoc();
-	if ( doc->isNull() || Juff::isNoname(doc) )
+	if ( doc->isNull() || doc->isNoname() )
 		return;
 	
 	QString oldName = doc->fileName();
@@ -541,7 +541,7 @@ void JuffEd::slotFileRename() {
 void JuffEd::slotFileSaveAll() {
 	QList<Juff::Document*> docs = viewer_->docList(Juff::PanelAll);
 	foreach (Juff::Document* doc, docs) {
-		if ( Juff::isNoname(doc) )
+		if ( doc->isNoname() )
 			saveDocAs(doc);
 		else
 			saveDoc(doc);
@@ -660,6 +660,12 @@ void JuffEd::slotGotoLine() {
 
 void JuffEd::slotGotoFile() {
 	QStringList list = viewer_->docNamesList(Juff::PanelAll);
+	for ( int i = 0; i < list.count(); ++i ) {
+		if ( Juff::Document::isNoname(list[i]) ) {
+			list.removeAt(i);
+			--i;
+		}
+	}
 	QString fileName = mw_->getJumpToFileName(list);
 	if ( !fileName.isEmpty() )
 		openDoc(fileName);
@@ -892,7 +898,7 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		Juff::Document* nonameDocToClose = NULL;
 		if ( viewer_->docCount(panel) == 1 ) {
 			nonameDocToClose = viewer_->documentAt(0, panel);
-			if ( !Juff::isNoname(nonameDocToClose) || nonameDocToClose->isModified() || Juff::isNoname(doc) ) {
+			if ( !nonameDocToClose->isNoname() || nonameDocToClose->isModified() || doc->isNoname() ) {
 				nonameDocToClose = NULL;
 			}
 		}
@@ -914,7 +920,7 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		emit docOpened(doc, panel);
 		
 		// check for read-only
-		if ( !Juff::isNoname(doc) ) {
+		if ( !doc->isNoname() ) {
 			if ( !QFileInfo(doc->fileName()).isWritable() ) {
 				mw_->message(QIcon(), "", tr("Document '%1' is read-only").arg(doc->fileName()));
 			}
@@ -974,7 +980,7 @@ QStringList JuffEd::docList() const {
 
 QString JuffEd::openDialogDirectory() const {
 	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() && !Juff::isNoname(doc) && MainSettings::get(MainSettings::SyncToCurDoc) )
+	if ( !doc->isNull() && !doc->isNoname() && MainSettings::get(MainSettings::SyncToCurDoc) )
 		return QFileInfo(doc->fileName()).absolutePath();
 	else
 		return MainSettings::get(MainSettings::LastDir);
@@ -1017,7 +1023,7 @@ bool JuffEd::saveDocAs(Juff::Document* doc) {
 	LOGGER;
 	
 	QString filters = "All files (*)";
-	QString fileName = mw_->getSaveFileName(doc->fileName(), filters);
+	QString fileName = mw_->getSaveFileName(doc->isNoname() ? "" : doc->fileName(), doc->title(), filters);
 	if ( !fileName.isEmpty() ) {
 		// store the last used directory
 		MainSettings::set(MainSettings::LastDir, QFileInfo(fileName).absolutePath());
@@ -1051,7 +1057,7 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 		switch (mw_->askForSave(doc->fileName())) {
 			case QMessageBox::Save :
 			{
-				bool confirmed = Juff::isNoname(doc) ? saveDocAs(doc) : saveDoc(doc);
+				bool confirmed = doc->isNoname() ? saveDocAs(doc) : saveDoc(doc);
 				decidedToClose = confirmed;
 				break;
 			}
@@ -1073,7 +1079,7 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 		Juff::PanelIndex anotherPanel = ( panel == Juff::PanelLeft ? Juff::PanelRight : Juff::PanelLeft );
 		
 		if ( viewer_->docCount(panel) == 1 && viewer_->docCount(anotherPanel) == 0
-			 && !doc->isModified() && Juff::isNoname(doc) ) {
+			 && !doc->isModified() && doc->isNoname() ) {
 			// this is a special case when there is only one doc is
 			// opened, is't Noname and unmodified. Don't close it but
 			// return true in case the close was called by closeEvent.
@@ -1119,7 +1125,7 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 void JuffEd::updateMW(Juff::Document* doc) {
 	QString title;
 	if ( !doc->isNull() ) {
-		title = QString("%1 - ").arg(Juff::docTitle(doc));
+		title = QString("%1 - ").arg(doc->titleWithModification());
 		if ( !projectName().isEmpty() )
 			title += QString("[%1] - ").arg(projectName());
 		
@@ -1344,7 +1350,7 @@ void storeDocs(const Juff::DocList& docs, const QString& panelStr, QDomElement& 
 	LOGGER;
 	
 	foreach (Juff::Document* doc, docs) {
-		if ( !Juff::isNoname(doc) ) {
+		if ( !doc->isNoname() ) {
 			QDomElement el = domDoc.createElement("file");
 			el.setAttribute("path", doc->fileName());
 			el.setAttribute("panel", panelStr);

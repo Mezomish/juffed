@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Functions.h"
 #include "Log.h"
 
+#include <QFileInfo>
 #include <QKeyEvent>
 #include <QListWidgetItem>
 
@@ -28,11 +29,9 @@ JumpToFileDlg::JumpToFileDlg(const QStringList& files, QWidget* parent) : QDialo
 	ui_.setupUi(this);
 	
 	foreach (QString fileName, files) {
-		if ( !Juff::isNoname(fileName) ) {
-			QListWidgetItem* item = new QListWidgetItem(Juff::docTitle(fileName, false));
-			item->setData(Qt::UserRole + 1, fileName);
-			ui_.fileList->addItem(item);
-		}
+		QListWidgetItem* item = new QListWidgetItem(QFileInfo(fileName).fileName(), false);
+		item->setData(Qt::UserRole + 1, fileName);
+		ui_.fileList->addItem(item);
 	}
 	ui_.fileList->setCurrentRow(0);
 	

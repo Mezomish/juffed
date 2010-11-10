@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "SearchResults.h"
 
 #include <QAbstractButton>
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QProcess>
 #include <QTextCodec>
@@ -99,6 +100,37 @@ void Document::setFileName(const QString& newFileName) {
 
 QString Document::fileName() const {
 	return fileName_;
+}
+
+QString Document::title() const {
+	if ( isNoname() ) {
+		return QObject::tr("Noname %1").arg(fileName().section(' ', 1, 1).toInt());
+	}
+	else {
+		return QFileInfo(fileName()).fileName();
+	}
+}
+
+QString Document::titleWithModification() const {
+	return QString(isModified() ? "*" : "") + title();
+}
+
+bool Document::isNoname(const QString& fileName, bool* ok) {
+	if ( fileName.isEmpty() ) {
+		if ( ok != NULL ) {
+			ok = false;
+		}
+		return true;
+	}
+	return fileName.left(6) == "Noname";
+}
+
+bool Document::isNoname() const {
+	return isNoname(fileName());
+}
+
+QIcon Document::icon() const {
+	return QIcon( (isModified() ? ":doc_icon_red" : ":doc_icon") );
 }
 
 bool Document::supportsAction(Juff::ActionID id) const {
@@ -241,7 +273,7 @@ bool Document::save(QString&) {
 
 void Document::startCheckingTimer() {
 //	LOGGER;
-	if ( !Juff::isNoname(this) ) {
+	if ( !isNoname() ) {
 		lastModMutex_.lock();
 		lastModified_ = QFileInfo(fileName_).lastModified();
 //		qDebug() << "'Last modified' from file:" << lastModified_;
@@ -267,7 +299,7 @@ void Document::checkLastModified() {
 //			qDebug() << "Real file's 'last modified':" << fi.lastModified();
 			
 			if ( checkingMutex_.tryLock() ) {
-				QString question = tr("The file '%1' was modified by external program.").arg(Juff::docTitle(this)) + "\n";
+				QString question = tr("The file '%1' was modified by external program.").arg(title()) + "\n";
 				question += tr("What do you want to do?");
 				QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, 
 						QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, this);

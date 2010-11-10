@@ -37,6 +37,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <QCloseEvent>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QHBoxLayout>
 #include <QInputDialog>
 #include <QMenuBar>
@@ -155,15 +156,15 @@ QStringList JuffMW::getOpenFileNames(const QString& dir, const QString& filters)
 	return QFileDialog::getOpenFileNames(this, tr("Open files"), dir, filters);
 }
 
-QString JuffMW::getSaveFileName(const QString& curFileName, const QString& filters) {
-	QString fileName;
-	if ( !curFileName.isEmpty() && !Juff::isNoname(curFileName) ) {
-		fileName = curFileName;
+QString JuffMW::getSaveFileName(const QString& fileName, const QString& fileTitle, const QString& filters) {
+	QString dir;
+	if ( !fileName.isEmpty() ) {
+		dir = fileName;
 	}
 	else {
-		fileName = MainSettings::get(MainSettings::LastDir);
+		dir  = MainSettings::get(MainSettings::LastDir);
 	}
-	return QFileDialog::getSaveFileName(this, tr("Save %1 as...").arg(Juff::docTitle(curFileName, false)), fileName, filters);
+	return QFileDialog::getSaveFileName(this, tr("Save %1 as...").arg(fileTitle), dir, filters);
 }
 
 QString JuffMW::getSavePrjName(const QString& title) {

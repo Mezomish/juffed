@@ -194,11 +194,11 @@ void Project::storeProject(QDomDocument& doc, QDomElement& prjEl, Project* prj) 
 	if ( prj->hasFiles() ) {
 		// files
 		foreach (QString file, files_) {
-			if ( !Juff::isNoname(file) ) {
-				QDomElement el = doc.createElement("file");
-				el.setAttribute("path", file);
-				prjEl.appendChild(el);
-			}
+//			if ( !Juff::isNoname(file) ) {
+//				QDomElement el = doc.createElement("file");
+//				el.setAttribute("path", file);
+//				prjEl.appendChild(el);
+//			}
 		}
 	}
 	else if ( prj->hasSubProjects() ) {

@@ -58,7 +58,7 @@ SciDoc::Eol guessEol(const QString& fileName) {
 #endif
 #endif
 
-	if ( !fileName.isEmpty() && !Juff::isNoname(fileName) ) {
+	if ( !Juff::Document::isNoname(fileName) ) {
 		QFile file(fileName);
 		if ( file.open(QIODevice::ReadOnly) ) {
 			QString line = QString::fromLocal8Bit(file.readLine().constData());
@@ -194,7 +194,7 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 	
 	QString lexName = "none";
 	SciDoc::Eol eol = guessEol(fileName);
-	if ( !fileName.isEmpty() && !Juff::isNoname(fileName) ) {
+	if ( !fileName.isEmpty() && !isNoname() ) {
 		QString codecName = Document::guessCharset(fileName);
 		if ( !codecName.isEmpty() )
 			setCharset(codecName);
@@ -275,7 +275,7 @@ void SciDoc::init() {
 }
 
 void SciDoc::reload() {
-	if ( !Juff::isNoname(this) ) {
+	if ( !isNoname() ) {
 		int line, col;
 		getCursorPos(line, col);
 		int scroll = scrollPos();
@@ -969,7 +969,7 @@ void SciDoc::readFile() {
 bool SciDoc::save(QString& error) {
 	LOGGER;
 
-	if ( Juff::isNoname(fileName()) ) {
+	if ( isNoname() ) {
 		error = tr("This is a Noname file and shouldn't be saved directly");
 		return false;
 	}

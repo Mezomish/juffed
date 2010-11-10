@@ -43,7 +43,7 @@ public:
 
 	QString getOpenFileName(const QString& dir, const QString& filters);
 	QStringList getOpenFileNames(const QString& dir, const QString& filters);
-	QString getSaveFileName(const QString& curFileName, const QString& filters);
+	QString getSaveFileName(const QString& fileName, const QString& fileTitle, const QString& filters);
 	QString getSavePrjName(const QString& title);
 	QString getRenameFileName(const QString& curFileName);
 	int getGotoLineNumber(int);

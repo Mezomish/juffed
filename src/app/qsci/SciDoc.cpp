@@ -21,7 +21,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "SciDoc.h"
 
 #include "AutocompleteSettings.h"
-#include "Functions.h"
 #include "JuffScintilla.h"
 #include "Log.h"
 #include "EditorSettings.h"

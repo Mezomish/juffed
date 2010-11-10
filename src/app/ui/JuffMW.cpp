@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //#include "CommandStorage.h"
 #include "Document.h"
 //#include "FindDlg.h"
-#include "Functions.h"
 #include "IconManager.h"
 #include "JumpToFileDlg.h"
 //#include "License.h"

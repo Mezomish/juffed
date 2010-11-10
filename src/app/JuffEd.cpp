@@ -17,7 +17,6 @@
 #include "Document.h"
 #include "DocViewer.h"
 #include "EditorSettings.h"
-#include "Functions.h"
 #include "IconManager.h"
 #include "JuffMW.h"
 #include "Log.h"

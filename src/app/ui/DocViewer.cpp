@@ -5,7 +5,6 @@
 #include <QVBoxLayout>
 
 #include "DocHandlerInt.h"
-#include "Functions.h"
 #include "Log.h"
 #include "MainSettings.h"
 #include "NullDoc.h"

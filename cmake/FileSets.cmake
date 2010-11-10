@@ -19,7 +19,6 @@ SET ( juffed_lib_SRCS
 	src/lib/CommandStorage.cpp
 	src/lib/Document.cpp
 	src/lib/DocEngine.cpp
-	src/lib/Functions.cpp
 	src/lib/IconManager.cpp
 	src/lib/JuffAPI.cpp
 	src/lib/Log.cpp
@@ -187,7 +186,6 @@ SET ( juffed_DEV_HEADERS
 	include/EditorSettings.h
 	include/Enums.h
 	include/FileTypeSettings.h
-	include/Functions.h
 	include/IconManager.h
 	include/JuffAPI.h
 	include/JuffPlugin.h

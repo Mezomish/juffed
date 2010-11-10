@@ -13,7 +13,6 @@
 #include "Document.h"
 #include "DocHandlerInt.h"
 #include "Enums.h"
-#include "Functions.h"
 #include "IconManager.h"
 #include "Log.h"
 #include "MainSettings.h"

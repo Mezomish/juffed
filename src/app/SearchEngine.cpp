@@ -414,7 +414,9 @@ void SearchEngine::onDocTextChanged() {
 	curDoc_->setSearchResults(results);
 	if ( searchPopup_->isVisible() ) {
 		curDoc_->highlightSearchResults();
-		searchPopup_->setSearchStatus(-1, results->count());
+		if ( results != NULL ) {
+			searchPopup_->setSearchStatus(-1, results->count());
+		}
 	}
 }
 

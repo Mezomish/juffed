@@ -33,6 +33,7 @@ class PluginNotifier : public QObject {
 Q_OBJECT
 public:
 	PluginNotifier();
+	virtual ~PluginNotifier();
 
 signals:
 	// document notifications

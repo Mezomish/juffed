@@ -29,6 +29,12 @@ namespace Juff {
 
 Juff::DocHandlerInt* DocEngine::handler_ = NULL;
 
+DocEngine::DocEngine() {
+}
+
+DocEngine::~DocEngine() {
+}
+
 void DocEngine::setDocHandler(Juff::DocHandlerInt* h) {
 	handler_ = h;
 }

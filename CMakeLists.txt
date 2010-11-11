@@ -122,6 +122,7 @@ add_library ( ${JUFFLIB} SHARED
 )
 target_link_libraries ( ${JUFFLIB}
 	${QT_LIBRARIES}
+	${QT_QTXML_LIBRARY}
 )
 
 if (APPLEBUNDLE)
@@ -161,6 +162,17 @@ else (APPLEBUNDLE)
 	endif (NOT APPLE)
 endif (APPLEBUNDLE)
 
+if ( MINGW )
+	add_definitions(
+		-DQSCINTILLA_DLL
+	)
+	# resource compilation for MinGW
+	add_custom_command ( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/app/juffed_ico.o
+		COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR}/src/app -i${CMAKE_CURRENT_SOURCE_DIR}/src/app/juffed.rc 
+			-o ${CMAKE_CURRENT_BINARY_DIR}/src/app/juffed_ico.o )
+	set ( juffed_app_SRCS ${juffed_app_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/src/app/juffed_ico.o)
+endif ( MINGW )
+
 
 # executable
 add_executable ( ${JUFFED}
@@ -174,12 +186,19 @@ add_executable ( ${JUFFED}
 	${APPLE_BUNDLE_SOURCES}
 )
 
+if ( MINGW )
+	set_target_properties( ${JUFFED} PROPERTIES LINK_FLAGS "-mwindows" )
+endif ( MINGW )
+
 target_link_libraries ( ${JUFFED} ${JUFFLIB}
 	${QT_LIBRARIES}
 	${QSCINTILLA_LIBRARY} 
+	${QT_QTNETWORK_LIBRARY}
 )
 
-set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")
+if ( UNIX )
+	set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")
+endif ( UNIX )
 
 if (BUILD_PLUGINS AND EXISTS ${CMAKE_SOURCE_DIR}/plugins)
 	message(STATUS "Plugins: all externally linked cmake-ready plugs will be built")
@@ -203,32 +222,16 @@ else ()
 endif ()
 
 #set ( juffed_RCS
-#	src/juffed.rc
+#	src/app/juffed.rc
 #)
-
+#
 #set (QT_USE_QTXML TRUE)
 #include (${QT_USE_FILE})
 
 #configure_file ("${CMAKE_SOURCE_DIR}/cmake/version.cmake" "${CMAKE_BINARY_DIR}/version.real" @ONLY)
 
 
-#if ( MINGW )
-#	add_definitions(
-#		-DQSCINTILLA_DLL
-#	)
-#	 resource compilation for MinGW
-#	add_custom_command ( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/juffed_ico.o
-#		COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR}/src -i${CMAKE_CURRENT_SOURCE_DIR}/src/juffed.rc 
-#			-o ${CMAKE_CURRENT_BINARY_DIR}/src/juffed_ico.o )
-#	set ( juffed_SRCS ${juffed_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/src/juffed_ico.o)
-#else ( MINGW )
-#	set(juffed_SRCS	${juffed_SRCS})
-#endif ( MINGW )
-#
-#if ( MINGW )
-#	set_target_properties( ${JUFFED} PROPERTIES LINK_FLAGS "-mwindows" )
-#endif ( MINGW )
-#
+
 
 ####################
 # Installs

@@ -37,6 +37,9 @@ class DocHandlerInt;
 
 class DocEngine {
 public:
+	DocEngine();
+	virtual ~DocEngine();
+
 	static void setDocHandler(Juff::DocHandlerInt*);
 
 	virtual Juff::Document* createDoc(const QString& fileName) const = 0;

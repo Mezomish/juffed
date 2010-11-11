@@ -23,4 +23,7 @@ namespace Juff {
 PluginNotifier::PluginNotifier() : QObject() {
 }
 
+PluginNotifier::~PluginNotifier() {
+}
+
 }

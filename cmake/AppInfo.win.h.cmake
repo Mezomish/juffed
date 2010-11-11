@@ -20,11 +20,11 @@ public:
 	static QString language()        { return QLocale::system().name(); }
 
 	static QString dataDirPath()     { return QCoreApplication::applicationDirPath(); }
-	static QString pluginsPath()     { return appDirPath() + "/plugins"; }
+	static QString pluginsPath()     { return dataDirPath() + "/plugins"; }
 	
 	static QString configDirPath()   { return QDir::homePath() + "/.config/" + organization().toLower(); }
 	static QString configFile()      { return configDirPath() + "/" + name().toLower() + ".conf"; }
-	static QString translationPath() { return appDirPath() + "/l10n"; }
+	static QString translationPath() { return dataDirPath() + "/l10n"; }
 	static QString logFile()         { return configDirPath() + "/juffed.log"; }
 	static QString defaultPrjPath()  { return configDirPath() + "/empty_project.xml"; }
 };

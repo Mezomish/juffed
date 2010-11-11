@@ -48,13 +48,16 @@ SciDoc::Eol guessEol(const QString& fileName) {
 	SciDoc::Eol eol = SciDoc::EolWin;
 #else
 	// Not windows. Can be Mac or other Unix-like
-#ifdef Q_WS_MAC
-	// Mac
-	SciDoc::Eol eol = SciDoc::EolMac;
-#else
-	// Other Unix-like
+// Q_WS_MAC is defined for Mac OS X, which use EolUnix.
+// EolMac us used only for macos < 10.4
+//
+//#ifdef Q_WS_MAC
+//	// Mac
+//	SciDoc::Eol eol = SciDoc::EolMac;
+//#else
+//	// Other Unix-like
 	SciDoc::Eol eol = SciDoc::EolUnix;
-#endif
+//#endif
 #endif
 
 	if ( !Juff::Document::isNoname(fileName) ) {

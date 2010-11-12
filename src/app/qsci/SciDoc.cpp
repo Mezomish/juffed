@@ -705,6 +705,8 @@ void SciDoc::toggleCommentLines() {
 		comment = "#";
 	else if ( s == "Fortran" )
 		comment = "!";
+	else if ( s == "SQL")
+		comment = "--";
 	//	TODO : need to add more syntaxes
 
 	if ( comment.isEmpty() )
@@ -768,7 +770,8 @@ void SciDoc::toggleCommentBlock() {
 
 	QString commBeg, commEnd;
 	QString s = syntax();
-	if ( s == "C++" || s == "Java" || s == "C#" || s == "PHP" || s == "CSS" || s == "JavaScript" ) {
+	if ( s == "C++" || s == "Java" || s == "C#" || s == "PHP" || s == "CSS" || s == "JavaScript"
+	     || s == "SQL") {
 		commBeg = "/*";
 		commEnd = "*/";
 	}

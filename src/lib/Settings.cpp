@@ -54,8 +54,11 @@ Settings::Settings() {
 //}
 
 void Settings::read(const QString& org, const QString& appName) {
+#ifdef Q_OS_WIN32
+	QSettings sett(AppInfo::configFile(), QSettings::IniFormat);
+#else
 	QSettings sett(QSettings::IniFormat, QSettings::UserScope, org, appName);
-
+#endif
 	QStringList groups = sett.childGroups();
 	foreach (QString grp, groups) {
 		sett.beginGroup(grp);
@@ -72,7 +75,11 @@ void Settings::read(const QString& org, const QString& appName) {
 }
 
 void Settings::write(const QString& org, const QString& appName) {
+#ifdef Q_OS_WIN32
+	QSettings sett(AppInfo::configFile(), QSettings::IniFormat);
+#else
 	QSettings sett(QSettings::IniFormat, QSettings::UserScope, org, appName);
+#endif
 
 	QStringList groups = settData_->data_.keys();
 	foreach (QString grp, groups) {

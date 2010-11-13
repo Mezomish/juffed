@@ -25,8 +25,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 static QMap<QString, QString> IconFileNames;
 
-IconManager* IconManager::instance_ = NULL;
-
 IconManager::IconManager() {
 	size_ = 16;
 	
@@ -53,12 +51,6 @@ IconManager::IconManager() {
 	IconFileNames[VIEW_FULLSCREEN] = "view-fullscreen.png";
 	
 	IconFileNames[TOOLS_SETTINGS]  = "preferences-system.png";
-}
-
-IconManager* IconManager::instance() {
-	if ( instance_ == NULL )
-		instance_ = new IconManager();
-	return instance_;
 }
 
 void IconManager::setSize(int sz) {

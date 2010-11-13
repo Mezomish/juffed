@@ -21,9 +21,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "AppInfo.h"
 #include "Constants.h"
-#include "IconManager.h"
 #include "Log.h"
 #include "SearchResults.h"
+//#include "Utils.h"
 
 #include <QAbstractButton>
 #include <QFileInfo>
@@ -305,13 +305,12 @@ void Document::checkLastModified() {
 				QAbstractButton* btn = msgBox.button(QMessageBox::Save);
 				if ( btn ) {
 					btn->setText(tr("Save current"));
-//					btn->setIcon(IconManager::instance()->icon(Juff::FileSave));
-					btn->setIcon(IconManager::instance()->icon(FILE_SAVE));
+//					btn->setIcon(Utils::iconManager()->icon(FILE_SAVE));
 				}
 				btn = msgBox.button(QMessageBox::Open);
 				if ( btn ) {
 					btn->setText(tr("Reload from disk"));
-					btn->setIcon(IconManager::instance()->icon(FILE_RELOAD));
+//					btn->setIcon(Utils::iconManager()->icon(FILE_RELOAD));
 				}
 				btn = msgBox.button(QMessageBox::Cancel);
 				if ( btn ) {

@@ -19,11 +19,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_PLUGINS_SETTINGS_H__
 #define __JUFFED_PLUGINS_SETTINGS_H__
 
+#include "LibConfig.h"
+
 class JuffPlugin;
 
 #include <QString>
 
-class PluginSettings {
+class LIBJUFF_EXPORT PluginSettings {
 public:
 	/**
 	 * set()

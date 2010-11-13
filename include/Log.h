@@ -19,17 +19,19 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_LOG_H__
 #define __JUFF_LOG_H__
 
+#include "LibConfig.h"
+
 #include <QtCore/QString>
 #include <QtCore/QRect>
 
 namespace Log {
-	void printToLog(const QString&, bool canBeSkipped = false);
-	void printToLog(int, bool canBeSkipped = false);
-	void debug(const QString&, bool canBeSkipped = false);
-	void debug(const char*, bool canBeSkipped = false);
-	void debug(int, bool canBeSkipped = false);
-	void debug(const QRect&, bool canBeSkipped = false);
-	void warning(const QString&, bool canBeSkiped = false);
+	void LIBJUFF_EXPORT printToLog(const QString&, bool canBeSkipped = false);
+	void LIBJUFF_EXPORT printToLog(int, bool canBeSkipped = false);
+	void LIBJUFF_EXPORT debug(const QString&, bool canBeSkipped = false);
+	void LIBJUFF_EXPORT debug(const char*, bool canBeSkipped = false);
+	void LIBJUFF_EXPORT debug(int, bool canBeSkipped = false);
+	void LIBJUFF_EXPORT debug(const QRect&, bool canBeSkipped = false);
+	void LIBJUFF_EXPORT warning(const QString&, bool canBeSkiped = false);
 };
 
 #ifdef JUFF_FULL_DEBUG
@@ -60,7 +62,7 @@ namespace Log {
 
 #endif	//	JUFF_FULL_DEBUG
 
-class Logger {
+class LIBJUFF_EXPORT Logger {
 public:
 	Logger(const char*, const char*, int);
 	~Logger();

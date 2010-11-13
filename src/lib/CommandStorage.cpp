@@ -6,9 +6,7 @@
 #include "Constants.h"
 #include "IconManager.h"
 
-CommandStorage* CommandStorage::instance_ = NULL;
-
-CommandStorage::CommandStorage() : QObject() {
+CommandStorage::CommandStorage(IconManagerInt* mgr) : QObject(), CommandStorageInt(), iconManager_(mgr) {
 	keys_[FILE_NEW]     = QKeySequence("Ctrl+N");
 	keys_[FILE_OPEN]    = QKeySequence("Ctrl+O");
 	keys_[FILE_SAVE]    = QKeySequence("Ctrl+S");
@@ -40,14 +38,8 @@ CommandStorage::CommandStorage() : QObject() {
 	// TODO : load keys from settings
 }
 
-CommandStorage* CommandStorage::instance() {
-	if ( instance_ == NULL )
-		instance_ = new CommandStorage();
-	return instance_;
-}
-
 void CommandStorage::addAction(const QString& key, const QString& name, QObject* obj, const char* slot) {
-	QAction* a = new QAction(IconManager::instance()->icon(key), name, obj);
+	QAction* a = new QAction(iconManager_->icon(key), name, obj);
 	a->setShortcut(shortcut(key));
 	connect(a, SIGNAL(triggered()), obj, slot);
 	actions_[key] = a;
@@ -61,12 +53,16 @@ QKeySequence CommandStorage::shortcut(const QString& key) const {
 	return keys_.value(key, QKeySequence());
 }
 
+void CommandStorage::setShortcut(const QString& key, const QKeySequence& shortcut) {
+	keys_[key] = shortcut;
+}
+
 void CommandStorage::updateIcons() {
 	QMap<QString, QAction*>::iterator it = actions_.begin();
 	while ( it != actions_.end() ) {
 		QString key = it.key();
 		QAction* act = it.value();
-		QIcon icon = IconManager::instance()->icon(key);
+		QIcon icon = iconManager_->icon(key);
 		if ( !icon.isNull() )
 			act->setIcon(icon);
 		it++;

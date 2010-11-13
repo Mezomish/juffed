@@ -1,17 +1,21 @@
 #ifndef __JUFFED_PLUGIN_API_H__
 #define __JUFFED_PLUGIN_API_H__
 
+#include "LibConfig.h"
+
 #include <QObject>
 
+#include "CommandStorageInt.h"
 #include "Document.h"
 #include "DocHandlerInt.h"
+#include "IconManagerInt.h"
 #include "Project.h"
 
 namespace Juff {
 	class PluginNotifier;
 };
 
-class JuffAPI : public QObject {
+class LIBJUFF_EXPORT JuffAPI : public QObject {
 Q_OBJECT
 public:
 	/**
@@ -32,6 +36,15 @@ public:
 	*/
 	Juff::Project* currentProject() const;
 
+	/**
+	* Returns app's command storage.
+	*/
+	CommandStorageInt* commandStorage() const;
+	
+	/**
+	* Returns app's icon manager.
+	*/
+	IconManagerInt* iconManager() const;
 
 	/**
 	* Opens a document with a given file name or activates it if it is already opened.

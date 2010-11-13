@@ -82,6 +82,7 @@ SET ( juffed_app_SRCS
 	src/app/main.cpp
 	src/app/PluginManager.cpp
 	src/app/SearchEngine.cpp
+	src/app/Utils.cpp
 	src/app/qsci/JuffScintilla.cpp
 	src/app/qsci/LexerStorage.cpp
 	src/app/qsci/SciDoc.cpp

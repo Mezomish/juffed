@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_SEARCH_RESULTS_H__
 #define __JUFFED_SEARCH_RESULTS_H__
 
+#include "LibConfig.h"
+
 #include <QVector>
 
 #include "Types.h"
@@ -42,7 +44,7 @@ struct SearchOccurence {
 	}
 };
 
-class SearchResults {
+class LIBJUFF_EXPORT SearchResults {
 public:
 	SearchResults(const Juff::SearchParams&);
 

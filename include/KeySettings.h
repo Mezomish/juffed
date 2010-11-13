@@ -19,11 +19,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_KEY_SETTINGS_H__
 #define __JUFF_KEY_SETTINGS_H__
 
+#include "LibConfig.h"
+
 #include <QKeySequence>
 
 #include "Enums.h"
 
-class KeySettings {
+class LIBJUFF_EXPORT KeySettings {
 public:
 	static QKeySequence keySequence(Juff::ActionID);
 	static void setKeySequence(Juff::ActionID, const QKeySequence&);

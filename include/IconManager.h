@@ -19,12 +19,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_ICON_MANAGER_H__
 #define __JUFFED_ICON_MANAGER_H__
 
+#include "LibConfig.h"
+
+#include "IconManagerInt.h"
+
 class QIcon;
 class QString;
 
-class IconManager {
+class LIBJUFF_EXPORT IconManager : public IconManagerInt {
 public:
-	static IconManager* instance();
+	IconManager();
 
 	/**
 	* Returns an icon of the current icon theme and the current size 
@@ -32,23 +36,20 @@ public:
 	* an appropriate icon then returns a built-in icon (from "<default>" theme).
 	* If there is no default icon the returns an empty icon QIcon().
 	*/
-	QIcon icon(const QString& key) const;
+	virtual QIcon icon(const QString& key) const;
 
 	/**
 	* Returns the current icon size. The default size is 16.
 	*/
-	int size() const;
+	virtual int size() const;
 
 	/**
 	* Sets the icon size to \param size.
 	*/
-	void setSize(int);
+	virtual void setSize(int);
 
 private:
 	QIcon defaultIcon(const QString&) const;
-
-	static IconManager* instance_;
-	IconManager();
 
 	int size_;
 };

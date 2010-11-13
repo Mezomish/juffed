@@ -19,11 +19,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_QSCI_SETTINGS_H__
 #define __JUFFED_QSCI_SETTINGS_H__
 
+#include "LibConfig.h"
+
 #include "Settings.h"
 
 #include <QColor>
 
-class QSciSettings {
+class LIBJUFF_EXPORT QSciSettings {
 public:
 	enum ColorKey {
 		MatchingBraceBgColor,

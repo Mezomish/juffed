@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_PLUGIN_H__
 #define __JUFF_PLUGIN_H__
 
+#include "LibConfig.h"
+
 #include "DocHandlerInt.h"
 #include "Enums.h"
 #include "JuffAPI.h"
@@ -28,7 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class QToolBar;
 
-class JuffPlugin {
+class LIBJUFF_EXPORT JuffPlugin {
 public:
 	/**
 	* This method is called after plugin is loaded and all handlers are set.
@@ -138,6 +140,6 @@ private:
 	JuffAPI* api_;
 };
 
-Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.65")
+Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.66")
 
 #endif	//	__JUFF_PLUGIN_H__

@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_DOC_HANDLER_INT_H__
 #define __JUFFED_DOC_HANDLER_INT_H__
 
+#include "LibConfig.h"
+
 #include "Enums.h"
 
 namespace Juff {
@@ -26,7 +28,7 @@ namespace Juff {
 class Document;
 class Project;
 
-class DocHandlerInt {
+class LIBJUFF_EXPORT DocHandlerInt {
 public:
 	/**
 	* Returns current document. If there is no documents then returns a NullDoc.

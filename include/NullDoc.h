@@ -19,9 +19,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_NULL_DOC_H__
 #define __JUFFED_NULL_DOC_H__
 
+#include "LibConfig.h"
+
 #include "Document.h"
 
-class NullDoc : public Juff::Document {
+class LIBJUFF_EXPORT NullDoc : public Juff::Document {
 public:
 	static Juff::Document* instance();
 	virtual bool isNull() const { return true; }

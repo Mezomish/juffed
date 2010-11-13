@@ -26,13 +26,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //#include "CommandStorage.h"
 #include "Document.h"
 //#include "FindDlg.h"
-#include "IconManager.h"
 #include "JumpToFileDlg.h"
 //#include "License.h"
 #include "MainSettings.h"
 #include "Popup.h"
 #include "SearchPopup.h"
 #include "SelectFilesDlg.h"
+#include "../Utils.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>
@@ -396,7 +396,7 @@ void JuffMW::toggleFullscreen() {
 
 
 void JuffMW::applySettings() {
-	int size = IconManager::instance()->size();
+	int size = Utils::iconManager()->size();
 	
 	setToolButtonStyle((Qt::ToolButtonStyle)MainSettings::get(MainSettings::ToolButtonStyle));
 	setIconSize(QSize(size, size));

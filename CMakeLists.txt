@@ -166,6 +166,9 @@ if ( MINGW )
 	add_definitions(
 		-DQSCINTILLA_DLL
 	)
+
+	add_definitions( -D__SPECIAL_WINDOWS_DEFINE__ )
+
 	# resource compilation for MinGW
 	add_custom_command ( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/app/juffed_ico.o
 		COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR}/src/app -i${CMAKE_CURRENT_SOURCE_DIR}/src/app/juffed.rc 

@@ -13,10 +13,10 @@
 #include "Document.h"
 #include "DocHandlerInt.h"
 #include "Enums.h"
-#include "IconManager.h"
 #include "Log.h"
 #include "MainSettings.h"
 #include "TabBar.h"
+#include "../Utils.h"
 
 namespace Juff {
 
@@ -61,7 +61,7 @@ TabWidget::TabWidget(Juff::DocHandlerInt* handler) : QTabWidget() {
 	connect(docListBtn_->menu(), SIGNAL(aboutToShow()), SLOT(onDocListNeedsToBeShown()));
 	
 	contextMenu_ = new QMenu();
-	contextMenu_->addAction(CommandStorage::instance()->action(FILE_NEW));
+	contextMenu_->addAction(Utils::commandStorage()->action(FILE_NEW));
 	contextMenu_->addAction(tr("Close all"), this, SLOT(onCloseAllRequested()));
 }
 
@@ -256,7 +256,7 @@ void TabWidget::mouseDoubleClickEvent(QMouseEvent* e) {
 		// that can be other than 'this' object
 		currentWidget()->setFocus();
 		
-		CommandStorage::instance()->action(FILE_NEW)->trigger();
+		Utils::commandStorage()->action(FILE_NEW)->trigger();
 	}
 }
 

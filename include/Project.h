@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_PROJECT_H__
 #define __JUFFED_PROJECT_H__
 
+#include "LibConfig.h"
+
 class QDomDocument;
 class QDomElement;
 
@@ -27,7 +29,7 @@ class QDomElement;
 
 namespace Juff {
 
-class Project : public QObject {
+class LIBJUFF_EXPORT Project : public QObject {
 Q_OBJECT
 public:
 	Project(const QString& fileName);

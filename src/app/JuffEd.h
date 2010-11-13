@@ -26,8 +26,6 @@ namespace Juff {
 #include "Enums.h"
 #include "PluginNotifier.h"
 
-//class SciDocEngine;
-
 class JuffEd : public Juff::PluginNotifier, public Juff::DocHandlerInt {
 Q_OBJECT
 public:

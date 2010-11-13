@@ -19,9 +19,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_FILE_TYPE_SETTINGS_H__
 #define __JUFF_FILE_TYPE_SETTINGS_H__
 
+#include "LibConfig.h"
+
 #include "Settings.h"
 
-class FileTypeSettings {
+class LIBJUFF_EXPORT FileTypeSettings {
 public:
 	static QStringList getTypeList();
 	static QStringList getFileNamePatterns(const QString&);

@@ -19,9 +19,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_CHARSET_SETTINGS_H__
 #define __JUFF_CHARSET_SETTINGS_H__
 
+#include "LibConfig.h"
+
 #include "Settings.h"
 
-class CharsetSettings {
+class LIBJUFF_EXPORT CharsetSettings {
 public:
 	static QStringList getCharsetsList();
 	static bool charsetEnabled(const QString& charset);

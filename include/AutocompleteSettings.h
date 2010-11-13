@@ -19,9 +19,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_AUTOCOMPLETE_SETTINGS_H__
 #define __JUFFED_AUTOCOMPLETE_SETTINGS_H__
 
+#include "LibConfig.h"
+
 #include "Settings.h"
 
-class AutocompleteSettings {
+class LIBJUFF_EXPORT AutocompleteSettings {
 public:
 	enum IntKey {
 		Threshold,

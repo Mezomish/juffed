@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_PLUGIN_NOTIFIER_H__
 #define __JUFFED_PLUGIN_NOTIFIER_H__
 
+#include "LibConfig.h"
+
 #include <QObject>
 #include <QString>
 
@@ -29,7 +31,7 @@ namespace Juff {
 class Project;
 class Document;
 
-class PluginNotifier : public QObject {
+class LIBJUFF_EXPORT PluginNotifier : public QObject {
 Q_OBJECT
 public:
 	PluginNotifier();

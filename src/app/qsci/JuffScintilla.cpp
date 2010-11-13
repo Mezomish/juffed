@@ -28,9 +28,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <Qsci/qscicommandset.h>
 
-#include "CommandStorage.h"
 #include "Constants.h"
 #include "Log.h"
+#include "../Utils.h"
 
 #define WORD_HIGHLIGHT     1
 #define SEARCH_HIGHLIGHT   2
@@ -40,7 +40,7 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	initHighlightingStyle(SEARCH_HIGHLIGHT, QSciSettings::get(QSciSettings::SearchHLColor));
 	
 	contextMenu_ = new QMenu();
-	CommandStorage* st = CommandStorage::instance();
+	CommandStorageInt* st = Utils::commandStorage();
 	contextMenu_->addAction(st->action(EDIT_UNDO));
 	contextMenu_->addAction(st->action(EDIT_REDO));
 	contextMenu_->addSeparator();

@@ -16,54 +16,43 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef __JUFFED_COMMAND_STORAGE_H__
-#define __JUFFED_COMMAND_STORAGE_H__
+#ifndef __JUFFED_COMMAND_STORAGE_INTERFACE_H__
+#define __JUFFED_COMMAND_STORAGE_INTERFACE_H__
 
-#include "LibConfig.h"
-
-#include "CommandStorageInt.h"
-
-class IconManagerInt;
 class QAction;
+class QObject;
 class QKeySequence;
+class QString;
 
-#include <QObject>
-#include <QMap>
-
-class LIBJUFF_EXPORT CommandStorage : public QObject, public CommandStorageInt {
+class CommandStorageInt {
 public:
-	CommandStorage(IconManagerInt* mgr);
+	CommandStorageInt() {}
+	virtual ~CommandStorageInt() {}
 
 	/**
 	* Adds an action with given \param key and given \param name attached to the \param slot of the \param obj.
 	*/
-	void addAction(const QString& key, const QString& name, QObject* obj, const char* slot);
+	virtual void addAction(const QString& key, const QString& name, QObject* obj, const char* slot) = 0;
 
 	/**
 	* Returns an action with given \param id.
 	*/
-	QAction* action(const QString& id) const;
+	virtual QAction* action(const QString& id) const = 0;
 
 	/**
 	* Returns shortcut for the action with given \param id.
 	*/
-	QKeySequence shortcut(const QString& id) const;
+	virtual QKeySequence shortcut(const QString& id) const = 0;
 
 	/**
 	* Sets the \param shortcut for the action with a given \param key.
 	*/
-	void setShortcut(const QString& key, const QKeySequence& shortcut);
+	virtual void setShortcut(const QString& key, const QKeySequence& shortcut) = 0;
 
 	/**
 	* Updates actions' icons using current settings.
 	*/
-	void updateIcons();
-
-private:
-
-	QMap<QString, QAction*> actions_;
-	QMap<QString, QKeySequence> keys_;
-	IconManagerInt* iconManager_;
+	virtual void updateIcons() = 0;
 };
 
-#endif // __JUFFED_COMMAND_STORAGE_H__
+#endif // __JUFFED_COMMAND_STORAGE_INTERFACE_H__

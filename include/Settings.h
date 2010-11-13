@@ -19,12 +19,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_SETTINGS_H__
 #define __JUFFED_SETTINGS_H__
 
+#include "LibConfig.h"
+
 class QString;
 
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
 
-class Settings {
+class LIBJUFF_EXPORT Settings {
 	friend class AutocompleteSettings;
 	friend class CharsetSettings;
 	friend class EditorSettings;

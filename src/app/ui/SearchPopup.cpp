@@ -17,9 +17,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "Constants.h"
-#include "IconManager.h"
 #include "Log.h"
 #include "SearchPopup.h"
+#include "../Utils.h"
 
 #include <QLineEdit>
 
@@ -41,7 +41,7 @@ SearchPopup::SearchPopup() : QWidget() {
 	ui.replaceNextBtn->setText("");
 	ui.replaceAllBtn->setText("");
 	ui.expandBtn->setText("");
-	ui.expandBtn->setIcon(IconManager::instance()->icon(SEARCH_REPLACE));
+	ui.expandBtn->setIcon(Utils::iconManager()->icon(SEARCH_REPLACE));
 	
 	ui.findCmb->setInsertPolicy(QComboBox::InsertAtTop);
 	ui.replaceCmb->setInsertPolicy(QComboBox::InsertAtTop);

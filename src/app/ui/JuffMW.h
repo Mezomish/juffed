@@ -55,6 +55,7 @@ public:
 	void addStatusWidget(QWidget*, int);
 	void addToolBar(QToolBar*);
 	void addMenu(QMenu*);
+	void insertMenu(QMenu* before, QMenu* menu);
 	void message(const QIcon& icon, const QString& title, const QString& message, int timeout = 10);
 
 	SearchPopup* searchPopup() const;

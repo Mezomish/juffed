@@ -226,6 +226,12 @@ void JuffEd::loadPlugins() {
 			menuiter.value()->addActions(acts);
 		}
 	}
+	
+	// menus
+	Juff::MenuList menus = pluginMgr_->menus();
+	foreach (QMenu* menu, menus) {
+		mw_->insertMenu(menus_[Juff::MenuTools], menu);
+	}
 }
 
 void JuffEd::buildUI() {

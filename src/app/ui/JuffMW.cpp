@@ -277,6 +277,10 @@ void JuffMW::addMenu(QMenu* menu) {
 	menuBar()->addMenu(menu);
 }
 
+void JuffMW::insertMenu(QMenu* before, QMenu* menu) {
+	menuBar()->insertMenu(before->menuAction(), menu);
+}
+
 void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
 	if ( maxWidth > 0 )
 		w->setMaximumWidth(maxWidth);

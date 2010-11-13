@@ -4,8 +4,42 @@
 #include "MainSettings.h"
 #include "Settings.h"
 
+#include <QDir>
+#include <QFile>
 #include <QFileInfo>
 #include <QTranslator>
+
+void copyToLocalDir(const QString& subDirName) {
+	QDir dir = QDir(AppInfo::dataDirPath() + "/" + subDirName);
+	QString localPath = AppInfo::configDirPath() + "/" + subDirName;
+
+	QDir localDir(localPath);
+	if ( !localDir.exists() ) {
+		localDir.mkpath(localPath);
+	}
+	foreach (QString file, dir.entryList(QDir::Files)) {
+		if ( !QFileInfo(localPath + "/" + file).exists() ) {
+			QFile::copy(dir.absolutePath() + "/" + file, localPath + "/" + file);
+		}
+	}
+}
+
+void checkForFirstRun() {
+	//	highlight schemes and API lists
+	copyToLocalDir("hlschemes");
+	copyToLocalDir("apis");
+	
+	//	sessions
+	QString configPath = AppInfo::configDirPath();
+	QDir sessionDir(configPath + "/sessions/");
+	if ( !sessionDir.exists() )
+		sessionDir.mkpath(configPath + "/sessions/");
+
+	//	create the log file
+	QFile file(AppInfo::logFile());
+	file.open(QIODevice::WriteOnly | QIODevice::Truncate);
+	file.close();
+}
 
 void loadTranslations(QApplication& app) {
 	QString lng = MainSettings::get(MainSettings::Language);
@@ -22,6 +56,8 @@ void loadTranslations(QApplication& app) {
 void initApp(QApplication& app) {
 	app.setOrganizationName("juff");
 	app.setApplicationName("juffed");
+
+	checkForFirstRun();
 
 #ifdef APPLEBUNDLE
     // If is the app built as an Apple Bundle, the libjuff is

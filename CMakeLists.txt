@@ -276,10 +276,10 @@ endif (NOT APPLEBUNDLE)
 
 # make dist custom target
 SET(CPACK_PACKAGE_NAME ${JUFFED})
-SET(CPACK_PACKAGE_VERSION ${BASE_VERSION})
+SET(CPACK_PACKAGE_VERSION ${JUFFED_VERSION})
 SET(CPACK_SOURCE_GENERATOR "TGZ;TBZ2;ZIP;")
 SET(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
-SET(CPACK_IGNORE_FILES "/CVS/;/\\\\.svn/;/\\\\.git/;\\\\.swp$;\\\\.#;/#;\\\\.tar.gz$;/CMakeFiles/;CMakeCache.txt;\\\\.qm$;/build/;")
+SET(CPACK_IGNORE_FILES "/CVS/;/\\\\.svn/;/\\\\.git/;\\\\.swp$;\\\\.#;/#;\\\\.tar.gz$;\\\\~$;/CMakeFiles/;CMakeCache.txt;\\\\.qm$;/win32/;/build/;")
 SET(CPACK_SOURCE_IGNORE_FILES ${CPACK_IGNORE_FILES})
 INCLUDE(CPack)
 # simulate autotools' "make dist"

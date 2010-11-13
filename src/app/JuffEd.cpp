@@ -71,6 +71,10 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	
 	onSettingsApplied();
 
+	mw_->setGeometry(MainSettings::geometry());
+	if ( MainSettings::get(MainSettings::Maximized) ) {
+		mw_->showMaximized();
+	}
 	mw_->restoreState();
 }
 

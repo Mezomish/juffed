@@ -102,10 +102,6 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 }
 
 JuffMW::JuffMW() : QMainWindow() {
-	setGeometry(MainSettings::geometry());
-	if ( MainSettings::get(MainSettings::Maximized) ) {
-		showMaximized();
-	}
 	setWindowIcon(QIcon(":juffed_32.png"));
 	
 	aboutDlg_ = createAboutDlg(this);

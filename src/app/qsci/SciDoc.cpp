@@ -43,23 +43,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <Qsci/qscilexer.h>
 
 SciDoc::Eol guessEol(const QString& fileName) {
-#ifdef Q_OS_WIN32
-	// Windows
-	SciDoc::Eol eol = SciDoc::EolWin;
-#else
-	// Not windows. Can be Mac or other Unix-like
-// Q_WS_MAC is defined for Mac OS X, which use EolUnix.
-// EolMac us used only for macos < 10.4
-//
-//#ifdef Q_WS_MAC
-//	// Mac
-//	SciDoc::Eol eol = SciDoc::EolMac;
-//#else
-//	// Other Unix-like
-	SciDoc::Eol eol = SciDoc::EolUnix;
-//#endif
-#endif
-
+	SciDoc::Eol eol;
 	if ( !Juff::Document::isNoname(fileName) ) {
 		QFile file(fileName);
 		if ( file.open(QIODevice::ReadOnly) ) {
@@ -73,9 +57,19 @@ SciDoc::Eol guessEol(const QString& fileName) {
 				else if ( ending == "\r" ) {
 					eol = SciDoc::EolMac;
 				}
+				else {
+					eol = SciDoc::EolUnix;
+				}
 			}
 			file.close();
 		}
+	}
+	else {
+#ifdef Q_OS_WIN32
+		eol = SciDoc::EolWin;
+#else
+		eol = SciDoc::EolUnix;
+#endif
 	}
 	return eol;
 }

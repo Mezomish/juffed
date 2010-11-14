@@ -22,9 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QMessageBox>
 
 #include "FileTypeSettings.h"
-#include "../../qsci/LexerStorage.h"
+#include "../LexerStorage.h"
 
-FileTypesPage::FileTypesPage() : QWidget() {
+FileTypesPage::FileTypesPage() : SettingsPage(0) {
 	ui.setupUi(this);
 
 	connect(ui.typeList, SIGNAL(currentTextChanged(const QString&)), SLOT(typeChanged(const QString&)));
@@ -45,6 +45,9 @@ FileTypesPage::FileTypesPage() : QWidget() {
 		firstLinePatterns_[type] = FileTypeSettings::getFirstLinePatterns(type);
 	}
 	ui.typeList->addItems(types);
+}
+
+void FileTypesPage::init() {
 }
 
 void FileTypesPage::typeChanged(const QString& type) {

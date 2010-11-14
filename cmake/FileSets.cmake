@@ -38,6 +38,7 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/qsci/JuffScintilla.h
 	src/app/qsci/SciDoc.h
 	src/app/qsci/SciDocEngine.h
+	src/app/qsci/settings/FileTypesPage.h
 	
 	# lexers
 	src/app/qsci/lexers/qscilexerada.h
@@ -66,7 +67,6 @@ SET ( juffed_app_MOC_HEADERS
 	# settings
 	src/app/ui/settings/CharsetsSettingsPage.h
 	src/app/ui/settings/ColorButton.h
-	src/app/ui/settings/FileTypesPage.h
 	src/app/ui/settings/MultiPage.h
 	src/app/ui/settings/PluginPage.h
 	src/app/ui/settings/SettingsDlg.h
@@ -89,6 +89,7 @@ SET ( juffed_app_SRCS
 	src/app/qsci/SciDocEngine.cpp
 	src/app/qsci/SciDocEngine.cpp
 	src/app/qsci/settings/PrintSettings.cpp
+	src/app/qsci/settings/FileTypesPage.cpp
 	
 	# lexers
 	src/app/qsci/lexers/qscilexerada.cpp
@@ -118,7 +119,6 @@ SET ( juffed_app_SRCS
 	# settings
 	src/app/ui/settings/CharsetsSettingsPage.cpp
 	src/app/ui/settings/ColorButton.cpp
-	src/app/ui/settings/FileTypesPage.cpp
 	src/app/ui/settings/MultiPage.cpp
 	src/app/ui/settings/PluginPage.cpp
 	src/app/ui/settings/SettingsDlg.cpp
@@ -151,12 +151,12 @@ SET ( juffed_app_UIS
 	src/app/ui/forms/AutocompleteSettingsPage.ui
 	src/app/ui/forms/CharsetsSettingsPage.ui
 	src/app/ui/forms/EditorSettingsPage.ui
-	src/app/ui/forms/FileTypesPage.ui
 	src/app/ui/forms/MainSettingsPage.ui
 	src/app/ui/forms/SessionDlg.ui
 	src/app/ui/forms/SelectFilesDlg.ui
 	src/app/ui/forms/ViewSettingsPage.ui
 	src/app/qsci/forms/QSciSettings.ui
+	src/app/qsci/settings/FileTypesPage.ui
 )
 
 SET ( juffed_app_RESOURCES

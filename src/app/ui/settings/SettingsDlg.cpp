@@ -44,7 +44,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "MultiPage.h"
 #include "PluginPage.h"
 #include "PluginSettings.h"
-//#include "PrintSettings.h"
 #include "SettingsItem.h"
 #include "SettingsPage.h"
 
@@ -270,36 +269,12 @@ public:
 	Ui::AutocompletePage ui;
 };
 
-/*class PrintingPage: public QWidget {
-public:
-	PrintingPage() : QWidget() {
-		QVBoxLayout* vBox = new QVBoxLayout(this);
-		keepColorsChk_  = new QCheckBox(QObject::tr("Keep syntax highlighting"));
-		keepBgColorChk_ = new QCheckBox(QObject::tr("Keep background color"));
-		alwaysWrapChk_  = new QCheckBox(QObject::tr("Always wrap text"));
-		vBox->addWidget(keepColorsChk_);
-		vBox->addWidget(keepBgColorChk_);
-		vBox->addWidget(alwaysWrapChk_);
-		vBox->addStretch();
-		vBox->setMargin(0);
-	}
-	void init(QList<SettingsItem*>& items) {
-		items << new SettingsCheckItem("printing", "keepColors", keepColorsChk_)
-			  << new SettingsCheckItem("printing", "keepBgColor", keepBgColorChk_)
-			  << new SettingsCheckItem("printing", "alwaysWrap", alwaysWrapChk_);
-	}
-	QCheckBox* keepColorsChk_;
-	QCheckBox* keepBgColorChk_;
-	QCheckBox* alwaysWrapChk_;
-};*/
-
 class PluginsMainPage : public SettingsPage {
 public:
 	PluginsMainPage(QWidget* parent) : SettingsPage(parent) {}
 	virtual void init() {}
 };
 
-//#include "FileTypesPage.h"
 //#include "CharsetsSettingsPage.h"
 //#include "PluginPage.h"
 #include "JuffPlugin.h"
@@ -328,8 +303,6 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	pages_ << mp_->addPage(tr("Autocompletion"), new AutocompleteSettingsPage(this));
 	pages_ << mp_->addPage(tr("Charsets"), new CharsetsSettingsPage());
 	pages_ << mp_->addPage(tr("Plugins"), new PluginsMainPage(this));
-//		<< mp_->addPage(tr("File types"), new FileTypesPage())
-//		<< mp_->addPage(tr("Printing"), new PrintingPage())
 	;
 
 	// layouts

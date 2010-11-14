@@ -16,29 +16,20 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef __JUFF_FILE_TYPES_PAGE_H__
-#define __JUFF_FILE_TYPES_PAGE_H__
+#ifndef __JUFF_FILE_TYPE_SETTINGS_H__
+#define __JUFF_FILE_TYPE_SETTINGS_H__
 
-#include "ui_FileTypesPage.h"
+#include "Settings.h"
 
-class FileTypesPage : public QWidget {
-Q_OBJECT
+class FileTypeSettings : public Settings {
 public:
-	FileTypesPage();
+	static QStringList getTypeList();
+	static QStringList getFileNamePatterns(const QString&);
+	static QStringList getFirstLinePatterns(const QString&);
 
-	void apply();
-
-protected slots:
-	void typeChanged(const QString&);
-	void addFileNamePattern();
-	void removeFileNamePattern();
-	void addFirstLinePattern();
-	void removeFirstLinePattern();
-
-private:
-	Ui::FileTypesPage ui;
-	QMap<QString, QStringList> fileNamePatterns_;
-	QMap<QString, QStringList> firstLinePatterns_;
+	static void setTypeList(const QStringList&);
+	static void setFileNamePatterns(const QString&, const QStringList&);
+	static void setFirstLinePatterns(const QString&, const QStringList&);
 };
 
-#endif // __JUFF_FILE_TYPES_PAGE_H__
+#endif // __JUFF_FILE_TYPE_SETTINGS_H__

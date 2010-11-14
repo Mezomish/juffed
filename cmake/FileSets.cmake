@@ -87,6 +87,8 @@ SET ( juffed_app_SRCS
 	src/app/qsci/LexerStorage.cpp
 	src/app/qsci/SciDoc.cpp
 	src/app/qsci/SciDocEngine.cpp
+	src/app/qsci/SciDocEngine.cpp
+	src/app/qsci/settings/PrintSettings.cpp
 	
 	# lexers
 	src/app/qsci/lexers/qscilexerada.cpp

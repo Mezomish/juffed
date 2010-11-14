@@ -195,6 +195,12 @@ void JuffEd::loadEngines() {
 	SciDocEngine* sciEng = new SciDocEngine();
 	sciEng->setDocHandler(this);
 	engines_[sciEng->type()] = sciEng;
+	
+	QStringList titles;
+	QWidgetList pages;
+	if ( sciEng->getSettingsPages(titles, pages) ) {
+		settingsDlg_->addPages(titles, pages);
+	}
 }
 
 void JuffEd::loadPlugins() {

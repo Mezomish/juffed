@@ -31,6 +31,30 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "ui_QSciSettings.h"
 
+class PrintingPage: public SettingsPage {
+public:
+	PrintingPage() : SettingsPage(0) {
+		QVBoxLayout* vBox = new QVBoxLayout(this);
+		keepColorsChk_  = new QCheckBox(QObject::tr("Keep syntax highlighting"));
+		keepBgColorChk_ = new QCheckBox(QObject::tr("Keep background color"));
+		alwaysWrapChk_  = new QCheckBox(QObject::tr("Always wrap text"));
+		vBox->addWidget(keepColorsChk_);
+		vBox->addWidget(keepBgColorChk_);
+		vBox->addWidget(alwaysWrapChk_);
+		vBox->addStretch();
+		vBox->setMargin(0);
+	}
+	void init() {
+		items_ << new SettingsCheckItem("printing", "keepColors", keepColorsChk_)
+			  << new SettingsCheckItem("printing", "keepBgColor", keepBgColorChk_)
+			  << new SettingsCheckItem("printing", "alwaysWrap", alwaysWrapChk_);
+	}
+	QCheckBox* keepColorsChk_;
+	QCheckBox* keepBgColorChk_;
+	QCheckBox* alwaysWrapChk_;
+};
+
+
 QIcon eolIcon(SciDoc::Eol eol) {
 	switch ( eol ) {
 		case SciDoc::EolWin  : return QIcon(":win");
@@ -512,4 +536,10 @@ void SciDocEngine::slotGotoMarker() {
 			}
 		}
 	}
+}
+
+bool SciDocEngine::getSettingsPages(QStringList& titles, QWidgetList& pages) const {
+	titles << tr("Printing");
+	pages << new PrintingPage();
+	return true;
 }

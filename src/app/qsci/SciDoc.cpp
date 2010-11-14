@@ -28,6 +28,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "MainSettings.h"
 #include "SearchResults.h"
 #include "QSciSettings.h"
+#include "settings/PrintSettings.h"
 
 #include <QFile>
 #include <QPainter>
@@ -288,20 +289,20 @@ void SciDoc::print() {
 	QsciPrinter prn;
 	QPrintDialog dlg(&prn, this);
 	if (dlg.exec() == QDialog::Accepted) {
-//		prn.setWrapMode(TextDocSettings::widthAdjust() || PrintSettings::alwaysWrap() ? QsciScintilla::WrapWord : QsciScintilla::WrapNone);
+		prn.setWrapMode(EditorSettings::get(EditorSettings::WrapWords) || PrintSettings::get(PrintSettings::AlwaysWrap) ? QsciScintilla::WrapWord : QsciScintilla::WrapNone);
 		
 		int line1(-1), line2(-1), col1(-1), col2(-1);
 		JuffScintilla* edit = int_->curEdit_;
 		if ( edit ) {
-//			QsciLexer* lexer = edit->lexer();
-//			if ( !PrintSettings::keepBgColor() ) {
-//				lexer->setDefaultPaper(Qt::white);
-//				lexer->setPaper(Qt::white);
-//				lexer->setDefaultColor(Qt::black);
-//			}
-//			if ( !PrintSettings::keepColors() ) {
-//				lexer->setColor(Qt::black);
-//			}
+			QsciLexer* lexer = edit->lexer();
+			if ( !PrintSettings::get(PrintSettings::KeepBgColor) ) {
+				lexer->setDefaultPaper(Qt::white);
+				lexer->setPaper(Qt::white);
+				lexer->setDefaultColor(Qt::black);
+			}
+			if ( !PrintSettings::get(PrintSettings::KeepColors) ) {
+				lexer->setColor(Qt::black);
+			}
 			edit->getSelection(&line1, &col1, &line2, &col2);
 			if (line1 >=0 && line2 >= 0 && col1 >= 0 && col2 >= 0) {
 				//	We have selection. Print it.

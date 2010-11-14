@@ -42,6 +42,7 @@ public:
 	virtual void deactivate(bool deact = true);
 
 	virtual QWidget* settingsPage() const;
+	virtual bool getSettingsPages(QStringList&, QWidgetList&) const;
 	
 public slots:
 	void slotUpperCase();

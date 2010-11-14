@@ -454,6 +454,19 @@ bool SettingsDlg::isPluginEnabled(const QString& pluginName) {
 		return false;
 }
 
+void SettingsDlg::addPages(const QStringList& titles, const QWidgetList& pages) {
+	LOGGER;
+	if ( titles.count() != pages.count() ) {
+		return;
+	}
+	
+	for ( int i = 0; i < titles.count(); ++i ) {
+		SettingsPage* page = qobject_cast<SettingsPage*>(pages[i]);
+		if ( page != 0 ) {
+			pages_ << mp_->addPage(titles[i], page);
+		}
+	}
+}
 
 //void SettingsDlg::somethingChanged(bool changed) {
 //	JUFFWARNING(QString("Something is changed: ").arg(changed));

@@ -39,6 +39,7 @@ public:
 	bool isPluginEnabled(const QString&);
 	void addPluginSettingsPage(const QString&, const QString&, QWidget*);
 	void setEditorsPages(const QWidgetList&);
+	void addPages(const QStringList&, const QWidgetList&);
 
 signals:
 	void applied();

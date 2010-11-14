@@ -54,6 +54,7 @@ public:
 	virtual void deactivate(bool deact = true);
 
 	virtual QWidget* settingsPage() const { return 0; }
+	virtual bool getSettingsPages(QStringList&, QWidgetList&) const { return false; }
 	
 protected:
 	void addAction(Juff::MenuID, QMenu*, QAction*);

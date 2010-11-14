@@ -27,38 +27,26 @@ class QString;
 #include <QtCore/QVariant>
 
 class LIBJUFF_EXPORT Settings {
-	friend class AutocompleteSettings;
-	friend class CharsetSettings;
-	friend class EditorSettings;
-	friend class FileTypeSettings;
-	friend class KeySettings;
-	friend class MainSettings;
-	friend class PluginSettings;
-	friend class QSciSettings;
-	friend class SettingsCheckItem;
-	friend class SettingsSelectItem;
-
 public:
 	static Settings* instance();
 
 	void read(const QString&, const QString&);
 	void write(const QString&, const QString&);
 
-//	static int count();
-
-	QVariant defaultValue(const QString& section, const QString& key);
-
-protected:
 	bool valueExists(const QString& section, const QString& key);
 	int intValue(const QString& section, const QString& key);
 	bool boolValue(const QString& section, const QString& key);
 	QString stringValue(const QString& section, const QString& key);
-	QVariant value(const QString& section, const QString& key, const QVariant& defValue = QVariant());
-//
 	void setValue(const QString& section, const QString& key, const QVariant& value);
+	QVariant value(const QString& section, const QString& key, const QVariant& defValue = QVariant());
+
+	QStringList keyList(const QString& section);
+	QVariant defaultValue(const QString& section, const QString& key);
+
+protected:
+//
 //
 //	static QStringList sectionList();
-	QStringList keyList(const QString& section);
 
 	static Settings* instance_;
 

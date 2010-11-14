@@ -44,7 +44,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <Qsci/qscilexer.h>
 
 SciDoc::Eol guessEol(const QString& fileName) {
-	SciDoc::Eol eol;
+	SciDoc::Eol eol = SciDoc::EolUnix;
 	if ( !Juff::Document::isNoname(fileName) ) {
 		QFile file(fileName);
 		if ( file.open(QIODevice::ReadOnly) ) {
@@ -696,12 +696,14 @@ void SciDoc::toggleCommentLines() {
 	QString s = syntax();
 	if ( s == "C++" || s == "PHP" || s == "C#" || s == "Java" || s == "JavaScript" )
 		comment = "//";
-	else if ( s == "Bash" || s == "Python" || s == "CMake" || s == "Makefile" )
+	else if ( s == "Bash" || s == "Python" || s == "CMake" || s == "Makefile" || s == "Perl")
 		comment = "#";
 	else if ( s == "Fortran" )
 		comment = "!";
 	else if ( s == "SQL")
 		comment = "--";
+	else if ( s == "Qore" || s == "Qorus")
+		comment = "#";
 	//	TODO : need to add more syntaxes
 
 	if ( comment.isEmpty() )
@@ -777,6 +779,10 @@ void SciDoc::toggleCommentBlock() {
 	else if ( s == "Python" ) {
 		commBeg = "'''";
 		commEnd = "'''";
+	}
+	else if ( s == "Qore" || s == "Qorus") {
+		commBeg = "/*";
+		commEnd = "*/";
 	}
 	//	TODO : need to add more syntaxes
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="Qore">
+	<style name="comment" color="#9a9a9a" bold="false" italic="true" />
+	<style name="keyword" color="#001372" bold="true" italic="false" />
+	<style name="operator" color="#5e0099" bold="false" italic="false" />
+	<style name="backticks" color="#006699" bgColor="#f0e0ff" bold="false" italic="false" />
+	<style name="regexp" color="#cc00d1" bgColor="#cfcfef" bold="false" italic="false" />
+	<style name="identifier" color="#000000" bold="false" italic="false" />
+	<style name="number" color="#006600" bold="false" italic="false" />
+	<style name="scalar" color="#996633" bold="false" italic="false" />
+	<style name="array" color="#996633" bold="false" italic="false" />
+	<style name="hash" color="#996633" bold="false" italic="false" />
+	<style name="singleString" color="#cc0000" bold="false" />
+	<style name="doubleString" color="#cc0000" bold="false" />
+	<style name="substitution" bgColor="#ffc0c0" />
+	<style name="hereDocument" bgColor="#c0f0c0" />
+	<style name="error" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
+</scheme>
+</JuffScheme>

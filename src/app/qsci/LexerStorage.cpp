@@ -728,6 +728,14 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 		else if ( name.compare("Matlab") == 0 ) {
 			newLexer = new QsciLexerMatlab();
 		}
+		else if ( name.compare("Qore") == 0 ) {
+			// TODO/FIXME: special lexer
+			newLexer = new QsciLexerPerl();
+		}
+		else if ( name.compare("Qorus") == 0) {
+			// TODO/FIXME: special lexer. Qorus has to inherit Qore
+			newLexer = new QsciLexerPerl();
+		}
 		
 		if ( newLexer != 0 ) {
 			lexers_[name] = newLexer;
@@ -839,6 +847,8 @@ QStringList LexerStorage::lexersList() const {
 #ifdef JUFF_TCL_LEXER
 			<< "TCL"
 #endif	//	JUFF_TCL_LEXER
+
+			<< "Qore" << "Qorus"
 
 			<< "TeX" << "XML";
 	return list;

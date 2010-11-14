@@ -119,6 +119,12 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 		else if ( type == "Fortran") {
 			list << "*.f" << "*.f77" << "*.f90";
 		}
+		else if ( type == "Qore") {
+			list << "*.q" << "*.qc" << "*.ql";
+		}
+		else if ( type == "Qorus") {
+			list << "*.qfd" << "*.qwf" << "*.qsd";
+		}
 
 		return list;
 	}
@@ -147,6 +153,8 @@ QStringList FileTypeSettings::getFirstLinePatterns(const QString& type) {
 			list << "\\documentclass";
 		else if ( type == "XML") 
 			list << "<!doctype*" << "<?xml*";
+		else if ( type == "Qore")
+			list << "*qore*";
 
 		return list;
 	}

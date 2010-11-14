@@ -106,9 +106,9 @@ JuffMW::JuffMW() : QMainWindow() {
 	
 	aboutDlg_ = createAboutDlg(this);
 //	findDlg_ = new FindDlg(this, false);
-	popup_ = NULL;
 	searchPopup_ = new SearchPopup();
-	
+	connect(searchPopup_, SIGNAL(opened()), SLOT(onSearchPopupOpened()));
+	connect(searchPopup_, SIGNAL(closed()), SLOT(onSearchPopupClosed()));
 //	connect(searchPopup_, SIGNAL(searchRequested(const Juff::SearchParams&)), SIGNAL(searchRequested(const Juff::SearchParams&)));
 	
 	statusWidget_ = new QWidget();
@@ -130,8 +130,6 @@ void JuffMW::setMainWidget(QWidget* w) {
 	setCentralWidget(mainWidget_);
 	searchPopup_->hide();
 	
-	popup_ = new Popup(mainWidget_);
-	resizePopup(mainWidget_->width());
 	mainWidget_->installEventFilter(this);
 }
 
@@ -260,6 +258,13 @@ void JuffMW::hideSearchPopup() {
 	}
 }
 
+void JuffMW::onSearchPopupOpened() {
+	updatePopupsPositions();
+}
+
+void JuffMW::onSearchPopupClosed() {
+	updatePopupsPositions();
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Information display
@@ -283,34 +288,38 @@ void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
 	statusLayout_->addWidget(w);
 }
 
-void JuffMW::message(const QIcon& icon, const QString& title, const QString& message, int timeout) {
+void JuffMW::message(const QIcon& icon, const QString& title, const QString& message, Qt::Alignment align, int timeout) {
 	Q_UNUSED(icon);
-	popup_->popup(title, message, timeout);
+	Popup* popup = new Popup(title, message, align, mainWidget_->layout()->itemAt(0)->widget());
+	connect(popup, SIGNAL(closed()), SLOT(onPopupDismissed()));
+	popups_.append(popup);
+	
+	popup->updatePosition();
+	popup->popup(timeout);
 }
 
+void JuffMW::onPopupDismissed() {
+	Popup* popup = qobject_cast<Popup*>(sender());
+	if ( popup != 0 ) {
+		popups_.removeAll(popup);
+	}
+}
 
+void JuffMW::updatePopupsPositions() {
+	foreach (Popup* popup, popups_) {
+		popup->updatePosition();
+	}
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 
 bool JuffMW::eventFilter(QObject* obj, QEvent* e) {
 	if ( obj == mainWidget_ ) {
 		if ( e->type() == QEvent::Resize ) {
-			QResizeEvent* rszEvent = static_cast<QResizeEvent*>(e);
-			if ( popup_ != NULL ) {
-				resizePopup(rszEvent->size().width());
-			}
+			updatePopupsPositions();
 		}
 	}
 	return QMainWindow::eventFilter(obj, e);
-}
-
-void JuffMW::resizePopup(int parentWidth) {
-	if ( parentWidth - 160 <= popup_->maximumWidth() )
-		popup_->setGeometry(80, popup_->y(), parentWidth - 160, 80);
-	else {
-		int ppWidth = popup_->maximumWidth();
-		popup_->setGeometry( (parentWidth - ppWidth) / 2, popup_->y(), ppWidth, 80);
-	}
 }
 
 void JuffMW::closeEvent(QCloseEvent* e) {

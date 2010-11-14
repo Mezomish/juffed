@@ -37,6 +37,7 @@ public:
 	bool isCollapsed() const;
 
 public slots:
+	void show();
 	void dismiss();
 	void expand(bool);
 
@@ -45,6 +46,7 @@ signals:
 //	void searchRequested();
 	void findNextRequested();
 	void findPrevRequested();
+	void opened();
 	void closed();
 	void replaceNextRequested();
 	void replacePrevRequested();

@@ -93,9 +93,14 @@ Juff::SearchParams SearchPopup::searchParams() const {
 	return params_;
 }
 
+void SearchPopup::show() {
+	QWidget::show();
+	emit opened();
+}
+
 void SearchPopup::dismiss() {
-	emit closed();
 	hide();
+	emit closed();
 }
 
 

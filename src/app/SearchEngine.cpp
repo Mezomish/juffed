@@ -158,7 +158,7 @@ void SearchEngine::changeCurDoc(Juff::Document* doc) {
 	curDoc_ = doc;
 	connect(curDoc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
 	
-	searchPopup_->hide();
+	searchPopup_->dismiss();
 	onDlgClosed();
 }
 
@@ -390,7 +390,7 @@ void SearchEngine::onReplaceAll() {
 	}
 	searchPopup_->setFocusOnReplace();
 	
-	mw_->message(QIcon(), tr("Replace"), tr("Replacement finished (%1 replacements were made)").arg(replacesMade), 5);
+	mw_->message(QIcon(), tr("Replace"), tr("Replacement finished (%1 replacements were made)").arg(replacesMade), Qt::AlignBottom | Qt::AlignLeft, 5);
 	
 	connect(curDoc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
 	

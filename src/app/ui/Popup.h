@@ -28,9 +28,14 @@ class QTimeLine;
 class Popup : public QFrame {
 Q_OBJECT
 public:
-	Popup(QWidget* parent);
-	void popup(const QString& header, const QString& msg, int seconds = 10);
+	Popup(const QString&, const QString&, Qt::Alignment, QWidget* parent);
+	void popup(int seconds = 10);
 	void dismiss();
+	Qt::Alignment align() const { return align_; }
+	void updatePosition();
+
+signals:
+	void closed();
 
 protected slots:
 	void onTimer();
@@ -42,6 +47,7 @@ protected:
 	virtual void mousePressEvent(QMouseEvent*);
 
 private:
+	int bestWidth() const;
 	void setAlpha(int alpha);
 
 	QLabel* headerL_;
@@ -52,6 +58,11 @@ private:
 	QTimeLine* timeLine_;
 	bool hidden_;
 	QString styleSheet_;
+	Qt::Alignment align_;
+
+	int initialPos_;
+	int direction_;
+	int curFrame_;
 };
 
 #endif // __JUFFED_POPUP_H__

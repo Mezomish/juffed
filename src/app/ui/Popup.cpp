@@ -29,17 +29,28 @@ static const int AlphaTransparent = 200;
 static const int Height           = 80;
 static const int StepCount        = 40;
 
-Popup::Popup(QWidget* parent) : QFrame(parent) {
+Popup::Popup(const QString& header, const QString& message, Qt::Alignment align, QWidget* parent) : QFrame(parent) {
+	align_ = align;
+	
 	setFrameShape(QFrame::Box);
 	setFrameShadow(QFrame::Raised);
 	setMaximumWidth(600);
 	
-	setGeometry(0, -Height, 100, Height);
+	if ( align & Qt::AlignTop ) {
+		initialPos_ = -Height;
+		direction_ = 1;
+	}
+	else {
+		initialPos_ = parent->height();
+		direction_ = -1;
+	}
+	setGeometry(0, initialPos_, 100, Height);
 	hidden_ = true;
+	curFrame_ = 0;
 	
-	headerL_ = new QLabel("");
+	headerL_ = new QLabel(QString("<b>%1</b>").arg(header));
 	headerL_->setMaximumHeight(20);
-	messageL_ = new QLabel("");
+	messageL_ = new QLabel(message);
 	messageL_->setAlignment(Qt::AlignCenter);
 	messageL_->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	messageL_->setWordWrap(true);
@@ -79,15 +90,18 @@ Popup::Popup(QWidget* parent) : QFrame(parent) {
 	setAlpha(AlphaTransparent);
 }
 
-void Popup::popup(const QString& header, const QString& msg, int seconds) {
+int Popup::bestWidth() const {
+	return QFontMetrics(messageL_->font()).boundingRect(messageL_->text()).width() + 50;
+}
+
+void Popup::popup(int seconds) {
 	timerTicks_ = seconds;
-	headerL_->setText(QString("<b>%1</b>").arg(header));
-	messageL_->setText(msg);
 	timerL_->setText(QString::number(timerTicks_));
 	timer_->start(1000);
 	
 	hidden_ = true;
 	timeLine_->start();
+	show();
 }
 
 void Popup::setAlpha(int alpha) {
@@ -124,11 +138,49 @@ void Popup::onTimer() {
 }
 
 void Popup::makeStep(int frame) {
-	static const int step = Height / StepCount;
+	curFrame_ = frame;
+	const int step = direction_ * Height / StepCount;
+	if ( hidden_ ) {
+		setGeometry(x(), initialPos_ + step * frame, width(), Height - 2);
+	}
+	else {
+		setGeometry(x(), initialPos_ + step * (StepCount - frame), width(), Height - 2);
+		if ( frame >= StepCount ) {
+			emit closed();
+			deleteLater();
+		}
+	}
+}
+
+void Popup::updatePosition() {
+	int x, y;
+	
+	if ( align_ & Qt::AlignBottom ) {
+		initialPos_ = parentWidget()->height();
+	}
+	
+	// vertical pos
+	const int step = direction_ * Height / StepCount;
 	if ( hidden_ )
-		setGeometry(x(), step * frame - Height, width(), 80);
-	else
-		setGeometry(x(), step * (StepCount - frame) - Height, width(), 80);
+		y = initialPos_ + step * curFrame_;
+	else {
+		y = initialPos_ + step * (StepCount - curFrame_);
+	}
+	
+	// horizontal pos
+	int width = bestWidth();
+	int pWidth = parentWidget()->width();
+	if ( align_ & Qt::AlignLeft ) {
+		x = 10;
+	}
+	else if ( align_ & Qt::AlignCenter ) {
+		x = (pWidth - width) / 2;
+	}
+	else {
+		x = (pWidth - width) - 10;
+	}
+	
+	setGeometry( x, y, width, Height - 2);
 }
 
 void Popup::dismiss() {

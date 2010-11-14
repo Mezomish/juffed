@@ -56,7 +56,7 @@ public:
 	void addToolBar(QToolBar*);
 	void addMenu(QMenu*);
 	void insertMenu(QMenu* before, QMenu* menu);
-	void message(const QIcon& icon, const QString& title, const QString& message, int timeout = 10);
+	void message(const QIcon& icon, const QString& title, const QString& message, Qt::Alignment align = Qt::AlignTop | Qt::AlignRight, int timeout = 10);
 
 	SearchPopup* searchPopup() const;
 //	void showFindDialog(const QString&, bool replace = false);
@@ -81,6 +81,11 @@ public slots:
 	void slotAboutQt();
 	void hideSearchPopup();
 
+protected slots:
+	void onPopupDismissed();
+	void onSearchPopupOpened();
+	void onSearchPopupClosed();
+
 protected:
 	virtual void closeEvent(QCloseEvent*);
 	virtual void resizeEvent(QResizeEvent*);
@@ -90,7 +95,7 @@ protected:
 	virtual void changeEvent(QEvent*);
 
 private:
-	void resizePopup(int);
+	void updatePopupsPositions();
 
 	QWidget* viewer_;
 	QWidget* mainWidget_;
@@ -102,7 +107,7 @@ private:
 	QList<QToolBar*> hiddenToolBars_;
 	SearchPopup* searchPopup_;
 
-	Popup* popup_;
+	QList<Popup*> popups_;
 };
 
 #endif // __JUFFED_MAIN_WINDOW_H__

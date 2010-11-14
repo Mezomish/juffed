@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "AppInfo.h"
 #include "Constants.h"
 #include "Log.h"
+#include "MainSettings.h"
 #include "SearchResults.h"
 //#include "Utils.h"
 
@@ -161,8 +162,9 @@ void Document::setCharset(const QString& charset) {
 QString Document::guessCharset(const QString& fileName) {
 	QStringList params;
 	params << "-m" << fileName;
-	if ( !AppInfo::language().isEmpty() ) {
-		params << "-L" << AppInfo::language().left(2);
+	QString lang = MainSettings::get(MainSettings::Language);
+	if ( !lang.isEmpty() && lang.compare("auto") != 0 ) {
+		params << "-L" << lang.left(2);
 	}
 
 	QProcess enca;

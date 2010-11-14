@@ -17,7 +17,6 @@ public:
 	static QString name()            { return "JuffEd"; }
 	static QString organization()    { return "Juff"; }
 	static QString version()         { return "@JUFFED_VERSION@"; }
-	static QString language()        { return QLocale::system().name(); }
 
 	static QString dataDirPath()     { return QCoreApplication::applicationDirPath(); }
 	static QString pluginsPath()     { return dataDirPath() + "/plugins"; }

@@ -41,8 +41,27 @@ void checkForFirstRun() {
 	file.close();
 }
 
+QString detectLanguage() {
+#ifdef Q_OS_UNIX
+	QByteArray lang = qgetenv("LC_ALL");
+	if ( lang.isEmpty() ) {
+		lang = qgetenv("LC_MESSAGES");
+	}
+	if ( lang.isEmpty() ) {
+		lang = qgetenv("LANG");
+	}
+	if ( !lang.isEmpty() ) {
+		return QLocale(lang).name();
+	}
+#endif
+	return QLocale::system().name();
+}
+
 void loadTranslations(QApplication& app) {
 	QString lng = MainSettings::get(MainSettings::Language);
+	if ( lng.compare("auto") == 0 ) {
+		lng = detectLanguage();
+	}
 	QTranslator* translator = new QTranslator();
 	if ( translator->load("juffed_" + lng, AppInfo::translationPath()) ) {
 		if ( !translator->isEmpty() ) {

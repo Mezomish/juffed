@@ -69,6 +69,7 @@ public:
 		;
 		
 		QMap<QString, QString> lngs;
+		lngs["auto"] = tr("auto-detect");
 		lngs["cs"] = tr("Czech");
 		lngs["de"] = tr("German");
 		lngs["en"] = tr("English");
@@ -89,7 +90,7 @@ public:
 		if ( index >= 0 )
 			ui.languageCmb->setCurrentIndex(index);
 		else
-			ui.languageCmb->setCurrentIndex(ui.languageCmb->findText(tr("English")));
+			ui.languageCmb->setCurrentIndex(0);
 	}
 	
 	virtual void apply() {

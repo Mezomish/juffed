@@ -6,12 +6,16 @@ class JuffAPI::Interior {
 public:
 	Juff::DocHandlerInt* handler_;
 	Juff::PluginNotifier* notifier_;
+	CommandStorageInt* cmdStrg_;
+	IconManagerInt* iconMgr_;
 };
 
-JuffAPI::JuffAPI(Juff::DocHandlerInt* handler, Juff::PluginNotifier* notifier) : QObject() {
+JuffAPI::JuffAPI(Juff::DocHandlerInt* handler, Juff::PluginNotifier* notifier, CommandStorageInt* cs, IconManagerInt* im) : QObject() {
 	int_ = new Interior();
 	int_->handler_ = handler;
 	int_->notifier_ = notifier;
+	int_->cmdStrg_ = cs;
+	int_->iconMgr_ = im;
 	
 	connect(notifier, SIGNAL(docOpened(Juff::Document*, Juff::PanelIndex)), SIGNAL(docOpened(Juff::Document*, Juff::PanelIndex)));
 	connect(notifier, SIGNAL(docActivated(Juff::Document*)), SIGNAL(docActivated(Juff::Document*)));
@@ -45,6 +49,14 @@ Juff::Document* JuffAPI::document(const QString& fileName) const {
 
 Juff::Project* JuffAPI::currentProject() const {
 	return int_->handler_->curPrj();
+}
+
+CommandStorageInt* JuffAPI::commandStorage() const {
+	return int_->cmdStrg_;
+}
+
+IconManagerInt* JuffAPI::iconManager() const {
+	return int_->iconMgr_;
 }
 
 

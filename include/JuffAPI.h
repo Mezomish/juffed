@@ -73,7 +73,7 @@ public:
 	
 	
 	/// Constructor
-	JuffAPI(Juff::DocHandlerInt*, Juff::PluginNotifier*);
+	JuffAPI(Juff::DocHandlerInt*, Juff::PluginNotifier*, CommandStorageInt*, IconManagerInt*);
 	/// Destructor
 	virtual ~JuffAPI();
 

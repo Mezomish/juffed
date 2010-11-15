@@ -48,9 +48,21 @@ void ColorButton::setColor(const QColor& color) {
 
 	color_ = color;
 
+#ifdef Q_WS_MAC
+	// Mac buttons are quite special. It looks like
+	// the safest way how to do a color button is
+	// to have a plain corner icon in the button.
+	// Well, I can compute a button borders (rounded etc.)
+	// but it's terrible slow...
+	QPixmap pm(32, 16);
+	QPainter p(&pm);
+	p.setBrush(color);
+	p.setPen(Qt::black);
+	p.drawRect(0, 0, pm.width()-1, pm.height()-1);
+#else
 	QPixmap pm(btn_->width() - 10, btn_->height() - 10);
 	QPainter p(&pm);
-	//	Draw a rectangle of selected color 
+	//	Draw a rectangle of selected color
 	//	with light grey border
 	p.setBrush(color);
 	p.setPen(QPen(QColor(200, 200, 200)));
@@ -59,7 +71,8 @@ void ColorButton::setColor(const QColor& color) {
 	p.setPen(QPen(QColor(50, 50, 50)));
 	p.drawLine(0, 0, pm.width(), 0);
 	p.drawLine(0, 0, 0, pm.height());
-	
+#endif
+
 	btn_->setIconSize(pm.size());
 	btn_->setIcon(QIcon(pm));
 }

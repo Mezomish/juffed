@@ -523,7 +523,11 @@ void SciDoc::paste() {
 
 void SciDoc::gotoLine(int line) {
 	if ( int_->curEdit_ == NULL ) return;
-		
+	
+	int lCount = lineCount();
+	int_->curEdit_->ensureLineVisible( line >= 10 ? line-10 : 0 );
+	int_->curEdit_->ensureLineVisible( line >= lCount - 10 ? lCount : line+10 );
+	
 	int_->curEdit_->setCursorPosition(line, 0);
 	int_->curEdit_->setFocus();
 }

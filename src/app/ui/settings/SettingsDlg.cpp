@@ -49,6 +49,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
 #include "SettingsCheckItem.h"
+#include "SettingsColorItem.h"
 #include "SettingsSelectItem.h"
 
 #include "ui_MainSettingsPage.h"
@@ -60,12 +61,11 @@ public:
 
 	virtual void init() {
 		items_
-			  << new SettingsCheckItem("main", "exitOnLastDocClosed", ui.exitOnLastDocClosedChk)
-			  << new SettingsCheckItem("main", "syncOpenDialogToCurDoc", ui.syncOpenDlgChk)
-			  << new SettingsCheckItem("main", "makeBackupOnSave", ui.makeBackupChk)
-			  << new SettingsCheckItem("main", "stripTrailingSpaces", ui.stripSpacesChk)
-			  << new SettingsCheckItem("main", "singleInstance", ui.singleInstanceChk)
-//			  << new SettingsCheckItem("main", "fsHideMenubar", ui.fsHideMenubarChk)
+			<< new SettingsCheckItem("main", "exitOnLastDocClosed", ui.exitOnLastDocClosedChk)
+			<< new SettingsCheckItem("main", "syncOpenDialogToCurDoc", ui.syncOpenDlgChk)
+			<< new SettingsCheckItem("main", "makeBackupOnSave", ui.makeBackupChk)
+			<< new SettingsCheckItem("main", "stripTrailingSpaces", ui.stripSpacesChk)
+			<< new SettingsCheckItem("main", "singleInstance", ui.singleInstanceChk)
 		;
 		
 		QMap<QString, QString> lngs;
@@ -98,28 +98,6 @@ public:
 		int index = ui.languageCmb->currentIndex();
 		MainSettings::set(MainSettings::Language, ui.languageCmb->itemData(index).toString());
 	}
-	
-/*	void init(QList<SettingsItem*>& items) {
-		JUFFDEBUG("Initialization: main page");
-//		int startupVariant = MainSettings::startupVariant();
-//		switch (startupVariant) {
-//			case 1:
-//				ui.openLastSessionBtn->setChecked(true);
-//				break;
-//
-//			case 2:
-//				ui.openEmptySessionBtn->setChecked(true);
-//				break;
-//
-//			case 0:
-//			default:
-//				ui.showSessionDlgBtn->setChecked(true);
-//		}
-
-#ifndef Q_OS_UNIX
-//		ui.singleInstanceChk->hide();
-#endif
-	}*/
 
 private:
 	Ui::MainSettingsPage ui;
@@ -139,7 +117,7 @@ public:
 
 	virtual void init() {
 		//	icon themes
-		JUFFDEBUG("Initialization: icon theme");
+//		JUFFDEBUG("Initialization: icon theme");
 //		QStringList themes = IconManager::instance()->themeList();
 //		ui.iconThemeCmb->clear();
 //		ui.iconThemeCmb->addItem("<default>");
@@ -168,24 +146,11 @@ public:
 class EditorSettingsPage : public SettingsPage {
 public:
 	EditorSettingsPage(QWidget* parent) : SettingsPage(parent) {
-//		LOGGER;
-	
 		ui.setupUi(this);
 
-		//	Creating ColorButton extensions. We shouldn't delete them
-		//	manually 'cause they will be deleted automatically when their 
-		//	parent buttons are deleted
-//		curLineColorBtn_ = new ColorButton(ui.curLineColorBtn, EditorSettings::get(EditorSettings::CurLineColor));
-//		markersColorBtn_ = new ColorButton(ui.markerColorBtn, TextDocSettings::markersColor());
-		fontColorBtn_ = new ColorButton(ui.fontColorBtn, EditorSettings::get(EditorSettings::DefaultFontColor));
-		bgColorBtn_ = new ColorButton(ui.bgColorBtn, EditorSettings::get(EditorSettings::DefaultBgColor));
-//		braceColorBtn_ = new ColorButton(ui.braceColorBtn, TextDocSettings::matchedBraceBgColor());
-//		indentsColorBtn_ = new ColorButton(ui.indentColorBtn, TextDocSettings::indentsColor());
-		selectionBgColorBtn_ = new ColorButton(ui.selectionBgColorBtn, EditorSettings::get(EditorSettings::SelectionBgColor));
 	}
 	
 	virtual void init() {
-//		Log::debug("Initialization: editor page");
 		ui.fontCmb->setCurrentFont(EditorSettings::font());
 		ui.fontSizeSpin->setValue(EditorSettings::font().pointSize());
 		int chars = EditorSettings::get(EditorSettings::LineLengthIndicator);
@@ -200,8 +165,6 @@ public:
 		ui.tabStopWidthSpin->setValue(EditorSettings::get(EditorSettings::TabWidth));
 
 		items_
-//			<< new SettingsCheckItem("editor", "highlightCurrentLine", ui.hlCurLineChk)
-//			<< new SettingsCheckItem("editor", "showIndents", ui.showIndentsChk)
 			<< new SettingsCheckItem("editor", "replaceTabsWithSpaces", ui.replaceTabsChk)
 			<< new SettingsCheckItem("editor", "backspaceUnindents", ui.unindentChk);
 	}
@@ -219,14 +182,6 @@ public:
 		else {
 			EditorSettings::set(EditorSettings::LineLengthIndicator, -ui.lineLengthSpin->value());
 		}
-		// colors
-	//	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
-//		EditorSettings::set(EditorSettings::CurLineColor, curLineColorBtn_->color());
-		EditorSettings::set(EditorSettings::DefaultFontColor, fontColorBtn_->color());
-		EditorSettings::set(EditorSettings::DefaultBgColor, bgColorBtn_->color());
-	//	TextDocSettings::setMatchedBraceBgColor(pageEditor_->braceColorBtn_->color());
-	//	TextDocSettings::setIndentsColor(pageEditor_->indentsColorBtn_->color());
-		EditorSettings::set(EditorSettings::SelectionBgColor, selectionBgColorBtn_->color());
 
 		EditorSettings::set(EditorSettings::TabWidth, ui.tabStopWidthSpin->value());
 		
@@ -235,13 +190,40 @@ public:
 	
 private:
 	Ui::EditorSettingsPage ui;
-//	ColorButton* curLineColorBtn_;
-//	ColorButton* markersColorBtn_;
-	ColorButton* fontColorBtn_;
-	ColorButton* bgColorBtn_;
-//	ColorButton* braceColorBtn_;
-//	ColorButton* indentsColorBtn_;
-	ColorButton* selectionBgColorBtn_;
+};
+
+class ColorSettingsPage : public SettingsPage {
+public:
+	ColorSettingsPage(QWidget* parent) : SettingsPage(parent) {
+		btnCount_ = 0;
+		QVBoxLayout* vBox = new QVBoxLayout(this);
+		grid_ = new QGridLayout();
+		
+		vBox->addLayout(grid_);
+		vBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Expanding));
+		setLayout(vBox);
+	}
+	
+	void init() {
+	}
+	
+	void addColor(const QString& title, const QString& section, const QString& key, const QColor& color) {
+		QPushButton* btn = new QPushButton(this);
+		btn->setMaximumWidth(80);
+		
+		//	Creating ColorButton extension. We shouldn't delete them
+		//	manually 'cause they will be deleted automatically when their 
+		//	parent buttons are deleted
+		ColorButton* colorBtn = new ColorButton(btn, color);
+		items_ << new SettingsColorItem(section, key, colorBtn);
+		
+		grid_->addWidget(new QLabel(title), btnCount_, 0);
+		grid_->addWidget(btn, btnCount_, 1);
+		++btnCount_;
+	}
+	
+	int btnCount_;
+	QGridLayout* grid_;
 };
 
 #include "ui_AutocompleteSettingsPage.h"
@@ -277,7 +259,6 @@ public:
 };
 
 //#include "CharsetsSettingsPage.h"
-//#include "PluginPage.h"
 #include "JuffPlugin.h"
 
 /////////////////////////////////////////////////////////////
@@ -298,14 +279,19 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	//	create multipage
 	mp_ = new MultiPage();
 
+	colorsPage_ = new ColorSettingsPage(this);
 	pages_ << mp_->addPage(tr("General"), new MainSettingsPage(this));
 	pages_ << mp_->addPage(tr("View"), new ViewSettingsPage(this));
 	pages_ << mp_->addPage(tr("Editor"), new EditorSettingsPage(this));
+	pages_ << mp_->addPage(tr("Colors"), colorsPage_);
 	pages_ << mp_->addPage(tr("Autocompletion"), new AutocompleteSettingsPage(this));
 	pages_ << mp_->addPage(tr("Charsets"), new CharsetsSettingsPage());
 	pages_ << mp_->addPage(tr("Plugins"), new PluginsMainPage(this));
-	;
 
+	colorsPage_->addColor(tr("Default font color"), "editor", "defaultFontColor", QColor(0, 0, 0));
+	colorsPage_->addColor(tr("Default background color"), "editor", "defaultBgColor", QColor(250, 250, 255));
+	colorsPage_->addColor(tr("Selection background color"), "editor", "selectionBgColor", QColor(150, 150, 150));
+	
 	// layouts
 	QHBoxLayout* btnLayout = new QHBoxLayout();
 	btnLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
@@ -317,8 +303,6 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	mainLayout->addWidget(mp_);
 	mainLayout->addLayout(btnLayout);
 	setLayout(mainLayout);
-	
-//	init();
 }
 
 SettingsDlg::~SettingsDlg() {
@@ -334,6 +318,10 @@ void SettingsDlg::init() {
 
 	foreach (SettingsPage* page, pages_)
 		page->init();
+}
+
+void SettingsDlg::addColorSetting(const QString& title, const QString& section, const QString& key, const QColor& color) {
+	colorsPage_->addColor(title, section, key, color);
 }
 
 void SettingsDlg::addPluginSettingsPage(const QString& name, const QString& title, QWidget* page) {
@@ -362,52 +350,16 @@ int SettingsDlg::exec() {
 }
 
 void SettingsDlg::apply() {
-	LOGGER;
-//	foreach (SettingsItem* sItem, items_) {
-//		sItem->writeValue();
-//	}
-
-	//	Editor page
-/*	QFont font(pageEditor_->ui.fontCmb->currentFont());
-	font.setPointSize(pageEditor_->ui.fontSizeSpin->value());
-	EditorSettings::setFont(font);
-
-	if ( pageEditor_->ui.showLineLengthChk->isChecked() ) {
-		EditorSettings::set(EditorSettings::LineLengthIndicator, pageEditor_->ui.lineLengthSpin->value());
-	}
-	else {
-		EditorSettings::set(EditorSettings::LineLengthIndicator, -pageEditor_->ui.lineLengthSpin->value());
-	}
-	// colors
-//	TextDocSettings::setMarkersColor(pageEditor_->markersColorBtn_->color());
-	EditorSettings::set(EditorSettings::CurLineColor, pageEditor_->curLineColorBtn_->color());
-	EditorSettings::set(EditorSettings::DefaultFontColor, pageEditor_->fontColorBtn_->color());
-	EditorSettings::set(EditorSettings::DefaultBgColor, pageEditor_->bgColorBtn_->color());
-//	TextDocSettings::setMatchedBraceBgColor(pageEditor_->braceColorBtn_->color());
-//	TextDocSettings::setIndentsColor(pageEditor_->indentsColorBtn_->color());
-	EditorSettings::set(EditorSettings::SelectionBgColor, pageEditor_->selectionBgColorBtn_->color());
-
-	EditorSettings::set(EditorSettings::TabWidth, pageEditor_->ui.tabStopWidthSpin->value());
-
-	//	Autocomplete
-//	AutocompleteSettings::setThreshold(pageAC_->ui.thresholdSpin->value());
-
-	//	charsets
-	pageCharsets_->applySettings();*/
-
 	//	plugins
 	QStringList plugins = pluginPages_.keys();
 	foreach (QString plName, plugins) {
-		Log::debug(plName);
+//		Log::debug(plName);
 		PluginPage* page = pluginPages_[plName];
 		if ( page ) {
-			Log::debug(QString("Plugin '%1' was %2").arg(plName).arg( page->pageEnabled() ? "ENABLED" : "DISABLED" ));
+//			Log::debug(QString("Plugin '%1' was %2").arg(plName).arg( page->pageEnabled() ? "ENABLED" : "DISABLED" ));
 			PluginSettings::setPluginEnabled(plName, page->pageEnabled());
 		}
 	}
-/*
-//	fileTypesPage_->apply();
-*/
 
 	foreach (SettingsPage* page, pages_)
 		page->apply();

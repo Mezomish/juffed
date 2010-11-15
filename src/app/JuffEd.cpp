@@ -201,6 +201,11 @@ void JuffEd::loadEngines() {
 	if ( sciEng->getSettingsPages(titles, pages) ) {
 		settingsDlg_->addPages(titles, pages);
 	}
+	QList<Juff::DocEngine::ColorOption> colorOpts;
+	sciEng->getColorOptions(colorOpts);
+	foreach (Juff::DocEngine::ColorOption option, colorOpts) {
+		settingsDlg_->addColorSetting(option.title, option.section, option.key, option.defaultColor);
+	}
 }
 
 void JuffEd::loadPlugins() {

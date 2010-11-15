@@ -29,7 +29,7 @@ ColorButton::ColorButton(QPushButton* btn, const QColor& color) : QObject(btn) {
 	btn_ = btn;
 	
 	connect(btn, SIGNAL(clicked()), this, SLOT(clicked()));
-	setBtnColor(color);
+	setColor(color);
 }
 
 ColorButton::~ColorButton() {
@@ -38,11 +38,11 @@ ColorButton::~ColorButton() {
 void ColorButton::clicked() {
 	QColor c = QColorDialog::getColor(color_);
 	if (c.isValid()) {
-		setBtnColor(c);
+		setColor(c);
 	}
 }
 
-void ColorButton::setBtnColor(const QColor& color) {
+void ColorButton::setColor(const QColor& color) {
 	if (btn_ == 0)
 		return;
 

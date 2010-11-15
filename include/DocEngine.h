@@ -26,6 +26,7 @@ class QMenu;
 
 #include "Enums.h"
 
+#include <QColor>
 #include <QList>
 #include <QMap>
 #include <QString>
@@ -39,6 +40,19 @@ class DocHandlerInt;
 
 class LIBJUFF_EXPORT DocEngine {
 public:
+	struct ColorOption {
+		QString title;
+		QString section;
+		QString key;
+		QColor defaultColor;
+		ColorOption(const QString& t, const QString& s, const QString& k, const QColor& c) {
+			title = t;
+			section = s;
+			key = k;
+			defaultColor = c;
+		}
+	};
+	
 	DocEngine();
 	virtual ~DocEngine();
 
@@ -55,6 +69,7 @@ public:
 
 	virtual QWidget* settingsPage() const { return 0; }
 	virtual bool getSettingsPages(QStringList&, QWidgetList&) const { return false; }
+	virtual void getColorOptions(QList<ColorOption>&) {}
 	
 protected:
 	void addAction(Juff::MenuID, QMenu*, QAction*);

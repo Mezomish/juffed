@@ -37,8 +37,10 @@ public:
 	int intValue(const QString& section, const QString& key);
 	bool boolValue(const QString& section, const QString& key);
 	QString stringValue(const QString& section, const QString& key);
+	QColor colorValue(const QString& section, const QString& key, const QColor& defaultColor);
 	void setValue(const QString& section, const QString& key, const QVariant& value);
 	QVariant value(const QString& section, const QString& key, const QVariant& defValue = QVariant());
+	
 
 	QStringList keyList(const QString& section);
 	QVariant defaultValue(const QString& section, const QString& key);

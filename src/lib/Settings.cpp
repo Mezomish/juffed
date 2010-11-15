@@ -114,6 +114,11 @@ QString Settings::stringValue(const QString& section, const QString& key) {
 	return settData_->data_[section].value(key, defaultValue(section, key)).toString();
 }
 
+QColor Settings::colorValue(const QString& section, const QString& key, const QColor& defaultColor) {
+	QVariant value = settData_->data_[section].value(key, defaultColor);
+	return value.value<QColor>();
+}
+
 void Settings::setValue(const QString& section, const QString& key, const QVariant& value) {
 	settData_->data_[section][key] = value;
 }

@@ -16,30 +16,30 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
-#ifndef __JUFF_COLOR_BUTTON_H__
-#define __JUFF_COLOR_BUTTON_H__
+#ifndef __JUFF_SETTINGS_COLOR_ITEM_H__
+#define __JUFF_SETTINGS_COLOR_ITEM_H__
 
-#include <QtCore/QObject>
-#include <QtGui/QColor>
+#include "SettingsItem.h"
 
-class QPushButton;
-	
-class ColorButton : public QObject {
+class ColorButton;
+
+class SettingsColorItem : public QObject, public SettingsItem {
 Q_OBJECT
 public:
-	ColorButton(QPushButton*, const QColor& color);
-	virtual ~ColorButton();
+	SettingsColorItem(const QString&, const QString&, ColorButton*);
 
-	QColor color() const { return color_; }
-	void setColor(const QColor&);
+	virtual void readValue();
+	virtual void writeValue();
 
-public slots:
-	void clicked();
+//private slots:
+//	void onChecked(bool);
 
 private:
-
-	QColor color_;
-	QPushButton* btn_;
+	ColorButton* colorBtn_;
+	QString section_;
+	QString key_;
+//	bool default_;
+//	bool curValue_;
 };
 
-#endif // __JUFF_COLOR_BUTTON_H__
+#endif // __JUFF_SETTINGS_COLOR_ITEM_H__

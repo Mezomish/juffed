@@ -43,6 +43,7 @@ public:
 
 	virtual QWidget* settingsPage() const;
 	virtual bool getSettingsPages(QStringList&, QWidgetList&) const;
+	virtual void getColorOptions(QList<ColorOption>&);
 	
 public slots:
 	void slotUpperCase();

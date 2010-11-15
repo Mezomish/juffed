@@ -43,6 +43,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <Qsci/qsciprinter.h>
 #include <Qsci/qscilexer.h>
 
+static const QColor MarginsBgColor = QColor(220, 220, 220);
+
 SciDoc::Eol guessEol(const QString& fileName) {
 	SciDoc::Eol eol = SciDoc::EolUnix;
 	if ( !Juff::Document::isNoname(fileName) ) {
@@ -131,19 +133,18 @@ public:
 		edit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 		
 		// margins
-		QColor marginsBgColor(220, 220, 220);
 		edit->setMarginLineNumbers(0, false);
 		edit->setMarginLineNumbers(1, true);
 		edit->setMarginSensitivity(0, true);
 		edit->setMarginWidth(0, 20);
 		edit->setMarginWidth(2, 12);
-		edit->setMarginsBackgroundColor(marginsBgColor);
+		edit->setMarginsBackgroundColor(MarginsBgColor);
 //		edit->setMarginsForegroundColor(QColor(150, 150, 150));
 //		edit->setFoldMarginColors(QColor(150, 150, 150), QColor(50, 50, 50));
 		
 		// markers
 		QColor mColor = QSciSettings::get(QSciSettings::MarkersColor);
-		edit->markerDefine(markerPixmap(mColor, marginsBgColor), 1);
+		edit->markerDefine(markerPixmap(mColor, MarginsBgColor), -1);
 		edit->markerDefine(QsciScintilla::Background, 2);
 		//	Set the 0th margin accept markers numbered 1 and 2
 		//	Binary mask for markers 1 and 2 is 00000110 ( == 6 )
@@ -1146,7 +1147,8 @@ void SciDoc::applySettings() {
 		edit->setCaretLineBackgroundColor(LexerStorage::instance()->curLineColor(syntax()));
 //		edit->setIndentationGuides(TextDocSettings::showIndents());
 //		edit->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
-//		edit->setMarkerBackgroundColor(TextDocSettings::markersColor());
+		edit->setMarkerBackgroundColor(QSciSettings::get(QSciSettings::MarkersColor));
+		edit->markerDefine(markerPixmap(QSciSettings::get(QSciSettings::MarkersColor), MarginsBgColor), -1);
 //		if ( QsciLexer* lexer = edit->lexer() ) {
 //			lexer->setFont(font, -1);
 //			edit->setCaretForegroundColor(lexer->defaultColor());

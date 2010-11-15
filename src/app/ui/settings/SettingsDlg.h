@@ -25,6 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class QPushButton;
 class MultiPage;
 class PluginPage;
+class ColorSettingsPage;
 
 class SettingsItem;
 class SettingsPage;
@@ -40,6 +41,8 @@ public:
 	void addPluginSettingsPage(const QString&, const QString&, QWidget*);
 	void setEditorsPages(const QWidgetList&);
 	void addPages(const QStringList&, const QWidgetList&);
+
+	void addColorSetting(const QString& title, const QString& section, const QString& key, const QColor& color);
 
 signals:
 	void applied();
@@ -60,6 +63,7 @@ private:
 	QWidget* pluginsMainPage_;
 	QMap<QString, PluginPage*> pluginPages_;
 	QList<SettingsPage*> pages_;
+	ColorSettingsPage* colorsPage_;
 //	QList<SettingsItem*> items_;
 };
 

@@ -546,3 +546,10 @@ bool SciDocEngine::getSettingsPages(QStringList& titles, QWidgetList& pages) con
 	pages << new FileTypesPage();
 	return true;
 }
+
+void SciDocEngine::getColorOptions(QList<ColorOption>& options) {
+	options << ColorOption(tr("Current line highlighting color"), "QSci", "curLineColor", QColor(230, 230, 240));
+	options << ColorOption(tr("Matching brace background color"), "QSci", "matchingBraceBgColor", QColor(240, 200, 150));
+	options << ColorOption(tr("Indents color"), "QSci", "indentsColor", QColor(200, 200, 200));
+	options << ColorOption(tr("Markers color"), "QSci", "markersColor", QColor(120, 120, 140));
+}

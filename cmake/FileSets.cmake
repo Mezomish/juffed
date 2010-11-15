@@ -71,6 +71,7 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/settings/PluginPage.h
 	src/app/ui/settings/SettingsDlg.h
 	src/app/ui/settings/SettingsCheckItem.h
+	src/app/ui/settings/SettingsColorItem.h
 	src/app/ui/settings/SettingsItem.h
 	src/app/ui/settings/SettingsPage.h
 	src/app/ui/settings/SettingsSelectItem.h
@@ -123,6 +124,7 @@ SET ( juffed_app_SRCS
 	src/app/ui/settings/PluginPage.cpp
 	src/app/ui/settings/SettingsDlg.cpp
 	src/app/ui/settings/SettingsCheckItem.cpp
+	src/app/ui/settings/SettingsColorItem.cpp
 	src/app/ui/settings/SettingsItem.cpp
 	src/app/ui/settings/SettingsPage.cpp
 	src/app/ui/settings/SettingsSelectItem.cpp

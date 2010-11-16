@@ -83,10 +83,10 @@ void JuffScintilla::posToLineCol(long pos, int& line, int& col) const {
 	col = (int)(pos - linpos);
 }
 
-long JuffScintilla::lineColToPos(int line, int col) const {
-	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
-	return linpos + col;
-}
+//long JuffScintilla::lineColToPos(int line, int col) const {
+//	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
+//	return linpos + col;
+//}
 
 QString JuffScintilla::wordUnderCursor() {
 	int line, col;
@@ -508,9 +508,17 @@ void JuffScintilla::clearHighlighting() {
 }
 
 void JuffScintilla::highlight(HLMode, int row1, int col1, int row2, int col2) {
-	int pos1 = lineColToPos(row1, col1);
-	int pos2 = lineColToPos(row2, col2);
+	// keep current selection
+	int r1, c1, r2, c2;
+	getSelection(&r1, &c1, &r2, &c2);
+	
+	setSelection(row1, col1, row2, col2);
+	int pos1 = SendScintilla(SCI_GETSELECTIONSTART);
+	int pos2 = SendScintilla(SCI_GETSELECTIONEND);
 	highlight(pos1, pos2, SEARCH_HIGHLIGHT);
+	
+	// restore original selection
+	setSelection(r1, c1, r2, c2);
 }
 
 // TODO : refactor this method

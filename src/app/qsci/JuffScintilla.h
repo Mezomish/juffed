@@ -73,7 +73,7 @@ private:
 	void deleteRectSelection();
 	void deleteRectSelection(int, int, int, int);
 	void posToLineCol(long pos, int& line, int& col) const;
-	long lineColToPos(int line, int col) const;
+//	long lineColToPos(int line, int col) const;
 	long curPos() const;
 	void highlight(int start, int end, int ind);
 	void clearHighlighting();

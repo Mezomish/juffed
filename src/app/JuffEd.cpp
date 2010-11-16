@@ -938,10 +938,17 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		// notify plugins
 		emit docOpened(doc, panel);
 		
-		// check for read-only
-		if ( !doc->isNoname() ) {
-			if ( !QFileInfo(doc->fileName()).isWritable() ) {
-				mw_->message(QIcon(), "", tr("Document '%1' is read-only").arg(doc->fileName()));
+		QFileInfo fi(doc->fileName());
+		// check for existance
+		if ( !fi.exists() ) {
+			mw_->message(QIcon(), "", tr("Document '%1' doesn't exist.").arg(doc->fileName()));
+		}
+		else {
+			// check for read-only
+			if ( !doc->isNoname() ) {
+				if ( !fi.isWritable() ) {
+					mw_->message(QIcon(), "", tr("Document '%1' is read-only.").arg(doc->fileName()));
+				}
 			}
 		}
 	}

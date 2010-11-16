@@ -213,7 +213,7 @@ void DocViewer::updateDocTitle(Juff::Document* doc) {
 	if ( tabWidget != NULL ) {
 		int index = tabWidget->indexOf(doc);
 		tabWidget->setTabText(index, doc->titleWithModification());
-		tabWidget->setTabIcon(index, QIcon( doc->isModified() ? ":doc_icon_red" : ":doc_icon"));
+		tabWidget->setTabIcon(index, doc->icon());
 	}
 }
 

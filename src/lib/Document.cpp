@@ -130,7 +130,12 @@ bool Document::isNoname() const {
 }
 
 QIcon Document::icon() const {
-	return QIcon( (isModified() ? ":doc_icon_red" : ":doc_icon") );
+	if ( !isNoname() && !QFileInfo(fileName()).exists() ) {
+		return QIcon(":doc_icon_warning");
+	}
+	else {
+		return QIcon( (isModified() ? ":doc_icon_red" : ":doc_icon") );
+	}
 }
 
 bool Document::supportsAction(Juff::ActionID id) const {

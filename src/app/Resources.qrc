@@ -2,8 +2,6 @@
 	<qresource>
 		<file alias="doc_unmodified">../images/res/16/doc_unmodified16.png</file>
 		<file alias="doc_modified">../images/res/16/doc_modified16.png</file>
-		<file alias="doc_icon">../images/res/16/doc_icon.png</file>
-		<file alias="doc_icon_red">../images/res/16/doc_icon_red.png</file>
 		<file alias="close">../images/res/16/close.png</file>
 		<file alias="find_prev">../images/res/16/find_prev.png</file>
 		<file alias="find_next">../images/res/16/find_next.png</file>

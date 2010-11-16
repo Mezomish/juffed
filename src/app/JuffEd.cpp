@@ -940,7 +940,7 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		
 		QFileInfo fi(doc->fileName());
 		// check for existance
-		if ( !fi.exists() ) {
+		if ( !doc->isNoname() && !fi.exists() ) {
 			mw_->message(QIcon(), "", tr("Document '%1' doesn't exist.").arg(doc->fileName()));
 		}
 		else {

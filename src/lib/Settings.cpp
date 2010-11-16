@@ -156,7 +156,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "iconSize" )               return 0;
 	}
 	else if ( section == "autocomplete" ) {
-		if ( key == "useDocument" )   return false;
+		if ( key == "useDocument" )   return true;
 		if ( key == "useApis" )       return false;
 		if ( key == "replaceWord" )   return false;
 		if ( key == "caseSensitive" ) return false;
@@ -173,11 +173,9 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "showWhitespaces" )       return false;
 		if ( key == "showLineEnds" )          return false;
 		if ( key == "wrapWords" )             return false;
-		if ( key == "showIndents" )           return true;
-		if ( key == "highlightCurrentLine" )  return true;
+		if ( key == "tabStopWidth" )          return 8;
 		if ( key == "replaceTabsWithSpaces" ) return false;
 		if ( key == "backspaceUnindents" )    return true;
-		if ( key == "backspaceUnindents" )    return false;
 		if ( key == "fontSize" )              return 10;
 		if ( key == "fontFamily" )
 #ifdef Q_OS_WIN32

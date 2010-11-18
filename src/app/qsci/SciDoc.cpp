@@ -831,8 +831,12 @@ void SciDoc::toggleCommentBlock() {
 void SciDoc::duplicateText() {
 	if ( int_->curEdit_ == NULL ) return;
 	
-	if ( int_->curEdit_->hasSelectedText() )
+	if ( int_->curEdit_->hasSelectedText() ) {
+		int col1, row1, col2, row2;
+		getSelection(col1, row1, col2, row2);
 		int_->curEdit_->SendScintilla(QsciScintilla::SCI_SELECTIONDUPLICATE);
+		setSelection(col1, row1, col2, row2);
+	}
 	else
 		int_->curEdit_->SendScintilla(QsciScintilla::SCI_LINEDUPLICATE);
 }

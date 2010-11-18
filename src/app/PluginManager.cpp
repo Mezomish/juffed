@@ -66,10 +66,16 @@ Juff::ActionList PluginManager::actions(Juff::MenuID id) const {
 	return actions;
 }
 
-QWidgetList PluginManager::docks() const {
+QWidgetList PluginManager::docks(QList<Qt::DockWidgetArea>& positions, QList<bool>& visibility) const {
 	QWidgetList list;
+	positions.clear();
+	visibility.clear();
 	foreach (JuffPlugin* plugin, plugins_) {
-		list << plugin->dockList();
+		foreach ( QWidget* w, plugin->dockList() ) {
+			list << w;
+			positions << plugin->dockPosition(w);
+			visibility << plugin->dockVisible(w);
+		}
 	}
 	return list;
 }

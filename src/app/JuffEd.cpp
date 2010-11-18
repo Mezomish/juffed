@@ -212,15 +212,21 @@ void JuffEd::loadPlugins() {
 	pluginMgr_->loadPlugins(settingsDlg_);
 	
 	// docks
-	QWidgetList widgets = pluginMgr_->docks();
+	QList<Qt::DockWidgetArea> positions;
+	QList<bool> visibility;
+	QWidgetList widgets = pluginMgr_->docks(positions, visibility);
+	int index = 0;
 	foreach (QWidget* w, widgets) {
 		QString title = w->windowTitle();
 		QDockWidget* dock = new QDockWidget(title);
 		dock->setObjectName(title);
 		dock->setWidget(w);
-		mw_->addDockWidget(Qt::LeftDockWidgetArea, dock);
+		mw_->addDockWidget(positions[index], dock);
+		dock->setVisible(visibility[index]);
 		
 		docksMenu_->addAction(dock->toggleViewAction());
+		
+		++index;
 	}
 	
 	// toolbars

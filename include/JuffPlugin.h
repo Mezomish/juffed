@@ -124,10 +124,13 @@ public:
 
 	/**
 	* Returns the default position of plugin's dock widget.
-	* (Not implemented yet)
 	*/
 	virtual Qt::DockWidgetArea dockPosition(QWidget*) const { return Qt::LeftDockWidgetArea; }
 
+	/**
+	* Returns the default visibility of plugin's dock widget.
+	*/
+	virtual bool dockVisible(QWidget*) const { return false; }
 
 	JuffPlugin() { api_ = 0; }
 	void setAPI(JuffAPI* api) { api_ = api; }
@@ -140,6 +143,6 @@ private:
 	JuffAPI* api_;
 };
 
-Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.66")
+Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.67")
 
 #endif	//	__JUFF_PLUGIN_H__

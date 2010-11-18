@@ -997,7 +997,7 @@ int JuffEd::docCount(Juff::PanelIndex panel) const {
 }
 
 QStringList JuffEd::docList() const {
-	return QStringList();
+	return viewer_->docList(Juff::PanelAll);
 }
 //
 ////////////////////////////////////////////////////////////////////////////////

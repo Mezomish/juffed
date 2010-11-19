@@ -33,6 +33,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QFile>
 #include <QPainter>
 #include <QPixmap>
+#include <QPixmapCache>
 #include <QPrintDialog>
 #include <QScrollBar>
 #include <QSplitter>
@@ -78,10 +79,26 @@ SciDoc::Eol guessEol(const QString& fileName) {
 }
 
 QPixmap markerPixmap(const QColor& color, const QColor& bgColor) {
+	// create unique string-name for color combinations
+	QString cacheName(color.name()+bgColor.name());
 	QPixmap px(16, 16);
+
+	if (QPixmapCache::find(cacheName, &px))
+	{
+		//qDebug() << "QPixmapCache hit" << cacheName;
+		return px;
+	}
+
 	px.fill(bgColor);
 	
 	QPainter p(&px);
+	// As we are using pixmap cache for most pixmap access
+	// we can use more resource and time consuming rendering
+	// to get better results (smooth rounded bullet in this case).
+	// Remember: painting is performed only once per running juffed
+	//           in the ideal case.
+	p.setRenderHint(QPainter::Antialiasing);
+
 	int red   = color.red();
 	int green = color.green();
 	int blue  = color.blue();
@@ -98,6 +115,8 @@ QPixmap markerPixmap(const QColor& color, const QColor& bgColor) {
 	p.drawEllipse(0, 0, 15, 15);
 
 	p.end();
+
+	QPixmapCache::insert(cacheName, px);
 	return px;
 }
 

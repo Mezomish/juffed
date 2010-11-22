@@ -507,18 +507,22 @@ void JuffScintilla::clearHighlighting() {
 	SendScintilla(SCI_INDICATORCLEARRANGE, 0, length());
 }
 
+/*
+ * It changes document's current selection (if any), so you'd better keep it before 
+ * calling this function and restore it later.
+ */
 void JuffScintilla::highlight(HLMode, int row1, int col1, int row2, int col2) {
-	// keep current selection
-	int r1, c1, r2, c2;
-	getSelection(&r1, &c1, &r2, &c2);
+	// BUG : the following code doesn't highlight correctly if the text contains non-latin characters (QScintilla bug).
+	// FIXME : investigate and introduce a fix for QScintilla later. Using a work-around for now.
+/*	int pos1 = lineColToPos(row1, col1);
+	int pos2 = lineColToPos(row2, col2);
+	highlight(pos1, pos2, SEARCH_HIGHLIGHT);*/
 	
+	// TODO : investigate performance issue
 	setSelection(row1, col1, row2, col2);
 	int pos1 = SendScintilla(SCI_GETSELECTIONSTART);
 	int pos2 = SendScintilla(SCI_GETSELECTIONEND);
 	highlight(pos1, pos2, SEARCH_HIGHLIGHT);
-	
-	// restore original selection
-	setSelection(r1, c1, r2, c2);
 }
 
 // TODO : refactor this method

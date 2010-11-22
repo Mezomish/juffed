@@ -969,12 +969,52 @@ void SciDoc::highlightSearchResults() {
 	if ( results == NULL )
 		return;
 	
+	// keep cursor position or selection for edit1
+	bool ed1_hasSelection = int_->edit1_->hasSelectedText();
+	int ed1_r1, ed1_c1, ed1_r2, ed1_c2;
+	int ed1_scrollPos = int_->edit1_->verticalScrollBar()->value();
+	if ( ed1_hasSelection ) {
+		int_->edit1_->getSelection(&ed1_r1, &ed1_c1, &ed1_r2, &ed1_c2);
+	}
+	else {
+		int_->edit1_->getCursorPosition(&ed1_r1, &ed1_c1);
+	}
+	
+	// keep cursor position or selection for edit2
+	bool ed2_hasSelection = int_->edit2_->hasSelectedText();
+	int ed2_r1, ed2_c1, ed2_r2, ed2_c2;
+	int ed2_scrollPos = int_->edit2_->verticalScrollBar()->value();
+	if ( ed2_hasSelection ) {
+		int_->edit2_->getSelection(&ed2_r1, &ed2_c1, &ed2_r2, &ed2_c2);
+	}
+	else {
+		int_->edit2_->getCursorPosition(&ed2_r1, &ed2_c1);
+	}
+
 	int count = results->count();
 	for ( int i = 0; i < count; i++ ) {
 		const Juff::SearchOccurence& occ = results->occurence(i);
 		int_->edit1_->highlight(JuffScintilla::HLSearch, occ.startRow, occ.startCol, occ.endRow, occ.endCol);
 		int_->edit2_->highlight(JuffScintilla::HLSearch, occ.startRow, occ.startCol, occ.endRow, occ.endCol);
 	}
+	
+	// restore cursor position or selection for edit1
+	if ( ed1_hasSelection ) {
+		int_->edit1_->setSelection(ed1_r1, ed1_c1, ed1_r2, ed1_c2);
+	}
+	else {
+		int_->edit1_->setCursorPosition(ed1_r1, ed1_c1);
+	}
+	int_->edit1_->verticalScrollBar()->setValue(ed1_scrollPos);
+	
+	// restore cursor position or selection for edit2
+	if ( ed2_hasSelection ) {
+		int_->edit2_->setSelection(ed2_r1, ed2_c1, ed2_r2, ed2_c2);
+	}
+	else {
+		int_->edit2_->setCursorPosition(ed2_r1, ed2_c1);
+	}
+	int_->edit2_->verticalScrollBar()->setValue(ed2_scrollPos);
 }
 
 void SciDoc::clearHighlighting() {

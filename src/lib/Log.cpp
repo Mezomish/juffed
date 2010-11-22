@@ -110,10 +110,12 @@ int Logger::indent_ = 0;
 
 Logger::Logger(const char* func, const char* file, int line) : func_(func), file_(file), line_(line) {
 	indent_ += 2;
-	qDebug() << QString("%1Entering %2 (%3:%4)").arg(QString().fill(' ', indent_)).arg(func_).arg(QFileInfo(file_).fileName()).arg(line_);
+//	qDebug() << QString("%1Entering %2 (%3:%4)").arg(QString().fill(' ', indent_)).arg(func_).arg(QFileInfo(file_).fileName()).arg(line_);
+	Log::debug(QString("%1Entering %2 (%3:%4)").arg(QString().fill(' ', indent_)).arg(func_).arg(QFileInfo(file_).fileName()).arg(line_), true);
 }
 
 Logger::~Logger() {
-	qDebug() << QString("%1Leaving  %2 (%3)").arg(QString().fill(' ', indent_)).arg(func_).arg(QFileInfo(file_).fileName());
+//	qDebug() << QString("%1Leaving  %2 (%3)").arg(QString().fill(' ', indent_)).arg(func_).arg(QFileInfo(file_).fileName());
+	Log::debug(QString("%1Leaving  %2 (%3)").arg(QString().fill(' ', indent_)).arg(func_).arg(QFileInfo(file_).fileName()), true);
 	indent_ -= 2;
 }

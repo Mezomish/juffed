@@ -80,6 +80,8 @@ find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
 # It means - in this case it's safe to link against QT_LIBRARIES.
 # No naming of the standalone libs is necessary (well, it's dangerous).
 include(${QT_USE_FILE})
+# this is mandatory for Apple builds to load plugin correctly
+add_definitions(-DQT_NO_DEBUG)
 
 find_package ( QScintilla2 REQUIRED)
 

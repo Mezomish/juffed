@@ -83,9 +83,15 @@ QPixmap markerPixmap(const QColor& color, const QColor& bgColor) {
 	QString cacheName(color.name()+bgColor.name());
 	QPixmap px(16, 16);
 
-	if (QPixmapCache::find(cacheName, &px))
-	{
-		//qDebug() << "QPixmapCache hit" << cacheName;
+	// The method signature was changed: it's
+	// bool QPixmapCache::find ( const QString & key, QPixmap & pm ) in Qt <= 4.5
+	// and
+	// bool QPixmapCache::find ( const QString & key, QPixmap * pm ) in Qt >= 4.6
+#if QT_VERSION >= 0x040600
+	if ( QPixmapCache::find(cacheName, &px) ) {
+#else
+	if ( QPixmapCache::find(cacheName, px) ) {
+#endif
 		return px;
 	}
 

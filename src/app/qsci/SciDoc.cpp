@@ -118,7 +118,7 @@ QPixmap markerPixmap(const QColor& color, const QColor& bgColor) {
 	gr.setColorAt(1, dark);
 	p.setPen(dark);
 	p.setBrush(gr);
-	p.drawEllipse(0, 0, 15, 15);
+	p.drawEllipse(1, 1, 14, 14);
 
 	p.end();
 

@@ -160,34 +160,10 @@ void JuffScintilla::contextMenuEvent(QContextMenuEvent* e) {
 		return;
 	}
 	
-	/*
-	* The following piece of code has been taken from 
-	* QScintilla 2.3.2 source code in order to have this 
-	* functionality in lower QScintilla versions 
-	*/
+	int line, col;
 	long position = SendScintilla(SCI_POSITIONFROMPOINTCLOSE, point.x(), point.y());
-
-	int line = SendScintilla(SCI_LINEFROMPOSITION, position);
-	int linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
-	int col = 0;
-
-	// Allow for multi-byte characters.
-	while ( linpos < position ) {
-		int new_linpos = SendScintilla(SCI_POSITIONAFTER, linpos);
-
-		// If the position hasn't moved then we must be at the end of the text
-		// (which implies that the position passed was beyond the end of the
-		// text).
-		if ( new_linpos == linpos )
-			break;
-
-		linpos = new_linpos;
-		++col;
-	}
-	/*
-	* End of QScintilla code
-	*/
-
+	lineIndexFromPosition(position, &line, &col);
+	
 	emit contextMenuCalled(line, col);
 	contextMenu_->exec(e->globalPos());
 }

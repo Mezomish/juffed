@@ -77,17 +77,6 @@ JuffScintilla::~JuffScintilla() {
 	delete contextMenu_;
 }
 
-void JuffScintilla::posToLineCol(long pos, int& line, int& col) const {
-	line = SendScintilla(SCI_LINEFROMPOSITION, pos);
-	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
-	col = (int)(pos - linpos);
-}
-
-//long JuffScintilla::lineColToPos(int line, int col) const {
-//	long linpos = SendScintilla(SCI_POSITIONFROMLINE, line);
-//	return linpos + col;
-//}
-
 QString JuffScintilla::wordUnderCursor() {
 	int line, col;
 	getCursorPosition(&line, &col);
@@ -512,16 +501,8 @@ void JuffScintilla::clearHighlighting() {
  * calling this function and restore it later.
  */
 void JuffScintilla::highlight(HLMode, int row1, int col1, int row2, int col2) {
-	// BUG : the following code doesn't highlight correctly if the text contains non-latin characters (QScintilla bug).
-	// FIXME : investigate and introduce a fix for QScintilla later. Using a work-around for now.
-/*	int pos1 = lineColToPos(row1, col1);
-	int pos2 = lineColToPos(row2, col2);
-	highlight(pos1, pos2, SEARCH_HIGHLIGHT);*/
-	
-	// TODO : investigate performance issue
-	setSelection(row1, col1, row2, col2);
-	int pos1 = SendScintilla(SCI_GETSELECTIONSTART);
-	int pos2 = SendScintilla(SCI_GETSELECTIONEND);
+	int pos1 = positionFromLineIndex(row1, col1);
+	int pos2 = positionFromLineIndex(row2, col2);
 	highlight(pos1, pos2, SEARCH_HIGHLIGHT);
 }
 
@@ -543,7 +524,7 @@ void JuffScintilla::highlightText(HLMode mode, const Juff::SearchParams& params)
 			int start = SendScintilla(SCI_GETSELECTIONSTART);
 			int end = SendScintilla(SCI_GETSELECTIONEND);
 			highlight(start, end, WORD_HIGHLIGHT);
-			posToLineCol(end, line, col);
+			lineIndexFromPosition(end, &line, &col);
 		}
 	}
 	

@@ -123,7 +123,7 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 			list << "*.q" << "*.qc" << "*.ql";
 		}
 		else if ( type == "Qorus") {
-			list << "*.qfd" << "*.qwf" << "*.qsd";
+			list << "*.qfd" << "*.qwf" << "*.qsd" << "*.qclass";
 		}
 
 		return list;

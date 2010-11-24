@@ -874,10 +874,14 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
-        <translation type="unfinished">Dokument &apos;%1&apos; existiert nicht</translation>
+        <translation type="obsolete">Dokument &apos;%1&apos; existiert nicht</translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; is read-only</source>
+        <source>File &apos;%1&apos; doesn&apos;t exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File &apos;%1&apos; is read-only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

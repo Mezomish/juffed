@@ -922,10 +922,14 @@ Do you want to proceed?</source>
     </message>
     <message>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
-        <translation type="unfinished">Документ &apos;%1&apos; не существует</translation>
+        <translation type="obsolete">Документ &apos;%1&apos; не существует</translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; is read-only</source>
+        <source>File &apos;%1&apos; doesn&apos;t exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File &apos;%1&apos; is read-only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

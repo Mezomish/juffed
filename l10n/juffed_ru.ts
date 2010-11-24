@@ -172,11 +172,11 @@ whole indent instead of removind single whitespace</source>
     </message>
     <message>
         <source>Colors</source>
-        <translation>Цвета</translation>
+        <translation type="obsolete">Цвета</translation>
     </message>
     <message>
         <source>Selection background color</source>
-        <translation>Цвет фона выделенного текста</translation>
+        <translation type="obsolete">Цвет фона выделенного текста</translation>
     </message>
     <message>
         <source>Matched brace background color</source>
@@ -196,11 +196,11 @@ whole indent instead of removind single whitespace</source>
     </message>
     <message>
         <source>Default font color</source>
-        <translation>Цвет шрифта</translation>
+        <translation type="obsolete">Цвет шрифта</translation>
     </message>
     <message>
         <source>Default background color</source>
-        <translation>Цвет фона</translation>
+        <translation type="obsolete">Цвет фона</translation>
     </message>
 </context>
 <context>
@@ -662,6 +662,10 @@ Do you want to proceed?</source>
         <source>Close all</source>
         <translation>Закрыть все</translation>
     </message>
+    <message>
+        <source>Close all other tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Juff::TabWidget</name>
@@ -916,6 +920,14 @@ Do you want to proceed?</source>
         <source>Docks</source>
         <translation>Док-окна</translation>
     </message>
+    <message>
+        <source>Document &apos;%1&apos; doesn&apos;t exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &apos;%1&apos; is read-only.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -1013,15 +1025,15 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Fullscreen</source>
-        <translation>Полноэкранный режим</translation>
+        <translation type="obsolete">Полноэкранный режим</translation>
     </message>
     <message>
         <source>Hide tool bar in fullscreen</source>
-        <translation>Скрывать панель инструментов</translation>
+        <translation type="obsolete">Скрывать панель инструментов</translation>
     </message>
     <message>
         <source>Hide status bar in fullscreen</source>
-        <translation>Скрывать панель статуса</translation>
+        <translation type="obsolete">Скрывать панель статуса</translation>
     </message>
     <message>
         <source>Save session when close</source>
@@ -1086,6 +1098,10 @@ Do you want to save your changes?</source>
     <message>
         <source>Chinese (simplified)</source>
         <translation>Китайский (упрощённый)</translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1543,6 +1559,22 @@ Continue from the beginning?</source>
         <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
         <translation>Тестирование, идеи дизайна, фичреквесты, плагин SymbolBrowser</translation>
     </message>
+    <message>
+        <source>Keep syntax highlighting</source>
+        <translation type="unfinished">Сохранить подсветку синтаксиса</translation>
+    </message>
+    <message>
+        <source>Keep background color</source>
+        <translation type="unfinished">Сохранить цвет фона</translation>
+    </message>
+    <message>
+        <source>Always wrap text</source>
+        <translation type="unfinished">Всегда переносить строки</translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port, XML Formatter plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QSciSettings</name>
@@ -1987,6 +2019,30 @@ Continue from the beginning?</source>
         <source>Remove all markers</source>
         <translation>Удалить все маркеры</translation>
     </message>
+    <message>
+        <source>Printing</source>
+        <translation type="unfinished">Печать</translation>
+    </message>
+    <message>
+        <source>File types</source>
+        <translation type="unfinished">Типы файлов</translation>
+    </message>
+    <message>
+        <source>Current line highlighting color</source>
+        <translation type="unfinished">Цвет подсветки текущей строки</translation>
+    </message>
+    <message>
+        <source>Matching brace background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indents color</source>
+        <translation type="unfinished">Цвет отступов</translation>
+    </message>
+    <message>
+        <source>Markers color</source>
+        <translation type="unfinished">Цвет маркеров</translation>
+    </message>
 </context>
 <context>
     <name>SearchComboBox</name>
@@ -2163,7 +2219,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Charsets</source>
-        <translation type="obsolete">Кодировки</translation>
+        <translation type="unfinished">Кодировки</translation>
     </message>
     <message>
         <source>View</source>
@@ -2184,6 +2240,33 @@ Continue from the beginning?</source>
     <message>
         <source>Plugins</source>
         <translation>Плагины</translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Цвета</translation>
+    </message>
+    <message>
+        <source>Default font color</source>
+        <translation type="unfinished">Цвет шрифта</translation>
+    </message>
+    <message>
+        <source>Default background color</source>
+        <translation type="unfinished">Цвет фона</translation>
+    </message>
+    <message>
+        <source>Selection background color</source>
+        <translation type="unfinished">Цвет фона выделенного текста</translation>
+    </message>
+</context>
+<context>
+    <name>SyntaxesSettingsPage</name>
+    <message>
+        <source>Check all</source>
+        <translation type="unfinished">Отметить все</translation>
+    </message>
+    <message>
+        <source>Uncheck all</source>
+        <translation type="unfinished">Убрать все</translation>
     </message>
 </context>
 <context>
@@ -2266,6 +2349,18 @@ Continue from the beginning?</source>
     <message>
         <source>Toolbar style</source>
         <translation>Стиль панели инструментов</translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished">Полноэкранный режим</translation>
+    </message>
+    <message>
+        <source>Hide tool bar in fullscreen</source>
+        <translation type="unfinished">Скрывать панель инструментов</translation>
+    </message>
+    <message>
+        <source>Hide status bar in fullscreen</source>
+        <translation type="unfinished">Скрывать панель статуса</translation>
     </message>
 </context>
 </TS>

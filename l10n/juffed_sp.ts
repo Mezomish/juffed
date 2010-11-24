@@ -108,10 +108,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Selection background color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Indents</source>
         <translation type="unfinished"></translation>
     </message>
@@ -131,18 +127,6 @@ whole indent instead of removind single whitespace</source>
     </message>
     <message>
         <source>Line length indicator</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default font color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default background color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -306,6 +290,10 @@ whole indent instead of removind single whitespace</source>
     </message>
     <message>
         <source>Close all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close all other tabs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -546,6 +534,14 @@ whole indent instead of removind single whitespace</source>
         <source>Docks</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Document &apos;%1&apos; doesn&apos;t exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &apos;%1&apos; is read-only.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -629,18 +625,6 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide tool bar in fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide status bar in fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Sync &apos;Open&apos; dialog to current doc&apos;s dir</source>
         <translation type="unfinished"></translation>
     </message>
@@ -686,6 +670,10 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Chinese (simplified)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -867,6 +855,22 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep syntax highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always wrap text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port, XML Formatter plugin</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1305,6 +1309,30 @@ Do you want to save your changes?</source>
         <source>Remove all markers</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File types</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current line highlighting color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Matching brace background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indents color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Markers color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SearchComboBox</name>
@@ -1483,6 +1511,37 @@ Do you want to save your changes?</source>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charsets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default font color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selection background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SyntaxesSettingsPage</name>
+    <message>
+        <source>Check all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uncheck all</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ViewSettingsPage</name>
@@ -1544,6 +1603,18 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Toolbar style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide tool bar in fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide status bar in fullscreen</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

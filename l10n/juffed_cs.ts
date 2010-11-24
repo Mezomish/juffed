@@ -109,7 +109,7 @@
     </message>
     <message>
         <source>Default background color</source>
-        <translation>Výchozí barva pozadí</translation>
+        <translation type="obsolete">Výchozí barva pozadí</translation>
     </message>
     <message>
         <source>Matched brace background color</source>
@@ -117,7 +117,7 @@
     </message>
     <message>
         <source>Default font color</source>
-        <translation>Výchozí barva písma</translation>
+        <translation type="obsolete">Výchozí barva písma</translation>
     </message>
     <message>
         <source>If &quot;Replace tabs with spaces&quot; option is checked, 
@@ -161,7 +161,7 @@ namísto pouze jednoho prázdného místa</translation>
     </message>
     <message>
         <source>Selection background color</source>
-        <translation>Barva pozadí výběru</translation>
+        <translation type="obsolete">Barva pozadí výběru</translation>
     </message>
     <message>
         <source>Replace tabs with spaces</source>
@@ -174,10 +174,6 @@ namísto pouze jednoho prázdného místa</translation>
     <message>
         <source>Line length indicator</source>
         <translation>Ukazatel délky řádku</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -540,6 +536,10 @@ Chcete pokračovat?</translation>
         <source>Close all</source>
         <translation type="unfinished">Zavřít vše</translation>
     </message>
+    <message>
+        <source>Close all other tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Juff::TabWidget</name>
@@ -782,6 +782,14 @@ Chcete pokračovat?</translation>
         <source>Docks</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Document &apos;%1&apos; doesn&apos;t exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &apos;%1&apos; is read-only.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -894,18 +902,6 @@ Chcete uložit změny?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide tool bar in fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide status bar in fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
@@ -943,6 +939,10 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1079,7 +1079,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Always wrap text</source>
-        <translation type="obsolete">Vždy zalomit text</translation>
+        <translation type="unfinished">Vždy zalomit text</translation>
     </message>
     <message>
         <source>Next document</source>
@@ -1183,7 +1183,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Keep syntax highlighting</source>
-        <translation type="obsolete">Udržovat zvýrazňování skladby</translation>
+        <translation type="unfinished">Udržovat zvýrazňování skladby</translation>
     </message>
     <message>
         <source>Comment line(s)</source>
@@ -1267,7 +1267,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Keep background color</source>
-        <translation type="obsolete">Zachovat barvu pozadí</translation>
+        <translation type="unfinished">Zachovat barvu pozadí</translation>
     </message>
     <message>
         <source>&amp;Syntax</source>
@@ -1347,6 +1347,10 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port, XML Formatter plugin</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1789,6 +1793,30 @@ Chcete uložit změny?</translation>
         <source>Remove all markers</source>
         <translation type="unfinished">Odstranit všechny značky</translation>
     </message>
+    <message>
+        <source>Printing</source>
+        <translation type="unfinished">Tisk</translation>
+    </message>
+    <message>
+        <source>File types</source>
+        <translation type="unfinished">Typy souborů</translation>
+    </message>
+    <message>
+        <source>Current line highlighting color</source>
+        <translation type="unfinished">Barva zvýraznění nynějšího řádku</translation>
+    </message>
+    <message>
+        <source>Matching brace background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indents color</source>
+        <translation type="unfinished">Barva odsazení</translation>
+    </message>
+    <message>
+        <source>Markers color</source>
+        <translation type="unfinished">Barva značky</translation>
+    </message>
 </context>
 <context>
     <name>SearchComboBox</name>
@@ -1985,7 +2013,34 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Charsets</source>
-        <translation type="obsolete">Soubory znaků</translation>
+        <translation type="unfinished">Soubory znaků</translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default font color</source>
+        <translation type="unfinished">Výchozí barva písma</translation>
+    </message>
+    <message>
+        <source>Default background color</source>
+        <translation type="unfinished">Výchozí barva pozadí</translation>
+    </message>
+    <message>
+        <source>Selection background color</source>
+        <translation type="unfinished">Barva pozadí výběru</translation>
+    </message>
+</context>
+<context>
+    <name>SyntaxesSettingsPage</name>
+    <message>
+        <source>Check all</source>
+        <translation type="unfinished">Zapnout vše</translation>
+    </message>
+    <message>
+        <source>Uncheck all</source>
+        <translation type="unfinished">Vypnout vše</translation>
     </message>
 </context>
 <context>
@@ -2053,6 +2108,18 @@ Chcete uložit změny?</translation>
     <message>
         <source>Text only</source>
         <translation>Pouze text</translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide tool bar in fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide status bar in fullscreen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

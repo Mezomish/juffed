@@ -149,11 +149,11 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     </message>
     <message>
         <source>Colors</source>
-        <translation>Couleurs</translation>
+        <translation type="obsolete">Couleurs</translation>
     </message>
     <message>
         <source>Selection background color</source>
-        <translation>Couleur de fond de la sélection</translation>
+        <translation type="obsolete">Couleur de fond de la sélection</translation>
     </message>
     <message>
         <source>Matched brace background color</source>
@@ -173,11 +173,11 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     </message>
     <message>
         <source>Default font color</source>
-        <translation>Couleur de la police par défaut</translation>
+        <translation type="obsolete">Couleur de la police par défaut</translation>
     </message>
     <message>
         <source>Default background color</source>
-        <translation>Couleur de fond par défaut</translation>
+        <translation type="obsolete">Couleur de fond par défaut</translation>
     </message>
 </context>
 <context>
@@ -570,6 +570,10 @@ Voulez-vous enregistrer les changements?</translation>
         <source>Close all</source>
         <translation type="unfinished">Fermer tous</translation>
     </message>
+    <message>
+        <source>Close all other tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Juff::TabWidget</name>
@@ -816,6 +820,14 @@ Voulez-vous enregistrer les changements?</translation>
         <source>Docks</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Document &apos;%1&apos; doesn&apos;t exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &apos;%1&apos; is read-only.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -912,18 +924,6 @@ Voulez-vous enregistrer les changements?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide tool bar in fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide status bar in fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save session when close</source>
         <translation type="obsolete">Lors de la fermeture, enregistrer la session</translation>
     </message>
@@ -985,6 +985,10 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1377,6 +1381,22 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep syntax highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always wrap text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port, XML Formatter plugin</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1819,6 +1839,30 @@ Continuer à partir du début?</translation>
         <source>Remove all markers</source>
         <translation type="unfinished">Enlever tout les marqueurs</translation>
     </message>
+    <message>
+        <source>Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File types</source>
+        <translation type="unfinished">Types de fichier</translation>
+    </message>
+    <message>
+        <source>Current line highlighting color</source>
+        <translation type="unfinished">Couleur du surlignement de la ligne actuel</translation>
+    </message>
+    <message>
+        <source>Matching brace background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indents color</source>
+        <translation type="unfinished">Couleur d&apos;indentation</translation>
+    </message>
+    <message>
+        <source>Markers color</source>
+        <translation type="unfinished">Couleur des marqueurs</translation>
+    </message>
 </context>
 <context>
     <name>SearchComboBox</name>
@@ -1987,7 +2031,7 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Charsets</source>
-        <translation type="obsolete">Encodage</translation>
+        <translation type="unfinished">Encodage</translation>
     </message>
     <message>
         <source>View</source>
@@ -2004,6 +2048,33 @@ Continuer à partir du début?</translation>
     <message>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Couleurs</translation>
+    </message>
+    <message>
+        <source>Default font color</source>
+        <translation type="unfinished">Couleur de la police par défaut</translation>
+    </message>
+    <message>
+        <source>Default background color</source>
+        <translation type="unfinished">Couleur de fond par défaut</translation>
+    </message>
+    <message>
+        <source>Selection background color</source>
+        <translation type="unfinished">Couleur de fond de la sélection</translation>
+    </message>
+</context>
+<context>
+    <name>SyntaxesSettingsPage</name>
+    <message>
+        <source>Check all</source>
+        <translation type="unfinished">Cocher tous</translation>
+    </message>
+    <message>
+        <source>Uncheck all</source>
+        <translation type="unfinished">Décocher tous</translation>
     </message>
 </context>
 <context>
@@ -2071,6 +2142,18 @@ Continuer à partir du début?</translation>
     <message>
         <source>Toolbar style</source>
         <translation>Style de la barre d&apos;outils</translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide tool bar in fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide status bar in fullscreen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

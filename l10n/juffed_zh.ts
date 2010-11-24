@@ -135,14 +135,6 @@
         <translation>符号</translation>
     </message>
     <message>
-        <source>Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Selection background color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show line numbers</source>
         <translation type="obsolete">显示行号</translation>
     </message>
@@ -194,14 +186,6 @@ newly created/opened docs</source>
     <message>
         <source>Current line highlighting color</source>
         <translation type="obsolete">高亮当前行</translation>
-    </message>
-    <message>
-        <source>Default font color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Default background color</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -511,6 +495,10 @@ Do you want to save your changes?</source>
     <message>
         <source>Close all</source>
         <translation type="unfinished">关闭所有</translation>
+    </message>
+    <message>
+        <source>Close all other tabs</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -882,6 +870,14 @@ Do you want to save your changes?</source>
         <source>Docks</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Document &apos;%1&apos; doesn&apos;t exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document &apos;%1&apos; is read-only.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -977,18 +973,6 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide tool bar in fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hide status bar in fullscreen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save session when close</source>
         <translation type="obsolete">当关闭时，存记录层</translation>
     </message>
@@ -1050,6 +1034,10 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Chinese (simplified)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1310,6 +1298,22 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep syntax highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always wrap text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port, XML Formatter plugin</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1756,6 +1760,30 @@ Continue from the beginning?</source>
         <source>Remove all markers</source>
         <translation type="unfinished">移除所有标记</translation>
     </message>
+    <message>
+        <source>Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File types</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current line highlighting color</source>
+        <translation type="unfinished">高亮当前行</translation>
+    </message>
+    <message>
+        <source>Matching brace background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indents color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Markers color</source>
+        <translation type="unfinished">标记颜色</translation>
+    </message>
 </context>
 <context>
     <name>SearchComboBox</name>
@@ -1924,7 +1952,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Charsets</source>
-        <translation type="obsolete">编码</translation>
+        <translation type="unfinished">编码</translation>
     </message>
     <message>
         <source>View</source>
@@ -1937,6 +1965,33 @@ Continue from the beginning?</source>
     <message>
         <source>Autocompletion</source>
         <translation type="unfinished">自动添加</translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default font color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selection background color</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SyntaxesSettingsPage</name>
+    <message>
+        <source>Check all</source>
+        <translation type="unfinished">全选</translation>
+    </message>
+    <message>
+        <source>Uncheck all</source>
+        <translation type="unfinished">全不选</translation>
     </message>
 </context>
 <context>
@@ -2085,6 +2140,18 @@ Continue from the beginning?</source>
     <message>
         <source>Toolbar style</source>
         <translation>工具栏类型</translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide tool bar in fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide status bar in fullscreen</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

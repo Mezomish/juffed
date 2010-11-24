@@ -78,6 +78,7 @@ public:
 		lngs["pt"] = tr("Portuguese");
 		lngs["ru"] = tr("Russian");
 		lngs["sp"] = tr("Spanish");
+		lngs["sk"] = tr("Slovak");
 		lngs["zh"] = tr("Chinese (simplified)");
 		
 		ui.languageCmb->clear();

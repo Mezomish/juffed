@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Document.h"
 //#include "FindDlg.h"
 #include "JumpToFileDlg.h"
-//#include "License.h"
+#include "License.h"
 #include "MainSettings.h"
 #include "Popup.h"
 #include "SearchPopup.h"
@@ -68,33 +68,62 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	text += "<a href=\"http://sourceforge.net/tracker/?group_id=205470&atid=993771\">Request a feature</a>";
 	
 	QString auth("<br>&nbsp;Mikhail Murzin a.k.a. Mezomish<br>&nbsp;&nbsp;<a href='mailto:mezomish@gmail.com'>mezomish@gmail.com</a>");
-	QList<Helper> helpers;
-	helpers
-			<< Helper("Eugene Pivnev", "ti.eugene@gmail.com", "mailto:ti.eugene@gmail.com", QObject::tr("Packaging, testing"))
-			<< Helper("Alexander Sokoloff", "sokoloff.a@gmail.com", "mailto:sokoloff.a@gmail.com", QObject::tr("Testing, design ideas, feature requests, SymbolBrowser plugin"))
-			<< Helper("Petr Vanek", "petr@scribus.info", "mailto:petr@scribus.info", QObject::tr("Patches, Mac OS X port, XML Formatter plugin"))
-			<< Helper("David Stegbauer", "daaste@gmail.com", "mailto:daaste@gmail.com", QObject::tr("Patches"))
-			<< Helper("Jarek", "ajep9691@wp.pl", "mailto:ajep9691@wp.pl", QObject::tr("Polish translation"))
+
+	QList<Helper> pluginDevs;
+	pluginDevs
+			<< Helper("Alexander Sokoloff", "sokoloff.a@gmail.com", "mailto:sokoloff.a@gmail.com", QObject::tr("SymbolBrowser plugin"))
+			<< Helper("Petr Vanek", "petr@scribus.info", "mailto:petr@scribus.info", QObject::tr("XML Formatter plugin"))
+			<< Helper("Alexey Romanenko", "slimusgm@gmail.com", "mailto:slimusgm@gmail.com", QObject::tr("Sort plugin"))
+	;
+
+	QList<Helper> translators;
+	translators
 			<< Helper("Michael Gangolf", "miga@migaweb.de", "mailto:miga@migaweb.de", QObject::tr("German translation"))
-			<< Helper("Marc Dumoulin", "shadosan@gmail.com", "mailto:shadosan@gmail.com", QObject::tr("French translation"))
 			<< Helper("Pavel Fric", "http://fripohled.blogspot.com/", "http://fripohled.blogspot.com/", QObject::tr("Czech translation"))
+			<< Helper("Slavko (slavkozn)", "http://slavkozn.users.sourceforge.net/", "http://slavkozn.users.sourceforge.net/", QObject::tr("Slovak translation"))
+			<< Helper("Marc Dumoulin", "shadosan@gmail.com", "mailto:shadosan@gmail.com", QObject::tr("French translation"))
+			<< Helper("Jarek", "ajep9691@wp.pl", "mailto:ajep9691@wp.pl", QObject::tr("Polish translation"))
 			<< Helper("Giuliano S. Nascimento", "giusoft.tecnologia@gmail.com", "mailto:giusoft.tecnologia@gmail.com", QObject::tr("Brazilian Portuguese translation"))
 			<< Helper("YANG Weichun", "htyoung@163.com", "mailto:htyoung@163.com", QObject::tr("Chinese Simplified translation"))
+	;
+
+	QList<Helper> thanksTo;
+	thanksTo
+			<< Helper("Eugene Pivnev", "ti.eugene@gmail.com", "mailto:ti.eugene@gmail.com", QObject::tr("Packaging, testing"))
+			<< Helper("Alexander Sokoloff", "sokoloff.a@gmail.com", "mailto:sokoloff.a@gmail.com", QObject::tr("Testing, design ideas, feature requests"))
+			<< Helper("Petr Vanek", "petr@scribus.info", "mailto:petr@scribus.info", QObject::tr("Patches, Mac OS X port"))
+			<< Helper("David Stegbauer", "daaste@gmail.com", "mailto:daaste@gmail.com", QObject::tr("Patches"))
 			<< Helper("\"SoftIcon\"", "http://softicon.ru/", "http://softicon.ru/", QObject::tr("Application icon"))
 			<< Helper("Evgeny Muravjev Studio", "http://emuravjev.ru/", "http://emuravjev.ru/", QObject::tr("Website"))
 	;
 
-	QString thanks;
-	foreach(Helper helper, helpers) {
+	QString thanks("<br>");
+	foreach(Helper helper, thanksTo) {
 		thanks += QString("&nbsp;%1<br>").arg(helper.name);
 		thanks += QString("&nbsp;&nbsp;<a href='%1'>%2</a><br>").arg(helper.urlHref).arg(helper.urlTitle);
 		thanks += QString("&nbsp;&nbsp;%1<br><br>").arg(helper.contribution);
 	}
 
+	QString plugins("<br>");
+	foreach(Helper helper, pluginDevs) {
+		plugins += QString("&nbsp;%1<br>").arg(helper.name);
+		plugins += QString("&nbsp;&nbsp;<a href='%1'>%2</a><br>").arg(helper.urlHref).arg(helper.urlTitle);
+		plugins += QString("&nbsp;&nbsp;%1<br><br>").arg(helper.contribution);
+	}
+
+	QString translations("<br>");
+	foreach(Helper helper, translators) {
+		translations += QString("&nbsp;%1<br>").arg(helper.name);
+		translations += QString("&nbsp;&nbsp;<a href='%1'>%2</a><br>").arg(helper.urlHref).arg(helper.urlTitle);
+		translations += QString("&nbsp;&nbsp;%1<br><br>").arg(helper.contribution);
+	}
+
 	dlg->setText(text);
-	dlg->setAuthors(auth);
-	dlg->setThanks(thanks);
-//	dlg->setLicense(License::licenseText, false);
+	dlg->setPageText(QObject::tr("Authors"), auth);
+	dlg->setPageText(QObject::tr("Plugins"), plugins);
+	dlg->setPageText(QObject::tr("Translations"), translations);
+	dlg->setPageText(QObject::tr("Thanks"), thanks);
+	dlg->setPageText(QObject::tr("License"), License::licenseText, false);
 	dlg->resize(550, 350);
 	dlg->setIcon(QIcon(":juffed_48.png"));
 	

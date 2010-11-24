@@ -48,19 +48,7 @@ public:
 	
 	/**
 	*/
-	void setAuthors(const QString&);
-	
-	/**
-	*/
-	void setThanks(const QString&);
-	
-	/** setLicense
-	* Sets the text of the program license
-	*
-	* @param str License file name if isFileName is true,
-	*            license text otherwise
-	*/
-	void setLicense(const QString& str, bool isFileName = true);
+	void setPageText(const QString& pageTitle, const QString& text, bool isHtml = true);
 
 private slots:
 	void gotoUrl(const QUrl&);

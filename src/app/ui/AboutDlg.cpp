@@ -87,63 +87,50 @@ public:
 		font.setPointSize(font.pointSize() + 2);
 		nameL_->setFont(font);
 		
-		//	Initialize the pages
-		aboutPage_ = 0;
-		authorsPage_ = 0;
-		thanksPage_ = 0;
-		licensePage_ = 0;
+		aboutPage_ = new QLabel(0);
+		aboutPage_->setTextFormat(Qt::RichText);
+		aboutPage_->setWordWrap(true);
+		aboutPage_->setAlignment(Qt::AlignCenter);
+		tabWidget_->addTab(aboutPage_, AboutDlg::tr("About"));
 	}
 
-	//	Labels 	
+	//	Labels
 	QLabel* iconL_;
 	QLabel* nameL_;
 
 	QLabel* aboutPage() {
-		if (aboutPage_ == 0) {
-			aboutPage_ = new QLabel(0);
-			aboutPage_->setTextFormat(Qt::RichText);
-			aboutPage_->setWordWrap(true);
-			aboutPage_->setAlignment(Qt::AlignCenter);
-			tabWidget_->addTab(aboutPage_, AboutDlg::tr("About"));
-		}
 		return aboutPage_;
 	}
 
-	TextBrowserPage* authorsPage() {
-		if (authorsPage_ == 0) {
-			authorsPage_ = new TextBrowserPage(0);
-			tabWidget_->addTab(authorsPage_, AboutDlg::tr("Authors"));
-		}
-		return authorsPage_;
+	TextBrowserPage* getPage(const QString& title) {
+		return pagesMap_.value(title, NULL);
 	}
 
-	TextBrowserPage* thanksPage() {
-		if (thanksPage_ == 0) {
-			thanksPage_ = new TextBrowserPage(0);
-			tabWidget_->addTab(thanksPage_, AboutDlg::tr("Thanks"));
+	void addPage(const QString& title) {
+		if ( !pagesMap_.contains(title) ) {
+			TextBrowserPage* page = new TextBrowserPage(0);
+			pagesMap_[title] = page;
+			tabWidget_->addTab(page, title);
 		}
-		return thanksPage_;
-	}
-
-	TextBrowserPage* licensePage() {
-		if (licensePage_ == 0) {
-			licensePage_ = new TextBrowserPage(0);
-			tabWidget_->addTab(licensePage_, AboutDlg::tr("License"));
-		}
-		return licensePage_;
 	}
 
 private:
 	QTabWidget* tabWidget_;
 	QLabel* aboutPage_;
-	TextBrowserPage* authorsPage_;
-	TextBrowserPage* thanksPage_;
-	TextBrowserPage* licensePage_;
+	QMap<QString, TextBrowserPage*> pagesMap_;
 	QPushButton* closeBtn_;
 };
 
 AboutDlg::AboutDlg(QWidget* parent /*= 0*/, Qt::WindowFlags f /*= 0*/) : QDialog(parent, f) {
 	dlgInt_ = new Interior(this);
+	
+	dlgInt_->aboutPage();
+	dlgInt_->addPage(tr("Authors"));
+	dlgInt_->addPage(tr("Plugins"));
+	dlgInt_->addPage(tr("Translations"));
+	dlgInt_->addPage(tr("Thanks"));
+	dlgInt_->addPage(tr("License"));
+	
 	connect(dlgInt_->aboutPage(), SIGNAL(linkActivated(const QString&)), SLOT(gotoUrl(const QString&)));
 }
 
@@ -173,26 +160,9 @@ void AboutDlg::setText(const QString& text) {
 	dlgInt_->aboutPage()->setText(text);
 }
 
-void AboutDlg::setAuthors(const QString& authors) {
-	dlgInt_->authorsPage()->setText(authors);
-}
-
-void AboutDlg::setThanks(const QString& thanks) {
-	dlgInt_->thanksPage()->setText(thanks);
-}
-
-void AboutDlg::setLicense(const QString& str, bool isFileName) {
-	if (isFileName) {
-		QFile file(str);
-		if (file.open(QIODevice::ReadOnly)) {
-			dlgInt_->licensePage()->setText(file.readAll().constData(), false);
-			file.close();
-		}
-		else {
-			dlgInt_->licensePage()->setText(QString("Can't open file '%1'").arg(QFileInfo(str).absoluteFilePath()), false);
-		}
-	}
-	else {
-		dlgInt_->licensePage()->setText(str, false);
+void AboutDlg::setPageText(const QString& pageTitle, const QString& text, bool isHtml /* = true */) {
+	TextBrowserPage* page = dlgInt_->getPage(pageTitle);
+	if ( page != NULL ) {
+		page->setText(text, isHtml);
 	}
 }

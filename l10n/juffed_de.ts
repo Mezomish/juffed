@@ -923,7 +923,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Rename file</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbenennen Datei</translation>
     </message>
     <message>
         <source>Input new file name:</source>
@@ -1021,11 +1021,11 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished"></translation>
+        <translation>Tschechische</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished"></translation>
+        <translation>Deutsche</translation>
     </message>
     <message>
         <source>English</source>
@@ -1033,15 +1033,15 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation>Französische</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Polnische</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugiesische</translation>
     </message>
     <message>
         <source>Russian</source>
@@ -1053,7 +1053,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vereinfachte chinesische</translation>
     </message>
     <message>
         <source>auto-detect</source>
@@ -1556,7 +1556,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>foreground color:</source>
-        <translation>Vordergrundfarbe</translation>
+        <translation>Vordergrundfarbe:</translation>
     </message>
     <message>
         <source>background color:</source>

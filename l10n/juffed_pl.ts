@@ -877,7 +877,7 @@ Czy chcesz zachować swoje zmiany?</translation>
     </message>
     <message>
         <source>Open file</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Otwórz plik</translation>
     </message>
     <message>
         <source>Remove from project</source>

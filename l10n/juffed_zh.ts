@@ -191,10 +191,6 @@ newly created/opened docs</source>
 <context>
     <name>FileTypesPage</name>
     <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Highlighting:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1662,10 +1658,6 @@ Continue from the beginning?</source>
 <context>
     <name>SciDoc</name>
     <message>
-        <source>This is a Noname file and shouldn&apos;t be saved directly</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1806,10 +1798,6 @@ Continue from the beginning?</source>
 <context>
     <name>SearchPopup</name>
     <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1818,16 +1806,8 @@ Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>*</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find next</source>
         <translation type="unfinished">查找下一个</translation>
-    </message>
-    <message>
-        <source>v</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Replace next</source>
@@ -1836,10 +1816,6 @@ Continue from the beginning?</source>
     <message>
         <source>Find previous</source>
         <translation type="unfinished">查找前一个</translation>
-    </message>
-    <message>
-        <source>^</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Replace previous</source>
@@ -1863,10 +1839,6 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Case sensitive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

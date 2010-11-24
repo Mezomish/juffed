@@ -66,27 +66,27 @@
     <name>Document</name>
     <message>
         <source>The file &apos;%1&apos; was modified by external program.</source>
-        <translation type="unfinished">Soubor &apos;%1&apos; byl změněn vnějším programem.</translation>
+        <translation>Soubor &apos;%1&apos; byl změněn vnějším programem.</translation>
     </message>
     <message>
         <source>What do you want to do?</source>
-        <translation type="unfinished">Co chcete dělat?</translation>
+        <translation>Co chcete dělat?</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Varování</translation>
+        <translation>Varování</translation>
     </message>
     <message>
         <source>Save current</source>
-        <translation type="unfinished">Uložit nynější</translation>
+        <translation>Uložit nynější</translation>
     </message>
     <message>
         <source>Reload from disk</source>
-        <translation type="unfinished">Nahrát znovu z disku</translation>
+        <translation>Nahrát znovu z disku</translation>
     </message>
     <message>
         <source>Ignore</source>
-        <translation type="unfinished">Nevšímat si</translation>
+        <translation>Nevšímat si</translation>
     </message>
 </context>
 <context>
@@ -188,7 +188,7 @@ namísto pouze jednoho prázdného místa</translation>
     </message>
     <message>
         <source>Form</source>
-        <translation>Formulář</translation>
+        <translation type="obsolete">Formulář</translation>
     </message>
     <message>
         <source>File name patterns:</source>
@@ -298,15 +298,15 @@ namísto pouze jednoho prázdného místa</translation>
     </message>
     <message>
         <source>&amp;Syntax</source>
-        <translation type="unfinished">&amp;Skladba</translation>
+        <translation>&amp;Skladba</translation>
     </message>
     <message>
         <source>Line endings</source>
-        <translation type="unfinished">Konec řádku</translation>
+        <translation>Konec řádku</translation>
     </message>
     <message>
         <source>Markers</source>
-        <translation type="unfinished"></translation>
+        <translation>Značky</translation>
     </message>
 </context>
 <context>
@@ -534,7 +534,7 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Close all</source>
-        <translation type="unfinished">Zavřít vše</translation>
+        <translation>Zavřít vše</translation>
     </message>
     <message>
         <source>Close all other tabs</source>
@@ -569,7 +569,7 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Close all</source>
-        <translation type="unfinished">Zavřít vše</translation>
+        <translation>Zavřít vše</translation>
     </message>
 </context>
 <context>
@@ -608,7 +608,7 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>Nápověda</translation>
+        <translation>&amp;Nápověda</translation>
     </message>
     <message>
         <source>Charset</source>
@@ -640,27 +640,27 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nový</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Otevřít</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uložit</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Uložit jako</translation>
+        <translation>Uložit jako</translation>
     </message>
     <message>
         <source>Save all</source>
-        <translation type="unfinished">Uložit vše</translation>
+        <translation>Uložit vše</translation>
     </message>
     <message>
         <source>&amp;Reload</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrát &amp;znovu</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -668,71 +668,71 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Zavřít</translation>
+        <translation>Zavřít</translation>
     </message>
     <message>
         <source>Close All</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít vše</translation>
     </message>
     <message>
         <source>&amp;Print</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tisk</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished">Ukončit</translation>
+        <translation>Ukončit</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation type="unfinished">Znovu</translation>
+        <translation>Znovu</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation type="unfinished">Zpět</translation>
+        <translation>Zpět</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished">Vyjmout</translation>
+        <translation>Vyjmout</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation type="unfinished">Kopírovat</translation>
+        <translation>Kopírovat</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation type="unfinished">Vložit</translation>
+        <translation>Vložit</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished">Najít</translation>
+        <translation>Najít</translation>
     </message>
     <message>
         <source>Find next</source>
-        <translation type="unfinished">Najít další</translation>
+        <translation>Najít další</translation>
     </message>
     <message>
         <source>Find previous</source>
-        <translation type="unfinished">Najít předchozí</translation>
+        <translation>Najít předchozí</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished">Nahradit</translation>
+        <translation>Nahradit</translation>
     </message>
     <message>
         <source>Go to line</source>
-        <translation type="unfinished">Jít na řádek</translation>
+        <translation>Jít na řádek</translation>
     </message>
     <message>
         <source>Go to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Jít na soubor</translation>
     </message>
     <message>
         <source>Display line numbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat čísla řádků</translation>
     </message>
     <message>
         <source>Wrap words</source>
-        <translation type="unfinished">Zalomit slova</translation>
+        <translation>Zalomit slova</translation>
     </message>
     <message>
         <source>Show whitespaces and TABs</source>
@@ -740,19 +740,19 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Show ends of lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat konec řádku</translation>
     </message>
     <message>
         <source>Zoom In</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvětšit</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmenšit</translation>
     </message>
     <message>
         <source>Zoom 100%</source>
-        <translation type="unfinished">Obvyklá velikost zvětšení</translation>
+        <translation>Obvyklá velikost zvětšení</translation>
     </message>
     <message>
         <source>Fullscreen</source>
@@ -760,27 +760,27 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Nastavení</translation>
+        <translation>Nastavení</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished">O programu</translation>
+        <translation>O programu</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="unfinished">O Qt</translation>
+        <translation>O Qt</translation>
     </message>
     <message>
         <source>For&amp;mat</source>
-        <translation type="unfinished"></translation>
+        <translation>For&amp;mát</translation>
     </message>
     <message>
         <source>Recent files</source>
-        <translation type="unfinished">Naposledy otevřené soubory</translation>
+        <translation>Naposledy otevřené soubory</translation>
     </message>
     <message>
         <source>Docks</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukotvit okna</translation>
     </message>
     <message>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
@@ -788,11 +788,11 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>File &apos;%1&apos; doesn&apos;t exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor &apos;%1&apos; neexistuje</translation>
     </message>
     <message>
         <source>File &apos;%1&apos; is read-only</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor &apos;%1&apos; je pouze pro čtení</translation>
     </message>
 </context>
 <context>
@@ -803,7 +803,7 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřít soubor</translation>
     </message>
     <message>
         <source>Open files</source>
@@ -811,7 +811,7 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Save %1 as...</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit %1 jako</translation>
     </message>
     <message>
         <source>Go to line</source>
@@ -972,7 +972,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřít soubor</translation>
     </message>
     <message>
         <source>Remove from project</source>
@@ -1083,7 +1083,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Always wrap text</source>
-        <translation type="unfinished">Vždy zalomit text</translation>
+        <translation>Vždy zalomit text</translation>
     </message>
     <message>
         <source>Next document</source>
@@ -1187,7 +1187,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Keep syntax highlighting</source>
-        <translation type="unfinished">Udržovat zvýrazňování skladby</translation>
+        <translation>Udržovat zvýrazňování skladby</translation>
     </message>
     <message>
         <source>Comment line(s)</source>
@@ -1271,7 +1271,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Keep background color</source>
-        <translation type="unfinished">Zachovat barvu pozadí</translation>
+        <translation>Zachovat barvu pozadí</translation>
     </message>
     <message>
         <source>&amp;Syntax</source>
@@ -1327,7 +1327,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Line endings</source>
-        <translation type="unfinished">Konec řádku</translation>
+        <translation>Konec řádku</translation>
     </message>
     <message>
         <source>Czech translation</source>
@@ -1374,7 +1374,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Current line color</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva zvýraznění nynějšího řádku</translation>
     </message>
     <message>
         <source>foreground color:</source>
@@ -1703,10 +1703,6 @@ Chcete uložit změny?</translation>
 <context>
     <name>SciDoc</name>
     <message>
-        <source>This is a Noname file and shouldn&apos;t be saved directly</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Can&apos;t open file for writing</source>
         <translation>Soubor nelze otevřít pro zápis</translation>
     </message>
@@ -1719,11 +1715,11 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>UPPER CASE</source>
-        <translation type="unfinished"></translation>
+        <translation>Na velká písmena</translation>
     </message>
     <message>
         <source>lower case</source>
-        <translation type="unfinished"></translation>
+        <translation>Na malá písmena</translation>
     </message>
     <message>
         <source>Move line up</source>
@@ -1755,15 +1751,15 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Win</source>
-        <translation type="unfinished">Windows</translation>
+        <translation>Windows</translation>
     </message>
     <message>
         <source>Mac</source>
-        <translation type="unfinished">Macintosh</translation>
+        <translation>Macintosh</translation>
     </message>
     <message>
         <source>Unix</source>
-        <translation type="unfinished">Unix</translation>
+        <translation>Unix</translation>
     </message>
     <message>
         <source>Remove the beginning of the line</source>
@@ -1783,43 +1779,43 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Add/Remove marker</source>
-        <translation type="unfinished">Přidat/Odstranit značku</translation>
+        <translation>Přidat/Odstranit značku</translation>
     </message>
     <message>
         <source>Next marker</source>
-        <translation type="unfinished">Další značka</translation>
+        <translation>Další značka</translation>
     </message>
     <message>
         <source>Previous marker</source>
-        <translation type="unfinished">Předchozí značka</translation>
+        <translation>Předchozí značka</translation>
     </message>
     <message>
         <source>Remove all markers</source>
-        <translation type="unfinished">Odstranit všechny značky</translation>
+        <translation>Odstranit všechny značky</translation>
     </message>
     <message>
         <source>Printing</source>
-        <translation type="unfinished">Tisk</translation>
+        <translation>Tisk</translation>
     </message>
     <message>
         <source>File types</source>
-        <translation type="unfinished">Typy souborů</translation>
+        <translation>Typy souborů</translation>
     </message>
     <message>
         <source>Current line highlighting color</source>
-        <translation type="unfinished">Barva zvýraznění nynějšího řádku</translation>
+        <translation>Barva zvýraznění nynějšího řádku</translation>
     </message>
     <message>
         <source>Matching brace background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva pozadí odpovídající závorky</translation>
     </message>
     <message>
         <source>Indents color</source>
-        <translation type="unfinished">Barva odsazení</translation>
+        <translation>Barva odsazení</translation>
     </message>
     <message>
         <source>Markers color</source>
-        <translation type="unfinished">Barva značky</translation>
+        <translation>Barva značky</translation>
     </message>
 </context>
 <context>
@@ -1845,34 +1841,26 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished">Nahradit</translation>
+        <translation>Nahradit</translation>
     </message>
 </context>
 <context>
     <name>SearchPopup</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">Formulář</translation>
+        <translation type="obsolete">Formulář</translation>
     </message>
     <message>
         <source>Find:</source>
-        <translation type="unfinished"></translation>
+        <translation>Najít:</translation>
     </message>
     <message>
         <source>Replace all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>*</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find next</source>
-        <translation type="unfinished">Najít další</translation>
-    </message>
-    <message>
-        <source>v</source>
-        <translation type="unfinished"></translation>
+        <translation>Najít další</translation>
     </message>
     <message>
         <source>Replace next</source>
@@ -1880,11 +1868,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Find previous</source>
-        <translation type="unfinished">Najít předchozí</translation>
-    </message>
-    <message>
-        <source>^</source>
-        <translation type="unfinished"></translation>
+        <translation>Najít předchozí</translation>
     </message>
     <message>
         <source>Replace previous</source>
@@ -1892,15 +1876,15 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Replace:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit:</translation>
     </message>
     <message>
         <source>Plain text</source>
-        <translation type="unfinished"></translation>
+        <translation>Pouze text</translation>
     </message>
     <message>
         <source>Whole words</source>
-        <translation type="unfinished"></translation>
+        <translation>Celá slova</translation>
     </message>
     <message>
         <source>Regexp</source>
@@ -1908,11 +1892,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Case sensitive</source>
-        <translation type="unfinished">Rozlišující velká a malá písmena</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozlišující velká a malá písmena</translation>
     </message>
 </context>
 <context>
@@ -1943,7 +1923,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Save all</source>
-        <translation type="unfinished">Uložit vše</translation>
+        <translation>Uložit vše</translation>
     </message>
 </context>
 <context>
@@ -1977,7 +1957,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished">Pohled</translation>
+        <translation>Pohled</translation>
     </message>
     <message>
         <source>Apply</source>
@@ -1993,7 +1973,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished">Přídavné moduly</translation>
+        <translation>Přídavné moduly</translation>
     </message>
     <message>
         <source>File types</source>
@@ -2005,7 +1985,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Autocompletion</source>
-        <translation type="unfinished">Automatické dokončení</translation>
+        <translation>Automatické dokončení</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -2017,7 +1997,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Charsets</source>
-        <translation type="unfinished">Soubory znaků</translation>
+        <translation>Soubory znaků</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -2025,26 +2005,26 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Default font color</source>
-        <translation type="unfinished">Výchozí barva písma</translation>
+        <translation>Výchozí barva písma</translation>
     </message>
     <message>
         <source>Default background color</source>
-        <translation type="unfinished">Výchozí barva pozadí</translation>
+        <translation>Výchozí barva pozadí</translation>
     </message>
     <message>
         <source>Selection background color</source>
-        <translation type="unfinished">Barva pozadí výběru</translation>
+        <translation>Barva pozadí výběru</translation>
     </message>
 </context>
 <context>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation type="unfinished">Zapnout vše</translation>
+        <translation>Zapnout vše</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation type="unfinished">Vypnout vše</translation>
+        <translation>Vypnout vše</translation>
     </message>
 </context>
 <context>

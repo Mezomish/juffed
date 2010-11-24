@@ -151,10 +151,6 @@ identação ao invés de remover um espaço simples</translation>
 <context>
     <name>FileTypesPage</name>
     <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Highlighting:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1436,10 +1432,6 @@ Continuar do começo?</translation>
 <context>
     <name>SciDoc</name>
     <message>
-        <source>This is a Noname file and shouldn&apos;t be saved directly</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Can&apos;t open file for writing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1576,10 +1568,6 @@ Continuar do começo?</translation>
 <context>
     <name>SearchPopup</name>
     <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1588,16 +1576,8 @@ Continuar do começo?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>*</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find next</source>
         <translation type="unfinished">Procurar próxima</translation>
-    </message>
-    <message>
-        <source>v</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Replace next</source>
@@ -1606,10 +1586,6 @@ Continuar do começo?</translation>
     <message>
         <source>Find previous</source>
         <translation type="unfinished">Procurar anterior</translation>
-    </message>
-    <message>
-        <source>^</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Replace previous</source>
@@ -1633,10 +1609,6 @@ Continuar do começo?</translation>
     </message>
     <message>
         <source>Case sensitive</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

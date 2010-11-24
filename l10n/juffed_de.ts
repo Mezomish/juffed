@@ -184,7 +184,7 @@ anstelle von nur einer Leerstelle</translation>
     <name>FileTypesPage</name>
     <message>
         <source>Form</source>
-        <translation>Formular</translation>
+        <translation type="obsolete">Formular</translation>
     </message>
     <message>
         <source>Highlighting:</source>
@@ -878,11 +878,11 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>File &apos;%1&apos; doesn&apos;t exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei &apos;%1&apos; existiert nicht</translation>
     </message>
     <message>
         <source>File &apos;%1&apos; is read-only</source>
-        <translation type="unfinished"></translation>
+        <translation>Datei &apos;%1&apos; ist schreibgeschützt</translation>
     </message>
 </context>
 <context>
@@ -1882,7 +1882,7 @@ Am Anfang fortsetzen?</translation>
     <name>SciDoc</name>
     <message>
         <source>This is a Noname file and shouldn&apos;t be saved directly</source>
-        <translation>Dieses Dokument hat noch keinen Namen und sollte nicht direkt gespeichert werden</translation>
+        <translation type="obsolete">Dieses Dokument hat noch keinen Namen und sollte nicht direkt gespeichert werden</translation>
     </message>
     <message>
         <source>Can&apos;t open file for writing</source>
@@ -1977,27 +1977,27 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Drucken</translation>
     </message>
     <message>
         <source>File types</source>
-        <translation type="unfinished">Dateitypen</translation>
+        <translation>Dateitypen</translation>
     </message>
     <message>
         <source>Current line highlighting color</source>
-        <translation type="unfinished">Hervorhebungsfarbe der aktuellen Zeile</translation>
+        <translation>Hervorhebungsfarbe der aktuellen Zeile</translation>
     </message>
     <message>
         <source>Matching brace background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Hintergrundfarbe passende Klammer</translation>
     </message>
     <message>
         <source>Indents color</source>
-        <translation type="unfinished">Einrück-Farbe</translation>
+        <translation>Einrück-Farbe</translation>
     </message>
     <message>
         <source>Markers color</source>
-        <translation type="unfinished">Marker-Farbe</translation>
+        <translation>Marker-Farbe</translation>
     </message>
 </context>
 <context>
@@ -2030,7 +2030,7 @@ Am Anfang fortsetzen?</translation>
     <name>SearchPopup</name>
     <message>
         <source>Form</source>
-        <translation>Formular</translation>
+        <translation type="obsolete">Formular</translation>
     </message>
     <message>
         <source>Find:</source>
@@ -2038,19 +2038,11 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Replace all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>*</source>
-        <translation></translation>
+        <translation>Alles ersetzen</translation>
     </message>
     <message>
         <source>Find next</source>
         <translation>Suche fortsetzen</translation>
-    </message>
-    <message>
-        <source>v</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Replace next</source>
@@ -2061,24 +2053,20 @@ Am Anfang fortsetzen?</translation>
         <translation>Suche vorheriges</translation>
     </message>
     <message>
-        <source>^</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Replace previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Replace:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ersetzen:</translation>
     </message>
     <message>
         <source>Plain text</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur Text</translation>
     </message>
     <message>
         <source>Whole words</source>
-        <translation type="unfinished"></translation>
+        <translation>nur ganze Wörter</translation>
     </message>
     <message>
         <source>Regexp</source>
@@ -2087,10 +2075,6 @@ Am Anfang fortsetzen?</translation>
     <message>
         <source>Case sensitive</source>
         <translation>Groß-/Kleinschreibung beachten</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2175,7 +2159,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Charsets</source>
-        <translation type="unfinished">Zeichensatz</translation>
+        <translation>Zeichensatz</translation>
     </message>
     <message>
         <source>View</source>
@@ -2195,30 +2179,30 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Farben</translation>
+        <translation>Farben</translation>
     </message>
     <message>
         <source>Default font color</source>
-        <translation type="unfinished">Standard Schriftfarbe</translation>
+        <translation>Standard Schriftfarbe</translation>
     </message>
     <message>
         <source>Default background color</source>
-        <translation type="unfinished">Standard Hintergrundfarbe</translation>
+        <translation>Standard Hintergrundfarbe</translation>
     </message>
     <message>
         <source>Selection background color</source>
-        <translation type="unfinished">Hintergrundfarbe Auswahl</translation>
+        <translation>Hintergrundfarbe Auswahl</translation>
     </message>
 </context>
 <context>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation type="unfinished">Alle aktivieren</translation>
+        <translation>Alle aktivieren</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation type="unfinished">Alle deaktivieren</translation>
+        <translation>Alle deaktivieren</translation>
     </message>
 </context>
 <context>
@@ -2304,15 +2288,15 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Fullscreen</source>
-        <translation type="unfinished">Vollbild</translation>
+        <translation>Vollbild</translation>
     </message>
     <message>
         <source>Hide tool bar in fullscreen</source>
-        <translation type="unfinished">Werkzeugleiste im Vollbildmodus verstecken</translation>
+        <translation>Werkzeugleiste im Vollbildmodus verstecken</translation>
     </message>
     <message>
         <source>Hide status bar in fullscreen</source>
-        <translation type="unfinished">Statusleiste im Vollbildmodus verstecken</translation>
+        <translation>Statusleiste im Vollbildmodus verstecken</translation>
     </message>
 </context>
 </TS>

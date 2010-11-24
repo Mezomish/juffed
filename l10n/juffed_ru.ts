@@ -206,10 +206,6 @@ whole indent instead of removind single whitespace</source>
 <context>
     <name>FileTypesPage</name>
     <message>
-        <source>Form</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Highlighting:</source>
         <translation>Подсветка:</translation>
     </message>
@@ -926,11 +922,11 @@ Do you want to proceed?</source>
     </message>
     <message>
         <source>File &apos;%1&apos; doesn&apos;t exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл &apos;%1&apos; не существует</translation>
     </message>
     <message>
         <source>File &apos;%1&apos; is read-only</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл &apos;%1&apos; открыт только для чтения</translation>
     </message>
 </context>
 <context>
@@ -1105,7 +1101,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>auto-detect</source>
-        <translation type="unfinished"></translation>
+        <translation>авто-определение</translation>
     </message>
 </context>
 <context>
@@ -1565,19 +1561,19 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Keep syntax highlighting</source>
-        <translation type="unfinished">Сохранить подсветку синтаксиса</translation>
+        <translation>Сохранить подсветку синтаксиса</translation>
     </message>
     <message>
         <source>Keep background color</source>
-        <translation type="unfinished">Сохранить цвет фона</translation>
+        <translation>Сохранить цвет фона</translation>
     </message>
     <message>
         <source>Always wrap text</source>
-        <translation type="unfinished">Всегда переносить строки</translation>
+        <translation>Всегда переносить строки</translation>
     </message>
     <message>
         <source>Patches, Mac OS X port, XML Formatter plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Патчи, порт под Mac OS X, плагин XML Formatter</translation>
     </message>
 </context>
 <context>
@@ -1925,10 +1921,6 @@ Continue from the beginning?</source>
 <context>
     <name>SciDoc</name>
     <message>
-        <source>This is a Noname file and shouldn&apos;t be saved directly</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Can&apos;t open file for writing</source>
         <translation>Не могу открыть файл для записи</translation>
     </message>
@@ -1981,15 +1973,15 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Win</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Mac</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Unix</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Remove the beginning of the line</source>
@@ -2025,27 +2017,27 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Printing</source>
-        <translation type="unfinished">Печать</translation>
+        <translation>Печать</translation>
     </message>
     <message>
         <source>File types</source>
-        <translation type="unfinished">Типы файлов</translation>
+        <translation>Типы файлов</translation>
     </message>
     <message>
         <source>Current line highlighting color</source>
-        <translation type="unfinished">Цвет подсветки текущей строки</translation>
+        <translation>Цвет подсветки текущей строки</translation>
     </message>
     <message>
         <source>Matching brace background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет фона парной скобки</translation>
     </message>
     <message>
         <source>Indents color</source>
-        <translation type="unfinished">Цвет отступов</translation>
+        <translation>Цвет отступов</translation>
     </message>
     <message>
         <source>Markers color</source>
-        <translation type="unfinished">Цвет маркеров</translation>
+        <translation>Цвет маркеров</translation>
     </message>
 </context>
 <context>
@@ -2077,10 +2069,6 @@ Continue from the beginning?</source>
 <context>
     <name>SearchPopup</name>
     <message>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find:</source>
         <translation>Найти:</translation>
     </message>
@@ -2089,16 +2077,8 @@ Continue from the beginning?</source>
         <translation>Заменить все</translation>
     </message>
     <message>
-        <source>*</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find next</source>
         <translation>Найти следующий</translation>
-    </message>
-    <message>
-        <source>v</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Replace next</source>
@@ -2107,10 +2087,6 @@ Continue from the beginning?</source>
     <message>
         <source>Find previous</source>
         <translation>Найти предыдущий</translation>
-    </message>
-    <message>
-        <source>^</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Replace previous</source>
@@ -2135,10 +2111,6 @@ Continue from the beginning?</source>
     <message>
         <source>Case sensitive</source>
         <translation>Соблюдать регистр</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2223,7 +2195,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Charsets</source>
-        <translation type="unfinished">Кодировки</translation>
+        <translation>Кодировки</translation>
     </message>
     <message>
         <source>View</source>
@@ -2247,30 +2219,30 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Цвета</translation>
+        <translation>Цвета</translation>
     </message>
     <message>
         <source>Default font color</source>
-        <translation type="unfinished">Цвет шрифта</translation>
+        <translation>Цвет шрифта</translation>
     </message>
     <message>
         <source>Default background color</source>
-        <translation type="unfinished">Цвет фона</translation>
+        <translation>Цвет фона</translation>
     </message>
     <message>
         <source>Selection background color</source>
-        <translation type="unfinished">Цвет фона выделенного текста</translation>
+        <translation>Цвет фона выделенного текста</translation>
     </message>
 </context>
 <context>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation type="unfinished">Отметить все</translation>
+        <translation>Отметить все</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation type="unfinished">Убрать все</translation>
+        <translation>Убрать все</translation>
     </message>
 </context>
 <context>
@@ -2356,15 +2328,15 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Fullscreen</source>
-        <translation type="unfinished">Полноэкранный режим</translation>
+        <translation>Полноэкранный режим</translation>
     </message>
     <message>
         <source>Hide tool bar in fullscreen</source>
-        <translation type="unfinished">Скрывать панель инструментов</translation>
+        <translation>Скрывать панель инструментов</translation>
     </message>
     <message>
         <source>Hide status bar in fullscreen</source>
-        <translation type="unfinished">Скрывать панель статуса</translation>
+        <translation>Скрывать панель статуса</translation>
     </message>
 </context>
 </TS>

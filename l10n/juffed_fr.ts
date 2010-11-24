@@ -66,27 +66,27 @@
     <name>Document</name>
     <message>
         <source>The file &apos;%1&apos; was modified by external program.</source>
-        <translation type="unfinished">Le fichier &apos;%1&apos; a été modifié par un programme externe.</translation>
+        <translation>Le fichier &apos;%1&apos; a été modifié par un programme externe.</translation>
     </message>
     <message>
         <source>What do you want to do?</source>
-        <translation type="unfinished">Que voulez-vous faire?</translation>
+        <translation>Que voulez-vous faire?</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Avertissement</translation>
+        <translation>Avertissement</translation>
     </message>
     <message>
         <source>Save current</source>
-        <translation type="unfinished">Enregistrer l&apos;actif</translation>
+        <translation>Enregistrer l&apos;actif</translation>
     </message>
     <message>
         <source>Reload from disk</source>
-        <translation type="unfinished">Recharger de par le disque</translation>
+        <translation>Recharger de par le disque</translation>
     </message>
     <message>
         <source>Ignore</source>
-        <translation type="unfinished">Ignorer</translation>
+        <translation>Ignorer</translation>
     </message>
 </context>
 <context>
@@ -184,7 +184,7 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     <name>FileTypesPage</name>
     <message>
         <source>Form</source>
-        <translation>Formulaire</translation>
+        <translation type="obsolete">Formulaire</translation>
     </message>
     <message>
         <source>Highlighting:</source>
@@ -314,15 +314,15 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
     </message>
     <message>
         <source>&amp;Syntax</source>
-        <translation type="unfinished">&amp;Syntaxe</translation>
+        <translation>&amp;Syntaxe</translation>
     </message>
     <message>
         <source>Line endings</source>
-        <translation type="unfinished">Fins de ligne</translation>
+        <translation>Fins de ligne</translation>
     </message>
     <message>
         <source>Markers</source>
-        <translation type="unfinished"></translation>
+        <translation>Marqueurs</translation>
     </message>
 </context>
 <context>
@@ -568,7 +568,7 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>Close all</source>
-        <translation type="unfinished">Fermer tous</translation>
+        <translation>Fermer tous</translation>
     </message>
     <message>
         <source>Close all other tabs</source>
@@ -603,7 +603,7 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>Close all</source>
-        <translation type="unfinished">Fermer tous</translation>
+        <translation>Fermer tous</translation>
     </message>
 </context>
 <context>
@@ -678,27 +678,27 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nouveau</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ouvrir</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Enregistrer</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Enregistrer sous</translation>
+        <translation>Enregistrer sous</translation>
     </message>
     <message>
         <source>Save all</source>
-        <translation type="unfinished">Enregistrer tout</translation>
+        <translation>Enregistrer tout</translation>
     </message>
     <message>
         <source>&amp;Reload</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Recharger</translation>
     </message>
     <message>
         <source>Rename</source>
@@ -706,7 +706,7 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <source>Close All</source>
@@ -714,63 +714,63 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>&amp;Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Im&amp;primer</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished">Quitter</translation>
+        <translation>Quitter</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation type="unfinished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation type="unfinished">Refaire</translation>
+        <translation>Refaire</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished">Couper</translation>
+        <translation>Couper</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation type="unfinished">Copier</translation>
+        <translation>Copier</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation type="unfinished">Coller</translation>
+        <translation>Coller</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher</translation>
     </message>
     <message>
         <source>Find next</source>
-        <translation type="unfinished">Poursuivre la recherche</translation>
+        <translation>Poursuivre la recherche</translation>
     </message>
     <message>
         <source>Find previous</source>
-        <translation type="unfinished">Rechercher précédent</translation>
+        <translation>Rechercher précédent</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished">Remplacer</translation>
+        <translation>Remplacer</translation>
     </message>
     <message>
         <source>Go to line</source>
-        <translation type="unfinished">Aller à la ligne</translation>
+        <translation>Aller à la ligne</translation>
     </message>
     <message>
         <source>Go to file</source>
-        <translation type="unfinished"></translation>
+        <translation>Aller à la fichier</translation>
     </message>
     <message>
         <source>Display line numbers</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le numéro de ligne</translation>
     </message>
     <message>
         <source>Wrap words</source>
-        <translation type="unfinished">Retour à la ligne automatique</translation>
+        <translation>Retour à la ligne automatique</translation>
     </message>
     <message>
         <source>Show whitespaces and TABs</source>
@@ -782,11 +782,11 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>Zoom In</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoomer</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Dézoomer</translation>
     </message>
     <message>
         <source>Zoom 100%</source>
@@ -798,15 +798,15 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Configuration</translation>
+        <translation>Configuration</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished">À propos</translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="unfinished">À propos de Qt</translation>
+        <translation>À propos de Qt</translation>
     </message>
     <message>
         <source>For&amp;mat</source>
@@ -814,11 +814,11 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>Recent files</source>
-        <translation type="unfinished">Fichiers récents</translation>
+        <translation>Fichiers récents</translation>
     </message>
     <message>
         <source>Docks</source>
-        <translation type="unfinished"></translation>
+        <translation>Fenêtres interne</translation>
     </message>
     <message>
         <source>Document &apos;%1&apos; doesn&apos;t exist</source>
@@ -826,7 +826,7 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>File &apos;%1&apos; doesn&apos;t exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier &apos;%1&apos; n&apos;existe pas</translation>
     </message>
     <message>
         <source>File &apos;%1&apos; is read-only</source>
@@ -1301,7 +1301,7 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Line endings</source>
-        <translation type="unfinished">Fins de ligne</translation>
+        <translation>Fins de ligne</translation>
     </message>
     <message>
         <source>Duplicate line</source>
@@ -1416,11 +1416,11 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Matching brace</source>
-        <translation type="unfinished"></translation>
+        <translation>Balises unis</translation>
     </message>
     <message>
         <source>Current line color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur du surlignement de la ligne actuel</translation>
     </message>
     <message>
         <source>foreground color:</source>
@@ -1749,10 +1749,6 @@ Continuer à partir du début?</translation>
 <context>
     <name>SciDoc</name>
     <message>
-        <source>This is a Noname file and shouldn&apos;t be saved directly</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Can&apos;t open file for writing</source>
         <translation>Ne peux ouvrir le fichier pour l&apos;écriture</translation>
     </message>
@@ -1829,19 +1825,19 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Add/Remove marker</source>
-        <translation type="unfinished">Ajout/enlève marqueur</translation>
+        <translation>Ajout/enlève marqueur</translation>
     </message>
     <message>
         <source>Next marker</source>
-        <translation type="unfinished">Prochain marqueur</translation>
+        <translation>Prochain marqueur</translation>
     </message>
     <message>
         <source>Previous marker</source>
-        <translation type="unfinished">Précédent marqueur</translation>
+        <translation>Précédent marqueur</translation>
     </message>
     <message>
         <source>Remove all markers</source>
-        <translation type="unfinished">Enlever tout les marqueurs</translation>
+        <translation>Enlever tout les marqueurs</translation>
     </message>
     <message>
         <source>Printing</source>
@@ -1849,23 +1845,23 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>File types</source>
-        <translation type="unfinished">Types de fichier</translation>
+        <translation>Types de fichier</translation>
     </message>
     <message>
         <source>Current line highlighting color</source>
-        <translation type="unfinished">Couleur du surlignement de la ligne actuel</translation>
+        <translation>Couleur du surlignement de la ligne actuel</translation>
     </message>
     <message>
         <source>Matching brace background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Couleur de fond de les balises unis</translation>
     </message>
     <message>
         <source>Indents color</source>
-        <translation type="unfinished">Couleur d&apos;indentation</translation>
+        <translation>Couleur d&apos;indentation</translation>
     </message>
     <message>
         <source>Markers color</source>
-        <translation type="unfinished">Couleur des marqueurs</translation>
+        <translation>Couleur des marqueurs</translation>
     </message>
 </context>
 <context>
@@ -1883,34 +1879,26 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished">Remplacer</translation>
+        <translation>Remplacer</translation>
     </message>
 </context>
 <context>
     <name>SearchPopup</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">Formulaire</translation>
+        <translation type="obsolete">Formulaire</translation>
     </message>
     <message>
         <source>Find:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher:</translation>
     </message>
     <message>
         <source>Replace all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>*</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find next</source>
-        <translation type="unfinished">Poursuivre la recherche</translation>
-    </message>
-    <message>
-        <source>v</source>
-        <translation type="unfinished"></translation>
+        <translation>Poursuivre la recherche</translation>
     </message>
     <message>
         <source>Replace next</source>
@@ -1918,11 +1906,7 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Find previous</source>
-        <translation type="unfinished">Rechercher précédent</translation>
-    </message>
-    <message>
-        <source>^</source>
-        <translation type="unfinished"></translation>
+        <translation>Rechercher précédent</translation>
     </message>
     <message>
         <source>Replace previous</source>
@@ -1946,11 +1930,7 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Case sensitive</source>
-        <translation type="unfinished">Sensible à la casse</translation>
-    </message>
-    <message>
-        <source>.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sensible à la casse</translation>
     </message>
 </context>
 <context>
@@ -1981,7 +1961,7 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Save all</source>
-        <translation type="unfinished">Enregistrer tout</translation>
+        <translation>Enregistrer tout</translation>
     </message>
 </context>
 <context>
@@ -2035,15 +2015,15 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Charsets</source>
-        <translation type="unfinished">Encodage</translation>
+        <translation>Encodage</translation>
     </message>
     <message>
         <source>View</source>
-        <translation type="unfinished">Affichage</translation>
+        <translation>Affichage</translation>
     </message>
     <message>
         <source>Autocompletion</source>
-        <translation type="unfinished">Autocomplétion</translation>
+        <translation>Autocomplétion</translation>
     </message>
     <message>
         <source>File types</source>
@@ -2055,30 +2035,30 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Couleurs</translation>
+        <translation>Couleurs</translation>
     </message>
     <message>
         <source>Default font color</source>
-        <translation type="unfinished">Couleur de la police par défaut</translation>
+        <translation>Couleur de la police par défaut</translation>
     </message>
     <message>
         <source>Default background color</source>
-        <translation type="unfinished">Couleur de fond par défaut</translation>
+        <translation>Couleur de fond par défaut</translation>
     </message>
     <message>
         <source>Selection background color</source>
-        <translation type="unfinished">Couleur de fond de la sélection</translation>
+        <translation>Couleur de fond de la sélection</translation>
     </message>
 </context>
 <context>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation type="unfinished">Cocher tous</translation>
+        <translation>Cocher tous</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation type="unfinished">Décocher tous</translation>
+        <translation>Décocher tous</translation>
     </message>
 </context>
 <context>

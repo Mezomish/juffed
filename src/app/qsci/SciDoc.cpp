@@ -1053,7 +1053,7 @@ bool SciDoc::save(QString& error) {
 	LOGGER;
 
 	if ( isNoname() ) {
-		error = tr("This is a Noname file and shouldn't be saved directly");
+		error = "This is a Noname file and shouldn't be saved directly";
 		return false;
 	}
 

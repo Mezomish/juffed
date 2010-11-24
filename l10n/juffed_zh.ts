@@ -871,11 +871,11 @@ Do you want to save your changes?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; doesn&apos;t exist.</source>
+        <source>Document &apos;%1&apos; doesn&apos;t exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; is read-only.</source>
+        <source>Document &apos;%1&apos; is read-only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

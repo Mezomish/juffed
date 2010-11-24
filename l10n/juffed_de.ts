@@ -873,11 +873,11 @@ Wollen Sie die Änderungen speichern?</translation>
         <translation>Fenster andocken</translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; doesn&apos;t exist.</source>
-        <translation type="unfinished"></translation>
+        <source>Document &apos;%1&apos; doesn&apos;t exist</source>
+        <translation type="unfinished">Dokument &apos;%1&apos; existiert nicht</translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; is read-only.</source>
+        <source>Document &apos;%1&apos; is read-only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

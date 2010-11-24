@@ -821,11 +821,11 @@ Voulez-vous enregistrer les changements?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; doesn&apos;t exist.</source>
-        <translation type="unfinished"></translation>
+        <source>Document &apos;%1&apos; doesn&apos;t exist</source>
+        <translation type="unfinished">Le document &apos;%1&apos; n&apos;existe pas</translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; is read-only.</source>
+        <source>Document &apos;%1&apos; is read-only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -664,7 +664,7 @@ Do you want to proceed?</source>
     </message>
     <message>
         <source>Close all other tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть все кроме этого</translation>
     </message>
 </context>
 <context>
@@ -921,11 +921,11 @@ Do you want to proceed?</source>
         <translation>Док-окна</translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; doesn&apos;t exist.</source>
-        <translation type="unfinished"></translation>
+        <source>Document &apos;%1&apos; doesn&apos;t exist</source>
+        <translation type="unfinished">Документ &apos;%1&apos; не существует</translation>
     </message>
     <message>
-        <source>Document &apos;%1&apos; is read-only.</source>
+        <source>Document &apos;%1&apos; is read-only</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

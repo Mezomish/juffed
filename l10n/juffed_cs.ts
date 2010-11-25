@@ -23,6 +23,14 @@
         <source>Authors</source>
         <translation>Autoři</translation>
     </message>
+    <message>
+        <source>Plugins</source>
+        <translation>Přídavné moduly</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Překlady</translation>
+    </message>
 </context>
 <context>
     <name>AutocompletePage</name>
@@ -949,6 +957,10 @@ Chcete uložit změny?</translation>
         <source>auto-detect</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MessageWidget</name>
@@ -1335,7 +1347,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Syntax highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvýrazňování skladby</translation>
     </message>
     <message>
         <source>Patches</source>
@@ -1350,12 +1362,48 @@ Chcete uložit změny?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
+        <source>SymbolBrowser plugin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Patches, Mac OS X port, XML Formatter plugin</source>
+        <source>XML Formatter plugin</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Testing, design ideas, feature requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authors</source>
+        <translation>Autoři</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation>Přídavné moduly</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Překlady</translation>
+    </message>
+    <message>
+        <source>Thanks</source>
+        <translation>Díky</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Povolení</translation>
     </message>
 </context>
 <context>

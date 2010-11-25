@@ -23,6 +23,14 @@
         <source>Authors</source>
         <translation>Autori</translation>
     </message>
+    <message>
+        <source>Plugins</source>
+        <translation>Zásuvné moduly</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Preklady</translation>
+    </message>
 </context>
 <context>
     <name>AutocompletePage</name>
@@ -175,11 +183,13 @@ nie len jedno prázdno miesto</translation>
         <source>If &quot;Replace tabs with spaces&quot; option is checked, 
 the current option lets backspace key to remove the 
 whole indent instead of removind single whitespace</source>
-        <translation type="unfinished"></translation>
+        <translation>Keď je zapnutá voľba &quot;Nahradiť tabulátor medzerami&quot;,
+kláves Backspace odstráni celé odsadenie riadku,
+nie len jedno prázdno miesto</translation>
     </message>
     <message>
         <source>Line length indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukazovateľ dĺžky riadku</translation>
     </message>
 </context>
 <context>
@@ -917,6 +927,10 @@ Chcete zmeny uložiť?</translation>
         <source>Chinese (simplified)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginPage</name>
@@ -933,7 +947,7 @@ Chcete zmeny uložiť?</translation>
     </message>
     <message>
         <source>Open file</source>
-        <translation type="unfinished"></translation>
+        <translation>Otvoriť súbor</translation>
     </message>
     <message>
         <source>Remove from project</source>
@@ -1303,20 +1317,56 @@ Chcete zmeny uložiť?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Patches, Mac OS X port, XML Formatter plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Patches</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Noname %1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SymbolBrowser plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XML Formatter plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Testing, design ideas, feature requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authors</source>
+        <translation>Autori</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation>Zásuvné moduly</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Preklady</translation>
+    </message>
+    <message>
+        <source>Thanks</source>
+        <translation>Poďakovanie</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Licencia</translation>
     </message>
 </context>
 <context>

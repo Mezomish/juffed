@@ -23,6 +23,14 @@
         <source>Close</source>
         <translation>关闭</translation>
     </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished">插件</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AutocompletePage</name>
@@ -1036,6 +1044,10 @@ Do you want to save your changes?</source>
         <source>auto-detect</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PluginPage</name>
@@ -1293,10 +1305,6 @@ Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Keep syntax highlighting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1309,8 +1317,48 @@ Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Patches, Mac OS X port, XML Formatter plugin</source>
+        <source>SymbolBrowser plugin</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XML Formatter plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Testing, design ideas, feature requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authors</source>
+        <translation type="unfinished">作者</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished">插件</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thanks</source>
+        <translation type="unfinished">感谢</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation type="unfinished">版权</translation>
     </message>
 </context>
 <context>

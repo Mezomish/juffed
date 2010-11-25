@@ -23,6 +23,14 @@
         <source>Close</source>
         <translation>Fechar</translation>
     </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AutocompletePage</name>
@@ -70,11 +78,11 @@
     </message>
     <message>
         <source>What do you want to do?</source>
-        <translation type="unfinished">O que você quer fazer?</translation>
+        <translation>O que você quer fazer?</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="unfinished">Atenção</translation>
+        <translation>Atenção</translation>
     </message>
     <message>
         <source>Save current</source>
@@ -234,7 +242,7 @@ identação ao invés de remover um espaço simples</translation>
     </message>
     <message>
         <source>&amp;Syntax</source>
-        <translation type="unfinished">&amp;Sintaxe</translation>
+        <translation>&amp;Sintaxe</translation>
     </message>
     <message>
         <source>Line endings</source>
@@ -242,7 +250,7 @@ identação ao invés de remover um espaço simples</translation>
     </message>
     <message>
         <source>Markers</source>
-        <translation type="unfinished"></translation>
+        <translation>Marcadores</translation>
     </message>
 </context>
 <context>
@@ -390,7 +398,7 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>Close all</source>
-        <translation type="unfinished">Fechar todos</translation>
+        <translation>Fechar todos</translation>
     </message>
     <message>
         <source>Close all other tabs</source>
@@ -425,7 +433,7 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>Close all</source>
-        <translation type="unfinished">Fechar todos</translation>
+        <translation>Fechar todos</translation>
     </message>
 </context>
 <context>
@@ -492,19 +500,19 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Novo</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Abrir</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Salvar</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Salvar como</translation>
+        <translation>Salvar como</translation>
     </message>
     <message>
         <source>Save all</source>
@@ -520,11 +528,11 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Fechar</translation>
+        <translation>Fechar</translation>
     </message>
     <message>
         <source>Close All</source>
-        <translation type="unfinished"></translation>
+        <translation>Fechar todos</translation>
     </message>
     <message>
         <source>&amp;Print</source>
@@ -532,47 +540,47 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>Exit</source>
-        <translation type="unfinished">Sair</translation>
+        <translation>Sair</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation type="unfinished">Desfazer</translation>
+        <translation>Desfazer</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation type="unfinished">Refazer</translation>
+        <translation>Refazer</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished">Recortar</translation>
+        <translation>Recortar</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation type="unfinished">Copiar</translation>
+        <translation>Copiar</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation type="unfinished">Colar</translation>
+        <translation>Colar</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation type="unfinished">Buscar</translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <source>Find next</source>
-        <translation type="unfinished">Procurar próxima</translation>
+        <translation>Procurar próxima</translation>
     </message>
     <message>
         <source>Find previous</source>
-        <translation type="unfinished">Procurar anterior</translation>
+        <translation>Procurar anterior</translation>
     </message>
     <message>
         <source>Replace</source>
-        <translation type="unfinished">Reemplazar</translation>
+        <translation>Reemplazar</translation>
     </message>
     <message>
         <source>Go to line</source>
-        <translation type="unfinished">Ir para a linha</translation>
+        <translation>Ir para a linha</translation>
     </message>
     <message>
         <source>Go to file</source>
@@ -612,15 +620,15 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Configuração</translation>
+        <translation>Configuração</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished">Sobre</translation>
+        <translation>Sobre</translation>
     </message>
     <message>
         <source>About Qt</source>
-        <translation type="unfinished">Sobre o Qt</translation>
+        <translation>Sobre o Qt</translation>
     </message>
     <message>
         <source>For&amp;mat</source>
@@ -628,7 +636,7 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>Recent files</source>
-        <translation type="unfinished">Arquivos recentes</translation>
+        <translation>Arquivos recentes</translation>
     </message>
     <message>
         <source>Docks</source>
@@ -803,6 +811,10 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>auto-detect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1067,10 +1079,6 @@ Continuar do começo?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Keep syntax highlighting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1083,8 +1091,48 @@ Continuar do começo?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Patches, Mac OS X port, XML Formatter plugin</source>
+        <source>SymbolBrowser plugin</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XML Formatter plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Testing, design ideas, feature requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authors</source>
+        <translation>Autores</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thanks</source>
+        <translation>Agradecimentos</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Licença</translation>
     </message>
 </context>
 <context>

@@ -46,6 +46,14 @@
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
+    <message>
+        <source>Plugins</source>
+        <translation>Плагины</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Переводы</translation>
+    </message>
 </context>
 <context>
     <name>AutocompletePage</name>
@@ -1103,6 +1111,10 @@ Do you want to save your changes?</source>
         <source>auto-detect</source>
         <translation>авто-определение</translation>
     </message>
+    <message>
+        <source>Slovak</source>
+        <translation>Словацкий</translation>
+    </message>
 </context>
 <context>
     <name>PluginPage</name>
@@ -1197,23 +1209,23 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Polish translation</source>
-        <translation>Польская локализация</translation>
+        <translation>Польский перевод</translation>
     </message>
     <message>
         <source>German translation</source>
-        <translation>Немецкая локализация</translation>
+        <translation>Немецкий перевод</translation>
     </message>
     <message>
         <source>French translation</source>
-        <translation>Французская локализация</translation>
+        <translation>Французский перевод</translation>
     </message>
     <message>
         <source>Czech translation</source>
-        <translation>Чешская локализация</translation>
+        <translation>Чешский перевод</translation>
     </message>
     <message>
         <source>Brazilian Portuguese translation</source>
-        <translation>Бразильская (Португальская) локализация</translation>
+        <translation>Бразильский (Португальский) перевод</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -1505,7 +1517,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Chinese Simplified translation</source>
-        <translation>Китайская (упрощённая) локализация</translation>
+        <translation>Китайский (упрощёный) перевод</translation>
     </message>
     <message>
         <source>New Rich text</source>
@@ -1557,7 +1569,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
-        <translation>Тестирование, идеи дизайна, фичреквесты, плагин SymbolBrowser</translation>
+        <translation type="obsolete">Тестирование, идеи дизайна, фичреквесты, плагин SymbolBrowser</translation>
     </message>
     <message>
         <source>Keep syntax highlighting</source>
@@ -1573,7 +1585,51 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Patches, Mac OS X port, XML Formatter plugin</source>
-        <translation>Патчи, порт под Mac OS X, плагин XML Formatter</translation>
+        <translation type="obsolete">Патчи, порт под Mac OS X, плагин XML Formatter</translation>
+    </message>
+    <message>
+        <source>SymbolBrowser plugin</source>
+        <translation>Плагин SymbolBrowser</translation>
+    </message>
+    <message>
+        <source>XML Formatter plugin</source>
+        <translation>Плагин XML Formatter</translation>
+    </message>
+    <message>
+        <source>Sort plugin</source>
+        <translation>Плагин Sort</translation>
+    </message>
+    <message>
+        <source>Slovak translation</source>
+        <translation>Словацкий перевод</translation>
+    </message>
+    <message>
+        <source>Testing, design ideas, feature requests</source>
+        <translation>Тестирование, идеи дизайна, фичреквесты</translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port</source>
+        <translation>Патчи, порт под Mac OS X</translation>
+    </message>
+    <message>
+        <source>Authors</source>
+        <translation>Авторы</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation>Плагины</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Переводы</translation>
+    </message>
+    <message>
+        <source>Thanks</source>
+        <translation>Благодарности</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Лицензия</translation>
     </message>
 </context>
 <context>

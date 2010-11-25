@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDoc.h"
 
+#include "AppInfo.h"
 #include "AutocompleteSettings.h"
 #include "JuffScintilla.h"
 #include "Log.h"
@@ -30,6 +31,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "QSciSettings.h"
 #include "settings/PrintSettings.h"
 
+#include <QDir>
 #include <QFile>
 #include <QPainter>
 #include <QPixmap>
@@ -43,6 +45,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include <Qsci/qsciprinter.h>
 #include <Qsci/qscilexer.h>
+#include <Qsci/qsciapis.h>
 
 static const QColor MarginsBgColor = QColor(220, 220, 220);
 
@@ -1096,9 +1099,28 @@ void SciDoc::setLexer(const QString& lexName) {
 	
 	int_->syntax_ = lexName;
 	QsciLexer* lexer = LexerStorage::instance()->lexer(lexName);
-//	loadAutocompletionAPI(lexName, lexer);
+	loadAutocompletionAPI(lexName, lexer);
 	int_->edit1_->setLexer(lexer);
 	int_->edit2_->setLexer(lexer);
+}
+
+void SciDoc::loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer) {
+	if ( NULL == lexer )
+		return;
+	
+	QDir dir(AppInfo::configDirPath() + "/apis");
+	QString fileName = lexName.toLower() + ".api";
+	fileName.replace(QString("+"), "plus").replace(QString("#"), "sharp");
+	if ( dir.entryList(QDir::Files).contains(fileName) ) {
+		QsciAPIs* apis = new QsciAPIs(lexer);
+		if ( apis->load(dir.absoluteFilePath(fileName)) ) {
+			apis->prepare();
+			lexer->setAPIs(apis);
+		}
+		else {
+			delete apis;
+		}
+	}
 }
 
 //void SciDoc::showLineNumbers(bool show) {

@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define __JUFFED_SCI_DOC_H__
 
 class JuffScintilla;
+class QsciLexer;
 
 #include "Document.h"
 
@@ -134,6 +135,7 @@ protected:
 private:
 	void readFile();
 	void setLexer(const QString& lexName);
+	void loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer);
 
 	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 	void uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);

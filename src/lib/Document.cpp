@@ -207,7 +207,6 @@ QString Document::guessCharset(const QString& fileName) {
 }
 
 void Document::setSearchResults(Juff::SearchResults* results) {
-	LOGGER;
 	clearHighlighting();
 	if ( searchResults_ != NULL )
 		delete searchResults_;

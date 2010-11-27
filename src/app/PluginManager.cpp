@@ -102,10 +102,7 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 	
 	QObject *obj = loader.instance();
 	if ( obj ) {
-		// here is not safe to use qobject_cast<JuffPlugin*> because
-		// the class is not QObject with Q_OBJECT based.
-		// And mainly - it rejects to load a plugin on mac/bundle
-		JuffPlugin* plugin = dynamic_cast<JuffPlugin*>(obj);
+		JuffPlugin* plugin = qobject_cast<JuffPlugin*>(obj);
 		if ( plugin ) {
 
 			//	Check if we need to load it

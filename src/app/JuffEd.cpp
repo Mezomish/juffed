@@ -347,19 +347,23 @@ void JuffEd::buildUI() {
 	nameL_ = new Juff::StatusLabel("");
 	charsetL_ = new Juff::StatusLabel("");
 	linesL_ = new Juff::StatusLabel("");
-	posL_->setMinimumWidth(130);
+
 	posL_->setToolTip(JuffEd::tr("Cursor position"));
 	nameL_->setToolTip(JuffEd::tr("File full name"));
 	charsetL_->setToolTip(JuffEd::tr("Current character set"));
 	linesL_->setToolTip(JuffEd::tr("Lines count"));
+
+	posL_->setMinimumWidth(130);
 	charsetL_->setMenu(charsetMenu_);
+	charsetL_->setAlignment(Qt::AlignCenter);
+
 	connect(linesL_, SIGNAL(clicked()), SLOT(slotGotoLine()));
 	connect(posL_, SIGNAL(clicked()), SLOT(slotGotoLine()));
 	
 	mw_->addStatusWidget(posL_, 100);
 	mw_->addStatusWidget(nameL_, -1);
 	mw_->addStatusWidget(linesL_, 80);
-	mw_->addStatusWidget(charsetL_, 60);
+	mw_->addStatusWidget(charsetL_, 100);
 	posL_->hide();
 	nameL_->hide();
 	charsetL_->hide();

@@ -31,6 +31,11 @@ class Project;
 class LIBJUFF_EXPORT DocHandlerInt {
 public:
 	/**
+	* Returns app's main window.
+	*/
+	virtual QWidget* mainWindow() const = 0;
+	
+	/**
 	* Returns current document. If there is no documents then returns a NullDoc.
 	*/
 	virtual Juff::Document* curDoc() const = 0;

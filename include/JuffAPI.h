@@ -47,6 +47,11 @@ public:
 	IconManagerInt* iconManager() const;
 
 	/**
+	* Returns app's main window.
+	*/
+	QWidget* mainWindow() const;
+	
+	/**
 	* Opens a document with a given file name or activates it if it is already opened.
 	*/
 	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent);

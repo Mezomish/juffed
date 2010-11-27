@@ -31,9 +31,9 @@ Q_OBJECT
 public:
 	JuffEd();
 	virtual ~JuffEd();
-	QWidget* mainWindow() const;
 
 	// virtual methods from DocHandlerInt implemented
+	virtual QWidget* mainWindow() const;
 	virtual Juff::Document* curDoc() const;
 	virtual Juff::Document* getDoc(const QString&) const;
 	virtual Juff::Project* curPrj() const;

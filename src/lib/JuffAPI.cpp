@@ -59,6 +59,10 @@ IconManagerInt* JuffAPI::iconManager() const {
 	return int_->iconMgr_;
 }
 
+QWidget* JuffAPI::mainWindow() const {
+	return int_->handler_->mainWindow();
+}
+
 
 void JuffAPI::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 	int_->handler_->openDoc(fileName, panel);

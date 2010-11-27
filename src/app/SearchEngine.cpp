@@ -215,7 +215,7 @@ Juff::SearchResults* SearchEngine::performSearch(const Juff::SearchParams& param
 	else {
 		results = new Juff::SearchResults(params);
 		
-		QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
+		QStringList lines = text.split(LineSeparatorRx);
 		QStringList::iterator it = lines.begin();
 		int lineIndex = 0;
 		while ( it != lines.end() ) {

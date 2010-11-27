@@ -461,12 +461,12 @@ void SciDoc::replaceSelectedText(const QString& text, bool cursorToTheEnd) {
 	}
 	
 	if ( cursorToTheEnd ) {
-		int lineEndsCount = text.count(QRegExp("\r\n|\r|\n"));
+		int lineEndsCount = text.count(LineSeparatorRx);
 		if ( lineEndsCount == 0 ) {
 			int_->curEdit_->setCursorPosition(line1, col1 + text.length());
 		}
 		else {
-			QStringList insertedLines = text.split(QRegExp("\r\n|\r|\n"));
+			QStringList insertedLines = text.split(LineSeparatorRx);
 			QString lastLine = insertedLines[insertedLines.count() - 1];
 			int_->curEdit_->setCursorPosition(line1 + lineEndsCount, lastLine.length());
 		}
@@ -482,7 +482,7 @@ void SciDoc::insertText(const QString& text) {
 	
 	int row, col;
 	getCursorPos(row, col);
-	int newLines = text.count(QRegExp("\r\n|\n|\r"));
+	int newLines = text.count(LineSeparatorRx);
 	int_->curEdit_->insert(text);
 	if ( newLines == 0 )
 		setCursorPos(row, col + text.length());
@@ -1340,7 +1340,7 @@ void SciDoc::stripTrailingSpaces() {
 	int line, col;
 	getCursorPos(line, col);
 	QString text = int_->curEdit_->text();
-	QStringList lines = text.split(QRegExp("\r\n|\r|\n"));
+	QStringList lines = text.split(LineSeparatorRx);
 	QRegExp rx("[ \t]+$");
 	int i = 0;
 	foreach (QString str, lines) {

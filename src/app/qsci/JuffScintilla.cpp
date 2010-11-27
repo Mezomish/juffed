@@ -406,6 +406,18 @@ void JuffScintilla::cut() {
 }
 
 void JuffScintilla::paste() {
+	QString originalText = QApplication::clipboard()->text();
+	QString convertedText;
+	if ( originalText.contains(LineSeparatorRx) ) {
+		QStringList lines = originalText.split(LineSeparatorRx);
+		switch ( eolMode() ) {
+			case EolWindows : convertedText = lines.join("\r\n"); break;
+			case EolUnix    : convertedText = lines.join("\n"); break;
+			case EolMac     : convertedText = lines.join("\r"); break;
+		}
+		QApplication::clipboard()->setText(convertedText);
+	}
+	
 	if ( SendScintilla(SCI_SELECTIONISRECTANGLE) ) {
 		QString text = QApplication::clipboard()->text();
 		int line1, col1, line2, col2;
@@ -421,6 +433,9 @@ void JuffScintilla::paste() {
 	else {
 		QsciScintilla::paste();
 	}
+	
+	// restore the original clipboard content
+	QApplication::clipboard()->setText(originalText);
 }
 
 void JuffScintilla::getOrderedSelection(int& rLine1, int& rCol1, int& rLine2, int& rCol2) {

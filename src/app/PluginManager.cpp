@@ -94,6 +94,7 @@ Juff::ToolBarList PluginManager::toolbars() const {
 #include "EditorSettings.h"
 
 void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
+	Log::warning(path);
 	QPluginLoader loader(path);
 	if ( !loader.load() ) {
 		Log::warning(QString("Plugin '%1' was NOT loaded: %2").arg(path).arg(loader.errorString()));
@@ -102,7 +103,12 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 	
 	QObject *obj = loader.instance();
 	if ( obj ) {
+#ifdef Q_WS_MAC
+		// qobject_cast dows not work on mac
+		JuffPlugin* plugin = dynamic_cast<JuffPlugin*>(obj);
+#else
 		JuffPlugin* plugin = qobject_cast<JuffPlugin*>(obj);
+#endif
 		if ( plugin ) {
 
 			//	Check if we need to load it

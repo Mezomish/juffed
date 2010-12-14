@@ -1115,6 +1115,10 @@ void SciDoc::loadAutocompletionAPI(const QString& lexName, QsciLexer* lexer) {
 	if ( dir.entryList(QDir::Files).contains(fileName) ) {
 		QsciAPIs* apis = new QsciAPIs(lexer);
 		if ( apis->load(dir.absoluteFilePath(fileName)) ) {
+			// HACK: hardcoded dependencies
+			if (lexName == "Qorus") {
+				apis->load(dir.absoluteFilePath("qore.api"));
+			}
 			apis->prepare();
 			lexer->setAPIs(apis);
 		}

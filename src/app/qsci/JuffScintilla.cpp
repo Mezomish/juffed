@@ -456,7 +456,12 @@ void JuffScintilla::deleteRectSelection() {
 
 void JuffScintilla::deleteRectSelection(int line1, int col1, int line2, int col2) {
 	for ( int line = line1; line <= line2; ++line ) {
-		setSelection(line, col1, line, col2);
+		QString lineStr = text(line).section(LineSeparatorRx, 0, 0);
+		int length = lineStr.length();
+		if ( col1 >= length ) {
+			continue;
+		}
+		setSelection(line, col1, line, qMin(col2, length));
 		removeSelectedText();
 	}
 }

@@ -23,14 +23,6 @@
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
-    <message>
-        <source>Plugins</source>
-        <translation>Plugins</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>AutocompletePage</name>
@@ -624,7 +616,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Close all other tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle anderen Tabs schließen</translation>
     </message>
 </context>
 <context>
@@ -834,7 +826,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Show whitespaces and TABs</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Leerstellen und Tabs</translation>
     </message>
     <message>
         <source>Show ends of lines</source>
@@ -935,7 +927,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Input new file name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen Dateinamen eingeben:</translation>
     </message>
 </context>
 <context>
@@ -1025,7 +1017,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprache</translation>
     </message>
     <message>
         <source>Czech</source>
@@ -1037,7 +1029,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>Englisch</translation>
     </message>
     <message>
         <source>French</source>
@@ -1053,11 +1045,11 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation>Russisch</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Spanisch</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>
@@ -1065,11 +1057,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>auto-detect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation>automatisch erkennen</translation>
     </message>
 </context>
 <context>
@@ -1525,63 +1513,27 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Packaging, testing</source>
-        <translation type="unfinished"></translation>
+        <translation>Packen und testen</translation>
+    </message>
+    <message>
+        <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
+        <translation>Testen, Design Ideen, Feature Requests, SymbolBrowser Plugin</translation>
     </message>
     <message>
         <source>Keep syntax highlighting</source>
-        <translation type="unfinished"></translation>
+        <translation>Syntaxhervorhebung behalten</translation>
     </message>
     <message>
         <source>Keep background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Hintergrundfarbe behalten</translation>
     </message>
     <message>
         <source>Always wrap text</source>
-        <translation type="unfinished"></translation>
+        <translation>Text immer umbrechen</translation>
     </message>
     <message>
-        <source>SymbolBrowser plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>XML Formatter plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sort plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Slovak translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Testing, design ideas, feature requests</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Patches, Mac OS X port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Authors</source>
-        <translation>Autoren</translation>
-    </message>
-    <message>
-        <source>Plugins</source>
-        <translation>Plugins</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thanks</source>
-        <translation>Danke</translation>
-    </message>
-    <message>
-        <source>License</source>
-        <translation>Lizenz</translation>
+        <source>Patches, Mac OS X port, XML Formatter plugin</source>
+        <translation>Ptaches, Mac OS X Portierung, XML Formatierung Plugin</translation>
     </message>
 </context>
 <context>
@@ -1615,43 +1567,43 @@ Am Anfang fortsetzen?</translation>
     <name>QsciLexerASM</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellungen</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Zahl</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichen</translation>
     </message>
     <message>
         <source>Operator</source>
-        <translation type="unfinished"></translation>
+        <translation>Operator</translation>
     </message>
     <message>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezeichner</translation>
     </message>
     <message>
         <source>CPU Instruction</source>
-        <translation type="unfinished"></translation>
+        <translation>CPU Instruktion</translation>
     </message>
     <message>
         <source>Math Instruction</source>
-        <translation type="unfinished"></translation>
+        <translation>Mathematische Instruktion</translation>
     </message>
     <message>
         <source>Register</source>
-        <translation type="unfinished"></translation>
+        <translation>Register</translation>
     </message>
     <message>
         <source>Directive</source>
-        <translation type="unfinished"></translation>
+        <translation>Anweisung</translation>
     </message>
     <message>
         <source>Directive Operand</source>
@@ -1659,231 +1611,231 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Comment Block</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentarblock</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichen</translation>
     </message>
     <message>
         <source>String EOL</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenketten-Ende</translation>
     </message>
     <message>
         <source>Extended Instruction</source>
-        <translation type="unfinished"></translation>
+        <translation>erweiterte Instruktion</translation>
     </message>
 </context>
 <context>
     <name>QsciLexerAda</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellung</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <source>Illegal</source>
-        <translation type="unfinished"></translation>
+        <translation>Unzulässig</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichen</translation>
     </message>
     <message>
         <source>Unfinished Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Unvollständige Zeichen</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenkette</translation>
     </message>
     <message>
         <source>Unfinished String</source>
-        <translation type="unfinished"></translation>
+        <translation>Unvollständige Zeichenkette</translation>
     </message>
     <message>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezeichner</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezeichner</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Zahl</translation>
     </message>
     <message>
         <source>Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>Stichwort</translation>
     </message>
     <message>
         <source>Delimiter</source>
-        <translation type="unfinished"></translation>
+        <translation>Trennzeichen</translation>
     </message>
 </context>
 <context>
     <name>QsciLexerHaskell</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellung</translation>
     </message>
     <message>
         <source>Comment Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentarzeile</translation>
     </message>
     <message>
         <source>Comment Block 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentarblock 1</translation>
     </message>
     <message>
         <source>Comment Block 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentarblock 2</translation>
     </message>
     <message>
         <source>Comment Block 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentarblock 3</translation>
     </message>
     <message>
         <source>Module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichen</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenkette</translation>
     </message>
     <message>
         <source>Capital</source>
-        <translation type="unfinished"></translation>
+        <translation>Großbuchstabe</translation>
     </message>
     <message>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezeichner</translation>
     </message>
     <message>
         <source>Class</source>
-        <translation type="unfinished"></translation>
+        <translation>Klasse</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Zahl</translation>
     </message>
     <message>
         <source>Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>Stichwort</translation>
     </message>
     <message>
         <source>Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Daten</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Import</translation>
     </message>
     <message>
         <source>Instance</source>
-        <translation type="unfinished"></translation>
+        <translation>Instanz</translation>
     </message>
     <message>
         <source>Operator</source>
-        <translation type="unfinished"></translation>
+        <translation>Operand</translation>
     </message>
 </context>
 <context>
     <name>QsciLexerLisp</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellung</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <source>Multiline Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>mehrzeiliges Kommentar</translation>
     </message>
     <message>
         <source>Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Symbol</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenkette</translation>
     </message>
     <message>
         <source>Unfinished String</source>
-        <translation type="unfinished"></translation>
+        <translation>unvollständige Zeichenkette</translation>
     </message>
     <message>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezeichner</translation>
     </message>
     <message>
         <source>Operator</source>
-        <translation type="unfinished"></translation>
+        <translation>Operand</translation>
     </message>
     <message>
         <source>Special</source>
-        <translation type="unfinished"></translation>
+        <translation>Spezial</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Zahl</translation>
     </message>
     <message>
         <source>Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>Stichwort</translation>
     </message>
     <message>
         <source>Keyword 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Stichwort 2</translation>
     </message>
 </context>
 <context>
     <name>QsciLexerNSIS</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellung</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <source>Double-quoted String</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenkette mit An/Abführungszeichen</translation>
     </message>
     <message>
         <source>Left-quoted String</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenkette mit Anführungszeichen</translation>
     </message>
     <message>
         <source>Right-quoted String</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenkette mit Abführungszeichen</translation>
     </message>
     <message>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktion</translation>
     </message>
     <message>
         <source>Variable</source>
-        <translation type="unfinished"></translation>
+        <translation>Variable</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezeichner</translation>
     </message>
     <message>
         <source>User Defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Benuzerdefiniert</translation>
     </message>
     <message>
         <source>Section Definition</source>
@@ -1895,19 +1847,19 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>IFDEF</source>
-        <translation type="unfinished"></translation>
+        <translation>IFDEF</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished">Makro</translation>
+        <translation>Makro</translation>
     </message>
     <message>
         <source>String Variable</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenkettevariable</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Zahl</translation>
     </message>
     <message>
         <source>Section Group</source>
@@ -1915,15 +1867,15 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Seite</translation>
     </message>
     <message>
         <source>Function Definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktionsdefinition</translation>
     </message>
     <message>
         <source>Comment Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentarbox</translation>
     </message>
 </context>
 <context>
@@ -1993,19 +1945,19 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Remove the beginning of the line</source>
-        <translation type="unfinished"></translation>
+        <translation>Anfang der Zeile entfernen</translation>
     </message>
     <message>
         <source>Remove the end of the line</source>
-        <translation type="unfinished"></translation>
+        <translation>Ende der Zeile entfernen</translation>
     </message>
     <message>
         <source>Insert &apos;Tab&apos; character</source>
-        <translation type="unfinished"></translation>
+        <translation>&apos;Tabulator&apos; Zeichen einfügen</translation>
     </message>
     <message>
         <source>Fold/Unfold all</source>
-        <translation type="unfinished"></translation>
+        <translation>Alles Ein/Ausfalten</translation>
     </message>
     <message>
         <source>Add/Remove marker</source>
@@ -2052,7 +2004,7 @@ Am Anfang fortsetzen?</translation>
     <name>SearchComboBox</name>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 von %2</translation>
     </message>
 </context>
 <context>
@@ -2094,7 +2046,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Replace next</source>
-        <translation type="unfinished"></translation>
+        <translation>nächstes ersetzen</translation>
     </message>
     <message>
         <source>Find previous</source>
@@ -2102,7 +2054,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Replace previous</source>
-        <translation type="unfinished"></translation>
+        <translation>vorheriges ersetzen</translation>
     </message>
     <message>
         <source>Replace:</source>
@@ -2118,7 +2070,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Regexp</source>
-        <translation type="unfinished"></translation>
+        <translation>Reg. Expr.</translation>
     </message>
     <message>
         <source>Case sensitive</source>
@@ -2141,15 +2093,15 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Save selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewähltes speichern</translation>
     </message>
     <message>
         <source>Do not save</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht speichern</translation>
     </message>
     <message>
         <source>Do not close</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht schließen</translation>
     </message>
     <message>
         <source>Save all</source>

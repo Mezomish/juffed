@@ -177,7 +177,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 
 	QFile file(fileName);
 	if ( !file.open(QIODevice::ReadOnly) ) {
-		Log::warning(QString("Can't open file '%1'").arg(fileName));
+		Log::warning(QString("No custom scheme found in '%1'. Using the standard one.").arg(fileName));
 		return;
 	}
 	else {

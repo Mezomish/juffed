@@ -259,6 +259,9 @@ bool Document::saveAs(const QString& fileName, QString& error) {
 	QString oldName = fileName_;
 	fileName_ = fileName;
 	if ( save(error) ) {
+		watcher_.removePath(oldName);
+		watcher_.addPath(fileName_);
+		
 		// notify plugins
 		emit renamed(oldName);
 		
@@ -349,6 +352,10 @@ void Document::onModifiedExternally(const QString& path) {
 		if ( msgBox.exec() == QMessageBox::Save ) {
 			QString err;
 			save(err);
+			watcher_.addPath(fileName());
+		}
+		else {
+			watcher_.removePath(fileName_);
 		}
 	}
 	notificationIsInProgress_ = false;

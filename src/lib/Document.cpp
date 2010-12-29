@@ -59,14 +59,14 @@ Document::Document(const QString& fileName)
 	}
 	else {
 		fileName_ = fileName;
+		watcher_.addPath(fileName_);
 	}
 	codec_ = QTextCodec::codecForLocale();
 	charset_ = codec_->name();
 	
+	connect(&watcher_, SIGNAL(fileChanged(const QString&)), SLOT(onModifiedExternally(const QString&)));
 	
-	modCheckTimer_ = new QTimer(this);
-	connect(modCheckTimer_, SIGNAL(timeout()), SLOT(checkLastModified()));
-	
+	notificationIsInProgress_ = false;
 	searchResults_ = NULL;
 }
 
@@ -95,6 +95,10 @@ Document::~Document() {
 void Document::setFileName(const QString& newFileName) {
 	QString oldName = fileName_;
 	fileName_ = newFileName;
+	
+	watcher_.removePath(oldName);
+	watcher_.addPath(fileName_);
+	
 	emit renamed(oldName);
 }
 
@@ -261,6 +265,9 @@ bool Document::saveAs(const QString& fileName, QString& error) {
 //		updateClone();
 		return true;
 	}
+	
+	
+	
 	else {
 		fileName_ = oldName;
 		return false;
@@ -269,93 +276,82 @@ bool Document::saveAs(const QString& fileName, QString& error) {
 
 bool Document::save(QString&) {
 	LOGGER;
-	lastModMutex_.lock();
-	lastModified_ = QFileInfo(fileName_).lastModified();
-	qDebug() << "'Last modified' from saved file:" << lastModified_;
-	lastModMutex_.unlock();
 	return true;
 }
 
-void Document::startCheckingTimer() {
-//	LOGGER;
-	if ( !isNoname() ) {
-		lastModMutex_.lock();
-		lastModified_ = QFileInfo(fileName_).lastModified();
-//		qDebug() << "'Last modified' from file:" << lastModified_;
-//		qDebug() << "'Last modified' saved    :" << QFileInfo(fileName_).lastModified();
-		lastModMutex_.unlock();
-		modCheckTimer_->start(1000);
-	}
-}
-
-void Document::stopCheckingTimer() {
+void Document::onModifiedExternally(const QString& path) {
 	LOGGER;
-	modCheckTimer_->stop();
-}
-
-void Document::checkLastModified() {
-//	LOGGER;
-	lastModMutex_.lock();
-	QFileInfo fi(fileName_);
-	if ( fi.exists() ) {
-		if ( fi.lastModified() > lastModified_ ) {
-			
-//			qDebug() << "Current 'last modified'    :" << lastModified_;
-//			qDebug() << "Real file's 'last modified':" << fi.lastModified();
-			
-			if ( checkingMutex_.tryLock() ) {
-				QString question = tr("The file '%1' was modified by external program.").arg(title()) + "\n";
-				question += tr("What do you want to do?");
-				QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, 
-						QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, this);
-				QAbstractButton* btn = msgBox.button(QMessageBox::Save);
-				if ( btn ) {
-					btn->setText(tr("Save current"));
-//					btn->setIcon(Utils::iconManager()->icon(FILE_SAVE));
-				}
-				btn = msgBox.button(QMessageBox::Open);
-				if ( btn ) {
-					btn->setText(tr("Reload from disk"));
-//					btn->setIcon(Utils::iconManager()->icon(FILE_RELOAD));
-				}
-				btn = msgBox.button(QMessageBox::Cancel);
-				if ( btn ) {
-					btn->setText(tr("Ignore"));
-				}
-
-				int res = msgBox.exec();
-				switch (res) {
-					case QMessageBox::Open:
-						//	Reload
-						reload();
-						lastModified_ = QFileInfo(fileName_).lastModified();
-						break;
-						
-					case QMessageBox::Save:
-					{
-						//	Save
-						QString err;
-//						save(fileName_, charset(), err);
-						save(err);
-						lastModified_ = QFileInfo(fileName_).lastModified();
-					}
-						break;
-						
-					case QMessageBox::Cancel:
-						//	Nothing to do. In this case we just make 
-						//	local "check date" equal to file's real 
-						//	"last modified date" on file system (to 
-						//	prevent asking "What to do" again)
-						lastModified_ = fi.lastModified();
-						break;
-					
-					default: ;
-				}
-				checkingMutex_.unlock();
+	if ( notificationIsInProgress_ ) {
+		return;
+	}
+	
+	notificationIsInProgress_ = true;
+	if ( QFile::exists(path) ) {
+		// file was modified
+		
+		QString question = tr("The file '%1' was modified by external program.").arg(title()) + "\n";
+		question += tr("What do you want to do?");
+		QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question,
+		                   QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, this);
+		QAbstractButton* btn = msgBox.button(QMessageBox::Save);
+		if ( btn ) {
+			btn->setText(tr("Save current"));
+//			btn->setIcon(Utils::iconManager()->icon(FILE_SAVE));
+		}
+		btn = msgBox.button(QMessageBox::Open);
+		if ( btn ) {
+			btn->setText(tr("Reload from disk"));
+//			btn->setIcon(Utils::iconManager()->icon(FILE_RELOAD));
+		}
+		btn = msgBox.button(QMessageBox::Cancel);
+		if ( btn ) {
+			btn->setText(tr("Ignore"));
+		}
+		
+		int res = msgBox.exec();
+		switch (res) {
+			case QMessageBox::Open:
+				// Reload
+				reload();
+				break;
+		
+			case QMessageBox::Save:
+			{
+				// Save
+				QString err;
+//				save(fileName_, charset(), err);
+				save(err);
 			}
+			break;
+
+		case QMessageBox::Cancel:
+			// Nothing to do.
+			break;
+
+			default: ;
 		}
 	}
-	lastModMutex_.unlock();
+	else {
+		// file was removed or renamed
+		QString question = tr("The file '%1' was deleted or renamed.").arg(title()) + "\n";
+		question += tr("What do you want to do?");
+		QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, QMessageBox::Save | QMessageBox::Cancel, this);
+		QAbstractButton* btn = msgBox.button(QMessageBox::Save);
+		if ( 0 != btn ) {
+			btn->setText(tr("Save current"));
+//			btn->setIcon(Utils::iconManager()->icon(FILE_SAVE));
+		}
+		btn = msgBox.button(QMessageBox::Cancel);
+		if ( 0 != btn ) {
+			btn->setText(tr("Ignore"));
+		}
+		
+		if ( msgBox.exec() == QMessageBox::Save ) {
+			QString err;
+			save(err);
+		}
+	}
+	notificationIsInProgress_ = false;
 }
 
 }

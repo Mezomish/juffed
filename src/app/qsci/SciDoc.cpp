@@ -244,8 +244,6 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 	connect(hlWordAct, SIGNAL(triggered()), SLOT(highlightWord()));
 	addAction(hlWordAct);
 	
-	startCheckingTimer();
-	
 	int_->hlTimer_ = new QTimer();
 	connect(int_->hlTimer_, SIGNAL(timeout()), SLOT(highlightWord()));
 	int_->hlTimer_->setSingleShot(true);
@@ -1065,7 +1063,6 @@ bool SciDoc::save(QString& error) {
 		stripTrailingSpaces();
 
 	QFile file(fileName());
-	stopCheckingTimer();
 	if ( file.open(QIODevice::WriteOnly) ) {
 		QString text("");
 		text = int_->edit1_->text();
@@ -1073,12 +1070,10 @@ bool SciDoc::save(QString& error) {
 		file.close();
 //		Document::save(error);
 		int_->edit1_->setModified(false);
-		startCheckingTimer();
 		return true;
 	}
 	else {
 		error = tr("Can't open file for writing");
-		startCheckingTimer();
 		return false;
 	}
 }

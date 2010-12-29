@@ -22,13 +22,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "LibConfig.h"
 
 class QTextCodec;
-class QTimer;
 
 #include "Enums.h"
 #include "Types.h"
 
-#include <QDateTime>
-#include <QMutex>
+#include <QFileSystemWatcher>
 #include <QWidget>
 
 namespace Juff {
@@ -291,24 +289,19 @@ protected:
 	QTextCodec* codec() const {
 		return codec_;
 	}
-	
-	void startCheckingTimer();
-	void stopCheckingTimer();
 
 protected slots:
-	void checkLastModified();
+	void onModifiedExternally(const QString&);
 
 private:
 	QString fileName_;
 	QString charset_;
 	QTextCodec* codec_;
+	QFileSystemWatcher watcher_;
 //	Juff::Document* clone_;
 	static int sCount_;
+	bool notificationIsInProgress_;
 	
-	QDateTime lastModified_;
-	QTimer* modCheckTimer_;
-	QMutex checkingMutex_;
-	QMutex lastModMutex_;
 	Juff::SearchResults* searchResults_;
 };
 

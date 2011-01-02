@@ -282,6 +282,16 @@ bool Document::save(QString&) {
 	return true;
 }
 
+void Document::startWatcher() {
+	if ( QFile::exists(fileName_) ) {
+		watcher_.addPath(fileName_);
+	}
+}
+
+void Document::stopWatcher() {
+	watcher_.removePath(fileName_);
+}
+
 void Document::onModifiedExternally(const QString& path) {
 	LOGGER;
 	if ( notificationIsInProgress_ ) {

@@ -290,6 +290,9 @@ protected:
 		return codec_;
 	}
 
+	void startWatcher();
+	void stopWatcher();
+
 protected slots:
 	void onModifiedExternally(const QString&);
 

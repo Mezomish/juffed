@@ -1062,6 +1062,8 @@ bool SciDoc::save(QString& error) {
 	if ( MainSettings::get(MainSettings::StripTrailingSpaces) )
 		stripTrailingSpaces();
 
+	bool result;
+	stopWatcher();
 	QFile file(fileName());
 	if ( file.open(QIODevice::WriteOnly) ) {
 		QString text("");
@@ -1070,12 +1072,15 @@ bool SciDoc::save(QString& error) {
 		file.close();
 //		Document::save(error);
 		int_->edit1_->setModified(false);
-		return true;
+		result = true;
 	}
 	else {
 		error = tr("Can't open file for writing");
-		return false;
+		result = false;
 	}
+	startWatcher();
+	
+	return result;
 }
 
 bool SciDoc::saveAs(const QString& fileName, QString& error) {

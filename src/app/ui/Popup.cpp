@@ -82,10 +82,12 @@ Popup::Popup(const QString& header, const QString& message, Qt::Alignment align,
 	timeLine_ = new QTimeLine(300);
 	timeLine_->setFrameRange(0, StepCount);
 	connect(timeLine_, SIGNAL(frameChanged(int)), SLOT(makeStep(int)));
-	
-	QColor bgColor(245, 220, 190);
-	styleSheet_ = QString("QFrame {border: 1px solid gray; border-radius: 4px; background-color: rgb(%1, %2, %3, ALPHA);}")
-		.arg(bgColor.red()).arg(bgColor.green()).arg(bgColor.blue());
+
+	QColor bgColor = palette().color(QPalette::ToolTipBase);
+	QColor fgColor = palette().color(QPalette::ToolTipText);
+	styleSheet_ = QString("QFrame {border: 1px solid gray; border-radius: 4px; background-color: rgb(%1, %2, %3, ALPHA);} QLabel { color: rgb(%4, %5, %6); }")
+		.arg(bgColor.red()).arg(bgColor.green()).arg(bgColor.blue())
+		.arg(fgColor.red()).arg(fgColor.green()).arg(fgColor.blue());
 	
 	setAlpha(AlphaTransparent);
 }

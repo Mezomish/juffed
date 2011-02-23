@@ -949,15 +949,21 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		emit docOpened(doc, panel);
 		
 		QFileInfo fi(doc->fileName());
+		QString fileNameAdjusted = doc->fileName();
+		static const int lengthLimit = 60;
+		static const int partLength = 28;
+		if ( fileNameAdjusted.length() > lengthLimit ) {
+			fileNameAdjusted = fileNameAdjusted.left(partLength) + "..." + fileNameAdjusted.right(partLength);
+		}
 		// check for existance
 		if ( !doc->isNoname() && !fi.exists() ) {
-			mw_->message(QIcon(), "", tr("File '%1' doesn't exist").arg(doc->fileName()));
+			mw_->message(QIcon(), "", tr("File '%1' doesn't exist").arg(fileNameAdjusted));
 		}
 		else {
 			// check for read-only
 			if ( !doc->isNoname() ) {
 				if ( !fi.isWritable() ) {
-					mw_->message(QIcon(), "", tr("File '%1' is read-only").arg(doc->fileName()));
+					mw_->message(QIcon(), "", tr("File '%1' is read-only").arg(fileNameAdjusted));
 				}
 			}
 		}

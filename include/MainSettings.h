@@ -46,12 +46,14 @@ public:
 		FSHideToolbar,
 		FSHideStatusbar,
 		UseCtrlTabMenu,
+		SearchCaseSensitive,
 	};
 	
 	enum IntKey {
 		ToolButtonStyle,
 		TabPosition,
 		IconSize,
+		SearchMode,
 	};
 	
 	static void set(IntKey, int);

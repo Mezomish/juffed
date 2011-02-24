@@ -18,6 +18,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Constants.h"
 #include "Log.h"
+#include "MainSettings.h"
 #include "SearchPopup.h"
 #include "../Utils.h"
 
@@ -63,6 +64,11 @@ SearchPopup::SearchPopup() : QWidget() {
 	connect(ui.replaceAllBtn, SIGNAL(clicked()), SLOT(slotReplaceAll()));
 	connect(ui.expandBtn, SIGNAL(toggled(bool)), SLOT(expand(bool)));
 	connect(ui.modeCmb, SIGNAL(currentIndexChanged(int)), SLOT(slotModeChanged(int)));
+	
+	bool caseSensitive = MainSettings::get(MainSettings::SearchCaseSensitive);
+	int searchMode = MainSettings::get(MainSettings::SearchMode);
+	ui.caseSensitiveChk->setChecked(caseSensitive);
+	ui.modeCmb->setCurrentIndex(searchMode);
 }
 
 bool SearchPopup::isCollapsed() const {
@@ -137,6 +143,7 @@ void SearchPopup::onFindTextChanged(const QString& text) {
 void SearchPopup::onCaseSensitiveChecked(bool checked) {
 	params_.caseSensitive = checked;
 	emit searchParamsChanged(params_);
+	MainSettings::set(MainSettings::SearchCaseSensitive, checked);
 }
 
 void SearchPopup::slotFindNext() {
@@ -201,4 +208,5 @@ void SearchPopup::slotModeChanged(int item) {
 	}
 	
 	emit searchParamsChanged(params_);
+	MainSettings::set(MainSettings::SearchMode, item);
 }

@@ -36,6 +36,10 @@ void MainSettings::set(IntKey key, int value) {
 		case IconSize :
 			Settings::instance()->setValue("main", "iconSize", value);
 			break;
+		
+		case SearchMode : 
+			Settings::instance()->setValue("main", "searchMode", value);
+			break;
 	}
 }
 
@@ -85,6 +89,10 @@ void MainSettings::set(BoolKey key, bool value) {
 			Settings::instance()->setValue("main", "useCtrlTabMenu", value);
 			break;
 		
+		case SearchCaseSensitive :
+			Settings::instance()->setValue("main", "searchCaseSensitive", value);
+			break;
+		
 		default: ;
 	}
 }
@@ -122,6 +130,10 @@ int MainSettings::get(IntKey key) {
 		
 		case IconSize :
 			return Settings::instance()->intValue("main", "iconSize");
+			break;
+		
+		case SearchMode :
+			return Settings::instance()->intValue("main", "searchMode");
 			break;
 	}
 	return -1;
@@ -164,6 +176,10 @@ bool MainSettings::get(BoolKey key) {
 		
 		case UseCtrlTabMenu :
 			return Settings::instance()->boolValue("main", "useCtrlTabMenu");
+			break;
+		
+		case SearchCaseSensitive :
+			return Settings::instance()->boolValue("main", "searchCaseSensitive");
 			break;
 		
 		default :

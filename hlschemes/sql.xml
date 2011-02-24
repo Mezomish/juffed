@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="SQL">
+	<style name="comment" color="#108040" italic="true" />
+	<style name="keyword" color="#141484" bold="true" />
+	<style name="number" color="#0080a0" />
+	<style name="operator" color="#400000" />
+	<style name="singleString" color="#a00000" />
+	<style name="doubleString" color="#a000c0" />
+	<style name="identifier" color="#303030" />
+</scheme>
+</JuffScheme>

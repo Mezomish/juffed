@@ -467,6 +467,19 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["error"], QList<int>() << QsciLexerRuby::Error);
 		schemes_[name] = scheme;
 	}
+	else if ( name.compare("SQL") == 0 ) {
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules << Rule(styles["comment"], QList<int>() << QsciLexerSQL::Comment << QsciLexerSQL::CommentDoc << QsciLexerSQL::CommentLine << QsciLexerSQL::CommentLineHash)
+				<< Rule(styles["number"], QList<int>() << QsciLexerSQL::Number)
+				<< Rule(styles["keyword"], QList<int>() << QsciLexerSQL::Keyword)
+				<< Rule(styles["operator"], QList<int>() << QsciLexerSQL::Operator)
+				<< Rule(styles["identifier"], QList<int>() << QsciLexerSQL::Identifier)
+				<< Rule(styles["singleString"], QList<int>() << QsciLexerSQL::SingleQuotedString)
+				<< Rule(styles["doubleString"], QList<int>() << QsciLexerSQL::DoubleQuotedString)
+		;
+		schemes_[name] = scheme;
+	}
 	else if ( name.compare("TeX") == 0 ) {
 		scheme = new Scheme();
 		scheme->defaultStyle = styles["default"];

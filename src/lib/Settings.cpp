@@ -193,6 +193,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "curLineColor" )           return QColor(240, 240, 255);
 		if ( key == "markersColor" )           return QColor(170, 170, 250);
 		if ( key == "marginsBgColor" )         return QColor(220, 220, 220);
+		if ( key == "whiteSpaceColor" )        return QColor(100, 100, 140);
 		if ( key == "showIndents" )            return true;
 		if ( key == "highlightCurLine" )       return true;
 		if ( key == "highlightMatchingBrace" ) return true;

@@ -551,6 +551,7 @@ void SciDocEngine::getColorOptions(QList<ColorOption>& options) {
 	options << ColorOption(tr("Current line highlighting color"), "QSci", "curLineColor", QColor(230, 230, 240));
 	options << ColorOption(tr("Matching brace background color"), "QSci", "matchingBraceBgColor", QColor(240, 200, 150));
 	options << ColorOption(tr("Indents color"), "QSci", "indentsColor", QColor(200, 200, 200));
+	options << ColorOption(tr("Whitespace symbols color"), "QSci", "whiteSpaceColor", QColor(100, 100, 140));
 	options << ColorOption(tr("Markers color"), "QSci", "markersColor", QColor(120, 120, 140));
 	options << ColorOption(tr("Margins background color"), "QSci", "marginsBgColor", QColor(220, 220, 220));
 }

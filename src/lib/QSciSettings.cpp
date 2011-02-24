@@ -83,6 +83,11 @@ QColor QSciSettings::get(ColorKey key) {
 			QColor c = Settings::instance()->value("QSci", "marginsBgColor").value<QColor>();
 			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "marginsBgColor").value<QColor>();
 		}
+		case WhiteSpaceColor :
+		{
+			QColor c = Settings::instance()->value("QSci", "whiteSpaceColor").value<QColor>();
+			return c.isValid() ? c : Settings::instance()->defaultValue("QSci", "whiteSpaceColor").value<QColor>();
+		}
 	}
 	return QColor();
 }
@@ -145,6 +150,10 @@ void QSciSettings::set(ColorKey key, const QColor& c) {
 		
 		case MarginsBgColor :
 			Settings::instance()->setValue("QSci", "marginsBgColor", c);
+			break;
+		
+		case WhiteSpaceColor :
+			Settings::instance()->setValue("QSci", "whiteSpaceColor", c);
 			break;
 	}
 }

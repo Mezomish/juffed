@@ -36,6 +36,7 @@ public:
 		CurLineColor,
 		MarkersColor,
 		MarginsBgColor,
+		WhiteSpaceColor,
 	};
 	enum BoolKey {
 		ShowIndents,

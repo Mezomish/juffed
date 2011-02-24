@@ -1254,6 +1254,8 @@ void SciDoc::applySettings() {
 			edit->setEdgeMode(QsciScintilla::EdgeNone);
 		}
 		
+		edit->SendScintilla(QsciScintillaBase::SCI_SETWHITESPACEFORE, 1, QSciSettings::get(QSciSettings::WhiteSpaceColor));
+		
 		// selection
 /*		QColor selBgColor = TextDocSettings::selectionBgColor();
 		edit->setSelectionBackgroundColor(selBgColor);

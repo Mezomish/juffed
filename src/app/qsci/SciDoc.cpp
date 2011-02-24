@@ -48,8 +48,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <Qsci/qscilexer.h>
 #include <Qsci/qsciapis.h>
 
-static const QColor MarginsBgColor = QColor(220, 220, 220);
-
 SciDoc::Eol guessEol(const QString& fileName) {
 	SciDoc::Eol eol = SciDoc::EolUnix;
 	if ( !Juff::Document::isNoname(fileName) ) {
@@ -167,20 +165,13 @@ public:
 		edit->setMarginSensitivity(0, true);
 		edit->setMarginWidth(0, 20);
 		edit->setMarginWidth(2, 12);
-		edit->setMarginsBackgroundColor(MarginsBgColor);
-//		edit->setMarginsForegroundColor(QColor(150, 150, 150));
-//		edit->setFoldMarginColors(QColor(150, 150, 150), QColor(50, 50, 50));
 		
 		// markers
-		QColor mColor = QSciSettings::get(QSciSettings::MarkersColor);
-		edit->markerDefine(markerPixmap(mColor, MarginsBgColor), -1);
 		edit->markerDefine(QsciScintilla::Background, 2);
 		//	Set the 0th margin accept markers numbered 1 and 2
 		//	Binary mask for markers 1 and 2 is 00000110 ( == 6 )
 		edit->setMarginMarkerMask(0, 6);
 		edit->setMarginMarkerMask(1, 0);
-		edit->setMarkerBackgroundColor(mColor);
-//		edit->setMarkerForegroundColor(QColor(100, 100, 100));
 
 		return edit;
 	}
@@ -1206,18 +1197,22 @@ void SciDoc::applySettings() {
 	
 	QFont font = EditorSettings::font();
 	LexerStorage::instance()->updateLexers(font);
+	QColor textColor = EditorSettings::get(EditorSettings::DefaultFontColor);
+	QColor bgColor = EditorSettings::get(EditorSettings::DefaultBgColor);
 	
 	QsciScintilla* edits[] = { int_->edit1_, int_->edit2_, NULL };
 	for (int i = 0; edits[i] != NULL; ++i ) {
 		QsciScintilla* edit = edits[i];
 		
+		// indents
 		edit->setTabWidth(EditorSettings::get(EditorSettings::TabWidth));
 		edit->setIndentationsUseTabs(EditorSettings::get(EditorSettings::UseTabs));
 		edit->setBackspaceUnindents(EditorSettings::get(EditorSettings::BackspaceUnindents));
 		
+		// colors
 		edit->setIndentationGuides(QSciSettings::get(QSciSettings::ShowIndents));
 		edit->setIndentationGuidesForegroundColor(QSciSettings::get(QSciSettings::IndentsColor));
-		edit->setIndentationGuidesBackgroundColor(EditorSettings::get(EditorSettings::DefaultBgColor));
+		edit->setIndentationGuidesBackgroundColor(bgColor);
 		
 		QColor selBgColor = EditorSettings::get(EditorSettings::SelectionBgColor);
 		edit->setSelectionBackgroundColor(selBgColor);
@@ -1231,11 +1226,25 @@ void SciDoc::applySettings() {
 			edit->setMatchedBraceForegroundColor(QSciSettings::get(QSciSettings::MatchingBraceFgColor));
 		}
 		else {
-			edit->setMatchedBraceBackgroundColor(EditorSettings::get(EditorSettings::DefaultBgColor));
-			edit->setMatchedBraceForegroundColor(EditorSettings::get(EditorSettings::DefaultFontColor));
+			edit->setMatchedBraceBackgroundColor(bgColor);
+			edit->setMatchedBraceForegroundColor(textColor);
 		}
 		
+		edit->setCaretLineBackgroundColor(LexerStorage::instance()->curLineColor(syntax()));
+		edit->setMarkerBackgroundColor(QSciSettings::get(QSciSettings::MarkersColor));
+		edit->setCaretForegroundColor(textColor);
 		
+		QColor marginsBgColor = QSciSettings::get(QSciSettings::MarginsBgColor);
+		edit->setMarginsBackgroundColor(marginsBgColor);
+		edit->setMarginsForegroundColor(textColor);
+		edit->setFoldMarginColors(marginsBgColor, bgColor);
+		
+		// markers
+		edit->markerDefine(markerPixmap(QSciSettings::get(QSciSettings::MarkersColor), marginsBgColor), -1);
+		edit->setCaretLineVisible(QSciSettings::get(QSciSettings::HighlightCurLine));
+		
+		
+		// line length indicator
 		int lInd = EditorSettings::get(EditorSettings::LineLengthIndicator);
 		if ( lInd > 0 ) {
 			edit->setEdgeMode(QsciScintilla::EdgeLine);
@@ -1244,21 +1253,6 @@ void SciDoc::applySettings() {
 		else {
 			edit->setEdgeMode(QsciScintilla::EdgeNone);
 		}
-		
-		edit->setCaretLineVisible(QSciSettings::get(QSciSettings::HighlightCurLine));
-//		edit->setCaretLineVisible(TextDocSettings::highlightCurrentLine());
-		edit->setCaretLineBackgroundColor(LexerStorage::instance()->curLineColor(syntax()));
-//		edit->setIndentationGuides(TextDocSettings::showIndents());
-//		edit->setBackspaceUnindents(TextDocSettings::backspaceUnindents());
-		edit->setMarkerBackgroundColor(QSciSettings::get(QSciSettings::MarkersColor));
-		edit->markerDefine(markerPixmap(QSciSettings::get(QSciSettings::MarkersColor), MarginsBgColor), -1);
-//		if ( QsciLexer* lexer = edit->lexer() ) {
-//			lexer->setFont(font, -1);
-//			edit->setCaretForegroundColor(lexer->defaultColor());
-//			edit->setIndentationGuidesForegroundColor(TextDocSettings::indentsColor());
-//			edit->setIndentationGuidesBackgroundColor(lexer->defaultPaper());
-//		}
-//		edit->setMatchedBraceBackgroundColor(TextDocSettings::matchedBraceBgColor());
 		
 		// selection
 /*		QColor selBgColor = TextDocSettings::selectionBgColor();

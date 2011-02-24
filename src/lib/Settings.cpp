@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 //	Qt includes
 #include <QColor>
+#include <QApplication>
+#include <QPalette>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
@@ -192,7 +194,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key == "searchHLColor" )          return QColor(255, 128, 0);
 		if ( key == "curLineColor" )           return QColor(240, 240, 255);
 		if ( key == "markersColor" )           return QColor(170, 170, 250);
-		if ( key == "marginsBgColor" )         return QColor(220, 220, 220);
+		if ( key == "marginsBgColor" )         return QApplication::palette().color(QPalette::Window);
 		if ( key == "whiteSpaceColor" )        return QColor(155, 155, 185);
 		if ( key == "showIndents" )            return true;
 		if ( key == "highlightCurLine" )       return true;

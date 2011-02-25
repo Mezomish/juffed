@@ -45,6 +45,7 @@ if "%1" == "" GOTO No_Version
 	copy "%QTDIR%\bin\QtCore4.dll" "%1"
 	copy "%QTDIR%\bin\QtGui4.dll" "%1"
 	copy %QTDIR%\bin\QtXml4.dll %1
+	copy %QTDIR%\bin\QtNetwork4.dll %1
 	copy %QTDIR%\bin\mingwm10.dll %1
 	copy %QTDIR%\bin\qscintilla2.dll %1
 	

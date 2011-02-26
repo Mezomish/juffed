@@ -23,6 +23,14 @@
         <source>Close</source>
         <translation>Schließen</translation>
     </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished">Plugins</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AutocompletePage</name>
@@ -87,6 +95,14 @@
     <message>
         <source>Ignore</source>
         <translation>Ignorieren</translation>
+    </message>
+    <message>
+        <source>The file &apos;%1&apos; was deleted or renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Noname %1</source>
+        <translation type="obsolete">Unbenannt %1</translation>
     </message>
 </context>
 <context>
@@ -1021,43 +1037,43 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation>Tschechische</translation>
+        <translation type="obsolete">Tschechische</translation>
     </message>
     <message>
         <source>German</source>
-        <translation>Deutsche</translation>
+        <translation type="obsolete">Deutsche</translation>
     </message>
     <message>
         <source>English</source>
-        <translation>Englisch</translation>
+        <translation type="obsolete">Englisch</translation>
     </message>
     <message>
         <source>French</source>
-        <translation>Französische</translation>
+        <translation type="obsolete">Französische</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation>Polnische</translation>
+        <translation type="obsolete">Polnische</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation>Portugiesische</translation>
+        <translation type="obsolete">Portugiesische</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation>Russisch</translation>
+        <translation type="obsolete">Russisch</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation>Spanisch</translation>
+        <translation type="obsolete">Spanisch</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>
-        <translation>Vereinfachte chinesische</translation>
+        <translation type="obsolete">Vereinfachte chinesische</translation>
     </message>
     <message>
         <source>auto-detect</source>
-        <translation>automatisch erkennen</translation>
+        <translation type="obsolete">automatisch erkennen</translation>
     </message>
 </context>
 <context>
@@ -1509,7 +1525,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Noname %1</source>
-        <translation>Unbenannt %1</translation>
+        <translation type="unfinished">Unbenannt %1</translation>
     </message>
     <message>
         <source>Packaging, testing</source>
@@ -1517,7 +1533,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Testing, design ideas, feature requests, SymbolBrowser plugin</source>
-        <translation>Testen, Design Ideen, Feature Requests, SymbolBrowser Plugin</translation>
+        <translation type="obsolete">Testen, Design Ideen, Feature Requests, SymbolBrowser Plugin</translation>
     </message>
     <message>
         <source>Keep syntax highlighting</source>
@@ -1533,7 +1549,95 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Patches, Mac OS X port, XML Formatter plugin</source>
-        <translation>Ptaches, Mac OS X Portierung, XML Formatierung Plugin</translation>
+        <translation type="obsolete">Ptaches, Mac OS X Portierung, XML Formatierung Plugin</translation>
+    </message>
+    <message>
+        <source>SymbolBrowser plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XML Formatter plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Testing, design ideas, feature requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patches, Mac OS X port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authors</source>
+        <translation type="unfinished">Autoren</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished">Plugins</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thanks</source>
+        <translation type="unfinished">Danke</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation type="unfinished">Lizenz</translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
+        <translation type="unfinished">automatisch erkennen</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">Tschechische</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">Deutsche</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">Englisch</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">Französische</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">Polnische</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished">Portugiesische</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">Russisch</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">Spanisch</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese (simplified)</source>
+        <translation type="unfinished">Vereinfachte chinesische</translation>
     </message>
 </context>
 <context>
@@ -1998,6 +2102,14 @@ Am Anfang fortsetzen?</translation>
     <message>
         <source>Markers color</source>
         <translation>Marker-Farbe</translation>
+    </message>
+    <message>
+        <source>Whitespace symbols color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margins background color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

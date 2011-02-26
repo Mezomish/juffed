@@ -96,6 +96,14 @@
         <source>Ignore</source>
         <translation>Ignorer</translation>
     </message>
+    <message>
+        <source>The file &apos;%1&apos; was deleted or renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Noname %1</source>
+        <translation type="obsolete">Sans titre %1</translation>
+    </message>
 </context>
 <context>
     <name>EditorSettingsPage</name>
@@ -963,50 +971,6 @@ Voulez-vous enregistrer les changements?</translation>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Czech</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chinese (simplified)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>auto-detect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MessageWidget</name>
@@ -1389,7 +1353,7 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Noname %1</source>
-        <translation>Sans titre %1</translation>
+        <translation type="unfinished">Sans titre %1</translation>
     </message>
     <message>
         <source>Packaging, testing</source>
@@ -1450,6 +1414,50 @@ Continuer à partir du début?</translation>
     <message>
         <source>License</source>
         <translation>License</translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese (simplified)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1910,6 +1918,14 @@ Continuer à partir du début?</translation>
     <message>
         <source>Markers color</source>
         <translation>Couleur des marqueurs</translation>
+    </message>
+    <message>
+        <source>Whitespace symbols color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margins background color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

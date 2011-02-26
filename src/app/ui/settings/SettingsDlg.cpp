@@ -69,17 +69,17 @@ public:
 		;
 		
 		QMap<QString, QString> lngs;
-		lngs["auto"] = tr("auto-detect");
-		lngs["cs"] = tr("Czech");
-		lngs["de"] = tr("German");
-		lngs["en"] = tr("English");
-		lngs["fr"] = tr("French");
-		lngs["pl"] = tr("Polish");
-		lngs["pt"] = tr("Portuguese");
-		lngs["ru"] = tr("Russian");
-		lngs["sp"] = tr("Spanish");
-		lngs["sk"] = tr("Slovak");
-		lngs["zh"] = tr("Chinese (simplified)");
+		lngs["auto"] = QObject::tr("auto-detect");
+		lngs["cs"] = QObject::tr("Czech");
+		lngs["de"] = QObject::tr("German");
+		lngs["en"] = QObject::tr("English");
+		lngs["fr"] = QObject::tr("French");
+		lngs["pl"] = QObject::tr("Polish");
+		lngs["pt"] = QObject::tr("Portuguese");
+		lngs["ru"] = QObject::tr("Russian");
+		lngs["sp"] = QObject::tr("Spanish");
+		lngs["sk"] = QObject::tr("Slovak");
+		lngs["zh"] = QObject::tr("Chinese (simplified)");
 		
 		ui.languageCmb->clear();
 		QMap<QString, QString>::iterator it = lngs.begin();

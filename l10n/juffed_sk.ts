@@ -96,6 +96,10 @@
         <source>Ignore</source>
         <translation>Ignorovať</translation>
     </message>
+    <message>
+        <source>The file &apos;%1&apos; was deleted or renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditorSettingsPage</name>
@@ -887,50 +891,6 @@ Chcete zmeny uložiť?</translation>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>auto-detect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chinese (simplified)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PluginPage</name>
@@ -1321,10 +1281,6 @@ Chcete zmeny uložiť?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Noname %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>SymbolBrowser plugin</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1367,6 +1323,54 @@ Chcete zmeny uložiť?</translation>
     <message>
         <source>License</source>
         <translation>Licencia</translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese (simplified)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Noname %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1823,6 +1827,14 @@ Chcete zmeny uložiť?</translation>
     <message>
         <source>Markers color</source>
         <translation>Farba značiek</translation>
+    </message>
+    <message>
+        <source>Whitespace symbols color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margins background color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

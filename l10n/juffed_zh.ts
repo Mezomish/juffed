@@ -115,6 +115,10 @@
         <source>The file &apos;%1&apos; was modified by external program.</source>
         <translation type="unfinished">这个文件被外部修改了。</translation>
     </message>
+    <message>
+        <source>The file &apos;%1&apos; was deleted or renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditorSettingsPage</name>
@@ -1004,50 +1008,6 @@ Do you want to save your changes?</source>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Czech</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chinese (simplified)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>auto-detect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PluginPage</name>
@@ -1293,10 +1253,6 @@ Continue from the beginning?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Noname %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Line endings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1359,6 +1315,54 @@ Continue from the beginning?</source>
     <message>
         <source>License</source>
         <translation type="unfinished">版权</translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese (simplified)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Noname %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1823,6 +1827,14 @@ Continue from the beginning?</source>
     <message>
         <source>Markers color</source>
         <translation type="unfinished">标记颜色</translation>
+    </message>
+    <message>
+        <source>Whitespace symbols color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margins background color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

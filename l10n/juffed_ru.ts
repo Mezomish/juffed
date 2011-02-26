@@ -119,6 +119,14 @@
         <source>Ignore</source>
         <translation>Игнорировать</translation>
     </message>
+    <message>
+        <source>The file &apos;%1&apos; was deleted or renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Noname %1</source>
+        <translation type="obsolete">Без имени %1</translation>
+    </message>
 </context>
 <context>
     <name>EditorSettingsPage</name>
@@ -1073,47 +1081,47 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Czech</source>
-        <translation>Чешский</translation>
+        <translation type="obsolete">Чешский</translation>
     </message>
     <message>
         <source>German</source>
-        <translation>Немецкий</translation>
+        <translation type="obsolete">Немецкий</translation>
     </message>
     <message>
         <source>English</source>
-        <translation>Английский</translation>
+        <translation type="obsolete">Английский</translation>
     </message>
     <message>
         <source>French</source>
-        <translation>Французский</translation>
+        <translation type="obsolete">Французский</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation>Польский</translation>
+        <translation type="obsolete">Польский</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation>Португальский</translation>
+        <translation type="obsolete">Португальский</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation>Русский</translation>
+        <translation type="obsolete">Русский</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation>Испанский</translation>
+        <translation type="obsolete">Испанский</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>
-        <translation>Китайский (упрощённый)</translation>
+        <translation type="obsolete">Китайский (упрощённый)</translation>
     </message>
     <message>
         <source>auto-detect</source>
-        <translation>авто-определение</translation>
+        <translation type="obsolete">авто-определение</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation>Словацкий</translation>
+        <translation type="obsolete">Словацкий</translation>
     </message>
 </context>
 <context>
@@ -1561,7 +1569,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Noname %1</source>
-        <translation>Без имени %1</translation>
+        <translation type="unfinished">Без имени %1</translation>
     </message>
     <message>
         <source>Packaging, testing</source>
@@ -1630,6 +1638,50 @@ Continue from the beginning?</source>
     <message>
         <source>License</source>
         <translation>Лицензия</translation>
+    </message>
+    <message>
+        <source>auto-detect</source>
+        <translation type="unfinished">авто-определение</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="unfinished">Чешский</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="unfinished">Немецкий</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="unfinished">Английский</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished">Французский</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished">Польский</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished">Португальский</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished">Русский</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished">Испанский</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished">Словацкий</translation>
+    </message>
+    <message>
+        <source>Chinese (simplified)</source>
+        <translation type="unfinished">Китайский (упрощённый)</translation>
     </message>
 </context>
 <context>
@@ -2094,6 +2146,14 @@ Continue from the beginning?</source>
     <message>
         <source>Markers color</source>
         <translation>Цвет маркеров</translation>
+    </message>
+    <message>
+        <source>Whitespace symbols color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margins background color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

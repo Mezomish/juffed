@@ -553,5 +553,5 @@ void SciDocEngine::getColorOptions(QList<ColorOption>& options) {
 	options << ColorOption(tr("Indents color"), "QSci", "indentsColor", QColor(200, 200, 200));
 	options << ColorOption(tr("Whitespace symbols color"), "QSci", "whiteSpaceColor", QColor(155, 155, 185));
 	options << ColorOption(tr("Markers color"), "QSci", "markersColor", QColor(120, 120, 140));
-	options << ColorOption(tr("Margins background color"), "QSci", "marginsBgColor", QColor(220, 220, 220));
+//	options << ColorOption(tr("Margins background color"), "QSci", "marginsBgColor", QColor(220, 220, 220));
 }

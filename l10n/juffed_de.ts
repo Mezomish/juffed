@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished">Plugins</translation>
+        <translation>Plugins</translation>
     </message>
     <message>
         <source>Translations</source>
@@ -1525,7 +1525,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Noname %1</source>
-        <translation type="unfinished">Unbenannt %1</translation>
+        <translation>Unbenannt %1</translation>
     </message>
     <message>
         <source>Packaging, testing</source>
@@ -1577,11 +1577,11 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Authors</source>
-        <translation type="unfinished">Autoren</translation>
+        <translation>Autoren</translation>
     </message>
     <message>
         <source>Plugins</source>
-        <translation type="unfinished">Plugins</translation>
+        <translation>Plugins</translation>
     </message>
     <message>
         <source>Translations</source>
@@ -1589,47 +1589,47 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Thanks</source>
-        <translation type="unfinished">Danke</translation>
+        <translation>Danke</translation>
     </message>
     <message>
         <source>License</source>
-        <translation type="unfinished">Lizenz</translation>
+        <translation>Lizenz</translation>
     </message>
     <message>
         <source>auto-detect</source>
-        <translation type="unfinished">automatisch erkennen</translation>
+        <translation>automatisch erkennen</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Tschechische</translation>
+        <translation>Tschechische</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">Deutsche</translation>
+        <translation>Deutsche</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">Englisch</translation>
+        <translation>Englisch</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Französische</translation>
+        <translation>Französische</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Polnische</translation>
+        <translation>Polnische</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation type="unfinished">Portugiesische</translation>
+        <translation>Portugiesische</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Russisch</translation>
+        <translation>Russisch</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Spanisch</translation>
+        <translation>Spanisch</translation>
     </message>
     <message>
         <source>Slovak</source>
@@ -1637,7 +1637,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>
-        <translation type="unfinished">Vereinfachte chinesische</translation>
+        <translation>Vereinfachte chinesische</translation>
     </message>
 </context>
 <context>
@@ -2105,10 +2105,6 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Whitespace symbols color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Margins background color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

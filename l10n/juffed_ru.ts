@@ -121,7 +121,7 @@
     </message>
     <message>
         <source>The file &apos;%1&apos; was deleted or renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл &apos;%1&apos; был удалён или переименован.</translation>
     </message>
     <message>
         <source>Noname %1</source>
@@ -1569,7 +1569,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Noname %1</source>
-        <translation type="unfinished">Без имени %1</translation>
+        <translation>Без имени %1</translation>
     </message>
     <message>
         <source>Packaging, testing</source>
@@ -1641,47 +1641,47 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>auto-detect</source>
-        <translation type="unfinished">авто-определение</translation>
+        <translation>авто-определение</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished">Чешский</translation>
+        <translation>Чешский</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished">Немецкий</translation>
+        <translation>Немецкий</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished">Английский</translation>
+        <translation>Английский</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished">Французский</translation>
+        <translation>Французский</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished">Польский</translation>
+        <translation>Польский</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation type="unfinished">Португальский</translation>
+        <translation>Португальский</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished">Русский</translation>
+        <translation>Русский</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished">Испанский</translation>
+        <translation>Испанский</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished">Словацкий</translation>
+        <translation>Словацкий</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>
-        <translation type="unfinished">Китайский (упрощённый)</translation>
+        <translation>Китайский (упрощённый)</translation>
     </message>
 </context>
 <context>
@@ -2149,11 +2149,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Whitespace symbols color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Margins background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет пробельных символов</translation>
     </message>
 </context>
 <context>

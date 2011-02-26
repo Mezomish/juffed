@@ -1832,10 +1832,6 @@ Chcete zmeny uložiť?</translation>
         <source>Whitespace symbols color</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Margins background color</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SearchComboBox</name>

@@ -167,7 +167,9 @@ void JuffEd::initUI() {
 	charsetMenu_->addMenu(setCharsetMenu_);
 
 	docksMenu_ = new QMenu(tr("Docks"));
+	toolBarsMenu_ = new QMenu(tr("Toolbars"));
 	menus_[Juff::MenuTools]->addMenu(docksMenu_);
+	menus_[Juff::MenuTools]->addMenu(toolBarsMenu_);
 
 	CommandStorageInt* st = Utils::commandStorage();
 	
@@ -234,6 +236,8 @@ void JuffEd::loadPlugins() {
 	foreach (QToolBar* bar, toolbars) {
 		if ( bar != NULL ) {
 			mw_->addToolBar(bar);
+			
+			toolBarsMenu_->addAction(bar->toggleViewAction());
 		}
 	}
 

@@ -144,6 +144,7 @@ private:
 	QMenu* openWithCharsetMenu_;
 	QMenu* setCharsetMenu_;
 	QMenu* docksMenu_;
+	QMenu* toolBarsMenu_;
 	
 	Juff::DocViewer* viewer_;
 	JuffMW* mw_;

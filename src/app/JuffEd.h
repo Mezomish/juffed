@@ -80,6 +80,7 @@ public slots:
 	
 	void slotOpenWithCharset();
 	void slotSetCharset();
+	void slotCopyFilePath();
 
 	void slotSettings();
 	

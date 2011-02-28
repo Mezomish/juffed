@@ -3,6 +3,7 @@
 #include "JuffEd.h"
 
 #include <QApplication>
+#include <QClipboard>
 #include <QDockWidget>
 #include <QDomDocument>
 #include <QDomElement>
@@ -363,6 +364,10 @@ void JuffEd::buildUI() {
 
 	connect(linesL_, SIGNAL(clicked()), SLOT(slotGotoLine()));
 	connect(posL_, SIGNAL(clicked()), SLOT(slotGotoLine()));
+	
+	QMenu* filePathMenu = new QMenu();
+	filePathMenu->addAction(Utils::iconManager()->icon(EDIT_COPY), tr("Copy"), this, SLOT(slotCopyFilePath()));
+	nameL_->setMenu(filePathMenu);
 	
 	mw_->addStatusWidget(posL_, 100);
 	mw_->addStatusWidget(nameL_, -1);
@@ -790,6 +795,14 @@ void JuffEd::slotSetCharset() {
 
 void JuffEd::slotSettings() {
 	settingsDlg_->exec();
+}
+
+void JuffEd::slotCopyFilePath() {
+	LOGGER;
+	QString fileName = nameL_->text().trimmed();
+	if ( !fileName.isEmpty() ) {
+		QApplication::clipboard()->setText(fileName);
+	}
 }
 
 //

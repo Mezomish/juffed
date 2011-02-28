@@ -1,7 +1,7 @@
 Source: juffed
 Priority: optional
 Maintainer: Mikhail Murzin <mezomish@gmail.com>
-Build-Depends: cdbs, debhelper (>= 7.0.15~), cmake, libqt4-dev (>= 4.4), libqscintilla2-dev (>= 2.2)
+Build-Depends: cdbs, debhelper (>= 7.0.15~), cmake, libqt4-dev (>= 4.5), libqscintilla2-dev (>= 2.4)
 Standards-Version: 3.9.0
 Section: editors
 Homepage: http://juffed.com

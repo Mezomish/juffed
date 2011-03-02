@@ -59,7 +59,7 @@ Document::Document(const QString& fileName)
 	}
 	else {
 		fileName_ = fileName;
-		watcher_.addPath(fileName_);
+		startWatcher();
 	}
 	codec_ = QTextCodec::codecForLocale();
 	charset_ = codec_->name();
@@ -94,10 +94,10 @@ Document::~Document() {
 
 void Document::setFileName(const QString& newFileName) {
 	QString oldName = fileName_;
-	fileName_ = newFileName;
 	
-	watcher_.removePath(oldName);
-	watcher_.addPath(fileName_);
+	stopWatcher();
+	fileName_ = newFileName;
+	startWatcher();
 	
 	emit renamed(oldName);
 }
@@ -257,22 +257,20 @@ SearchResults* Document::searchResults() const {
 
 bool Document::saveAs(const QString& fileName, QString& error) {
 	QString oldName = fileName_;
+	stopWatcher();
 	fileName_ = fileName;
+	
 	if ( save(error) ) {
-		watcher_.removePath(oldName);
-		watcher_.addPath(fileName_);
-		
+		startWatcher();
 		// notify plugins
 		emit renamed(oldName);
 		
-//		updateClone();
 		return true;
 	}
-	
-	
-	
 	else {
 		fileName_ = oldName;
+		startWatcher();
+		
 		return false;
 	}
 }
@@ -283,13 +281,15 @@ bool Document::save(QString&) {
 }
 
 void Document::startWatcher() {
-	if ( QFile::exists(fileName_) ) {
+	if ( QFile::exists(fileName_) && !watcher_.files().contains(fileName_) ) {
 		watcher_.addPath(fileName_);
 	}
 }
 
 void Document::stopWatcher() {
-	watcher_.removePath(fileName_);
+	if ( watcher_.files().contains(fileName_) ) {
+		watcher_.removePath(fileName_);
+	}
 }
 
 void Document::onModifiedExternally(const QString& path) {
@@ -362,10 +362,10 @@ void Document::onModifiedExternally(const QString& path) {
 		if ( msgBox.exec() == QMessageBox::Save ) {
 			QString err;
 			save(err);
-			watcher_.addPath(fileName());
+			startWatcher();
 		}
 		else {
-			watcher_.removePath(fileName_);
+			stopWatcher();
 		}
 	}
 	notificationIsInProgress_ = false;

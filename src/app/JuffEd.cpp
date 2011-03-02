@@ -1096,6 +1096,7 @@ bool JuffEd::saveDocAs(Juff::Document* doc) {
 		QString oldName = doc->fileName();
 		if ( doc->saveAs(fileName, error) ) {
 			// saving succeeded - return true
+			addToRecentFiles(fileName);
 			return true;
 		}
 		else {

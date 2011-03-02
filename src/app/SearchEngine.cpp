@@ -157,7 +157,9 @@ void SearchEngine::changeCurDoc(Juff::Document* doc) {
 		curDoc_->disconnect(SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
 	}
 	curDoc_ = doc;
-	connect(curDoc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
+	if ( NULL != curDoc_ ) {
+		connect(curDoc_, SIGNAL(textChanged()), this, SLOT(onDocTextChanged()));
+	}
 	
 	searchPopup_->dismiss();
 	onDlgClosed();

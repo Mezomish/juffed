@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Übersetzungen</translation>
     </message>
 </context>
 <context>
@@ -98,7 +98,7 @@
     </message>
     <message>
         <source>The file &apos;%1&apos; was deleted or renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datei &apos;%1&apos; wurde gelöscht oder umbenannt.</translation>
     </message>
     <message>
         <source>Noname %1</source>
@@ -1153,7 +1153,7 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Czech translation</source>
-        <translation>tschechische Übersetzung</translation>
+        <translation>Tschechische Übersetzung</translation>
     </message>
     <message>
         <source>Brazilian Portuguese translation</source>
@@ -1553,27 +1553,27 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>SymbolBrowser plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>SymbolBrowser Plugin</translation>
     </message>
     <message>
         <source>XML Formatter plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>XML-Formatierung Plugin</translation>
     </message>
     <message>
         <source>Sort plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortierung Plugin</translation>
     </message>
     <message>
         <source>Slovak translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Slowakische Übersetzung</translation>
     </message>
     <message>
         <source>Testing, design ideas, feature requests</source>
-        <translation type="unfinished"></translation>
+        <translation>Testen, Designideen, Feature wünsche</translation>
     </message>
     <message>
         <source>Patches, Mac OS X port</source>
-        <translation type="unfinished"></translation>
+        <translation>Korrekturen, Mac OS X Portierung</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -1585,7 +1585,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Übersetzungen</translation>
     </message>
     <message>
         <source>Thanks</source>
@@ -1633,7 +1633,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation>Slowakisch</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>

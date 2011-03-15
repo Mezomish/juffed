@@ -27,10 +27,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 class LIBJUFF_EXPORT KeySettings {
 public:
-	static QKeySequence keySequence(Juff::ActionID);
-	static void setKeySequence(Juff::ActionID, const QKeySequence&);
+	static QKeySequence keySequence(const QString&);
+	static void setKeySequence(const QString&, const QKeySequence&);
 
-	static bool contains(Juff::ActionID);
+	static bool contains(const QString&);
 };
 
 #endif /* __JUFF_KEY_SETTINGS_H__ */

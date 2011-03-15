@@ -59,6 +59,11 @@ public:
 	*/
 	void updateIcons();
 
+	/**
+	* Returns a list of actions IDs (strings).
+	*/
+	virtual QStringList actionIDs() const;
+	
 private:
 
 	QMap<QString, QAction*> actions_;

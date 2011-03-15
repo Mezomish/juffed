@@ -5,6 +5,8 @@
 
 #include "Constants.h"
 #include "IconManager.h"
+#include "Settings.h"
+#include "KeySettings.h"
 
 CommandStorage::CommandStorage(IconManagerInt* mgr) : QObject(), CommandStorageInt(), iconManager_(mgr) {
 	keys_[FILE_NEW]     = QKeySequence("Ctrl+N");
@@ -35,7 +37,11 @@ CommandStorage::CommandStorage(IconManagerInt* mgr) : QObject(), CommandStorageI
 	keys_[VIEW_FULLSCREEN]   = QKeySequence("F11");
 	
 	keys_[HELP_ABOUT]        = QKeySequence("F1");
-	// TODO : load keys from settings
+	
+	QStringList keysList = Settings::instance()->keyList("keys");
+	foreach (QString key, keysList) {
+		keys_[key] = KeySettings::keySequence(key);
+	}
 }
 
 void CommandStorage::addAction(const QString& key, const QString& name, QObject* obj, const char* slot) {
@@ -46,8 +52,9 @@ void CommandStorage::addAction(const QString& key, const QString& name, QObject*
 	// it takes shortcuts used in main app as related to editor only.
 	// Do not conflict with plugins.
 	// TEMP solution
-	if (key == EDIT_COPY)
+	if (key == EDIT_COPY) {
 		a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+	}
 
 	connect(a, SIGNAL(triggered()), obj, slot);
 	actions_[key] = a;
@@ -63,6 +70,10 @@ QKeySequence CommandStorage::shortcut(const QString& key) const {
 
 void CommandStorage::setShortcut(const QString& key, const QKeySequence& shortcut) {
 	keys_[key] = shortcut;
+	QAction* act = action(key);
+	if ( act != NULL ) {
+		act->setShortcut(shortcut);
+	}
 }
 
 void CommandStorage::updateIcons() {
@@ -75,4 +86,8 @@ void CommandStorage::updateIcons() {
 			act->setIcon(icon);
 		it++;
 	}
+}
+
+QStringList CommandStorage::actionIDs() const {
+	return actions_.keys();
 }

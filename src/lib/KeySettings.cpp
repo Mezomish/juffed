@@ -19,22 +19,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "KeySettings.h"
 #include "Settings.h"
 
-QKeySequence KeySettings::keySequence(Juff::ActionID id) {
-	QString idStr = QString::number(id);
-	if ( idStr.isEmpty() )
+QKeySequence KeySettings::keySequence(const QString& id) {
+	if ( id.isEmpty() ) {
 		return QKeySequence();
-	QString s = Settings::instance()->stringValue("keys", idStr);
+	}
+	QString s = Settings::instance()->stringValue("keys", id);
 	return QKeySequence(s);
 }
 
-void KeySettings::setKeySequence(Juff::ActionID id, const QKeySequence& seq) {
-	QString idStr = QString::number(id);
-	if ( idStr.isEmpty() )
+void KeySettings::setKeySequence(const QString& id, const QKeySequence& seq) {
+	if ( id.isEmpty() ) {
 		return;
-	Settings::instance()->setValue("keys", idStr, seq.toString());
+	}
+	Settings::instance()->setValue("keys", id, seq.toString());
 }
 
-bool KeySettings::contains(Juff::ActionID id) {
-	return Settings::instance()->keyList("keys").contains(QString::number(id));
+bool KeySettings::contains(const QString& id) {
+	return Settings::instance()->keyList("keys").contains(id);
 }
 

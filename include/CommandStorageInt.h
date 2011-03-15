@@ -23,6 +23,7 @@ class QAction;
 class QObject;
 class QKeySequence;
 class QString;
+class QStringList;
 
 class CommandStorageInt {
 public:
@@ -53,6 +54,11 @@ public:
 	* Updates actions' icons using current settings.
 	*/
 	virtual void updateIcons() = 0;
+	
+	/**
+	* Returns a list of actions IDs (strings).
+	*/
+	virtual QStringList actionIDs() const = 0;
 };
 
 #endif // __JUFFED_COMMAND_STORAGE_INTERFACE_H__

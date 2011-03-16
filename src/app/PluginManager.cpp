@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "PluginManager.h"
 
 #include "AppInfo.h"
+#include "Enums.h"
 #include "JuffPlugin.h"
 #include "Log.h"
 #include "DocHandlerInt.h"
@@ -45,6 +46,25 @@ void PluginManager::loadPlugins(SettingsDlg* dlg) {
 	QDir gPluginDir(AppInfo::pluginsPath());
 	foreach (QString fileName, gPluginDir.entryList(QDir::Files)) {
 		loadPlugin(gPluginDir.absoluteFilePath(fileName), dlg);
+	}
+	
+	Juff::MenuID ids[] = { Juff::MenuFile, Juff::MenuEdit, Juff::MenuView, Juff::MenuSearch, Juff::MenuFormat, Juff::MenuTools, Juff::MenuNULL };
+	int i = 0;
+	while ( ids[i] != Juff::MenuNULL) {
+		Juff::MenuID id = ids[i];
+		foreach (JuffPlugin* plugin, plugins_) {
+			Juff::ActionList pluginActions = plugin->mainMenuActions(id);
+			QString name = plugin->name();
+			foreach (QAction* a, pluginActions) {
+				Utils::commandStorage()->addAction(QString("zzz_") + name + ":" + a->text(), a);
+			}
+		}
+		++i;
+	}
+	
+	
+	foreach (JuffPlugin* plugin, plugins_) {
+		plugin->allPluginsLoaded();
 	}
 }
 
@@ -124,26 +144,17 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 //			if ( pluginExists(plugin->name()) )
 //				return;
 
-//			plugin->setManager(pmInt_->managerInt_);
 			plugin->setAPI(api_);
 			plugin->init();
 			
 			plugins_ << plugin;
 			dlg->addPluginSettingsPage(plugin->name(), plugin->title(), plugin->settingsPage());
-//			if ( pmInt_->addPlugin(plugin) ) {
+
+			Log::debug(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name()));
 //
-				Log::debug(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name()));
-//
-				//	context menu actions
-//				QString type = plugin->targetEngine();
-//				pmInt_->contextMenuActions_[type] << plugin->contextMenuActions();
-//				
-				//	settings page
-//				pmInt_->gui_->addPluginSettingsPage(plugin->name(), plugin->settingsPage());
-//			}
-//			else {
-//				loader.unload();
-//			}
+			//	context menu actions
+//			QString type = plugin->targetEngine();
+//			pmInt_->contextMenuActions_[type] << plugin->contextMenuActions();
 		}
 		else {
 			Log::warning("Error while casting to JuffPlugin type");

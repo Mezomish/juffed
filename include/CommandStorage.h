@@ -40,6 +40,11 @@ public:
 	void addAction(const QString& key, const QString& name, QObject* obj, const char* slot);
 
 	/**
+	* Adds an action with given \param key and given \param action.
+	*/
+	virtual void addAction(const QString& key, QAction* action);
+
+	/**
 	* Returns an action with given \param id.
 	*/
 	QAction* action(const QString& id) const;

@@ -34,6 +34,7 @@ typedef enum {
 	MenuTools,
 	MenuHelp,
 	MenuLAST = MenuHelp,
+	MenuNULL = -1,
 } MenuID;
 
 enum PanelIndex {

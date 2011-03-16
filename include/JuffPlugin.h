@@ -132,6 +132,11 @@ public:
 	*/
 	virtual bool dockVisible(QWidget*) const { return false; }
 
+	/**
+	* Called after all plugins were loaded.
+	*/
+	virtual void allPluginsLoaded() {}
+	
 	JuffPlugin() { api_ = 0; }
 	void setAPI(JuffAPI* api) { api_ = api; }
 
@@ -143,6 +148,6 @@ private:
 	JuffAPI* api_;
 };
 
-Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.69")
+Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.691")
 
 #endif	//	__JUFF_PLUGIN_H__

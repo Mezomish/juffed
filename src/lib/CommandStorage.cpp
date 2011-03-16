@@ -56,8 +56,23 @@ void CommandStorage::addAction(const QString& key, const QString& name, QObject*
 		a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 	}
 
-	connect(a, SIGNAL(triggered()), obj, slot);
+	if ( obj != NULL && slot != NULL ) {
+		connect(a, SIGNAL(triggered()), obj, slot);
+	}
 	actions_[key] = a;
+}
+
+void CommandStorage::addAction(const QString& key, QAction* action) {
+	if ( action == NULL || key.isEmpty() ) {
+		return;
+	}
+	actions_[key] = action;
+	if ( keys_.contains(key) ) {
+		action->setShortcut(keys_[key]);
+	}
+	else {
+		keys_[key] = action->shortcut().toString();
+	}
 }
 
 QAction* CommandStorage::action(const QString& key) const {

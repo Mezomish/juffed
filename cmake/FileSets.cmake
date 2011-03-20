@@ -14,7 +14,6 @@ SET ( juffed_lib_SRCS
 	src/lib/MainSettings.cpp
 	src/lib/PluginSettings.cpp
 	src/lib/Settings.cpp
-	src/lib/QSciSettings.cpp
 	
 	src/lib/CommandStorage.cpp
 	src/lib/Document.cpp
@@ -86,8 +85,8 @@ SET ( juffed_app_SRCS
 	src/app/Utils.cpp
 	src/app/qsci/JuffScintilla.cpp
 	src/app/qsci/LexerStorage.cpp
+	src/app/qsci/QSciSettings.cpp
 	src/app/qsci/SciDoc.cpp
-	src/app/qsci/SciDocEngine.cpp
 	src/app/qsci/SciDocEngine.cpp
 	src/app/qsci/settings/PrintSettings.cpp
 	src/app/qsci/settings/FileTypesPage.cpp
@@ -184,7 +183,7 @@ SET ( juffed_DEV_HEADERS
 	${CMAKE_BINARY_DIR}/AppInfo.apple.h
 	include/AutocompleteSettings.h
 	include/CharsetSettings.h
-	include/CommandStorage.h
+	include/CommandStorageInt.h
 	include/Constants.h
 	include/DocEngine.h
 	include/DocHandlerInt.h
@@ -192,17 +191,17 @@ SET ( juffed_DEV_HEADERS
 	include/EditorSettings.h
 	include/Enums.h
 	include/FileTypeSettings.h
-	include/IconManager.h
+	include/IconManagerInt.h
 	include/JuffAPI.h
 	include/JuffPlugin.h
 	include/KeySettings.h
+	include/LibConfig.h
 	include/Log.h
 	include/MainSettings.h
 	include/NullDoc.h
 	include/PluginNotifier.h
 	include/PluginSettings.h
 	include/Project.h
-	include/QSciSettings.h
 	include/SearchResults.h
 	include/Settings.h
 	include/Types.h

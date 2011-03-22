@@ -27,6 +27,7 @@ set ( CMAKE_VERBOSE_MAKEFILE OFF )
 
 set ( JUFFED  "juffed" CACHE STRING "Name of the executeable" )
 set ( JUFFLIB "juff"   CACHE STRING "Name of the library" )
+set ( QSCI_ENGINE "juffed-engine-qsci" CACHE STRING "" )
 file   ( READ "${CMAKE_SOURCE_DIR}/version"      JUFFED_VERSION )
 file   ( READ "${CMAKE_SOURCE_DIR}/base_version" BASE_VERSION )
 string ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
@@ -90,10 +91,12 @@ include ( cmake/SomeLexers.cmake )
 
 QT4_WRAP_CPP ( juffed_lib_MOC_SRCS ${juffed_lib_MOC_HEADERS} )
 QT4_WRAP_CPP ( juffed_app_MOC_SRCS ${juffed_app_MOC_HEADERS} )
+QT4_WRAP_CPP ( juffed_qsci_MOC_SRCS ${juffed_qsci_MOC_HEADERS} )
 QT4_ADD_RESOURCES ( juffed_app_RESOURCES ${juffed_app_RESOURCES} )
 QT4_ADD_RESOURCES ( juffed_lib_RESOURCES ${juffed_lib_RESOURCES} )
 QT4_AUTOMOC ( ${juffed_lib_SRCS} )
 QT4_AUTOMOC ( ${juffed_app_SRCS} )
+QT4_WRAP_UI ( juffed_qsci_UIS_H ${juffed_qsci_UIS} )
 QT4_WRAP_UI ( juffed_app_UIS_H ${juffed_app_UIS} )
 QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
 
@@ -124,7 +127,17 @@ add_library ( ${JUFFLIB} SHARED
 )
 target_link_libraries ( ${JUFFLIB}
 	${QT_LIBRARIES}
+)
+
+add_library ( ${QSCI_ENGINE} SHARED
+	${juffed_qsci_SRCS}
+	${juffed_qsci_MOC_SRCS}
+	${juffed_qsci_UIS_H}
+)
+target_link_libraries ( ${QSCI_ENGINE}
+	${QT_LIBRARIES}
 	${QT_QTXML_LIBRARY}
+	${QSCINTILLA_LIBRARY} 
 )
 
 if (APPLEBUNDLE)
@@ -156,6 +169,7 @@ else (APPLEBUNDLE)
 	if (NOT APPLE)
 		# this causes a build fail on mac (unix-like build)
 		set_target_properties ( ${JUFFLIB} PROPERTIES VERSION ${BASE_VERSION} SOVERSION ${BASE_VERSION} )
+		set_target_properties ( ${QSCI_ENGINE} PROPERTIES VERSION ${BASE_VERSION} SOVERSION ${BASE_VERSION} )
 	else (NOT APPLE)
 		# apple requires this one to keep sane dyn-linking
 		set_target_properties( ${JUFFLIB} PROPERTIES
@@ -195,9 +209,10 @@ if ( MINGW )
 	set_target_properties( ${JUFFED} PROPERTIES LINK_FLAGS "-mwindows" )
 endif ( MINGW )
 
-target_link_libraries ( ${JUFFED} ${JUFFLIB}
+target_link_libraries ( ${JUFFED}
+	${JUFFLIB}
+	${QSCI_ENGINE}
 	${QT_LIBRARIES}
-	${QSCINTILLA_LIBRARY} 
 	${QT_QTNETWORK_LIBRARY}
 )
 
@@ -245,6 +260,7 @@ if (NOT APPLEBUNDLE)
 
 	install ( TARGETS ${JUFFED} DESTINATION ${BIN_INSTALL_DIR} )
 	install ( TARGETS ${JUFFLIB} DESTINATION ${LIB_INSTALL_DIR} )
+	install ( TARGETS ${QSCI_ENGINE} DESTINATION ${LIB_INSTALL_DIR} )
 	install ( FILES ${juffed_QM} DESTINATION ${DATA_INSTALL_DIR}/l10n )
 	install ( DIRECTORY hlschemes DESTINATION ${DATA_INSTALL_DIR} PATTERN ".svn" EXCLUDE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ )
 	install ( DIRECTORY apis DESTINATION ${DATA_INSTALL_DIR} PATTERN "*.svn" EXCLUDE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ )

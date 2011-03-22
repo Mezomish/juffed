@@ -34,18 +34,6 @@ SET ( juffed_lib_RESOURCES
 SET ( juffed_app_MOC_HEADERS
 	src/app/JuffEd.h
 	src/app/SearchEngine.h
-	src/app/qsci/JuffScintilla.h
-	src/app/qsci/SciDoc.h
-	src/app/qsci/SciDocEngine.h
-	src/app/qsci/settings/FileTypesPage.h
-	
-	# lexers
-	src/app/qsci/lexers/qscilexerada.h
-	src/app/qsci/lexers/qscilexerasm.h
-	src/app/qsci/lexers/qscilexerhaskell.h
-	src/app/qsci/lexers/qscilexerlisp.h
-	src/app/qsci/lexers/qscilexernsis.h
-	src/app/qsci/lexers/my/QsciLexerMatlab.h
 	
 	src/app/ui/AboutDlg.h
 	src/app/ui/DocViewer.h
@@ -83,21 +71,6 @@ SET ( juffed_app_SRCS
 	src/app/PluginManager.cpp
 	src/app/SearchEngine.cpp
 	src/app/Utils.cpp
-	src/app/qsci/JuffScintilla.cpp
-	src/app/qsci/LexerStorage.cpp
-	src/app/qsci/QSciSettings.cpp
-	src/app/qsci/SciDoc.cpp
-	src/app/qsci/SciDocEngine.cpp
-	src/app/qsci/settings/PrintSettings.cpp
-	src/app/qsci/settings/FileTypesPage.cpp
-	
-	# lexers
-	src/app/qsci/lexers/qscilexerada.cpp
-	src/app/qsci/lexers/qscilexerasm.cpp
-	src/app/qsci/lexers/qscilexerhaskell.cpp
-	src/app/qsci/lexers/qscilexerlisp.cpp
-	src/app/qsci/lexers/qscilexernsis.cpp
-	src/app/qsci/lexers/my/QsciLexerMatlab.cpp
 	
 	src/app/ui/AboutDlg.cpp
 	src/app/ui/DocViewer.cpp
@@ -129,6 +102,44 @@ SET ( juffed_app_SRCS
 	src/app/ui/settings/SettingsSelectItem.cpp
 )
 
+SET ( juffed_qsci_SRCS
+	src/app/qsci/JuffScintilla.cpp
+	src/app/qsci/LexerStorage.cpp
+	src/app/qsci/QSciSettings.cpp
+	src/app/qsci/SciDoc.cpp
+	src/app/qsci/SciDocEngine.cpp
+	src/app/qsci/settings/PrintSettings.cpp
+	src/app/qsci/settings/FileTypesPage.cpp
+	
+	# lexers
+	src/app/qsci/lexers/qscilexerada.cpp
+	src/app/qsci/lexers/qscilexerasm.cpp
+	src/app/qsci/lexers/qscilexerhaskell.cpp
+	src/app/qsci/lexers/qscilexerlisp.cpp
+	src/app/qsci/lexers/qscilexernsis.cpp
+	src/app/qsci/lexers/my/QsciLexerMatlab.cpp
+)
+
+SET ( juffed_qsci_MOC_HEADERS
+	src/app/qsci/JuffScintilla.h
+	src/app/qsci/SciDoc.h
+	src/app/qsci/SciDocEngine.h
+	src/app/qsci/settings/FileTypesPage.h
+	
+	# lexers
+	src/app/qsci/lexers/qscilexerada.h
+	src/app/qsci/lexers/qscilexerasm.h
+	src/app/qsci/lexers/qscilexerhaskell.h
+	src/app/qsci/lexers/qscilexerlisp.h
+	src/app/qsci/lexers/qscilexernsis.h
+	src/app/qsci/lexers/my/QsciLexerMatlab.h
+)
+
+SET ( juffed_qsci_UIS
+	src/app/qsci/forms/QSciSettings.ui
+	src/app/qsci/settings/FileTypesPage.ui
+)
+
 IF ( WIN32 )
 	SET ( juffed_app_SRCS
 		${juffed_app_SRCS}
@@ -156,8 +167,6 @@ SET ( juffed_app_UIS
 	src/app/ui/forms/SessionDlg.ui
 	src/app/ui/forms/SelectFilesDlg.ui
 	src/app/ui/forms/ViewSettingsPage.ui
-	src/app/qsci/forms/QSciSettings.ui
-	src/app/qsci/settings/FileTypesPage.ui
 )
 
 SET ( juffed_app_RESOURCES

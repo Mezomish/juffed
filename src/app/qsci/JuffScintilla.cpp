@@ -30,7 +30,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Constants.h"
 #include "Log.h"
-#include "../Utils.h"
+#include "Utils.h"
 
 #define WORD_HIGHLIGHT     1
 #define SEARCH_HIGHLIGHT   2

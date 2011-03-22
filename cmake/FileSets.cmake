@@ -3,6 +3,13 @@ SET ( juffed_lib_MOC_HEADERS
 	include/JuffAPI.h
 	include/Project.h
 	include/PluginNotifier.h
+	include/StatusLabel.h
+	include/ColorButton.h
+	include/SettingsPage.h
+	include/SettingsCheckItem.h
+	include/SettingsColorItem.h
+	include/SettingsItem.h
+	include/SettingsSelectItem.h
 )
 
 SET ( juffed_lib_SRCS
@@ -14,6 +21,7 @@ SET ( juffed_lib_SRCS
 	src/lib/MainSettings.cpp
 	src/lib/PluginSettings.cpp
 	src/lib/Settings.cpp
+	src/lib/Utils.cpp
 	
 	src/lib/CommandStorage.cpp
 	src/lib/Document.cpp
@@ -25,6 +33,14 @@ SET ( juffed_lib_SRCS
 	src/lib/Project.cpp
 	src/lib/PluginNotifier.cpp
 	src/lib/SearchResults.cpp
+	
+	src/lib/StatusLabel.cpp
+	src/lib/ColorButton.cpp
+	src/lib/SettingsPage.cpp
+	src/lib/SettingsCheckItem.cpp
+	src/lib/SettingsColorItem.cpp
+	src/lib/SettingsItem.cpp
+	src/lib/SettingsSelectItem.cpp
 )
 
 SET ( juffed_lib_RESOURCES
@@ -44,7 +60,6 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/SearchComboBox.h
 	src/app/ui/SearchPopup.h
 	src/app/ui/SelectFilesDlg.h
-	src/app/ui/StatusLabel.h
 	src/app/ui/TabBar.h
 	src/app/ui/TabWidget.h
 	src/3rd_party/qtsingleapplication/qtsinglecoreapplication.h
@@ -53,15 +68,9 @@ SET ( juffed_app_MOC_HEADERS
 	
 	# settings
 	src/app/ui/settings/CharsetsSettingsPage.h
-	src/app/ui/settings/ColorButton.h
 	src/app/ui/settings/MultiPage.h
 	src/app/ui/settings/PluginPage.h
 	src/app/ui/settings/SettingsDlg.h
-	src/app/ui/settings/SettingsCheckItem.h
-	src/app/ui/settings/SettingsColorItem.h
-	src/app/ui/settings/SettingsItem.h
-	src/app/ui/settings/SettingsPage.h
-	src/app/ui/settings/SettingsSelectItem.h
 )
 
 SET ( juffed_app_SRCS
@@ -70,7 +79,6 @@ SET ( juffed_app_SRCS
 	src/app/main.cpp
 	src/app/PluginManager.cpp
 	src/app/SearchEngine.cpp
-	src/app/Utils.cpp
 	
 	src/app/ui/AboutDlg.cpp
 	src/app/ui/DocViewer.cpp
@@ -81,7 +89,6 @@ SET ( juffed_app_SRCS
 	src/app/ui/SearchPopup.cpp
 	src/app/ui/SearchComboBox.cpp
 	src/app/ui/SelectFilesDlg.cpp
-	src/app/ui/StatusLabel.cpp
 	src/app/ui/TabBar.cpp
 	src/app/ui/TabWidget.cpp
 	src/3rd_party/qtsingleapplication/qtsinglecoreapplication.cpp
@@ -91,15 +98,9 @@ SET ( juffed_app_SRCS
 	
 	# settings
 	src/app/ui/settings/CharsetsSettingsPage.cpp
-	src/app/ui/settings/ColorButton.cpp
 	src/app/ui/settings/MultiPage.cpp
 	src/app/ui/settings/PluginPage.cpp
 	src/app/ui/settings/SettingsDlg.cpp
-	src/app/ui/settings/SettingsCheckItem.cpp
-	src/app/ui/settings/SettingsColorItem.cpp
-	src/app/ui/settings/SettingsItem.cpp
-	src/app/ui/settings/SettingsPage.cpp
-	src/app/ui/settings/SettingsSelectItem.cpp
 )
 
 SET ( juffed_qsci_SRCS
@@ -213,5 +214,7 @@ SET ( juffed_DEV_HEADERS
 	include/Project.h
 	include/SearchResults.h
 	include/Settings.h
+	include/StatusLabel.h
 	include/Types.h
+	include/Utils.h
 )

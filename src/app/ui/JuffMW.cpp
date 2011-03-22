@@ -32,7 +32,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Popup.h"
 #include "SearchPopup.h"
 #include "SelectFilesDlg.h"
-#include "../Utils.h"
+#include "Utils.h"
 
 #include <QCloseEvent>
 #include <QFileDialog>

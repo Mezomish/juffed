@@ -20,7 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Log.h"
 #include "MainSettings.h"
 #include "SearchPopup.h"
-#include "../Utils.h"
+#include "Utils.h"
 
 #include <QLineEdit>
 

@@ -18,13 +18,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDocEngine.h"
 
-#include "../ui/settings/ColorButton.h"
+#include "ColorButton.h"
 #include "LexerStorage.h"
 #include "Log.h"
 #include "QSciSettings.h"
 #include "SciDoc.h"
-#include "../ui/settings/SettingsPage.h"
-#include "../ui/settings/SettingsCheckItem.h"
+#include "SettingsPage.h"
+#include "SettingsCheckItem.h"
 #include "settings/FileTypesPage.h"
 
 #include <QAction>

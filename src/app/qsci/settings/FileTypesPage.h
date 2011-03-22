@@ -19,7 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_FILE_TYPES_PAGE_H__
 #define __JUFFED_FILE_TYPES_PAGE_H__
 
-#include "../../ui/settings/SettingsPage.h"
+#include "SettingsPage.h"
 
 #include "ui_FileTypesPage.h"
 

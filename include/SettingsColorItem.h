@@ -19,11 +19,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_SETTINGS_COLOR_ITEM_H__
 #define __JUFF_SETTINGS_COLOR_ITEM_H__
 
+#include "LibConfig.h"
 #include "SettingsItem.h"
 
 class ColorButton;
 
-class SettingsColorItem : public QObject, public SettingsItem {
+class LIBJUFF_EXPORT SettingsColorItem : public QObject, public SettingsItem {
 Q_OBJECT
 public:
 	SettingsColorItem(const QString&, const QString&, ColorButton*);

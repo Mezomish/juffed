@@ -19,11 +19,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_SETTINGS_CHECK_ITEM_H__
 #define __JUFF_SETTINGS_CHECK_ITEM_H__
 
+#include "LibConfig.h"
 #include "SettingsItem.h"
 
 class QCheckBox;
 
-class SettingsCheckItem : public QObject, public SettingsItem {
+class LIBJUFF_EXPORT SettingsCheckItem : public QObject, public SettingsItem {
 Q_OBJECT
 public:
 	SettingsCheckItem(const QString&, const QString&, QCheckBox*);

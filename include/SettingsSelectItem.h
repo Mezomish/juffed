@@ -19,11 +19,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_SETTINGS_SELECT_ITEM_H__
 #define __JUFF_SETTINGS_SELECT_ITEM_H__
 
+#include "LibConfig.h"
 #include "SettingsItem.h"
 
 class QComboBox;
 
-class SettingsSelectItem : public QObject, public SettingsItem {
+class LIBJUFF_EXPORT SettingsSelectItem : public QObject, public SettingsItem {
 Q_OBJECT
 public:
 	enum Mode {

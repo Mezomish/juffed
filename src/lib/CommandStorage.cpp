@@ -8,7 +8,7 @@
 #include "Settings.h"
 #include "KeySettings.h"
 
-CommandStorage::CommandStorage(IconManagerInt* mgr) : QObject(), CommandStorageInt(), iconManager_(mgr) {
+CommandStorage::CommandStorage(IconManagerInt* mgr) : CommandStorageInt(), iconManager_(mgr) {
 	keys_[FILE_NEW]     = QKeySequence("Ctrl+N");
 	keys_[FILE_OPEN]    = QKeySequence("Ctrl+O");
 	keys_[FILE_SAVE]    = QKeySequence("Ctrl+S");
@@ -57,7 +57,7 @@ void CommandStorage::addAction(const QString& key, const QString& name, QObject*
 	}
 
 	if ( obj != NULL && slot != NULL ) {
-		connect(a, SIGNAL(triggered()), obj, slot);
+		QObject::connect(a, SIGNAL(triggered()), obj, slot);
 	}
 	actions_[key] = a;
 }

@@ -19,12 +19,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_SCI_DOC_H__
 #define __JUFFED_SCI_DOC_H__
 
+#include "QSciLibConfig.h"
+
 class JuffScintilla;
 class QsciLexer;
 
 #include "Document.h"
 
-class SciDoc : public Juff::Document {
+class QSCI_ENGINE_EXPORT SciDoc : public Juff::Document {
 Q_OBJECT
 public:
 	enum Eol {

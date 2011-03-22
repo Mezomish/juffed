@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFFED_SCI_DOC_ENGINE_H__
 #define __JUFFED_SCI_DOC_ENGINE_H__
 
+#include "QSciLibConfig.h"
+
 class QActionGroup;
 
 #include "DocEngine.h"
@@ -28,7 +30,7 @@ class QActionGroup;
 #include <QObject>
 #include <QKeySequence>
 
-class SciDocEngine : public QObject, public Juff::DocEngine {
+class QSCI_ENGINE_EXPORT SciDocEngine : public QObject, public Juff::DocEngine {
 Q_OBJECT
 public:
 	SciDocEngine();

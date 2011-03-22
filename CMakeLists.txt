@@ -19,6 +19,7 @@ cmake_minimum_required (VERSION 2.6.0)
 set ( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 set ( PREFIX ${CMAKE_INSTALL_PREFIX} )
 
+# switch verbose mode ON or OFF
 set ( CMAKE_VERBOSE_MAKEFILE OFF )
 
 ####################
@@ -135,6 +136,7 @@ add_library ( ${QSCI_ENGINE} SHARED
 	${juffed_qsci_UIS_H}
 )
 target_link_libraries ( ${QSCI_ENGINE}
+	${JUFFLIB}
 	${QT_LIBRARIES}
 	${QT_QTXML_LIBRARY}
 	${QSCINTILLA_LIBRARY} 

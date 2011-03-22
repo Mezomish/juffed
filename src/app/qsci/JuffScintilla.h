@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _JUFF_SCINTILLA_H_
 #define _JUFF_SCINTILLA_H_
 
+#include "QSciLibConfig.h"
+
 #include "Types.h"
 
 #include <Qsci/qsciscintilla.h>
@@ -27,7 +29,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QtGui/QDropEvent>
 #include <QtGui/QMenu>
 
-class JuffScintilla : public QsciScintilla {
+class QSCI_ENGINE_EXPORT JuffScintilla : public QsciScintilla {
 Q_OBJECT
 public:
 	enum HLMode {

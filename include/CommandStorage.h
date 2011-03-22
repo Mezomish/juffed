@@ -30,7 +30,7 @@ class QKeySequence;
 #include <QObject>
 #include <QMap>
 
-class LIBJUFF_EXPORT CommandStorage : public QObject, public CommandStorageInt {
+class LIBJUFF_EXPORT CommandStorage : public CommandStorageInt {
 public:
 	CommandStorage(IconManagerInt* mgr);
 

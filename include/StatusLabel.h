@@ -22,10 +22,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 class QMenu;
 
 #include <QtGui/QLabel>
+#include "LibConfig.h"
 
 namespace Juff {
 
-class StatusLabel : public QLabel {
+class LIBJUFF_EXPORT StatusLabel : public QLabel {
 Q_OBJECT
 public:
 	StatusLabel(const QString& text);

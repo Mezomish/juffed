@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_LEXER_STORAGE_H__
 #define __JUFF_LEXER_STORAGE_H__
 
+#include "QSciLibConfig.h"
+
 class LSInterior;
 class QsciLexer;
 
@@ -29,7 +31,7 @@ class QStringList;
 
 #include <QtGui/QColor>
 
-class LexerStorage {
+class QSCI_ENGINE_EXPORT LexerStorage {
 public:
 	/**
 	* Returns lexer by name

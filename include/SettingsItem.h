@@ -19,9 +19,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_SETTINGS_ITEM_H__
 #define __JUFF_SETTINGS_ITEM_H__
 
+#include "LibConfig.h"
 #include <QtCore/QObject>
 
-class SettingsChangeNotifier : public QObject {
+class LIBJUFF_EXPORT SettingsChangeNotifier : public QObject {
 Q_OBJECT
 public:
 	SettingsChangeNotifier();

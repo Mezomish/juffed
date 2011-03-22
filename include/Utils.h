@@ -3,8 +3,9 @@
 
 #include "CommandStorageInt.h"
 #include "IconManagerInt.h"
+#include "LibConfig.h"
 
-class Utils {
+class LIBJUFF_EXPORT Utils {
 public:
 	static CommandStorageInt* commandStorage();
 	static IconManagerInt* iconManager();

@@ -19,12 +19,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __JUFF_COLOR_BUTTON_H__
 #define __JUFF_COLOR_BUTTON_H__
 
+#include "LibConfig.h"
+
 #include <QtCore/QObject>
 #include <QtGui/QColor>
 
 class QPushButton;
 	
-class ColorButton : public QObject {
+class LIBJUFF_EXPORT ColorButton : public QObject {
 Q_OBJECT
 public:
 	ColorButton(QPushButton*, const QColor& color);

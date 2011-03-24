@@ -18,10 +18,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDocEngine.h"
 
+#include "EditorSettings.h"
 #include "LexerStorage.h"
 #include "Log.h"
 #include "SciDoc.h"
 #include "SettingsCheckItem.h"
+#include "Utils.h"
 #include "settings/FileTypesPage.h"
 
 #include <QAction>
@@ -151,10 +153,28 @@ Juff::ActionList SciDocEngine::mainMenuActions(Juff::MenuID id) {
 			list << addAction(id, createAction(tr("Comment block"), QKeySequence("Shift+Ctrl+/"), SLOT(slotCommentBlock())));
 			list << addAction(id, createAction(tr("Unindent lines"), QKeySequence("Shift+Tab"), SLOT(slotUnindent())));
 			list << addAction(id, createAction(tr("Insert 'Tab' character"), QKeySequence("Shift+Ctrl+Tab"), SLOT(slotInsertTab())));
+
 			break;
 		
 		case Juff::MenuView :
-			list << addAction(id, createAction(tr("Fold/Unfold all"), QKeySequence(""), SLOT(slotFoldUnfoldAll())));
+			showLineNumsAct_    = createAction(tr("Display line numbers"),      QKeySequence(), SLOT(slotShowLineNumbers()));
+			wrapWordsAct_       = createAction(tr("Wrap words"),                QKeySequence(), SLOT(slotWrapWords()));
+			showWhitespacesAct_ = createAction(tr("Show whitespaces and TABs"), QKeySequence(), SLOT(slotShowWhitespaces()));
+			showLineEndingsAct_ = createAction(tr("Show ends of lines"),        QKeySequence(), SLOT(slotShowLineEndings()));
+			showLineNumsAct_    ->setCheckable(true);
+			wrapWordsAct_       ->setCheckable(true);
+			showWhitespacesAct_ ->setCheckable(true);
+			showLineEndingsAct_ ->setCheckable(true);
+			showLineNumsAct_    ->setChecked(EditorSettings::get(EditorSettings::ShowLineNumbers));
+			wrapWordsAct_       ->setChecked(EditorSettings::get(EditorSettings::WrapWords));
+			showWhitespacesAct_ ->setChecked(EditorSettings::get(EditorSettings::ShowWhitespaces));
+			showLineEndingsAct_ ->setChecked(EditorSettings::get(EditorSettings::ShowLineEnds));
+			
+			list << addAction(id, showLineNumsAct_);
+			list << addAction(id, wrapWordsAct_);
+			list << addAction(id, showWhitespacesAct_);
+			list << addAction(id, showLineEndingsAct_);
+			list << addAction(id, createAction(tr("Fold/Unfold all"),           QKeySequence(), SLOT(slotFoldUnfoldAll())));
 			list << addAction(id, syntaxMenu_->menuAction());
 			break;
 		
@@ -190,6 +210,18 @@ void SciDocEngine::deactivate(bool deact) {
 	syntaxLabel_->hide();
 	DocEngine::deactivate(deact);
 }
+
+void SciDocEngine::onDocActivated(Juff::Document* doc) {
+	DocEngine::onDocActivated(doc);
+	SciDoc* sciDoc = qobject_cast<SciDoc*>(curDoc());
+	if ( sciDoc != 0 ) {
+		sciDoc->setWrapWords      (wrapWordsAct_       ->isChecked());
+		sciDoc->setShowLineNumbers(showLineNumsAct_    ->isChecked());
+		sciDoc->setShowWhitespaces(showWhitespacesAct_ ->isChecked());
+		sciDoc->setShowLineEndings(showLineEndingsAct_ ->isChecked());
+	}
+}
+
 
 void SciDocEngine::slotUpperCase() {
 	LOGGER;
@@ -482,6 +514,54 @@ void SciDocEngine::slotGotoMarker() {
 		}
 	}
 }
+
+
+
+void SciDocEngine::slotShowLineNumbers() {
+	LOGGER;
+	bool checked = !EditorSettings::get(EditorSettings::ShowLineNumbers);
+	EditorSettings::set(EditorSettings::ShowLineNumbers, checked);
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->setShowLineNumbers(checked);
+	}
+}
+
+void SciDocEngine::slotWrapWords() {
+	bool checked = !EditorSettings::get(EditorSettings::WrapWords);
+	EditorSettings::set(EditorSettings::WrapWords, checked);
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->setWrapWords(checked);
+	}
+}
+
+void SciDocEngine::slotShowWhitespaces() {
+	bool checked = !EditorSettings::get(EditorSettings::ShowWhitespaces);
+	EditorSettings::set(EditorSettings::ShowWhitespaces, checked);
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->setShowWhitespaces(checked);
+	}
+}
+
+void SciDocEngine::slotShowLineEndings() {
+	bool checked = !EditorSettings::get(EditorSettings::ShowLineEnds);
+	EditorSettings::set(EditorSettings::ShowLineEnds, checked);
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	if ( doc != 0 ) {
+		doc->setShowLineEndings(checked);
+	}
+}
+
+
+
+
+
 
 bool SciDocEngine::getSettingsPages(QStringList& titles, QWidgetList& pages) const {
 	titles << tr("Printing");

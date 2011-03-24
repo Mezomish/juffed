@@ -69,10 +69,6 @@ public slots:
 	void slotReplace();
 	void slotGotoLine();
 	void slotGotoFile();
-	void slotWrapWords();
-	void slotShowLineNumbers();
-	void slotShowWhitespaces();
-	void slotShowLineEndings();
 	void slotZoomIn();
 	void slotZoomOut();
 	void slotZoom100();
@@ -119,7 +115,6 @@ private:
 	bool closeDocWithConfirmation(Juff::Document*);
 	
 	void updateMW(Juff::Document*);
-	void updateDocView(Juff::Document*);
 	void updateLineCount(Juff::Document*);
 	void updateCursorPos(Juff::Document*);
 	void addToRecentFiles(const QString&);

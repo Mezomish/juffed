@@ -31,10 +31,6 @@ const QString SEARCH_REPLACE    = "main:replace";
 const QString SEARCH_GOTO_LINE  = "main:gotoLine";
 const QString SEARCH_GOTO_FILE  = "main:gotoFile";
 
-const QString VIEW_LINE_NUMBERS = "main:viewLineNumbers";
-const QString VIEW_WRAP_WORDS   = "main:viewWrapWords";
-const QString VIEW_WHITESPACES  = "main:viewWhitespaces";
-const QString VIEW_LINE_ENDINGS = "main:viewLineEndings";
 const QString VIEW_ZOOM_IN      = "main:viewZoomIn";
 const QString VIEW_ZOOM_OUT     = "main:viewZoomOut";
 const QString VIEW_ZOOM_100     = "main:viewZoom100";

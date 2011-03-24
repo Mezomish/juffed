@@ -42,6 +42,7 @@ public:
 	virtual QWidgetList statusWidgets();
 	virtual void activate(bool act = true);
 	virtual void deactivate(bool deact = true);
+	virtual void onDocActivated(Juff::Document*);
 
 	virtual bool getSettingsPages(QStringList&, QWidgetList&) const;
 	virtual void getColorOptions(QList<ColorOption>&);
@@ -67,6 +68,11 @@ public slots:
 	void slotMarkerPrev();
 	void slotGotoMarker();
 
+	void slotShowLineNumbers();
+	void slotWrapWords();
+	void slotShowWhitespaces();
+	void slotShowLineEndings();
+
 protected slots:
 	void slotSyntaxChanged();
 	void onMenuAboutToBeShown();
@@ -86,6 +92,10 @@ private:
 	Juff::StatusLabel* eolLabel_;
 	QActionGroup* syntaxGroup_;
 	QActionGroup* eolGroup_;
+	QAction* showLineNumsAct_;
+	QAction* wrapWordsAct_;
+	QAction* showWhitespacesAct_;
+	QAction* showLineEndingsAct_;
 };
 
 #endif // __JUFFED_SCI_DOC_ENGINE_H__

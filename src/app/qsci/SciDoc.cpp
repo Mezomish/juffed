@@ -564,7 +564,7 @@ void SciDoc::setWrapWords(bool wrap) {
 }
 
 void SciDoc::setShowLineNumbers(bool show) {
-//	LOGGER;
+	LOGGER;
 	
 	int_->edit1_->showLineNumbers(show);
 	int_->edit2_->showLineNumbers(show);

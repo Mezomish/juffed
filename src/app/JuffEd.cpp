@@ -16,7 +16,7 @@
 #include "Constants.h"
 #include "Document.h"
 #include "DocViewer.h"
-#include "EditorSettings.h"
+//#include "EditorSettings.h"
 #include "JuffMW.h"
 #include "Log.h"
 #include "NullDoc.h"
@@ -113,10 +113,6 @@ void JuffEd::initActions() {
 	st->addAction(SEARCH_GOTO_LINE, tr("Go to line"), this, SLOT(slotGotoLine()));
 	st->addAction(SEARCH_GOTO_FILE, tr("Go to file"), this, SLOT(slotGotoFile()));
 	
-	st->addAction(VIEW_LINE_NUMBERS, tr("Display line numbers"), this, SLOT(slotShowLineNumbers()));
-	st->addAction(VIEW_WRAP_WORDS,   tr("Wrap words"), this, SLOT(slotWrapWords()));
-	st->addAction(VIEW_WHITESPACES,  tr("Show whitespaces and TABs"), this, SLOT(slotShowWhitespaces()));
-	st->addAction(VIEW_LINE_ENDINGS, tr("Show ends of lines"), this, SLOT(slotShowLineEndings()));
 	st->addAction(VIEW_ZOOM_IN,      tr("Zoom In"), this, SLOT(slotZoomIn()));
 	st->addAction(VIEW_ZOOM_OUT,     tr("Zoom Out"), this, SLOT(slotZoomOut()));
 	st->addAction(VIEW_ZOOM_100,     tr("Zoom 100%"), this, SLOT(slotZoom100()));
@@ -125,15 +121,6 @@ void JuffEd::initActions() {
 	st->addAction(TOOLS_SETTINGS,    tr("Settings"), this, SLOT(slotSettings()));
 	st->addAction(HELP_ABOUT,        tr("About"), mw_, SLOT(slotAbout()));
 	st->addAction(HELP_ABOUT_QT,     tr("About Qt"), mw_, SLOT(slotAboutQt()));
-	
-	st->action(VIEW_WRAP_WORDS)->setCheckable(true);
-	st->action(VIEW_LINE_NUMBERS)->setCheckable(true);
-	st->action(VIEW_WHITESPACES)->setCheckable(true);
-	st->action(VIEW_LINE_ENDINGS)->setCheckable(true);
-	st->action(VIEW_WRAP_WORDS)->setChecked(EditorSettings::get(EditorSettings::WrapWords));
-	st->action(VIEW_LINE_NUMBERS)->setChecked(EditorSettings::get(EditorSettings::ShowLineNumbers));
-	st->action(VIEW_WHITESPACES)->setChecked(EditorSettings::get(EditorSettings::ShowWhitespaces));
-	st->action(VIEW_LINE_ENDINGS)->setChecked(EditorSettings::get(EditorSettings::ShowLineEnds));
 }
 
 void JuffEd::initUI() {
@@ -291,16 +278,12 @@ void JuffEd::buildUI() {
 	
 	// VIEW
 	menu = menus_[Juff::MenuView];
-	menu->addAction(st->action(VIEW_WRAP_WORDS));
-	menu->addAction(st->action(VIEW_LINE_NUMBERS));
-	menu->addAction(st->action(VIEW_WHITESPACES));
-	menu->addAction(st->action(VIEW_LINE_ENDINGS));
+	menu->addAction(st->action(VIEW_FULLSCREEN));
 	menu->addSeparator();
 	menu->addAction(st->action(VIEW_ZOOM_IN));
 	menu->addAction(st->action(VIEW_ZOOM_OUT));
 	menu->addAction(st->action(VIEW_ZOOM_100));
 	menu->addSeparator();
-	menu->addAction(st->action(VIEW_FULLSCREEN));
 	
 	// SEARCH
 	menu = menus_[Juff::MenuSearch];
@@ -711,45 +694,7 @@ void JuffEd::slotGotoFile() {
 		openDoc(fileName);
 }
 
-void JuffEd::slotWrapWords(){
-	bool checked = Juff::Utils::commandStorage()->action(VIEW_WRAP_WORDS)->isChecked();
-	EditorSettings::set(EditorSettings::WrapWords, checked);
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->setWrapWords(checked);
-	}
-}
 
-void JuffEd::slotShowLineNumbers(){
-	bool checked = Juff::Utils::commandStorage()->action(VIEW_LINE_NUMBERS)->isChecked();
-	EditorSettings::set(EditorSettings::ShowLineNumbers, checked);
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->setShowLineNumbers(checked);
-	}
-}
-
-void JuffEd::slotShowWhitespaces(){
-	bool checked = Juff::Utils::commandStorage()->action(VIEW_WHITESPACES)->isChecked();
-	EditorSettings::set(EditorSettings::ShowWhitespaces, checked);
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->setShowWhitespaces(checked);
-	}
-}
-
-void JuffEd::slotShowLineEndings(){
-	bool checked = Juff::Utils::commandStorage()->action(VIEW_LINE_ENDINGS)->isChecked();
-	EditorSettings::set(EditorSettings::ShowLineEnds, checked);
-	
-	Juff::Document* doc = curDoc();
-	if ( !doc->isNull() ) {
-		doc->setShowLineEndings(checked);
-	}
-}
 
 void JuffEd::slotZoomIn(){
 	Juff::Document* doc = curDoc();
@@ -891,7 +836,6 @@ void JuffEd::onDocRenamed(const QString& oldName) {
 void JuffEd::onDocActivated(Juff::Document* doc) {
 	LOGGER;
 	updateMW(doc);
-	updateDocView(doc);
 	
 	search_->setCurDoc(doc);
 	foreach (Juff::DocEngine* eng, engines_) {
@@ -958,7 +902,6 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 		if ( prj_ != NULL )
 			prj_->addFile(doc->fileName());
 		
-		updateDocView(doc);
 		doc->setFocus();
 		search_->setCurDoc(doc);
 		
@@ -1219,16 +1162,6 @@ void JuffEd::updateMW(Juff::Document* doc) {
 	
 	title += "JuffEd";
 	mw_->setWindowTitle(title);
-}
-
-void JuffEd::updateDocView(Juff::Document* doc) {
-	CommandStorageInt* st = Juff::Utils::commandStorage();
-	doc->setWrapWords(st->action(VIEW_WRAP_WORDS)->isChecked());
-	doc->setShowLineNumbers(st->action(VIEW_LINE_NUMBERS)->isChecked());
-	doc->setShowWhitespaces(st->action(VIEW_WHITESPACES)->isChecked());
-	doc->setShowLineEndings(st->action(VIEW_LINE_ENDINGS)->isChecked());
-	
-//	docManager_->setCurDocType(doc->type());
 }
 
 void JuffEd::updateLineCount(Juff::Document* doc) {

@@ -25,6 +25,7 @@ class QAction;
 class QMenu;
 
 #include "Enums.h"
+#include "Types.h"
 
 #include <QColor>
 #include <QList>
@@ -36,7 +37,6 @@ class QMenu;
 namespace Juff {
 
 class Document;
-class DocHandlerInt;
 
 class LIBJUFF_EXPORT DocEngine {
 public:
@@ -56,30 +56,30 @@ public:
 	DocEngine();
 	virtual ~DocEngine();
 
-	static void setDocHandler(Juff::DocHandlerInt*);
+	// essential methods to be re-implemented
+	virtual Juff::Document*  createDoc        (const QString& fileName) const = 0;
+	virtual QString          type             () const = 0;
 
-	virtual Juff::Document* createDoc(const QString& fileName) const = 0;
-	virtual QString type() const = 0;
-	virtual QStringList syntaxList() const { return QStringList(); }
+	// obtain some details
+	virtual QStringList      syntaxList       () const { return QStringList(); }
+	virtual Juff::ActionList mainMenuActions  (Juff::MenuID) { return Juff::ActionList(); }
+	virtual QWidgetList      statusWidgets    () { return QWidgetList(); }
+	// settings
+	virtual bool             getSettingsPages (QStringList&, QWidgetList&) const { return false; }
+	virtual void             getColorOptions  (QList<ColorOption>&) {}
 
-	virtual void initMenuActions(Juff::MenuID, QMenu*) {}
-	virtual QWidgetList statusWidgets() { return QWidgetList(); }
-	virtual void activate(bool act = true);
-	virtual void deactivate(bool deact = true);
+	virtual void             activate         (bool act = true);
+	virtual void             deactivate       (bool deact = true);
+	virtual void             onDocActivated   (Juff::Document*);
 
-	virtual QWidget* settingsPage() const { return 0; }
-	virtual bool getSettingsPages(QStringList&, QWidgetList&) const { return false; }
-	virtual void getColorOptions(QList<ColorOption>&) {}
 	
 protected:
-	void addAction(Juff::MenuID, QMenu*, QAction*);
-	
-	static Juff::Document* curDoc();
+	QAction*                 addAction        (Juff::MenuID, QAction*);
+	Juff::Document*          curDoc           () const;
 
 private:
 	QMap< Juff::MenuID, QList<QAction*> > actionsMap_;
-
-	static Juff::DocHandlerInt* handler_;
+	Juff::Document* curDoc_;
 };
 
 } // namespace Juff

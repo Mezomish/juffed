@@ -18,19 +18,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SciDocEngine.h"
 
-#include "ColorButton.h"
 #include "LexerStorage.h"
 #include "Log.h"
-#include "QSciSettings.h"
 #include "SciDoc.h"
-#include "SettingsPage.h"
 #include "SettingsCheckItem.h"
 #include "settings/FileTypesPage.h"
 
 #include <QAction>
+#include <QCheckBox>
 #include <QMenu>
-
-#include "ui_QSciSettings.h"
 
 class PrintingPage: public SettingsPage {
 public:
@@ -76,53 +72,6 @@ QString eolText(SciDoc::Eol eol) {
 	return "";
 }
 
-class QSciSettingsPage : public SettingsPage {
-public:
-	QSciSettingsPage() : SettingsPage(0) {
-		ui_.setupUi(this);
-		
-		connect(ui_.curLineChk, SIGNAL(toggled(bool)), ui_.curLineColorBtn, SLOT(setEnabled(bool)));
-		connect(ui_.matchingBraceChk, SIGNAL(toggled(bool)), ui_.matchingBraceFgColorBtn, SLOT(setEnabled(bool)));
-		connect(ui_.matchingBraceChk, SIGNAL(toggled(bool)), ui_.matchingBraceBgColorBtn, SLOT(setEnabled(bool)));
-		connect(ui_.indentsChk, SIGNAL(toggled(bool)), ui_.indentsColorBtn, SLOT(setEnabled(bool)));
-		
-		indentsColorBtn_ = new ColorButton(ui_.indentsColorBtn, QSciSettings::get(QSciSettings::IndentsColor));
-		matchingBraceBgColorBtn_ = new ColorButton(ui_.matchingBraceBgColorBtn, QSciSettings::get(QSciSettings::MatchingBraceBgColor));
-		matchingBraceFgColorBtn_ = new ColorButton(ui_.matchingBraceFgColorBtn, QSciSettings::get(QSciSettings::MatchingBraceFgColor));
-		curLineColorBtn_ = new ColorButton(ui_.curLineColorBtn, QSciSettings::get(QSciSettings::CurLineColor));
-		
-		items_
-			<< new SettingsCheckItem("QSci", "highlightCurLine", ui_.curLineChk)
-			<< new SettingsCheckItem("QSci", "highlightMatchingBrace", ui_.matchingBraceChk)
-			<< new SettingsCheckItem("QSci", "showIndents", ui_.indentsChk)
-		;
-		
-		ui_.curLineColorBtn->setEnabled(ui_.curLineChk->isChecked());
-		ui_.matchingBraceBgColorBtn->setEnabled(ui_.matchingBraceChk->isChecked());
-		ui_.matchingBraceFgColorBtn->setEnabled(ui_.matchingBraceChk->isChecked());
-		ui_.indentsColorBtn->setEnabled(ui_.indentsChk->isChecked());
-	}
-	
-	virtual void init() {}
-	virtual void apply() {
-		QSciSettings::set(QSciSettings::IndentsColor, indentsColorBtn_->color());
-		QSciSettings::set(QSciSettings::MatchingBraceBgColor, matchingBraceBgColorBtn_->color());
-		QSciSettings::set(QSciSettings::MatchingBraceFgColor, matchingBraceFgColorBtn_->color());
-		QSciSettings::set(QSciSettings::CurLineColor, curLineColorBtn_->color());
-		
-		SettingsPage::apply();
-	}
-	
-private:
-	Ui::QSciSettings ui_;
-
-	ColorButton* indentsColorBtn_;
-	ColorButton* matchingBraceBgColorBtn_;
-	ColorButton* matchingBraceFgColorBtn_;
-	ColorButton* curLineColorBtn_;
-};
-
-
 SciDocEngine::SciDocEngine() : QObject(), Juff::DocEngine() {
 	syntaxGroup_ = new QActionGroup(this);
 	eolGroup_ = new QActionGroup(this);
@@ -162,8 +111,6 @@ SciDocEngine::SciDocEngine() : QObject(), Juff::DocEngine() {
 	eolLabel_->setMenu(eolMenu_);
 	eolLabel_->hide();
 	eolLabel_->setMaximumWidth(20);
-	
-	settingsPage_ = new QSciSettingsPage();
 }
 
 Juff::Document* SciDocEngine::createDoc(const QString& fileName) const {
@@ -188,39 +135,41 @@ QAction* SciDocEngine::createAction(const QString& title, const QKeySequence& ke
 	return act;
 }
 
-void SciDocEngine::initMenuActions(Juff::MenuID id, QMenu* menu) {
+Juff::ActionList SciDocEngine::mainMenuActions(Juff::MenuID id) {
+	Juff::ActionList list;
 	switch (id) {
 		case Juff::MenuEdit :
-			addAction(id, menu, createAction(tr("UPPER CASE"), QKeySequence("Ctrl+U"), SLOT(slotUpperCase())));
-			addAction(id, menu, createAction(tr("lower case"), QKeySequence("Shift+Ctrl+U"), SLOT(slotLowerCase())));
-			addAction(id, menu, createAction(tr("Move line up"), QKeySequence("Alt+Up"), SLOT(slotMoveUp())));
-			addAction(id, menu, createAction(tr("Move line down"), QKeySequence("Alt+Down"), SLOT(slotMoveDown())));
-			addAction(id, menu, createAction(tr("Duplicate text"), QKeySequence("Ctrl+D"), SLOT(slotDuplicate())));
-			addAction(id, menu, createAction(tr("Remove lines"), QKeySequence("Ctrl+L"), SLOT(slotRemoveLines())));
-			addAction(id, menu, createAction(tr("Remove the beginning of the line"), QKeySequence("Shift+Ctrl+Backspace"), SLOT(slotRemoveLineLeft())));
-			addAction(id, menu, createAction(tr("Remove the end of the line"), QKeySequence("Shift+Ctrl+Delete"), SLOT(slotRemoveLineRight())));
-			addAction(id, menu, createAction(tr("Comment lines"), QKeySequence("Ctrl+/"), SLOT(slotCommentLines())));
-			addAction(id, menu, createAction(tr("Comment block"), QKeySequence("Shift+Ctrl+/"), SLOT(slotCommentBlock())));
-			addAction(id, menu, createAction(tr("Unindent lines"), QKeySequence("Shift+Tab"), SLOT(slotUnindent())));
-			addAction(id, menu, createAction(tr("Insert 'Tab' character"), QKeySequence("Shift+Ctrl+Tab"), SLOT(slotInsertTab())));
+			list << addAction(id, createAction(tr("UPPER CASE"), QKeySequence("Ctrl+U"), SLOT(slotUpperCase())));
+			list << addAction(id, createAction(tr("lower case"), QKeySequence("Shift+Ctrl+U"), SLOT(slotLowerCase())));
+			list << addAction(id, createAction(tr("Move line up"), QKeySequence("Alt+Up"), SLOT(slotMoveUp())));
+			list << addAction(id, createAction(tr("Move line down"), QKeySequence("Alt+Down"), SLOT(slotMoveDown())));
+			list << addAction(id, createAction(tr("Duplicate text"), QKeySequence("Ctrl+D"), SLOT(slotDuplicate())));
+			list << addAction(id, createAction(tr("Remove lines"), QKeySequence("Ctrl+L"), SLOT(slotRemoveLines())));
+			list << addAction(id, createAction(tr("Remove the beginning of the line"), QKeySequence("Shift+Ctrl+Backspace"), SLOT(slotRemoveLineLeft())));
+			list << addAction(id, createAction(tr("Remove the end of the line"), QKeySequence("Shift+Ctrl+Delete"), SLOT(slotRemoveLineRight())));
+			list << addAction(id, createAction(tr("Comment lines"), QKeySequence("Ctrl+/"), SLOT(slotCommentLines())));
+			list << addAction(id, createAction(tr("Comment block"), QKeySequence("Shift+Ctrl+/"), SLOT(slotCommentBlock())));
+			list << addAction(id, createAction(tr("Unindent lines"), QKeySequence("Shift+Tab"), SLOT(slotUnindent())));
+			list << addAction(id, createAction(tr("Insert 'Tab' character"), QKeySequence("Shift+Ctrl+Tab"), SLOT(slotInsertTab())));
 			break;
 		
 		case Juff::MenuView :
-			addAction(id, menu, createAction(tr("Fold/Unfold all"), QKeySequence(""), SLOT(slotFoldUnfoldAll())));
-			addAction(id, menu, syntaxMenu_->menuAction());
+			list << addAction(id, createAction(tr("Fold/Unfold all"), QKeySequence(""), SLOT(slotFoldUnfoldAll())));
+			list << addAction(id, syntaxMenu_->menuAction());
 			break;
 		
 		case Juff::MenuFormat :
-			addAction(id, menu, eolMenu_->menuAction());
+			list << addAction(id, eolMenu_->menuAction());
 			break;
 		
 		case Juff::MenuSearch :
-			menu->addSeparator();
-			menu->addMenu(markersMenu_);
+//			menu->addSeparator();
+			list << markersMenu_->menuAction();
 			break;
 		
 		default:;
 	}
+	return list;
 }
 
 QWidgetList SciDocEngine::statusWidgets() {
@@ -487,11 +436,6 @@ void SciDocEngine::onDocFocused() {
 		
 		updateMarkersMenu();
 	}
-}
-
-QWidget* SciDocEngine::settingsPage() const {
-	settingsPage_->setWindowTitle("QScintilla");
-	return settingsPage_;
 }
 
 void SciDocEngine::updateMarkersMenu() {

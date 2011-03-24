@@ -38,12 +38,11 @@ public:
 	virtual QString type() const;
 	virtual QStringList syntaxList() const;
 
-	virtual void initMenuActions(Juff::MenuID, QMenu*);
+	virtual Juff::ActionList mainMenuActions(Juff::MenuID);
 	virtual QWidgetList statusWidgets();
 	virtual void activate(bool act = true);
 	virtual void deactivate(bool deact = true);
 
-	virtual QWidget* settingsPage() const;
 	virtual bool getSettingsPages(QStringList&, QWidgetList&) const;
 	virtual void getColorOptions(QList<ColorOption>&);
 	
@@ -87,7 +86,6 @@ private:
 	Juff::StatusLabel* eolLabel_;
 	QActionGroup* syntaxGroup_;
 	QActionGroup* eolGroup_;
-	QWidget* settingsPage_;
 };
 
 #endif // __JUFFED_SCI_DOC_ENGINE_H__

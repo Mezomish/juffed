@@ -137,7 +137,6 @@ SET ( juffed_qsci_MOC_HEADERS
 )
 
 SET ( juffed_qsci_UIS
-	src/app/qsci/forms/QSciSettings.ui
 	src/app/qsci/settings/FileTypesPage.ui
 )
 

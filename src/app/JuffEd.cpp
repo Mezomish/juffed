@@ -196,7 +196,6 @@ void JuffEd::initUI() {
 
 void JuffEd::loadEngines() {
 	SciDocEngine* sciEng = new SciDocEngine();
-	sciEng->setDocHandler(this);
 	engines_[sciEng->type()] = sciEng;
 	
 	QStringList titles;
@@ -336,7 +335,10 @@ void JuffEd::buildUI() {
 		if ( m != NULL ) {
 			// add engines' items
 			foreach(Juff::DocEngine* eng, engines_) {
-				eng->initMenuActions(id, m);
+				Juff::ActionList actions = eng->mainMenuActions(id);
+				foreach (QAction* act, actions) {
+					m->addAction(act);
+				}
 			}
 			// add menu to the menubar
 			mw_->addMenu(m);
@@ -892,6 +894,9 @@ void JuffEd::onDocActivated(Juff::Document* doc) {
 	updateDocView(doc);
 	
 	search_->setCurDoc(doc);
+	foreach (Juff::DocEngine* eng, engines_) {
+		eng->onDocActivated(doc);
+	}
 	
 	// notify plugins
 	emit docActivated(doc);

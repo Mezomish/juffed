@@ -18,7 +18,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "DocEngine.h"
 
-#include "DocHandlerInt.h"
 #include "Log.h"
 #include "NullDoc.h"
 
@@ -27,32 +26,24 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 namespace Juff {
 
-Juff::DocHandlerInt* DocEngine::handler_ = NULL;
-
 DocEngine::DocEngine() {
+	curDoc_ = NullDoc::instance();
 }
 
 DocEngine::~DocEngine() {
 }
 
-void DocEngine::setDocHandler(Juff::DocHandlerInt* h) {
-	handler_ = h;
+Juff::Document* DocEngine::curDoc() const {
+	return curDoc_;
 }
 
-Juff::Document* DocEngine::curDoc() {
-	if ( handler_ != NULL )
-		return handler_->curDoc();
-	else
-		return NullDoc::instance();
-}
-
-
-void DocEngine::addAction(Juff::MenuID id, QMenu* menu, QAction* action) {
+QAction* DocEngine::addAction(Juff::MenuID id, QAction* action) {
 	if ( !actionsMap_.contains(id) ) {
 		actionsMap_.insert(id, QList<QAction*>());
 	}
 	actionsMap_[id] << action;
-	menu->addAction(action);
+	
+	return action;
 }
 
 void DocEngine::activate(bool activate) {
@@ -73,6 +64,10 @@ void DocEngine::deactivate(bool deact) {
 			act->setVisible(!deact);
 		}
 	}
+}
+
+void DocEngine::onDocActivated(Juff::Document* doc) {
+	curDoc_ = ( doc == NULL ? NullDoc::instance() : doc );
 }
 
 } // namespace Juff

@@ -1,5 +1,6 @@
 # find TCL lexer
-find_path ( QSCI_TCL_LEXER qscilexertcl.h ${LIBQSCINTILLA2_INCLUDE_DIR} )
+
+find_path ( QSCI_TCL_LEXER qscilexertcl.h ${QSCINTILLA_INCLUDE_DIR} )
 if ( QSCI_TCL_LEXER )
 	ADD_DEFINITIONS (
 		-DJUFF_TCL_LEXER
@@ -7,7 +8,7 @@ if ( QSCI_TCL_LEXER )
 endif ( QSCI_TCL_LEXER )
 
 # find Pascal lexer
-find_path ( QSCI_PASCAL_LEXER qscilexerpascal.h ${LIBQSCINTILLA2_INCLUDE_DIR} )
+find_path ( QSCI_PASCAL_LEXER qscilexerpascal.h ${QSCINTILLA_INCLUDE_DIR} )
 if ( QSCI_PASCAL_LEXER )
 	ADD_DEFINITIONS (
 		-DJUFF_PASCAL_LEXER
@@ -15,7 +16,7 @@ if ( QSCI_PASCAL_LEXER )
 endif ( QSCI_PASCAL_LEXER )
 
 # find Fortran lexer
-find_path ( QSCI_FORTRAN_LEXER qscilexerfortran.h ${LIBQSCINTILLA2_INCLUDE_DIR} )
+find_path ( QSCI_FORTRAN_LEXER qscilexerfortran.h ${QSCINTILLA_INCLUDE_DIR} )
 if ( QSCI_FORTRAN_LEXER )
 	ADD_DEFINITIONS (
 		-DJUFF_FORTRAN_LEXER
@@ -23,7 +24,7 @@ if ( QSCI_FORTRAN_LEXER )
 endif ( QSCI_FORTRAN_LEXER )
 
 # find CSS3Property
-find_path ( QSCI_CSS_LEXER qscilexercss.h ${LIBQSCINTILLA2_INCLUDE_DIR} )
+find_path ( QSCI_CSS_LEXER qscilexercss.h ${QSCINTILLA_INCLUDE_DIR} )
 if ( QSCI_CSS_LEXER )
 	EXECUTE_PROCESS ( 
 		COMMAND grep CSS3Property ${QSCI_CSS_LEXER}/qscilexercss.h

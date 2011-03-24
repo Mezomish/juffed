@@ -20,7 +20,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
 QStringList FileTypeSettings::getTypeList() {
-	return Settings::instance()->value("filetypes", "types").toStringList();
+	if ( Settings::instance()->valueExists("filetypes", "types") )
+		return Settings::instance()->value("filetypes", "types").toStringList();
+	else
+		return QStringList();
 }
 
 QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
@@ -59,6 +62,9 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 		else if ( type == "Diff") {
 			list << "*.diff" << "*.patch";
 		}
+		else if ( type == "Fortran") {
+			list << "*.f" << "*.f77" << "*.f90";
+		}
 		else if ( type == "Haskell") {
 			list << "*.hs" << "*.lhs";
 		}
@@ -95,6 +101,9 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 		else if ( type == "NXC") {
 			list << "*.nxc";
 		}
+		else if ( type == "Pascal") {
+			list << "*.p{1,2}" << "*.pa[s345]";
+		}
 		else if ( type == "Perl") {
 			list << "*.p[lm]";
 		}
@@ -103,6 +112,12 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 		}
 		else if ( type == "PHP") {
 			list << "*.php*";
+		}
+		else if ( type == "Qore") {
+			list << "*.q" << "*.qc" << "*.ql";
+		}
+		else if ( type == "Qorus") {
+			list << "*.qfd" << "*.qwf" << "*.qsd" << "*.qclass";
 		}
 		else if ( type == "Ruby") {
 			list << "*.rb";
@@ -113,17 +128,11 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 		else if ( type == "TeX") {
 			list << "*.tex";
 		}
+		else if ( type == "TCL") {
+			list << "*.tcl";
+		}
 		else if ( type == "XML") {
 			list << "*.xml";
-		}
-		else if ( type == "Fortran") {
-			list << "*.f" << "*.f77" << "*.f90";
-		}
-		else if ( type == "Qore") {
-			list << "*.q" << "*.qc" << "*.ql";
-		}
-		else if ( type == "Qorus") {
-			list << "*.qfd" << "*.qwf" << "*.qsd" << "*.qclass";
 		}
 
 		return list;
@@ -143,6 +152,8 @@ QStringList FileTypeSettings::getFirstLinePatterns(const QString& type) {
 			list << "Index: *";
 		else if ( type == "HTML") 
 			list << "<!doctype html*" << "<html*";
+		else if ( type == "Pascal") 
+			list << "program *" << "unit *";
 		else if ( type == "Perl") 
 			list << "*perl*";
 		else if ( type == "Python") 

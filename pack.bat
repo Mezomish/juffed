@@ -20,6 +20,7 @@ if "%1" == "" GOTO No_Version
 	echo Copying program binaries...
 	copy "build\juffed.exe" "%1"
 	copy "build\libjuff.dll" "%1"
+	copy "build\libjuffed-engine-*.dll" "%1"
 	
 	REM localizations, apis, hlschemes
 	echo.
@@ -29,6 +30,12 @@ if "%1" == "" GOTO No_Version
 	copy "apis\*.api" "%1\apis"
 	copy "hlschemes\*.xml" "%1\hlschemes"
 
+	REM plugins
+	echo.
+	echo ----------------------------------
+	echo Copying Plugins...
+	copy "build\plugins\*.dll" "%1\plugins\"
+	
 	REM Misc files
 	echo.
 	echo ----------------------------------

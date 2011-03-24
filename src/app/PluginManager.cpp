@@ -34,7 +34,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QPluginLoader>
 
 PluginManager::PluginManager(Juff::DocHandlerInt* handler, Juff::PluginNotifier* notifier) {
-	api_ = new JuffAPI(handler, notifier, Utils::commandStorage(), Utils::iconManager());
+	api_ = new JuffAPI(handler, notifier, Juff::Utils::commandStorage(), Juff::Utils::iconManager());
 }
 
 PluginManager::~PluginManager() {
@@ -56,7 +56,7 @@ void PluginManager::loadPlugins(SettingsDlg* dlg) {
 			Juff::ActionList pluginActions = plugin->mainMenuActions(id);
 			QString name = plugin->name();
 			foreach (QAction* a, pluginActions) {
-				Utils::commandStorage()->addAction(QString("zzz_") + name + ":" + a->text(), a);
+				Juff::Utils::commandStorage()->addAction(QString("plugin_") + name + ":" + a->text(), a);
 			}
 		}
 		++i;

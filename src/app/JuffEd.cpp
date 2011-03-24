@@ -86,7 +86,7 @@ JuffEd::~JuffEd() {
 }
 
 void JuffEd::initActions() {
-	CommandStorageInt* st = Utils::commandStorage();
+	CommandStorageInt* st = Juff::Utils::commandStorage();
 	
 	st->addAction(FILE_NEW,         tr("&New"),     this, SLOT(slotFileNew()));
 	st->addAction(FILE_OPEN,        tr("&Open"),    this, SLOT(slotFileOpen()));
@@ -172,7 +172,7 @@ void JuffEd::initUI() {
 	menus_[Juff::MenuTools]->addMenu(docksMenu_);
 	menus_[Juff::MenuTools]->addMenu(toolBarsMenu_);
 
-	CommandStorageInt* st = Utils::commandStorage();
+	CommandStorageInt* st = Juff::Utils::commandStorage();
 	
 	QToolBar* mainToolBar = new QToolBar("mainToolBar");
 	mainToolBar->setObjectName("mainToolBar");
@@ -260,7 +260,7 @@ void JuffEd::loadPlugins() {
 }
 
 void JuffEd::buildUI() {
-	CommandStorageInt* st = Utils::commandStorage();
+	CommandStorageInt* st = Juff::Utils::commandStorage();
 	
 	// FILE
 	QMenu* menu = menus_[Juff::MenuFile];
@@ -368,7 +368,7 @@ void JuffEd::buildUI() {
 	connect(posL_, SIGNAL(clicked()), SLOT(slotGotoLine()));
 	
 	QMenu* filePathMenu = new QMenu();
-	filePathMenu->addAction(Utils::iconManager()->icon(EDIT_COPY), tr("Copy"), this, SLOT(slotCopyFilePath()));
+	filePathMenu->addAction(Juff::Utils::iconManager()->icon(EDIT_COPY), tr("Copy"), this, SLOT(slotCopyFilePath()));
 	nameL_->setMenu(filePathMenu);
 	
 	mw_->addStatusWidget(posL_, 100);
@@ -488,8 +488,8 @@ void JuffEd::onCloseRequested(bool& confirm) {
 void JuffEd::onSettingsApplied() {
 	int sz = MainSettings::get(MainSettings::IconSize);
 	int size = ( sz == 1 ? 24 : (sz == 2 ? 32 : 16) );
-	Utils::iconManager()->setSize(size);
-	Utils::commandStorage()->updateIcons();
+	Juff::Utils::iconManager()->setSize(size);
+	Juff::Utils::commandStorage()->updateIcons();
 	initCharsetMenus();
 	
 	// TODO : apply shortcuts
@@ -712,7 +712,7 @@ void JuffEd::slotGotoFile() {
 }
 
 void JuffEd::slotWrapWords(){
-	bool checked = Utils::commandStorage()->action(VIEW_WRAP_WORDS)->isChecked();
+	bool checked = Juff::Utils::commandStorage()->action(VIEW_WRAP_WORDS)->isChecked();
 	EditorSettings::set(EditorSettings::WrapWords, checked);
 	
 	Juff::Document* doc = curDoc();
@@ -722,7 +722,7 @@ void JuffEd::slotWrapWords(){
 }
 
 void JuffEd::slotShowLineNumbers(){
-	bool checked = Utils::commandStorage()->action(VIEW_LINE_NUMBERS)->isChecked();
+	bool checked = Juff::Utils::commandStorage()->action(VIEW_LINE_NUMBERS)->isChecked();
 	EditorSettings::set(EditorSettings::ShowLineNumbers, checked);
 	
 	Juff::Document* doc = curDoc();
@@ -732,7 +732,7 @@ void JuffEd::slotShowLineNumbers(){
 }
 
 void JuffEd::slotShowWhitespaces(){
-	bool checked = Utils::commandStorage()->action(VIEW_WHITESPACES)->isChecked();
+	bool checked = Juff::Utils::commandStorage()->action(VIEW_WHITESPACES)->isChecked();
 	EditorSettings::set(EditorSettings::ShowWhitespaces, checked);
 	
 	Juff::Document* doc = curDoc();
@@ -742,7 +742,7 @@ void JuffEd::slotShowWhitespaces(){
 }
 
 void JuffEd::slotShowLineEndings(){
-	bool checked = Utils::commandStorage()->action(VIEW_LINE_ENDINGS)->isChecked();
+	bool checked = Juff::Utils::commandStorage()->action(VIEW_LINE_ENDINGS)->isChecked();
 	EditorSettings::set(EditorSettings::ShowLineEnds, checked);
 	
 	Juff::Document* doc = curDoc();
@@ -1222,7 +1222,7 @@ void JuffEd::updateMW(Juff::Document* doc) {
 }
 
 void JuffEd::updateDocView(Juff::Document* doc) {
-	CommandStorageInt* st = Utils::commandStorage();
+	CommandStorageInt* st = Juff::Utils::commandStorage();
 	doc->setWrapWords(st->action(VIEW_WRAP_WORDS)->isChecked());
 	doc->setShowLineNumbers(st->action(VIEW_LINE_NUMBERS)->isChecked());
 	doc->setShowWhitespaces(st->action(VIEW_WHITESPACES)->isChecked());

@@ -42,7 +42,7 @@ SearchPopup::SearchPopup() : QWidget() {
 	ui.replaceNextBtn->setText("");
 	ui.replaceAllBtn->setText("");
 	ui.expandBtn->setText("");
-	ui.expandBtn->setIcon(Utils::iconManager()->icon(SEARCH_REPLACE));
+	ui.expandBtn->setIcon(Juff::Utils::iconManager()->icon(SEARCH_REPLACE));
 	
 	ui.findCmb->setInsertPolicy(QComboBox::InsertAtTop);
 	ui.replaceCmb->setInsertPolicy(QComboBox::InsertAtTop);

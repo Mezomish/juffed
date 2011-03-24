@@ -3,6 +3,8 @@
 #include "CommandStorage.h"
 #include "IconManager.h"
 
+namespace Juff {
+
 CommandStorageInt* Utils::commandStorage_ = NULL;
 IconManagerInt* Utils::iconManager_ = NULL;
 
@@ -20,3 +22,4 @@ IconManagerInt* Utils::iconManager() {
 	return iconManager_;
 }
 
+} // namespace Juff

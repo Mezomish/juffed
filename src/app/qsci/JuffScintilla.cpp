@@ -40,7 +40,7 @@ JuffScintilla::JuffScintilla() : QsciScintilla() {
 	initHighlightingStyle(SEARCH_HIGHLIGHT, QSciSettings::get(QSciSettings::SearchHLColor));
 	
 	contextMenu_ = new QMenu();
-	CommandStorageInt* st = Utils::commandStorage();
+	CommandStorageInt* st = Juff::Utils::commandStorage();
 	contextMenu_->addAction(st->action(EDIT_UNDO));
 	contextMenu_->addAction(st->action(EDIT_REDO));
 	contextMenu_->addSeparator();

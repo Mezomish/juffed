@@ -48,6 +48,7 @@ void CommandStorage::addAction(const QString& key, const QString& name, QObject*
 	QAction* a = new QAction(iconManager_->icon(key), name, obj);
 	a->setShortcut(shortcut(key));
 
+#if QT_VERSION >= 0x040400
 	// fix for "Terminal: Ctrl-C and Ctrl-\ is not supported" plugins issue #1
 	// it takes shortcuts used in main app as related to editor only.
 	// Do not conflict with plugins.
@@ -55,6 +56,7 @@ void CommandStorage::addAction(const QString& key, const QString& name, QObject*
 	if (key == EDIT_COPY) {
 		a->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 	}
+#endif
 
 	if ( obj != NULL && slot != NULL ) {
 		QObject::connect(a, SIGNAL(triggered()), obj, slot);

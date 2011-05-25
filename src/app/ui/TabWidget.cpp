@@ -237,7 +237,7 @@ void TabWidget::dropEvent(QDropEvent* e) {
 #endif
 
 			if ( !name.isEmpty() ) {
-				handler_->openDoc(name);
+				handler_->openDoc(name, Juff::PanelCurrent, true);
 			}
 		}
 	}

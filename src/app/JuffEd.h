@@ -37,7 +37,7 @@ public:
 	virtual Juff::Document* curDoc() const;
 	virtual Juff::Document* getDoc(const QString&) const;
 	virtual Juff::Project* curPrj() const;
-	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent);
+	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent, bool addToRecent = false);
 	virtual void closeDoc(const QString&);
 	virtual void closeAllDocs(Juff::PanelIndex);
 	virtual void closeAllOtherDocs(int index, Juff::PanelIndex panel);

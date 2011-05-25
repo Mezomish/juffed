@@ -871,7 +871,7 @@ Juff::Project* JuffEd::curPrj() const {
 	return NULL;
 }
 
-void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
+void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel, bool addToRecent) {
 	// First try to activate an existing doc
 	if ( !viewer_->activateDoc(fileName) ) {
 		Juff::DocEngine* eng = engineForFileName(fileName);
@@ -931,6 +931,10 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel) {
 					mw_->message(QIcon(), "", tr("File '%1' is read-only").arg(fileNameAdjusted));
 				}
 			}
+		}
+		
+		if ( addToRecent && !doc->isNoname() ) {
+			addToRecentFiles(doc->fileName());
 		}
 	}
 }

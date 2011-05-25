@@ -53,7 +53,7 @@ public:
 	/**
 	* Opens a document with a given file name or activates it if it is already opened.
 	*/
-	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent) = 0;
+	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent, bool addToRecent = false) = 0;
 
 	/**
 	* Closes the document with a given file name.

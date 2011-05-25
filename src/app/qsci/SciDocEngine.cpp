@@ -459,6 +459,8 @@ void SciDocEngine::onDocFocused() {
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(sender());
 	if ( doc != 0 ) {
+		onDocActivated(doc);
+		
 		syntaxLabel_->setText(doc->syntax());
 		
 		SciDoc::Eol eol = doc->eol();

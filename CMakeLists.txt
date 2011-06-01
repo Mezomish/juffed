@@ -9,6 +9,8 @@
 # make
 
 option ( BUILD_PLUGINS "Build plugins from the externally linked SVN" ON )
+option ( APPLEBUNDLE "Build juffed as a Mac OS X bundle" OFF )
+option ( APPLEBUNDLE_STANDALONE "Pack APPLEBUNDLE with all its dependencies (libs)" OFF )
 
 project (juffed)
 cmake_minimum_required (VERSION 2.6.0)
@@ -161,9 +163,8 @@ if (APPLEBUNDLE)
 	# use icon for app bundle to be visible in finder
 	set(APPLE_BUNDLE_SOURCES ${CMAKE_SOURCE_DIR}/macosx/juffed.icns)
 	# this is a must to load the lib correctly
-	set_target_properties( ${JUFFLIB} PROPERTIES
-							INSTALL_NAME_DIR "@executable_path/../Libraries"
-						 )
+	set_target_properties( ${JUFFLIB} PROPERTIES INSTALL_NAME_DIR "@executable_path/../MacOS" )
+	set_target_properties( ${QSCI_ENGINE} PROPERTIES INSTALL_NAME_DIR "@executable_path/../MacOS" )
 else (APPLEBUNDLE)
 	set(GUI_TYPE "")
 	set(APPLE_BUNDLE_SOURCES "")
@@ -174,9 +175,8 @@ else (APPLEBUNDLE)
 		set_target_properties ( ${QSCI_ENGINE} PROPERTIES VERSION ${BASE_VERSION} SOVERSION ${BASE_VERSION} )
 	else (NOT APPLE)
 		# apple requires this one to keep sane dyn-linking
-		set_target_properties( ${JUFFLIB} PROPERTIES
-								INSTALL_NAME_DIR ${LIB_INSTALL_DIR}
-							 )
+		set_target_properties( ${JUFFLIB} PROPERTIES INSTALL_NAME_DIR ${LIB_INSTALL_DIR} )
+		set_target_properties( ${QSCI_ENGINE} PROPERTIES INSTALL_NAME_DIR ${LIB_INSTALL_DIR} )
 	endif (NOT APPLE)
 endif (APPLEBUNDLE)
 
@@ -281,7 +281,8 @@ else (NOT APPLEBUNDLE)
 
 	install( TARGETS ${JUFFED} DESTINATION "${CMAKE_INSTALL_PREFIX}" )
 	# lib is linked directly into binary in bundles to prevent Info.plist hacking
-	install( TARGETS ${JUFFLIB} DESTINATION "${APPLE_PREFIX}/Libraries" )
+	install( TARGETS ${JUFFLIB} DESTINATION "${APPLE_PREFIX}/MacOS" )
+	install( TARGETS ${QSCI_ENGINE} DESTINATION "${APPLE_PREFIX}/MacOS" )
 	install ( FILES ${juffed_QM} DESTINATION "${APPLE_PREFIX}/Resources/l10n" )
 
 	install ( DIRECTORY hlschemes DESTINATION "${APPLE_PREFIX}/Resources" PATTERN ".svn" EXCLUDE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ )

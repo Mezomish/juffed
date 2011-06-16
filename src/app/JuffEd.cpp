@@ -1140,6 +1140,12 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 }
 
 void JuffEd::updateMW(Juff::Document* doc) {
+	// check out the current charset item
+	QAction* curAct = openWithCharsetGr_->checkedAction();
+	if ( curAct != 0 ) {
+		curAct->setChecked(false);
+	}
+		
 	QString title;
 	if ( !doc->isNull() ) {
 		title = QString("%1 - ").arg(doc->titleWithModification());
@@ -1156,6 +1162,20 @@ void JuffEd::updateMW(Juff::Document* doc) {
 		
 		updateLineCount(doc);
 		updateCursorPos(doc);
+		
+		// check the item that matches the current doc's charset
+		foreach (QAction* act, openWithCharsetGr_->actions()) {
+			if ( act->text().compare(doc->charset()) == 0 ) {
+				act->setChecked(true);
+				break;
+			}
+		}
+		foreach (QAction* act, setCharsetGr_->actions()) {
+			if ( act->text().compare(doc->charset()) == 0 ) {
+				act->setChecked(true);
+				break;
+			}
+		}
 	}
 	else {
 		posL_->hide();

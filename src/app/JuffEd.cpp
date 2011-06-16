@@ -68,6 +68,13 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	
 	if ( viewer_->docCount(Juff::PanelAll) == 0 ) {
 		openDoc("", Juff::PanelLeft);
+		viewer_->hidePanel(Juff::PanelRight);
+	}
+	else if ( viewer_->docCount(Juff::PanelLeft) == 0 ) {
+		viewer_->hidePanel(Juff::PanelLeft);
+	}
+	else if ( viewer_->docCount(Juff::PanelRight) == 0 ) {
+		viewer_->hidePanel(Juff::PanelRight);
 	}
 	
 	onSettingsApplied();

@@ -36,9 +36,6 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 	curTab_ = tab1_;
 	curDoc_ = NullDoc::instance();
 	
-	spl_->setSizes(QList<int>() << spl_->width() << 0);
-	tab2_->hide();
-	
 	Juff::TabWidget* tabWidgets[] = { tab1_, tab2_, NULL };
 	for (int i = 0; tabWidgets[i] != NULL; ++i) {
 		Juff::TabWidget* tw = tabWidgets[i];
@@ -137,7 +134,7 @@ void DocViewer::showPanel(PanelIndex panel) {
 */
 void DocViewer::hidePanel(PanelIndex panel) {
 	if ( panel == PanelLeft ) {
-		if ( !tab2_->isVisible() || tab2_->width() == 0 ) {
+		if ( tab2_->width() == 0 ) {
 			// right tab is closed
 			return;
 		}
@@ -147,7 +144,7 @@ void DocViewer::hidePanel(PanelIndex panel) {
 		curTab_ = tab2_;
 	}
 	else if ( panel == PanelRight ) {
-		if ( !tab1_->isVisible() || tab1_->width() == 0 ) {
+		if ( tab1_->width() == 0 ) {
 			// left tab is closed
 			return;
 		}

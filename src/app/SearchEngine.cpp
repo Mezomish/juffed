@@ -336,24 +336,29 @@ void SearchEngine::onFindPrev() {
 	searchPopup_->setFocusOnFind();
 }
 
+void expandRegExpMatches(const QString& selectedText, QString& replaceWith, const Juff::SearchParams& params) {
+	QRegExp regExp(params.findWhat);
+	
+	if ( regExp.exactMatch(selectedText) ) {
+		QStringList matches = regExp.capturedTexts();
+		int n = matches.size();
+		for ( int i = 0; i < n; ++i ) {
+			replaceWith.replace(QString("\\%1").arg(i), matches[i]);
+		}
+	}
+}
+
 void SearchEngine::onReplaceNext() {
 	if ( curDoc_ == NULL || curDoc_->isNull() ) return;
 	const Juff::SearchParams& params = searchPopup_->searchParams();
 	
 	if ( curDoc_->hasSelectedText() ) {
+		QString selectedText;
+		curDoc_->getSelectedText(selectedText);
 		QString replaceWith = params.replaceWith;
+
 		if ( params.mode == Juff::SearchParams::RegExp || params.mode == Juff::SearchParams::MultiLineRegExp ) {
-			QRegExp regExp(params.findWhat);
-			QString selectedText;
-			curDoc_->getSelectedText(selectedText);
-			
-			if ( regExp.exactMatch(selectedText) ) {
-				QStringList matches = regExp.capturedTexts();
-				int n = matches.size();
-				for ( int i = 0; i < n; ++i ) {
-					replaceWith.replace(QString("\\%1").arg(i), matches[i]);
-				}
-			}
+			expandRegExpMatches(selectedText, replaceWith, params);
 		}
 		curDoc_->replaceSelectedText(replaceWith, true);
 	}
@@ -366,7 +371,14 @@ void SearchEngine::onReplacePrev() {
 	const Juff::SearchParams& params = searchPopup_->searchParams();
 	
 	if ( curDoc_->hasSelectedText() ) {
-		curDoc_->replaceSelectedText(params.replaceWith, false);
+		QString selectedText;
+		curDoc_->getSelectedText(selectedText);
+		QString replaceWith = params.replaceWith;
+
+		if ( params.mode == Juff::SearchParams::RegExp || params.mode == Juff::SearchParams::MultiLineRegExp ) {
+			expandRegExpMatches(selectedText, replaceWith, params);
+		}
+		curDoc_->replaceSelectedText(replaceWith, false);
 	}
 	onFindPrev();
 	searchPopup_->setFocusOnReplace(false);
@@ -388,7 +400,15 @@ void SearchEngine::onReplaceAll() {
 	for ( int i = count - 1; i >= 0; --i ) {
 		const Juff::SearchOccurence& occ = results->occurence(i);
 		curDoc_->setSelection(occ.startRow, occ.startCol, occ.endRow, occ.endCol);
-		curDoc_->replaceSelectedText(params.replaceWith);
+
+		QString selectedText;
+		curDoc_->getSelectedText(selectedText);
+		QString replaceWith = params.replaceWith;
+
+		if ( params.mode == Juff::SearchParams::RegExp || params.mode == Juff::SearchParams::MultiLineRegExp ) {
+			expandRegExpMatches(selectedText, replaceWith, params);
+		}
+		curDoc_->replaceSelectedText(replaceWith);
 		replacesMade++;
 	}
 	searchPopup_->setFocusOnReplace();

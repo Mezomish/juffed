@@ -55,7 +55,7 @@ Document::Document(const QString& fileName)
 //, clone_(NULL)
 {
 	if (fileName.isEmpty()) {
-		fileName_ = QString("Noname %1").arg(sCount_++);
+		fileName_ = QString("Untitled %1").arg(sCount_++);
 	}
 	else {
 		fileName_ = fileName;
@@ -108,7 +108,7 @@ QString Document::fileName() const {
 
 QString Document::title() const {
 	if ( isNoname() ) {
-		return QObject::tr("Noname %1").arg(fileName().section(' ', 1, 1).toInt());
+		return QObject::tr("Untitled %1").arg(fileName().section(' ', 1, 1).toInt());
 	}
 	else {
 		return QFileInfo(fileName()).fileName();
@@ -126,7 +126,7 @@ bool Document::isNoname(const QString& fileName, bool* ok) {
 		}
 		return true;
 	}
-	return fileName.left(6) == "Noname";
+	return fileName.startsWith("Untitled");
 }
 
 bool Document::isNoname() const {

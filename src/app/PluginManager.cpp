@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "DocHandlerInt.h"
 #include "PluginNotifier.h"
 #include "PluginSettings.h"
+#include "Settings.h"
 #include "Utils.h"
 #include "ui/settings/SettingsDlg.h"
 
@@ -42,6 +43,15 @@ PluginManager::~PluginManager() {
 }
 
 void PluginManager::loadPlugins(SettingsDlg* dlg) {
+	// switch off some plugins by default since user may not want their behavior by default
+	QStringList names;
+	names << "Autosave";
+	foreach (QString name, names) {
+		if ( !Settings::instance()->valueExists("Plugins", name) ) {
+			Settings::instance()->setValue("Plugins", name, false);
+		}
+	}
+	
 	//	global plugins
 	QDir gPluginDir(AppInfo::pluginsPath());
 	foreach (QString fileName, gPluginDir.entryList(QDir::Files)) {
@@ -130,7 +140,6 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 		JuffPlugin* plugin = qobject_cast<JuffPlugin*>(obj);
 #endif
 		if ( plugin ) {
-
 			//	Check if we need to load it
 			if ( !PluginSettings::pluginEnabled(plugin->name()) ) {
 				dlg->addPluginSettingsPage(plugin->name(), plugin->title(), 0);

@@ -60,7 +60,7 @@ DocViewer::DocViewer(Juff::DocHandlerInt* handler) : QWidget(), ctrlTabMenu_(thi
 	// numbered docs
 	for (int i = 0; i < 10; ++i) {
 		QAction* act = new QAction(QString::number(i), this);
-		act->setShortcut(QKeySequence(QString("Alt+%1").arg(i)));
+		act->setShortcut(QKeySequence(QString("Ctrl+%1").arg(i)));
 		connect(act, SIGNAL(triggered()), SLOT(goToNumberedDoc()));
 		addAction(act);
 	}

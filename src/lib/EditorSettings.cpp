@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "EditorSettings.h"
 #include "Settings.h"
 
+#include <QPalette>
+
 void EditorSettings::set(IntKey key, int value) {
 	switch (key) {
 		case FontSize :
@@ -122,19 +124,19 @@ QColor EditorSettings::get(ColorKey key) {
 	switch (key) {
 		case SelectionBgColor :
 		{
-			QColor deflt(150, 150, 155);
+			QColor deflt = QPalette().color(QPalette::Highlight);
 			QColor c = Settings::instance()->value("editor", "selectionBgColor").value<QColor>();
 			return c.isValid() ? c : deflt;
 		}
 		case DefaultBgColor :
 		{
-			QColor deflt(255, 255, 255);
+			QColor deflt = QPalette().color(QPalette::Base);
 			QColor c = Settings::instance()->value("editor", "defaultBgColor").value<QColor>();
 			return c.isValid() ? c : deflt;
 		}
 		case DefaultFontColor :
 		{
-			QColor deflt(0, 0, 0);
+			QColor deflt = QPalette().color(QPalette::Text);
 			QColor c = Settings::instance()->value("editor", "defaultFontColor").value<QColor>();
 			return c.isValid() ? c : deflt;
 		}

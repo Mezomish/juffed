@@ -289,9 +289,9 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	pages_ << mp_->addPage(tr("Charsets"), new CharsetsSettingsPage());
 	pages_ << mp_->addPage(tr("Plugins"), new PluginsMainPage(this));
 
-	colorsPage_->addColor(tr("Default font color"), "editor", "defaultFontColor", QColor(0, 0, 0));
-	colorsPage_->addColor(tr("Default background color"), "editor", "defaultBgColor", QColor(250, 250, 255));
-	colorsPage_->addColor(tr("Selection background color"), "editor", "selectionBgColor", QColor(150, 150, 150));
+	colorsPage_->addColor(tr("Default font color"), "editor", "defaultFontColor", EditorSettings::get(EditorSettings::DefaultFontColor));
+	colorsPage_->addColor(tr("Default background color"), "editor", "defaultBgColor", EditorSettings::get(EditorSettings::DefaultBgColor));
+	colorsPage_->addColor(tr("Selection background color"), "editor", "selectionBgColor", EditorSettings::get(EditorSettings::SelectionBgColor));
 	
 	// layouts
 	QHBoxLayout* btnLayout = new QHBoxLayout();

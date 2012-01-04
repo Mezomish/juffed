@@ -10,6 +10,7 @@ Package: juffed
 Section: editors
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: enca
 Description: Lightweight yet powerful Qt4 text editor
  JuffEd is a simple, cross-platform text editor written using the Qt4 toolkit
  and the QScintilla library. It supports most features found in modern text

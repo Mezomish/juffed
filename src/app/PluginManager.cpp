@@ -45,14 +45,14 @@ PluginManager::~PluginManager() {
 void PluginManager::loadPlugins(SettingsDlg* dlg) {
 	// switch off some plugins by default since user may not want their behavior by default
 	QStringList names;
-	names << "Autosave";
+	names << "Autosave" << "Color Picker";
 	foreach (QString name, names) {
 		if ( !Settings::instance()->valueExists("Plugins", name) ) {
 			Settings::instance()->setValue("Plugins", name, false);
 		}
 	}
 	
-	//	global plugins
+	// global plugins
 	QDir gPluginDir(AppInfo::pluginsPath());
 	foreach (QString fileName, gPluginDir.entryList(QDir::Files)) {
 		loadPlugin(gPluginDir.absoluteFilePath(fileName), dlg);

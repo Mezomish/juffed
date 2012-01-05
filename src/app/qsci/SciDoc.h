@@ -142,6 +142,7 @@ private:
 	void commentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 	void uncommentLine(JuffScintilla* edit, int line, const QString& str1, const QString& comment);
 	void stripTrailingSpaces();
+	void moveCursorToTheEnd(int line, int col, const QString& text);
 
 	class Interior;
 	Interior* int_;

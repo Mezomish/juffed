@@ -432,39 +432,58 @@ void SciDoc::replaceSelectedText(const QString& text, bool cursorToTheEnd) {
 	if ( int_->curEdit_ == NULL ) return;
 	
 	int line1, col1, line2, col2;
-	int_->curEdit_->getSelection(&line1, &col1, &line2, &col2);
 	
-	int_->curEdit_->beginUndoAction();
-	
-	// hack! hack! hack!
-	disconnect(int_->edit1_, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
-	removeSelectedText();
-	// hack! hack! hack!
-	connect(int_->edit1_, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
-	
-	if ( text.isEmpty() ) {
-		// need to emit the signal manually
-		emit textChanged();
+	if ( !int_->curEdit_->hasSelectedText() ) {
+		// no selected text - just insert the text we have
+		if ( !text.isEmpty() ) {
+			getCursorPos(line1, col1);
+			int_->curEdit_->beginUndoAction();
+			insertText(text);
+			if ( cursorToTheEnd ) {
+				moveCursorToTheEnd(line1, col1, text);
+			}
+			int_->curEdit_->endUndoAction();
+		}
 	}
 	else {
-		insertText(text);
-	}
-	
-	if ( cursorToTheEnd ) {
-		int lineEndsCount = text.count(LineSeparatorRx);
-		if ( lineEndsCount == 0 ) {
-			int_->curEdit_->setCursorPosition(line1, col1 + text.length());
+		int_->curEdit_->getSelection(&line1, &col1, &line2, &col2);
+		
+		int_->curEdit_->beginUndoAction();
+		
+		// hack! hack! hack!
+		disconnect(int_->edit1_, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
+		removeSelectedText();
+		// hack! hack! hack!
+		connect(int_->edit1_, SIGNAL(textChanged()), this, SIGNAL(textChanged()));
+		
+		if ( text.isEmpty() ) {
+			// need to emit the signal manually
+			emit textChanged();
 		}
 		else {
-			QStringList insertedLines = text.split(LineSeparatorRx);
-			QString lastLine = insertedLines[insertedLines.count() - 1];
-			int_->curEdit_->setCursorPosition(line1 + lineEndsCount, lastLine.length());
+			insertText(text);
 		}
+		
+		if ( cursorToTheEnd ) {
+			moveCursorToTheEnd(line1, col1, text);
+		}
+		else {
+			int_->curEdit_->setCursorPosition(line1, col1);
+		}
+		int_->curEdit_->endUndoAction();
+	}
+}
+
+void SciDoc::moveCursorToTheEnd(int line, int col, const QString& text) {
+	int lineEndsCount = text.count(LineSeparatorRx);
+	if ( lineEndsCount == 0 ) {
+		int_->curEdit_->setCursorPosition(line, col + text.length());
 	}
 	else {
-		int_->curEdit_->setCursorPosition(line1, col1);
+		QStringList insertedLines = text.split(LineSeparatorRx);
+		QString lastLine = insertedLines[insertedLines.count() - 1];
+		int_->curEdit_->setCursorPosition(line + lineEndsCount, col + lastLine.length());
 	}
-	int_->curEdit_->endUndoAction();
 }
 
 void SciDoc::insertText(const QString& text) {

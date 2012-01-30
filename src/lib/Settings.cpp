@@ -136,82 +136,82 @@ QStringList Settings::keyList(const QString& section) {
 
 
 QVariant Settings::defaultValue(const QString& section, const QString& key) {
-	if ( section == "main" ) {
-		if ( key == "syncOpenDialogToCurDoc" ) return true;
-		if ( key == "saveSessionOnClose" )     return true;
-		if ( key == "makeBackupOnSave" )       return true;
-//		if ( key == "exitOnLastDocClosed" )    return false;
-//		if ( key == "stripTrailingSpaces" )    return false;
-		if ( key == "singleInstance" )         return true;
-		if ( key == "useCtrlTabMenu" )         return true;
-//		if ( key == "closeButtonsOnTabs" )     return false;
-//		if ( key == "closeTabsInOrderOfUse" )  return false;
-		if ( key == "iconTheme" )              return "<default>";
-		if ( key == "lastOpenDir" )            return QDir::homePath();
-		if ( key == "lastSaveDir" )            return QDir::homePath();
-		if ( key == "geometry" )               return QRect(50, 50, 800, 600);
-		if ( key == "fsHideToolBar" )          return true;
-		if ( key == "fsHideStatusBar" )        return true;
-		if ( key == "language" )               return "auto";
-		if ( key == "tabPosition" )            return 0;
-		if ( key == "toolButtonStyle" )        return 0;
-		if ( key == "iconSize" )               return 0;
+	if ( section.compare("main") == 0 ) {
+		if ( key.compare("syncOpenDialogToCurDoc") == 0 ) return true;
+		if ( key.compare("saveSessionOnClose") == 0 )     return true;
+		if ( key.compare("makeBackupOnSave") == 0 )       return true;
+//		if ( key.compare("exitOnLastDocClosed") == 0 )    return false;
+//		if ( key.compare("stripTrailingSpaces") == 0 )    return false;
+		if ( key.compare("singleInstance") == 0 )         return true;
+		if ( key.compare("useCtrlTabMenu") == 0 )         return true;
+//		if ( key.compare("closeButtonsOnTabs") == 0 )     return false;
+//		if ( key.compare("closeTabsInOrderOfUse") == 0 )  return false;
+		if ( key.compare("iconTheme") == 0 )              return "<default>";
+		if ( key.compare("lastOpenDir") == 0 )            return QDir::homePath();
+		if ( key.compare("lastSaveDir") == 0 )            return QDir::homePath();
+		if ( key.compare("geometry") == 0 )               return QRect(50, 50, 800, 600);
+		if ( key.compare("fsHideToolBar") == 0 )          return true;
+		if ( key.compare("fsHideStatusBar") == 0 )        return true;
+		if ( key.compare("language") == 0 )               return "auto";
+		if ( key.compare("tabPosition") == 0 )            return 0;
+		if ( key.compare("toolButtonStyle") == 0 )        return 0;
+		if ( key.compare("iconSize") == 0 )               return 0;
 	}
-	else if ( section == "autocomplete" ) {
-		if ( key == "useDocument" )   return true;
-		if ( key == "useApis" )       return false;
-		if ( key == "replaceWord" )   return false;
-		if ( key == "caseSensitive" ) return false;
-		if ( key == "threshold" )     return 2;
+	else if ( section.compare("autocomplete") == 0 ) {
+		if ( key.compare("useDocument") == 0 )   return true;
+		if ( key.compare("useApis") == 0 )       return false;
+		if ( key.compare("replaceWord") == 0 )   return false;
+		if ( key.compare("caseSensitive") == 0 ) return false;
+		if ( key.compare("threshold") == 0 )     return 2;
 	}
-	else if ( section == "charset" ) {
+	else if ( section.compare("charset") == 0 ) {
 		return true;
 	}
-	else if ( section == "Plugins" ) {
+	else if ( section.compare("Plugins") == 0 ) {
 		return true;
 	}
-	else if ( section == "editor" ) {
-		if ( key == "showLineNumbers" )       return true;
-		if ( key == "showWhitespaces" )       return false;
-		if ( key == "showLineEnds" )          return false;
-		if ( key == "wrapWords" )             return false;
-		if ( key == "tabStopWidth" )          return 8;
-		if ( key == "replaceTabsWithSpaces" ) return false;
-		if ( key == "backspaceUnindents" )    return true;
-		if ( key == "fontSize" )              return 10;
-		if ( key == "fontFamily" )
+	else if ( section.compare("editor") == 0 ) {
+		if ( key.compare("showLineNumbers") == 0 )       return true;
+		if ( key.compare("showWhitespaces") == 0 )       return false;
+		if ( key.compare("showLineEnds") == 0 )          return false;
+		if ( key.compare("wrapWords") == 0 )             return false;
+		if ( key.compare("tabStopWidth") == 0 )          return 8;
+		if ( key.compare("replaceTabsWithSpaces") == 0 ) return false;
+		if ( key.compare("backspaceUnindents") == 0 )    return true;
+		if ( key.compare("fontSize") == 0 )              return 10;
+		if ( key.compare("fontFamily") == 0 )
 #ifdef Q_OS_WIN32
 			return "Courier New";
 #else
 			return "Monospace";
 #endif
 	}
-	else if ( section == "QSci" ) {
-		if ( key == "matchingBraceBgColor" )   return QColor(255, 200, 140);
-		if ( key == "matchingBraceFgColor" )   return QColor(0, 0, 0);
-		if ( key == "indentsColor" )           return QColor(160, 160, 160);
-		if ( key == "wordHLColor" )            return QColor(190, 200, 240);
-		if ( key == "searchHLColor" )          return QColor(255, 128, 0);
-		if ( key == "curLineColor" )           return QColor(240, 240, 255);
-		if ( key == "markersColor" )           return QColor(170, 170, 250);
-		if ( key == "marginsBgColor" )         return QApplication::palette().color(QPalette::Window);
-		if ( key == "whiteSpaceColor" )        return QColor(155, 155, 185);
-		if ( key == "showIndents" )            return true;
-		if ( key == "highlightCurLine" )       return true;
-		if ( key == "highlightMatchingBrace" ) return true;
-		if ( key == "highlightCurWord" )       return false;
-		if ( key == "jumpOverWordParts" )      return false;
+	else if ( section.compare("QSci") == 0 ) {
+		if ( key.compare("matchingBraceBgColor") == 0 )   return QColor(255, 200, 140);
+		if ( key.compare("matchingBraceFgColor") == 0 )   return QColor(0, 0, 0);
+		if ( key.compare("indentsColor") == 0 )           return QColor(160, 160, 160);
+		if ( key.compare("wordHLColor") == 0 )            return QColor(190, 200, 240);
+		if ( key.compare("searchHLColor") == 0 )          return QColor(255, 128, 0);
+		if ( key.compare("curLineColor") == 0 )           return QColor(240, 240, 255);
+		if ( key.compare("markersColor") == 0 )           return QColor(170, 170, 250);
+		if ( key.compare("marginsBgColor") == 0 )         return QApplication::palette().color(QPalette::Window);
+		if ( key.compare("whiteSpaceColor") == 0 )        return QColor(155, 155, 185);
+		if ( key.compare("showIndents") == 0 )            return true;
+		if ( key.compare("highlightCurLine") == 0 )       return true;
+		if ( key.compare("highlightMatchingBrace") == 0 ) return true;
+		if ( key.compare("highlightCurWord") == 0 )       return false;
+		if ( key.compare("jumpOverWordParts") == 0 )      return false;
 	}
-	else if ( section == "toolBarVisible" ) {
+	else if ( section.compare("toolBarVisible") == 0 ) {
 		return true;
 	}
-	else if ( section == "dockVisible" ) {
+	else if ( section.compare("dockVisible") == 0 ) {
 		return false;
 	}
-	else if ( section == "printing" ) {
-		if ( key == "keepColors" )  return false;
-		if ( key == "keepBgColor" ) return false;
-		if ( key == "alwaysWrap" )  return true;
+	else if ( section.compare("printing") == 0 ) {
+		if ( key.compare("keepColors") == 0 )  return false;
+		if ( key.compare("keepBgColor") == 0 ) return false;
+		if ( key.compare("alwaysWrap") == 0 )  return true;
 	}
 	return QVariant();
 }

@@ -122,11 +122,6 @@ private:
 	void updateCursorPos(Juff::Document*);
 	void addToRecentFiles(const QString&);
 
-//	void createProject(const QString& fileName);
-//	bool closeProject();
-//	QString projectName() const;
-//	void loadProject();
-	
 	QString sessionPath() const;
 	
 	bool saveCurSession();
@@ -163,7 +158,6 @@ private:
 	Juff::StatusLabel* charsetL_;
 	Juff::StatusLabel* linesL_;
 	
-//	Juff::Project* prj_;
 	QStringList recentFiles_;
 };
 

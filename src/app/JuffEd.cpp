@@ -43,8 +43,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	settingsDlg_ = new SettingsDlg(mw_);
 	connect(settingsDlg_, SIGNAL(applied()), SLOT(onSettingsApplied()));
 	
-//	prj_ = NULL;
-	
 	connect(viewer_, SIGNAL(docActivated(Juff::Document*)), SLOT(onDocActivated(Juff::Document*)));
 	connect(mw_, SIGNAL(closeRequested(bool&)), SLOT(onCloseRequested(bool&)));
 	
@@ -65,7 +63,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	
 	setSessionName( MainSettings::get( MainSettings::LastSession ) );
 	if ( !loadSession() ) {
-//		createProject(MainSettings::get(MainSettings::LastProject));
 		slotFileNew();
 	}
 	
@@ -90,8 +87,6 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 }
 
 JuffEd::~JuffEd() {
-//	if ( prj_ != NULL )
-//		delete prj_;
 	Settings::instance()->write("juff", "juffed");
 }
 
@@ -113,7 +108,6 @@ void JuffEd::initActions() {
 	st->addAction(SESSION_NEW,      tr("New session"), this, SLOT(slotSessionNew()));
 	st->addAction(SESSION_OPEN,     tr("Open session"), this, SLOT(slotSessionOpen()));
 	st->addAction(SESSION_SAVE,     tr("Save session as..."), this, SLOT(slotSessionSaveAs()));
-//	st->addAction(SESSION_NEW,      tr("New session"), this, SLOT(slotNewSession()));
 	
 	st->addAction(EDIT_UNDO,        tr("Undo"), this, SLOT(slotEditUndo()));
 	st->addAction(EDIT_REDO,        tr("Redo"), this, SLOT(slotEditRedo()));
@@ -639,17 +633,15 @@ void JuffEd::slotFileExit() {
 
 
 void JuffEd::slotSessionNew() {
-	LOGGER;
+//	LOGGER;
 	
-//	closeAllDocs( Juff::PanelAll );
 	if ( closeAllDocs( Juff::PanelAll ) ) {
 		setSessionName( "" );
-//		slotFileNew();
 	}
 }
 
 void JuffEd::slotSessionOpen() {
-	LOGGER;
+//	LOGGER;
 	
 	saveCurSession();
 	
@@ -670,7 +662,7 @@ void JuffEd::slotSessionOpen() {
 }
 
 void JuffEd::slotSessionSaveAs() {
-	LOGGER;
+//	LOGGER;
 	
 	QString sessionName = QInputDialog::getText( mw_, tr("Save session as..."), tr("Session name") );
 	if ( !sessionName.isEmpty() ) {
@@ -968,8 +960,6 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel, bool addTo
 		}
 		
 		viewer_->addDoc(doc, panel);
-//		if ( prj_ != NULL )
-//			prj_->addFile(doc->fileName());
 		
 		doc->setFocus();
 		search_->setCurDoc(doc);
@@ -1160,9 +1150,6 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 	}
 
 	if ( decidedToClose ) {
-//		if ( prj_ != NULL )
-//			prj_->removeFile(doc->fileName());
-		
 		Juff::PanelIndex panel = viewer_->panelOf(doc);
 		Juff::PanelIndex anotherPanel = ( panel == Juff::PanelLeft ? Juff::PanelRight : Juff::PanelLeft );
 		
@@ -1277,53 +1264,6 @@ void JuffEd::addToRecentFiles(const QString& fileName) {
 
 	MainSettings::set(MainSettings::RecentFiles, recentFiles_.join(";"));
 }
-
-
-
-
-
-
-
-
-
-
-/*void JuffEd::createProject(const QString& fileName) {
-	prj_ = new Juff::Project(fileName);
-	MainSettings::set(MainSettings::LastProject, prj_->fileName());
-	
-//	connect(prj_, SIGNAL(fileAdded(const QString&)), SLOT(onPrjFileAdded(const QString&)));
-//	connect(prj_, SIGNAL(fileRemoved(const QString&)), SLOT(onPrjFileRemoved(const QString&)));
-	
-	loadProject();
-	
-	// notify plugins
-	emit projectOpened(prj_);
-}
-
-bool JuffEd::closeProject() {
-	return false;
-}
-
-QString JuffEd::projectName() const {
-	return ( prj_ == NULL ? "" : prj_->name() );
-}
-
-void JuffEd::loadProject() {
-	if ( prj_ == NULL ) return;
-	
-	QStringList files = prj_->files();
-	foreach (QString file, files) {
-		// TODO : open files not only at left panel
-		openDoc(file, Juff::PanelLeft);
-	}
-	
-	if ( viewer_->docCount(Juff::PanelAll) == 0 ) {
-		openDoc("", Juff::PanelLeft);
-	}
-}
-*/
-
-
 
 
 

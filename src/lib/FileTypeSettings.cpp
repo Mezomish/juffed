@@ -78,7 +78,7 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 			list << "*.java";
 		}
 		else if ( type == "JavaScript") {
-			list << "*.js";
+			list << "*.js" << "*.qml";
 		}
 		else if ( type == "Lisp") {
 			list << "*.lisp" << "*.lsp";
@@ -132,7 +132,7 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 			list << "*.tcl";
 		}
 		else if ( type == "XML") {
-			list << "*.xml";
+			list << "*.xml" << "*.qrc" << "*.ts";
 		}
 
 		return list;

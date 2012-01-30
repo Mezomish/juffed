@@ -32,6 +32,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Popup.h"
 #include "SearchPopup.h"
 #include "SelectFilesDlg.h"
+#include "SessionDlg.h"
 #include "Utils.h"
 
 #include <QCloseEvent>
@@ -189,11 +190,35 @@ QString JuffMW::getSaveFileName(const QString& fileName, const QString& fileTitl
 	return QFileDialog::getSaveFileName(this, tr("Save %1 as...").arg(fileTitle), dir, filters);
 }
 
-QString JuffMW::getSavePrjName(const QString& title) {
-	// TODO :
-	QString dir = "";
-	return QFileDialog::getSaveFileName(this, title, dir, "XML JuffEd Project Files (*.xml)");
+
+QString JuffMW::getOpenSessionName( bool& accepted ) {
+	QString name = "";
+	SessionDlg dlg( this );
+
+	dlg.exec();
+	int res = dlg.result();
+
+	if ( res == 0 ) {
+		accepted = false;
+	} 
+	else if ( res == 1 ) {
+		// open session
+		name = dlg.curSessionName();
+		accepted = true;
+	}
+	else {
+		// new session
+		accepted = true;
+	}
+
+	return name;
 }
+
+//QString JuffMW::getSavePrjName(const QString& title) {
+	// TODO :
+//	QString dir = "";
+//	return QFileDialog::getSaveFileName(this, title, dir, "XML JuffEd Project Files (*.xml)");
+//}
 
 QString JuffMW::getRenameFileName(const QString& curFileName) {
 	return QInputDialog::getText(this, tr("Rename file"), tr("Input new file name:"), QLineEdit::Normal, curFileName);

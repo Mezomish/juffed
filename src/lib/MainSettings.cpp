@@ -99,8 +99,8 @@ void MainSettings::set(BoolKey key, bool value) {
 
 void MainSettings::set(StringKey key, const QString& value) {
 	switch (key) {
-		case LastProject :
-			Settings::instance()->setValue("main", "lastProject", value);
+		case LastSession :
+			Settings::instance()->setValue("main", "lastSession", value);
 			break;
 		
 		case LastDir :
@@ -189,8 +189,8 @@ bool MainSettings::get(BoolKey key) {
 
 QString MainSettings::get(StringKey key) {
 	switch (key) {
-		case LastProject :
-			return Settings::instance()->stringValue("main", "lastProject");
+		case LastSession :
+			return Settings::instance()->stringValue("main", "lastSession");
 		
 		case LastDir:
 			return Settings::instance()->stringValue("main", "lastOpenDir");

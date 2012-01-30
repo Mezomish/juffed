@@ -63,7 +63,7 @@ public:
 	/**
 	* Closes all document at the given panel.
 	*/
-	virtual void closeAllDocs(Juff::PanelIndex panel) = 0;
+	virtual bool closeAllDocs(Juff::PanelIndex panel) = 0;
 	
 	/**
 	* Closes all document except for the given index at the given panel.

@@ -18,6 +18,11 @@ const QString FILE_CLOSE_ALL    = "main:fileCloseAll";
 const QString FILE_PRINT        = "main:filePrint";
 const QString FILE_EXIT         = "main:fileExit";
 
+const QString SESSION_NEW       = "main:sessionNew";
+const QString SESSION_OPEN      = "main:sessionOpen";
+const QString SESSION_SAVE      = "main:sessionSave";
+//const QString SESSION_          = "main:session";
+
 const QString EDIT_UNDO         = "main:editUndo";
 const QString EDIT_REDO         = "main:editRedo";
 const QString EDIT_CUT          = "main:editCut";

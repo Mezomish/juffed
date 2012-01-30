@@ -39,7 +39,7 @@ public:
 	virtual Juff::Project* curPrj() const;
 	virtual void openDoc(const QString&, Juff::PanelIndex panel = Juff::PanelCurrent, bool addToRecent = false);
 	virtual void closeDoc(const QString&);
-	virtual void closeAllDocs(Juff::PanelIndex);
+	virtual bool closeAllDocs(Juff::PanelIndex);
 	virtual void closeAllOtherDocs(int index, Juff::PanelIndex panel);
 	virtual void saveDoc(const QString&);
 	virtual int docCount(Juff::PanelIndex) const;
@@ -58,6 +58,9 @@ public slots:
 	void slotFileCloseAll();
 	void slotFilePrint();
 	void slotFileExit();
+	void slotSessionNew();
+	void slotSessionOpen();
+	void slotSessionSaveAs();
 	void slotEditUndo();
 	void slotEditRedo();
 	void slotEditCut();
@@ -119,16 +122,23 @@ private:
 	void updateCursorPos(Juff::Document*);
 	void addToRecentFiles(const QString&);
 
-	void createProject(const QString& fileName);
-	bool closeProject();
-	QString projectName() const;
-	void loadProject();
+//	void createProject(const QString& fileName);
+//	bool closeProject();
+//	QString projectName() const;
+//	void loadProject();
 	
-	bool saveSession(const QString&);
-	bool loadSession(const QString&);
+	QString sessionPath() const;
+	
+	bool saveCurSession();
+	bool loadSession();
+	bool closeSession();
 	bool parseSession(QDomElement&);
+	
+	/// changes session name and notifies ui to change window title
+	void setSessionName( const QString& );
 
 
+	QString _sessionName;
 
 	QMap<QString, Juff::DocEngine*> engines_;
 	QMap<Juff::MenuID, QMenu*> menus_;
@@ -153,7 +163,7 @@ private:
 	Juff::StatusLabel* charsetL_;
 	Juff::StatusLabel* linesL_;
 	
-	Juff::Project* prj_;
+//	Juff::Project* prj_;
 	QStringList recentFiles_;
 };
 

@@ -8,6 +8,7 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QFileInfo>
+#include <QInputDialog>
 #include <QMessageBox>
 #include <QToolBar>
 
@@ -42,7 +43,7 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	settingsDlg_ = new SettingsDlg(mw_);
 	connect(settingsDlg_, SIGNAL(applied()), SLOT(onSettingsApplied()));
 	
-	prj_ = NULL;
+//	prj_ = NULL;
 	
 	connect(viewer_, SIGNAL(docActivated(Juff::Document*)), SLOT(onDocActivated(Juff::Document*)));
 	connect(mw_, SIGNAL(closeRequested(bool&)), SLOT(onCloseRequested(bool&)));
@@ -62,8 +63,10 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	
 	search_ = new SearchEngine(this, mw_);
 	
-	if ( !loadSession("") ) {
-		createProject(MainSettings::get(MainSettings::LastProject));
+	setSessionName( MainSettings::get( MainSettings::LastSession ) );
+	if ( !loadSession() ) {
+//		createProject(MainSettings::get(MainSettings::LastProject));
+		slotFileNew();
 	}
 	
 	if ( viewer_->docCount(Juff::PanelAll) == 0 ) {
@@ -87,8 +90,8 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 }
 
 JuffEd::~JuffEd() {
-	if ( prj_ != NULL )
-		delete prj_;
+//	if ( prj_ != NULL )
+//		delete prj_;
 	Settings::instance()->write("juff", "juffed");
 }
 
@@ -106,6 +109,11 @@ void JuffEd::initActions() {
 	st->addAction(FILE_CLOSE_ALL,   tr("Close All"),  this, SLOT(slotFileCloseAll()));
 	st->addAction(FILE_PRINT,       tr("&Print"),  this, SLOT(slotFilePrint()));
 	st->addAction(FILE_EXIT,        tr("Exit"),  this, SLOT(slotFileExit()));
+	
+	st->addAction(SESSION_NEW,      tr("New session"), this, SLOT(slotSessionNew()));
+	st->addAction(SESSION_OPEN,     tr("Open session"), this, SLOT(slotSessionOpen()));
+	st->addAction(SESSION_SAVE,     tr("Save session as..."), this, SLOT(slotSessionSaveAs()));
+//	st->addAction(SESSION_NEW,      tr("New session"), this, SLOT(slotNewSession()));
 	
 	st->addAction(EDIT_UNDO,        tr("Undo"), this, SLOT(slotEditUndo()));
 	st->addAction(EDIT_REDO,        tr("Redo"), this, SLOT(slotEditRedo()));
@@ -139,6 +147,7 @@ void JuffEd::initUI() {
 	menus_[Juff::MenuTools] = new QMenu(tr("&Tools"));
 	menus_[Juff::MenuHelp] = new QMenu(tr("&Help"));
 
+	// recent files
 	recentFilesMenu_ = new QMenu(JuffEd::tr("Recent files"));
 	connect(recentFilesMenu_, SIGNAL(aboutToShow()), SLOT(initRecentFilesMenu()));
 	QString recentFiles = MainSettings::get(MainSettings::RecentFiles);
@@ -256,6 +265,12 @@ void JuffEd::loadPlugins() {
 void JuffEd::buildUI() {
 	CommandStorageInt* st = Juff::Utils::commandStorage();
 	
+	// sessions menu
+	QMenu* sessionMenu = new QMenu(tr("Session"));
+	sessionMenu->addAction(st->action(SESSION_NEW));
+	sessionMenu->addAction(st->action(SESSION_OPEN));
+	sessionMenu->addAction(st->action(SESSION_SAVE));
+	
 	// FILE
 	QMenu* menu = menus_[Juff::MenuFile];
 	menu->addAction(st->action(FILE_NEW));
@@ -267,11 +282,14 @@ void JuffEd::buildUI() {
 	menu->addAction(st->action(FILE_RENAME));
 	menu->addAction(st->action(FILE_RELOAD));
 	menu->addSeparator();
+	menu->addMenu( sessionMenu );
+	menu->addSeparator();
 	menu->addAction(st->action(FILE_CLOSE));
 	menu->addAction(st->action(FILE_CLOSE_ALL));
 	menu->addAction(st->action(FILE_PRINT));
 	menu->addSeparator();
 	menu->addAction(st->action(FILE_EXIT));
+	
 	
 	// EDIT
 	menu = menus_[Juff::MenuEdit];
@@ -471,7 +489,8 @@ void JuffEd::onCloseRequested(bool& confirm) {
 	}
 	if ( confirm ) {
 		mw_->saveState();
-		saveSession(AppInfo::configDirPath() + "/session");
+		saveCurSession();
+		MainSettings::set( MainSettings::LastSession, _sessionName );
 	}
 }
 
@@ -617,6 +636,49 @@ void JuffEd::slotFileExit() {
 		qApp->quit();
 	}
 }
+
+
+void JuffEd::slotSessionNew() {
+	LOGGER;
+	
+//	closeAllDocs( Juff::PanelAll );
+	if ( closeAllDocs( Juff::PanelAll ) ) {
+		setSessionName( "" );
+//		slotFileNew();
+	}
+}
+
+void JuffEd::slotSessionOpen() {
+	LOGGER;
+	
+	saveCurSession();
+	
+	bool accepted = false;
+	QString sessName = mw_->getOpenSessionName( accepted );
+	if ( accepted && closeSession() ) {
+		if ( !sessName.isEmpty() ) {
+			// open session
+			setSessionName( sessName );
+			if ( loadSession() ) {
+			}
+		}
+		else {
+			// new session
+			slotSessionNew();
+		}
+	}
+}
+
+void JuffEd::slotSessionSaveAs() {
+	LOGGER;
+	
+	QString sessionName = QInputDialog::getText( mw_, tr("Save session as..."), tr("Session name") );
+	if ( !sessionName.isEmpty() ) {
+		setSessionName( sessionName );
+		saveCurSession();
+	}
+}
+
 
 void JuffEd::slotEditUndo() {
 //	LOGGER;
@@ -906,8 +968,8 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel, bool addTo
 		}
 		
 		viewer_->addDoc(doc, panel);
-		if ( prj_ != NULL )
-			prj_->addFile(doc->fileName());
+//		if ( prj_ != NULL )
+//			prj_->addFile(doc->fileName());
 		
 		doc->setFocus();
 		search_->setCurDoc(doc);
@@ -952,12 +1014,14 @@ void JuffEd::closeDoc(const QString& fileName) {
 		closeDocWithConfirmation(doc);
 }
 
-void JuffEd::closeAllDocs(Juff::PanelIndex panel) {
+bool JuffEd::closeAllDocs(Juff::PanelIndex panel) {
 	Juff::DocList list = viewer_->docList(panel);
 	foreach (Juff::Document* doc, list) {
-		if ( !closeDocWithConfirmation(doc) )
-			break;
+		if ( !closeDocWithConfirmation(doc) ) {
+			return false;
+		}
 	}
+	return true;
 }
 
 void JuffEd::closeAllOtherDocs(int index, Juff::PanelIndex panel) {
@@ -1096,8 +1160,8 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 	}
 
 	if ( decidedToClose ) {
-		if ( prj_ != NULL )
-			prj_->removeFile(doc->fileName());
+//		if ( prj_ != NULL )
+//			prj_->removeFile(doc->fileName());
 		
 		Juff::PanelIndex panel = viewer_->panelOf(doc);
 		Juff::PanelIndex anotherPanel = ( panel == Juff::PanelLeft ? Juff::PanelRight : Juff::PanelLeft );
@@ -1156,8 +1220,8 @@ void JuffEd::updateMW(Juff::Document* doc) {
 	QString title;
 	if ( !doc->isNull() ) {
 		title = QString("%1 - ").arg(doc->titleWithModification());
-		if ( !projectName().isEmpty() )
-			title += QString("[%1] - ").arg(projectName());
+		if ( !_sessionName.isEmpty() )
+			title += QString("[%1] - ").arg( _sessionName );
 		
 		posL_->show();
 		nameL_->show();
@@ -1223,7 +1287,7 @@ void JuffEd::addToRecentFiles(const QString& fileName) {
 
 
 
-void JuffEd::createProject(const QString& fileName) {
+/*void JuffEd::createProject(const QString& fileName) {
 	prj_ = new Juff::Project(fileName);
 	MainSettings::set(MainSettings::LastProject, prj_->fileName());
 	
@@ -1257,7 +1321,7 @@ void JuffEd::loadProject() {
 		openDoc("", Juff::PanelLeft);
 	}
 }
-
+*/
 
 
 
@@ -1266,16 +1330,22 @@ void JuffEd::loadProject() {
 ////////////////////////////////////////////////////////////////////////////////
 // Session
 
-bool JuffEd::loadSession(const QString& name) {
-	QString fileName;
-	if ( name.isEmpty() ) {
-		fileName = AppInfo::configDirPath() + "/session";
-	}
-	else {
-		fileName = name;
-	}
-	
-	
+void JuffEd::setSessionName( const QString& name ) {
+	_sessionName = name;
+	updateMW( curDoc() );
+}
+
+QString JuffEd::sessionPath() const {
+	return AppInfo::configDirPath() + "/sessions/" + ( _sessionName.isEmpty() ? "_empty_session_" : _sessionName );
+}
+
+bool JuffEd::closeSession() {
+	saveCurSession();
+	return closeAllDocs( Juff::PanelAll );
+}
+
+bool JuffEd::loadSession() {
+	QString fileName = sessionPath();
 	QDomDocument doc("JuffEd_Session");
 
 	QFile file(fileName);
@@ -1355,8 +1425,8 @@ bool JuffEd::parseSession(QDomElement& sessEl) {
 
 void storeDocs(const Juff::DocList&, const QString&, QDomElement&, QDomDocument&);
 
-bool JuffEd::saveSession(const QString& fileName) {
-	QFile file(fileName);
+bool JuffEd::saveCurSession() {
+	QFile file( sessionPath() );
 	if ( file.open(QIODevice::WriteOnly) ) {
 		
 		QDomDocument domDoc("JuffEd_Session");

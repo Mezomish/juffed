@@ -44,12 +44,14 @@ public:
 	QString getOpenFileName(const QString& dir, const QString& filters);
 	QStringList getOpenFileNames(const QString& dir, const QString& filters);
 	QString getSaveFileName(const QString& fileName, const QString& fileTitle, const QString& filters);
-	QString getSavePrjName(const QString& title);
+//	QString getSavePrjName(const QString& title);
 	QString getRenameFileName(const QString& curFileName);
 	int getGotoLineNumber(int);
 	QString getJumpToFileName(const QStringList&);
 	int askForSave(const QString& fileName);
 	bool askForSave(const QStringList&, QStringList&);
+
+	QString getOpenSessionName( bool& );
 
 	// information display
 	void addStatusWidget(QWidget*, int);

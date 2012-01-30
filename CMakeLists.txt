@@ -74,6 +74,9 @@ set (DATA_INSTALL_DIR
 	CACHE PATH "Install path for shared data"
 )
 
+message ( STATUS "Install path for executables: ${BIN_INSTALL_DIR}" )
+message ( STATUS "Install path for libraries: ${LIB_INSTALL_DIR}" )
+message ( STATUS "" )
 #set (CMAKE_INSTALL_RPATH "${LIB_INSTALL_DIR}")
 
 

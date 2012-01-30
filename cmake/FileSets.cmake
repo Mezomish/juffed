@@ -60,6 +60,7 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/SearchComboBox.h
 	src/app/ui/SearchPopup.h
 	src/app/ui/SelectFilesDlg.h
+	src/app/ui/SessionDlg.h
 	src/app/ui/TabBar.h
 	src/app/ui/TabWidget.h
 	src/3rd_party/qtsingleapplication/qtsinglecoreapplication.h
@@ -89,6 +90,7 @@ SET ( juffed_app_SRCS
 	src/app/ui/SearchPopup.cpp
 	src/app/ui/SearchComboBox.cpp
 	src/app/ui/SelectFilesDlg.cpp
+	src/app/ui/SessionDlg.cpp
 	src/app/ui/TabBar.cpp
 	src/app/ui/TabWidget.cpp
 	src/3rd_party/qtsingleapplication/qtsinglecoreapplication.cpp

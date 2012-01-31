@@ -37,7 +37,7 @@ string ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
 string ( STRIP "${BASE_VERSION}"   BASE_VERSION )
 
 # flag indicating that this is a development version
-set ( DEV 1 )
+set ( DEV 0 )
 
 if ( DEV )
 	# SVN revision

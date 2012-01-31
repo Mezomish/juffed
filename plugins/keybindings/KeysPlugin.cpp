@@ -16,7 +16,7 @@ void KeysPlugin::init() {
 }
 
 void KeysPlugin::allPluginsLoaded() {
-	LOGGER;
+//	LOGGER;
 	w_->init();
 }
 
@@ -37,7 +37,7 @@ QWidget* KeysPlugin::settingsPage() const {
 }
 
 void KeysPlugin::applySettings() {
-	LOGGER;
+//	LOGGER;
 	w_->apply();
 }
 

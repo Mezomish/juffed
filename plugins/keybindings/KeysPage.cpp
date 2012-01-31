@@ -11,7 +11,7 @@
 QAction* action(QTreeWidgetItem*, CommandStorageInt*);
 
 KeysPage::KeysPage(CommandStorageInt* storage) : QWidget(), cur_(0) {
-	LOGGER;
+//	LOGGER;
 	storage_ = storage;
 	
 	ui.setupUi(this);
@@ -47,7 +47,7 @@ void KeysPage::init() {
 }
 
 void KeysPage::apply() {
-	LOGGER;
+//	LOGGER;
 	foreach (int index, changedItems_ ) {
 		QTreeWidgetItem* item = ui.keysTree->topLevelItem(index);
 		if ( item != NULL ) {
@@ -65,7 +65,7 @@ void KeysPage::apply() {
 }
 
 void KeysPage::onItemDoubleClicked(QTreeWidgetItem* item, int col) {
-	LOGGER;
+//	LOGGER;
 	if ( item != 0 && col == 2 ) {
 		if ( cur_ != 0 ) {
 			restore();
@@ -77,7 +77,7 @@ void KeysPage::onItemDoubleClicked(QTreeWidgetItem* item, int col) {
 }
 
 void KeysPage::keyPressEvent(QKeyEvent* e) {
-	LOGGER;
+//	LOGGER;
 	if ( cur_ != 0 ) {
 		if ( e->key() == Qt::Key_Escape ) {
 			restore();
@@ -268,7 +268,7 @@ void KeysPage::keyPressEvent(QKeyEvent* e) {
 }
 
 void KeysPage::restore() {
-	LOGGER;
+//	LOGGER;
 	if ( NULL != cur_ ) {
 		cur_->setText(2, oldText_);
 	}

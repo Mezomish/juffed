@@ -168,7 +168,7 @@ void SearchEngine::changeCurDoc(Juff::Document* doc) {
 
 
 void SearchEngine::onSearchParamsChanged(const Juff::SearchParams& params) {
-	LOGGER;
+//	LOGGER;
 	clearSelection();
 	curDoc_->clearHighlighting();
 	

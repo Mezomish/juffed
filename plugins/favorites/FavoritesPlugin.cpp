@@ -80,7 +80,7 @@ void FavoritesPlugin::save() {
 }
 
 void FavoritesPlugin::initMenu() {
-	LOGGER;
+//	LOGGER;
 	menu_->clear();
 	
 	menu_->addAction(addAct_);

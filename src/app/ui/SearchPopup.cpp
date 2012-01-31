@@ -134,7 +134,7 @@ void SearchPopup::expand(bool show) {
 ////////////////////////////////////////////////////////////
 
 void SearchPopup::onFindTextChanged(const QString& text) {
-	LOGGER;
+//	LOGGER;
 	params_.findWhat = text;
 	params_.backwards = false;
 	emit searchParamsChanged(params_);
@@ -157,7 +157,7 @@ void SearchPopup::slotFindPrev() {
 }
 
 void SearchPopup::slotReplaceNext() {
-	LOGGER;
+//	LOGGER;
 	params_.backwards = false;
 	params_.replace = true;
 	params_.replaceWith = ui.replaceCmb->lineEdit()->text();
@@ -165,7 +165,7 @@ void SearchPopup::slotReplaceNext() {
 }
 
 void SearchPopup::slotReplacePrev() {
-	LOGGER;
+//	LOGGER;
 	params_.backwards = true;
 	params_.replace = true;
 	params_.replaceWith = ui.replaceCmb->lineEdit()->text();
@@ -173,7 +173,7 @@ void SearchPopup::slotReplacePrev() {
 }
 
 void SearchPopup::slotReplaceAll() {
-	LOGGER;
+//	LOGGER;
 	params_.backwards = false;
 	params_.replace = true;
 	params_.replaceWith = ui.replaceCmb->lineEdit()->text();

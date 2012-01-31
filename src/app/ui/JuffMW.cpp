@@ -254,7 +254,7 @@ int JuffMW::askForSave(const QString& fileName) {
 }
 
 bool JuffMW::askForSave(const QStringList& filesIn, QStringList& filesOut) {
-	LOGGER;
+//	LOGGER;
 	
 	filesOut.clear();
 	
@@ -377,7 +377,7 @@ bool JuffMW::eventFilter(QObject* obj, QEvent* e) {
 }
 
 void JuffMW::closeEvent(QCloseEvent* e) {
-	LOGGER;
+//	LOGGER;
 	
 	bool confirmed = true;
 	emit closeRequested(confirmed);
@@ -390,7 +390,7 @@ void JuffMW::closeEvent(QCloseEvent* e) {
 }
 
 void JuffMW::resizeEvent(QResizeEvent* e) {
-	LOGGER;
+//	LOGGER;
 	
 	QMainWindow::resizeEvent(e);
 	

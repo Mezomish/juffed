@@ -224,7 +224,7 @@ void SciDocEngine::onDocActivated(Juff::Document* doc) {
 
 
 void SciDocEngine::slotUpperCase() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -233,7 +233,7 @@ void SciDocEngine::slotUpperCase() {
 }
 
 void SciDocEngine::slotLowerCase() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -242,7 +242,7 @@ void SciDocEngine::slotLowerCase() {
 }
 
 void SciDocEngine::slotMoveUp() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -251,7 +251,7 @@ void SciDocEngine::slotMoveUp() {
 }
 
 void SciDocEngine::slotMoveDown() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -260,7 +260,7 @@ void SciDocEngine::slotMoveDown() {
 }
 
 void SciDocEngine::slotCommentLines() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -269,7 +269,7 @@ void SciDocEngine::slotCommentLines() {
 }
 
 void SciDocEngine::slotCommentBlock() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -278,7 +278,7 @@ void SciDocEngine::slotCommentBlock() {
 }
 
 void SciDocEngine::slotDuplicate() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -287,7 +287,7 @@ void SciDocEngine::slotDuplicate() {
 }
 
 void SciDocEngine::slotUnindent() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -296,7 +296,7 @@ void SciDocEngine::slotUnindent() {
 }
 
 void SciDocEngine::slotInsertTab() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -305,7 +305,7 @@ void SciDocEngine::slotInsertTab() {
 }
 
 void SciDocEngine::slotRemoveLines() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -314,7 +314,7 @@ void SciDocEngine::slotRemoveLines() {
 }
 
 void SciDocEngine::slotRemoveLineLeft() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -323,7 +323,7 @@ void SciDocEngine::slotRemoveLineLeft() {
 }
 
 void SciDocEngine::slotRemoveLineRight() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -332,7 +332,7 @@ void SciDocEngine::slotRemoveLineRight() {
 }
 
 void SciDocEngine::slotFoldUnfoldAll() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -341,7 +341,7 @@ void SciDocEngine::slotFoldUnfoldAll() {
 }
 
 void SciDocEngine::slotMarkerAddRemove() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -352,7 +352,7 @@ void SciDocEngine::slotMarkerAddRemove() {
 }
 
 void SciDocEngine::slotMarkerRemoveAll() {
-	LOGGER;
+//	LOGGER;
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
 		doc->removeAllMarkers();
@@ -360,7 +360,7 @@ void SciDocEngine::slotMarkerRemoveAll() {
 }
 
 void SciDocEngine::slotMarkerNext() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -384,7 +384,7 @@ void SciDocEngine::slotMarkerNext() {
 }
 
 void SciDocEngine::slotMarkerPrev() {
-	LOGGER;
+//	LOGGER;
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
 		int line, col;
@@ -415,7 +415,7 @@ void SciDocEngine::slotMarkerPrev() {
 
 
 void SciDocEngine::slotSyntaxChanged() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	QAction* action = qobject_cast<QAction*>(sender());
@@ -426,7 +426,7 @@ void SciDocEngine::slotSyntaxChanged() {
 }
 
 void SciDocEngine::slotEolChanged() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	QAction* action = qobject_cast<QAction*>(sender());
@@ -438,7 +438,7 @@ void SciDocEngine::slotEolChanged() {
 }
 
 void SciDocEngine::onMenuAboutToBeShown() {
-	LOGGER;
+//	LOGGER;
 	
 	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
 	if ( doc != 0 ) {
@@ -520,7 +520,7 @@ void SciDocEngine::slotGotoMarker() {
 
 
 void SciDocEngine::slotShowLineNumbers() {
-	LOGGER;
+//	LOGGER;
 	bool checked = !EditorSettings::get(EditorSettings::ShowLineNumbers);
 	EditorSettings::set(EditorSettings::ShowLineNumbers, checked);
 	

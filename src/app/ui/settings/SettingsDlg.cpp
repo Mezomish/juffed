@@ -171,7 +171,7 @@ public:
 	}
 	
 	virtual void apply() {
-		LOGGER;
+//		LOGGER;
 		
 		QFont font(ui.fontCmb->currentFont());
 		font.setPointSize(ui.fontSizeSpin->value());
@@ -265,7 +265,7 @@ public:
 /////////////////////////////////////////////////////////////
 
 SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
-	LOGGER;
+//	LOGGER;
 
 	setWindowTitle(tr("Settings"));
 	setMinimumSize(600, 400);
@@ -312,7 +312,7 @@ SettingsDlg::~SettingsDlg() {
 }
 
 void SettingsDlg::init() {
-	LOGGER;
+//	LOGGER;
 	
 //	if ( SettingsItem::notifier() != 0 )
 //		connect(SettingsItem::notifier(), SIGNAL(hasChangedItems(bool)), SLOT(somethingChanged(bool)));
@@ -334,7 +334,7 @@ void SettingsDlg::addPluginSettingsPage(const QString& name, const QString& titl
 }
 
 void SettingsDlg::setEditorsPages(const QWidgetList& list) {
-	LOGGER;
+//	LOGGER;
 	foreach (QWidget* w, list) {
 		SettingsPage* page = qobject_cast<SettingsPage*>(w);
 		if ( page != 0 ) {
@@ -382,7 +382,7 @@ bool SettingsDlg::isPluginEnabled(const QString& pluginName) {
 }
 
 void SettingsDlg::addPages(const QStringList& titles, const QWidgetList& pages) {
-	LOGGER;
+//	LOGGER;
 	if ( titles.count() != pages.count() ) {
 		return;
 	}

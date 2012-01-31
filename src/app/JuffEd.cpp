@@ -433,7 +433,7 @@ QWidget* JuffEd::mainWindow() const {
 }
 
 void JuffEd::onMessageReceived(const QString& msg) {
-	LOGGER;
+//	LOGGER;
 	
 	QStringList params = msg.split("\n");
 	params.removeFirst();
@@ -444,7 +444,7 @@ void JuffEd::onMessageReceived(const QString& msg) {
 }
 
 void JuffEd::onCloseRequested(bool& confirm) {
-	LOGGER;
+//	LOGGER;
 
 	QMap <QString, Juff::Document*> unsaved;
 	QList<Juff::Document*> docs = viewer_->docList(Juff::PanelAll);
@@ -806,7 +806,7 @@ void JuffEd::slotSettings() {
 }
 
 void JuffEd::slotCopyFilePath() {
-	LOGGER;
+//	LOGGER;
 	QString fileName = nameL_->text().trimmed();
 	if ( !fileName.isEmpty() ) {
 		QApplication::clipboard()->setText(fileName);
@@ -880,7 +880,7 @@ void JuffEd::onDocCharsetChanged(const QString& oldCharset) {
 }
 
 void JuffEd::onDocRenamed(const QString& oldName) {
-	LOGGER;
+//	LOGGER;
 	
 	Juff::Document* doc = qobject_cast<Juff::Document*>(sender());
 	if ( doc == 0 ) {
@@ -895,7 +895,7 @@ void JuffEd::onDocRenamed(const QString& oldName) {
 
 // this slot is connected to a signal from DocViewer
 void JuffEd::onDocActivated(Juff::Document* doc) {
-	LOGGER;
+//	LOGGER;
 	updateMW(doc);
 	
 	search_->setCurDoc(doc);
@@ -1097,7 +1097,7 @@ bool JuffEd::saveDoc(Juff::Document* doc) {
 }
 
 bool JuffEd::saveDocAs(Juff::Document* doc) {
-	LOGGER;
+//	LOGGER;
 	
 	QString filters = "All files (*)";
 	QString fileName = mw_->getSaveFileName(doc->isNoname() ? "" : doc->fileName(), doc->title(), filters);
@@ -1294,7 +1294,7 @@ bool JuffEd::loadSession() {
 		return false;
 	}
 	else {
-		Log::debug(QString("File '%1' opened successfully").arg(fileName), true);
+		Log::debug(QString("Session '%1' opened successfully").arg(fileName), true);
 	}
 
 	QString err;
@@ -1306,7 +1306,7 @@ bool JuffEd::loadSession() {
 		return false;
 	}
 	else {
-		Log::debug(QString("File '%1' was parsed successfully").arg(fileName), true);
+		Log::debug(QString("Session '%1' was parsed successfully").arg(fileName), true);
 	}
 	file.close();
 
@@ -1391,7 +1391,7 @@ bool JuffEd::saveCurSession() {
 }
 
 void storeDocs(const Juff::DocList& docs, const QString& panelStr, QDomElement& sessEl, QDomDocument& domDoc) {
-	LOGGER;
+//	LOGGER;
 	
 	foreach (Juff::Document* doc, docs) {
 		if ( !doc->isNoname() ) {

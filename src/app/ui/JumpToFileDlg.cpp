@@ -57,7 +57,7 @@ void JumpToFileDlg::onItemDoubleClicked(QListWidgetItem*) {
 }
 
 void JumpToFileDlg::onTextEdited(const QString& text) {
-	LOGGER;
+//	LOGGER;
 	
 	int count = ui_.fileList->count();
 	bool hasVisible = false;
@@ -79,11 +79,11 @@ void JumpToFileDlg::onTextEdited(const QString& text) {
 }
 
 void JumpToFileDlg::onReturnPressed() {
-	LOGGER;
+//	LOGGER;
 }
 
 bool JumpToFileDlg::eventFilter(QObject *obj, QEvent *ev) {
-	LOGGER;
+//	LOGGER;
 	if ( obj == ui_.fileNameEd ) {
 		if ( ev->type() == QEvent::KeyPress ) {
 			QKeyEvent* keyEvent = static_cast<QKeyEvent*>(ev);

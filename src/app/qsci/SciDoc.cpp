@@ -583,7 +583,7 @@ void SciDoc::setWrapWords(bool wrap) {
 }
 
 void SciDoc::setShowLineNumbers(bool show) {
-	LOGGER;
+//	LOGGER;
 	
 	int_->edit1_->showLineNumbers(show);
 	int_->edit2_->showLineNumbers(show);
@@ -623,21 +623,21 @@ bool SciDoc::lineEndingsVisible() const {
 }
 
 void SciDoc::zoomIn() {
-	LOGGER;
+//	LOGGER;
 	
 	int_->edit1_->zoomIn();
 	int_->edit2_->zoomIn();
 }
 
 void SciDoc::zoomOut() {
-	LOGGER;
+//	LOGGER;
 	
 	int_->edit1_->zoomOut();
 	int_->edit2_->zoomOut();
 }
 
 void SciDoc::zoom100() {
-	LOGGER;
+//	LOGGER;
 	
 	int_->edit1_->zoomTo(0);
 	int_->edit2_->zoomTo(0);
@@ -729,7 +729,7 @@ void SciDoc::moveDown() {
 }
 
 void SciDoc::toggleCommentLines() {
-	LOGGER;
+//	LOGGER;
 	
 	JuffScintilla* edit = int_->curEdit_;
 	if ( edit == NULL ) return;
@@ -802,7 +802,7 @@ void SciDoc::toggleCommentLines() {
 }
 
 void SciDoc::toggleCommentBlock() {
-	LOGGER;
+//	LOGGER;
 	
 	JuffScintilla* edit = int_->curEdit_;
 	if ( edit == NULL ) return;
@@ -882,7 +882,7 @@ void SciDoc::duplicateText() {
 }
 
 void SciDoc::unindent() {
-	LOGGER;
+//	LOGGER;
 	
 	JuffScintilla* edit = int_->curEdit_;
 	if ( edit == NULL ) return;
@@ -911,7 +911,7 @@ void SciDoc::unindent() {
 }
 
 void SciDoc::insertTab() {
-	LOGGER;
+//	LOGGER;
 	
 	JuffScintilla* edit = int_->curEdit_;
 	if ( edit == NULL ) return;
@@ -920,7 +920,7 @@ void SciDoc::insertTab() {
 }
 
 void SciDoc::removeLine() {
-	LOGGER;
+//	LOGGER;
 	
 	JuffScintilla* edit = int_->curEdit_;
 	if ( edit == NULL ) return;
@@ -967,7 +967,7 @@ void SciDoc::foldUnfoldAll() {
 }
 
 void SciDoc::highlightWord() {
-	LOGGER;
+//	LOGGER;
 	
 	JuffScintilla* edit = int_->curEdit_;
 	if ( edit == NULL ) return;
@@ -1062,7 +1062,7 @@ void SciDoc::readFile() {
 }
 
 bool SciDoc::save(QString& error) {
-	LOGGER;
+//	LOGGER;
 
 	if ( isNoname() ) {
 		error = "This is a Noname file and shouldn't be saved directly";
@@ -1325,7 +1325,7 @@ void SciDoc::onLineCountChanged() {
 }
 
 void SciDoc::onEditFocused() {
-	LOGGER;
+//	LOGGER;
 
 	if ( sender() == int_->edit1_ ) {
 		int_->setCurrentEdit(int_->edit1_);
@@ -1354,7 +1354,7 @@ void SciDoc::uncommentLine(JuffScintilla* edit, int line, const QString& str1, c
 }
 
 void SciDoc::stripTrailingSpaces() {
-	LOGGER;
+//	LOGGER;
 	if ( int_->curEdit_ == NULL ) return;
 
 	int line, col;

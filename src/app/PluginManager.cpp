@@ -124,7 +124,7 @@ Juff::ToolBarList PluginManager::toolbars() const {
 #include "EditorSettings.h"
 
 void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
-	Log::warning(path);
+//	Log::warning(path);
 	QPluginLoader loader(path);
 	if ( !loader.load() ) {
 		Log::warning(QString("Plugin '%1' was NOT loaded: %2").arg(path).arg(loader.errorString()));
@@ -143,8 +143,8 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 			//	Check if we need to load it
 			if ( !PluginSettings::pluginEnabled(plugin->name()) ) {
 				dlg->addPluginSettingsPage(plugin->name(), plugin->title(), 0);
+				Log::debug( QString("--- Plugin '%1' is disabled in Settings.").arg(plugin->name()) );
 				loader.unload();
-				Log::debug("Plugin is disabled in Settings");
 				return;
 			}
 
@@ -159,7 +159,7 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 			plugins_ << plugin;
 			dlg->addPluginSettingsPage(plugin->name(), plugin->title(), plugin->settingsPage());
 
-			Log::debug(QString("-----=====((((( Plugin '%1' was loaded successfully! )))))=====-----").arg(plugin->name()));
+			Log::debug(QString("+++ Plugin '%1' was loaded successfully.").arg(plugin->name()));
 //
 			//	context menu actions
 //			QString type = plugin->targetEngine();
@@ -175,7 +175,7 @@ void PluginManager::loadPlugin(const QString& path, SettingsDlg* dlg) {
 }
 
 void PluginManager::applySettings() {
-	LOGGER;
+//	LOGGER;
 	foreach (JuffPlugin* plugin, plugins_) {
 		plugin->applySettings();
 	}

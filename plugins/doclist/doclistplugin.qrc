@@ -1,0 +1,6 @@
+<RCC>
+    <qresource>
+        <file alias="doc_icon">doc_icon.png</file>
+        <file alias="clear">edit-clear.png</file>
+    </qresource>
+</RCC>

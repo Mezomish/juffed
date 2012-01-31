@@ -1,0 +1,6 @@
+<RCC>
+    <qresource>
+        <file alias="icon32">32.png</file>
+        <file alias="icon64">64.png</file>
+    </qresource>
+</RCC>

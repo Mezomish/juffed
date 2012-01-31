@@ -1,0 +1,5 @@
+<RCC>
+    <qresource>
+        <file alias="xmlwrap">xmlwrap.png</file>
+    </qresource>
+</RCC>

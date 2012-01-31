@@ -1,0 +1,7 @@
+Compilation:
+	$ qmake
+	$ make
+	
+Installation:
+	$ mkdir ~/.config/juff/plugins
+	$ cp ../libfavorites.so ~/.config/juffed/plugins/

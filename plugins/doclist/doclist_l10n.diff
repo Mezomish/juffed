@@ -1,0 +1,35 @@
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 232)
++++ CMakeLists.txt	(working copy)
+@@ -4,7 +4,20 @@
+ 	DocListPanel.cpp
+ )
+ 
++SET ( doclist_TS
++	l10n/doclist_de.ts
++	l10n/doclist_fr.ts
++	l10n/doclist_pl.ts
++	l10n/doclist_pt.ts
++	l10n/doclist_ru.ts
++	l10n/doclist_sk.ts
++	l10n/doclist_sp.ts
++	l10n/doclist_zh.ts
++	l10n/doclist_cs.ts
++)
++
+ QT4_ADD_RESOURCES(doclist_RES doclistplugin.qrc)
++QT4_ADD_TRANSLATION ( doclist_QM ${doclist_TS} )
+ 
+ QT4_WRAP_CPP( doclist_MOC
+ 	DocListPlugin.h
+@@ -12,7 +25,8 @@
+ )
+ 
+ #QT4_AUTOMOC(DocListPlugin.h DocListPanel.h)
+-add_library(doclist SHARED ${doclist_SRC} ${doclist_RES} ${doclist_MOC})
++add_library(doclist SHARED ${doclist_SRC} ${doclist_RES} ${doclist_MOC} ${doclist_QM})
+ target_link_libraries(doclist ${JUFFED_LIBRARY} ${QT_LIBRARIES})
+ install(TARGETS doclist DESTINATION ${JUFFED_PLUGINS_DIR})
++install ( FILES ${doclist_QM} DESTINATION ${DATA_INSTALL_DIR}/l10n )
+ 

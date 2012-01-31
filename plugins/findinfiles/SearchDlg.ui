@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchDlg</class>
+ <widget class="QDialog" name="SearchDlg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>273</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Find in files</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetFixedSize</enum>
+   </property>
+   <item row="0" column="0">
+    <widget class="QLineEdit" name="findEd">
+     <property name="minimumSize">
+      <size>
+       <width>300</width>
+       <height>0</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QPushButton" name="findBtn">
+     <property name="text">
+      <string>Find</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QRadioButton" name="findInFilesBtn">
+     <property name="text">
+      <string>Find in opened files</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <attribute name="buttonGroup">
+      <string>searchTargetGr</string>
+     </attribute>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QFrame" name="findInFilesFrame">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Directory:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="dirEd"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="browseBtn">
+        <property name="maximumSize">
+         <size>
+          <width>40</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="2">
+       <widget class="QCheckBox" name="recursiveChk">
+        <property name="text">
+         <string>Recursively</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="2">
+       <widget class="QRadioButton" name="allFilesBtn">
+        <property name="text">
+         <string>All files</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string>filePatternsGr</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="4" column="1" colspan="2">
+       <widget class="QRadioButton" name="inclFilesBtn">
+        <property name="text">
+         <string>Within the following file patterns</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string>filePatternsGr</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="5" column="1" colspan="2">
+       <widget class="QRadioButton" name="exclFilesBtn">
+        <property name="text">
+         <string>Excluding the following file pattenrs</string>
+        </property>
+        <attribute name="buttonGroup">
+         <string>filePatternsGr</string>
+        </attribute>
+       </widget>
+      </item>
+      <item row="6" column="1" colspan="2">
+       <widget class="QLineEdit" name="patternsEd"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QRadioButton" name="findInDirBtn">
+     <property name="text">
+      <string>Find in the specified directory</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>searchTargetGr</string>
+     </attribute>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>findInDirBtn</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>findInFilesFrame</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>SearchDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>348</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>allFilesBtn</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>patternsEd</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>226</x>
+     <y>152</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>226</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <buttongroups>
+  <buttongroup name="searchTargetGr">
+   <property name="exclusive">
+    <bool>true</bool>
+   </property>
+  </buttongroup>
+  <buttongroup name="filePatternsGr"/>
+ </buttongroups>
+</ui>

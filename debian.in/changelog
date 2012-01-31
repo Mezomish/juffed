@@ -1,4 +1,13 @@
-juffed (@FULL_VERSION@) @DISTRIBUTION@; urgency=low
+juffed (0.10) @DISTRIBUTION@; urgency=low
+
+  * Two panels view
+  * Many UI improvements
+  * New plugins
+  * New editing actions
+
+ -- Mikhail Murzin <mezomish@gmail.com>  Mon, 30 Jan 2012 22:57:58 -0500
+
+juffed (0.8.1) @DISTRIBUTION@; urgency=low
 
   * Initial Release.
 

@@ -1,4 +1,4 @@
-juffed (0.10) @DISTRIBUTION@; urgency=low
+juffed (@FULL_VERSION@) @DISTRIBUTION@; urgency=low
 
   * Two panels view
   * Many UI improvements

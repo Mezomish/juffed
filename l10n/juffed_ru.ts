@@ -230,14 +230,6 @@ whole indent instead of removind single whitespace</source>
         <translation>Шаблоны имён файлов:</translation>
     </message>
     <message>
-        <source>+</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>-</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>First line patterns:</source>
         <translation>Шаблоны первой строки файла:</translation>
     </message>
@@ -256,6 +248,14 @@ whole indent instead of removind single whitespace</source>
     <message>
         <source>New first line pattern</source>
         <translation>Новый шаблон первой строки</translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>-</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -878,19 +878,19 @@ Do you want to proceed?</source>
     </message>
     <message>
         <source>Display line numbers</source>
-        <translation>Показывать номера строк</translation>
+        <translation type="obsolete">Показывать номера строк</translation>
     </message>
     <message>
         <source>Wrap words</source>
-        <translation>Переносить слова</translation>
+        <translation type="obsolete">Переносить слова</translation>
     </message>
     <message>
         <source>Show whitespaces and TABs</source>
-        <translation>Отображать пробелы и ТАБы</translation>
+        <translation type="obsolete">Отображать пробелы и ТАБы</translation>
     </message>
     <message>
         <source>Show ends of lines</source>
-        <translation>Отображать окончания строк</translation>
+        <translation type="obsolete">Отображать окончания строк</translation>
     </message>
     <message>
         <source>Zoom In</source>
@@ -943,6 +943,30 @@ Do you want to proceed?</source>
     <message>
         <source>File &apos;%1&apos; is read-only</source>
         <translation>Файл &apos;%1&apos; открыт только для чтения</translation>
+    </message>
+    <message>
+        <source>New session</source>
+        <translation>Новый сеанс</translation>
+    </message>
+    <message>
+        <source>Open session</source>
+        <translation>Открыть сеанс</translation>
+    </message>
+    <message>
+        <source>Toolbars</source>
+        <translation>Панели инструментов</translation>
+    </message>
+    <message>
+        <source>Session</source>
+        <translation>Сеанс</translation>
+    </message>
+    <message>
+        <source>Session name</source>
+        <translation>Имя сеанса</translation>
+    </message>
+    <message>
+        <source>Save session as...</source>
+        <translation>Сохранить сеанс как...</translation>
     </message>
 </context>
 <context>
@@ -1569,7 +1593,7 @@ Continue from the beginning?</source>
     </message>
     <message>
         <source>Noname %1</source>
-        <translation>Без имени %1</translation>
+        <translation type="obsolete">Без имени %1</translation>
     </message>
     <message>
         <source>Packaging, testing</source>
@@ -1683,32 +1707,32 @@ Continue from the beginning?</source>
         <source>Chinese (simplified)</source>
         <translation>Китайский (упрощённый)</translation>
     </message>
+    <message>
+        <source>Untitled %1</source>
+        <translation>Без имени %1</translation>
+    </message>
 </context>
 <context>
     <name>QSciSettings</name>
     <message>
-        <source>QSciSettings</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Indents color</source>
-        <translation>Цвет отступов</translation>
+        <translation type="obsolete">Цвет отступов</translation>
     </message>
     <message>
         <source>Matching brace</source>
-        <translation>Парная скобка</translation>
+        <translation type="obsolete">Парная скобка</translation>
     </message>
     <message>
         <source>Current line color</source>
-        <translation>Цвет текущей строки</translation>
+        <translation type="obsolete">Цвет текущей строки</translation>
     </message>
     <message>
         <source>foreground color:</source>
-        <translation>цвет скобки:</translation>
+        <translation type="obsolete">цвет скобки:</translation>
     </message>
     <message>
         <source>background color:</source>
-        <translation>цвет фона:</translation>
+        <translation type="obsolete">цвет фона:</translation>
     </message>
 </context>
 <context>
@@ -1950,6 +1974,10 @@ Continue from the beginning?</source>
 <context>
     <name>QsciLexerNSIS</name>
     <message>
+        <source>Macro</source>
+        <translation>Макрос</translation>
+    </message>
+    <message>
         <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1996,10 +2024,6 @@ Continue from the beginning?</source>
     <message>
         <source>IFDEF</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Macro</source>
-        <translation type="unfinished">Макрос</translation>
     </message>
     <message>
         <source>String Variable</source>
@@ -2080,18 +2104,6 @@ Continue from the beginning?</source>
         <translation>Уменьшить отступ</translation>
     </message>
     <message>
-        <source>Win</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Mac</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Unix</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Remove the beginning of the line</source>
         <translation>Удалить начало строки</translation>
     </message>
@@ -2150,6 +2162,34 @@ Continue from the beginning?</source>
     <message>
         <source>Whitespace symbols color</source>
         <translation>Цвет пробельных символов</translation>
+    </message>
+    <message>
+        <source>Display line numbers</source>
+        <translation>Показывать номера строк</translation>
+    </message>
+    <message>
+        <source>Wrap words</source>
+        <translation>Переносить слова</translation>
+    </message>
+    <message>
+        <source>Show whitespaces and TABs</source>
+        <translation>Отображать пробелы и ТАБы</translation>
+    </message>
+    <message>
+        <source>Show ends of lines</source>
+        <translation>Отображать окончания строк</translation>
+    </message>
+    <message>
+        <source>Win</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Mac</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Unix</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -2350,11 +2390,11 @@ Continue from the beginning?</source>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation>Отметить все</translation>
+        <translation type="obsolete">Отметить все</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation>Убрать все</translation>
+        <translation type="obsolete">Убрать все</translation>
     </message>
 </context>
 <context>
@@ -2385,18 +2425,6 @@ Continue from the beginning?</source>
     <message>
         <source>Tabs position</source>
         <translation>Расположение вкладок</translation>
-    </message>
-    <message>
-        <source>16</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>24</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>32</source>
-        <translation></translation>
     </message>
     <message>
         <source>Icons only</source>
@@ -2449,6 +2477,18 @@ Continue from the beginning?</source>
     <message>
         <source>Hide status bar in fullscreen</source>
         <translation>Скрывать панель статуса</translation>
+    </message>
+    <message>
+        <source>16</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>24</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>32</source>
+        <translation></translation>
     </message>
 </context>
 </TS>

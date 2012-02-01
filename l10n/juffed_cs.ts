@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>Thanks</source>
-        <translation>Díky</translation>
+        <translation>Poděkování</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -98,7 +98,7 @@
     </message>
     <message>
         <source>The file &apos;%1&apos; was deleted or renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Soubor &apos;%1&apos; byl smazán nebo přejmenován.</translation>
     </message>
 </context>
 <context>
@@ -153,7 +153,7 @@ namísto pouze jednoho prázdného místa</translation>
     </message>
     <message>
         <source> symbols</source>
-        <translation> Znaky</translation>
+        <translation> Symboly</translation>
     </message>
     <message>
         <source>Show indents</source>
@@ -314,7 +314,7 @@ namísto pouze jednoho prázdného místa</translation>
     </message>
     <message>
         <source>Line endings</source>
-        <translation>Konec řádku</translation>
+        <translation>Konce řádku</translation>
     </message>
     <message>
         <source>Markers</source>
@@ -550,14 +550,14 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Close all other tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavřít všechny ostatní karty</translation>
     </message>
 </context>
 <context>
     <name>Juff::TabWidget</name>
     <message>
         <source>Documents list</source>
-        <translation type="unfinished"></translation>
+        <translation>Seznam dokumentů</translation>
     </message>
     <message>
         <source>Copy file name to clipboard</source>
@@ -573,11 +573,11 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Move to the right panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesunout do pravého panelu</translation>
     </message>
     <message>
         <source>Move to the left panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesunout do levého panelu</translation>
     </message>
     <message>
         <source>Close all</source>
@@ -608,7 +608,7 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hledání</translation>
     </message>
     <message>
         <source>Fo&amp;rmat</source>
@@ -624,15 +624,15 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Charset</source>
-        <translation>Soubor znaků</translation>
+        <translation>Znaková sada</translation>
     </message>
     <message>
         <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevřít se znakovou sadou...</translation>
     </message>
     <message>
         <source>Set charset</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit znakovou sadu</translation>
     </message>
     <message>
         <source>Cursor position</source>
@@ -644,7 +644,7 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Current character set</source>
-        <translation>Nynější soubor znaků</translation>
+        <translation>Nynější znaková sada</translation>
     </message>
     <message>
         <source>Lines count</source>
@@ -676,7 +676,7 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Přejmenovat</translation>
     </message>
     <message>
         <source>Close</source>
@@ -696,11 +696,11 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation>Znovu</translation>
+        <translation>Zpět</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation>Zpět</translation>
+        <translation>Znovu</translation>
     </message>
     <message>
         <source>Cut</source>
@@ -740,27 +740,27 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Display line numbers</source>
-        <translation>Ukázat čísla řádků</translation>
+        <translation type="obsolete">Zobrazit čísla řádků</translation>
     </message>
     <message>
         <source>Wrap words</source>
-        <translation>Zalomit slova</translation>
+        <translation type="obsolete">Zalomit slova</translation>
     </message>
     <message>
         <source>Show whitespaces and TABs</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Ukázat mezery a zarážky</translation>
     </message>
     <message>
         <source>Show ends of lines</source>
-        <translation>Ukázat konec řádku</translation>
+        <translation type="obsolete">Ukázat konce řádku</translation>
     </message>
     <message>
         <source>Zoom In</source>
-        <translation>Zvětšit</translation>
+        <translation>Přiblížit</translation>
     </message>
     <message>
         <source>Zoom Out</source>
-        <translation>Zmenšit</translation>
+        <translation>Oddálit</translation>
     </message>
     <message>
         <source>Zoom 100%</source>
@@ -768,7 +768,7 @@ Chcete pokračovat?</translation>
     </message>
     <message>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Celá obrazovka</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -805,6 +805,30 @@ Chcete pokračovat?</translation>
     <message>
         <source>File &apos;%1&apos; is read-only</source>
         <translation>Soubor &apos;%1&apos; je pouze pro čtení</translation>
+    </message>
+    <message>
+        <source>New session</source>
+        <translation>Nové sezení</translation>
+    </message>
+    <message>
+        <source>Open session</source>
+        <translation>Otevřít sezení</translation>
+    </message>
+    <message>
+        <source>Save session as...</source>
+        <translation>Uložit sezení jako...</translation>
+    </message>
+    <message>
+        <source>Toolbars</source>
+        <translation>Nástrojové pruhy</translation>
+    </message>
+    <message>
+        <source>Session</source>
+        <translation>Sezení</translation>
+    </message>
+    <message>
+        <source>Session name</source>
+        <translation>Název sezení</translation>
     </message>
 </context>
 <context>
@@ -845,18 +869,18 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Rename file</source>
-        <translation type="unfinished"></translation>
+        <translation>Přejmenovat soubor</translation>
     </message>
     <message>
         <source>Input new file name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadat nový název souboru:</translation>
     </message>
 </context>
 <context>
     <name>JumpToFileDlg</name>
     <message>
         <source>Select file</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat soubor</translation>
     </message>
 </context>
 <context>
@@ -907,19 +931,19 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Opening</source>
-        <translation type="unfinished"></translation>
+        <translation>Otevírání</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukládání</translation>
     </message>
     <message>
         <source>Closing</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavírání</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Jazyk</translation>
     </message>
 </context>
 <context>
@@ -940,7 +964,7 @@ Chcete uložit změny?</translation>
     <name>ProjectTree</name>
     <message>
         <source>Project</source>
-        <translation type="unfinished"></translation>
+        <translation>Projekt</translation>
     </message>
     <message>
         <source>Open file</source>
@@ -948,11 +972,11 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Remove from project</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit z projektu</translation>
     </message>
     <message>
         <source>Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenty</translation>
     </message>
 </context>
 <context>
@@ -1311,35 +1335,35 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Patches</source>
-        <translation type="unfinished"></translation>
+        <translation>Záplaty</translation>
     </message>
     <message>
         <source>Packaging, testing</source>
-        <translation type="unfinished"></translation>
+        <translation>Balení, zkoušení</translation>
     </message>
     <message>
         <source>SymbolBrowser plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Přídavný modul prohlížeče symbolů</translation>
     </message>
     <message>
         <source>XML Formatter plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Přídavný modul formátovače XML</translation>
     </message>
     <message>
         <source>Sort plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Přídavný modul pro třídění</translation>
     </message>
     <message>
         <source>Slovak translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Překlad do slovenštiny</translation>
     </message>
     <message>
         <source>Testing, design ideas, feature requests</source>
-        <translation type="unfinished"></translation>
+        <translation>Zkoušení, nápady ohledně návrhu, požadavky na vlastnosti</translation>
     </message>
     <message>
         <source>Patches, Mac OS X port</source>
-        <translation type="unfinished"></translation>
+        <translation>Záplaty, přenesení na Mac OS X</translation>
     </message>
     <message>
         <source>Authors</source>
@@ -1355,7 +1379,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Thanks</source>
-        <translation>Díky</translation>
+        <translation>Poděkování</translation>
     </message>
     <message>
         <source>License</source>
@@ -1363,393 +1387,397 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>auto-detect</source>
-        <translation type="unfinished"></translation>
+        <translation>Určit automaticky</translation>
     </message>
     <message>
         <source>Czech</source>
-        <translation type="unfinished"></translation>
+        <translation>Český</translation>
     </message>
     <message>
         <source>German</source>
-        <translation type="unfinished"></translation>
+        <translation>Německý</translation>
     </message>
     <message>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglický</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation>Francouzský</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Polský</translation>
     </message>
     <message>
         <source>Portuguese</source>
-        <translation type="unfinished"></translation>
+        <translation>Portugalský</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruský</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Španělský</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovenský</translation>
     </message>
     <message>
         <source>Chinese (simplified)</source>
-        <translation type="unfinished"></translation>
+        <translation>Čínský (zjednodušená čínština)</translation>
     </message>
     <message>
         <source>Noname %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Bezejmenný %1</translation>
+    </message>
+    <message>
+        <source>Untitled %1</source>
+        <translation>Bezejmenný %1</translation>
     </message>
 </context>
 <context>
     <name>QSciSettings</name>
     <message>
         <source>QSciSettings</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Nastavení QSci</translation>
     </message>
     <message>
         <source>Indents color</source>
-        <translation>Barva odsazení</translation>
+        <translation type="obsolete">Barva odsazení</translation>
     </message>
     <message>
         <source>Matching brace</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Odpovídající závorky</translation>
     </message>
     <message>
         <source>Current line color</source>
-        <translation>Barva zvýraznění nynějšího řádku</translation>
+        <translation type="obsolete">Barva zvýraznění nynějšího řádku</translation>
     </message>
     <message>
         <source>foreground color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Barva popředí:</translation>
     </message>
     <message>
         <source>background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Barva pozadí:</translation>
     </message>
 </context>
 <context>
     <name>QsciLexerASM</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Výchozí</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Poznámka</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Číslo</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Řetězec</translation>
     </message>
     <message>
         <source>Operator</source>
-        <translation type="unfinished"></translation>
+        <translation>Operátor</translation>
     </message>
     <message>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifikátor</translation>
     </message>
     <message>
         <source>CPU Instruction</source>
-        <translation type="unfinished"></translation>
+        <translation>Instrukce pro CPU</translation>
     </message>
     <message>
         <source>Math Instruction</source>
-        <translation type="unfinished"></translation>
+        <translation>Matematická instrukce</translation>
     </message>
     <message>
         <source>Register</source>
-        <translation type="unfinished"></translation>
+        <translation>Registr</translation>
     </message>
     <message>
         <source>Directive</source>
-        <translation type="unfinished"></translation>
+        <translation>Směrnice</translation>
     </message>
     <message>
         <source>Directive Operand</source>
-        <translation type="unfinished"></translation>
+        <translation>Operand směrnice</translation>
     </message>
     <message>
         <source>Comment Block</source>
-        <translation type="unfinished"></translation>
+        <translation>Blok poznámky</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Znak</translation>
     </message>
     <message>
         <source>String EOL</source>
-        <translation type="unfinished"></translation>
+        <translation>Řetězec EOL (konec řádku)</translation>
     </message>
     <message>
         <source>Extended Instruction</source>
-        <translation type="unfinished"></translation>
+        <translation>Rozšířená instrukce</translation>
     </message>
 </context>
 <context>
     <name>QsciLexerAda</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Výchozí</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Poznámka</translation>
     </message>
     <message>
         <source>Illegal</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedovolený</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Znak</translation>
     </message>
     <message>
         <source>Unfinished Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedokončený znak</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Řetězec</translation>
     </message>
     <message>
         <source>Unfinished String</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedokončený řetězec</translation>
     </message>
     <message>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifikátor</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Štítek</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Číslo</translation>
     </message>
     <message>
         <source>Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>Klíčové slovo</translation>
     </message>
     <message>
         <source>Delimiter</source>
-        <translation type="unfinished"></translation>
+        <translation>Oddělovač</translation>
     </message>
 </context>
 <context>
     <name>QsciLexerHaskell</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Výchozí</translation>
     </message>
     <message>
         <source>Comment Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Poznámkový řádek</translation>
     </message>
     <message>
         <source>Comment Block 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Poznámkový blok 1</translation>
     </message>
     <message>
         <source>Comment Block 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Poznámkový blok 2</translation>
     </message>
     <message>
         <source>Comment Block 3</source>
-        <translation type="unfinished"></translation>
+        <translation>Poznámkový blok 3</translation>
     </message>
     <message>
         <source>Module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Znak</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Řetězec</translation>
     </message>
     <message>
         <source>Capital</source>
-        <translation type="unfinished"></translation>
+        <translation>Velké písmeno</translation>
     </message>
     <message>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifikátor</translation>
     </message>
     <message>
         <source>Class</source>
-        <translation type="unfinished"></translation>
+        <translation>Třída</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Číslo</translation>
     </message>
     <message>
         <source>Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>Klíčové slovo</translation>
     </message>
     <message>
         <source>Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Data</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Zavést</translation>
     </message>
     <message>
         <source>Instance</source>
-        <translation type="unfinished"></translation>
+        <translation>Instance</translation>
     </message>
     <message>
         <source>Operator</source>
-        <translation type="unfinished"></translation>
+        <translation>Operátor</translation>
     </message>
 </context>
 <context>
     <name>QsciLexerLisp</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Výchozí</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Poznámka</translation>
     </message>
     <message>
         <source>Multiline Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Víceřádková poznámka</translation>
     </message>
     <message>
         <source>Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation>Symbol</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Řetězec</translation>
     </message>
     <message>
         <source>Unfinished String</source>
-        <translation type="unfinished"></translation>
+        <translation>Nedokončený řetězec</translation>
     </message>
     <message>
         <source>Identifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Identifikátor</translation>
     </message>
     <message>
         <source>Operator</source>
-        <translation type="unfinished"></translation>
+        <translation>Operátor</translation>
     </message>
     <message>
         <source>Special</source>
-        <translation type="unfinished"></translation>
+        <translation>Speciální</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Číslo</translation>
     </message>
     <message>
         <source>Keyword</source>
-        <translation type="unfinished"></translation>
+        <translation>Klíčové slovo</translation>
     </message>
     <message>
         <source>Keyword 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Klíčové slovo 2</translation>
     </message>
 </context>
 <context>
     <name>QsciLexerNSIS</name>
     <message>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Výchozí</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Poznámka</translation>
     </message>
     <message>
         <source>Double-quoted String</source>
-        <translation type="unfinished"></translation>
+        <translation>Řetězec s dvojitými uvozovkami</translation>
     </message>
     <message>
         <source>Left-quoted String</source>
-        <translation type="unfinished"></translation>
+        <translation>Řetězec s uvozovkami vlevo</translation>
     </message>
     <message>
         <source>Right-quoted String</source>
-        <translation type="unfinished"></translation>
+        <translation>Řetězec s uvozovkami vpravo</translation>
     </message>
     <message>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Funkce</translation>
     </message>
     <message>
         <source>Variable</source>
-        <translation type="unfinished"></translation>
+        <translation>Proměnná</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Štítek</translation>
     </message>
     <message>
         <source>User Defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Stanoveno uživatelem</translation>
     </message>
     <message>
         <source>Section Definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Vymezení části</translation>
     </message>
     <message>
         <source>Subsection Definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Vymezení podčásti</translation>
     </message>
     <message>
         <source>IFDEF</source>
-        <translation type="unfinished"></translation>
+        <translation>IFDEF</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Makro</translation>
     </message>
     <message>
         <source>String Variable</source>
-        <translation type="unfinished"></translation>
+        <translation>Proměnná řetězce</translation>
     </message>
     <message>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Číslo</translation>
     </message>
     <message>
         <source>Section Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Skupina části</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Strana</translation>
     </message>
     <message>
         <source>Function Definition</source>
-        <translation type="unfinished"></translation>
+        <translation>Vymezení funkce</translation>
     </message>
     <message>
         <source>Comment Box</source>
-        <translation type="unfinished"></translation>
+        <translation>Poznámkové pole</translation>
     </message>
 </context>
 <context>
@@ -1775,23 +1803,23 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Move line up</source>
-        <translation>Posunout řádek nahoru</translation>
+        <translation>Přesunout řádek nahoru</translation>
     </message>
     <message>
         <source>Move line down</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesunout řádek dolů</translation>
     </message>
     <message>
         <source>Duplicate text</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdvojit text</translation>
     </message>
     <message>
         <source>Remove lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit řádky</translation>
     </message>
     <message>
         <source>Comment lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Opatřit řádky poznámkami</translation>
     </message>
     <message>
         <source>Comment block</source>
@@ -1799,7 +1827,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Unindent lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Zrušit odsazení řádků</translation>
     </message>
     <message>
         <source>Win</source>
@@ -1815,19 +1843,19 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Remove the beginning of the line</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit začátek řádku</translation>
     </message>
     <message>
         <source>Remove the end of the line</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit konec řádku</translation>
     </message>
     <message>
         <source>Insert &apos;Tab&apos; character</source>
-        <translation type="unfinished"></translation>
+        <translation>Vložit znak zarážky</translation>
     </message>
     <message>
         <source>Fold/Unfold all</source>
-        <translation type="unfinished"></translation>
+        <translation>Složit/Rozbalit vše</translation>
     </message>
     <message>
         <source>Add/Remove marker</source>
@@ -1871,14 +1899,30 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Whitespace symbols color</source>
-        <translation type="unfinished"></translation>
+        <translation>Barva symbolů mezer</translation>
+    </message>
+    <message>
+        <source>Display line numbers</source>
+        <translation>Zobrazit čísla řádků</translation>
+    </message>
+    <message>
+        <source>Wrap words</source>
+        <translation>Zalomit slova</translation>
+    </message>
+    <message>
+        <source>Show whitespaces and TABs</source>
+        <translation>Ukázat mezery a zarážky</translation>
+    </message>
+    <message>
+        <source>Show ends of lines</source>
+        <translation>Ukázat konce řádku</translation>
     </message>
 </context>
 <context>
     <name>SearchComboBox</name>
     <message>
         <source>%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 z %2</translation>
     </message>
 </context>
 <context>
@@ -1912,7 +1956,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Replace all</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit vše</translation>
     </message>
     <message>
         <source>Find next</source>
@@ -1920,7 +1964,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Replace next</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit další</translation>
     </message>
     <message>
         <source>Find previous</source>
@@ -1928,7 +1972,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Replace previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit předchozí</translation>
     </message>
     <message>
         <source>Replace:</source>
@@ -1944,7 +1988,7 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Regexp</source>
-        <translation type="unfinished"></translation>
+        <translation>Regulérní výraz</translation>
     </message>
     <message>
         <source>Case sensitive</source>
@@ -1955,27 +1999,27 @@ Chcete uložit změny?</translation>
     <name>SelectFilesDlg</name>
     <message>
         <source>Select files</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat soubory</translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat vše</translation>
     </message>
     <message>
         <source>Please select files you&apos;d like to save.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte, prosím, soubory, které chcete uložit.</translation>
     </message>
     <message>
         <source>Save selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit vybrané</translation>
     </message>
     <message>
         <source>Do not save</source>
-        <translation type="unfinished"></translation>
+        <translation>Neukládat</translation>
     </message>
     <message>
         <source>Do not close</source>
-        <translation type="unfinished"></translation>
+        <translation>Nezavírat</translation>
     </message>
     <message>
         <source>Save all</source>
@@ -2053,11 +2097,11 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Charsets</source>
-        <translation>Soubory znaků</translation>
+        <translation>Znakové sady</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Barvy</translation>
     </message>
     <message>
         <source>Default font color</source>
@@ -2076,11 +2120,11 @@ Chcete uložit změny?</translation>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation>Zapnout vše</translation>
+        <translation type="obsolete">Zapnout vše</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation>Vypnout vše</translation>
+        <translation type="obsolete">Vypnout vše</translation>
     </message>
 </context>
 <context>
@@ -2151,15 +2195,15 @@ Chcete uložit změny?</translation>
     </message>
     <message>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Celá obrazovka</translation>
     </message>
     <message>
         <source>Hide tool bar in fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrýt panel s nástroji v režimu celé obrazovky</translation>
     </message>
     <message>
         <source>Hide status bar in fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrýt stavový řádek v režimu celé obrazovky</translation>
     </message>
 </context>
 </TS>

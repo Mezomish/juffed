@@ -834,19 +834,19 @@ Wollen Sie die Änderungen speichern?</translation>
     </message>
     <message>
         <source>Display line numbers</source>
-        <translation>Zeilennummern anzeigen</translation>
+        <translation type="obsolete">Zeilennummern anzeigen</translation>
     </message>
     <message>
         <source>Wrap words</source>
-        <translation>Zeilenumbruch</translation>
+        <translation type="obsolete">Zeilenumbruch</translation>
     </message>
     <message>
         <source>Show whitespaces and TABs</source>
-        <translation>Zeige Leerstellen und Tabs</translation>
+        <translation type="obsolete">Zeige Leerstellen und Tabs</translation>
     </message>
     <message>
         <source>Show ends of lines</source>
-        <translation>Zeilenende anzeigen</translation>
+        <translation type="obsolete">Zeilenende anzeigen</translation>
     </message>
     <message>
         <source>Zoom In</source>
@@ -900,12 +900,36 @@ Wollen Sie die Änderungen speichern?</translation>
         <source>File &apos;%1&apos; is read-only</source>
         <translation>Datei &apos;%1&apos; ist schreibgeschützt</translation>
     </message>
+    <message>
+        <source>New session</source>
+        <translation>Neue Sitzung</translation>
+    </message>
+    <message>
+        <source>Open session</source>
+        <translation>Sitzung öffnen</translation>
+    </message>
+    <message>
+        <source>Toolbars</source>
+        <translation>Werkzeugleiste</translation>
+    </message>
+    <message>
+        <source>Session</source>
+        <translation>Sitzung</translation>
+    </message>
+    <message>
+        <source>Session name</source>
+        <translation>Sitzungsname</translation>
+    </message>
+    <message>
+        <source>Save session as...</source>
+        <translation>Sitzung speichern unter...</translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
     <message>
         <source>About Qt</source>
-        <translation>Über QT</translation>
+        <translation>Über Qt</translation>
     </message>
     <message>
         <source>Open file</source>
@@ -1525,7 +1549,7 @@ Am Anfang fortsetzen?</translation>
     </message>
     <message>
         <source>Noname %1</source>
-        <translation>Unbenannt %1</translation>
+        <translation type="obsolete">Unbenannt %1</translation>
     </message>
     <message>
         <source>Packaging, testing</source>
@@ -1639,32 +1663,36 @@ Am Anfang fortsetzen?</translation>
         <source>Chinese (simplified)</source>
         <translation>Vereinfachte chinesische</translation>
     </message>
+    <message>
+        <source>Untitled %1</source>
+        <translation>Unbenannt %1</translation>
+    </message>
 </context>
 <context>
     <name>QSciSettings</name>
     <message>
         <source>QSciSettings</source>
-        <translation>QSciSettings</translation>
+        <translation type="obsolete">QSciSettings</translation>
     </message>
     <message>
         <source>Indents color</source>
-        <translation>Einrück-Farbe</translation>
+        <translation type="obsolete">Einrück-Farbe</translation>
     </message>
     <message>
         <source>Matching brace</source>
-        <translation>Passende Klammer</translation>
+        <translation type="obsolete">Passende Klammer</translation>
     </message>
     <message>
         <source>Current line color</source>
-        <translation>Hervorhebungsfarbe der aktuellen Zeile</translation>
+        <translation type="obsolete">Hervorhebungsfarbe der aktuellen Zeile</translation>
     </message>
     <message>
         <source>foreground color:</source>
-        <translation>Vordergrundfarbe:</translation>
+        <translation type="obsolete">Vordergrundfarbe:</translation>
     </message>
     <message>
         <source>background color:</source>
-        <translation>Hintergrundfarbe:</translation>
+        <translation type="obsolete">Hintergrundfarbe:</translation>
     </message>
 </context>
 <context>
@@ -1710,10 +1738,6 @@ Am Anfang fortsetzen?</translation>
         <translation>Anweisung</translation>
     </message>
     <message>
-        <source>Directive Operand</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Comment Block</source>
         <translation>Kommentarblock</translation>
     </message>
@@ -1728,6 +1752,10 @@ Am Anfang fortsetzen?</translation>
     <message>
         <source>Extended Instruction</source>
         <translation>erweiterte Instruktion</translation>
+    </message>
+    <message>
+        <source>Directive Operand</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1942,14 +1970,6 @@ Am Anfang fortsetzen?</translation>
         <translation>Benuzerdefiniert</translation>
     </message>
     <message>
-        <source>Section Definition</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Subsection Definition</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>IFDEF</source>
         <translation>IFDEF</translation>
     </message>
@@ -1966,10 +1986,6 @@ Am Anfang fortsetzen?</translation>
         <translation>Zahl</translation>
     </message>
     <message>
-        <source>Section Group</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Page</source>
         <translation>Seite</translation>
     </message>
@@ -1980,6 +1996,18 @@ Am Anfang fortsetzen?</translation>
     <message>
         <source>Comment Box</source>
         <translation>Kommentarbox</translation>
+    </message>
+    <message>
+        <source>Section Definition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subsection Definition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Section Group</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2102,6 +2130,22 @@ Am Anfang fortsetzen?</translation>
     <message>
         <source>Markers color</source>
         <translation>Marker-Farbe</translation>
+    </message>
+    <message>
+        <source>Display line numbers</source>
+        <translation>Zeilennummern anzeigen</translation>
+    </message>
+    <message>
+        <source>Wrap words</source>
+        <translation>Zeilenumbruch</translation>
+    </message>
+    <message>
+        <source>Show whitespaces and TABs</source>
+        <translation>Zeige Leerstellen und Tabs</translation>
+    </message>
+    <message>
+        <source>Show ends of lines</source>
+        <translation>Zeilenende anzeigen</translation>
     </message>
     <message>
         <source>Whitespace symbols color</source>
@@ -2306,11 +2350,11 @@ Am Anfang fortsetzen?</translation>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation>Alle aktivieren</translation>
+        <translation type="obsolete">Alle aktivieren</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation>Alle deaktivieren</translation>
+        <translation type="obsolete">Alle deaktivieren</translation>
     </message>
 </context>
 <context>

@@ -97,12 +97,12 @@
         <translation>Ignorer</translation>
     </message>
     <message>
-        <source>The file &apos;%1&apos; was deleted or renamed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Noname %1</source>
         <translation type="obsolete">Sans titre %1</translation>
+    </message>
+    <message>
+        <source>The file &apos;%1&apos; was deleted or renamed.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -211,14 +211,6 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
         <translation>Patron de nom de fichier:</translation>
     </message>
     <message>
-        <source>+</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>-</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>First line patterns:</source>
         <translation>Patron de la première ligne:</translation>
     </message>
@@ -227,16 +219,24 @@ l&apos;indentation au complet au lieu d&apos;enlever un simple espace</translati
         <translation>Patron de nouveau fichier</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>No file type is selected</source>
         <translation>Aucun type de fichier est sélectionné</translation>
     </message>
     <message>
         <source>New first line pattern</source>
         <translation>Patron de nouvelle première ligne</translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -610,16 +610,16 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Copier le chemin du dossier du fichier dans le presse-papier</translation>
     </message>
     <message>
+        <source>Close all</source>
+        <translation>Fermer tous</translation>
+    </message>
+    <message>
         <source>Move to the right panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Move to the left panel</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Close all</source>
-        <translation>Fermer tous</translation>
     </message>
 </context>
 <context>
@@ -653,10 +653,6 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>&amp;Affichage</translation>
     </message>
     <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Tools</source>
         <translation>&amp;Outils</translation>
     </message>
@@ -667,14 +663,6 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <source>Charset</source>
         <translation>Encodage</translation>
-    </message>
-    <message>
-        <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set charset</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Cursor position</source>
@@ -717,16 +705,8 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>&amp;Recharger</translation>
     </message>
     <message>
-        <source>Rename</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Close</source>
         <translation>Fermer</translation>
-    </message>
-    <message>
-        <source>Close All</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Print</source>
@@ -782,19 +762,11 @@ Voulez-vous enregistrer les changements?</translation>
     </message>
     <message>
         <source>Display line numbers</source>
-        <translation>Afficher le numéro de ligne</translation>
+        <translation type="obsolete">Afficher le numéro de ligne</translation>
     </message>
     <message>
         <source>Wrap words</source>
-        <translation>Retour à la ligne automatique</translation>
-    </message>
-    <message>
-        <source>Show whitespaces and TABs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show ends of lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Retour à la ligne automatique</translation>
     </message>
     <message>
         <source>Zoom In</source>
@@ -803,14 +775,6 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <source>Zoom Out</source>
         <translation>Dézoomer</translation>
-    </message>
-    <message>
-        <source>Zoom 100%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Settings</source>
@@ -823,10 +787,6 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <source>About Qt</source>
         <translation>À propos de Qt</translation>
-    </message>
-    <message>
-        <source>For&amp;mat</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Recent files</source>
@@ -843,6 +803,62 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <source>File &apos;%1&apos; doesn&apos;t exist</source>
         <translation>Le fichier &apos;%1&apos; n&apos;existe pas</translation>
+    </message>
+    <message>
+        <source>New session</source>
+        <translation>Nouvelle session</translation>
+    </message>
+    <message>
+        <source>Open session</source>
+        <translation>Ouvrir session</translation>
+    </message>
+    <message>
+        <source>Toolbars</source>
+        <translation>Barres d&apos;outils</translation>
+    </message>
+    <message>
+        <source>Session name</source>
+        <translation>Nom de session</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save session as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom 100%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For&amp;mat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open with charset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Session</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File &apos;%1&apos; is read-only</source>
@@ -864,10 +880,6 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Ouvrir fichiers</translation>
     </message>
     <message>
-        <source>Save %1 as...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Go to line</source>
         <translation>Aller à la ligne</translation>
     </message>
@@ -884,6 +896,10 @@ Voulez-vous enregistrer les changements?</translation>
     <message>
         <source>Close document</source>
         <translation>Fermer le document</translation>
+    </message>
+    <message>
+        <source>Save %1 as...</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Rename file</source>
@@ -932,16 +948,8 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Ouvrir les fichiers dans l&apos;instance existant</translation>
     </message>
     <message>
-        <source>Saving</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Make backup copy when save file</source>
         <translation>Créer une sauvegarde de secours lors de l&apos;enregistrement</translation>
-    </message>
-    <message>
-        <source>Closing</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Save session when close</source>
@@ -960,12 +968,20 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Synchroniser le dossier du dialogue d&apos;ouverture avec le dossier actuel</translation>
     </message>
     <message>
+        <source>Strip trailing spaces</source>
+        <translation>Enlever les espaces de trop</translation>
+    </message>
+    <message>
         <source>Opening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Strip trailing spaces</source>
-        <translation>Enlever les espaces de trop</translation>
+        <source>Saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Closing</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Language</source>
@@ -997,20 +1013,16 @@ Voulez-vous enregistrer les changements?</translation>
         <translation>Ouvrir fichier</translation>
     </message>
     <message>
-        <source>Remove from project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Documents</source>
         <translation>Documents</translation>
+    </message>
+    <message>
+        <source>Remove from project</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
-    <message>
-        <source>Website</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Current character set: %1</source>
         <translation type="obsolete">Charset actuel: %1</translation>
@@ -1304,14 +1316,6 @@ Continuer à partir du début?</translation>
         <translation type="obsolete">Schéma du surlignement syntaxique: %1</translation>
     </message>
     <message>
-        <source>Patches</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Czech translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Chinese Simplified translation</source>
         <translation>Traduction du chinois simplifié</translation>
     </message>
@@ -1353,11 +1357,19 @@ Continuer à partir du début?</translation>
     </message>
     <message>
         <source>Noname %1</source>
-        <translation type="unfinished">Sans titre %1</translation>
+        <translation type="obsolete">Sans titre %1</translation>
     </message>
     <message>
-        <source>Packaging, testing</source>
-        <translation type="unfinished"></translation>
+        <source>Authors</source>
+        <translation>Auteurs</translation>
+    </message>
+    <message>
+        <source>Thanks</source>
+        <translation>Remerciments</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>License</translation>
     </message>
     <message>
         <source>Keep syntax highlighting</source>
@@ -1384,7 +1396,15 @@ Continuer à partir du début?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Czech translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Slovak translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Packaging, testing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1396,8 +1416,12 @@ Continuer à partir du début?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Authors</source>
-        <translation>Auteurs</translation>
+        <source>Patches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Website</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -1406,14 +1430,6 @@ Continuer à partir du début?</translation>
     <message>
         <source>Translations</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thanks</source>
-        <translation>Remerciments</translation>
-    </message>
-    <message>
-        <source>License</source>
-        <translation>License</translation>
     </message>
     <message>
         <source>auto-detect</source>
@@ -1459,32 +1475,24 @@ Continuer à partir du début?</translation>
         <source>Chinese (simplified)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Untitled %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QSciSettings</name>
     <message>
-        <source>QSciSettings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Indents color</source>
-        <translation>Couleur d&apos;indentation</translation>
+        <translation type="obsolete">Couleur d&apos;indentation</translation>
     </message>
     <message>
         <source>Matching brace</source>
-        <translation>Balises unis</translation>
+        <translation type="obsolete">Balises unis</translation>
     </message>
     <message>
         <source>Current line color</source>
-        <translation>Couleur du surlignement de la ligne actuel</translation>
-    </message>
-    <message>
-        <source>foreground color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Couleur du surlignement de la ligne actuel</translation>
     </message>
 </context>
 <context>
@@ -1828,56 +1836,8 @@ Continuer à partir du début?</translation>
         <translation>Monter la ligne</translation>
     </message>
     <message>
-        <source>Move line down</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Duplicate text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Comment lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Comment block</source>
         <translation>Bloque de commentaire</translation>
-    </message>
-    <message>
-        <source>Unindent lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Win</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mac</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unix</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove the beginning of the line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove the end of the line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert &apos;Tab&apos; character</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fold/Unfold all</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add/Remove marker</source>
@@ -1894,10 +1854,6 @@ Continuer à partir du début?</translation>
     <message>
         <source>Remove all markers</source>
         <translation>Enlever tout les marqueurs</translation>
-    </message>
-    <message>
-        <source>Printing</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File types</source>
@@ -1920,6 +1876,74 @@ Continuer à partir du début?</translation>
         <translation>Couleur des marqueurs</translation>
     </message>
     <message>
+        <source>Display line numbers</source>
+        <translation>Afficher le numéro de ligne</translation>
+    </message>
+    <message>
+        <source>Wrap words</source>
+        <translation>Retour à la ligne automatique</translation>
+    </message>
+    <message>
+        <source>Win</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mac</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move line down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the beginning of the line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the end of the line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unindent lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert &apos;Tab&apos; character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show whitespaces and TABs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show ends of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fold/Unfold all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Whitespace symbols color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1934,12 +1958,12 @@ Continuer à partir du début?</translation>
 <context>
     <name>SearchEngine</name>
     <message>
-        <source>Replacement finished (%1 replacements were made)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Replace</source>
         <translation>Remplacer</translation>
+    </message>
+    <message>
+        <source>Replacement finished (%1 replacements were made)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1953,28 +1977,16 @@ Continuer à partir du début?</translation>
         <translation>Rechercher:</translation>
     </message>
     <message>
-        <source>Replace all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find next</source>
         <translation>Poursuivre la recherche</translation>
-    </message>
-    <message>
-        <source>Replace next</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Find previous</source>
         <translation>Rechercher précédent</translation>
     </message>
     <message>
-        <source>Replace previous</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Replace:</source>
-        <translation type="unfinished"></translation>
+        <source>Case sensitive</source>
+        <translation>Sensible à la casse</translation>
     </message>
     <message>
         <source>Plain text</source>
@@ -1989,22 +2001,34 @@ Continuer à partir du début?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Case sensitive</source>
-        <translation>Sensible à la casse</translation>
+        <source>Replace:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace all</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SelectFilesDlg</name>
+    <message>
+        <source>Save all</source>
+        <translation>Enregistrer tout</translation>
+    </message>
     <message>
         <source>Select files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please select files you&apos;d like to save.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2020,8 +2044,8 @@ Continuer à partir du début?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Save all</source>
-        <translation>Enregistrer tout</translation>
+        <source>Please select files you&apos;d like to save.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2052,10 +2076,6 @@ Continuer à partir du début?</translation>
     <message>
         <source>Settings</source>
         <translation>Configuration</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation></translation>
     </message>
     <message>
         <source>Apply</source>
@@ -2090,10 +2110,6 @@ Continuer à partir du début?</translation>
         <translation type="obsolete">Types de fichier</translation>
     </message>
     <message>
-        <source>Plugins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Colors</source>
         <translation>Couleurs</translation>
     </message>
@@ -2109,16 +2125,24 @@ Continuer à partir du début?</translation>
         <source>Selection background color</source>
         <translation>Couleur de fond de la sélection</translation>
     </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation>Cocher tous</translation>
+        <translation type="obsolete">Cocher tous</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation>Décocher tous</translation>
+        <translation type="obsolete">Décocher tous</translation>
     </message>
 </context>
 <context>
@@ -2134,18 +2158,6 @@ Continuer à partir du début?</translation>
     <message>
         <source>Tabs position</source>
         <translation>Position des onglets</translation>
-    </message>
-    <message>
-        <source>16</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>24</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>32</source>
-        <translation></translation>
     </message>
     <message>
         <source>Icons only</source>
@@ -2186,6 +2198,18 @@ Continuer à partir du début?</translation>
     <message>
         <source>Toolbar style</source>
         <translation>Style de la barre d&apos;outils</translation>
+    </message>
+    <message>
+        <source>16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>24</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>32</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fullscreen</source>

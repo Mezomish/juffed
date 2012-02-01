@@ -176,6 +176,7 @@ SET ( juffed_app_RESOURCES
 )
 
 SET ( juffed_TS
+	l10n/juffed_da.ts
 	l10n/juffed_de.ts
 	l10n/juffed_fr.ts
 	l10n/juffed_pl.ts

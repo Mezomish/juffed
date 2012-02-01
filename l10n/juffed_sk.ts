@@ -534,10 +534,6 @@ Chcete pokračovat?</translation>
 <context>
     <name>Juff::TabWidget</name>
     <message>
-        <source>Documents list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Close all</source>
         <translation>Zatvoriť všetko</translation>
     </message>
@@ -552,6 +548,10 @@ Chcete pokračovat?</translation>
     <message>
         <source>Copy file directory path to clipboard</source>
         <translation>Kopírovať do schránky adresár súboru</translation>
+    </message>
+    <message>
+        <source>Documents list</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Move to the right panel</source>
@@ -587,10 +587,6 @@ Chcete pokračovat?</translation>
     <message>
         <source>&amp;Reload</source>
         <translation>&amp;Znova načítať</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Close</source>
@@ -649,24 +645,12 @@ Chcete pokračovat?</translation>
         <translation>Prejsť na riadok</translation>
     </message>
     <message>
-        <source>Go to file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Display line numbers</source>
-        <translation>Zobraziť čísla riadkov</translation>
+        <translation type="obsolete">Zobraziť čísla riadkov</translation>
     </message>
     <message>
         <source>Wrap words</source>
-        <translation>Zalomiť slová</translation>
-    </message>
-    <message>
-        <source>Show whitespaces and TABs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show ends of lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Zalomiť slová</translation>
     </message>
     <message>
         <source>Zoom In</source>
@@ -679,10 +663,6 @@ Chcete pokračovat?</translation>
     <message>
         <source>Zoom 100%</source>
         <translation>Lupa 100 %</translation>
-    </message>
-    <message>
-        <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Settings</source>
@@ -709,10 +689,6 @@ Chcete pokračovat?</translation>
         <translation>&amp;Zobraziť</translation>
     </message>
     <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>For&amp;mat</source>
         <translation>Fo&amp;rmát</translation>
     </message>
@@ -731,14 +707,6 @@ Chcete pokračovat?</translation>
     <message>
         <source>Charset</source>
         <translation>Kódovanie</translation>
-    </message>
-    <message>
-        <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set charset</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Docks</source>
@@ -776,6 +744,54 @@ Chcete pokračovat?</translation>
         <source>Line: %1, Col: %2</source>
         <translation>Riadok: %1, Stĺpec: %2</translation>
     </message>
+    <message>
+        <source>New session</source>
+        <translation>Nová relácia</translation>
+    </message>
+    <message>
+        <source>Open session</source>
+        <translation>Otvoriť reláciu</translation>
+    </message>
+    <message>
+        <source>Toolbars</source>
+        <translation>Panely nástrojov</translation>
+    </message>
+    <message>
+        <source>Session name</source>
+        <translation>Meno relácie</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save session as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fullscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open with charset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Session</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>JuffMW</name>
@@ -790,18 +806,6 @@ Chcete pokračovat?</translation>
     <message>
         <source>Open files</source>
         <translation>Otvoriť súbory</translation>
-    </message>
-    <message>
-        <source>Save %1 as...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rename file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Input new file name:</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go to line</source>
@@ -820,6 +824,18 @@ Chcete zmeny uložiť?</translation>
     <message>
         <source>Close document</source>
         <translation>Zatvoriť dokument</translation>
+    </message>
+    <message>
+        <source>Save %1 as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input new file name:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -902,12 +918,12 @@ Chcete zmeny uložiť?</translation>
 <context>
     <name>ProjectTree</name>
     <message>
-        <source>Project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Open file</source>
         <translation>Otvoriť súbor</translation>
+    </message>
+    <message>
+        <source>Project</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remove from project</source>
@@ -1269,15 +1285,27 @@ Chcete zmeny uložiť?</translation>
         <translation>Slovenský preklad</translation>
     </message>
     <message>
+        <source>Authors</source>
+        <translation>Autori</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation>Zásuvné moduly</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Preklady</translation>
+    </message>
+    <message>
+        <source>Thanks</source>
+        <translation>Poďakovanie</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Licencia</translation>
+    </message>
+    <message>
         <source>Syntax highlighting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Packaging, testing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Patches</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1297,6 +1325,10 @@ Chcete zmeny uložiť?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Packaging, testing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Testing, design ideas, feature requests</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1305,24 +1337,8 @@ Chcete zmeny uložiť?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Authors</source>
-        <translation>Autori</translation>
-    </message>
-    <message>
-        <source>Plugins</source>
-        <translation>Zásuvné moduly</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation>Preklady</translation>
-    </message>
-    <message>
-        <source>Thanks</source>
-        <translation>Poďakovanie</translation>
-    </message>
-    <message>
-        <source>License</source>
-        <translation>Licencia</translation>
+        <source>Patches</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>auto-detect</source>
@@ -1369,35 +1385,15 @@ Chcete zmeny uložiť?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Noname %1</source>
+        <source>Untitled %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QSciSettings</name>
     <message>
-        <source>QSciSettings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Indents color</source>
-        <translation>Farba odsadení</translation>
-    </message>
-    <message>
-        <source>Matching brace</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current line color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>foreground color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Farba odsadení</translation>
     </message>
 </context>
 <context>
@@ -1749,44 +1745,8 @@ Chcete zmeny uložiť?</translation>
         <translation>O riadok vyššie</translation>
     </message>
     <message>
-        <source>Move line down</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Duplicate text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove the beginning of the line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove the end of the line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Comment lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Comment block</source>
         <translation>Zakomentovať blok</translation>
-    </message>
-    <message>
-        <source>Unindent lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert &apos;Tab&apos; character</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fold/Unfold all</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Add/Remove marker</source>
@@ -1827,6 +1787,58 @@ Chcete zmeny uložiť?</translation>
     <message>
         <source>Markers color</source>
         <translation>Farba značiek</translation>
+    </message>
+    <message>
+        <source>Display line numbers</source>
+        <translation>Zobraziť čísla riadkov</translation>
+    </message>
+    <message>
+        <source>Wrap words</source>
+        <translation>Zalomiť slová</translation>
+    </message>
+    <message>
+        <source>Move line down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the beginning of the line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the end of the line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unindent lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert &apos;Tab&apos; character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show whitespaces and TABs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show ends of lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fold/Unfold all</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Whitespace symbols color</source>
@@ -1901,6 +1913,10 @@ Chcete zmeny uložiť?</translation>
 <context>
     <name>SelectFilesDlg</name>
     <message>
+        <source>Save all</source>
+        <translation>Uložiť všetko</translation>
+    </message>
+    <message>
         <source>Select files</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1923,10 +1939,6 @@ Chcete zmeny uložiť?</translation>
     <message>
         <source>Please select files you&apos;d like to save.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Save all</source>
-        <translation>Uložiť všetko</translation>
     </message>
 </context>
 <context>
@@ -2003,10 +2015,6 @@ Chcete zmeny uložiť?</translation>
         <translation>Kódovania</translation>
     </message>
     <message>
-        <source>Colors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Default font color</source>
         <translation>Predvolená farba písma</translation>
     </message>
@@ -2018,16 +2026,20 @@ Chcete zmeny uložiť?</translation>
         <source>Selection background color</source>
         <translation>Farba pozadia výberu</translation>
     </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation>Všetky</translation>
+        <translation type="obsolete">Všetky</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation>Žiadne</translation>
+        <translation type="obsolete">Žiadne</translation>
     </message>
 </context>
 <context>

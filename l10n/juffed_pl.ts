@@ -257,12 +257,12 @@ całe wcięcie zamiast usuwać pojedyńcze niewidoczne znaki</translation>
         <translation>&amp;Składnia</translation>
     </message>
     <message>
-        <source>Line endings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Markers</source>
         <translation>Znaczniki</translation>
+    </message>
+    <message>
+        <source>Line endings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -468,10 +468,6 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>Juff::TabWidget</name>
     <message>
-        <source>Documents list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Copy file name to clipboard</source>
         <translation>Kopiuj nazwę pliku do schowka</translation>
     </message>
@@ -484,6 +480,14 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Kopiuj ścieżkę katalogu do schowka</translation>
     </message>
     <message>
+        <source>Close all</source>
+        <translation>Zamknij wszystko</translation>
+    </message>
+    <message>
+        <source>Documents list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Move to the right panel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -491,21 +495,9 @@ Czy chcesz zachować swoje zmiany?</translation>
         <source>Move to the left panel</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Close all</source>
-        <translation>Zamknij wszystko</translation>
-    </message>
 </context>
 <context>
     <name>JuffEd</name>
-    <message>
-        <source>Lines: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Line: %1, Col: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>&amp;File</source>
         <translation>&amp;Plik</translation>
@@ -519,10 +511,6 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>&amp;Widok</translation>
     </message>
     <message>
-        <source>&amp;Search</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Tools</source>
         <translation>&amp;Narzędzia</translation>
     </message>
@@ -533,30 +521,6 @@ Czy chcesz zachować swoje zmiany?</translation>
     <message>
         <source>Charset</source>
         <translation>Kodowanie</translation>
-    </message>
-    <message>
-        <source>Open with charset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set charset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cursor position</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File full name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current character set</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Lines count</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -575,16 +539,8 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Zapisz jako</translation>
     </message>
     <message>
-        <source>Save all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Reload</source>
         <translation>Wczytaj &amp;ponownie</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Close</source>
@@ -643,23 +599,59 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Idź do linii</translation>
     </message>
     <message>
-        <source>Go to file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Display line numbers</source>
-        <translation>Pokaż numery linii</translation>
+        <translation type="obsolete">Pokaż numery linii</translation>
     </message>
     <message>
-        <source>Wrap words</source>
+        <source>Settings</source>
+        <translation>Ustawienia</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>O programie</translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation>О Qt</translation>
+    </message>
+    <message>
+        <source>Recent files</source>
+        <translation>Ostatnio otwarte pliki</translation>
+    </message>
+    <message>
+        <source>File &apos;%1&apos; is read-only</source>
+        <translation>Plik &apos;%1&apos; jest plikiem tylko do odczytu</translation>
+    </message>
+    <message>
+        <source>New session</source>
+        <translation>Nowa sesja</translation>
+    </message>
+    <message>
+        <source>Open session</source>
+        <translation>Otwórz sesję</translation>
+    </message>
+    <message>
+        <source>Session</source>
+        <translation>Sesja</translation>
+    </message>
+    <message>
+        <source>Session name</source>
+        <translation>Nazwa sesji</translation>
+    </message>
+    <message>
+        <source>Save all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show whitespaces and TABs</source>
+        <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Show ends of lines</source>
+        <source>Save session as...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -679,27 +671,43 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Settings</source>
-        <translation>Ustawienia</translation>
-    </message>
-    <message>
-        <source>About</source>
-        <translation>O programie</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation>О Qt</translation>
+        <source>&amp;Search</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>For&amp;mat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recent files</source>
-        <translation>Ostatnio otwarte pliki</translation>
+        <source>Open with charset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set charset</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Docks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toolbars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cursor position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File full name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current character set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -707,8 +715,12 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>File &apos;%1&apos; is read-only</source>
-        <translation>Plik &apos;%1&apos; jest plikiem tylko do odczytu</translation>
+        <source>Lines: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line: %1, Col: %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -724,10 +736,6 @@ Czy chcesz zachować swoje zmiany?</translation>
     <message>
         <source>Open files</source>
         <translation>Otwórz pliki</translation>
-    </message>
-    <message>
-        <source>Save %1 as...</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go to line</source>
@@ -746,6 +754,10 @@ Czy chcesz zachować swoje zmiany?</translation>
     <message>
         <source>Close document</source>
         <translation>Zamknij dokument</translation>
+    </message>
+    <message>
+        <source>Save %1 as...</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Rename file</source>
@@ -794,16 +806,8 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation>Otwórz pliki w uruchomionej kopii programu</translation>
     </message>
     <message>
-        <source>Saving</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Make backup copy when save file</source>
         <translation>Wykonaj kopię zapasową przy zapisie</translation>
-    </message>
-    <message>
-        <source>Closing</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Save session when close</source>
@@ -814,10 +818,6 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="obsolete">Otwórz ostatnio zapisaną sesję</translation>
     </message>
     <message>
-        <source>Exit after closing the last document</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Sync &apos;Open&apos; dialog to current doc&apos;s dir</source>
         <translation>Synchronizacja dialogu &quot;Otwórz&quot; z aktualnym katalogiem dokumentów</translation>
     </message>
@@ -826,7 +826,19 @@ Czy chcesz zachować swoje zmiany?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Saving</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Strip trailing spaces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Closing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exit after closing the last document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -844,12 +856,12 @@ Czy chcesz zachować swoje zmiany?</translation>
 <context>
     <name>ProjectTree</name>
     <message>
-        <source>Project</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Open file</source>
         <translation>Otwórz plik</translation>
+    </message>
+    <message>
+        <source>Project</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remove from project</source>
@@ -862,10 +874,6 @@ Czy chcesz zachować swoje zmiany?</translation>
 </context>
 <context>
     <name>QObject</name>
-    <message>
-        <source>Website</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>&amp;View</source>
         <translation type="obsolete">&amp;Widok</translation>
@@ -901,10 +909,6 @@ Czy chcesz zachować swoje zmiany?</translation>
     <message>
         <source>French translation</source>
         <translation>Francuskie tłumaczenie</translation>
-    </message>
-    <message>
-        <source>Czech translation</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Brazilian Portuguese translation</source>
@@ -1071,32 +1075,20 @@ Rozpocząć od początku?</translation>
         <translation type="obsolete">Drukuj</translation>
     </message>
     <message>
-        <source>Patches</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chinese Simplified translation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Advanced text editor</source>
         <translation>Zaawansowany edytor tekstu</translation>
     </message>
     <message>
-        <source>Application icon</source>
-        <translation type="unfinished"></translation>
+        <source>Authors</source>
+        <translation>Autorzy</translation>
     </message>
     <message>
-        <source>Syntax highlighting</source>
-        <translation type="unfinished"></translation>
+        <source>Thanks</source>
+        <translation>Podziękowania</translation>
     </message>
     <message>
-        <source>Line endings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Packaging, testing</source>
-        <translation type="unfinished"></translation>
+        <source>License</source>
+        <translation>Licencja</translation>
     </message>
     <message>
         <source>Keep syntax highlighting</source>
@@ -1108,6 +1100,14 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>Always wrap text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Syntax highlighting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line endings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1123,7 +1123,19 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Czech translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Slovak translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese Simplified translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Packaging, testing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1135,8 +1147,16 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Authors</source>
-        <translation>Autorzy</translation>
+        <source>Patches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Application icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Website</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -1145,14 +1165,6 @@ Rozpocząć od początku?</translation>
     <message>
         <source>Translations</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Thanks</source>
-        <translation>Podziękowania</translation>
-    </message>
-    <message>
-        <source>License</source>
-        <translation>Licencja</translation>
     </message>
     <message>
         <source>auto-detect</source>
@@ -1199,35 +1211,15 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Noname %1</source>
+        <source>Untitled %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QSciSettings</name>
     <message>
-        <source>QSciSettings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Indents color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Matching brace</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Current line color</source>
-        <translation>Podświetlenie bieżącej linii</translation>
-    </message>
-    <message>
-        <source>foreground color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>background color:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Podświetlenie bieżącej linii</translation>
     </message>
 </context>
 <context>
@@ -1559,6 +1551,46 @@ Rozpocząć od początku?</translation>
         <translation type="obsolete">&amp;Składnia</translation>
     </message>
     <message>
+        <source>Add/Remove marker</source>
+        <translation>Dodaj/Usuń znacznik</translation>
+    </message>
+    <message>
+        <source>Next marker</source>
+        <translation>Następny znacznik</translation>
+    </message>
+    <message>
+        <source>Previous marker</source>
+        <translation>Poprzedni znacznik</translation>
+    </message>
+    <message>
+        <source>Remove all markers</source>
+        <translation>Usuń wszystkie znaczniki</translation>
+    </message>
+    <message>
+        <source>Current line highlighting color</source>
+        <translation>Kolor aktualnej podświetlonej linii</translation>
+    </message>
+    <message>
+        <source>Markers color</source>
+        <translation>Kolor znacznika</translation>
+    </message>
+    <message>
+        <source>Display line numbers</source>
+        <translation>Pokaż numery linii</translation>
+    </message>
+    <message>
+        <source>Win</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mac</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>UPPER CASE</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1583,6 +1615,14 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Remove the beginning of the line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove the end of the line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Comment lines</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1595,48 +1635,24 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Win</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mac</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unix</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove the beginning of the line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Remove the end of the line</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Insert &apos;Tab&apos; character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wrap words</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show whitespaces and TABs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show ends of lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fold/Unfold all</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Add/Remove marker</source>
-        <translation>Dodaj/Usuń znacznik</translation>
-    </message>
-    <message>
-        <source>Next marker</source>
-        <translation>Następny znacznik</translation>
-    </message>
-    <message>
-        <source>Previous marker</source>
-        <translation>Poprzedni znacznik</translation>
-    </message>
-    <message>
-        <source>Remove all markers</source>
-        <translation>Usuń wszystkie znaczniki</translation>
     </message>
     <message>
         <source>Printing</source>
@@ -1647,20 +1663,12 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Current line highlighting color</source>
-        <translation>Kolor aktualnej podświetlonej linii</translation>
-    </message>
-    <message>
         <source>Matching brace background color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Indents color</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Markers color</source>
-        <translation>Kolor znacznika</translation>
     </message>
     <message>
         <source>Whitespace symbols color</source>
@@ -1677,12 +1685,12 @@ Rozpocząć od początku?</translation>
 <context>
     <name>SearchEngine</name>
     <message>
-        <source>Replacement finished (%1 replacements were made)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Replace</source>
         <translation>Zastąp</translation>
+    </message>
+    <message>
+        <source>Replacement finished (%1 replacements were made)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1692,28 +1700,20 @@ Rozpocząć od początku?</translation>
         <translation>Znajdź:</translation>
     </message>
     <message>
-        <source>Replace all</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Find next</source>
         <translation>Znajdź następny</translation>
-    </message>
-    <message>
-        <source>Replace next</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Find previous</source>
         <translation>Znajdź poprzedni</translation>
     </message>
     <message>
-        <source>Replace previous</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Replace:</source>
         <translation>Zastąp:</translation>
+    </message>
+    <message>
+        <source>Case sensitive</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Plain text</source>
@@ -1728,7 +1728,15 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Case sensitive</source>
+        <source>Replace previous</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace all</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1743,10 +1751,6 @@ Rozpocząć od początku?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please select files you&apos;d like to save.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Save selected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1756,6 +1760,10 @@ Rozpocząć od początku?</translation>
     </message>
     <message>
         <source>Do not close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select files you&apos;d like to save.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1778,12 +1786,12 @@ Rozpocząć od początku?</translation>
         <translation>Otwórz sesję</translation>
     </message>
     <message>
-        <source>Remove selected session</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>New session</source>
         <translation>Nowa sesja</translation>
+    </message>
+    <message>
+        <source>Remove selected session</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1791,10 +1799,6 @@ Rozpocząć od początku?</translation>
     <message>
         <source>Settings</source>
         <translation>Ustawienia</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation></translation>
     </message>
     <message>
         <source>Apply</source>
@@ -1825,11 +1829,15 @@ Rozpocząć od początku?</translation>
         <translation>Autozakończenie</translation>
     </message>
     <message>
-        <source>Plugins</source>
+        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1849,11 +1857,11 @@ Rozpocząć od początku?</translation>
     <name>SyntaxesSettingsPage</name>
     <message>
         <source>Check all</source>
-        <translation>Zaznacz wszystko</translation>
+        <translation type="obsolete">Zaznacz wszystko</translation>
     </message>
     <message>
         <source>Uncheck all</source>
-        <translation>Odznacz wszystko</translation>
+        <translation type="obsolete">Odznacz wszystko</translation>
     </message>
 </context>
 <context>
@@ -1884,18 +1892,6 @@ Rozpocząć od początku?</translation>
     <message>
         <source>Tabs position</source>
         <translation>Pozycja zakładek</translation>
-    </message>
-    <message>
-        <source>16</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>24</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>32</source>
-        <translation></translation>
     </message>
     <message>
         <source>Icons only</source>
@@ -1932,6 +1928,18 @@ Rozpocząć od początku?</translation>
     <message>
         <source>Toolbar style</source>
         <translation>Styl paska narzędzi</translation>
+    </message>
+    <message>
+        <source>16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>24</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>32</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Fullscreen</source>

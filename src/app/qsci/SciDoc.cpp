@@ -967,7 +967,7 @@ void SciDoc::foldUnfoldAll() {
 }
 
 void SciDoc::highlightWord() {
-//	LOGGER;
+	LOGGER;
 	
 	JuffScintilla* edit = int_->curEdit_;
 	if ( edit == NULL ) return;
@@ -976,7 +976,10 @@ void SciDoc::highlightWord() {
 		return;
 	
 	QString word = edit->wordUnderCursor();
-	edit->highlightText(JuffScintilla::HLCurrentWord, Juff::SearchParams());
+	qDebug() << word;
+	Juff::SearchParams params;
+	params.findWhat = word;
+	edit->highlightText(JuffScintilla::HLCurrentWord, params);
 }
 
 void SciDoc::highlightSearchResults() {
@@ -1179,11 +1182,15 @@ void SciDoc::setEol(SciDoc::Eol eol) {
 }
 
 void SciDoc::toggleMarker(int line) {
+	LOGGER;
+	
 	QsciScintilla* edit = int_->curEdit_;
 	if ( edit == NULL )
 		return;
 	
-	if ( edit->markersAtLine(line) & 2 ) {
+	qDebug() << edit->markersAtLine( line );
+	
+	if ( edit->markersAtLine(line) & 4 ) {
 		edit->markerDelete(line, 1);
 		edit->markerDelete(line, 2);
 	}

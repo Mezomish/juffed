@@ -41,12 +41,12 @@ set ( DEV 1 )
 
 if ( DEV )
 	# SVN revision
-	find_package(Subversion)
-	if(Subversion_FOUND)
-		Subversion_WC_INFO(${PROJECT_SOURCE_DIR} SVN)
-	endif(Subversion_FOUND)
-	set ( REV ${SVN_WC_REVISION} )
-	set ( JUFFED_VERSION "${BASE_VERSION}.${REV}" )
+#	find_package(Subversion)
+#	if(Subversion_FOUND)
+#		Subversion_WC_INFO(${PROJECT_SOURCE_DIR} SVN)
+#	endif(Subversion_FOUND)
+#	set ( REV ${SVN_WC_REVISION} )
+#	set ( JUFFED_VERSION "${BASE_VERSION}.${REV}" )
 endif ( DEV )
 
 message ( STATUS "" )

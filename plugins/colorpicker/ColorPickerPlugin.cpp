@@ -5,7 +5,10 @@
 #include <QtGui/QColorDialog>
 
 #include <Document.h>
+#include <PluginSettings.h>
 #include <Log.h>
+
+#include "ColorFormatDlg.h"
 
 ColorPickerPlugin::ColorPickerPlugin() : QObject(), JuffPlugin() {
 	_pickColorAct = new QAction(QIcon(":icon32"), "Pick a color", this);
@@ -44,11 +47,18 @@ Juff::ActionList ColorPickerPlugin::mainMenuActions(Juff::MenuID id) const {
 }
 
 void ColorPickerPlugin::pickColor() {
-	QColor color = QColorDialog::getColor(Qt::white, api()->mainWindow());
+	QColor lastColor = QColor( PluginSettings::getString( this, "lastColor", "#ffffff" ) );
+	QColor color = QColorDialog::getColor( lastColor, api()->mainWindow() );
 	if ( color.isValid() ) {
-		Juff::Document* doc = api()->currentDocument();
-		if ( !doc->isNull() ) {
-			doc->replaceSelectedText(color.name());
+		PluginSettings::set( this, "lastColor", color.name() );
+		
+		ColorFormatDlg dlg( this, color, api()->mainWindow() );
+		if ( dlg.exec() == QDialog::Accepted ) {
+			QString str = dlg.colorStr();
+			Juff::Document* doc = api()->currentDocument();
+			if ( !doc->isNull() ) {
+				doc->replaceSelectedText( str );
+			}
 		}
 	}
 }

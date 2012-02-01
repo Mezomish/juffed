@@ -995,6 +995,8 @@ void JuffEd::openDoc(const QString& fileName, Juff::PanelIndex panel, bool addTo
 		if ( addToRecent && !doc->isNoname() ) {
 			addToRecentFiles(doc->fileName());
 		}
+
+		doc->applySettings();
 	}
 }
 

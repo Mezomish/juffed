@@ -7,6 +7,14 @@
 # cd build
 # cmake .. -DCMAKE_INSTALL_PREFIX=/usr (or whatever prefix you'd like)
 # make
+# make install
+#
+# mac os x notes:
+# juffed.app is build by default. There are some additions to steps above. 
+# "make install" is required to get plugins working
+# "make bundle" an optional make target to build bundle with all dependencies inside
+#
+
 
 project (juffed)
 cmake_minimum_required (VERSION 2.6.0)

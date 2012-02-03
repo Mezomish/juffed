@@ -25,6 +25,8 @@
 #include <QtCore/QObject>
 
 #include "JuffPlugin.h"
+#include "Document.h"
+
 
 /*! Try to format content of the current dcument as a XML or
   similar markup language (HTML, SGML,...)
@@ -47,10 +49,13 @@ public:
     Juff::ActionList mainMenuActions(Juff::MenuID) const;
 
 public slots:
-    void formatDocument();
+    void format();
 
 private:
     QAction * actDoc;
+
+    void formatDocument(Juff::Document *doc);
+    void formatSelection(Juff::Document *doc);
 };
 
 #endif

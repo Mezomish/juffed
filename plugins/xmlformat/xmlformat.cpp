@@ -25,14 +25,13 @@
 #include <QtGui>
 #include <QDomDocument>
 
-#include "Document.h"
-
+#include "EditorSettings.h"
 
 
 XmlformatPlugin::XmlformatPlugin() : QObject(), JuffPlugin()
 {
     actDoc = new QAction(QIcon(":xmlwrap"), tr("Format XML Document"), this);
-    connect(actDoc, SIGNAL(triggered()), this, SLOT(formatDocument()));
+    connect(actDoc, SIGNAL(triggered()), this, SLOT(format()));
 }
 
 void XmlformatPlugin::init() {
@@ -71,7 +70,7 @@ Juff::ActionList XmlformatPlugin::mainMenuActions(Juff::MenuID id) const
     return list;
 }
 
-void XmlformatPlugin::formatDocument()
+void XmlformatPlugin::format()
 {
     Juff::Document* doc = api()->currentDocument();
     // api()->currentDocument() never returns NULL, it returns 
@@ -79,22 +78,64 @@ void XmlformatPlugin::formatDocument()
     if ( doc->isNull() )
         return;
 
-    QString content;
-    if (! doc->getText(content))
-        return;
+    // if there is a selection - try to format a selection.
+    // In the other case format all document
+    if (doc->hasSelectedText())
+    {
+        formatSelection(doc);
+    }
+    else
+    {
+        formatDocument(doc);
+    }
+}
 
+void XmlformatPlugin::formatDocument(Juff::Document *doc)
+{
+    QString content;
     QDomDocument dom;
     QString errmsg;
     int errline, errcolumn;
+
+    if (! doc->getText(content))
+        return;
+
     if (dom.setContent(content, false, &errmsg, &errline, &errcolumn))
     {
-        QString newContent = dom.toString(4);
+        QString newContent = dom.toString(EditorSettings::get(EditorSettings::TabWidth));
         doc->setText(newContent);
     }
     else
     {
         QMessageBox::information(0, tr("XML format error"),
                                  tr("Cannot format XML due error (line: %1, column: %2)").arg(errline).arg(errcolumn)
+                                    + "<br/>"
+                                    + errmsg);
+    }
+}
+
+void XmlformatPlugin::formatSelection(Juff::Document *doc)
+{
+    QString content;
+    QDomDocument dom;
+    QString errmsg;
+    int errline, errcolumn;
+
+    if (! doc->getSelectedText(content))
+        return;
+
+    int line, column, tmp1, tmp2;
+    doc->getSelection(line, column, tmp1, tmp2);
+
+    if (dom.setContent(content, false, &errmsg, &errline, &errcolumn))
+    {
+        QString newContent = dom.toString(EditorSettings::get(EditorSettings::TabWidth));
+        doc->replaceSelectedText(newContent);
+    }
+    else
+    {
+        QMessageBox::information(0, tr("XML format error"),
+                                 tr("Cannot format XML due error (line: %1, column: %2)").arg(errline+line).arg(errline==1 ? errcolumn+column : errcolumn)
                                     + "<br/>"
                                     + errmsg);
     }

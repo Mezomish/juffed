@@ -48,13 +48,13 @@ fixup_bundle(@CMAKE_INSTALL_PREFIX@/@JUFFED@.app "${inplugs}" @CMAKE_INSTALL_PRE
 
 # FIXUP_BUNDLE copies it into MacOS dir. But we need it in plugins *tree*,
 # not a flat dir.
-foreach (item IN LISTS inplugs)
+#foreach (item IN LISTS inplugs)
     #message(STATUS "IN: ${item}")
-    get_filename_component(fname ${item} NAME)
-    message(STATUS "Moving ${fname} back to plugins tree: ${item}")
+#    get_filename_component(fname ${item} NAME)
+#    message(STATUS "Moving ${fname} back to plugins tree: ${item}")
     #message(STATUS "    ${fname}")
     #message(STATUS " src: @CMAKE_INSTALL_PREFIX@/@JUFFED@.app/Contents/MacOS/${fname}")
     #message(STATUS " tgt: ${item}")
-    execute_process(COMMAND mv @CMAKE_INSTALL_PREFIX@/@JUFFED@.app/Contents/MacOS/${fname} ${item})
-endforeach()
-    
+#    execute_process(COMMAND mv @CMAKE_INSTALL_PREFIX@/@JUFFED@.app/Contents/MacOS/${fname} ${item})
+#endforeach()
+   

@@ -10,23 +10,22 @@
 
 #include "qtermwidget.h"
 
-Preferences::Preferences(QTermWidget * term, const QObject * parent,
-                         int colorIX, const QString & emulation,
-                         const QFont & font)
+
+Preferences::Preferences(const QObject *parent,
+                         const QString &color,
+                         const QString &emulation,
+                         const QFont &font)
     : QWidget()
 {
     setupUi(this);
 
-    QStringList colorSchemes;
-    colorSchemes << "White On Black" << \
-                    "Green On Black" << \
-                    "Black On Light Yellow";
-    colorSchemaCombo->addItems(colorSchemes);
-    colorSchemaCombo->setCurrentIndex(colorIX);
-    connect(colorSchemaCombo, SIGNAL(currentIndexChanged(int)),
-            parent, SLOT(colorSchemaChanged(int)));
+    colorSchemaCombo->addItems(QTermWidget::availableColorSchemes());
+    int cix = colorSchemaCombo->findText(color);
+    colorSchemaCombo->setCurrentIndex(cix != -1 ? cix : 0);
+    connect(colorSchemaCombo, SIGNAL(currentIndexChanged(const QString&)),
+            parent, SLOT(colorSchemaChanged(const QString &)));
 
-//    emulationComboBox->addItems(term->availableKeyBindings());
+    emulationComboBox->addItems(QTermWidget::availableKeyBindings());
     int eix = emulationComboBox->findText(emulation);
     emulationComboBox->setCurrentIndex(eix != -1 ? eix : 0 );
     connect(emulationComboBox, SIGNAL(currentIndexChanged(const QString&)),
@@ -43,7 +42,6 @@ Preferences::Preferences(QTermWidget * term, const QObject * parent,
 
 
 TerminalPlugin::TerminalPlugin() : QObject(), JuffPlugin() {
-//	w_ = new QWidget();
 	w_ = new QTermWidget();
 	w_->setScrollBarPosition(QTermWidget::ScrollBarRight);
 	w_->setWindowTitle(tr("Terminal"));
@@ -58,11 +56,11 @@ void TerminalPlugin::init()
 {
     prefFont.fromString(PluginSettings::getString(this, "TerminalFont"));
     prefFontSize = prefFont.pointSize();
-    prefColorScheme = PluginSettings::getInt(this, "TerminalColorScheme");
+    prefColorScheme = PluginSettings::getString(this, "TerminalColorScheme");
     prefEmulation = PluginSettings::getString(this, "TerminalEmulation");
     w_->setColorScheme(prefColorScheme);
     w_->setTerminalFont(prefFont);
-//    w_->setKeyBindings(prefEmulation);
+    w_->setKeyBindings(prefEmulation);
 }
 
 TerminalPlugin::~TerminalPlugin() {
@@ -98,7 +96,7 @@ Juff::ActionList TerminalPlugin::mainMenuActions(Juff::MenuID id) const
 
 QWidget * TerminalPlugin::settingsPage() const
 {
-    return new Preferences(w_, this, prefColorScheme, prefEmulation, prefFont);
+    return new Preferences(this, prefColorScheme, prefEmulation, prefFont);
 }
 
 void TerminalPlugin::applySettings()
@@ -109,12 +107,12 @@ void TerminalPlugin::applySettings()
     PluginSettings::set(this, "TerminalColorScheme", prefColorScheme);
     w_->setColorScheme(prefColorScheme);
     w_->setTerminalFont(prefFont);
-//    w_->setKeyBindings(prefEmulation);
+    w_->setKeyBindings(prefEmulation);
 }
 
-void TerminalPlugin::colorSchemaChanged(int val)
+void TerminalPlugin::colorSchemaChanged(const QString & val)
 {
-    prefColorScheme = val + 1;
+    prefColorScheme = val;
 }
 
 void TerminalPlugin::emulationChanged(const QString & val)
@@ -153,3 +151,4 @@ void TerminalPlugin::showTerminal()
 }
 
 Q_EXPORT_PLUGIN2(terminal, TerminalPlugin)
+

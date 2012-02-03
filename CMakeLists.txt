@@ -8,10 +8,6 @@
 # cmake .. -DCMAKE_INSTALL_PREFIX=/usr (or whatever prefix you'd like)
 # make
 
-option ( BUILD_PLUGINS "Build plugins from the externally linked SVN" ON )
-option ( APPLEBUNDLE "Build juffed as a Mac OS X bundle" OFF )
-option ( APPLEBUNDLE_STANDALONE "Pack APPLEBUNDLE with all its dependencies (libs)" OFF )
-
 project (juffed)
 cmake_minimum_required (VERSION 2.6.0)
 	if (COMMAND cmake_policy)
@@ -147,7 +143,7 @@ target_link_libraries ( ${QSCI_ENGINE}
 	${QSCINTILLA_LIBRARY} 
 )
 
-if (APPLEBUNDLE)
+if (APPLE)
 	message ( STATUS "Building as an apple bundle" )
 	set ( APPLE_PREFIX "${CMAKE_INSTALL_PREFIX}/${JUFFED}.app/Contents" )
 
@@ -168,7 +164,7 @@ if (APPLEBUNDLE)
 	# this is a must to load the lib correctly
 	set_target_properties( ${JUFFLIB} PROPERTIES INSTALL_NAME_DIR "@executable_path/../MacOS" )
 	set_target_properties( ${QSCI_ENGINE} PROPERTIES INSTALL_NAME_DIR "@executable_path/../MacOS" )
-else (APPLEBUNDLE)
+else (APPLE)
 	set(GUI_TYPE "")
 	set(APPLE_BUNDLE_SOURCES "")
 	# now we want to use soversion etc.
@@ -181,7 +177,7 @@ else (APPLEBUNDLE)
 		set_target_properties( ${JUFFLIB} PROPERTIES INSTALL_NAME_DIR ${LIB_INSTALL_DIR} )
 		set_target_properties( ${QSCI_ENGINE} PROPERTIES INSTALL_NAME_DIR ${LIB_INSTALL_DIR} )
 	endif (NOT APPLE)
-endif (APPLEBUNDLE)
+endif (APPLE)
 
 if ( MINGW )
 	add_definitions(
@@ -225,26 +221,22 @@ if ( UNIX )
 	set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")
 endif ( UNIX )
 
-if (BUILD_PLUGINS AND EXISTS ${CMAKE_SOURCE_DIR}/plugins)
-	message(STATUS "Plugins: all externally linked cmake-ready plugs will be built")
-	set(JUFFED_CMAKE_PLUGINS 1)
-	if (UNIX)
-		set(JUFFED_PLUGINS_DIR ${LIB_INSTALL_DIR}/juffed/plugins)
-	endif (UNIX)
-	if (APPLEBUNDLE)
-		set(JUFFED_PLUGINS_DIR ${APPLE_PREFIX}/plugins)
-	endif (APPLEBUNDLE)
-	if (WIN32)
-		set(JUFFED_PLUGINS_DIR ${CMAKE_INSTALL_PREFIX}/plugins)
-	endif(WIN32)
-	message(STATUS "Plugins: location = ${JUFFED_PLUGINS_DIR}")
-	# dive into external SVN link
-	set(JUFFED_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
-	set(JUFFED_LIBRARY ${JUFFLIB})
-	add_subdirectory(plugins)
-else ()
-	message(STATUS "Plugins: externally linked plugins will not be built")
-endif ()
+#
+# plugins
+message(STATUS "Plugins: all externally linked cmake-ready plugs will be built")
+set(JUFFED_CMAKE_PLUGINS 1)
+if (UNIX)
+	set(JUFFED_PLUGINS_DIR ${LIB_INSTALL_DIR}/juffed/plugins)
+endif (UNIX)
+if (APPLE)
+	set(JUFFED_PLUGINS_DIR ${APPLE_PREFIX}/plugins)
+endif (APPLE)
+if (WIN32)
+	set(JUFFED_PLUGINS_DIR ${CMAKE_INSTALL_PREFIX}/plugins)
+endif(WIN32)
+set(JUFFED_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
+set(JUFFED_LIBRARY ${JUFFLIB})
+add_subdirectory(plugins)
 
 #set ( juffed_RCS
 #	src/app/juffed.rc
@@ -261,7 +253,7 @@ endif ()
 ####################
 # Installs
 ####################
-if (NOT APPLEBUNDLE)
+if (NOT APPLE)
 
 	install ( TARGETS ${JUFFED} DESTINATION ${BIN_INSTALL_DIR} )
 	install ( TARGETS ${JUFFLIB} DESTINATION ${LIB_INSTALL_DIR} )
@@ -277,7 +269,7 @@ if (NOT APPLEBUNDLE)
 	configure_file ( "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY )
 	add_custom_target ( uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 
-else (NOT APPLEBUNDLE)
+else (NOT APPLE)
 
 	install(CODE "message(STATUS \"Cleaning previously installed bundle (rm -r)\")")
 	install(CODE "execute_process(COMMAND rm -r ${CMAKE_INSTALL_PREFIX}/${JUFFED}.app)")
@@ -293,9 +285,11 @@ else (NOT APPLEBUNDLE)
 
 	# helper stuff to create real apple bundle.
 	# Black magic is summoned here...
-	add_subdirectory( macosx )
+        # create a "transportable" bundle - all libs into the bundle: "make bundle" after make install
+        configure_file(macosx/bundle.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/bundle.cmake @ONLY)
+        add_custom_target(bundle ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/bundle.cmake)
 
-endif (NOT APPLEBUNDLE)
+endif (NOT APPLE)
 
 
 # make dist custom target

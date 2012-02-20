@@ -23,8 +23,9 @@ class Preferences : public QWidget, Ui::Preferences
     Q_OBJECT
 
     public:
-        Preferences(QTermWidget * term, const QObject * parent,
-                    int colorIX, const QString & emulation,
+        Preferences(const QObject * parent,
+                    const QString &color,
+                    const QString & emulation,
                     const QFont & font);
 };
 
@@ -48,9 +49,9 @@ public:
         void applySettings();
 
 public slots:
-        void colorSchemaChanged(int val);
-        void emulationChanged(const QString & val);
-        void fontChanged(const QFont & val);
+        void colorSchemaChanged(const QString &val);
+        void emulationChanged(const QString &val);
+        void fontChanged(const QFont &val);
         void fontSizeChanged(int val);
 
 private slots:
@@ -61,7 +62,7 @@ private:
 	QAction* termAct_;
 
         QTermWidget * m_term;
-        int prefColorScheme;
+        QString prefColorScheme;
         QString prefEmulation;
         QFont prefFont;
         int prefFontSize;
@@ -70,3 +71,4 @@ private:
 };
 
 #endif
+

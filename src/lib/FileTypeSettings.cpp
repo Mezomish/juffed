@@ -45,7 +45,7 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 			list << "*.bat";
 		}
 		else if ( type == "C++") {
-			list << "*.h" << "*.hpp" << "*.hxx" << "*.h++" << "*.c" << "*.cc" << "*.cpp" << "*.cxx" << "*.c++";
+			list << "*.h" << "*.hh" << "*.hpp" << "*.hxx" << "*.h++" << "*.c" << "*.cc" << "*.cpp" << "*.cxx" << "*.c++";
 		}
 		else if ( type == "C#") {
 			list << "*.cs";

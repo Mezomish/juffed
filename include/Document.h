@@ -207,6 +207,18 @@ public:
 	virtual void insertText(const QString&) {}
 	
 	/**
+	* Begins an undo action 
+	* Used when you want to group several changes into one undo/redo operation.
+	*/
+	virtual void beginUndoAction() {}
+	
+	/**
+	* Ends an undo action.
+	* Used when you want to group several changes into one undo/redo operation.
+	*/
+	virtual void endUndoAction() {}
+	
+	/**
 	* Sets params loaded from saved session.
 	*/
 	virtual void setSessionParams(const Juff::SessionParams&) {}

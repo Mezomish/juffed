@@ -397,6 +397,10 @@ void SearchEngine::onReplaceAll() {
 	curDoc_->setCursorPos(0, 0);
 	int replacesMade = 0;
 	int count = results->count();
+	
+	// we want all replaces to be a single undo action - mark the beginning of this action
+	curDoc_->beginUndoAction();
+	
 	for ( int i = count - 1; i >= 0; --i ) {
 		const Juff::SearchOccurence& occ = results->occurence(i);
 		curDoc_->setSelection(occ.startRow, occ.startCol, occ.endRow, occ.endCol);
@@ -411,6 +415,10 @@ void SearchEngine::onReplaceAll() {
 		curDoc_->replaceSelectedText(replaceWith);
 		replacesMade++;
 	}
+	
+	// mark the end of a single undo action for replacements
+	curDoc_->endUndoAction();
+	
 	searchPopup_->setFocusOnReplace();
 	
 	mw_->message(QIcon(), tr("Replace"), tr("Replacement finished (%1 replacements were made)").arg(replacesMade), Qt::AlignBottom | Qt::AlignLeft, 5);

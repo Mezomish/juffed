@@ -57,6 +57,8 @@ public:
 	virtual void setSyntax(const QString& lexName);
 	virtual void highlightSearchResults();
 	virtual void clearHighlighting();
+	virtual void beginUndoAction();
+	virtual void endUndoAction();
 
 	virtual void setSessionParams(const Juff::SessionParams&);
 	virtual Juff::SessionParams sessionParams() const;

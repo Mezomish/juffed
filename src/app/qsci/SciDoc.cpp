@@ -517,6 +517,19 @@ void SciDoc::setSyntax(const QString& lexName) {
 	// notify plugins
 	emit syntaxChanged(oldSyntax);
 }
+
+void SciDoc::beginUndoAction() {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	int_->curEdit_->beginUndoAction();
+}
+
+void SciDoc::endUndoAction() {
+	if ( int_->curEdit_ == NULL ) return;
+	
+	int_->curEdit_->endUndoAction();
+}
+
 // End of Document API implementation
 ////////////////////////////////////////////////////////////////////////////////
 

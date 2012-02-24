@@ -9,6 +9,19 @@
 #include <QFileInfo>
 #include <QTranslator>
 
+#include <iostream>
+
+void printHelp() {
+	std::cout << "Usage:" << std::endl;
+	std::cout << "  juffed --help              Print this message" << std::endl;
+	std::cout << "  juffed --version           Print JuffEd version" << std::endl;
+	std::cout << "  juffed [FILES]             Open [FILES] in JuffEd" << std::endl;
+}
+
+void printVersion() {
+	std::cout << AppInfo::name().toLocal8Bit().constData() << " " << AppInfo::version().toLocal8Bit().constData() << std::endl;
+}
+
 void copyToLocalDir(const QString& subDirName) {
 	QDir dir = QDir(AppInfo::dataDirPath() + "/" + subDirName);
 	QString localPath = AppInfo::configDirPath() + "/" + subDirName;
@@ -89,22 +102,47 @@ void initApp(QApplication& app) {
 }
 
 void processParams(JuffEd& juffed, QStringList params) {
+	// binary name itself
 	params.removeFirst();
-	foreach (QString param, params) {
-		if ( QFileInfo(param).exists() )
+	foreach ( QString param, params ) {
+		if ( QFileInfo(param).exists() ) {
 			juffed.openDoc(QFileInfo(param).absoluteFilePath());
+		}
 	}
+}
+
+bool hasValidDoubleDashParam( const QCoreApplication& app ) {
+	const QStringList& args = app.arguments();
+	
+	if ( args.size() == 2 ) {
+		QString param = args[1];
+		if ( param.compare("--help") == 0 ) {
+			printHelp();
+			return true;
+		}
+		else if ( param.compare("--version") == 0 ) {
+			printVersion();
+			return true;
+		}
+	}
+	
+	return false;
 }
 
 int runSingle(int argc, char* argv[]) {
 	QtSingleApplication app(argc, argv);
 	initApp(app);
 
+	if ( hasValidDoubleDashParam( app ) ) {
+		return 0;
+	}
+	
 	// check if instance already exists
 	QStringList fileList;
 	foreach (QString param, app.arguments()) {
 		fileList << QFileInfo(param).absoluteFilePath();
 	}
+	
 	if ( app.sendMessage(fileList.join("\n")) )
 		return 0;
 
@@ -123,6 +161,10 @@ int runNotSingle(int argc, char* argv[]) {
 	QApplication app(argc, argv);
 	initApp(app);
 
+	if ( hasValidDoubleDashParam( app ) ) {
+		return 0;
+	}
+	
 	JuffEd juffed;
 
 	juffed.mainWindow()->show();

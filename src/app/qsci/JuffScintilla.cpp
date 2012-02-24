@@ -182,10 +182,10 @@ void JuffScintilla::focusOutEvent(QFocusEvent* e) {
 void JuffScintilla::wheelEvent(QWheelEvent* e) {
 	if ( e->modifiers() & Qt::ControlModifier ) {
 		if ( e->delta() < 0 ) {
-			zoomIn();
+			zoomOut();
 		}
 		else if ( e->delta() > 0 ) {
-			zoomOut();
+			zoomIn();
 		}
 	}
 	else {

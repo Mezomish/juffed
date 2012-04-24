@@ -133,6 +133,7 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 
 JuffMW::JuffMW() : QMainWindow() {
 	setWindowIcon(QIcon(":juffed_32.png"));
+	setUnifiedTitleAndToolBarOnMac( true );
 	
 	aboutDlg_ = createAboutDlg(this);
 //	findDlg_ = new FindDlg(this, false);

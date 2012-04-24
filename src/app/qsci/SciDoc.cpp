@@ -148,6 +148,10 @@ public:
 		edit1_->setDocument(edit2_->document());
 		w->setFocusProxy(spl_);
 		spl_->setSizes(QList<int>() << 0 << spl_->height());
+		
+		hlTimer_ = new QTimer( w );
+		hlTimer_->setSingleShot( true );
+		connect(hlTimer_, SIGNAL(timeout()), w, SLOT(highlightWord()));
 	}
 
 	JuffScintilla* createEdit() {
@@ -234,10 +238,6 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 	hlWordAct->setShortcut(QKeySequence("Ctrl+H"));
 	connect(hlWordAct, SIGNAL(triggered()), SLOT(highlightWord()));
 	addAction(hlWordAct);
-
-	int_->hlTimer_ = new QTimer();
-	connect(int_->hlTimer_, SIGNAL(timeout()), SLOT(highlightWord()));
-	int_->hlTimer_->setSingleShot(true);
 }
 
 /*SciDoc::SciDoc(Juff::Document* doc) : Juff::Document(doc) {
@@ -980,8 +980,6 @@ void SciDoc::foldUnfoldAll() {
 }
 
 void SciDoc::highlightWord() {
-	LOGGER;
-
 	JuffScintilla* edit = int_->curEdit_;
 	if ( edit == NULL ) return;
 
@@ -989,7 +987,6 @@ void SciDoc::highlightWord() {
 		return;
 
 	QString word = edit->wordUnderCursor();
-	qDebug() << word;
 	Juff::SearchParams params;
 	params.findWhat = word;
 	edit->highlightText(JuffScintilla::HLCurrentWord, params);

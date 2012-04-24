@@ -5,6 +5,7 @@
 #include "CommandStorageInt.h"
 
 KeysPlugin::KeysPlugin() : QObject(), JuffPlugin() {
+	w_ = 0;
 }
 
 KeysPlugin::~KeysPlugin() {

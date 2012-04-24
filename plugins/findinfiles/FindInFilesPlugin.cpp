@@ -78,6 +78,7 @@ public:
 };
 
 FindInFilesPlugin::FindInFilesPlugin() : QObject(), JuffPlugin() {
+	pInt_ = 0;
 }
 
 void FindInFilesPlugin::init() {

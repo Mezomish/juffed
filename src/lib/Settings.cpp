@@ -178,13 +178,26 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key.compare("tabStopWidth") == 0 )          return 8;
 		if ( key.compare("replaceTabsWithSpaces") == 0 ) return false;
 		if ( key.compare("backspaceUnindents") == 0 )    return true;
+
+#ifdef Q_WS_MAC
+		if ( key.compare("fontSize") == 0 )              return 12;
+#else
 		if ( key.compare("fontSize") == 0 )              return 10;
+#endif // Q_WS_MAC
+
 		if ( key.compare("fontFamily") == 0 )
 #ifdef Q_OS_WIN32
 			return "Courier New";
 #else
+
+#ifdef Q_WS_MAC
+			return "Montana";
+#else
 			return "Monospace";
-#endif
+#endif // Q_WS_MAC
+
+#endif // Q_OS_WIN32
+
 	}
 	else if ( section.compare("QSci") == 0 ) {
 		if ( key.compare("matchingBraceBgColor") == 0 )   return QColor(255, 200, 140);

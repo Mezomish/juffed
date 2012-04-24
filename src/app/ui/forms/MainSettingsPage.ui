@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
+    <width>442</width>
     <height>493</height>
    </rect>
   </property>
@@ -20,6 +20,12 @@
    <string/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
@@ -110,7 +116,14 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
-       <widget class="QComboBox" name="languageCmb"/>
+       <widget class="QComboBox" name="languageCmb">
+        <property name="maximumSize">
+         <size>
+          <width>250</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

@@ -41,7 +41,7 @@ public:
 		vBox->addWidget(keepBgColorChk_);
 		vBox->addWidget(alwaysWrapChk_);
 		vBox->addStretch();
-		vBox->setMargin(0);
+		vBox->setContentsMargins( 9, 0, 0, 0 );
 	}
 	void init() {
 		items_ << new SettingsCheckItem("printing", "keepColors", keepColorsChk_)

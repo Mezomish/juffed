@@ -203,6 +203,10 @@ public:
 		vBox->addLayout(grid_);
 		vBox->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Expanding));
 		setLayout(vBox);
+		
+		vBox->setContentsMargins( 9, 0, 0, 9 );
+		grid_->setContentsMargins( 0, 0, 0, 0 );
+		grid_->setVerticalSpacing( 3 );
 	}
 	
 	void init() {
@@ -268,7 +272,7 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 //	LOGGER;
 
 	setWindowTitle(tr("Settings"));
-	setMinimumSize(600, 400);
+	setMinimumSize(820, 400);
 
 	//	create buttons
 	okBtn_ = new QPushButton(tr("OK"), this);

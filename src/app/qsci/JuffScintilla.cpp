@@ -382,6 +382,7 @@ void JuffScintilla::keyPressEvent(QKeyEvent* e) {
 					break;
 				
 				case Qt::Key_Escape :
+					clearHighlighting();
 					emit escapePressed();
 					QsciScintilla::keyPressEvent(e);
 					break;

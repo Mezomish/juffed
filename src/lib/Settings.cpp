@@ -203,7 +203,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key.compare("matchingBraceBgColor") == 0 )   return QColor(255, 200, 140);
 		if ( key.compare("matchingBraceFgColor") == 0 )   return QColor(0, 0, 0);
 		if ( key.compare("indentsColor") == 0 )           return QColor(160, 160, 160);
-		if ( key.compare("wordHLColor") == 0 )            return QColor(200, 100, 200);
+		if ( key.compare("wordHLColor") == 0 )            return QColor(50, 250, 50);
 		if ( key.compare("searchHLColor") == 0 )          return QColor(255, 128, 0);
 		if ( key.compare("curLineColor") == 0 )           return QColor(240, 240, 255);
 		if ( key.compare("markersColor") == 0 )           return QColor(170, 170, 250);

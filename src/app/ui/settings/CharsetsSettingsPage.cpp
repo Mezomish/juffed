@@ -26,6 +26,7 @@ CharsetsSettingsPage::CharsetsSettingsPage(QWidget* parent) : SettingsPage(paren
 
 	connect(ui.checkAllBtn, SIGNAL(clicked()), SLOT(selectAll()));
 	connect(ui.uncheckAllBtn, SIGNAL(clicked()), SLOT(deselectAll()));
+	connect(ui.charsetsList, SIGNAL(itemClicked(QListWidgetItem*)), SLOT(onItemClicked(QListWidgetItem*)));
 }
 
 CharsetsSettingsPage::~CharsetsSettingsPage() {
@@ -35,7 +36,7 @@ void CharsetsSettingsPage::init() {
 	ui.charsetsList->clear();
 	foreach (QString charset, CharsetSettings::getCharsetsList()) {
 		QListWidgetItem* item = new QListWidgetItem(charset, ui.charsetsList);
-		item->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+		item->setFlags(Qt::ItemIsEnabled);
 		if (CharsetSettings::charsetEnabled(charset))
 			item->setCheckState(Qt::Checked);
 		else
@@ -64,5 +65,11 @@ void CharsetsSettingsPage::deselectAll() {
 	for (int i = 0; i < ui.charsetsList->count(); i++) {
 		QListWidgetItem* item = ui.charsetsList->item(i);
 		item->setCheckState(Qt::Unchecked);
+	}
+}
+
+void CharsetsSettingsPage::onItemClicked( QListWidgetItem* item ) {
+	if ( item != 0 ) {
+		item->setCheckState( item->checkState() == Qt::Checked ? Qt::Unchecked : Qt::Checked );
 	}
 }

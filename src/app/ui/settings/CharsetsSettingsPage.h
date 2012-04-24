@@ -40,6 +40,7 @@ public:
 public slots:
 	void selectAll();
 	void deselectAll();
+	void onItemClicked( QListWidgetItem* );
 
 private:
 	Ui::CharsetsSettingsPage ui;

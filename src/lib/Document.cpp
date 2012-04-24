@@ -122,7 +122,7 @@ QString Document::titleWithModification() const {
 bool Document::isNoname(const QString& fileName, bool* ok) {
 	if ( fileName.isEmpty() ) {
 		if ( ok != NULL ) {
-			ok = false;
+			*ok = false;
 		}
 		return true;
 	}

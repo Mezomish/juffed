@@ -43,11 +43,11 @@ void AutosavePlugin::init()
     settingSpin->setValue(mSaveInterval);
 
     mTimer = new QTimer(this);
-    connect(mTimer, SIGNAL(timeout()), this, SLOT(timerEvent()));
+    connect(mTimer, SIGNAL(timeout()), this, SLOT(onTimer()));
     mTimer->start(mSaveInterval * 1000);
 }
 
-void AutosavePlugin::timerEvent()
+void AutosavePlugin::onTimer()
 {
     Log::debug("Autosaving...");
     //save document;

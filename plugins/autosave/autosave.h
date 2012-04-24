@@ -44,7 +44,7 @@ public:
     QWidget * settingsPage() const;
 
 private slots:
-    void timerEvent();
+    void onTimer();
 
 private:
     int mSaveInterval;

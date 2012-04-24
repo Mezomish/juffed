@@ -45,6 +45,7 @@ TabWidget::TabWidget(Juff::DocHandlerInt* handler) : QTabWidget() {
 	handler_ = handler;
 	
 	setTabBar(new Juff::TabBar(this));
+	setDocumentMode( true );
 	connect(tabBar(), SIGNAL(tabCloseRequested(int)), SLOT(onTabCloseRequested(int)));
 	connect(tabBar(), SIGNAL(closeAllRequested()), SLOT(onCloseAllRequested()));
 	connect(tabBar(), SIGNAL(closeAllOtherRequested(int)), SLOT(onCloseAllOtherRequested(int)));

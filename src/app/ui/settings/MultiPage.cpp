@@ -143,7 +143,9 @@ void MultiPage::changeCurrentItem(QTreeWidgetItem* it, QTreeWidgetItem*) {
 				w->hide();
 			}
 			while ( mpInt_->panelLayout_->count() > 0 ) {
-				mpInt_->panelLayout_->removeItem(mpInt_->panelLayout_->itemAt(0));
+				QLayoutItem* item = mpInt_->panelLayout_->itemAt(0);
+				mpInt_->panelLayout_->removeItem(item);
+				delete item;
 			}
 			mpInt_->panelLayout_->addWidget(page);
 			page->show();

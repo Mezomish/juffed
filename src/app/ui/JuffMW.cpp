@@ -429,9 +429,9 @@ bool JuffMW::isFullScreen() const {
 }
 
 void JuffMW::toggleFullscreen() {
-	setWindowState(windowState() ^ Qt::WindowFullScreen);
-	
-	if ( isFullScreen() ) {
+	if ( !isFullScreen() ) {
+		setUnifiedTitleAndToolBarOnMac( false );
+		showFullScreen();
 //		if ( MainSettings::get(MainSettings::FSHideMenubar) )
 //			menuBar()->hide();
 		if ( MainSettings::get(MainSettings::FSHideStatusbar) )
@@ -448,6 +448,8 @@ void JuffMW::toggleFullscreen() {
 		MainSettings::set(MainSettings::FullScreen, true);
 	}
 	else {
+		setUnifiedTitleAndToolBarOnMac( true );
+		showNormal();
 //		menuBar()->show();
 		statusBar()->show();
 		

@@ -33,10 +33,10 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
-       <number>3</number>
+       <number>9</number>
       </property>
       <property name="margin">
-       <number>5</number>
+       <number>9</number>
       </property>
       <item>
        <widget class="QCheckBox" name="singleInstanceChk">
@@ -65,10 +65,10 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <property name="spacing">
-       <number>3</number>
+       <number>9</number>
       </property>
       <property name="margin">
-       <number>5</number>
+       <number>9</number>
       </property>
       <item>
        <widget class="QCheckBox" name="makeBackupChk">
@@ -94,10 +94,10 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <property name="spacing">
-       <number>3</number>
+       <number>9</number>
       </property>
       <property name="margin">
-       <number>5</number>
+       <number>9</number>
       </property>
       <item>
        <widget class="QCheckBox" name="exitOnLastDocClosedChk">
@@ -115,6 +115,9 @@
       <string>Language</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
+      <property name="spacing">
+       <number>9</number>
+      </property>
       <item>
        <widget class="QComboBox" name="languageCmb">
         <property name="maximumSize">

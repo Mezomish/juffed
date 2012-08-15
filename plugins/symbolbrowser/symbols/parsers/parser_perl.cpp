@@ -267,20 +267,33 @@ QString Parser_Perl::parseArgs()
         if(*cp=='\0')continue;
         if(*cp=='#') continue;
         if(strstr(cp,"{"))
-            if(!strstr(cp,"shift"))
+            if(!(strstr(cp,"shift") || strstr(cp,"@_")))
                 continue;
-        if(strstr(cp,"shift"))
+        if(strstr(cp,"shift") || strstr(cp, "@_"))
         {
-            cp=strstr(cp,"$");
+        	if(strstr(cp,"$"))
+  			  cp=strstr(cp,"$");
+			else
+			{
+				if(strstr(cp,"@"))
+				{
+					if((strstr(cp,"@") != strstr(cp,"@_")))
+					    cp=strstr(cp,"@");
+					else
+						cp=NULL;
+				}
+				else
+					cp=NULL;
+			}
             if(cp)
             {
                 printf("no $!!\n");
                 if(!res.isEmpty())res.append(", ");
-
-                while(*cp !='=' and *cp!='\0')
+                while(*cp !='=' && *cp!='\0' && *cp!=')' && *cp!=';')
                 {
-                    res.append(*cp);
-                    cp++;
+                  if(*cp!=' ')
+                  	res.append(*cp);
+                  cp++;
                 }
             }else
                 continue;

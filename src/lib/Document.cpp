@@ -33,6 +33,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QTextCodec>
 #include <QTimer>
 
+#ifdef HAVE_ENCA
+#include <enca.h>
+#endif
+
+
 QString mapCharset(const QString& encaName) {
 	if ( encaName == "windows-1251" ) {
 		return "Windows-1251";
@@ -168,46 +173,81 @@ void Document::setCharset(const QString& charset) {
 //	updateClone();
 }
 
+#define ENCA_BUFFER_SIZE 500
 QString Document::guessCharset(const QString& fileName) {
-	QStringList params;
-	params << "-m" << fileName;
+    QString output;
+    QFile file(fileName);
+    char buf[ENCA_BUFFER_SIZE];
+
+    if ( !file.open(QFile::ReadOnly) ) {
+        return output;
+    }
+
+    int len = file.read(buf, ENCA_BUFFER_SIZE);
+    file.close();
+
+#ifdef HAVE_ENCA
+    // first check for user defined "locale" in Juffed's prefs
 	QString lang = MainSettings::get(MainSettings::Language);
-	if ( !lang.isEmpty() && lang.compare("auto") != 0 ) {
-		params << "-L" << lang.left(2);
-	}
-
-	QProcess enca;
-	enca.start("enca", params);
-	enca.waitForFinished();
-
-	QString output = QString(enca.readAllStandardOutput()).simplified();
-	if ( !output.isEmpty() ) {
-		return mapCharset(output);
+	if (!lang.isEmpty() && lang.compare("auto") != 0 ) {
+		lang = lang.left(2);
 	}
 	else {
-		// test for BOM
-		QFile file(fileName);
-		if ( file.open(QFile::ReadOnly) ) {
-			char buf[3];
-			int len = file.read(buf, 3);
-			
-			if ( len == 3 ) {
-				unsigned char* uBuf = reinterpret_cast<unsigned char*>(buf);
-				if ( uBuf[0] == 0xEF && uBuf[1] == 0xBB && uBuf[2] == 0xBF ) {
-					output = "UTF-8";
-				}
-				else if ( uBuf[0] == 0xFE && uBuf[1] == 0xFF && uBuf[2] == 0x00 ) {
-					output = "UTF-16BE";
-				}
-				else if ( uBuf[0] == 0xFF && uBuf[1] == 0xFE && uBuf[2] == 0x00 ) {
-					output = "UTF-16LE";
-				}
-			}
-			file.close();
-		}
-		
-		return output;
+	    // on the other side guess the language by default locale
+	    lang = QLocale().name().left(2);
+	    // there is nospecial language handling for "en" in enca.
+	    // So we will fake the encoding to "a default one" = "__"
+	    if (lang == "en") lang = "__";
 	}
+
+	EncaAnalyser an = enca_analyser_alloc(lang.toAscii().constData());
+	if (!an) {
+	    //size_t langcnt;
+	    //const char** languages = enca_get_languages(&langcnt);
+	    qWarning() << "Cannot allocate ENCA analyzer for" << lang.toAscii().constData();
+	    //for (uint i = 0; i < langcnt; i++) {
+	    //     qDebug() << "    lang: " << languages[i];
+	    //}
+	}
+	else {
+
+	    // simulate "enca" binary environment
+	    enca_set_threshold(an, 1.38);
+	    enca_set_multibyte(an, 1);
+	    enca_set_ambiguity(an, 1);
+	    enca_set_garbage_test(an, 1);
+
+	    // we use sized buffer which can split multibyte char in the middle so be polite
+	    enca_set_termination_strictness(an, 0);
+
+	    EncaEncoding enc = enca_analyse(an, (unsigned char*)buf, len);
+	    if (enca_charset_is_known(enc.charset)) {
+	        QString output = enca_charset_name(enc.charset, ENCA_NAME_STYLE_ENCA);
+	        return mapCharset(output);
+	    }
+	    else {
+	        qWarning() << "Enca cannot find the encodig. Continue tests.";
+	    }
+	    enca_analyser_free(an);
+	}
+
+#endif
+
+	// test for BOM
+	if ( len >= 3 ) {
+		unsigned char* uBuf = reinterpret_cast<unsigned char*>(buf);
+		if ( uBuf[0] == 0xEF && uBuf[1] == 0xBB && uBuf[2] == 0xBF ) {
+			output = "UTF-8";
+		}
+		else if ( uBuf[0] == 0xFE && uBuf[1] == 0xFF && uBuf[2] == 0x00 ) {
+			output = "UTF-16BE";
+		}
+		else if ( uBuf[0] == 0xFF && uBuf[1] == 0xFE && uBuf[2] == 0x00 ) {
+			output = "UTF-16LE";
+		}
+	}
+
+	return output;
 }
 
 void Document::setSearchResults(Juff::SearchResults* results) {

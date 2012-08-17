@@ -110,6 +110,19 @@ QT4_WRAP_UI ( juffed_qsci_UIS_H ${juffed_qsci_UIS} )
 QT4_WRAP_UI ( juffed_app_UIS_H ${juffed_app_UIS} )
 QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
 
+
+include(FindPkgConfig)
+# try to find libenca - optional
+pkg_check_modules(ENCA enca)
+if (ENCA_FOUND)
+    add_definitions(-DHAVE_ENCA)
+    include_directories(${ENCA_INCLUDE_DIRS})
+else (ENCA_FOUND)
+    message(WARNING "No enca library found. Building without auto-language-detection")
+endif (ENCA_FOUND)
+
+
+
 # include directories
 include_directories(
 	${QT_INCLUDES}
@@ -224,6 +237,9 @@ target_link_libraries ( ${JUFFED}
 	${QT_LIBRARIES}
 	${QT_QTNETWORK_LIBRARY}
 )
+if (ENCA_FOUND)
+	target_link_libraries( ${JUFFED} ${ENCA_LIBRARIES} )
+endif (ENCA_FOUND)
 
 if ( UNIX )
 	set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")

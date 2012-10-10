@@ -103,6 +103,10 @@ void XmlformatPlugin::formatDocument(Juff::Document *doc)
     if (dom.setContent(content, false, &errmsg, &errline, &errcolumn))
     {
         QString newContent = dom.toString(EditorSettings::get(EditorSettings::TabWidth));
+
+        if (EditorSettings::get(EditorSettings::UseTabs))
+            newContent = changeSpacesToTabs(newContent);
+
         doc->setText(newContent);
     }
     else
@@ -130,6 +134,10 @@ void XmlformatPlugin::formatSelection(Juff::Document *doc)
     if (dom.setContent(content, false, &errmsg, &errline, &errcolumn))
     {
         QString newContent = dom.toString(EditorSettings::get(EditorSettings::TabWidth));
+
+        if (EditorSettings::get(EditorSettings::UseTabs))
+            newContent = changeSpacesToTabs(newContent);
+
         doc->replaceSelectedText(newContent);
     }
     else
@@ -139,6 +147,37 @@ void XmlformatPlugin::formatSelection(Juff::Document *doc)
                                     + "<br/>"
                                     + errmsg);
     }
+}
+
+QString XmlformatPlugin::changeSpacesToTabs(const QString &text)
+{
+    /* hack and slash implementation of <TAB> leading lines.
+     * Qt itself do not handle <TAB>s in QDomDocument::toString internally
+     * so output is always <SPACE> indented.
+     * Here, if is Juffed setup to use <TAB> for indentation, are leading
+     * spaces converted to tabs.
+     * Currently it's implemented line by line searching for 1st non-whitespace
+     * character in the line. Then are spaces replaced by tabs. One tab per "indent"
+     * spaces.
+     * Finally the new QString is returned.
+     */
+    QString tab('\t');
+    QStringList ret;
+    int indent = EditorSettings::get(EditorSettings::TabWidth);
+
+    foreach (QString line, text.split('\n'))
+    {
+        int ix = line.indexOf(QRegExp("\\S"));
+        if (ix < 1)
+            ret << line;
+        else
+        {
+            line = line.replace(0, ix, tab.repeated(ix / indent));
+            ret << line;
+        }
+    }
+
+    return ret.join("\n");
 }
 
 

@@ -56,6 +56,14 @@ private:
 
     void formatDocument(Juff::Document *doc);
     void formatSelection(Juff::Document *doc);
+
+    /*! QDomDocument::toString uses spaces for indent.
+     * We have to change spaces to tabs manually to handle text by current
+     * editor settings. See implementation notes in the method.
+     * \param text a QString to be handled
+     * \retval QString with leading TABs
+     */
+    QString changeSpacesToTabs(const QString &text);
 };
 
 #endif

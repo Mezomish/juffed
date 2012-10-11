@@ -37,7 +37,8 @@ void KeysPage::init() {
 		QAction* a = storage_->action(id);
 		if ( NULL != a ) {
 			QStringList list;
-			list << ""<< a->text() << a->shortcut().toString();
+			// let's remove "&" from action's text to fix #6: Shortcut manager shows extra "&"
+			list << ""<< a->text().replace("&", "") << a->shortcut().toString();
 			QTreeWidgetItem* item = new QTreeWidgetItem(list);
 			item->setIcon(0, a->icon());
 			item->setData(3, Qt::UserRole + 1, id);

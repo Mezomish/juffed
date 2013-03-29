@@ -54,7 +54,7 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 			list << "CMakeLists.txt" << "*.cmake";
 		}
 		else if ( type == "CSS") {
-			list << "*.css";
+			list << "*.css" << "*.qss";
 		}
 		else if ( type == "D") {
 			list << "*.d" << "*.di";

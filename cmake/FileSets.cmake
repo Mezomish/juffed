@@ -63,9 +63,6 @@ SET ( juffed_app_MOC_HEADERS
 	src/app/ui/SessionDlg.h
 	src/app/ui/TabBar.h
 	src/app/ui/TabWidget.h
-	src/3rd_party/qtsingleapplication/qtsinglecoreapplication.h
-	src/3rd_party/qtsingleapplication/qtsingleapplication.h
-	src/3rd_party/qtsingleapplication/qtlocalpeer.h
 	
 	# settings
 	src/app/ui/settings/CharsetsSettingsPage.h
@@ -93,10 +90,6 @@ SET ( juffed_app_SRCS
 	src/app/ui/SessionDlg.cpp
 	src/app/ui/TabBar.cpp
 	src/app/ui/TabWidget.cpp
-	src/3rd_party/qtsingleapplication/qtsinglecoreapplication.cpp
-	src/3rd_party/qtsingleapplication/qtsingleapplication.cpp
-	src/3rd_party/qtsingleapplication/qtlockedfile.cpp
-	src/3rd_party/qtsingleapplication/qtlocalpeer.cpp
 	
 	# settings
 	src/app/ui/settings/CharsetsSettingsPage.cpp
@@ -145,14 +138,12 @@ SET ( juffed_qsci_UIS
 IF ( WIN32 )
 	SET ( juffed_app_SRCS
 		${juffed_app_SRCS}
-		src/3rd_party/qtsingleapplication/qtlockedfile_win.cpp
 	)
 ENDIF ( WIN32 )
 
 IF ( UNIX )
 	SET ( juffed_app_SRCS
 		${juffed_app_SRCS}
-		src/3rd_party/qtsingleapplication/qtlockedfile_unix.cpp
 	)
 ENDIF ( UNIX )
 

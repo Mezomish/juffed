@@ -1,4 +1,3 @@
-#include "../3rd_party/qtsingleapplication/qtsingleapplication.h"
 #include "AppInfo.h"
 #include "JuffEd.h"
 #include "MainSettings.h"
@@ -8,6 +7,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTranslator>
+#include <qtsingleapplication.h>
 
 #include <iostream>
 

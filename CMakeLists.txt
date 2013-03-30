@@ -41,7 +41,7 @@ string ( STRIP "${JUFFED_VERSION}" JUFFED_VERSION )
 string ( STRIP "${BASE_VERSION}"   BASE_VERSION )
 
 # flag indicating that this is a development version
-set ( DEV 1 )
+set ( DEV 0 )
 
 if ( DEV )
 	# SVN revision
@@ -96,8 +96,45 @@ add_definitions(-DQT_NO_DEBUG)
 
 find_package ( QScintilla2 REQUIRED)
 
+
 include ( cmake/FileSets.cmake )
 include ( cmake/SomeLexers.cmake )
+
+option(USE_SYSTEM_QTSINGLEAPPLICATION "" OFF)
+if(USE_SYSTEM_QTSINGLEAPPLICATION)
+    find_package ( QtSingleApplication REQUIRED)
+else(USE_SYSTEM_QTSINGLEAPPLICATION)
+    set(QTSINGLEAPPLICATION_INCLUDE_DIR src/3rd_party/qtsingleapplication)
+    SET ( juffed_app_MOC_HEADERS
+        ${juffed_app_MOC_HEADERS}
+        src/3rd_party/qtsingleapplication/qtsinglecoreapplication.h
+        src/3rd_party/qtsingleapplication/qtsingleapplication.h
+        src/3rd_party/qtsingleapplication/qtlocalpeer.h
+    )
+    SET ( juffed_app_SRCS
+        ${juffed_app_SRCS}
+        src/3rd_party/qtsingleapplication/qtsinglecoreapplication.cpp
+        src/3rd_party/qtsingleapplication/qtsingleapplication.cpp
+        src/3rd_party/qtsingleapplication/qtlockedfile.cpp
+        src/3rd_party/qtsingleapplication/qtlocalpeer.cpp
+    )
+    IF ( WIN32 )
+        SET ( juffed_app_SRCS
+            ${juffed_app_SRCS}
+            src/3rd_party/qtsingleapplication/qtlockedfile_win.cpp
+        )
+    ENDIF ( WIN32 )
+
+    IF ( UNIX )
+        SET ( juffed_app_SRCS
+            ${juffed_app_SRCS}
+            src/3rd_party/qtsingleapplication/qtlockedfile_unix.cpp
+        )
+    ENDIF ( UNIX )
+endif(USE_SYSTEM_QTSINGLEAPPLICATION)
+
+
+
 
 QT4_WRAP_CPP ( juffed_lib_MOC_SRCS ${juffed_lib_MOC_HEADERS} )
 QT4_WRAP_CPP ( juffed_app_MOC_SRCS ${juffed_app_MOC_HEADERS} )
@@ -128,6 +165,8 @@ include_directories(
 	${QT_INCLUDES}
 	${CMAKE_BINARY_DIR}
 	${QSCINTILLA_INCLUDE_DIR}
+	${QSCINTILLA_INCLUDE_DIR}/Qsci
+	${QTSINGLEAPPLICATION_INCLUDE_DIR}
 	src/app/ui
 	src/app/qsci
 	./include
@@ -162,6 +201,7 @@ target_link_libraries ( ${QSCI_ENGINE}
 	${QT_LIBRARIES}
 	${QT_QTXML_LIBRARY}
 	${QSCINTILLA_LIBRARY} 
+	${QTSINGLEAPPLICATION_LIBRARY} 
 )
 
 if (APPLE)

@@ -282,7 +282,7 @@ if (ENCA_FOUND)
 endif (ENCA_FOUND)
 
 if ( UNIX )
-	set(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")
+	set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 endif ( UNIX )
 
 #

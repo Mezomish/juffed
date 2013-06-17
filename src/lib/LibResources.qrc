@@ -17,11 +17,11 @@
 		<file alias="32/edit-redo.png">../images/icons/32/edit-redo.png</file>
 		<file alias="32/edit-undo.png">../images/icons/32/edit-undo.png</file>
 		<file alias="32/preferences-system.png">../images/icons/32/preferences-system.png</file>
-		<file alias="32/system-log-out.png">../images/icons/32/system-log-out.png</file>
+		<file alias="32/application-exit.png">../images/icons/32/application-exit.png</file>
 		<file alias="32/view-refresh.png">../images/icons/32/view-refresh.png</file>
-		<file alias="32/zoom100.png">../images/icons/32/zoom100.png</file>
-		<file alias="32/zoomIn.png">../images/icons/32/zoomIn.png</file>
-		<file alias="32/zoomOut.png">../images/icons/32/zoomOut.png</file>
+		<file alias="32/zoom-original.png">../images/icons/32/zoom-original.png</file>
+		<file alias="32/zoom-in.png">../images/icons/32/zoom-in.png</file>
+		<file alias="32/zoom-out.png">../images/icons/32/zoom-out.png</file>
 		<file alias="32/view-fullscreen.png">../images/icons/32/view-fullscreen.png</file>
 
 		<file alias="24/document-new.png">../images/icons/24/document-new.png</file>
@@ -37,11 +37,11 @@
 		<file alias="24/edit-redo.png">../images/icons/24/edit-redo.png</file>
 		<file alias="24/edit-undo.png">../images/icons/24/edit-undo.png</file>
 		<file alias="24/preferences-system.png">../images/icons/24/preferences-system.png</file>
-		<file alias="24/system-log-out.png">../images/icons/24/system-log-out.png</file>
+		<file alias="24/application-exit.png">../images/icons/24/application-exit.png</file>
 		<file alias="24/view-refresh.png">../images/icons/24/view-refresh.png</file>
-		<file alias="24/zoom100.png">../images/icons/24/zoom100.png</file>
-		<file alias="24/zoomIn.png">../images/icons/24/zoomIn.png</file>
-		<file alias="24/zoomOut.png">../images/icons/24/zoomOut.png</file>
+		<file alias="24/zoom-original.png">../images/icons/24/zoom-original.png</file>
+		<file alias="24/zoom-in.png">../images/icons/24/zoom-in.png</file>
+		<file alias="24/zoom-out.png">../images/icons/24/zoom-out.png</file>
 		<file alias="24/view-fullscreen.png">../images/icons/24/view-fullscreen.png</file>
 
 		<file alias="16/document-new.png">../images/icons/16/document-new.png</file>
@@ -57,11 +57,11 @@
 		<file alias="16/edit-redo.png">../images/icons/16/edit-redo.png</file>
 		<file alias="16/edit-undo.png">../images/icons/16/edit-undo.png</file>
 		<file alias="16/preferences-system.png">../images/icons/16/preferences-system.png</file>
-		<file alias="16/system-log-out.png">../images/icons/16/system-log-out.png</file>
+		<file alias="16/application-exit.png">../images/icons/16/application-exit.png</file>
 		<file alias="16/view-refresh.png">../images/icons/16/view-refresh.png</file>
-		<file alias="16/zoom100.png">../images/icons/16/zoom100.png</file>
-		<file alias="16/zoomIn.png">../images/icons/16/zoomIn.png</file>
-		<file alias="16/zoomOut.png">../images/icons/16/zoomOut.png</file>
+		<file alias="16/zoom-original.png">../images/icons/16/zoom-original.png</file>
+		<file alias="16/zoom-in.png">../images/icons/16/zoom-in.png</file>
+		<file alias="16/zoom-out.png">../images/icons/16/zoom-out.png</file>
 		<file alias="16/view-fullscreen.png">../images/icons/16/view-fullscreen.png</file>
 		
 	</qresource>

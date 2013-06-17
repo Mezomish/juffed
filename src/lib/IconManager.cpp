@@ -34,7 +34,7 @@ IconManager::IconManager() {
 	IconFileNames[FILE_SAVE_AS]    = "document-save-as.png";
 	IconFileNames[FILE_RELOAD]     = "view-refresh.png";
 	IconFileNames[FILE_PRINT]      = "document-print.png";
-	IconFileNames[FILE_EXIT]       = "system-log-out.png";
+	IconFileNames[FILE_EXIT]       = "application-exit.png";
 	
 	IconFileNames[EDIT_UNDO]       = "edit-undo.png";
 	IconFileNames[EDIT_REDO]       = "edit-redo.png";
@@ -45,9 +45,9 @@ IconManager::IconManager() {
 	IconFileNames[SEARCH_FIND]     = "edit-find.png";
 	IconFileNames[SEARCH_REPLACE]  = "edit-find-replace.png";
 	
-	IconFileNames[VIEW_ZOOM_IN]    = "zoomIn.png";
-	IconFileNames[VIEW_ZOOM_OUT]   = "zoomOut.png";
-	IconFileNames[VIEW_ZOOM_100]   = "zoom100.png";
+	IconFileNames[VIEW_ZOOM_IN]    = "zoom-in.png";
+	IconFileNames[VIEW_ZOOM_OUT]   = "zoom-out.png";
+	IconFileNames[VIEW_ZOOM_100]   = "zoom-original.png";
 	IconFileNames[VIEW_FULLSCREEN] = "view-fullscreen.png";
 	
 	IconFileNames[TOOLS_SETTINGS]  = "preferences-system.png";

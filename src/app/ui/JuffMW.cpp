@@ -462,8 +462,9 @@ void JuffMW::toggleFullscreen() {
 
 
 void JuffMW::applySettings() {
-	int size = Juff::Utils::iconManager()->size();
-	
+	int sz = MainSettings::get(MainSettings::IconSize);
+	int size = ( sz == 1 ? 24 : (sz == 2 ? 32 : 16) );
+
 	setToolButtonStyle((Qt::ToolButtonStyle)MainSettings::get(MainSettings::ToolButtonStyle));
 	setIconSize(QSize(size, size));
 	foreach (QToolBar* tb, allToolBars_)

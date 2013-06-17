@@ -489,10 +489,6 @@ void JuffEd::onCloseRequested(bool& confirm) {
 }
 
 void JuffEd::onSettingsApplied() {
-	int sz = MainSettings::get(MainSettings::IconSize);
-	int size = ( sz == 1 ? 24 : (sz == 2 ? 32 : 16) );
-	Juff::Utils::iconManager()->setSize(size);
-	Juff::Utils::commandStorage()->updateIcons();
 	initCharsetMenus();
 	
 	// TODO : apply shortcuts

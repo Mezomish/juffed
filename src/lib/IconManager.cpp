@@ -26,8 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 static QMap<QString, QString> IconNames;
 
 IconManager::IconManager() {
-	size_ = 16;
-	
 	IconNames[FILE_NEW]        = "document-new";
 	IconNames[FILE_OPEN]       = "document-open";
 	IconNames[FILE_SAVE]       = "document-save";
@@ -51,14 +49,6 @@ IconManager::IconManager() {
 	IconNames[VIEW_FULLSCREEN] = "view-fullscreen";
 	
 	IconNames[TOOLS_SETTINGS]  = "preferences-system";
-}
-
-void IconManager::setSize(int sz) {
-	size_ = sz;
-}
-
-int IconManager::size() const {
-	return size_;
 }
 
 QIcon IconManager::icon(const QString& key) const {

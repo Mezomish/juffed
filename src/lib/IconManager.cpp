@@ -23,34 +23,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "Constants.h"
 
-static QMap<QString, QString> IconFileNames;
+static QMap<QString, QString> IconNames;
 
 IconManager::IconManager() {
 	size_ = 16;
 	
-	IconFileNames[FILE_NEW]        = "document-new.png";
-	IconFileNames[FILE_OPEN]       = "document-open.png";
-	IconFileNames[FILE_SAVE]       = "document-save.png";
-	IconFileNames[FILE_SAVE_AS]    = "document-save-as.png";
-	IconFileNames[FILE_RELOAD]     = "view-refresh.png";
-	IconFileNames[FILE_PRINT]      = "document-print.png";
-	IconFileNames[FILE_EXIT]       = "application-exit.png";
+	IconNames[FILE_NEW]        = "document-new";
+	IconNames[FILE_OPEN]       = "document-open";
+	IconNames[FILE_SAVE]       = "document-save";
+	IconNames[FILE_SAVE_AS]    = "document-save-as";
+	IconNames[FILE_RELOAD]     = "view-refresh";
+	IconNames[FILE_PRINT]      = "document-print";
+	IconNames[FILE_EXIT]       = "application-exit";
 	
-	IconFileNames[EDIT_UNDO]       = "edit-undo.png";
-	IconFileNames[EDIT_REDO]       = "edit-redo.png";
-	IconFileNames[EDIT_CUT]        = "edit-cut.png";
-	IconFileNames[EDIT_COPY]       = "edit-copy.png";
-	IconFileNames[EDIT_PASTE]      = "edit-paste.png";
+	IconNames[EDIT_UNDO]       = "edit-undo";
+	IconNames[EDIT_REDO]       = "edit-redo";
+	IconNames[EDIT_CUT]        = "edit-cut";
+	IconNames[EDIT_COPY]       = "edit-copy";
+	IconNames[EDIT_PASTE]      = "edit-paste";
 	
-	IconFileNames[SEARCH_FIND]     = "edit-find.png";
-	IconFileNames[SEARCH_REPLACE]  = "edit-find-replace.png";
+	IconNames[SEARCH_FIND]     = "edit-find";
+	IconNames[SEARCH_REPLACE]  = "edit-find-replace";
 	
-	IconFileNames[VIEW_ZOOM_IN]    = "zoom-in.png";
-	IconFileNames[VIEW_ZOOM_OUT]   = "zoom-out.png";
-	IconFileNames[VIEW_ZOOM_100]   = "zoom-original.png";
-	IconFileNames[VIEW_FULLSCREEN] = "view-fullscreen.png";
+	IconNames[VIEW_ZOOM_IN]    = "zoom-in";
+	IconNames[VIEW_ZOOM_OUT]   = "zoom-out";
+	IconNames[VIEW_ZOOM_100]   = "zoom-original";
+	IconNames[VIEW_FULLSCREEN] = "view-fullscreen";
 	
-	IconFileNames[TOOLS_SETTINGS]  = "preferences-system.png";
+	IconNames[TOOLS_SETTINGS]  = "preferences-system";
 }
 
 void IconManager::setSize(int sz) {
@@ -72,8 +72,16 @@ QIcon IconManager::icon(const QString& key) const {
 }
 
 QIcon IconManager::defaultIcon(const QString& key) const {
-	if ( IconFileNames.contains(key) ) {
-		return QIcon(QString(":%1/%2").arg(size_).arg(IconFileNames[key]));
+	if ( IconNames.contains(key) ) {
+		QString iconName = IconNames[key];
+		QIcon icon = QIcon::fromTheme(iconName);
+		if (icon.isNull()) {
+			icon.addFile(QString(":%1/%2.png").arg(16).arg(iconName));
+			icon.addFile(QString(":%1/%2.png").arg(24).arg(iconName));
+			icon.addFile(QString(":%1/%2.png").arg(32).arg(iconName));
+		}
+
+		return icon;
 	}
 	else
 		return QIcon();

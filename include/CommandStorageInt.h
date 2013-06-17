@@ -56,11 +56,6 @@ public:
 	virtual void setShortcut(const QString& key, const QKeySequence& shortcut) = 0;
 
 	/**
-	* Updates actions' icons using current settings.
-	*/
-	virtual void updateIcons() = 0;
-	
-	/**
 	* Returns a list of actions IDs (strings).
 	*/
 	virtual QStringList actionIDs() const = 0;

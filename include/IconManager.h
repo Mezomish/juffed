@@ -38,20 +38,8 @@ public:
 	*/
 	virtual QIcon icon(const QString& key) const;
 
-	/**
-	* Returns the current icon size. The default size is 16.
-	*/
-	virtual int size() const;
-
-	/**
-	* Sets the icon size to \param size.
-	*/
-	virtual void setSize(int);
-
 private:
 	QIcon defaultIcon(const QString&) const;
-
-	int size_;
 };
 
 #endif // __JUFFED_ICON_MANAGER_H__

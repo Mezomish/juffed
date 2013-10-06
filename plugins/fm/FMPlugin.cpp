@@ -30,7 +30,7 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	w_->setWindowTitle(tr("Files"));
 
 	QToolBar * toolBar = new QToolBar("File Browser Tools", w_);
-	//! \todo TODO/FIXME: maybe it could be configured with IconManager::instance()->size()...
+	//! \todo TODO/FIXME: maybe it could be configured with MainSettings::get(MainSettings::IconSize)...
 	toolBar->setIconSize(QSize(16, 16));
 
 	tree_ = new TreeView(this);

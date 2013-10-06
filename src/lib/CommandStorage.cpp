@@ -93,18 +93,6 @@ void CommandStorage::setShortcut(const QString& key, const QKeySequence& shortcu
 	}
 }
 
-void CommandStorage::updateIcons() {
-	QMap<QString, QAction*>::iterator it = actions_.begin();
-	while ( it != actions_.end() ) {
-		QString key = it.key();
-		QAction* act = it.value();
-		QIcon icon = iconManager_->icon(key);
-		if ( !icon.isNull() )
-			act->setIcon(icon);
-		it++;
-	}
-}
-
 QStringList CommandStorage::actionIDs() const {
 	return actions_.keys();
 }

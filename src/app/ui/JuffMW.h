@@ -90,11 +90,11 @@ protected slots:
 
 protected:
 	virtual void closeEvent(QCloseEvent*);
-	virtual void resizeEvent(QResizeEvent*);
-	virtual void moveEvent(QMoveEvent*);
+    //virtual void resizeEvent(QResizeEvent*);
+    //virtual void moveEvent(QMoveEvent*);
 	virtual void keyPressEvent(QKeyEvent*);
 	virtual bool eventFilter(QObject*, QEvent*);
-	virtual void changeEvent(QEvent*);
+    //virtual void changeEvent(QEvent*);
 
 private:
 	void updatePopupsPositions();

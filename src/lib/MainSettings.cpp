@@ -206,12 +206,13 @@ QString MainSettings::get(StringKey key) {
 	}
 }
 
-void MainSettings::setGeometry(const QRect& rect) {
-	Settings::instance()->setValue("main", "geometry", rect);
+void MainSettings::saveGeometry(const QByteArray& geo) {
+    Settings::instance()->setValue("main", "geometry", geo);
 }
 
-QRect MainSettings::geometry() {
-	return Settings::instance()->value("main", "geometry", Settings::instance()->defaultValue("main", "geometry")).toRect();
+QByteArray MainSettings::restoreGeometry() {
+    //return Settings::instance()->value("main", "geometry", Settings::instance()->defaultValue("main", "geometry"));
+    return Settings::instance()->value("main", "geometry").toByteArray();
 }
 
 void MainSettings::setMwState(const QByteArray& state) {

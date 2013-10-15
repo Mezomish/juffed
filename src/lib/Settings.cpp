@@ -149,7 +149,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key.compare("iconTheme") == 0 )              return "<default>";
 		if ( key.compare("lastOpenDir") == 0 )            return QDir::homePath();
 		if ( key.compare("lastSaveDir") == 0 )            return QDir::homePath();
-		if ( key.compare("geometry") == 0 )               return QRect(50, 50, 800, 600);
+//		if ( key.compare("geometry") == 0 )               return QRect(50, 50, 800, 600);
 		if ( key.compare("fsHideToolBar") == 0 )          return true;
 		if ( key.compare("fsHideStatusBar") == 0 )        return true;
 		if ( key.compare("language") == 0 )               return "auto";

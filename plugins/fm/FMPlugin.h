@@ -8,8 +8,7 @@ class TreeView;
 #include <QtCore>
 #include <QtCore/QObject>
 #include <QtCore/QStack>
-#include <QtGui/QDirModel>
-#include <QFileSystemWatcher>
+#include <QFileSystemModel>
 
 #include <JuffPlugin.h>
 
@@ -48,6 +47,8 @@ protected slots:
 	void manageFavorites();
 	void textEntered();
 	void treeCheckBox_toggled(bool value);
+    void showHiddenBox_toggled(bool value);
+
 	void onDirChanged(const QString&);
 
 private:
@@ -55,9 +56,11 @@ private:
 	void initFavoritesMenu();
 
 	bool showAsTree;
+    bool showHidden;
+
 	QWidget* w_;
 	TreeView* tree_;
-	QDirModel model_;
+    QFileSystemModel model_;
 	QLineEdit* pathEd_;
 	QAction* backBtn_;
 	QStack<QString> history_;

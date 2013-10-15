@@ -3,7 +3,8 @@
 
 #include "ui_SearchDlg.h"
 
-#include <QtGui/QDirModel>
+class QFileSystemModel;
+
 
 class SearchDlg : public QDialog {
 Q_OBJECT
@@ -31,7 +32,7 @@ private slots:
 
 private:
 	Ui::SearchDlg ui;
-	QDirModel model_;
+    QFileSystemModel *model;
 };
 
 #endif /* __SEARCH_DLG_H__ */

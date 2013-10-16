@@ -4,7 +4,6 @@
         <file alias="icon_up">go-up.png</file>
         <file alias="icon_home">go-home.png</file>
         <file alias="icon_current">go-current.png</file>
-        <file alias="icon_refresh">view-refresh.png</file>
         <file alias="icon_bookmarks">bookmark-new.png</file>
         <file alias="icon_new_dir">folder-new.png</file>
     </qresource>

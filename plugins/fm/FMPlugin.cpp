@@ -52,7 +52,6 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	toolBar->addAction(QIcon(":icon_up"), tr("Go Up"), this, SLOT(up()));
 	toolBar->addAction(QIcon(":icon_home"), tr("Go to Home Directory"), this, SLOT(home()));
 	toolBar->addAction(QIcon(":icon_current"), tr("Go to current file's directory"), this, SLOT(curFileDir()));
-	toolBar->addAction(QIcon(":icon_refresh"), tr("Refresh List"), &model_, SLOT(refresh()));
 	toolBar->addAction(QIcon(":icon_bookmarks"), tr("Favorite Locations"), this, SLOT(favorites()));
 	toolBar->addAction(QIcon(":icon_new_dir"), tr("New Directory"), this, SLOT(newDir()));
 

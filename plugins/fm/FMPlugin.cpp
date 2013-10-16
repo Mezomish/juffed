@@ -24,6 +24,7 @@
 FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	showAsTree = PluginSettings::getBool(this, "ShowAsTree", false);
     showHidden = PluginSettings::getBool(this, "ShowHidden", false);
+    sortColumn = PluginSettings::getInt(this, "sortColumn", 0);
 
 	w_ = new QWidget();
 	w_->setWindowTitle(tr("Files"));
@@ -38,7 +39,7 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	tree_->setModel(&model_);
 	tree_->setDragDropMode(QAbstractItemView::DragOnly);
 	tree_->setAllColumnsShowFocus(true);
-    tree_->sortByColumn(-1, Qt::AscendingOrder);
+    tree_->sortByColumn(sortColumn, Qt::AscendingOrder);
     tree_->setSortingEnabled(true);
 	tree_->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	tree_->header()->resizeSection(0, 180);
@@ -93,6 +94,9 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 }
 
 FMPlugin::~FMPlugin() {
+    sortColumn = tree_->header()->sortIndicatorSection();
+    PluginSettings::set(this, "sortColumn", sortColumn);
+
 	delete w_;
 }
 

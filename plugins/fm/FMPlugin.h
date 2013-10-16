@@ -57,6 +57,7 @@ private:
 
 	bool showAsTree;
     bool showHidden;
+    int sortColumn;
 
 	QWidget* w_;
 	TreeView* tree_;

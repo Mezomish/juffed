@@ -74,9 +74,41 @@ QString eolText(SciDoc::Eol eol) {
 	return "";
 }
 
+QString indentationText(bool use_tabs) {
+	if (use_tabs)
+		return SciDocEngine::tr("Tabs");
+	else
+		return SciDocEngine::tr("Spaces");
+}
+
+QString indentationWidthText(int width) {
+	switch (width) {
+		case 1:
+			return SciDocEngine::tr("1");
+		case 2:
+			return SciDocEngine::tr("2");
+		case 3:
+			return SciDocEngine::tr("3");
+		case 4:
+			return SciDocEngine::tr("4");
+		case 5:
+			return SciDocEngine::tr("5");
+		case 6:
+			return SciDocEngine::tr("6");
+		case 7:
+			return SciDocEngine::tr("7");
+		case 8:
+			return SciDocEngine::tr("8");
+		default:
+			return SciDocEngine::tr("4");
+	}
+}
+
 SciDocEngine::SciDocEngine() : QObject(), Juff::DocEngine() {
 	syntaxGroup_ = new QActionGroup(this);
 	eolGroup_ = new QActionGroup(this);
+	indentationGroup_ = new QActionGroup(this);
+	indentationWidthGroup_ = new QActionGroup(this);
 	
 	syntaxMenu_ = new QMenu(tr("&Syntax"));
 	connect(syntaxMenu_, SIGNAL(aboutToShow()), SLOT(onMenuAboutToBeShown()));
@@ -87,6 +119,35 @@ SciDocEngine::SciDocEngine() : QObject(), Juff::DocEngine() {
 		syntaxActions_[syntax] = action;
 		syntaxGroup_->addAction(action);
 	}
+	
+	indentationMenu_ = new QMenu(tr("Indentation"));
+	{
+		for ( int width = 8; width >= 1; --width ) {
+			QAction* act = indentationMenu_->addAction(indentationWidthText(width), this, SLOT(slotIndentationWidthChanged()));
+			act->setCheckable(true);
+			act->setData(width);
+			indentationWidthActions_[width] = act;
+			indentationWidthGroup_->addAction(act);
+		}
+		
+		indentationMenu_->addSeparator();
+		
+		// False
+		QAction* act = indentationMenu_->addAction(indentationText(false), this, SLOT(slotIndentationChanged()));
+		act->setCheckable(true);
+		act->setData(false);
+		indentationActions_[false] = act;
+		indentationGroup_->addAction(act);
+		// True
+		act = indentationMenu_->addAction(indentationText(true), this, SLOT(slotIndentationChanged()));
+		act->setCheckable(true);
+		act->setData(true);
+		indentationActions_[true] = act;
+		indentationGroup_->addAction(act);
+	}
+	
+	//indentationWidthMenu_ = new QMenu(tr("Indentation Width"));
+	
 	
 	eolMenu_ = new QMenu(tr("Line endings"));
 	SciDoc::Eol eols[] = { SciDoc::EolWin, SciDoc::EolMac, SciDoc::EolUnix };
@@ -106,7 +167,13 @@ SciDocEngine::SciDocEngine() : QObject(), Juff::DocEngine() {
 	syntaxLabel_->setToolTip(QObject::tr("Syntax highlighting"));
 	syntaxLabel_->setMenu(syntaxMenu_);
 	syntaxLabel_->hide();
-	syntaxLabel_->setMaximumWidth(60);
+	syntaxLabel_->setMaximumWidth(70);
+	
+	indentationLabel_ = new Juff::StatusLabel("");
+	indentationLabel_->setToolTip(QObject::tr("Indentation style"));
+	indentationLabel_->setMenu(indentationMenu_);
+	indentationLabel_->hide();
+	indentationLabel_->setMaximumWidth(50);
 	
 	eolLabel_ = new Juff::StatusLabel("");
 	eolLabel_->setToolTip(QObject::tr("Line endings"));
@@ -180,6 +247,7 @@ Juff::ActionList SciDocEngine::mainMenuActions(Juff::MenuID id) {
 		
 		case Juff::MenuFormat :
 			list << addAction(id, eolMenu_->menuAction());
+			list << addAction(id, indentationMenu_->menuAction());
 			break;
 		
 		case Juff::MenuSearch :
@@ -194,13 +262,14 @@ Juff::ActionList SciDocEngine::mainMenuActions(Juff::MenuID id) {
 
 QWidgetList SciDocEngine::statusWidgets() {
 	QWidgetList  list;
-	list << syntaxLabel_ << eolLabel_;
+	list << syntaxLabel_ << indentationLabel_ << eolLabel_;
 	return list;
 }
 
 void SciDocEngine::activate(bool act) {
 //	LOGGER;
 	syntaxLabel_->show();
+	indentationLabel_->show();
 	eolLabel_->show();
 	DocEngine::activate(act);
 }
@@ -437,6 +506,29 @@ void SciDocEngine::slotEolChanged() {
 	}
 }
 
+void SciDocEngine::slotIndentationChanged() {
+//	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	QAction* action = qobject_cast<QAction*>(sender());
+	if ( doc != 0 && action != 0 ) {
+		bool use_tabs = (bool)action->data().toBool();
+		indentationLabel_->setText(indentationText(use_tabs));
+		doc->setIndentationsUseTabs(use_tabs);
+	}
+}
+
+void SciDocEngine::slotIndentationWidthChanged() {
+//	LOGGER;
+	
+	SciDoc* doc = qobject_cast<SciDoc*>(curDoc());
+	QAction* action = qobject_cast<QAction*>(sender());
+	if ( doc != 0 && action != 0 ) {
+		int width = (int)action->data().toInt();
+		doc->setTabWidth(width);
+	}
+}
+
 void SciDocEngine::onMenuAboutToBeShown() {
 //	LOGGER;
 	
@@ -465,8 +557,14 @@ void SciDocEngine::onDocFocused() {
 		
 		SciDoc::Eol eol = doc->eol();
 		eolLabel_->setPixmap(eolIcon(eol).pixmap(16, 16));
-		
 		eolActions_[eol]->setChecked(true);
+		
+		bool use_tabs = doc->indentationsUseTabs();
+		indentationLabel_->setText(indentationText(use_tabs));
+		indentationActions_[use_tabs]->setChecked(true);
+		
+		int width = doc->tabWidth();
+		indentationWidthActions_[width]->setChecked(true);
 		
 		updateMarkersMenu();
 	}

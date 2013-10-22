@@ -16,6 +16,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+#include <utility>
+
 #include <QDebug>
 
 #include "SciDoc.h"
@@ -78,6 +80,74 @@ SciDoc::Eol guessEol(const QString& fileName) {
 #endif
 	}
 	return eol;
+}
+
+std::pair<bool,int> guessIndentation(const QString& fileName) {
+	bool use_tabs = EditorSettings::get(EditorSettings::UseTabs);
+	int indentation_width = EditorSettings::get(EditorSettings::TabWidth);
+	
+	if ( !Juff::Document::isNoname(fileName) ) {
+		QFile file(fileName);
+		if ( file.open(QIODevice::ReadOnly) ) {
+			int tab_lines = 0;
+			int space_lines = 0;
+			int space_counts[9] = {0,0,0,0,0,0,0,0,0};
+			int prev_spaces;
+			
+			QRegExp blank_re("[\t ]*\r?\n?"); // Checks if line is blank
+			QRegExp tabs_re("^\t*");          // Finds leading tabs
+			QRegExp spaces_re("^ *");         // Finds leading spaces
+			
+			// Collect indentation statistics
+			while ( !file.atEnd() ) {
+				QString line = QString::fromLocal8Bit(file.readLine().constData());
+				
+				// Skip blank lines
+				if (blank_re.exactMatch(line))
+					continue;
+				
+				// Check for a leading tab
+				tabs_re.exactMatch(line);
+				if (tabs_re.matchedLength() > 0) {
+					tab_lines++;
+					prev_spaces = 0;
+					continue;
+				}
+				
+				// Count spaces
+				spaces_re.exactMatch(line);
+				if ( spaces_re.matchedLength() > 0 ) {
+					space_lines++;
+					if ( prev_spaces <= spaces_re.matchedLength() && (spaces_re.matchedLength() - prev_spaces) <= 8 )
+						space_counts[spaces_re.matchedLength() - prev_spaces]++;
+					prev_spaces = spaces_re.matchedLength();
+				}
+				
+			}
+			
+			// Guess indentation style based on the collected statistics
+			if ( tab_lines > (space_lines / 3) ) { // Heuristic: even smaller numbers of leading tabs typically still indicate that tabs are the indentation character
+				use_tabs = true;
+			}
+			else {
+				use_tabs = false;
+				
+				// Guess indent width in spaces (starting at 2)
+				int width = 2;
+				for ( int i = 3; i <= 8; ++i ) {
+					if ( space_counts[ width] < space_counts[i] )
+						 width = i;
+				}
+				
+				// Heuristic: if there's only one example of an indent, skip and stick with the default
+				if ( space_counts[width] > 1)
+					indentation_width = width;
+			}
+		}
+		file.close();
+	}
+	
+	return std::make_pair(use_tabs, indentation_width);
 }
 
 QPixmap markerPixmap(const QColor& color, const QColor& bgColor) {
@@ -216,20 +286,29 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 
 	QString lexName = "none";
 	SciDoc::Eol eol = guessEol(fileName);
+	std::pair<bool,int> indentation = guessIndentation(fileName);
 	if ( !fileName.isEmpty() && !isNoname() ) {
 		QString codecName = Document::guessCharset(fileName);
 		if ( !codecName.isEmpty() )
 			setCharset(codecName);
 		readFile();
 		setEol(eol);
+		setIndentationsUseTabs(indentation.first);
+		setTabWidth(indentation.second);
 		int_->edit1_->setModified(false);
 
 		//	syntax highlighting
 		lexName = LexerStorage::instance()->lexerName(fileName);
 	}
-	else
+	else {
 		setEol(eol);
-
+		setIndentationsUseTabs(indentation.first);
+		setTabWidth(indentation.second);
+	}
+	
+	
+	
+	
 	setLexer(lexName);
 
 	applySettings();
@@ -1191,6 +1270,24 @@ void SciDoc::setEol(SciDoc::Eol eol) {
 	}
 }
 
+bool SciDoc::indentationsUseTabs() const {
+	return int_->curEdit_->indentationsUseTabs();
+}
+
+void SciDoc::setIndentationsUseTabs(bool use_tabs) {
+	int_->edit1_->setIndentationsUseTabs(use_tabs);
+	int_->edit2_->setIndentationsUseTabs(use_tabs);
+}
+
+int SciDoc::tabWidth() const {
+	return int_->curEdit_->tabWidth();
+}
+
+void SciDoc::setTabWidth(int tab_width) {
+	int_->edit1_->setTabWidth(tab_width);
+	int_->edit2_->setTabWidth(tab_width);
+}
+
 void SciDoc::toggleMarker(int line) {
 	LOGGER;
 
@@ -1241,8 +1338,8 @@ void SciDoc::applySettings() {
 		QsciScintilla* edit = edits[i];
 
 		// indents
-		edit->setTabWidth(EditorSettings::get(EditorSettings::TabWidth));
-		edit->setIndentationsUseTabs(EditorSettings::get(EditorSettings::UseTabs));
+		//edit->setTabWidth(EditorSettings::get(EditorSettings::TabWidth));
+		//edit->setIndentationsUseTabs(EditorSettings::get(EditorSettings::UseTabs));
 		edit->setBackspaceUnindents(EditorSettings::get(EditorSettings::BackspaceUnindents));
 
 		// colors

@@ -121,33 +121,23 @@ SciDocEngine::SciDocEngine() : QObject(), Juff::DocEngine() {
 	}
 	
 	indentationMenu_ = new QMenu(tr("Indentation"));
-	{
-		for ( int width = 8; width >= 1; --width ) {
-			QAction* act = indentationMenu_->addAction(indentationWidthText(width), this, SLOT(slotIndentationWidthChanged()));
-			act->setCheckable(true);
-			act->setData(width);
-			indentationWidthActions_[width] = act;
-			indentationWidthGroup_->addAction(act);
-		}
-		
-		indentationMenu_->addSeparator();
-		
-		// False
-		QAction* act = indentationMenu_->addAction(indentationText(false), this, SLOT(slotIndentationChanged()));
+	for ( int width = 8; width >= 1; width-- ) {
+		QAction* act = indentationMenu_->addAction(indentationWidthText(width), this, SLOT(slotIndentationWidthChanged()));
 		act->setCheckable(true);
-		act->setData(false);
-		indentationActions_[false] = act;
-		indentationGroup_->addAction(act);
-		// True
-		act = indentationMenu_->addAction(indentationText(true), this, SLOT(slotIndentationChanged()));
+		act->setData(width);
+		indentationWidthActions_[width] = act;
+		indentationWidthGroup_->addAction(act);
+	}
+	indentationMenu_->addSeparator();
+	bool use_tab_states[] = {false, true};
+	for ( int i = 0; i < 2; i++ ) {
+		QAction* act = indentationMenu_->addAction(indentationText(use_tab_states[i]), this, SLOT(slotIndentationChanged()));
 		act->setCheckable(true);
-		act->setData(true);
-		indentationActions_[true] = act;
+		act->setData(use_tab_states[i]);
+		indentationActions_[use_tab_states[i]] = act;
 		indentationGroup_->addAction(act);
 	}
-	
-	//indentationWidthMenu_ = new QMenu(tr("Indentation Width"));
-	
+
 	
 	eolMenu_ = new QMenu(tr("Line endings"));
 	SciDoc::Eol eols[] = { SciDoc::EolWin, SciDoc::EolMac, SciDoc::EolUnix };

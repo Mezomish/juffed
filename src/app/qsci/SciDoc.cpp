@@ -86,7 +86,7 @@ std::pair<bool,int> guessIndentation(const QString& fileName) {
 	bool use_tabs = EditorSettings::get(EditorSettings::UseTabs);
 	int indentation_width = EditorSettings::get(EditorSettings::TabWidth);
 	
-	if ( !Juff::Document::isNoname(fileName) ) {
+	if ( !Juff::Document::isNoname(fileName) && EditorSettings::get(EditorSettings::AutoDetectIndentation) ) {
 		QFile file(fileName);
 		if ( file.open(QIODevice::ReadOnly) ) {
 			int tab_lines = 0;

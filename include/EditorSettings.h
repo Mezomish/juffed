@@ -39,6 +39,7 @@ public:
 		ShowWhitespaces,
 		ShowLineEnds,
 		WrapWords,
+		AutoDetectIndentation,
 	};
 	
 	enum StringKey {

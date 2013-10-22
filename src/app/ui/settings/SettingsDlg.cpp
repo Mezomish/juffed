@@ -167,7 +167,8 @@ public:
 
 		items_
 			<< new SettingsCheckItem("editor", "replaceTabsWithSpaces", ui.replaceTabsChk)
-			<< new SettingsCheckItem("editor", "backspaceUnindents", ui.unindentChk);
+			<< new SettingsCheckItem("editor", "backspaceUnindents", ui.unindentChk)
+			<< new SettingsCheckItem("editor", "autoDetectIndentation", ui.autoDetectIndentationChk);
 	}
 	
 	virtual void apply() {

@@ -145,6 +145,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="autoDetectIndentationChk">
+        <property name="text">
+         <string>Auto-detect document indentation</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="unindentChk">
         <property name="enabled">
          <bool>false</bool>

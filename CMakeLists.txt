@@ -18,9 +18,16 @@
 
 project (juffed)
 cmake_minimum_required (VERSION 2.6.0)
-	if (COMMAND cmake_policy)
-		CMAKE_POLICY (SET CMP0003 NEW)
-	endif (COMMAND cmake_policy)
+
+
+# build options
+option(USE_SYSTEM_QTSINGLEAPPLICATION "Try to find system-wide QtSingleApplication library" OFF)
+option(USE_ENCA "Try to find Enca library for file encoding check" ON)
+
+
+if (COMMAND cmake_policy)
+    CMAKE_POLICY (SET CMP0003 NEW)
+endif (COMMAND cmake_policy)
 
 set ( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 set ( PREFIX ${CMAKE_INSTALL_PREFIX} )
@@ -100,7 +107,6 @@ find_package ( QScintilla2 REQUIRED)
 include ( cmake/FileSets.cmake )
 include ( cmake/SomeLexers.cmake )
 
-option(USE_SYSTEM_QTSINGLEAPPLICATION "" OFF)
 if(USE_SYSTEM_QTSINGLEAPPLICATION)
     find_package ( QtSingleApplication REQUIRED)
 else(USE_SYSTEM_QTSINGLEAPPLICATION)
@@ -149,15 +155,20 @@ QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
 
 
 include(FindPkgConfig)
+if (USE_ENCA)
 # try to find libenca - optional
 pkg_check_modules(ENCA enca)
 if (ENCA_FOUND)
     add_definitions(-DHAVE_ENCA)
     include_directories(${ENCA_INCLUDE_DIRS})
+    link_directories(${ENCA_LIBRARY_DIRS})
+    message(STATUS "Enca includes: ${ENCA_INCLUDE_DIRS}")
+    message(STATUS "Enca library dir: ${ENCA_LIBRARY_DIRS}")
+    message(STATUS "Enca library: ${ENCA_LIBRARIES}")
 else (ENCA_FOUND)
     message(WARNING "No enca library found. Building without auto-language-detection")
 endif (ENCA_FOUND)
-
+endif (USE_ENCA)
 
 
 # include directories
@@ -190,6 +201,9 @@ add_library ( ${JUFFLIB} SHARED
 target_link_libraries ( ${JUFFLIB}
 	${QT_LIBRARIES}
 )
+if (ENCA_FOUND)
+	target_link_libraries( ${JUFFLIB} ${ENCA_LIBRARIES} )
+endif (ENCA_FOUND)
 
 add_library ( ${QSCI_ENGINE} SHARED
 	${juffed_qsci_SRCS}
@@ -207,7 +221,7 @@ target_link_libraries ( ${QSCI_ENGINE}
 if (APPLE)
 	message ( STATUS "Building as an apple bundle" )
 	set ( APPLE_PREFIX "${CMAKE_INSTALL_PREFIX}/${JUFFED}.app/Contents" )
-
+    
 	add_definitions(-DAPPLEBUNDLE)
 	set(GUI_TYPE MACOSX_BUNDLE)
 	# create Info.plist file
@@ -277,9 +291,6 @@ target_link_libraries ( ${JUFFED}
 	${QT_LIBRARIES}
 	${QT_QTNETWORK_LIBRARY}
 )
-if (ENCA_FOUND)
-	target_link_libraries( ${JUFFED} ${ENCA_LIBRARIES} )
-endif (ENCA_FOUND)
 
 if ( UNIX )
 	set(CMAKE_CXX_FLAGS "-Wall -Wextra")

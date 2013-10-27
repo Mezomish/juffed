@@ -22,9 +22,9 @@
 #include "TreeView.h"
 
 FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
-	model_.setSorting(QDir::DirsFirst);
-
 	showAsTree = PluginSettings::getBool(this, "ShowAsTree", false);
+    showHidden = PluginSettings::getBool(this, "ShowHidden", false);
+    sortColumn = PluginSettings::getInt(this, "sortColumn", 0);
 
 	w_ = new QWidget();
 	w_->setWindowTitle(tr("Files"));
@@ -33,14 +33,15 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	//! \todo TODO/FIXME: maybe it could be configured with MainSettings::get(MainSettings::IconSize)...
 	toolBar->setIconSize(QSize(16, 16));
 
+    model_.setRootPath("");
+
 	tree_ = new TreeView(this);
 	tree_->setModel(&model_);
 	tree_->setDragDropMode(QAbstractItemView::DragOnly);
 	tree_->setAllColumnsShowFocus(true);
+    tree_->sortByColumn(sortColumn, Qt::AscendingOrder);
+    tree_->setSortingEnabled(true);
 	tree_->setSelectionMode(QAbstractItemView::ExtendedSelection);
-	// now configured by prefs - see showAsTree member
-	//tree_->setRootIsDecorated(false);
-	//tree_->setItemsExpandable(false);
 	tree_->header()->resizeSection(0, 180);
 	tree_->header()->resizeSection(1, 80);
 	tree_->header()->resizeSection(2, 60);
@@ -52,7 +53,6 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	toolBar->addAction(QIcon(":icon_up"), tr("Go Up"), this, SLOT(up()));
 	toolBar->addAction(QIcon(":icon_home"), tr("Go to Home Directory"), this, SLOT(home()));
 	toolBar->addAction(QIcon(":icon_current"), tr("Go to current file's directory"), this, SLOT(curFileDir()));
-	toolBar->addAction(QIcon(":icon_refresh"), tr("Refresh List"), &model_, SLOT(refresh()));
 	toolBar->addAction(QIcon(":icon_bookmarks"), tr("Favorite Locations"), this, SLOT(favorites()));
 	toolBar->addAction(QIcon(":icon_new_dir"), tr("New Directory"), this, SLOT(newDir()));
 
@@ -94,6 +94,9 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 }
 
 FMPlugin::~FMPlugin() {
+    sortColumn = tree_->header()->sortIndicatorSection();
+    PluginSettings::set(this, "sortColumn", sortColumn);
+
 	delete w_;
 }
 
@@ -153,7 +156,6 @@ void FMPlugin::cd(const QString& path, bool addToHistory /*= true*/) {
 		}
 		
 		tree_->setRootIndex(model_.index(path));
-		model_.refresh();
 		pathEd_->setText(path);
 		pathEd_->setToolTip(path);
 		PluginSettings::set(this, "lastDir", path);
@@ -174,7 +176,6 @@ void FMPlugin::itemDoubleClicked(const QModelIndex& index) {
 }
 
 void FMPlugin::onDirChanged(const QString&) {
-	model_.refresh();
 }
 
 void FMPlugin::back() {
@@ -220,16 +221,14 @@ void FMPlugin::favorites() {
 
 void FMPlugin::newDir() {
 	QString newDirName = QInputDialog::getText(tree_, tr("New directory"), tr("Directory name"));
-	if ( !newDirName.isEmpty() ) {
-		QDir curDir(model_.filePath(tree_->rootIndex()));
-		if ( !curDir.mkdir(newDirName) ) {
-			QMessageBox::warning(tree_, tr("Warning"), 
-								 tr("Couldn't create a dir named '%1'").arg(newDirName));
-		}
-		else {
-			model_.refresh(tree_->rootIndex());
-		}
-	}
+    if (newDirName.isEmpty())
+        return;
+
+    QDir curDir(model_.filePath(tree_->rootIndex()));
+    if ( !curDir.mkdir(newDirName) ) {
+        QMessageBox::warning(tree_, tr("Warning"),
+                             tr("Couldn't create a dir named '%1'").arg(newDirName));
+    }
 }
 
 
@@ -269,7 +268,7 @@ void FMPlugin::textEntered() {
 }
 
 void FMPlugin::onDocSaved(const QString& fileName) {
-	model_.refresh(model_.index(QFileInfo(fileName).absolutePath()));
+    Q_UNUSED(fileName);
 }
 
 void FMPlugin::applySettings() {
@@ -284,6 +283,11 @@ void FMPlugin::applySettings() {
 	PluginSettings::set(this, "ShowAsTree", showAsTree);
 	tree_->setRootIsDecorated(showAsTree);
 	tree_->setItemsExpandable(showAsTree);
+
+    QDir::Filters filter = QDir::AllDirs | QDir::AllEntries | QDir::NoDotAndDotDot;
+    if (showHidden)
+        filter |= QDir::Hidden;
+    model_.setFilter(filter);
 }
 
 QWidget * FMPlugin::settingsPage() const
@@ -296,7 +300,12 @@ QWidget * FMPlugin::settingsPage() const
 	treeCheckBox->setChecked(showAsTree);
 	connect(treeCheckBox, SIGNAL(toggled(bool)), this, SLOT(treeCheckBox_toggled(bool)));
 
+    QCheckBox *showHiddenBox = new QCheckBox(tr("Show Hidden Files and Directories"), cfg);
+    showHiddenBox->setChecked(showHidden);
+    connect(showHiddenBox, SIGNAL(toggled(bool)), this, SLOT(showHiddenBox_toggled(bool)));
+
 	l->addWidget(treeCheckBox);
+    l->addWidget(showHiddenBox);
 	l->addItem(new QSpacerItem(1, 1, QSizePolicy::Minimum, QSizePolicy::MinimumExpanding));
 	return cfg;
 }
@@ -304,6 +313,11 @@ QWidget * FMPlugin::settingsPage() const
 void FMPlugin::treeCheckBox_toggled(bool value)
 {
 	showAsTree = value;
+}
+
+void FMPlugin::showHiddenBox_toggled(bool value)
+{
+    showHidden = value;
 }
 
 Q_EXPORT_PLUGIN2(fm, FMPlugin)

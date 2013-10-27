@@ -2,12 +2,12 @@
 
 #include "TreeView.h"
 
-#include <QDirModel>
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QHeaderView>
 #include <QtGui/QMenu>
+#include <QFileSystemModel>
 
 #include <PluginSettings.h>
 
@@ -66,22 +66,20 @@ void TreeView::keyPressEvent(QKeyEvent* e) {
 }
 
 void TreeView::renameCurrent() {
-	QDirModel* dirModel = qobject_cast<QDirModel*>(model());
+    QFileSystemModel* dirModel = qobject_cast<QFileSystemModel*>(model());
 	if ( 0 != dirModel ) {
 		QFileInfo fi = dirModel->fileInfo(currentIndex());
 		QString newFileName = QInputDialog::getText(this, tr("Rename"), tr("File name"), 
 		                                            QLineEdit::Normal, fi.fileName());
-		if ( !newFileName.isEmpty() ) {
-			QFile file(fi.absoluteFilePath());
-			QDir::setCurrent(fi.absolutePath());
-			if ( !file.rename(newFileName) ) {
-				QMessageBox::warning(this, tr("Warning"), 
-				                     tr("Rename failed: file '%1' already exists").arg(newFileName));
-			}
-			else {
-				dirModel->refresh(dirModel->index(fi.absolutePath()));
-			}
-		}
+        if (newFileName.isEmpty())
+            return;
+
+        QFile file(fi.absoluteFilePath());
+        QDir::setCurrent(fi.absolutePath());
+        if ( !file.rename(newFileName) ) {
+            QMessageBox::warning(this, tr("Warning"),
+                                 tr("Rename failed: file '%1' already exists").arg(newFileName));
+        }
 	}
 }
 

@@ -382,6 +382,7 @@ void JuffMW::closeEvent(QCloseEvent* e) {
 	
 	bool confirmed = true;
 	emit closeRequested(confirmed);
+
 	if ( confirmed ) {
 		e->accept();
 	}
@@ -390,27 +391,19 @@ void JuffMW::closeEvent(QCloseEvent* e) {
 	}
 }
 
-void JuffMW::resizeEvent(QResizeEvent* e) {
-//	LOGGER;
-	
-	QMainWindow::resizeEvent(e);
-	
-	if ( !isMaximized() ) {
-		MainSettings::setGeometry(geometry());
-	}
-}
+//void JuffMW::resizeEvent(QResizeEvent* e) {
+////	LOGGER;
+//
+//	QMainWindow::resizeEvent(e);
+//}
 
-void JuffMW::changeEvent(QEvent* e) {
-	if ( e->type() == QEvent::WindowStateChange ) {
-		MainSettings::set(MainSettings::Maximized, isMaximized());
-	}
-	QMainWindow::changeEvent(e);
-}
+//void JuffMW::changeEvent(QEvent* e) {
+//	QMainWindow::changeEvent(e);
+//}
 
-void JuffMW::moveEvent(QMoveEvent* e) {
-	MainSettings::setGeometry(geometry());
-	QMainWindow::moveEvent(e);
-}
+//void JuffMW::moveEvent(QMoveEvent* e) {
+//	QMainWindow::moveEvent(e);
+//}
 
 void JuffMW::keyPressEvent(QKeyEvent* e) {
 	if ( searchPopup_->isVisible() ) {
@@ -473,11 +466,20 @@ void JuffMW::applySettings() {
 
 void JuffMW::saveState() {
 	MainSettings::setMwState(QMainWindow::saveState());
-//	guiManager_.saveLastStates();
+    MainSettings::saveGeometry(saveGeometry());
+    MainSettings::set(MainSettings::Maximized, isMaximized());
+
+    //	guiManager_.saveLastStates();
 }
 
 void JuffMW::restoreState() {
 	//	restore the position of toolbars and docks
 	QMainWindow::restoreState(MainSettings::mwState());
+
+    if ( MainSettings::get(MainSettings::Maximized) )
+        showMaximized();
+    else
+        QMainWindow::restoreGeometry(MainSettings::restoreGeometry());
+
 //	guiManager_.loadLastStates();
 }

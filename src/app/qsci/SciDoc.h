@@ -114,6 +114,10 @@ public:
 	void setScrollPos(int);
 	SciDoc::Eol eol() const;
 	void setEol(SciDoc::Eol);
+    bool indentationsUseTabs() const;
+	void setIndentationsUseTabs(bool);
+	int tabWidth() const;
+	void setTabWidth(int);
 	
 	void toggleMarker(int);
 	void removeAllMarkers();

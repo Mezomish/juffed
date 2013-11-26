@@ -62,6 +62,10 @@ void EditorSettings::set(BoolKey key, bool value) {
 		case WrapWords :
 			Settings::instance()->setValue("editor", "wrapWords", value);
 			break;
+		
+		case AutoDetectIndentation :
+			Settings::instance()->setValue("editor", "autoDetectIndentation", value);
+			break;
 	}
 }
 
@@ -108,6 +112,9 @@ bool EditorSettings::get(BoolKey key) {
 
 		case WrapWords :
 			return Settings::instance()->boolValue("editor", "wrapWords");
+		
+		case AutoDetectIndentation :
+			return Settings::instance()->boolValue("editor", "autoDetectIndentation");
 	}
 	return false;
 }

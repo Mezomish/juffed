@@ -61,6 +61,8 @@ public slots:
 	void slotRemoveLineLeft();
 	void slotRemoveLineRight();
 	void slotEolChanged();
+	void slotIndentationChanged();
+	void slotIndentationWidthChanged();
 	void slotFoldUnfoldAll();
 	void slotMarkerAddRemove();
 	void slotMarkerRemoveAll();
@@ -85,13 +87,23 @@ private:
 
 	QMenu* syntaxMenu_;
 	QMenu* eolMenu_;
+	QMenu* indentationMenu_;
+
 	QMenu* markersMenu_;
 	QMap<QString, QAction*> syntaxActions_;
 	QMap<SciDoc::Eol, QAction*> eolActions_;
+	QMap<bool, QAction*> indentationActions_;
+	QMap<int, QAction*> indentationWidthActions_;
+
 	Juff::StatusLabel* syntaxLabel_;
 	Juff::StatusLabel* eolLabel_;
+	Juff::StatusLabel* indentationLabel_;
+
 	QActionGroup* syntaxGroup_;
 	QActionGroup* eolGroup_;
+	QActionGroup* indentationGroup_;
+	QActionGroup* indentationWidthGroup_;
+
 	QAction* showLineNumsAct_;
 	QAction* wrapWordsAct_;
 	QAction* showWhitespacesAct_;

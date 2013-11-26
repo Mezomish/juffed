@@ -178,6 +178,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key.compare("tabStopWidth") == 0 )          return 8;
 		if ( key.compare("replaceTabsWithSpaces") == 0 ) return false;
 		if ( key.compare("backspaceUnindents") == 0 )    return true;
+		if ( key.compare("autoDetectIndentation") == 0 )    return true;
 
 #ifdef Q_WS_MAC
 		if ( key.compare("fontSize") == 0 )              return 12;

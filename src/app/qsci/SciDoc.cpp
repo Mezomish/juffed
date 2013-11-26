@@ -16,6 +16,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+#include <utility>
+#include <map>
+
 #include <QDebug>
 
 #include "SciDoc.h"
@@ -78,6 +81,89 @@ SciDoc::Eol guessEol(const QString& fileName) {
 #endif
 	}
 	return eol;
+}
+
+std::pair<bool,int> guessIndentation(const QString& fileName) {
+	bool use_tabs = EditorSettings::get(EditorSettings::UseTabs);  // Stores final result whether document uses tabs for indentation (start with default)
+	int indentation_width = EditorSettings::get(EditorSettings::TabWidth);  // Stores final result what indentation width the document uses (start with default)
+	
+	if ( !Juff::Document::isNoname(fileName) && EditorSettings::get(EditorSettings::AutoDetectIndentation) ) {
+		QFile file(fileName);
+		if ( file.open(QIODevice::ReadOnly) ) {
+			int tab_block_count = 0;  // Counter of how many text blocks start with tabs
+			int space_block_count = 0;  // Counter of how many text blocks start with spaces
+			
+			QString prev_indent("");  // Stores prior line's indentation string
+			int prev_spaces;  // Stores the prior line's leading spaces
+			
+			std::map<int, int> space_counts;  // Stores the number of indentation increases of various sizes in spaces
+			space_counts[1] = space_counts[2] = space_counts[3] = space_counts[4] = space_counts[5] = space_counts[6] = space_counts[7] = space_counts[8] = 0; 
+			
+			QRegExp blank_re("[\t ]*\r?\n?"); // Checks if line is blank
+			QRegExp indent_re("^[\t ]*");     // Finds all leading whitespace
+			QRegExp tabs_re("^\t*");          // Finds leading tabs
+			QRegExp spaces_re("^ *");         // Finds leading spaces
+			
+			// Collect indentation statistics
+			for ( int i = 0; !file.atEnd() && i < 1000; ++i ) {  // Stop at end of document or 1000 lines, whichever comes first
+				QString line = QString::fromLocal8Bit(file.readLine().constData());
+				
+				// Skip blank lines, as they are likely to have malformed indentation
+				if (blank_re.exactMatch(line))
+					continue;
+				
+				// Skip subsequent lines with identical indentation.
+				// In other words, we're counting blocks of indented text, not lines
+				indent_re.exactMatch(line);
+				if (prev_indent == indent_re.cap(0))
+					continue;
+				prev_indent = indent_re.cap(0);
+				
+				// Check for a leading tab
+				tabs_re.exactMatch(line);
+				if (tabs_re.matchedLength() > 0) {
+					tab_block_count++;
+					prev_spaces = 0;
+					continue;
+				}
+				
+				// Check for a leading space
+				spaces_re.exactMatch(line);
+				if ( spaces_re.matchedLength() > 0 ) {
+					space_block_count++;
+					// Count the number of spaces in indentation increases
+					if (prev_spaces < spaces_re.matchedLength())
+						space_counts[spaces_re.matchedLength() - prev_spaces]++;
+					prev_spaces = spaces_re.matchedLength();
+				}
+			}
+			
+			// Guess indentation style based on the collected statistics
+			if (tab_block_count > 0 || space_block_count > 0) { // If we don't have any statistics to work with, stick with defaults
+				if ( (tab_block_count * 2) > space_block_count ) { // Heuristic: even smaller numbers of leading tabs typically still indicate that tabs are the indentation character
+					use_tabs = true;
+				}
+				else {
+					// If document uses spaces...
+					use_tabs = false;
+					
+					// Guess indentation width in spaces
+					int width = 1;
+					for ( int i = 2; i <= 8; ++i ) {
+						if ( space_counts[width] <= space_counts[i] ) // Barely favor larger widths (<= instead of <)
+							 width = i;
+					}
+					
+					// Heuristic: if there's only one example of an indent, skip and stick with the default
+					if ( space_counts[width] > 1)
+						indentation_width = width;
+				}
+			}
+		}
+		file.close();
+	}
+	
+	return std::make_pair(use_tabs, indentation_width);
 }
 
 QPixmap markerPixmap(const QColor& color, const QColor& bgColor) {
@@ -216,20 +302,29 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 
 	QString lexName = "none";
 	SciDoc::Eol eol = guessEol(fileName);
+	std::pair<bool,int> indentation = guessIndentation(fileName);
 	if ( !fileName.isEmpty() && !isNoname() ) {
 		QString codecName = Document::guessCharset(fileName);
 		if ( !codecName.isEmpty() )
 			setCharset(codecName);
 		readFile();
 		setEol(eol);
+		setIndentationsUseTabs(indentation.first);
+		setTabWidth(indentation.second);
 		int_->edit1_->setModified(false);
 
 		//	syntax highlighting
 		lexName = LexerStorage::instance()->lexerName(fileName);
 	}
-	else
+	else {
 		setEol(eol);
-
+		setIndentationsUseTabs(indentation.first);
+		setTabWidth(indentation.second);
+	}
+	
+	
+	
+	
 	setLexer(lexName);
 
 	applySettings();
@@ -1191,6 +1286,24 @@ void SciDoc::setEol(SciDoc::Eol eol) {
 	}
 }
 
+bool SciDoc::indentationsUseTabs() const {
+	return int_->curEdit_->indentationsUseTabs();
+}
+
+void SciDoc::setIndentationsUseTabs(bool use_tabs) {
+	int_->edit1_->setIndentationsUseTabs(use_tabs);
+	int_->edit2_->setIndentationsUseTabs(use_tabs);
+}
+
+int SciDoc::tabWidth() const {
+	return int_->curEdit_->tabWidth();
+}
+
+void SciDoc::setTabWidth(int tab_width) {
+	int_->edit1_->setTabWidth(tab_width);
+	int_->edit2_->setTabWidth(tab_width);
+}
+
 void SciDoc::toggleMarker(int line) {
 	LOGGER;
 
@@ -1241,8 +1354,8 @@ void SciDoc::applySettings() {
 		QsciScintilla* edit = edits[i];
 
 		// indents
-		edit->setTabWidth(EditorSettings::get(EditorSettings::TabWidth));
-		edit->setIndentationsUseTabs(EditorSettings::get(EditorSettings::UseTabs));
+		//edit->setTabWidth(EditorSettings::get(EditorSettings::TabWidth));
+		//edit->setIndentationsUseTabs(EditorSettings::get(EditorSettings::UseTabs));
 		edit->setBackspaceUnindents(EditorSettings::get(EditorSettings::BackspaceUnindents));
 
 		// colors

@@ -29,7 +29,8 @@ Q_OBJECT
 public:
 	enum Mode {
 		IndexMode,
-		StringMode
+		StringMode,
+		IndexModeWithDefaultValue
 	};
 	SettingsSelectItem(const QString&, const QString&, QComboBox*, Mode mode);
 

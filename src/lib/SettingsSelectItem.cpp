@@ -38,6 +38,10 @@ void SettingsSelectItem::readValue() {
 		curIndex_ = Settings::instance()->intValue(section_, key_);
 		comboBox_->setCurrentIndex(curIndex_);
 	}
+	else if ( mode_ == IndexModeWithDefaultValue ) {
+		curIndex_ = Settings::instance()->intValue(section_, key_) + 1;
+		comboBox_->setCurrentIndex(curIndex_);
+	}
 	else {
 		curString_ = Settings::instance()->stringValue(section_, key_);
 		int index = comboBox_->findText(curString_);
@@ -51,6 +55,10 @@ void SettingsSelectItem::readValue() {
 void SettingsSelectItem::writeValue() {
 	if ( mode_ == IndexMode ) {
 		curIndex_ = comboBox_->currentIndex();
+		Settings::instance()->setValue(section_, key_, curIndex_);
+	}
+	else if ( mode_ == IndexModeWithDefaultValue) {
+		curIndex_ = comboBox_->currentIndex() - 1;
 		Settings::instance()->setValue(section_, key_, curIndex_);
 	}
 	else {

@@ -3,6 +3,7 @@
 #include <QKeyEvent>
 #include <QSplitter>
 #include <QVBoxLayout>
+#include <QStyle>
 
 #include "DocHandlerInt.h"
 #include "Log.h"
@@ -81,7 +82,9 @@ void DocViewer::applySettings() {
 		doc->applySettings();
 	}
 
-	QTabWidget::TabPosition position = (QTabWidget::TabPosition)MainSettings::get(MainSettings::TabPosition);
+	int pos = MainSettings::get(MainSettings::TabPosition);
+	QTabWidget::TabPosition position = (pos == -1) ?
+		(QTabWidget::TabPosition)style()->styleHint(QStyle::SH_TabWidget_DefaultTabPosition, 0, this) : (QTabWidget::TabPosition)pos;
 	tab1_->setTabPosition(position);
 	tab2_->setTabPosition(position);
 }

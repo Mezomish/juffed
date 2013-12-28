@@ -126,9 +126,9 @@ public:
 
 		items_
 //			  << new SettingsSelectItem("main", "iconTheme", ui.iconThemeCmb, SettingsSelectItem::StringMode)
-			  << new SettingsSelectItem("main", "toolButtonStyle", ui.toolButtonStyleCmb, SettingsSelectItem::IndexMode)
-			  << new SettingsSelectItem("main", "iconSize", ui.iconSizeCmb, SettingsSelectItem::IndexMode)
-			  << new SettingsSelectItem("main", "tabPosition", ui.tabPositionCmb, SettingsSelectItem::IndexMode)
+			  << new SettingsSelectItem("main", "toolButtonStyle", ui.toolButtonStyleCmb, SettingsSelectItem::IndexModeWithDefaultValue)
+			  << new SettingsSelectItem("main", "iconSize", ui.iconSizeCmb, SettingsSelectItem::IndexModeWithDefaultValue)
+			  << new SettingsSelectItem("main", "tabPosition", ui.tabPositionCmb, SettingsSelectItem::IndexModeWithDefaultValue)
 			  << new SettingsCheckItem("main", "fsHideToolbar", ui.fsHideToolbarChk)
 			  << new SettingsCheckItem("main", "fsHideStatusbar", ui.fsHideStatusbarChk)
 		;

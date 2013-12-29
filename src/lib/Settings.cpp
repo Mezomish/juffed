@@ -153,9 +153,9 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key.compare("fsHideToolBar") == 0 )          return true;
 		if ( key.compare("fsHideStatusBar") == 0 )        return true;
 		if ( key.compare("language") == 0 )               return "auto";
-		if ( key.compare("tabPosition") == 0 )            return 0;
-		if ( key.compare("toolButtonStyle") == 0 )        return 0;
-		if ( key.compare("iconSize") == 0 )               return 0;
+		if ( key.compare("tabPosition") == 0 )            return -1;
+		if ( key.compare("toolButtonStyle") == 0 )        return -1;
+		if ( key.compare("iconSize") == 0 )               return -1;
 	}
 	else if ( section.compare("autocomplete") == 0 ) {
 		if ( key.compare("useDocument") == 0 )   return true;

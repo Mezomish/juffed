@@ -751,15 +751,38 @@ void SciDoc::zoom100() {
 	int_->edit2_->zoomTo(0);
 }
 
+// Methods toUpperCase and toLowerCase use a workaround for bug in scintilla.
+// Scintilla can't do case conversion for non-ASCII symbols.
+// See http://sourceforge.net/p/scintilla/bugs/349/
+// The case conversion can't be performed correctly in general case.
+// We assume here that selected text is written in a language that corresponds
+// to the system locale.
+
 void SciDoc::toUpperCase() {
-	if ( int_->curEdit_ != NULL ) {
-		int_->curEdit_->SendScintilla(QsciScintilla::SCI_UPPERCASE);
+	if ( int_->curEdit_ != NULL && int_->curEdit_->hasSelectedText() ) {
+		int lineFrom, indexFrom, lineTo, indexTo;
+		int_->curEdit_->getSelection(&lineFrom, &indexFrom, &lineTo, &indexTo);
+
+		QString selectedText = int_->curEdit_->selectedText();
+		QString convertedText = QLocale::system().toUpper(selectedText);
+		int_->curEdit_->replaceSelectedText(convertedText);
+
+		indexTo += (convertedText.size() - selectedText.size());
+		int_->curEdit_->setSelection(lineFrom, indexFrom, lineTo, indexTo);
 	}
 }
 
 void SciDoc::toLowerCase() {
-	if ( int_->curEdit_ != NULL ) {
-		int_->curEdit_->SendScintilla(QsciScintilla::SCI_LOWERCASE);
+	if ( int_->curEdit_ != NULL && int_->curEdit_->hasSelectedText() ) {
+		int lineFrom, indexFrom, lineTo, indexTo;
+		int_->curEdit_->getSelection(&lineFrom, &indexFrom, &lineTo, &indexTo);
+
+		QString selectedText = int_->curEdit_->selectedText();
+		QString convertedText = QLocale::system().toLower(selectedText);
+		int_->curEdit_->replaceSelectedText(convertedText);
+
+		indexTo += (convertedText.size() - selectedText.size());
+		int_->curEdit_->setSelection(lineFrom, indexFrom, lineTo, indexTo);
 	}
 }
 

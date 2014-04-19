@@ -6,14 +6,14 @@
 #include "FindWorker.h"
 
 #include <QtCore>
-#include <QtGui/QAction>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QPushButton>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QToolBar>
-#include <QtGui/QVBoxLayout>
+#include <QAction>
+#include <QHeaderView>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QTreeWidget>
+#include <QToolBar>
+#include <QVBoxLayout>
 
 //#include <CommandStorageInt.h>
 #include <Log.h>

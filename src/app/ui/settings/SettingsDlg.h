@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define __JUFF_SETTINGS_DLG_H__
 
 #include <QtCore/QMap>
-#include <QtGui/QDialog>
+#include <QDialog>
 
 class QPushButton;
 class MultiPage;

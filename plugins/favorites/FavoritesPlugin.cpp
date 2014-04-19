@@ -2,7 +2,7 @@
 #include "ManageDlg.h"
 
 #include <QtCore>
-#include <QtGui/QMenu>
+#include <QMenu>
 
 #include <Document.h>
 #include <Log.h>

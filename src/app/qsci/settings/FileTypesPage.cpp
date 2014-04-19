@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "FileTypesPage.h"
 
-#include <QtGui/QInputDialog>
-#include <QtGui/QMessageBox>
+#include <QInputDialog>
+#include <QMessageBox>
 
 #include "FileTypeSettings.h"
 #include "../LexerStorage.h"

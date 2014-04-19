@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 //	Qt headers
 #include <QtCore/QString>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QHeaderView>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
+#include <QHBoxLayout>
+#include <QHeaderView>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 #include <QtCore/QMap>
 
 class MultiPageInterior {

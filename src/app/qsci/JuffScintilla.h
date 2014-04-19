@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <Qsci/qsciscintilla.h>
 
-#include <QtGui/QDragEnterEvent>
-#include <QtGui/QDropEvent>
-#include <QtGui/QMenu>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMenu>
 
 class QSCI_ENGINE_EXPORT JuffScintilla : public QsciScintilla {
 Q_OBJECT

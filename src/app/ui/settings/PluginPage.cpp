@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "PluginPage.h"
 
-#include <QtGui/QCheckBox>
-#include <QtGui/QVBoxLayout>
+#include <QCheckBox>
+#include <QVBoxLayout>
 #include "Log.h"
 
 PluginPage::PluginPage(const QString& pluginName, QWidget* page, QWidget* parent) : 

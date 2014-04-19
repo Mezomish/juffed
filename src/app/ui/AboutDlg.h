@@ -23,7 +23,7 @@ class QIcon;
 class QUrl;
 class QString;
 
-#include <QtGui/QDialog>
+#include <QDialog>
 
 class AboutDlg : public QDialog {
 Q_OBJECT

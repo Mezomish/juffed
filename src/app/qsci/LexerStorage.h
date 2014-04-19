@@ -29,7 +29,7 @@ class QFont;
 class QString;
 class QStringList;
 
-#include <QtGui/QColor>
+#include <QColor>
 
 class QSCI_ENGINE_EXPORT LexerStorage {
 public:

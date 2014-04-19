@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QStringList>
-#include <QtGui/QHeaderView>
+#include <QHeaderView>
 
 #include "Log.h"
 

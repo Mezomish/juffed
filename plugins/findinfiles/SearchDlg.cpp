@@ -2,8 +2,8 @@
 
 #include "SearchDlg.h"
 
-#include <QtGui/QCompleter>
-#include <QtGui/QFileDialog>
+#include <QCompleter>
+#include <QFileDialog>
 #include <QFileSystemModel>
 
 

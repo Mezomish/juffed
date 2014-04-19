@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "SettingsColorItem.h"
 #include "Settings.h"
 
-//#include <QtGui/QCheckBox>
+//#include <QCheckBox>
 
 SettingsColorItem::SettingsColorItem(const QString& section, const QString& key, 
                                      ColorButton* cb)

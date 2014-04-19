@@ -4,7 +4,7 @@
 class JuffPlugin;
 class QMenu;
 
-#include <QtGui/QTreeView>
+#include <QTreeView>
 
 class TreeView : public QTreeView {
 Q_OBJECT

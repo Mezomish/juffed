@@ -1,17 +1,17 @@
 #include "FMPlugin.h"
 
 #include <QtCore>
-#include <QtGui/QCompleter>
-#include <QtGui/QHeaderView>
-#include <QtGui/QInputDialog>
-#include <QtGui/QLineEdit>
-#include <QtGui/QMessageBox>
-#include <QtGui/QMenu>
-#include <QtGui/QAction>
-#include <QtGui/QToolBar>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QCheckBox>
+#include <QCompleter>
+#include <QHeaderView>
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QMessageBox>
+#include <QMenu>
+#include <QAction>
+#include <QToolBar>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QCheckBox>
 
 #include <Log.h>
 #include <MainSettings.h>

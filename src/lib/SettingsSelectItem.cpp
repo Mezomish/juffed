@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "SettingsSelectItem.h"
 #include "Settings.h"
 
-#include <QtGui/QComboBox>
+#include <QComboBox>
 
 SettingsSelectItem::SettingsSelectItem(const QString& section, const QString& key, 
                                      QComboBox* cb, Mode mode)

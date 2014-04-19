@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 class QMenu;
 
-#include <QtGui/QLabel>
+#include <QLabel>
 #include "LibConfig.h"
 
 namespace Juff {

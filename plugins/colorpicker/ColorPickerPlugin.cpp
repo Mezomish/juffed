@@ -1,8 +1,8 @@
 #include "ColorPickerPlugin.h"
 
 #include <QtCore>
-#include <QtGui/QToolBar>
-#include <QtGui/QColorDialog>
+#include <QToolBar>
+#include <QColorDialog>
 
 #include <Document.h>
 #include <PluginSettings.h>

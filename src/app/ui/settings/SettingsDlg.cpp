@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //	Qt headers
 #include <QtCore/QDir>
 #include <QtCore/QStringList>
-#include <QtGui/QPushButton>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QVBoxLayout>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 //	Local headers
 #ifdef Q_OS_WIN

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define __JUFF_CHARSETS_SETTINGS_PAGE_H__
 
 //	Qt
-#include <QtGui/QWidget>
+#include <QWidget>
 
 // local
 #include "SettingsPage.h"

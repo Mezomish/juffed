@@ -41,7 +41,7 @@
 #define parentDecl(st)      ((st)->parent == NULL ? \
                             DECL_NONE : (st)->parent->declaration)
 #define isType(token,t)     (boolean) ((token)->type == (t))
-#define insideEnumBody(st)  ((st)->parent == NULL ? FALSE : \
+#define insideEnumBody(st)  ((st)->parent == NULL ? false : \
                             (boolean) ((st)->parent->declaration == DECL_ENUM))
 #define isExternCDecl(st,c) (boolean) ((c) == STRING_SYMBOL  && \
                     ! (st)->haveQualifyingName  && (st)->scope == SCOPE_EXTERN)
@@ -267,20 +267,20 @@ typedef enum {
 } cKind;
 
 static kindOption CKinds [] = {
-        { TRUE,  'c', "class",      "classes"},
-        { TRUE,  'd', "macro",      "macro definitions"},
-        { TRUE,  'e', "enumerator", "enumerators (values inside an enumeration)"},
-        { TRUE,  'f', "function",   "function definitions"},
-        { TRUE,  'g', "enum",       "enumeration names"},
-        { FALSE, 'l', "local",      "local variables"},
-        { TRUE,  'm', "member",     "class, struct, and union members"},
-        { TRUE,  'n', "namespace",  "namespaces"},
-        { FALSE, 'p', "prototype",  "function prototypes"},
-        { TRUE,  's', "struct",     "structure names"},
-        { TRUE,  't', "typedef",    "typedefs"},
-        { TRUE,  'u', "union",      "union names"},
-        { TRUE,  'v', "variable",   "variable definitions"},
-        { FALSE, 'x', "externvar",  "external and forward variable declarations"},
+        { true,  'c', "class",      "classes"},
+        { true,  'd', "macro",      "macro definitions"},
+        { true,  'e', "enumerator", "enumerators (values inside an enumeration)"},
+        { true,  'f', "function",   "function definitions"},
+        { true,  'g', "enum",       "enumeration names"},
+        { false, 'l', "local",      "local variables"},
+        { true,  'm', "member",     "class, struct, and union members"},
+        { true,  'n', "namespace",  "namespaces"},
+        { false, 'p', "prototype",  "function prototypes"},
+        { true,  's', "struct",     "structure names"},
+        { true,  't', "typedef",    "typedefs"},
+        { true,  'u', "union",      "union names"},
+        { true,  'v', "variable",   "variable definitions"},
+        { false, 'x', "externvar",  "external and forward variable declarations"},
 };
 
 typedef enum {
@@ -291,19 +291,19 @@ typedef enum {
 } csharpKind;
 
 static kindOption CsharpKinds [] = {
-        { TRUE,  'c', "class",      "classes"},
-        { TRUE,  'd', "macro",      "macro definitions"},
-        { TRUE,  'e', "enumerator", "enumerators (values inside an enumeration)"},
-        { TRUE,  'E', "event",      "events"},
-        { TRUE,  'f', "field",      "fields"},
-        { TRUE,  'g', "enum",       "enumeration names"},
-        { TRUE,  'i', "interface",  "interfaces"},
-        { FALSE, 'l', "local",      "local variables"},
-        { TRUE,  'm', "method",     "methods"},
-        { TRUE,  'n', "namespace",  "namespaces"},
-        { TRUE,  'p', "property",   "properties"},
-        { TRUE,  's', "struct",     "structure names"},
-        { TRUE,  't', "typedef",    "typedefs"},
+        { true,  'c', "class",      "classes"},
+        { true,  'd', "macro",      "macro definitions"},
+        { true,  'e', "enumerator", "enumerators (values inside an enumeration)"},
+        { true,  'E', "event",      "events"},
+        { true,  'f', "field",      "fields"},
+        { true,  'g', "enum",       "enumeration names"},
+        { true,  'i', "interface",  "interfaces"},
+        { false, 'l', "local",      "local variables"},
+        { true,  'm', "method",     "methods"},
+        { true,  'n', "namespace",  "namespaces"},
+        { true,  'p', "property",   "properties"},
+        { true,  's', "struct",     "structure names"},
+        { true,  't', "typedef",    "typedefs"},
 };
 
 /* Used to index into the JavaKinds table. */
@@ -314,14 +314,14 @@ typedef enum {
 } javaKind;
 
 static kindOption JavaKinds [] = {
-        { TRUE,  'c', "class",         "classes"},
-        { TRUE,  'e', "enum constant", "enum constants"},
-        { TRUE,  'f', "field",         "fields"},
-        { TRUE,  'g', "enum",          "enum types"},
-        { TRUE,  'i', "interface",     "interfaces"},
-        { FALSE, 'l', "local",         "local variables"},
-        { TRUE,  'm', "method",        "methods"},
-        { TRUE,  'p', "package",       "packages"},
+        { true,  'c', "class",         "classes"},
+        { true,  'e', "enum constant", "enum constants"},
+        { true,  'f', "field",         "fields"},
+        { true,  'g', "enum",          "enum types"},
+        { true,  'i', "interface",     "interfaces"},
+        { false, 'l', "local",         "local variables"},
+        { true,  'm', "method",        "methods"},
+        { true,  'p', "package",       "packages"},
 };
 
 /* Used to index into the VeraKinds table. */
@@ -334,19 +334,19 @@ typedef enum {
 } veraKind;
 
 static kindOption VeraKinds [] = {
-        { TRUE,  'c', "class",      "classes"},
-        { TRUE,  'd', "macro",      "macro definitions"},
-        { TRUE,  'e', "enumerator", "enumerators (values inside an enumeration)"},
-        { TRUE,  'f', "function",   "function definitions"},
-        { TRUE,  'g', "enum",       "enumeration names"},
-        { FALSE, 'l', "local",      "local variables"},
-        { TRUE,  'm', "member",     "class, struct, and union members"},
-        { TRUE,  'p', "program",    "programs"},
-        { FALSE, 'P', "prototype",  "function prototypes"},
-        { TRUE,  't', "task",       "tasks"},
-        { TRUE,  'T', "typedef",    "typedefs"},
-        { TRUE,  'v', "variable",   "variable definitions"},
-        { FALSE, 'x', "externvar",  "external variable declarations"}
+        { true,  'c', "class",      "classes"},
+        { true,  'd', "macro",      "macro definitions"},
+        { true,  'e', "enumerator", "enumerators (values inside an enumeration)"},
+        { true,  'f', "function",   "function definitions"},
+        { true,  'g', "enum",       "enumeration names"},
+        { false, 'l', "local",      "local variables"},
+        { true,  'm', "member",     "class, struct, and union members"},
+        { true,  'p', "program",    "programs"},
+        { false, 'P', "prototype",  "function prototypes"},
+        { true,  't', "task",       "tasks"},
+        { true,  'T', "typedef",    "typedefs"},
+        { true,  'v', "variable",   "variable definitions"},
+        { false, 'x', "externvar",  "external variable declarations"}
 };
 
 static const keywordDesc KeywordTable [] = {
@@ -809,17 +809,17 @@ boolean Parser_Cpp::isContextualKeyword (const tokenInfo *const token)
         case KEYWORD_NAMESPACE:
         case KEYWORD_STRUCT:
         case KEYWORD_UNION:
-            result = TRUE;
+            result = true;
             break;
 
-        default: result = FALSE; break;
+        default: result = false; break;
     }
     return result;
 }
 
 boolean Parser_Cpp::isContextualStatement (const statementInfo *const st)
 {
-    boolean result = FALSE;
+    boolean result = false;
     if (st != NULL) switch (st->declaration)
     {
         case DECL_CLASS:
@@ -828,10 +828,10 @@ boolean Parser_Cpp::isContextualStatement (const statementInfo *const st)
         case DECL_NAMESPACE:
         case DECL_STRUCT:
         case DECL_UNION:
-            result = TRUE;
+            result = true;
             break;
 
-        default: result = FALSE; break;
+        default: result = false; break;
     }
     return result;
 }
@@ -840,7 +840,7 @@ boolean Parser_Cpp::isMember (const statementInfo *const st)
 {
     boolean result;
     if (isType (st->context, TOKEN_NAME))
-        result = TRUE;
+        result = true;
     else
         result = (boolean)
             (st->parent != NULL && isContextualStatement (st->parent));
@@ -891,15 +891,15 @@ void Parser_Cpp::reinitStatement (statementInfo *const st, const boolean partial
         else
             st->declaration = DECL_NONE;
     }
-    st->gotParenName	= FALSE;
-    st->isPointer	= FALSE;
-    st->inFunction	= FALSE;
-    st->assignment	= FALSE;
-    st->notVariable	= FALSE;
+    st->gotParenName	= false;
+    st->isPointer	= false;
+    st->inFunction	= false;
+    st->assignment	= false;
+    st->notVariable	= false;
     st->implementation	= IMP_DEFAULT;
-    st->gotArgs		= FALSE;
-    st->gotName		= FALSE;
-    st->haveQualifyingName = FALSE;
+    st->gotArgs		= false;
+    st->gotName		= false;
+    st->haveQualifyingName = false;
     st->tokenIndex	= 0;
 
     if (st->parent != NULL)
@@ -928,7 +928,7 @@ void Parser_Cpp::initStatement (statementInfo *const st, statementInfo *const pa
 {
     st->parent = parent;
     initMemberInfo (st);
-    reinitStatement (st, FALSE);
+    reinitStatement (st, false);
 }
 
 /*
@@ -1054,7 +1054,7 @@ boolean Parser_Cpp::includeTag (const tagType type, const boolean isFileScope)
 {
     boolean result;
     if (isFileScope  &&  false /*! Option.include.fileScope*/)
-        result = FALSE;
+        result = false;
     else if (isLanguage (Lang_csharp))
         result = CsharpKinds [csharpTagKind (type)].enabled;
     else if (isLanguage (Lang_java))
@@ -1545,11 +1545,11 @@ boolean Parser_Cpp::isValidTypeSpecifier (const declType declaration)
       case DECL_EVENT:
       case DECL_STRUCT:
       case DECL_UNION:
-        result = TRUE;
+        result = true;
         break;
 
       default:
-        result = FALSE;
+        result = false;
         break;
     }
     return result;
@@ -1559,7 +1559,7 @@ void Parser_Cpp::qualifyEnumeratorTag (const statementInfo *const st,
                                                                   const tokenInfo *const nameToken)
 {
     if (isType (nameToken, TOKEN_NAME))
-        makeTag (nameToken, st, TRUE, TAG_ENUMERATOR);
+        makeTag (nameToken, st, true, TAG_ENUMERATOR);
 }
 
 void Parser_Cpp::qualifyFunctionTag (const statementInfo *const st,
@@ -1589,9 +1589,9 @@ void Parser_Cpp::qualifyFunctionDeclTag (const statementInfo *const st,
     else if (isLanguage (Lang_java) || isLanguage (Lang_csharp))
         qualifyFunctionTag (st, nameToken);
     else if (st->scope == SCOPE_TYPEDEF)
-        makeTag (nameToken, st, TRUE, TAG_TYPEDEF);
+        makeTag (nameToken, st, true, TAG_TYPEDEF);
     else if (isValidTypeSpecifier (st->declaration) && ! isLanguage (Lang_csharp))
-        makeTag (nameToken, st, TRUE, TAG_PROTOTYPE);
+        makeTag (nameToken, st, true, TAG_PROTOTYPE);
 }
 
 void Parser_Cpp::qualifyCompoundTag (const statementInfo *const st,
@@ -1638,12 +1638,12 @@ void Parser_Cpp::qualifyVariableTag (const statementInfo *const st,
     if (! isType (nameToken, TOKEN_NAME))
         ;
     else if (st->scope == SCOPE_TYPEDEF)
-        makeTag (nameToken, st, TRUE, TAG_TYPEDEF);
+        makeTag (nameToken, st, true, TAG_TYPEDEF);
     else if (st->declaration == DECL_EVENT)
         makeTag (nameToken, st, (boolean) (st->member.access == ACCESS_PRIVATE),
                  TAG_EVENT);
     else if (st->declaration == DECL_PACKAGE)
-        makeTag (nameToken, st, FALSE, TAG_PACKAGE);
+        makeTag (nameToken, st, false, TAG_PACKAGE);
     else if (isValidTypeSpecifier (st->declaration))
     {
         if (st->notVariable)
@@ -1654,12 +1654,12 @@ void Parser_Cpp::qualifyVariableTag (const statementInfo *const st,
                 makeTag (nameToken, st,
                          (boolean) (st->member.access == ACCESS_PRIVATE), TAG_FIELD);
             else if (st->scope == SCOPE_GLOBAL  ||  st->scope == SCOPE_STATIC)
-                makeTag (nameToken, st, TRUE, TAG_MEMBER);
+                makeTag (nameToken, st, true, TAG_MEMBER);
         }
         else
         {
             if (st->scope == SCOPE_EXTERN  ||  ! st->haveQualifyingName)
-                makeTag (nameToken, st, FALSE, TAG_EXTERN_VAR);
+                makeTag (nameToken, st, false, TAG_EXTERN_VAR);
             else if (st->inFunction)
                 makeTag (nameToken, st, (boolean) (st->scope == SCOPE_STATIC),
                          TAG_LOCAL);
@@ -1688,7 +1688,7 @@ int Parser_Cpp::skipToOneOf (const char *const chars)
  */
 int Parser_Cpp::skipToNonWhite (void)
 {
-    boolean found = FALSE;
+    boolean found = false;
     int c;
 
 //#if 0
@@ -1700,7 +1700,7 @@ int Parser_Cpp::skipToNonWhite (void)
     {
         c = cppGetc ();
         if (isspace (c))
-            found = TRUE;
+            found = true;
         else
             break;
     }
@@ -1808,7 +1808,7 @@ void Parser_Cpp::analyzeIdentifier (tokenInfo *const token)
 {
     //char *const name = vStringValue (token->name);
     const char *replacement = NULL;
-    boolean parensToo = FALSE;
+    boolean parensToo = false;
 
     if (isLanguage (Lang_java) || true /* ! isIgnoreToken (name, &parensToo, &replacement)*/)
     {
@@ -1840,7 +1840,7 @@ void Parser_Cpp::readIdentifier (tokenInfo *const token, const int firstChar)
 {
     vString *const name = token->name;
     int c = firstChar;
-    boolean first = TRUE;
+    boolean first = true;
 
     initToken (token);
 
@@ -1859,7 +1859,7 @@ void Parser_Cpp::readIdentifier (tokenInfo *const token, const int firstChar)
         {
             if (!first)
                 vStringPut (Signature, c);
-            first = FALSE;
+            first = false;
         }
         c = cppGetc ();
     } while (isident (c) || ((isLanguage (Lang_java) || isLanguage (Lang_csharp)) && (isHighChar (c) || c == '.')));
@@ -1901,8 +1901,8 @@ void Parser_Cpp::readPackageOrNamespace (statementInfo *const st, const declType
         Assert (isType (token, TOKEN_KEYWORD));
         readPackageName (token, skipToNonWhite ());
         token->type = TOKEN_NAME;
-        st->gotName = TRUE;
-        st->haveQualifyingName = TRUE;
+        st->gotName = true;
+        st->haveQualifyingName = true;
     }
 }
 
@@ -1911,8 +1911,8 @@ void Parser_Cpp::processName (statementInfo *const st)
     Assert (isType (activeToken (st), TOKEN_NAME));
     if (st->gotName  &&  st->declaration == DECL_NONE)
         st->declaration = DECL_BASE;
-    st->gotName = TRUE;
-    st->haveQualifyingName = TRUE;
+    st->gotName = true;
+    st->haveQualifyingName = true;
 }
 
 void Parser_Cpp::readOperator (statementInfo *const st)
@@ -1950,17 +1950,17 @@ void Parser_Cpp::readOperator (statementInfo *const st)
         /*  Handle "new" and "delete" operators, and conversion functions
          *  (per 13.3.1.1.2 [2] of the C++ spec).
          */
-        boolean whiteSpace = TRUE;  /* default causes insertion of space */
+        boolean whiteSpace = true;  /* default causes insertion of space */
         do
         {
             if (isspace (c))
-                whiteSpace = TRUE;
+                whiteSpace = true;
             else
             {
                 if (whiteSpace)
                 {
                     vStringPut (name, ' ');
-                    whiteSpace = FALSE;
+                    whiteSpace = false;
                 }
                 vStringPut (name, c);
             }
@@ -2004,7 +2004,7 @@ void Parser_Cpp::setAccess (statementInfo *const st, const accessType access)
             int c = skipToNonWhite ();
 
             if (c == ':')
-                reinitStatement (st, FALSE);
+                reinitStatement (st, false);
             else
                 cppUngetc (c);
 
@@ -2143,14 +2143,14 @@ void Parser_Cpp::processToken (tokenInfo *const token, statementInfo *const st)
             break;
 
         case KEYWORD_TYPEDEF:
-            reinitStatement (st, FALSE);
+            reinitStatement (st, false);
             st->scope = SCOPE_TYPEDEF;
             break;
 
         case KEYWORD_EXTERN:
             if (! isLanguage (Lang_csharp) || !st->gotName)
             {
-                reinitStatement (st, FALSE);
+                reinitStatement (st, false);
                 st->scope = SCOPE_EXTERN;
                 st->declaration = DECL_BASE;
             }
@@ -2159,7 +2159,7 @@ void Parser_Cpp::processToken (tokenInfo *const token, statementInfo *const st)
                 case KEYWORD_STATIC:
             if (! (isLanguage (Lang_java) || isLanguage (Lang_csharp)))
             {
-                reinitStatement (st, FALSE);
+                reinitStatement (st, false);
                 st->scope = SCOPE_STATIC;
                 st->declaration = DECL_BASE;
             }
@@ -2190,7 +2190,7 @@ void Parser_Cpp::restartStatement (statementInfo *const st)
 
     copyToken (save, token);
     DebugStatement ( if (debug (DEBUG_PARSE)) printf ("<ES>");)
-        reinitStatement (st, FALSE);
+        reinitStatement (st, false);
     token = activeToken (st);
     copyToken (token, save);
     deleteToken (save);
@@ -2263,8 +2263,8 @@ boolean Parser_Cpp::skipPostArgumentStuff (
     tokenInfo *const token = activeToken (st);
     unsigned int parameters = info->parameterCount;
     unsigned int elementCount = 0;
-    boolean restart = FALSE;
-    boolean end = FALSE;
+    boolean restart = false;
+    boolean end = false;
     int c = skipToNonWhite ();
 
     do
@@ -2274,9 +2274,9 @@ boolean Parser_Cpp::skipPostArgumentStuff (
             case ')':                               break;
             case ':': skipMemIntializerList (token);break;  /* ctor-initializer */
             case '[': skipToMatch ("[]");           break;
-            case '=': cppUngetc (c); end = TRUE;    break;
-            case '{': cppUngetc (c); end = TRUE;    break;
-            case '}': cppUngetc (c); end = TRUE;    break;
+            case '=': cppUngetc (c); end = true;    break;
+            case '{': cppUngetc (c); end = true;    break;
+            case '}': cppUngetc (c); end = true;    break;
 
             case '(':
                 if (elementCount > 0)
@@ -2288,10 +2288,10 @@ boolean Parser_Cpp::skipPostArgumentStuff (
                 if (parameters == 0  ||  elementCount < 2)
                 {
                     cppUngetc (c);
-                    end = TRUE;
+                    end = true;
                 }
                 else if (--parameters == 0)
-                    end = TRUE;
+                    end = true;
                 break;
 
             default:
@@ -2335,8 +2335,8 @@ boolean Parser_Cpp::skipPostArgumentStuff (
                         case KEYWORD_USING:
                         case KEYWORD_VIRTUAL:
                             /* Never allowed within parameter declarations. */
-                            restart = TRUE;
-                            end = TRUE;
+                            restart = true;
+                            end = true;
                             break;
 
                         default:
@@ -2352,8 +2352,8 @@ boolean Parser_Cpp::skipPostArgumentStuff (
                                  *  that the automatic source code generation sticks
                                  *  in. Terminate the current statement.
                                  */
-                                restart = TRUE;
-                                end = TRUE;
+                                restart = true;
+                                end = true;
                             }
                             break;
                     }
@@ -2363,7 +2363,7 @@ boolean Parser_Cpp::skipPostArgumentStuff (
         {
             c = skipToNonWhite ();
             if (c == EOF)
-                end = TRUE;
+                end = true;
         }
     } while (! end);
 
@@ -2478,10 +2478,10 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
     tokenInfo *const token = activeToken (st);
     unsigned int identifierCount = 0;
     unsigned int depth = 1;
-    boolean firstChar = TRUE;
+    boolean firstChar = true;
     int nextChar = '\0';
 
-    CollectingSignature = TRUE;
+    CollectingSignature = true;
     vStringClear (Signature);
     vStringPut (Signature, '(');
     info->parameterCount = 1;
@@ -2494,24 +2494,24 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
         {
             case '&':
             case '*':
-                info->isPointer = TRUE;
-                info->isKnrParamList = FALSE;
+                info->isPointer = true;
+                info->isKnrParamList = false;
                 if (identifierCount == 0)
-                    info->isParamList = FALSE;
+                    info->isParamList = false;
                 initToken (token);
                 break;
 
             case ':':
-                info->isKnrParamList = FALSE;
+                info->isKnrParamList = false;
                 break;
 
             case '.':
-                info->isNameCandidate = FALSE;
+                info->isNameCandidate = false;
                 c = cppGetc ();
                 if (c != '.')
                 {
                    cppUngetc (c);
-                    info->isKnrParamList = FALSE;
+                    info->isKnrParamList = false;
                 }
                 else
                 {
@@ -2519,7 +2519,7 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
                     if (c != '.')
                     {
                        cppUngetc (c);
-                        info->isKnrParamList = FALSE;
+                        info->isKnrParamList = false;
                     }
                     else
                         vStringCatS (Signature, "..."); /* variable arg list */
@@ -2527,7 +2527,7 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
                 break;
 
             case ',':
-                info->isNameCandidate = FALSE;
+                info->isNameCandidate = false;
                 if (info->isKnrParamList)
                 {
                     ++info->parameterCount;
@@ -2536,23 +2536,23 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
                 break;
 
             case '=':
-                info->isKnrParamList = FALSE;
-                info->isNameCandidate = FALSE;
+                info->isKnrParamList = false;
+                info->isNameCandidate = false;
                 if (firstChar)
                 {
-                    info->isParamList = FALSE;
+                    info->isParamList = false;
                     skipMacro (st);
                     depth = 0;
                 }
                 break;
 
             case '[':
-                info->isKnrParamList = FALSE;
+                info->isKnrParamList = false;
                 skipToMatch ("[]");
                 break;
 
             case '<':
-               info->isKnrParamList = FALSE;
+               info->isKnrParamList = false;
                processAngleBracket ();
                break;
 
@@ -2563,10 +2563,10 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
                break;
 
             case '(':
-               info->isKnrParamList = FALSE;
+               info->isKnrParamList = false;
                if (firstChar)
                {
-                   info->isNameCandidate = FALSE;
+                   info->isNameCandidate = false;
                   cppUngetc (c);
                    vStringClear (Signature);
                    skipMacro (st);
@@ -2589,7 +2589,7 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
                    {
                       cppUngetc (c);
                       cppUngetc ('(');
-                       info->nestedArgs = TRUE;
+                       info->nestedArgs = true;
                    }
                 }
                 else
@@ -2604,7 +2604,7 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
                 else if (isident1 (c))
                 {
                     if (++identifierCount > 1)
-                        info->isKnrParamList = FALSE;
+                        info->isKnrParamList = false;
                     readIdentifier (token, c);
                     if (isType (token, TOKEN_NAME)  &&  info->isNameCandidate)
                         token->type = TOKEN_PAREN_NAME;
@@ -2613,21 +2613,21 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
                         if (token->keyword != KEYWORD_CONST &&
                             token->keyword != KEYWORD_VOLATILE)
                         {
-                            info->isKnrParamList = FALSE;
-                            info->isNameCandidate = FALSE;
+                            info->isKnrParamList = false;
+                            info->isNameCandidate = false;
                         }
                     }
                 }
                 else
                 {
-                    info->isParamList     = FALSE;
-                    info->isKnrParamList  = FALSE;
-                    info->isNameCandidate = FALSE;
-                    info->invalidContents = TRUE;
+                    info->isParamList     = false;
+                    info->isKnrParamList  = false;
+                    info->isNameCandidate = false;
+                    info->invalidContents = true;
                 }
                 break;
         }
-        firstChar = FALSE;
+        firstChar = false;
     } while (! info->nestedArgs  &&  depth > 0  &&
              (info->isKnrParamList  ||  info->isNameCandidate));
 
@@ -2643,18 +2643,18 @@ int Parser_Cpp::parseParens (statementInfo *const st, parenInfo *const info)
     vStringTerminate (Signature);
     if (info->isKnrParamList)
         vStringClear (Signature);
-    CollectingSignature = FALSE;
+    CollectingSignature = false;
     return nextChar;
 }
 
 void Parser_Cpp::initParenInfo (parenInfo *const info)
 {
-    info->isPointer				= FALSE;
-    info->isParamList			= TRUE;
+    info->isPointer				= false;
+    info->isParamList			= true;
     info->isKnrParamList		= isLanguage (Lang_c);
-    info->isNameCandidate		= TRUE;
-    info->invalidContents		= FALSE;
-    info->nestedArgs			= FALSE;
+    info->isNameCandidate		= true;
+    info->invalidContents		= false;
+    info->nestedArgs			= false;
     info->parameterCount		= 0;
 }
 
@@ -2663,7 +2663,7 @@ void Parser_Cpp::analyzeParens (statementInfo *const st)
     tokenInfo *const prev = prevToken (st, 1);
 
     if (st->inFunction  &&  ! st->assignment)
-        st->notVariable = TRUE;
+        st->notVariable = true;
     if (! isType (prev, TOKEN_NONE))  /* in case of ignored enclosing macros */
     {
         tokenInfo *const token = activeToken (st);
@@ -2675,7 +2675,7 @@ void Parser_Cpp::analyzeParens (statementInfo *const st)
         c = skipToNonWhite ();
         cppUngetc (c);
         if (info.invalidContents)
-            reinitStatement (st, FALSE);
+            reinitStatement (st, false);
         else if (info.isNameCandidate  &&  isType (token, TOKEN_PAREN_NAME)  &&
                  ! st->gotParenName  &&
                  (! info.isParamList || ! st->haveQualifyingName  ||
@@ -2685,13 +2685,13 @@ void Parser_Cpp::analyzeParens (statementInfo *const st)
         {
             token->type = TOKEN_NAME;
             processName (st);
-            st->gotParenName = TRUE;
+            st->gotParenName = true;
             if (! (c == '('  &&  info.nestedArgs))
                 st->isPointer = info.isPointer;
         }
         else if (! st->gotArgs  &&  info.isParamList)
         {
-            st->gotArgs = TRUE;
+            st->gotArgs = true;
             setToken (st, TOKEN_ARGS);
             advanceToken (st);
             if (st->scope != SCOPE_TYPEDEF)
@@ -2743,7 +2743,7 @@ void Parser_Cpp::processColon (statementInfo *const st)
     if (doubleColon)
     {
         setToken (st, TOKEN_DOUBLE_COLON);
-        st->haveQualifyingName = FALSE;
+        st->haveQualifyingName = false;
     }
     else
     {
@@ -2769,7 +2769,7 @@ void Parser_Cpp::processColon (statementInfo *const st)
                 prev2->keyword == KEYWORD_CASE ||
                 st->parent != NULL)
             {
-                reinitStatement (st, FALSE);
+                reinitStatement (st, false);
             }
         }
     }
@@ -2780,7 +2780,7 @@ void Parser_Cpp::processColon (statementInfo *const st)
  */
 int Parser_Cpp::skipInitializer (statementInfo *const st)
 {
-    boolean done = FALSE;
+    boolean done = false;
     int c;
 
     while (! done)
@@ -2792,7 +2792,7 @@ int Parser_Cpp::skipInitializer (statementInfo *const st)
         else switch (c)
         {
         case ',':
-        case ';': done = TRUE; break;
+        case ';': done = true; break;
 
         case '0':
             if (st->implementation == IMP_VIRTUAL)
@@ -2806,7 +2806,7 @@ int Parser_Cpp::skipInitializer (statementInfo *const st)
 
         case '}':
             if (insideEnumBody (st))
-                done = TRUE;
+                done = true;
             else if (! isBraceFormat ())
             {
                 verbose ("%s: unexpected closing brace at line %lu\n",
@@ -2830,7 +2830,7 @@ void Parser_Cpp::processInitializer (statementInfo *const st)
     {
         cppUngetc (c);
         c = skipInitializer (st);
-        st->assignment = TRUE;
+        st->assignment = true;
         if (c == ';')
             setToken (st, TOKEN_SEMICOLON);
         else if (c == ',')
@@ -2871,7 +2871,7 @@ void Parser_Cpp::parseGeneralToken (statementInfo *const st, const int c)
     else if (c == '.' || c == '-')
     {
         if (! st->assignment)
-            st->notVariable = TRUE;
+            st->notVariable = true;
         if (c == '-')
         {
             int c2 =cppGetc ();
@@ -2911,7 +2911,7 @@ void Parser_Cpp::nextToken (statementInfo *const st)
             case EOF: longjmp (Exception, (int) ExceptionEOF);  break;
             case '(': analyzeParens (st);                       break;
             case '<': processAngleBracket ();                   break;
-            case '*': st->haveQualifyingName = FALSE;           break;
+            case '*': st->haveQualifyingName = false;           break;
             case ',': setToken (st, TOKEN_COMMA);               break;
             case ':': processColon (st);                        break;
             case ';': setToken (st, TOKEN_SEMICOLON);           break;
@@ -2978,7 +2978,7 @@ boolean Parser_Cpp::isStatementEnd (const statementInfo *const st)
     boolean isEnd;
 
     if (isType (token, TOKEN_SEMICOLON))
-        isEnd = TRUE;
+        isEnd = true;
     else if (isType (token, TOKEN_BRACE_CLOSE))
         /* Java and C# do not require semicolons to end a block. Neither do C++
                      * namespaces. All other blocks require a semicolon to terminate them.
@@ -2986,7 +2986,7 @@ boolean Parser_Cpp::isStatementEnd (const statementInfo *const st)
         isEnd = (boolean) (isLanguage (Lang_java) || isLanguage (Lang_csharp) ||
                            ! isContextualStatement (st));
     else
-        isEnd = FALSE;
+        isEnd = false;
 
     return isEnd;
 }
@@ -2996,11 +2996,11 @@ void Parser_Cpp::checkStatementEnd (statementInfo *const st)
     const tokenInfo *const token = activeToken (st);
 
     if (isType (token, TOKEN_COMMA))
-        reinitStatement (st, TRUE);
+        reinitStatement (st, true);
     else if (isStatementEnd (st))
     {
         DebugStatement ( if (debug (DEBUG_PARSE)) printf ("<ES>"); )
-            reinitStatement (st, FALSE);
+            reinitStatement (st, false);
         cppEndStatement ();
     }
     else
@@ -3026,10 +3026,10 @@ void Parser_Cpp::nest (statementInfo *const st, const unsigned int nestLevel)
 
         case DECL_FUNCTION:
         case DECL_TASK:
-            st->inFunction = TRUE;
+            st->inFunction = true;
             /* fall through */
         default:
-            if (includeTag (TAG_LOCAL, FALSE))
+            if (includeTag (TAG_LOCAL, false))
                 createTags (nestLevel, st);
             else
                 skipToMatch ("{}");
@@ -3054,7 +3054,7 @@ void Parser_Cpp::tagCheck (statementInfo *const st)
 //#if 0
 //    case TOKEN_PACKAGE:
 //        if (st->haveQualifyingName)
-//            makeTag (token, st, FALSE, TAG_PACKAGE);
+//            makeTag (token, st, false, TAG_PACKAGE);
 //        break;
 //#endif
         case TOKEN_BRACE_OPEN:
@@ -3089,7 +3089,7 @@ void Parser_Cpp::tagCheck (statementInfo *const st)
                 qualifyBlockTag (st, prev);
             }
             else if (isLanguage (Lang_csharp))
-                makeTag (prev, st, FALSE, TAG_PROPERTY);
+                makeTag (prev, st, false, TAG_PROPERTY);
             break;
 
         case TOKEN_SEMICOLON:
@@ -3099,7 +3099,7 @@ void Parser_Cpp::tagCheck (statementInfo *const st)
             else if (isType (prev, TOKEN_NAME))
             {
                 if (isContextualKeyword (prev2))
-                    makeTag (prev, st, TRUE, TAG_EXTERN_VAR);
+                    makeTag (prev, st, true, TAG_EXTERN_VAR);
                 else
                     qualifyVariableTag (st, prev);
             }
@@ -3131,8 +3131,8 @@ void Parser_Cpp::createTags (const unsigned int nestLevel,
 {
     statementInfo *const st = newStatement (parent);
 
-    DebugStatement ( if (nestLevel > 0) debugParseNest (TRUE, nestLevel); )
-    while (TRUE)
+    DebugStatement ( if (nestLevel > 0) debugParseNest (true, nestLevel); )
+    while (true)
     {
         tokenInfo *token;
 
@@ -3164,7 +3164,7 @@ void Parser_Cpp::createTags (const unsigned int nestLevel,
         }
     }
     deleteStatement ();
-    DebugStatement ( if (nestLevel > 0) debugParseNest (FALSE, nestLevel - 1); )
+    DebugStatement ( if (nestLevel > 0) debugParseNest (false, nestLevel - 1); )
 }
 
 boolean Parser_Cpp::findCTags (const unsigned int passCount)
@@ -3177,7 +3177,7 @@ boolean Parser_Cpp::findCTags (const unsigned int passCount)
     Signature = vStringNew ();
 
     exception = (exception_t) setjmp (Exception);
-    retry = FALSE;
+    retry = false;
     if (exception == ExceptionNone) {
         createTags (0, NULL);
     }
@@ -3186,7 +3186,7 @@ boolean Parser_Cpp::findCTags (const unsigned int passCount)
         deleteAllStatements ();
         if (exception == ExceptionBraceFormattingError  &&  passCount == 1)
         {
-            retry = TRUE;
+            retry = true;
             verbose ("%s: retrying file with fallback brace matching algorithm\n",
                      getInputFileName ());
         }

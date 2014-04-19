@@ -353,19 +353,19 @@ void Parser_Perl::parse()
         //printf("LINE_:%s\n",line);
         if (keyword)
         {
-            bool found = FALSE;
-            bool is_class = FALSE;
+            bool found = false;
+            bool is_class = false;
 
             if (!strncmp (keyword, "sub ", 4) && isspace(keyword[3]))
             {
                 cp = skipSpace (keyword + 4);
-                found = TRUE;
+                found = true;
             }
             else if (!strncmp (keyword, "package", 7) && isspace(keyword[7]))
             {
                 cp = skipSpace (keyword + 7);
-                found = TRUE;
-                is_class = TRUE;
+                found = true;
+                is_class = true;
             }
 
             if (found)

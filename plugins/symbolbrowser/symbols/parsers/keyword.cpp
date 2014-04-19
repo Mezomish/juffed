@@ -204,7 +204,7 @@ unsigned int Keywords::printBucket (const unsigned int i)
     hashEntry **const table = getHashTable ();
     hashEntry *entry = table [i];
     unsigned int measure = 1;
-    boolean first = TRUE;
+    boolean first = true;
 
     printf ("%2d:", i);
     if (entry == NULL)
@@ -216,7 +216,7 @@ unsigned int Keywords::printBucket (const unsigned int i)
         else
         {
             printf (" ");
-            first = FALSE;
+            first = false;
         }
         printEntry (entry);
         entry = entry->next;

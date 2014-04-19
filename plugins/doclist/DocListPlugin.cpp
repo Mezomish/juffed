@@ -1,7 +1,5 @@
 #include "DocListPlugin.h"
 
-#include <QtCore>
-
 //#include "CommandStorage.h"
 #include "Document.h"
 #include "DocListPanel.h"

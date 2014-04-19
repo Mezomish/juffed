@@ -18,8 +18,9 @@
   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ***************************************************************************/
 
-#include <QtCore>
-#include <QtGui>
+#include <QTimer>
+#include <QHBoxLayout>
+#include <QLabel>
 
 #include <PluginSettings.h>
 #include "autosave.h"

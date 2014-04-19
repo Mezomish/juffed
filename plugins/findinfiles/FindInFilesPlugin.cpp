@@ -5,7 +5,7 @@
 #include "SearchDlg.h"
 #include "FindWorker.h"
 
-#include <QtCore>
+#include <QtCore/QFileInfo>
 #include <QAction>
 #include <QHeaderView>
 #include <QLabel>

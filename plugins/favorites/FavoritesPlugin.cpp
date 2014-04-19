@@ -1,7 +1,6 @@
 #include "FavoritesPlugin.h"
 #include "ManageDlg.h"
 
-#include <QtCore>
 #include <QMenu>
 
 #include <Document.h>

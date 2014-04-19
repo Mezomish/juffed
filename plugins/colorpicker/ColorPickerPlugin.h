@@ -1,7 +1,6 @@
 #ifndef _COLOR_PICKER_PLUGIN_H_
 #define _COLOR_PICKER_PLUGIN_H_
 
-#include <QtCore>
 #include <QtCore/QObject>
 
 #include <JuffPlugin.h>

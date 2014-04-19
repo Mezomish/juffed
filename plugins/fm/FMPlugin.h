@@ -5,7 +5,7 @@ class QLineEdit;
 class QAction;
 class TreeView;
 
-#include <QtCore>
+#include <QDebug>
 #include <QtCore/QObject>
 #include <QtCore/QStack>
 #include <QFileSystemModel>

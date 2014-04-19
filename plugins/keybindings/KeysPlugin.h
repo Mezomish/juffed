@@ -3,7 +3,6 @@
 
 class KeysPage;
 
-#include <QtCore>
 #include <QtCore/QObject>
 
 #include "JuffPlugin.h"

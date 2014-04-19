@@ -1,7 +1,6 @@
 #ifndef _FAVORITES_PLUGIN_H_
 #define _FAVORITES_PLUGIN_H_
 
-#include <QtCore>
 #include <QtCore/QObject>
 
 #include <JuffPlugin.h>

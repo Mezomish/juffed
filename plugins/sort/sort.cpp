@@ -20,8 +20,6 @@
 
 
 #include "sort.h"
-#include <QtCore>
-#include <QtGui>
 
 #include "Document.h"
 

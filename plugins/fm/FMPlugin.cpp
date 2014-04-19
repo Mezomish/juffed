@@ -1,6 +1,5 @@
 #include "FMPlugin.h"
 
-#include <QtCore>
 #include <QCompleter>
 #include <QHeaderView>
 #include <QInputDialog>

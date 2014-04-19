@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #ifndef __JUFF_PLUGIN_H__
 #define __JUFF_PLUGIN_H__
 
+#include <QtPlugin>
+
 #include "LibConfig.h"
 
 #include "DocHandlerInt.h"

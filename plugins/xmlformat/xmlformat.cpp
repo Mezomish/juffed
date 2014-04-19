@@ -21,8 +21,7 @@
 
 #include "xmlformat.h"
 
-#include <QtCore>
-#include <QtGui>
+#include <QMessageBox>
 #include <QDomDocument>
 
 #include "EditorSettings.h"

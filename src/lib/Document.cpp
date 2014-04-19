@@ -161,7 +161,7 @@ void Document::setCodec(QTextCodec* codec) {
 
 void Document::setCharset(const QString& charset) {
 //	LOGGER;
-	QTextCodec* codec = QTextCodec::codecForName(charset.toAscii());
+	QTextCodec* codec = QTextCodec::codecForName(charset.toLatin1());
 	if ( codec != 0 ) {
 		QString oldCharset = charset_;
 		codec_ = codec;
@@ -200,11 +200,11 @@ QString Document::guessCharset(const QString& fileName) {
 	    if (lang == "en") lang = "__";
 	}
 
-	EncaAnalyser an = enca_analyser_alloc(lang.toAscii().constData());
+	EncaAnalyser an = enca_analyser_alloc(lang.toLatin1().constData());
 	if (!an) {
 	    //size_t langcnt;
 	    //const char** languages = enca_get_languages(&langcnt);
-	    qWarning() << "Cannot allocate ENCA analyzer for" << lang.toAscii().constData();
+	    qWarning() << "Cannot allocate ENCA analyzer for" << lang.toLatin1().constData();
 	    //for (uint i = 0; i < langcnt; i++) {
 	    //     qDebug() << "    lang: " << languages[i];
 	    //}

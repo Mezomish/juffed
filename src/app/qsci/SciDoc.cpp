@@ -1179,7 +1179,7 @@ void SciDoc::readFile() {
 
 //		if ( !keepCharset ) {
 //			QString codecName = Document::guessCharset(fileName());
-//			QTextCodec* c = QTextCodec::codecForName(codecName.toAscii());
+//			QTextCodec* c = QTextCodec::codecForName(codecName.toLatin1());
 //			if ( c ) {
 //				setCodec(c);
 //				setCharset(codecName);

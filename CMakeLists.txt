@@ -1,6 +1,6 @@
 # juffed CMakeLists.txt
 # 
-# To build juffed, you will need cmake 2.6.0.
+# To build juffed, you will need cmake 2.8.11.
 # To build the application run this commands:
 # 
 # mkdir build
@@ -17,7 +17,7 @@
 
 
 project (juffed)
-cmake_minimum_required (VERSION 2.6.0)
+cmake_minimum_required (VERSION 2.8.11)
 
 
 # build options

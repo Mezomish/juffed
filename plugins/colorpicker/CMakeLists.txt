@@ -15,7 +15,7 @@ add_library( colorpicker SHARED
 
 target_link_libraries( colorpicker
     ${JUFFED_LIBRARY}
-    ${QT_LIBRARIES}
+    ${JUFF_QT_IMPORTED_TARGETS}
 )
 
 install( TARGETS colorpicker DESTINATION ${JUFFED_PLUGINS_DIR} )

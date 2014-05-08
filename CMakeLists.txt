@@ -93,11 +93,8 @@ message ( STATUS "" )
 set (CMAKE_AUTOMOC ON)
 
 find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
-# WARNING: please, don't remove this include. It can result
-# in a debug vs release library clash in this case.
-# It means - in this case it's safe to link against QT_LIBRARIES.
-# No naming of the standalone libs is necessary (well, it's dangerous).
-include(${QT_USE_FILE})
+set (JUFF_QT_IMPORTED_TARGETS Qt4::QtCore Qt4::QtGui Qt4::QtXml Qt4::QtNetwork)
+
 # this is mandatory for Apple builds to load plugin correctly
 add_definitions(-DQT_NO_DEBUG)
 
@@ -160,7 +157,6 @@ endif (USE_ENCA)
 
 # include directories
 include_directories(
-    ${QT_INCLUDES}
     ${CMAKE_BINARY_DIR}
     ${QSCINTILLA_INCLUDE_DIR}
     ${QSCINTILLA_INCLUDE_DIR}/Qsci
@@ -186,7 +182,7 @@ add_library ( ${JUFFLIB} SHARED
     ${juffed_lib_RESOURCES}
 )
 target_link_libraries ( ${JUFFLIB}
-    ${QT_LIBRARIES}
+    ${JUFF_QT_IMPORTED_TARGETS}
 )
 if (ENCA_FOUND)
     target_link_libraries( ${JUFFLIB} ${ENCA_LIBRARIES} )
@@ -198,8 +194,7 @@ add_library ( ${QSCI_ENGINE} SHARED
 )
 target_link_libraries ( ${QSCI_ENGINE}
     ${JUFFLIB}
-    ${QT_LIBRARIES}
-    ${QT_QTXML_LIBRARY}
+    ${JUFF_QT_IMPORTED_TARGETS}
     ${QSCINTILLA_LIBRARY} 
     ${QTSINGLEAPPLICATION_LIBRARY} 
 )
@@ -273,8 +268,7 @@ endif ( MINGW )
 target_link_libraries ( ${JUFFED}
     ${JUFFLIB}
     ${QSCI_ENGINE}
-    ${QT_LIBRARIES}
-    ${QT_QTNETWORK_LIBRARY}
+    ${JUFF_QT_IMPORTED_TARGETS}
 )
 
 if ( UNIX )
@@ -297,13 +291,6 @@ endif(WIN32)
 set(JUFFED_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 set(JUFFED_LIBRARY ${JUFFLIB})
 add_subdirectory(plugins)
-
-#set ( juffed_RCS
-#    src/app/juffed.rc
-#)
-#
-#set (QT_USE_QTXML TRUE)
-#include (${QT_USE_FILE})
 
 #configure_file ("${CMAKE_SOURCE_DIR}/cmake/version.cmake" "${CMAKE_BINARY_DIR}/version.real" @ONLY)
 

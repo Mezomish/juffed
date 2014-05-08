@@ -20,16 +20,15 @@ project (juffed-plugins)
 cmake_minimum_required (VERSION 2.6)
 
 # plugins are built standalone if is JUFFED_CMAKE_PLUGINS not set
-# Required variables (inclides, libs) has to go from
+# Required variables (includes, libs) has to go from
 # a) FindJuffed.cmake - for standalone build
 # b) upstream CMakeLists.txt for the in-juffed build
 set ( CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 if (NOT JUFFED_CMAKE_PLUGINS)
     find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
-    include(${QT_USE_FILE})
-    
+    set (JUFF_QT_IMPORTED_TARGETS Qt4::QtCore Qt4::QtGui Qt4::QtXml Qt4::QtNetwork)
+
     find_package ( Juffed REQUIRED )
-    
     
     set ( LIB_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib )
     if (UNIX)

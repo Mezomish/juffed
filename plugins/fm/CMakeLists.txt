@@ -10,5 +10,5 @@ set(fm_SRC
    )
 
 add_library(fm SHARED ${fm_SRC} ${fm_RES} ${fm_UI})
-target_link_libraries(fm ${JUFFED_LIBRARY} ${QT_LIBRARIES})
+target_link_libraries(fm ${JUFFED_LIBRARY} ${JUFF_QT_IMPORTED_TARGETS})
 install(TARGETS fm DESTINATION ${JUFFED_PLUGINS_DIR})

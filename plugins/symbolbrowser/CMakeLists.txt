@@ -15,5 +15,5 @@ set(symbolbrowser_SRC
 QT4_ADD_RESOURCES(symbolbrowser_RES symbols/symbols.qrc)
 
 add_library(symbolbrowser SHARED ${symbolbrowser_SRC} ${symbolbrowser_RES})
-target_link_libraries(symbolbrowser ${JUFFED_LIBRARY} ${QT_LIBRARIES})
+target_link_libraries(symbolbrowser ${JUFFED_LIBRARY} ${JUFF_QT_IMPORTED_TARGETS})
 install(TARGETS symbolbrowser DESTINATION ${JUFFED_PLUGINS_DIR})

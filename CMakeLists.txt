@@ -90,7 +90,7 @@ message ( STATUS "Install path for libraries: ${LIB_INSTALL_DIR}" )
 message ( STATUS "" )
 #set (CMAKE_INSTALL_RPATH "${LIB_INSTALL_DIR}")
 
-
+set (CMAKE_AUTOMOC ON)
 
 find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
 # WARNING: please, don't remove this include. It can result
@@ -111,12 +111,6 @@ if(USE_SYSTEM_QTSINGLEAPPLICATION)
     find_package ( QtSingleApplication REQUIRED)
 else(USE_SYSTEM_QTSINGLEAPPLICATION)
     set(QTSINGLEAPPLICATION_INCLUDE_DIR src/3rd_party/qtsingleapplication)
-    SET ( juffed_app_MOC_HEADERS
-        ${juffed_app_MOC_HEADERS}
-        src/3rd_party/qtsingleapplication/qtsinglecoreapplication.h
-        src/3rd_party/qtsingleapplication/qtsingleapplication.h
-        src/3rd_party/qtsingleapplication/qtlocalpeer.h
-    )
     SET ( juffed_app_SRCS
         ${juffed_app_SRCS}
         src/3rd_party/qtsingleapplication/qtsinglecoreapplication.cpp
@@ -140,15 +134,8 @@ else(USE_SYSTEM_QTSINGLEAPPLICATION)
 endif(USE_SYSTEM_QTSINGLEAPPLICATION)
 
 
-
-
-QT4_WRAP_CPP ( juffed_lib_MOC_SRCS ${juffed_lib_MOC_HEADERS} )
-QT4_WRAP_CPP ( juffed_app_MOC_SRCS ${juffed_app_MOC_HEADERS} )
-QT4_WRAP_CPP ( juffed_qsci_MOC_SRCS ${juffed_qsci_MOC_HEADERS} )
 QT4_ADD_RESOURCES ( juffed_app_RESOURCES ${juffed_app_RESOURCES} )
 QT4_ADD_RESOURCES ( juffed_lib_RESOURCES ${juffed_lib_RESOURCES} )
-QT4_AUTOMOC ( ${juffed_lib_SRCS} )
-QT4_AUTOMOC ( ${juffed_app_SRCS} )
 QT4_WRAP_UI ( juffed_qsci_UIS_H ${juffed_qsci_UIS} )
 QT4_WRAP_UI ( juffed_app_UIS_H ${juffed_app_UIS} )
 QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
@@ -195,8 +182,8 @@ configure_file ("${CMAKE_SOURCE_DIR}/cmake/AppInfo.apple.h.cmake" "${CMAKE_BINAR
 # library
 add_library ( ${JUFFLIB} SHARED
     ${juffed_lib_SRCS}
-    ${juffed_lib_MOC_SRCS}
-    ${juffed_lib_RESOURCES} 
+    ${juffed_lib_MOC_HEADERS}
+    ${juffed_lib_RESOURCES}
 )
 target_link_libraries ( ${JUFFLIB}
     ${QT_LIBRARIES}
@@ -207,7 +194,6 @@ endif (ENCA_FOUND)
 
 add_library ( ${QSCI_ENGINE} SHARED
     ${juffed_qsci_SRCS}
-    ${juffed_qsci_MOC_SRCS}
     ${juffed_qsci_UIS_H}
 )
 target_link_libraries ( ${QSCI_ENGINE}
@@ -273,7 +259,6 @@ endif ( MINGW )
 add_executable ( ${JUFFED}
     ${GUI_TYPE}
     ${juffed_app_SRCS} 
-    ${juffed_app_MOC_SRCS} 
     ${juffed_UIS} 
     ${juffed_app_UIS_H}
     ${juffed_app_RESOURCES} 

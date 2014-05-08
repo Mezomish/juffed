@@ -47,30 +47,6 @@ SET ( juffed_lib_RESOURCES
     src/lib/LibResources.qrc
 )
 
-SET ( juffed_app_MOC_HEADERS
-    src/app/JuffEd.h
-    src/app/SearchEngine.h
-
-    src/app/ui/AboutDlg.h
-    src/app/ui/DocViewer.h
-#    src/app/ui/FindDlg.h
-    src/app/ui/JuffMW.h
-    src/app/ui/JumpToFileDlg.h
-    src/app/ui/Popup.h
-    src/app/ui/SearchComboBox.h
-    src/app/ui/SearchPopup.h
-    src/app/ui/SelectFilesDlg.h
-    src/app/ui/SessionDlg.h
-    src/app/ui/TabBar.h
-    src/app/ui/TabWidget.h
-
-    # settings
-    src/app/ui/settings/CharsetsSettingsPage.h
-    src/app/ui/settings/MultiPage.h
-    src/app/ui/settings/PluginPage.h
-    src/app/ui/settings/SettingsDlg.h
-)
-
 SET ( juffed_app_SRCS
 #    src/app/DocManager.cpp
     src/app/JuffEd.cpp
@@ -114,21 +90,6 @@ SET ( juffed_qsci_SRCS
     src/app/qsci/lexers/qscilexerlisp.cpp
     src/app/qsci/lexers/qscilexernsis.cpp
     src/app/qsci/lexers/my/QsciLexerMatlab.cpp
-)
-
-SET ( juffed_qsci_MOC_HEADERS
-    src/app/qsci/JuffScintilla.h
-    src/app/qsci/SciDoc.h
-    src/app/qsci/SciDocEngine.h
-    src/app/qsci/settings/FileTypesPage.h
-
-    # lexers
-    src/app/qsci/lexers/qscilexerada.h
-    src/app/qsci/lexers/qscilexerasm.h
-    src/app/qsci/lexers/qscilexerhaskell.h
-    src/app/qsci/lexers/qscilexerlisp.h
-    src/app/qsci/lexers/qscilexernsis.h
-    src/app/qsci/lexers/my/QsciLexerMatlab.h
 )
 
 SET ( juffed_qsci_UIS

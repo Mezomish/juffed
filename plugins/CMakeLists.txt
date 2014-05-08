@@ -25,16 +25,16 @@ cmake_minimum_required (VERSION 2.6)
 # b) upstream CMakeLists.txt for the in-juffed build
 set ( CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 if (NOT JUFFED_CMAKE_PLUGINS)
-	find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
-	include(${QT_USE_FILE})
-	
-	find_package ( Juffed REQUIRED )
-	
-	
-	set ( LIB_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib )
-	if (UNIX)
-		set(JUFFED_PLUGINS_DIR ${LIB_INSTALL_DIR}/juffed/plugins)
-	endif (UNIX)
+    find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
+    include(${QT_USE_FILE})
+    
+    find_package ( Juffed REQUIRED )
+    
+    
+    set ( LIB_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib )
+    if (UNIX)
+        set(JUFFED_PLUGINS_DIR ${LIB_INSTALL_DIR}/juffed/plugins)
+    endif (UNIX)
  
 endif (NOT JUFFED_CMAKE_PLUGINS)
 

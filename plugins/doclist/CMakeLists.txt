@@ -1,14 +1,14 @@
 # doclist
 set (doclist_SRC
-	DocListPlugin.cpp
-	DocListPanel.cpp
+    DocListPlugin.cpp
+    DocListPanel.cpp
 )
 
 QT4_ADD_RESOURCES(doclist_RES doclistplugin.qrc)
 
 QT4_WRAP_CPP( doclist_MOC
-	DocListPlugin.h
-	DocListPanel.h
+    DocListPlugin.h
+    DocListPanel.h
 )
 
 #QT4_AUTOMOC(DocListPlugin.h DocListPanel.h)

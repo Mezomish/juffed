@@ -64,7 +64,7 @@ private:
 
 	QWidget* w_;
 	TreeView* tree_;
-    QFileSystemModel model_;
+    QFileSystemModel* model_;
 	QLineEdit* pathEd_;
 	QAction* backBtn_;
 	QStack<QString> history_;

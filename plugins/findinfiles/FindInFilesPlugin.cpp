@@ -68,7 +68,6 @@ public:
 		tree_->setAlternatingRowColors(true);
 	}
 	~PluginInterior() {
-		delete toolBar_;
 		delete widget_;
 	}
 	

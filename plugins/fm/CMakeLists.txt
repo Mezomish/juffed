@@ -1,7 +1,7 @@
 # fm
 
-QT4_ADD_RESOURCES(fm_RES fm.qrc)
-QT4_WRAP_UI(fm_UI ManageDlg.ui)
+QT_ADD_RESOURCES(fm_RES fm.qrc)
+QT_WRAP_UI(fm_UI ManageDlg.ui)
 
 set(fm_SRC
     ManageDlg.cpp

@@ -19,14 +19,45 @@ OPTION(BUILD_TERMINAL "Build terminal plugin" OFF)
 project (juffed-plugins)
 cmake_minimum_required (VERSION 2.6)
 
+option(USE_QT5 "Use Qt5. Defaults to Qt4" OFF)
+
 # plugins are built standalone if is JUFFED_CMAKE_PLUGINS not set
 # Required variables (includes, libs) has to go from
 # a) FindJuffed.cmake - for standalone build
 # b) upstream CMakeLists.txt for the in-juffed build
 set ( CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 if (NOT JUFFED_CMAKE_PLUGINS)
-    find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
-    set (JUFF_QT_IMPORTED_TARGETS Qt4::QtCore Qt4::QtGui Qt4::QtXml Qt4::QtNetwork)
+    if (USE_QT5)
+        find_package ( Qt5 COMPONENTS Widgets Xml Network PrintSupport LinguistTools CONFIG REQUIRED )
+        set (JUFF_QT_IMPORTED_TARGETS Qt5::Widgets Qt5::Xml Qt5::Network Qt5::PrintSupport)
+
+        macro(qt_wrap_ui)
+          qt5_wrap_ui(${ARGN})
+        endmacro()
+
+        macro(qt_add_resources)
+          qt5_add_resources(${ARGN})
+        endmacro()
+
+        macro(qt_add_translation)
+          qt5_add_translation(${ARGN})
+        endmacro()
+    else (USE_QT5)
+        find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
+        set (JUFF_QT_IMPORTED_TARGETS Qt4::QtCore Qt4::QtGui Qt4::QtXml Qt4::QtNetwork)
+
+        macro(qt_wrap_ui)
+          qt4_wrap_ui(${ARGN})
+        endmacro()
+
+        macro(qt_add_resources)
+          qt4_add_resources(${ARGN})
+        endmacro()
+
+        macro(qt_add_translation)
+          qt4_add_translation(${ARGN})
+        endmacro()
+    endif (USE_QT5)
 
     find_package ( Juffed REQUIRED )
     

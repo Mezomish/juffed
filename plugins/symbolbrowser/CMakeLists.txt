@@ -12,7 +12,7 @@ set(symbolbrowser_SRC
     SymbolBrowser.cpp
     )
 
-QT4_ADD_RESOURCES(symbolbrowser_RES symbols/symbols.qrc)
+QT_ADD_RESOURCES(symbolbrowser_RES symbols/symbols.qrc)
 
 add_library(symbolbrowser SHARED ${symbolbrowser_SRC} ${symbolbrowser_RES})
 target_link_libraries(symbolbrowser ${JUFFED_LIBRARY} ${JUFF_QT_IMPORTED_TARGETS})

@@ -4,7 +4,7 @@ set (doclist_SRC
     DocListPanel.cpp
 )
 
-QT4_ADD_RESOURCES(doclist_RES doclistplugin.qrc)
+QT_ADD_RESOURCES(doclist_RES doclistplugin.qrc)
 
 add_library(doclist SHARED ${doclist_SRC} ${doclist_RES})
 target_link_libraries(doclist ${JUFFED_LIBRARY} ${JUFF_QT_IMPORTED_TARGETS})

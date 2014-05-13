@@ -19,8 +19,8 @@
 project (juffed)
 cmake_minimum_required (VERSION 2.8.11)
 
-
 # build options
+option(USE_QT5 "Use Qt5. Defaults to Qt4" OFF)
 option(USE_SYSTEM_QTSINGLEAPPLICATION "Try to find system-wide QtSingleApplication library" OFF)
 option(USE_ENCA "Try to find Enca library for file encoding check" ON)
 
@@ -92,8 +92,37 @@ message ( STATUS "" )
 
 set (CMAKE_AUTOMOC ON)
 
-find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
-set (JUFF_QT_IMPORTED_TARGETS Qt4::QtCore Qt4::QtGui Qt4::QtXml Qt4::QtNetwork)
+if (USE_QT5)
+    find_package ( Qt5 COMPONENTS Widgets Xml Network PrintSupport LinguistTools CONFIG REQUIRED )
+    set (JUFF_QT_IMPORTED_TARGETS Qt5::Widgets Qt5::Xml Qt5::Network Qt5::PrintSupport)
+
+    macro(qt_wrap_ui)
+      qt5_wrap_ui(${ARGN})
+    endmacro()
+
+    macro(qt_add_resources)
+      qt5_add_resources(${ARGN})
+    endmacro()
+
+    macro(qt_add_translation)
+      qt5_add_translation(${ARGN})
+    endmacro()
+else (USE_QT5)
+    find_package ( Qt4 COMPONENTS QtCore QtGui QtXml QtNetwork REQUIRED )
+    set (JUFF_QT_IMPORTED_TARGETS Qt4::QtCore Qt4::QtGui Qt4::QtXml Qt4::QtNetwork)
+
+    macro(qt_wrap_ui)
+      qt4_wrap_ui(${ARGN})
+    endmacro()
+
+    macro(qt_add_resources)
+      qt4_add_resources(${ARGN})
+    endmacro()
+
+    macro(qt_add_translation)
+      qt4_add_translation(${ARGN})
+    endmacro()
+endif (USE_QT5)
 
 # this is mandatory for Apple builds to load plugin correctly
 add_definitions(-DQT_NO_DEBUG)
@@ -131,11 +160,11 @@ else(USE_SYSTEM_QTSINGLEAPPLICATION)
 endif(USE_SYSTEM_QTSINGLEAPPLICATION)
 
 
-QT4_ADD_RESOURCES ( juffed_app_RESOURCES ${juffed_app_RESOURCES} )
-QT4_ADD_RESOURCES ( juffed_lib_RESOURCES ${juffed_lib_RESOURCES} )
-QT4_WRAP_UI ( juffed_qsci_UIS_H ${juffed_qsci_UIS} )
-QT4_WRAP_UI ( juffed_app_UIS_H ${juffed_app_UIS} )
-QT4_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
+QT_ADD_RESOURCES ( juffed_app_RESOURCES ${juffed_app_RESOURCES} )
+QT_ADD_RESOURCES ( juffed_lib_RESOURCES ${juffed_lib_RESOURCES} )
+QT_WRAP_UI ( juffed_qsci_UIS_H ${juffed_qsci_UIS} )
+QT_WRAP_UI ( juffed_app_UIS_H ${juffed_app_UIS} )
+QT_ADD_TRANSLATION ( juffed_QM ${juffed_TS} )
 
 
 include(FindPkgConfig)

@@ -4,8 +4,8 @@ set( colorpicker_SRC
     ColorFormatDlg.cpp
 )
 
-QT4_ADD_RESOURCES( colorpicker_RES colorpicker.qrc )
-QT4_WRAP_UI( colorpicker_UI ColorFormatDlg.ui)
+QT_ADD_RESOURCES( colorpicker_RES colorpicker.qrc )
+QT_WRAP_UI( colorpicker_UI ColorFormatDlg.ui)
 
 add_library( colorpicker SHARED
     ${colorpicker_SRC}

@@ -182,5 +182,6 @@ QString XmlformatPlugin::changeSpacesToTabs(const QString &text)
 
 #include "xmlformat.moc"
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(xmlformat, XmlformatPlugin)
-
+#endif

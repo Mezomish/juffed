@@ -227,9 +227,15 @@ QString JuffMW::getRenameFileName(const QString& curFileName) {
 
 int JuffMW::getGotoLineNumber(int lineCount) {
 	bool ok = false;
+#if QT_VERSION < 0x050000
 	int line = QInputDialog::getInteger(this, tr("Go to line"), 
 			tr("Go to line") + QString(" (1 - %1):").arg(lineCount), 
 			1, 1, lineCount, 1, &ok);
+#else
+	int line = QInputDialog::getInt(this, tr("Go to line"),
+			tr("Go to line") + QString(" (1 - %1):").arg(lineCount),
+			1, 1, lineCount, 1, &ok);
+#endif
 	if ( ok )
 		return line - 1;
 	else

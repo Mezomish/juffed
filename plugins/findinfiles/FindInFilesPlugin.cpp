@@ -54,7 +54,11 @@ public:
 		labels << "File" << "Line" << "Text" << "Column";
 		tree_->setHeaderLabels(labels);
 		tree_->setRootIsDecorated(false);
+#if QT_VERSION < 0x050000
 		tree_->header()->setResizeMode(QHeaderView::Interactive);
+#else
+		tree_->header()->setSectionResizeMode(QHeaderView::Interactive);
+#endif
 		tree_->header()->setAutoScroll(true);
 		tree_->header()->setStretchLastSection(false);
 		tree_->setColumnWidth(0, 500);
@@ -277,4 +281,6 @@ void FindInFilesPlugin::slotStopSearch() {
 		pInt_->worker_.terminate();
 }
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(findinfiles, FindInFilesPlugin)
+#endif

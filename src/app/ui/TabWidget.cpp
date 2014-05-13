@@ -7,6 +7,7 @@
 #include <QMenu>
 #include <QPushButton>
 #include <QUrl>
+#include <QMimeData>
 
 #include "CommandStorage.h"
 #include "Constants.h"

@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "ui_FileTypesPage.h"
 
+namespace Juff {
+
 class FileTypesPage : public SettingsPage {
 Q_OBJECT
 public:
@@ -43,5 +45,7 @@ private:
 	QMap<QString, QStringList> fileNamePatterns_;
 	QMap<QString, QStringList> firstLinePatterns_;
 };
+
+}
 
 #endif // __JUFFED_FILE_TYPES_PAGE_H__

@@ -30,6 +30,8 @@ class QActionGroup;
 #include <QObject>
 #include <QKeySequence>
 
+namespace Juff {
+
 class QSCI_ENGINE_EXPORT SciDocEngine : public QObject, public Juff::DocEngine {
 Q_OBJECT
 public:
@@ -109,5 +111,7 @@ private:
 	QAction* showWhitespacesAct_;
 	QAction* showLineEndingsAct_;
 };
+
+}
 
 #endif // __JUFFED_SCI_DOC_ENGINE_H__

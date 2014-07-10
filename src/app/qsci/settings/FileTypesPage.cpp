@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "FileTypeSettings.h"
 #include "../LexerStorage.h"
 
+namespace Juff {
+
 FileTypesPage::FileTypesPage() : SettingsPage(0) {
 	ui.setupUi(this);
 
@@ -115,4 +117,6 @@ void FileTypesPage::apply() {
 		list = firstLinePatterns_[type];
 		FileTypeSettings::setFirstLinePatterns(type, list);
 	}
+}
+
 }

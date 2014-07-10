@@ -188,7 +188,7 @@ void JuffEd::initUI() {
 }
 
 void JuffEd::loadEngines() {
-	SciDocEngine* sciEng = new SciDocEngine();
+	Juff::SciDocEngine* sciEng = new Juff::SciDocEngine();
 	engines_[sciEng->type()] = sciEng;
 	
 	QStringList titles;

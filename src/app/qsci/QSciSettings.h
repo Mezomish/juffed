@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <QColor>
 
+namespace Juff {
+
 class QSciSettings {
 public:
 	enum ColorKey {
@@ -52,5 +54,7 @@ public:
 	static bool    get(BoolKey);
 	static QColor  get(ColorKey);
 };
+
+}
 
 #endif // __JUFFED_QSCI_SETTINGS_H__

@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <QCheckBox>
 #include <QMenu>
 
+namespace Juff {
+
 class PrintingPage: public SettingsPage {
 public:
 	PrintingPage() : SettingsPage(0) {
@@ -668,4 +670,6 @@ void SciDocEngine::getColorOptions(QList<ColorOption>& options) {
 	options << ColorOption(tr("Whitespace symbols color"), "QSci", "whiteSpaceColor", QColor(155, 155, 185));
 	options << ColorOption(tr("Markers color"), "QSci", "markersColor", QColor(120, 120, 140));
 //	options << ColorOption(tr("Margins background color"), "QSci", "marginsBgColor", QColor(220, 220, 220));
+}
+
 }

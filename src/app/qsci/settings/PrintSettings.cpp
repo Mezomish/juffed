@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "PrintSettings.h"
 
+namespace Juff {
+
 bool PrintSettings::get(BoolKey key) {
 	switch ( key ) {
 		case KeepBgColor :
@@ -67,3 +69,5 @@ void PrintSettings::setAlwaysWrap(bool wrap) {
 	Settings::setValue("printing", "alwaysWrap", wrap);
 }
 */
+
+}

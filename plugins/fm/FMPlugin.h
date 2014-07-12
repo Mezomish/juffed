@@ -5,7 +5,7 @@ class QLineEdit;
 class QAction;
 class TreeView;
 
-#include <QtCore>
+#include <QDebug>
 #include <QtCore/QObject>
 #include <QtCore/QStack>
 #include <QFileSystemModel>
@@ -14,6 +14,9 @@ class TreeView;
 
 class FMPlugin : public QObject, public JuffPlugin {
 Q_OBJECT
+#if QT_VERSION >= 0x050000
+Q_PLUGIN_METADATA(IID JuffPlugin_iid)
+#endif
 Q_INTERFACES(JuffPlugin)
 public:
 	FMPlugin();
@@ -61,7 +64,7 @@ private:
 
 	QWidget* w_;
 	TreeView* tree_;
-    QFileSystemModel model_;
+    QFileSystemModel* model_;
 	QLineEdit* pathEd_;
 	QAction* backBtn_;
 	QStack<QString> history_;

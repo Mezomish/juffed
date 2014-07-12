@@ -502,7 +502,7 @@ const char *Parser_Python::Parser_Python::skipTypeDecl(const char *cp, bool *is_
     }
     if (!strncmp("class", ptr, 5)) {
         ptr += 5 ;
-        *is_class = TRUE;
+        *is_class = true;
         ptr = skipSpace(ptr);
         return ptr;
     }
@@ -618,19 +618,19 @@ void Parser_Python::parse()
         keyword = findDefinitionOrClass (cp);
         if (keyword)
         {
-            bool found = FALSE;
-            bool is_class = FALSE;
+            bool found = false;
+            bool is_class = false;
 
             if (!strncmp (keyword, "def", 3) && isspace(keyword[3]))
             {
                 cp = skipSpace (keyword + 3);
-                found = TRUE;
+                found = true;
             }
             else if (!strncmp (keyword, "class", 5) && isspace(keyword[5]))
             {
                 cp = skipSpace (keyword + 5);
-                found = TRUE;
-                is_class = TRUE;
+                found = true;
+                is_class = true;
             }
             else if (!strncmp (keyword, "cdef", 4) && isspace(keyword[4]))
             {
@@ -638,7 +638,7 @@ void Parser_Python::parse()
                 candidate = skipTypeDecl (cp, &is_class);
                 if (candidate)
                 {
-                    found = TRUE;
+                    found = true;
                     cp = candidate;
                 }
 
@@ -649,7 +649,7 @@ void Parser_Python::parse()
                 candidate = skipTypeDecl (cp, &is_class);
                 if (candidate)
                 {
-                    found = TRUE;
+                    found = true;
                     cp = candidate;
                 }
             }

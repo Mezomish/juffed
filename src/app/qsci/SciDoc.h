@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "QSciLibConfig.h"
 
-class JuffScintilla;
 class QsciLexer;
 
 #include "Document.h"
+
+namespace Juff {
+
+class JuffScintilla;
 
 class QSCI_ENGINE_EXPORT SciDoc : public Juff::Document {
 Q_OBJECT
@@ -153,5 +156,7 @@ private:
 	class Interior;
 	Interior* int_;
 };
+
+}
 
 #endif // __JUFFED_SCI_DOC_H__

@@ -5,15 +5,15 @@
 #include "SearchDlg.h"
 #include "FindWorker.h"
 
-#include <QtCore>
-#include <QtGui/QAction>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QPushButton>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QToolBar>
-#include <QtGui/QVBoxLayout>
+#include <QtCore/QFileInfo>
+#include <QAction>
+#include <QHeaderView>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QTreeWidget>
+#include <QToolBar>
+#include <QVBoxLayout>
 
 //#include <CommandStorageInt.h>
 #include <Log.h>
@@ -54,7 +54,11 @@ public:
 		labels << "File" << "Line" << "Text" << "Column";
 		tree_->setHeaderLabels(labels);
 		tree_->setRootIsDecorated(false);
+#if QT_VERSION < 0x050000
 		tree_->header()->setResizeMode(QHeaderView::Interactive);
+#else
+		tree_->header()->setSectionResizeMode(QHeaderView::Interactive);
+#endif
 		tree_->header()->setAutoScroll(true);
 		tree_->header()->setStretchLastSection(false);
 		tree_->setColumnWidth(0, 500);
@@ -64,7 +68,6 @@ public:
 		tree_->setAlternatingRowColors(true);
 	}
 	~PluginInterior() {
-		delete toolBar_;
 		delete widget_;
 	}
 	
@@ -277,4 +280,6 @@ void FindInFilesPlugin::slotStopSearch() {
 		pInt_->worker_.terminate();
 }
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(findinfiles, FindInFilesPlugin)
+#endif

@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "QSciSettings.h"
 #include "Settings.h"
 
+namespace Juff {
+
 bool QSciSettings::get(BoolKey key) {
 	switch (key) {
 		case ShowIndents :
@@ -156,4 +158,6 @@ void QSciSettings::set(ColorKey key, const QColor& c) {
 			Settings::instance()->setValue("QSci", "whiteSpaceColor", c);
 			break;
 	}
+}
+
 }

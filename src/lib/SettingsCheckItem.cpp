@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "SettingsCheckItem.h"
 #include "Settings.h"
 
-#include <QtGui/QCheckBox>
+#include <QCheckBox>
 
 SettingsCheckItem::SettingsCheckItem(const QString& section, const QString& key, 
                                      QCheckBox* cb)

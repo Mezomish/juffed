@@ -16,18 +16,18 @@ of configure script.
  */
 class AppInfo {
 public:
-	static QString name()            { return "JuffEd"; }
-	static QString organization()    { return "Juff"; }
-	static QString version()         { return "@JUFFED_VERSION@"; }
+    static QString name()            { return "JuffEd"; }
+    static QString organization()    { return "Juff"; }
+    static QString version()         { return "@JUFFED_VERSION@"; }
 
-	static QString dataDirPath()     { return QCoreApplication::applicationDirPath() + "/../Resources/"; }
-	static QString pluginsPath()     { return QCoreApplication::applicationDirPath() + "/../plugins"; }
-	static QString translationPath() { return QCoreApplication::applicationDirPath() + "/../Resources/l10n"; }
-	
-	static QString configDirPath()   { return QDir::homePath() + "/.config/" + organization().toLower(); }
-	static QString configFile()      { return configDirPath() + "/" + name().toLower() + ".conf"; }
-	static QString logFile()         { return configDirPath() + "/juffed.log"; }
-	static QString defaultPrjPath()  { return configDirPath() + "/empty_project.xml"; }
+    static QString dataDirPath()     { return QCoreApplication::applicationDirPath() + "/../Resources/"; }
+    static QString pluginsPath()     { return QCoreApplication::applicationDirPath() + "/../plugins"; }
+    static QString translationPath() { return QCoreApplication::applicationDirPath() + "/../Resources/l10n"; }
+
+    static QString configDirPath()   { return QDir::homePath() + "/.config/" + organization().toLower(); }
+    static QString configFile()      { return configDirPath() + "/" + name().toLower() + ".conf"; }
+    static QString logFile()         { return configDirPath() + "/juffed.log"; }
+    static QString defaultPrjPath()  { return configDirPath() + "/empty_project.xml"; }
 };
 
 #endif

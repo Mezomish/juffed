@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #ifndef __JUFF_MULTIPAGE_H__
 #define __JUFF_MULTIPAGE_H__
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 class MultiPageInterior;
 class SettingsPage;

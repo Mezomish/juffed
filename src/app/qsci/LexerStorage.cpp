@@ -76,6 +76,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "Log.h"
 #include <stdio.h>
 
+namespace Juff {
+
 	struct Style {
 		Style(const QColor& c = QColor(), const QColor& bgc = QColor(), bool b = false, bool i = false) {
 			color = c;
@@ -886,3 +888,4 @@ LexerStorage* LexerStorage::instance() {
 	return instance_;
 }
 
+}

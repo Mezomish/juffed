@@ -9,6 +9,9 @@ class QTreeWidgetItem;
 
 class FindInFilesPlugin : public QObject, public JuffPlugin {
 Q_OBJECT
+#if QT_VERSION >= 0x050000
+Q_PLUGIN_METADATA(IID JuffPlugin_iid)
+#endif
 Q_INTERFACES(JuffPlugin)
 public:
 	FindInFilesPlugin();

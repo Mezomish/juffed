@@ -51,6 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <Qsci/qscilexer.h>
 #include <Qsci/qsciapis.h>
 
+namespace Juff {
+
 SciDoc::Eol guessEol(const QString& fileName) {
 	SciDoc::Eol eol = SciDoc::EolUnix;
 	if ( !Juff::Document::isNoname(fileName) ) {
@@ -1179,7 +1181,7 @@ void SciDoc::readFile() {
 
 //		if ( !keepCharset ) {
 //			QString codecName = Document::guessCharset(fileName());
-//			QTextCodec* c = QTextCodec::codecForName(codecName.toAscii());
+//			QTextCodec* c = QTextCodec::codecForName(codecName.toLatin1());
 //			if ( c ) {
 //				setCodec(c);
 //				setCharset(codecName);
@@ -1558,4 +1560,6 @@ Juff::SessionParams SciDoc::sessionParams() const {
 	params["cursorPos"] = QString("%1;%2").arg(row).arg(col);
 
 	return params;
+}
+
 }

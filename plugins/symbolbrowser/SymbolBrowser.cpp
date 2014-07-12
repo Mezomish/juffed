@@ -18,7 +18,7 @@
   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ***************************************************************************/
 
-#include <QtCore>
+#include <QtCore/QFileInfo>
 #include <QWidget>
 #include <QVBoxLayout>
 
@@ -324,5 +324,6 @@ void SymbolBrowser::settingsActivateOnSingleClickCbkToggled(bool checked){
     mSettingsActivateOnSingleClick = checked;
 }
 
-
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(symbolbrowser, SymbolBrowser)
+#endif

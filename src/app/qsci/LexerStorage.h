@@ -22,14 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "QSciLibConfig.h"
 
-class LSInterior;
 class QsciLexer;
 
 class QFont;
 class QString;
 class QStringList;
 
-#include <QtGui/QColor>
+#include <QColor>
+
+namespace Juff {
+
+class LSInterior;
 
 class QSCI_ENGINE_EXPORT LexerStorage {
 public:
@@ -86,5 +89,7 @@ private:
 	static LexerStorage* instance_;
 	LSInterior* lsInt_;
 };
+
+}
 
 #endif // __JUFF_LEXER_STORAGE_H__

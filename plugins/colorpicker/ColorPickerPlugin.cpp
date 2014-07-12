@@ -1,8 +1,7 @@
 #include "ColorPickerPlugin.h"
 
-#include <QtCore>
-#include <QtGui/QToolBar>
-#include <QtGui/QColorDialog>
+#include <QToolBar>
+#include <QColorDialog>
 
 #include <Document.h>
 #include <PluginSettings.h>
@@ -63,4 +62,6 @@ void ColorPickerPlugin::pickColor() {
 	}
 }
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(colorpicker, ColorPickerPlugin)
+#endif

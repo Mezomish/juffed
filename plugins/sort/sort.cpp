@@ -20,8 +20,6 @@
 
 
 #include "sort.h"
-#include <QtCore>
-#include <QtGui>
 
 #include "Document.h"
 
@@ -171,4 +169,6 @@ bool caseSensitiveMoreThan(const QString &s1, const QString &s2)
     return s1 > s2;
 }
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(sortdoc, SortDocumentPlugin)
+#endif

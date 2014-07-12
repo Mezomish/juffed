@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #define __JUFF_SESSION_DLG_H__
 
 #include <QtCore/QStringList>
-#include <QtGui/QDialog>
+#include <QDialog>
 
 #include "ui_SessionDlg.h"
 

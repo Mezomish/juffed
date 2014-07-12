@@ -22,15 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <QtCore/QFileInfo>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-#include <QtGui/QDesktopServices>
-#include <QtGui/QApplication>
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
-#include <QtGui/QPixmap>
-#include <QtGui/QPushButton>
-#include <QtGui/QResizeEvent>
-#include <QtGui/QTabWidget>
-#include <QtGui/QTextBrowser>
+#include <QDesktopServices>
+#include <QApplication>
+#include <QLabel>
+#include <QLayout>
+#include <QPixmap>
+#include <QPushButton>
+#include <QResizeEvent>
+#include <QTabWidget>
+#include <QTextBrowser>
 
 #include "Log.h"
 

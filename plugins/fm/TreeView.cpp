@@ -4,9 +4,9 @@
 
 #include <QInputDialog>
 #include <QMessageBox>
-#include <QtGui/QKeyEvent>
-#include <QtGui/QHeaderView>
-#include <QtGui/QMenu>
+#include <QKeyEvent>
+#include <QHeaderView>
+#include <QMenu>
 #include <QFileSystemModel>
 
 #include <PluginSettings.h>

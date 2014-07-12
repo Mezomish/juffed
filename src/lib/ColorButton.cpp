@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include "ColorButton.h"
 
-#include <QtGui/QColorDialog>
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
-#include <QtGui/QPushButton>
+#include <QColorDialog>
+#include <QPainter>
+#include <QPixmap>
+#include <QPushButton>
 
 #include "Log.h"
 

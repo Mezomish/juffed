@@ -22,9 +22,15 @@ KeysPage::KeysPage(CommandStorageInt* storage) : QWidget(), cur_(0) {
 	ui.keysTree->setHeaderLabels(headers);
 	ui.keysTree->setRootIsDecorated(false);
 	ui.keysTree->setAllColumnsShowFocus(true);
+#if QT_VERSION < 0x050000
 	ui.keysTree->header()->setResizeMode(0, QHeaderView::Fixed);
 	ui.keysTree->header()->setResizeMode(1, QHeaderView::Stretch);
 	ui.keysTree->header()->setResizeMode(2, QHeaderView::Fixed);
+#else
+	ui.keysTree->header()->setSectionResizeMode(0, QHeaderView::Fixed);
+	ui.keysTree->header()->setSectionResizeMode(1, QHeaderView::Stretch);
+	ui.keysTree->header()->setSectionResizeMode(2, QHeaderView::Fixed);
+#endif
 	ui.keysTree->setColumnWidth(0, 20);
 	ui.keysTree->setColumnWidth(2, 50);
 	

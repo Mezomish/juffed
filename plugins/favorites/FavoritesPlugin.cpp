@@ -1,8 +1,7 @@
 #include "FavoritesPlugin.h"
 #include "ManageDlg.h"
 
-#include <QtCore>
-#include <QtGui/QMenu>
+#include <QMenu>
 
 #include <Document.h>
 #include <Log.h>
@@ -93,4 +92,6 @@ void FavoritesPlugin::initMenu() {
 	}
 }
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(favorites, FavoritesPlugin)
+#endif

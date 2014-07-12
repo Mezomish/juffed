@@ -18,8 +18,9 @@
   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ***************************************************************************/
 
-#include <QtCore>
-#include <QtGui>
+#include <QTimer>
+#include <QHBoxLayout>
+#include <QLabel>
 
 #include <PluginSettings.h>
 #include "autosave.h"
@@ -106,5 +107,6 @@ QWidget * AutosavePlugin::settingsPage() const
         return cfg;
 }
 
-
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(autosave, AutosavePlugin)
+#endif

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <QtCore/QObject>
 
 #ifdef Q_OS_WIN
-#include <QtGui/QMessageBox>
+#include <QMessageBox>
 #endif
 
 namespace Log {

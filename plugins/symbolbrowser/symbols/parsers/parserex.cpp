@@ -76,17 +76,17 @@ void ParserEx::cppInit (const bool state, const bool hasAtLiteralStrings) {
 
     ungetch         = '\0';
     ungetch2        = '\0';
-    resolveRequired = FALSE;
+    resolveRequired = false;
     this->hasAtLiteralStrings = hasAtLiteralStrings;
 
     directive.state     = DRCTV_NONE;
-    directive.accept    = TRUE;
+    directive.accept    = true;
     directive.nestLevel = 0;
 
-    directive.ifdef [0].ignoreAllBranches = FALSE;
-    directive.ifdef [0].singleBranch = FALSE;
-    directive.ifdef [0].branchChosen = FALSE;
-    directive.ifdef [0].ignoring     = FALSE;
+    directive.ifdef [0].ignoreAllBranches = false;
+    directive.ifdef [0].singleBranch = false;
+    directive.ifdef [0].branchChosen = false;
+    directive.ifdef [0].ignoring     = false;
 
     if (directive.name == NULL)
         directive.name = vStringNew ();
@@ -109,14 +109,14 @@ void ParserEx::cppTerminate (void) {
 /*****************************************************************************
  *****************************************************************************/
 void ParserEx::cppBeginStatement (void){
-    resolveRequired = TRUE;
+    resolveRequired = true;
 }
 
 
 /*****************************************************************************
  *****************************************************************************/
 void ParserEx::cppEndStatement (void) {
-    resolveRequired = FALSE;
+    resolveRequired = false;
 }
 
 
@@ -215,7 +215,7 @@ bool ParserEx::isIgnoreBranch (void)
      *  statements to be followed, but we must follow no further branches.
      */
     if (resolveRequired  &&  ! BraceFormat)
-        ifdef->singleBranch = TRUE;
+        ifdef->singleBranch = true;
 
     /*  We will ignore this branch in the following cases:
      *
@@ -251,7 +251,7 @@ void ParserEx::chooseBranch (void)
 bool ParserEx::pushConditional (const bool firstBranchChosen)
 {
     const bool ignoreAllBranches = isIgnore ();  /* current ignore */
-    bool ignoreBranch = FALSE;
+    bool ignoreBranch = false;
 
     if (directive.nestLevel < (unsigned int) MaxCppNestingLevel - 1)
     {
@@ -305,7 +305,7 @@ Q_UNUSED(name)
 //        initTagEntry (&e, name);
 //        e.lineNumberEntry = (bool) (Option.locate != EX_PATTERN);
 //        e.isFileScope  = isFileScope;
-//        e.truncateLine = TRUE;
+//        e.truncateLine = true;
 //        e.kindName     = "macro";
 //        e.kind         = 'd';
 //        makeTagEntry (&e);
@@ -360,7 +360,7 @@ bool ParserEx::directiveIf (const int c)
             const bool ignore = pushConditional ((bool) (c != '0'));
 
     directive.state = DRCTV_NONE;
-    DebugStatement ( debugCppNest (TRUE, directive.nestLevel);
+    DebugStatement ( debugCppNest (true, directive.nestLevel);
     if (ignore != ignore0) debugCppIgnore (ignore); )
 
             return ignore;
@@ -371,7 +371,7 @@ bool ParserEx::directiveIf (const int c)
  *****************************************************************************/
 bool ParserEx::directiveHash (const int c)
 {
-    bool ignore = FALSE;
+    bool ignore = false;
     char directiveStr [MaxDirectiveName];
     DebugStatement( const bool ignore0 = isIgnore (); )
 
@@ -393,7 +393,7 @@ bool ParserEx::directiveHash (const int c)
     }
     else if (stringMatch (directiveStr, "endif"))
     {
-        DebugStatement ( debugCppNest (FALSE, directive.nestLevel); )
+        DebugStatement ( debugCppNest (false, directive.nestLevel); )
         ignore = popConditional ();
         directive.state = DRCTV_NONE;
         DebugStatement ( if (ignore != ignore0) debugCppIgnore (ignore); )
@@ -556,8 +556,8 @@ int ParserEx::skipToEndOfChar (void)
  *****************************************************************************/
 extern int ParserEx::cppGetc (void)
 {
-    boolean bDirective = FALSE;
-    boolean ignore = FALSE;
+    boolean bDirective = false;
+    boolean ignore = false;
     int c;
 
     if (ungetch != '\0')
@@ -574,8 +574,8 @@ extern int ParserEx::cppGetc (void)
         switch (c)
         {
         case EOF:
-            ignore    = FALSE;
-            bDirective = FALSE;
+            ignore    = false;
+            bDirective = false;
             break;
 
         case TAB:
@@ -584,26 +584,26 @@ extern int ParserEx::cppGetc (void)
 
         case NEWLINE:
             if (bDirective  &&  ! ignore)
-                bDirective = FALSE;
-            directive.accept = TRUE;
+                bDirective = false;
+            directive.accept = true;
             break;
 
         case DOUBLE_QUOTE:
-            directive.accept = FALSE;
-            c = skipToEndOfString (FALSE);
+            directive.accept = false;
+            c = skipToEndOfString (false);
             break;
 
         case '#':
             if (directive.accept)
             {
-                bDirective = TRUE;
+                bDirective = true;
                 directive.state  = DRCTV_HASH;
-                directive.accept = FALSE;
+                directive.accept = false;
             }
             break;
 
                         case SINGLE_QUOTE:
-            directive.accept = FALSE;
+            directive.accept = false;
             c = skipToEndOfChar ();
             break;
 
@@ -620,7 +620,7 @@ extern int ParserEx::cppGetc (void)
                         fileUngetc (c);
                 }
                 else
-                    directive.accept = FALSE;
+                    directive.accept = false;
                 break;
             }
 
@@ -670,12 +670,12 @@ extern int ParserEx::cppGetc (void)
                 int next = fileGetc ();
                 if (next == DOUBLE_QUOTE)
                 {
-                    directive.accept = FALSE;
-                    c = skipToEndOfString (TRUE);
+                    directive.accept = false;
+                    c = skipToEndOfString (true);
                     break;
                 }
             }
-            directive.accept = FALSE;
+            directive.accept = false;
             if (bDirective)
                 ignore = handleDirective (c);
             break;

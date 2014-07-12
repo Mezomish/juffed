@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #include <QtCore/QString>
 
+namespace Juff {
+
 class PrintSettings {
 public:
 	enum BoolKey {
@@ -33,5 +35,7 @@ public:
 	static bool get(BoolKey);
 	static void set(BoolKey, bool);
 };
+
+}
 
 #endif // __JUFFED_PRINT_SETTINGS_H__

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <QApplication>
 #include <QClipboard>
 #include <QScrollBar>
+#include <QMimeData>
 
 #include <Qsci/qscicommandset.h>
 
@@ -34,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 #define WORD_HIGHLIGHT     1
 #define SEARCH_HIGHLIGHT   2
+
+namespace Juff {
 
 JuffScintilla::JuffScintilla() : QsciScintilla() {
 	initHighlightingStyle(WORD_HIGHLIGHT, QSciSettings::get(QSciSettings::WordHLColor));
@@ -539,4 +542,6 @@ void JuffScintilla::initHighlightingStyle(int id, const QColor &color) {
 	SendScintilla(SCI_INDICSETUNDER, id, true);
 	SendScintilla(SCI_INDICSETFORE, id, color);
 	SendScintilla(SCI_INDICSETALPHA, id, 50);
+}
+
 }

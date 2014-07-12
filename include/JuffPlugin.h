@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #ifndef __JUFF_PLUGIN_H__
 #define __JUFF_PLUGIN_H__
 
+#include <QtPlugin>
+
 #include "LibConfig.h"
 
 #include "DocHandlerInt.h"
@@ -26,9 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include "JuffAPI.h"
 #include "Types.h"
 
-#include <QtGui/QWidgetList>
+#include <QWidgetList>
 
 class QToolBar;
+
+#define JuffPlugin_iid "JuffEd.JuffPlugin/2.70"
 
 class LIBJUFF_EXPORT JuffPlugin {
 public:
@@ -148,6 +152,6 @@ private:
 	JuffAPI* api_;
 };
 
-Q_DECLARE_INTERFACE(JuffPlugin, "JuffEd.JuffPlugin/2.70")
+Q_DECLARE_INTERFACE(JuffPlugin, JuffPlugin_iid)
 
 #endif	//	__JUFF_PLUGIN_H__

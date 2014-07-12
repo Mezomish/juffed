@@ -1,17 +1,16 @@
 #include "FMPlugin.h"
 
-#include <QtCore>
-#include <QtGui/QCompleter>
-#include <QtGui/QHeaderView>
-#include <QtGui/QInputDialog>
-#include <QtGui/QLineEdit>
-#include <QtGui/QMessageBox>
-#include <QtGui/QMenu>
-#include <QtGui/QAction>
-#include <QtGui/QToolBar>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QCheckBox>
+#include <QCompleter>
+#include <QHeaderView>
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QMessageBox>
+#include <QMenu>
+#include <QAction>
+#include <QToolBar>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QCheckBox>
 
 #include <Log.h>
 #include <MainSettings.h>
@@ -33,10 +32,11 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	//! \todo TODO/FIXME: maybe it could be configured with MainSettings::get(MainSettings::IconSize)...
 	toolBar->setIconSize(QSize(16, 16));
 
-    model_.setRootPath("");
+    model_ = new QFileSystemModel;
+    model_->setRootPath("");
 
 	tree_ = new TreeView(this);
-	tree_->setModel(&model_);
+	tree_->setModel(model_);
 	tree_->setDragDropMode(QAbstractItemView::DragOnly);
 	tree_->setAllColumnsShowFocus(true);
     tree_->sortByColumn(sortColumn, Qt::AscendingOrder);
@@ -56,7 +56,7 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	toolBar->addAction(QIcon(":icon_bookmarks"), tr("Favorite Locations"), this, SLOT(favorites()));
 	toolBar->addAction(QIcon(":icon_new_dir"), tr("New Directory"), this, SLOT(newDir()));
 
-	pathEd_->setCompleter(new QCompleter(&model_));
+	pathEd_->setCompleter(new QCompleter(model_));
 
 	QVBoxLayout* vBox = new QVBoxLayout();
 
@@ -149,13 +149,13 @@ void FMPlugin::cd(const QString& path, bool addToHistory /*= true*/) {
 		}
 		
 		if ( addToHistory ) {
-			QString curPath = model_.filePath(tree_->rootIndex());
+			QString curPath = model_->filePath(tree_->rootIndex());
 			history_.push(curPath);
 			if ( !backBtn_->isEnabled() )
 				backBtn_->setEnabled(true);
 		}
 		
-		tree_->setRootIndex(model_.index(path));
+		tree_->setRootIndex(model_->index(path));
 		pathEd_->setText(path);
 		pathEd_->setToolTip(path);
 		PluginSettings::set(this, "lastDir", path);
@@ -166,7 +166,7 @@ void FMPlugin::cd(const QString& path, bool addToHistory /*= true*/) {
 }
 
 void FMPlugin::itemDoubleClicked(const QModelIndex& index) {
-	QString path = model_.filePath(index);
+	QString path = model_->filePath(index);
 	if ( QFileInfo(path).isDir() ) {
 		cd(path);
 	}
@@ -190,14 +190,14 @@ void FMPlugin::back() {
 void FMPlugin::up() {
 	// keep the current path
 	QModelIndex curIndex = tree_->rootIndex();
-	QString prevPath = model_.filePath(curIndex);
+	QString prevPath = model_->filePath(curIndex);
 	
 	QModelIndex parent = curIndex.parent();
 	if ( parent.isValid() ) {
-		cd(model_.filePath(parent));
+		cd(model_->filePath(parent));
 		
 		// select the previous dir
-		QModelIndex prevIndex = model_.index(prevPath);
+		QModelIndex prevIndex = model_->index(prevPath);
 		if ( prevIndex.isValid() ) {
 			tree_->setCurrentIndex(prevIndex);
 		}
@@ -224,7 +224,7 @@ void FMPlugin::newDir() {
     if (newDirName.isEmpty())
         return;
 
-    QDir curDir(model_.filePath(tree_->rootIndex()));
+    QDir curDir(model_->filePath(tree_->rootIndex()));
     if ( !curDir.mkdir(newDirName) ) {
         QMessageBox::warning(tree_, tr("Warning"),
                              tr("Couldn't create a dir named '%1'").arg(newDirName));
@@ -240,7 +240,7 @@ void FMPlugin::goToFavorite() {
 }
 
 void FMPlugin::addToFavorites() {
-	QString path = model_.filePath(tree_->rootIndex());
+	QString path = model_->filePath(tree_->rootIndex());
 	qDebug() << path;
 	if ( !favorites_.contains(path) ) {
 		favorites_.append(path);
@@ -264,7 +264,7 @@ void FMPlugin::textEntered() {
 	if ( QFileInfo(pathEd_->text()).isDir() )
 		cd(pathEd_->text());
 	else
-		pathEd_->setText(model_.filePath(tree_->rootIndex()));
+		pathEd_->setText(model_->filePath(tree_->rootIndex()));
 }
 
 void FMPlugin::onDocSaved(const QString& fileName) {
@@ -287,7 +287,7 @@ void FMPlugin::applySettings() {
     QDir::Filters filter = QDir::AllDirs | QDir::AllEntries | QDir::NoDotAndDotDot;
     if (showHidden)
         filter |= QDir::Hidden;
-    model_.setFilter(filter);
+    model_->setFilter(filter);
 }
 
 QWidget * FMPlugin::settingsPage() const
@@ -320,4 +320,6 @@ void FMPlugin::showHiddenBox_toggled(bool value)
     showHidden = value;
 }
 
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(fm, FMPlugin)
+#endif

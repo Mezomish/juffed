@@ -135,7 +135,7 @@ static void vStringResize (vString *const string, const size_t newSize)
  *****************************************************************************/
 extern boolean vStringAutoResize (vString *const string)
 {
-    boolean ok = TRUE;
+    boolean ok = true;
 
     if (string->size <= INT_MAX / 2)
     {

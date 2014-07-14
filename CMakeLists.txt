@@ -20,9 +20,9 @@ project (juffed)
 cmake_minimum_required (VERSION 2.8.11)
 
 # build options
-option(USE_QT5 "Use Qt5. Defaults to Qt4" OFF)
-option(USE_SYSTEM_QTSINGLEAPPLICATION "Try to find system-wide QtSingleApplication library" OFF)
-option(USE_ENCA "Try to find Enca library for file encoding check" ON)
+option(USE_QT5 "Use Qt5. Defaults to Qt4" $ENV{USE_QT5})
+option(USE_SYSTEM_QTSINGLEAPPLICATION "Try to find system-wide QtSingleApplication library" $ENV{USE_SYSTEM_SINGLETON})
+option(USE_ENCA "Try to find Enca library for file encoding check" $ENV{USE_ENCA})
 
 
 if (COMMAND cmake_policy)
@@ -33,7 +33,7 @@ set ( CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 set ( PREFIX ${CMAKE_INSTALL_PREFIX} )
 
 # switch verbose mode ON or OFF
-set ( CMAKE_VERBOSE_MAKEFILE OFF )
+set ( CMAKE_VERBOSE_MAKEFILE $ENV{VERBOSE_MAKEFILE} )
 
 ####################
 # Names and Version

@@ -62,7 +62,7 @@ public:
 		tree_->header()->setAutoScroll(true);
 		tree_->header()->setStretchLastSection(false);
 		tree_->setColumnWidth(0, 500);
-		tree_->setColumnWidth(1, 50);
+		tree_->setColumnWidth(1, tree_->header()->sectionSizeHint(1));
 		tree_->setColumnWidth(2, 500);
 		tree_->setColumnHidden(3, true);
 		tree_->setAlternatingRowColors(true);

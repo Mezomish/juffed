@@ -6,9 +6,14 @@ DocListPanel::DocListPanel() : QWidget() {
 	setWindowTitle(tr("Documents"));
 	
 	tree_ = new TreeWidget();
+#if QT_VERSION < 0x050200
 	filter_ = new FilterLineEdit();
 	filter_->setMaximumHeight(24);
-	
+#else
+	filter_ = new QLineEdit;
+	filter_->setPlaceholderText(tr("Filter"));
+	filter_->setClearButtonEnabled(true);
+#endif
 	QVBoxLayout* vBox = new QVBoxLayout();
 	vBox->setMargin(0);
 	vBox->setSpacing(2);
@@ -25,8 +30,12 @@ DocListPanel::DocListPanel() : QWidget() {
 	tree_->setColumnHidden(1, true);
 	tree_->setRootIsDecorated(false);
 	
+#if QT_VERSION < 0x050200
 	connect(filter_->lineEd_, SIGNAL(textChanged(const QString&)), SLOT(filterItems(const QString&)));
 	connect(filter_->clearBtn_, SIGNAL(clicked()), SLOT(clear()));
+#else
+	connect(filter_, SIGNAL(textChanged(const QString&)), SLOT(filterItems(const QString&)));
+#endif
 }
 
 void DocListPanel::filterItems(const QString& text) {
@@ -42,6 +51,8 @@ void DocListPanel::filterItems(const QString& text) {
 	}
 }
 
+#if QT_VERSION < 0x050200
 void DocListPanel::clear() {
 	filter_->lineEd_->setText("");
 }
+#endif

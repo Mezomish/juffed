@@ -346,6 +346,8 @@ void JuffMW::insertMenu(QMenu* before, QMenu* menu) {
 void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
 	if ( maxWidth > 0 )
 		w->setMaximumWidth(maxWidth);
+	else if ( maxWidth < 0 )
+		w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 	statusLayout_->addWidget(w);
 }
 

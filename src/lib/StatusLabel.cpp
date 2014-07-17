@@ -25,6 +25,7 @@ namespace Juff {
 
 StatusLabel::StatusLabel(const QString& text) : QLabel(text) {
 	menu_ = NULL;
+	setFrameStyle(QFrame::Panel | QFrame::Sunken);
 }
 
 void StatusLabel::setMenu(QMenu* menu) {

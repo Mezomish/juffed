@@ -273,7 +273,6 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 //	LOGGER;
 
 	setWindowTitle(tr("Settings"));
-	setMinimumSize(820, 400);
 
 	//	create buttons
 	okBtn_ = new QPushButton(tr("OK"), this);
@@ -352,6 +351,7 @@ void SettingsDlg::setEditorsPages(const QWidgetList& list) {
 
 int SettingsDlg::exec() {
 	init();
+	resize(sizeHint());
 	return QDialog::exec();
 }
 

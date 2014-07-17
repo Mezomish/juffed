@@ -29,8 +29,6 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	w_->setWindowTitle(tr("Files"));
 
 	QToolBar * toolBar = new QToolBar("File Browser Tools", w_);
-	//! \todo TODO/FIXME: maybe it could be configured with MainSettings::get(MainSettings::IconSize)...
-	toolBar->setIconSize(QSize(16, 16));
 
     model_ = new QFileSystemModel;
     model_->setRootPath("");
@@ -49,12 +47,12 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 	tree_->initMenu();
 	
 	pathEd_ = new QLineEdit("");
-	backBtn_ = toolBar->addAction(QIcon(":icon_back"), tr("Go Back"), this, SLOT(back()));
-	toolBar->addAction(QIcon(":icon_up"), tr("Go Up"), this, SLOT(up()));
-	toolBar->addAction(QIcon(":icon_home"), tr("Go to Home Directory"), this, SLOT(home()));
-	toolBar->addAction(QIcon(":icon_current"), tr("Go to current file's directory"), this, SLOT(curFileDir()));
-	toolBar->addAction(QIcon(":icon_bookmarks"), tr("Favorite Locations"), this, SLOT(favorites()));
-	toolBar->addAction(QIcon(":icon_new_dir"), tr("New Directory"), this, SLOT(newDir()));
+	backBtn_ = toolBar->addAction(QIcon::fromTheme("go-previous", QIcon(":icon_back")), tr("Go Back"), this, SLOT(back()));
+	toolBar->addAction(QIcon::fromTheme("go-up", QIcon(":icon_up")), tr("Go Up"), this, SLOT(up()));
+	toolBar->addAction(QIcon::fromTheme("go-home", QIcon(":icon_home")), tr("Go to Home Directory"), this, SLOT(home()));
+	toolBar->addAction(QIcon::fromTheme("folder-txt", QIcon(":icon_current")), tr("Go to current file's directory"), this, SLOT(curFileDir()));
+	toolBar->addAction(QIcon::fromTheme("user-bookmarks", QIcon(":icon_bookmarks")), tr("Favorite Locations"), this, SLOT(favorites()));
+	toolBar->addAction(QIcon::fromTheme("folder-new", QIcon(":icon_new_dir")), tr("New Directory"), this, SLOT(newDir()));
 
 	pathEd_->setCompleter(new QCompleter(model_));
 

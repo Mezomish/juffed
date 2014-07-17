@@ -11,6 +11,7 @@
 
 static const int BtnSize = 24;
 
+#if QT_VERSION < 0x050200
 class FilterLineEdit : public QWidget {
 public:
 	FilterLineEdit(QWidget* parent = 0) : QWidget(parent) {
@@ -42,6 +43,7 @@ public:
 	QLineEdit* lineEd_;
 	QPushButton* clearBtn_;
 };
+#endif
 
 class TreeWidget : public QTreeWidget {
 public:
@@ -74,11 +76,17 @@ public:
 	// completely (which has no difference between it and currently 
 	// selected approach).
 	TreeWidget* tree_;
+#if QT_VERSION < 0x050200
 	FilterLineEdit* filter_;
+#else
+	QLineEdit* filter_;
+#endif
 
 public slots:
 	void filterItems(const QString& text);
+#if QT_VERSION < 0x050200
 	void clear();
+#endif
 };
 
 #endif

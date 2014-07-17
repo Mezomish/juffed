@@ -350,6 +350,7 @@ void JuffEd::buildUI() {
 	// statusbar
 	posL_ = new Juff::StatusLabel("");
 	nameL_ = new Juff::StatusLabel("");
+	nameL_->setFrameStyle(QFrame::Plain);
 	charsetL_ = new Juff::StatusLabel("");
 	linesL_ = new Juff::StatusLabel("");
 
@@ -369,10 +370,10 @@ void JuffEd::buildUI() {
 	filePathMenu->addAction(Juff::Utils::iconManager()->icon(EDIT_COPY), tr("Copy"), this, SLOT(slotCopyFilePath()));
 	nameL_->setMenu(filePathMenu);
 	
-	mw_->addStatusWidget(posL_, 100);
+	mw_->addStatusWidget(posL_, 0);
 	mw_->addStatusWidget(nameL_, -1);
-	mw_->addStatusWidget(linesL_, 80);
-	mw_->addStatusWidget(charsetL_, 100);
+	mw_->addStatusWidget(linesL_, 0);
+	mw_->addStatusWidget(charsetL_, 0);
 	posL_->hide();
 	nameL_->hide();
 	charsetL_->hide();
@@ -382,7 +383,7 @@ void JuffEd::buildUI() {
 	foreach(Juff::DocEngine* eng, engines_) {
 		QWidgetList statusWidgets = eng->statusWidgets();
 		foreach (QWidget* w, statusWidgets) {
-			mw_->addStatusWidget(w, -1);
+			mw_->addStatusWidget(w, 0);
 			w->show();
 		}
 	}

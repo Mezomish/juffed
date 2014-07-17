@@ -159,19 +159,18 @@ SciDocEngine::SciDocEngine() : QObject(), Juff::DocEngine() {
 	syntaxLabel_->setToolTip(QObject::tr("Syntax highlighting"));
 	syntaxLabel_->setMenu(syntaxMenu_);
 	syntaxLabel_->hide();
-	syntaxLabel_->setMaximumWidth(70);
 	
 	indentationLabel_ = new Juff::StatusLabel("");
 	indentationLabel_->setToolTip(QObject::tr("Indentation style"));
 	indentationLabel_->setMenu(indentationMenu_);
 	indentationLabel_->hide();
-	indentationLabel_->setMaximumWidth(50);
 	
 	eolLabel_ = new Juff::StatusLabel("");
 	eolLabel_->setToolTip(QObject::tr("Line endings"));
 	eolLabel_->setMenu(eolMenu_);
 	eolLabel_->hide();
-	eolLabel_->setMaximumWidth(20);
+	eolLabel_->setMinimumWidth(eolLabel_->style()->pixelMetric(QStyle::PM_SmallIconSize) + 4);
+	eolLabel_->setAlignment(Qt::AlignCenter);
 }
 
 Juff::Document* SciDocEngine::createDoc(const QString& fileName) const {
@@ -493,7 +492,8 @@ void SciDocEngine::slotEolChanged() {
 	QAction* action = qobject_cast<QAction*>(sender());
 	if ( doc != 0 && action != 0 ) {
 		SciDoc::Eol eol = (SciDoc::Eol)action->data().toInt();
-		eolLabel_->setPixmap(eolIcon(eol).pixmap(16, 16));
+		int iconSize = eolLabel_->style()->pixelMetric(QStyle::PM_SmallIconSize);
+		eolLabel_->setPixmap(eolIcon(eol).pixmap(iconSize));
 		doc->setEol(eol);
 	}
 }

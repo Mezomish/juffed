@@ -31,7 +31,7 @@ KeysPage::KeysPage(CommandStorageInt* storage) : QWidget(), cur_(0) {
 	ui.keysTree->header()->setSectionResizeMode(1, QHeaderView::Stretch);
 	ui.keysTree->header()->setSectionResizeMode(2, QHeaderView::Fixed);
 #endif
-	ui.keysTree->setColumnWidth(0, 20);
+	ui.keysTree->setColumnWidth(0, style()->pixelMetric(QStyle::PM_SmallIconSize) + 2 * style()->pixelMetric(QStyle::PM_HeaderMargin));
 	ui.keysTree->setColumnWidth(2, 50);
 	
 	connect(ui.keysTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), SLOT(onItemDoubleClicked(QTreeWidgetItem*, int)));

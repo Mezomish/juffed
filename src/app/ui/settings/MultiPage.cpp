@@ -27,17 +27,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <QHeaderView>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+#include <QSplitter>
+#include <QSplitterHandle>
+#include <QScrollBar>
 #include <QtCore/QMap>
+
+class SettingsTreeWidget : public QTreeWidget
+{
+public:
+	SettingsTreeWidget(QWidget* parent = 0) : QTreeWidget(parent)
+	{
+		setMinimumWidth(180);
+		header()->hide();
+		setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+//		setRootIsDecorated(false);
+	}
+
+	QSize sizeHint() const
+	{
+		QSize sz = QTreeWidget::sizeHint();
+		sz.setWidth(sizeHintForColumn(0) + verticalScrollBar()->sizeHint().width() + 2 * frameWidth());
+		return sz;
+	}
+};
 
 class MultiPageInterior {
 public:
 	MultiPageInterior(QWidget* mp) {
-		tree_ = new QTreeWidget();
-		tree_->setFixedWidth(180);
-		tree_->header()->hide();
-		tree_->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-//		tree_->setRootIsDecorated(false);
-		
+		tree_ = new SettingsTreeWidget();
+
 		panel_ = new QWidget();
 		panelLayout_ = new QHBoxLayout();
 		panelLayout_->setMargin(0);
@@ -45,17 +63,26 @@ public:
 
 		QHBoxLayout* hbox = new QHBoxLayout();
 		hbox->setMargin(0);
-		hbox->addWidget(tree_);
-		hbox->addWidget(panel_);
+
+		splitter_ = new QSplitter;
+		splitter_->setChildrenCollapsible(false);
+
+		splitter_->addWidget(tree_);
+		splitter_->addWidget(panel_);
+
+		hbox->addWidget(splitter_);
+
 		mp->setLayout(hbox);
 	}
 	~MultiPageInterior() {
 		delete tree_;
 		delete panel_;
+		delete splitter_;
 	}
 
-	QTreeWidget* tree_;
+	SettingsTreeWidget* tree_;
 	QWidget* panel_;
+	QSplitter* splitter_;
 	QHBoxLayout* panelLayout_;
 
 	QMap<QTreeWidgetItem*, SettingsPage*> pages_;

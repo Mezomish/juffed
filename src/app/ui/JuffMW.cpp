@@ -142,11 +142,6 @@ JuffMW::JuffMW() : QMainWindow() {
 	connect(searchPopup_, SIGNAL(closed()), SLOT(onSearchPopupClosed()));
 //	connect(searchPopup_, SIGNAL(searchRequested(const Juff::SearchParams&)), SIGNAL(searchRequested(const Juff::SearchParams&)));
 	
-	statusWidget_ = new QWidget();
-	statusLayout_ = new QHBoxLayout(statusWidget_);
-	statusLayout_->setContentsMargins(1, 1, 1, 1);
-	statusBar()->addWidget(statusWidget_, 1);
-	
 	applySettings();
 }
 
@@ -341,14 +336,6 @@ void JuffMW::addMenu(QMenu* menu) {
 
 void JuffMW::insertMenu(QMenu* before, QMenu* menu) {
 	menuBar()->insertMenu(before->menuAction(), menu);
-}
-
-void JuffMW::addStatusWidget(QWidget* w, int maxWidth) {
-	if ( maxWidth > 0 )
-		w->setMaximumWidth(maxWidth);
-	else if ( maxWidth < 0 )
-		w->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-	statusLayout_->addWidget(w);
 }
 
 void JuffMW::message(const QIcon& icon, const QString& title, const QString& message, Qt::Alignment align, int timeout) {

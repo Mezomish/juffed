@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <QtCore/QDir>
 #include <QtCore/QStringList>
 #include <QPushButton>
+#include <QDialogButtonBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
@@ -275,12 +276,10 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	setWindowTitle(tr("Settings"));
 
 	//	create buttons
-	okBtn_ = new QPushButton(tr("OK"), this);
-	applyBtn_ = new QPushButton(tr("Apply"), this);
-	cancelBtn_ = new QPushButton(tr("Cancel"), this);
-	connect(okBtn_, SIGNAL(clicked()), SLOT(ok()));
-	connect(applyBtn_, SIGNAL(clicked()), SLOT(apply()));
-	connect(cancelBtn_, SIGNAL(clicked()), SLOT(reject()));
+	buttonBox_ = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Apply);
+	connect(buttonBox_, SIGNAL(accepted()), SLOT(ok()));
+	connect(buttonBox_, SIGNAL(rejected()), SLOT(reject()));
+	connect(buttonBox_->button(QDialogButtonBox::Apply), SIGNAL(clicked()), SLOT(apply()));
 	//	create multipage
 	mp_ = new MultiPage();
 
@@ -298,15 +297,9 @@ SettingsDlg::SettingsDlg(QWidget* parent) : QDialog(parent) {
 	colorsPage_->addColor(tr("Selection background color"), "editor", "selectionBgColor", EditorSettings::get(EditorSettings::SelectionBgColor));
 	
 	// layouts
-	QHBoxLayout* btnLayout = new QHBoxLayout();
-	btnLayout->addItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
-	btnLayout->addWidget(okBtn_);
-	btnLayout->addWidget(applyBtn_);
-	btnLayout->addWidget(cancelBtn_);
-
 	QVBoxLayout* mainLayout = new QVBoxLayout();
 	mainLayout->addWidget(mp_);
-	mainLayout->addLayout(btnLayout);
+	mainLayout->addWidget(buttonBox_);
 	setLayout(mainLayout);
 }
 

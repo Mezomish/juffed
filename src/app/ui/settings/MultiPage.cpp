@@ -37,7 +37,6 @@ class SettingsTreeWidget : public QTreeWidget
 public:
 	SettingsTreeWidget(QWidget* parent = 0) : QTreeWidget(parent)
 	{
-		setMinimumWidth(180);
 		header()->hide();
 		setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 //		setRootIsDecorated(false);

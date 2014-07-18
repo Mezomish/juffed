@@ -16,12 +16,6 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>400</width>
-    <height>0</height>
-   </size>
-  </property>
   <property name="windowTitle">
    <string>Find in files</string>
   </property>
@@ -55,7 +49,7 @@
       <bool>true</bool>
      </property>
      <attribute name="buttonGroup">
-      <string>searchTargetGr</string>
+      <string notr="true">searchTargetGr</string>
      </attribute>
     </widget>
    </item>
@@ -74,7 +68,16 @@
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
-      <property name="margin">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
       <item row="1" column="0">
@@ -86,19 +89,6 @@
       </item>
       <item row="1" column="1">
        <widget class="QLineEdit" name="dirEd"/>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="browseBtn">
-        <property name="maximumSize">
-         <size>
-          <width>40</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
       </item>
       <item row="2" column="1" colspan="2">
        <widget class="QCheckBox" name="recursiveChk">
@@ -113,7 +103,7 @@
          <string>All files</string>
         </property>
         <attribute name="buttonGroup">
-         <string>filePatternsGr</string>
+         <string notr="true">filePatternsGr</string>
         </attribute>
        </widget>
       </item>
@@ -123,7 +113,7 @@
          <string>Within the following file patterns</string>
         </property>
         <attribute name="buttonGroup">
-         <string>filePatternsGr</string>
+         <string notr="true">filePatternsGr</string>
         </attribute>
        </widget>
       </item>
@@ -133,12 +123,25 @@
          <string>Excluding the following file pattenrs</string>
         </property>
         <attribute name="buttonGroup">
-         <string>filePatternsGr</string>
+         <string notr="true">filePatternsGr</string>
         </attribute>
        </widget>
       </item>
       <item row="6" column="1" colspan="2">
        <widget class="QLineEdit" name="patternsEd"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QToolButton" name="browseBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -149,7 +152,7 @@
       <string>Find in the specified directory</string>
      </property>
      <attribute name="buttonGroup">
-      <string>searchTargetGr</string>
+      <string notr="true">searchTargetGr</string>
      </attribute>
     </widget>
    </item>

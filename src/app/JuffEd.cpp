@@ -359,7 +359,6 @@ void JuffEd::buildUI() {
 	charsetL_->setToolTip(JuffEd::tr("Current character set"));
 	linesL_->setToolTip(JuffEd::tr("Lines count"));
 
-	posL_->setMinimumWidth(130);
 	charsetL_->setMenu(charsetMenu_);
 	charsetL_->setAlignment(Qt::AlignCenter);
 

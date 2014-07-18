@@ -29,6 +29,21 @@ namespace Juff {
 FileTypesPage::FileTypesPage() : SettingsPage(0) {
 	ui.setupUi(this);
 
+	QIcon listAddIcon = QIcon::fromTheme("list-add");
+	QIcon listRemoveIcon = QIcon::fromTheme("list-remove");
+
+	if (!listAddIcon.isNull() && !listRemoveIcon.isNull()) {
+		ui.addFNBtn->setText("");
+		ui.addFNBtn->setIcon(listAddIcon);
+		ui.removeFNBtn->setText("");
+		ui.removeFNBtn->setIcon(listRemoveIcon);
+
+		ui.addFLBtn->setText("");
+		ui.addFLBtn->setIcon(listAddIcon);
+		ui.removeFLBtn->setText("");
+		ui.removeFLBtn->setIcon(listRemoveIcon);
+	}
+
 	connect(ui.typeList, SIGNAL(currentTextChanged(const QString&)), SLOT(typeChanged(const QString&)));
 	connect(ui.addFNBtn, SIGNAL(clicked()), SLOT(addFileNamePattern()));
 	connect(ui.removeFNBtn, SIGNAL(clicked()), SLOT(removeFileNamePattern()));

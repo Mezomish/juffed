@@ -20,31 +20,24 @@
    <string/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>1</number>
+   </property>
+   <property name="topMargin">
+    <number>1</number>
+   </property>
+   <property name="rightMargin">
+    <number>1</number>
+   </property>
+   <property name="bottomMargin">
+    <number>1</number>
+   </property>
    <property name="horizontalSpacing">
     <number>11</number>
    </property>
    <property name="verticalSpacing">
     <number>2</number>
    </property>
-   <property name="margin">
-    <number>1</number>
-   </property>
-   <item row="0" column="0">
-    <widget class="QPushButton" name="closeBtn">
-     <property name="maximumSize">
-      <size>
-       <width>26</width>
-       <height>26</height>
-      </size>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="1">
     <widget class="QLabel" name="findL">
      <property name="sizePolicy">
@@ -75,12 +68,6 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="findPrevBtn">
-       <property name="maximumSize">
-        <size>
-         <width>30</width>
-         <height>26</height>
-        </size>
-       </property>
        <property name="toolTip">
         <string>Find previous</string>
        </property>
@@ -91,12 +78,6 @@
      </item>
      <item>
       <widget class="QPushButton" name="findNextBtn">
-       <property name="maximumSize">
-        <size>
-         <width>30</width>
-         <height>26</height>
-        </size>
-       </property>
        <property name="toolTip">
         <string>Find next</string>
        </property>
@@ -107,12 +88,6 @@
      </item>
      <item>
       <widget class="QPushButton" name="expandBtn">
-       <property name="maximumSize">
-        <size>
-         <width>30</width>
-         <height>26</height>
-        </size>
-       </property>
        <property name="text">
         <string/>
        </property>
@@ -204,12 +179,6 @@
        <property name="enabled">
         <bool>true</bool>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>30</width>
-         <height>26</height>
-        </size>
-       </property>
        <property name="toolTip">
         <string>Replace previous</string>
        </property>
@@ -222,12 +191,6 @@
       <widget class="QPushButton" name="replaceNextBtn">
        <property name="enabled">
         <bool>true</bool>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>30</width>
-         <height>26</height>
-        </size>
        </property>
        <property name="toolTip">
         <string>Replace next</string>
@@ -242,12 +205,6 @@
        <property name="enabled">
         <bool>true</bool>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>30</width>
-         <height>26</height>
-        </size>
-       </property>
        <property name="toolTip">
         <string>Replace all</string>
        </property>
@@ -258,21 +215,15 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="4" colspan="3">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="0" column="0">
+    <widget class="QPushButton" name="closeBtn">
+     <property name="text">
+      <string/>
      </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Preferred</enum>
+     <property name="flat">
+      <bool>true</bool>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
+    </widget>
    </item>
   </layout>
  </widget>

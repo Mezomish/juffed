@@ -26,10 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 SearchPopup::SearchPopup() : QWidget() {
 	ui.setupUi(this);
-	setMaximumHeight(65);
 	collapsed_ = true;
 	
-	ui.closeBtn->setIcon(QIcon(":close"));
+	ui.closeBtn->setIcon(QIcon::fromTheme("window-close", QIcon(":close")));
 	ui.findPrevBtn->setIcon(QIcon(":find_prev"));
 	ui.findNextBtn->setIcon(QIcon(":find_next"));
 	ui.findPrevBtn->setText("");

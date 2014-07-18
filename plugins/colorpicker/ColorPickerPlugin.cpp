@@ -10,10 +10,10 @@
 #include "ColorFormatDlg.h"
 
 ColorPickerPlugin::ColorPickerPlugin() : QObject(), JuffPlugin() {
-	_pickColorAct = new QAction(QIcon(":icon32"), "Pick a color", this);
+	_pickColorAct = new QAction(QIcon(":icon32"), tr("Pick a color"), this);
 	connect(_pickColorAct, SIGNAL(triggered()), SLOT(pickColor()));
 	// toolbar
-	_toolBar = new QToolBar("ColorPickerPlugin");
+	_toolBar = new QToolBar(tr("Color Picker"));
 	_toolBar->setObjectName("ColorPickerToolbar");
 	_toolBar->addAction(_pickColorAct);
 }
@@ -23,6 +23,10 @@ ColorPickerPlugin::~ColorPickerPlugin() {
 
 QString ColorPickerPlugin::name() const {
 	return "Color Picker";
+}
+
+QString ColorPickerPlugin::title() const {
+	return tr("Color Picker");
 }
 
 QString ColorPickerPlugin::targetEngine() const {

@@ -60,7 +60,7 @@ Document::Document(const QString& fileName)
 //, clone_(NULL)
 {
 	if (fileName.isEmpty()) {
-		fileName_ = QString("Untitled %1").arg(sCount_++);
+		fileName_ = QString(tr("Untitled %1")).arg(sCount_++);
 	}
 	else {
 		fileName_ = fileName;
@@ -131,7 +131,7 @@ bool Document::isNoname(const QString& fileName, bool* ok) {
 		}
 		return true;
 	}
-	return fileName.startsWith("Untitled");
+	return fileName.startsWith(tr("Untitled"));
 }
 
 bool Document::isNoname() const {

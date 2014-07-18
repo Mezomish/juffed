@@ -32,7 +32,7 @@ public:
 		searchAct_->setIcon(parent->api()->iconManager()->icon("main:find"));
 
 		//	create toolbar
-		toolBar_ = new QToolBar("Find In Files");
+		toolBar_ = new QToolBar(tr("Find In Files"));
 		toolBar_->setObjectName("FindInFilesToolBar");
 		toolBar_->addWidget(new QLabel(tr("Find: ")));
 		toolBar_->addWidget(ed_);
@@ -42,7 +42,7 @@ public:
 		//	create widget that will be embedded into dock 
 		//	and put controls to it
 		widget_ = new QWidget();
-		widget_->setWindowTitle("Search results");
+		widget_->setWindowTitle(tr("Search results"));
 		tree_ = new QTreeWidget();
 		QVBoxLayout* vBox = new QVBoxLayout();
 
@@ -51,7 +51,7 @@ public:
 		widget_->setLayout(vBox);
 
 		QStringList labels;
-		labels << "File" << "Line" << "Text" << "Column";
+		labels << tr("File") << tr("Line") << tr("Text") << tr("Column");
 		tree_->setHeaderLabels(labels);
 		tree_->setRootIsDecorated(false);
 #if QT_VERSION < 0x050000
@@ -104,6 +104,10 @@ FindInFilesPlugin::~FindInFilesPlugin() {
 
 QString FindInFilesPlugin::name() const {
 	return "Find In Files";
+}
+
+QString FindInFilesPlugin::title() const {
+	return tr("Find In Files");
 }
 
 QString FindInFilesPlugin::targetEngine() const {

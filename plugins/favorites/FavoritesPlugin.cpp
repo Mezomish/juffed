@@ -8,7 +8,7 @@
 #include <PluginSettings.h>
 
 FavoritesPlugin::FavoritesPlugin() : QObject(), JuffPlugin() {
-	menu_ = new QMenu("Favorites");
+	menu_ = new QMenu(tr("F&avorites"));
 	addAct_ = new QAction(tr("Add current file"), 0);
 	manageAct_ = new QAction(tr("Manage favorites"), 0);
 	connect(addAct_, SIGNAL(triggered()), SLOT(addCurrent()));
@@ -22,6 +22,10 @@ FavoritesPlugin::~FavoritesPlugin() {
 
 QString FavoritesPlugin::name() const {
 	return "Favorites";
+}
+
+QString FavoritesPlugin::title() const {
+	return tr("Favorites");
 }
 
 QString FavoritesPlugin::targetEngine() const {

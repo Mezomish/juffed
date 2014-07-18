@@ -19,6 +19,8 @@ public:
 
 	//	plugin name
 	virtual QString name() const;
+	//	plugin title
+	virtual QString title() const;
 	//	plugin description
 	virtual QString description() const;
 	//	engines

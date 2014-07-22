@@ -29,6 +29,10 @@ QString DocListPlugin::name() const {
 	return "Documents List";
 }
 
+QString DocListPlugin::title() const {
+	return tr("Documents List");
+}
+
 QString DocListPlugin::targetEngine() const {
 	return "all";
 }

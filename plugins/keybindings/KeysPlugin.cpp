@@ -25,6 +25,10 @@ QString KeysPlugin::name() const {
 	return "Keybindings";
 }
 
+QString KeysPlugin::title() const {
+	return tr("Key bindings");
+}
+
 QString KeysPlugin::targetEngine() const {
 	return "all";
 }

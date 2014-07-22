@@ -45,6 +45,7 @@ public:
     void init();
 
     QString name() const;
+    QString title() const;
     QString description() const;
     QString targetEngine() const;
 

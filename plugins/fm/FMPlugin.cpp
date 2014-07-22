@@ -102,6 +102,10 @@ QString FMPlugin::name() const {
 	return "File manager";
 }
 
+QString FMPlugin::title() const {
+	return tr("File manager");
+}
+
 QString FMPlugin::targetEngine() const {
 	return "all";
 }

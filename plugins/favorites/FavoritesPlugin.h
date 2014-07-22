@@ -17,6 +17,7 @@ public:
 
 	//	info
 	virtual QString name() const;
+	virtual QString title() const;
 	virtual QString description() const;
 	virtual QString targetEngine() const;
 

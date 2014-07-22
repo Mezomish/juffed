@@ -43,6 +43,10 @@ QString XmlformatPlugin::name() const {
 	return "XML Formatter";
 }
 
+QString XmlformatPlugin::title() const {
+	return tr("XML Formatter");
+}
+
 QString XmlformatPlugin::targetEngine() const {
 	return "all";
 }
@@ -53,7 +57,7 @@ QString XmlformatPlugin::description() const {
 
 QToolBar* XmlformatPlugin::toolBar() const
 {
-    QToolBar * bar = new QToolBar("XML Formatter");
+    QToolBar * bar = new QToolBar(tr("XML Formatter"));
     bar->addAction(actDoc);
     bar->setObjectName("XMLFormatterToolBar");
     return bar;

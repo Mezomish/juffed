@@ -168,7 +168,7 @@ void JuffEd::initUI() {
 
 	CommandStorageInt* st = Juff::Utils::commandStorage();
 	
-	QToolBar* mainToolBar = new QToolBar("mainToolBar");
+	QToolBar* mainToolBar = new QToolBar(tr("Main toolbar"));
 	mainToolBar->setObjectName("mainToolBar");
 	mainToolBar->addAction(st->action(FILE_NEW));
 	mainToolBar->addAction(st->action(FILE_OPEN));

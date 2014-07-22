@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <QtCore/QMap>
 #include <QDialog>
 
-class QPushButton;
+class QDialogButtonBox;
 class MultiPage;
 class PluginPage;
 class ColorSettingsPage;
@@ -55,9 +55,7 @@ protected slots:
 private:
 	void init();
 
-	QPushButton* okBtn_;
-	QPushButton* applyBtn_;
-	QPushButton* cancelBtn_;
+	QDialogButtonBox* buttonBox_;
 	MultiPage* mp_;
 
 	QWidget* pluginsMainPage_;

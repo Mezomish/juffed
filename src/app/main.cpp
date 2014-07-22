@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QTranslator>
+#include <QLibraryInfo>
 #include <qtsingleapplication.h>
 
 #include <iostream>
@@ -82,6 +83,9 @@ void loadTranslations(QApplication& app) {
 		}
 	}
 	
+	QTranslator* qtTranslator = new QTranslator;
+	qtTranslator->load("qt_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
+	app.installTranslator(qtTranslator);
 	// TODO : load plugins translations
 }
 

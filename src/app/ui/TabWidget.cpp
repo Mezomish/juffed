@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QUrl>
 #include <QMimeData>
+#include <QStyle>
 
 #include "CommandStorage.h"
 #include "Constants.h"
@@ -24,23 +25,21 @@ namespace Juff {
 class DocListButton : public QPushButton {
 public:
 	DocListButton(const QIcon& icon) : QPushButton(icon, "") {
-		setMinimumSize(sz, sz);
-		setMaximumSize(sz, sz);
+		sz = style()->pixelMetric(QStyle::PM_ToolBarIconSize);
+
+		setFixedSize(sz, sz);
 		setFlat(true);
-		
-		menu_ = new QMenu();
-		setMenu(menu_);
+
+		setMenu(new QMenu());
 	}
-	
+
 	virtual QSize sizeHint() const {
 		return QSize(sz, sz);
 	}
-	
-	static const int sz;
-	QMenu* menu_;
-};
 
-const int DocListButton::sz = 24;
+private:
+	int sz;
+};
 
 TabWidget::TabWidget(Juff::DocHandlerInt* handler) : QTabWidget() {
 	handler_ = handler;
@@ -157,12 +156,12 @@ void TabWidget::slotCopyDirPath() {
 void TabWidget::onDocListNeedsToBeShown() {
 	LOGGER;
 	
-	docListBtn_->menu_->clear();
+	docListBtn_->menu()->clear();
 	int n = count();
 	for ( int i = 0; i < n; ++i ) {
 		Juff::Document* doc = qobject_cast<Juff::Document*>(widget(i));
 		if ( doc != 0 ) {
-			docListBtn_->menu_->addAction(doc->icon(), doc->title(), this, SLOT(onDocMenuItemSelected()))->setData(i);
+			docListBtn_->menu()->addAction(doc->icon(), doc->title(), this, SLOT(onDocMenuItemSelected()))->setData(i);
 		}
 	}
 }

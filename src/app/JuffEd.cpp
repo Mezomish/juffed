@@ -11,6 +11,7 @@
 #include <QInputDialog>
 #include <QMessageBox>
 #include <QToolBar>
+#include <QStatusBar>
 
 #include "AppInfo.h"
 #include "CharsetSettings.h"
@@ -350,7 +351,6 @@ void JuffEd::buildUI() {
 	// statusbar
 	posL_ = new Juff::StatusLabel("");
 	nameL_ = new Juff::StatusLabel("");
-	nameL_->setFrameStyle(QFrame::Plain);
 	charsetL_ = new Juff::StatusLabel("");
 	linesL_ = new Juff::StatusLabel("");
 
@@ -359,7 +359,6 @@ void JuffEd::buildUI() {
 	charsetL_->setToolTip(JuffEd::tr("Current character set"));
 	linesL_->setToolTip(JuffEd::tr("Lines count"));
 
-	posL_->setMinimumWidth(130);
 	charsetL_->setMenu(charsetMenu_);
 	charsetL_->setAlignment(Qt::AlignCenter);
 
@@ -370,10 +369,10 @@ void JuffEd::buildUI() {
 	filePathMenu->addAction(Juff::Utils::iconManager()->icon(EDIT_COPY), tr("Copy"), this, SLOT(slotCopyFilePath()));
 	nameL_->setMenu(filePathMenu);
 	
-	mw_->addStatusWidget(posL_, 0);
-	mw_->addStatusWidget(nameL_, -1);
-	mw_->addStatusWidget(linesL_, 0);
-	mw_->addStatusWidget(charsetL_, 0);
+	mw_->statusBar()->addWidget(posL_);
+	mw_->statusBar()->addWidget(nameL_, 1);
+	mw_->statusBar()->addWidget(linesL_);
+	mw_->statusBar()->addWidget(charsetL_);
 	posL_->hide();
 	nameL_->hide();
 	charsetL_->hide();
@@ -383,7 +382,7 @@ void JuffEd::buildUI() {
 	foreach(Juff::DocEngine* eng, engines_) {
 		QWidgetList statusWidgets = eng->statusWidgets();
 		foreach (QWidget* w, statusWidgets) {
-			mw_->addStatusWidget(w, 0);
+			mw_->statusBar()->addWidget(w);
 			w->show();
 		}
 	}

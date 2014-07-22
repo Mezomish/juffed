@@ -54,7 +54,6 @@ public:
 	QString getOpenSessionName( bool& );
 
 	// information display
-	void addStatusWidget(QWidget*, int);
 	void addToolBar(QToolBar*);
 	void addMenu(QMenu*);
 	void insertMenu(QMenu* before, QMenu* menu);
@@ -103,8 +102,6 @@ private:
 	QWidget* mainWidget_;
 	AboutDlg* aboutDlg_;
 //	FindDlg* findDlg_;
-	QWidget* statusWidget_;
-	QHBoxLayout* statusLayout_;
 	QList<QToolBar*> allToolBars_;
 	QList<QToolBar*> hiddenToolBars_;
 	SearchPopup* searchPopup_;

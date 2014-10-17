@@ -95,7 +95,7 @@ FMPlugin::~FMPlugin() {
     sortColumn = tree_->header()->sortIndicatorSection();
     PluginSettings::set(this, "sortColumn", sortColumn);
 
-	delete w_;
+	w_->deleteLater();
 }
 
 QString FMPlugin::name() const {

@@ -68,7 +68,7 @@ public:
 		tree_->setAlternatingRowColors(true);
 	}
 	~PluginInterior() {
-		delete widget_;
+		widget_->deleteLater();
 	}
 	
 	QLineEdit* ed_;
@@ -99,7 +99,8 @@ void FindInFilesPlugin::init() {
 }
 
 FindInFilesPlugin::~FindInFilesPlugin() { 
-	delete pInt_;
+    if (pInt_)
+	    delete pInt_;
 }
 
 QString FindInFilesPlugin::name() const {

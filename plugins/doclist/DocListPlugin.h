@@ -2,7 +2,6 @@
 #define _DOC_LIST_PLUGIN_H_
 
 class DocListPanel;
-class QTreeWidgetItem;
 
 #include <QObject>
 
@@ -35,13 +34,6 @@ public slots:
 	void onDocClosed(Juff::Document*);
 	void onDocRenamed(Juff::Document*, const QString& oldName);
 	void onDocModified(Juff::Document*);
-
-//	virtual void onTabMoved(int from, int to);
-//
-//	virtual void applySettings();
-
-protected slots:
-	void docClicked(QTreeWidgetItem*, int);
 
 private:
 	DocListPanel* panel_;

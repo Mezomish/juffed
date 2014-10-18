@@ -1,17 +1,22 @@
 #ifndef __DOC_LIST_PLUGIN_PANEL_H__
 #define __DOC_LIST_PLUGIN_PANEL_H__
 
-#include <QContextMenuEvent>
-#include <QHBoxLayout>
-#include <QLineEdit>
-#include <QMenu>
-#include <QPushButton>
 #include <QWidget>
-#include <QTreeWidget>
+#include <QAbstractListModel>
+#include <QSortFilterProxyModel>
+#include <QFileIconProvider>
 
-static const int BtnSize = 24;
+class QTreeView;
+class QLineEdit;
+class JuffAPI;
 
 #if QT_VERSION < 0x050200
+static const int BtnSize = 24;
+
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QLineEdit>
+
 class FilterLineEdit : public QWidget {
 public:
 	FilterLineEdit(QWidget* parent = 0) : QWidget(parent) {
@@ -45,48 +50,73 @@ public:
 };
 #endif
 
-class TreeWidget : public QTreeWidget {
+
+class FileListModel : public QAbstractListModel
+{
+    Q_OBJECT
+
 public:
-	TreeWidget() : QTreeWidget() {
-		contextMenu_ = new QMenu();
-//		contextMenu_->addAction(CommandStorage::instance()->action(Juff::FileSave));
-//		contextMenu_->addAction(CommandStorage::instance()->action(Juff::FileClose));
-	}
-	virtual ~TreeWidget() {
-		delete contextMenu_;
-	}
-	
-	virtual void contextMenuEvent(QContextMenuEvent * event) {
-		contextMenu_->popup(event->globalPos());
-	}
-	
-	QMenu* contextMenu_;
+    FileListModel(QObject *parent);
+
+    int rowCount(const QModelIndex & parent = QModelIndex()) const;
+    int columnCount(const QModelIndex & parent = QModelIndex()) const;
+    QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
+
+    QString file(const QModelIndex &index);
+
+    void docOpened(const QString &fname, const QString &title);
+    void docActivated(const QString &fname);
+    void docClosed(const QString &fname);
+    void docRenamed(const QString &fname, const QString &title, const QString &oldName);
+    void docModified(const QString &fname, const QString &title);
+
+private:
+    // filename -> doc title
+    QHash<QString,QString> m_files;
+    QString m_currentFile;
+    QFileIconProvider m_icons;
 };
 
 
+class FileListFilterModel : public QSortFilterProxyModel
+{
+    Q_OBJECT
+
+public:
+    FileListFilterModel(QWidget *parent);
+};
 
 class DocListPanel : public QWidget {
 Q_OBJECT
 public:
-	DocListPanel();
+    DocListPanel(JuffAPI *api);
 
-	// Yes, it's an incapsulation violation but I'll better keep
-	// it this way (for now) than introduce either 5 additional
-	// methods to manage these members or two methods disclosing them
-	// completely (which has no difference between it and currently 
-	// selected approach).
-	TreeWidget* tree_;
-#if QT_VERSION < 0x050200
-	FilterLineEdit* filter_;
-#else
-	QLineEdit* filter_;
-#endif
+    void docOpened(const QString &fname, const QString &title);
+    void docActivated(const QString &fname);
+    void docClosed(const QString &fname);
+    void docRenamed(const QString &fname, const QString &title, const QString &oldName);
+    void docModified(const QString &fname, const QString &title);
 
 public slots:
-	void filterItems(const QString& text);
 #if QT_VERSION < 0x050200
 	void clear();
 #endif
+
+private:
+    JuffAPI *api_;
+    QTreeView* tree_;
+    FileListFilterModel *proxy_;
+    FileListModel *model_;
+
+#if QT_VERSION < 0x050200
+    FilterLineEdit* filter_;
+#else
+    QLineEdit* filter_;
+#endif
+
+private slots:
+    void docClicked(const QModelIndex &index);
 };
 
 #endif

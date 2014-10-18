@@ -6,8 +6,6 @@ class QTermWidget;
 
 #include <QtCore>
 #include <QtCore/QObject>
-//#include <QtCore/QStack>
-//#include <QtGui/QDirModel>
 
 #include <JuffPlugin.h>
 
@@ -31,6 +29,9 @@ class Preferences : public QWidget, Ui::Preferences
 
 class TerminalPlugin : public QObject, public JuffPlugin {
 Q_OBJECT
+#if QT_VERSION >= 0x050000
+    Q_PLUGIN_METADATA(IID JuffPlugin_iid)
+#endif
 Q_INTERFACES(JuffPlugin)
 public:
 	TerminalPlugin();

@@ -1,12 +1,18 @@
 # terminal
-find_package(QTermWidget REQUIRED)
+set (terminal_SRC TerminalPlugin.cpp)
+set (terminal_UI preferences.ui)
 
-include_directories(${QTERMWIDGET_INCLUDE_DIR})
+if (USE_QT5)
+    find_package ( QTermWidget5 REQUIRED )
+    qt5_wrap_ui(terminal_UI_SRC ${terminal_UI})
+else (USE_QT5)
+    find_package ( QTermWidget4 REQUIRED )
+    qt4_wrap_ui(terminal_UI_SRC ${terminal_UI})
+endif (USE_QT5)
 
-QT4_WRAP_CPP(terminal_MOC terminal/TerminalPlugin.h)
-QT4_WRAP_UI(terminal_UI terminal/preferences.ui)
-set(terminal_SRC terminal/TerminalPlugin.cpp)
-add_library(terminal SHARED ${terminal_SRC} ${terminal_MOC} ${terminal_UI})
-target_link_libraries(terminal ${JUFFED_LIBRARY} ${QT_LIBRARIES} ${QTERMWIDGET_LIBRARIES})
+include_directories(${QTERMWIDGET_INCLUDE_DIRS})
+
+add_library(terminal SHARED ${terminal_SRC} ${terminal_MOC} ${terminal_UI_SRC})
+target_link_libraries(terminal ${JUFFED_LIBRARY} ${QTERMWIDGET_QT_LIBRARIES} ${QTERMWIDGET_LIBRARIES})
 install(TARGETS terminal DESTINATION ${JUFFED_PLUGINS_DIR})
 

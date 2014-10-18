@@ -5,7 +5,6 @@
 #include <QWidget>
 
 #include <Log.h>
-//#include <MainSettings.h>
 #include <PluginSettings.h>
 
 #include "qtermwidget.h"
@@ -150,5 +149,9 @@ void TerminalPlugin::showTerminal()
 	}
 }
 
+#include "TerminalPlugin.moc"
+
+#if QT_VERSION < 0x050000
 Q_EXPORT_PLUGIN2(terminal, TerminalPlugin)
+#endif
 

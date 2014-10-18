@@ -28,7 +28,7 @@ JumpToFileDlg::JumpToFileDlg(const QStringList& files, QWidget* parent) : QDialo
 	ui_.setupUi(this);
 	
 	foreach (QString fileName, files) {
-		QListWidgetItem* item = new QListWidgetItem(QFileInfo(fileName).fileName());
+        QListWidgetItem* item = new QListWidgetItem(QFileInfo(fileName).absoluteFilePath());
 		item->setData(Qt::UserRole + 1, fileName);
 		ui_.fileList->addItem(item);
 	}

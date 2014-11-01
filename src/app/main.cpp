@@ -109,10 +109,13 @@ void processParams(JuffEd& juffed, QStringList params) {
 	// binary name itself
 	params.removeFirst();
 	foreach ( QString param, params ) {
-		if ( QFileInfo(param).exists() ) {
+// #17 Properly open non-existing files
+// When opening a file that does not exist, juffed just focuses/opens, but
+//  does not open the file. Juffed should virtually open the file, and create it on save.
+//		if ( QFileInfo(param).exists() ) {
 			juffed.openDoc(QFileInfo(param).absoluteFilePath());
 		}
-	}
+//	}
 }
 
 bool hasValidDoubleDashParam( const QCoreApplication& app ) {

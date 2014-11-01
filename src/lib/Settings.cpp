@@ -156,6 +156,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key.compare("tabPosition") == 0 )            return -1;
 		if ( key.compare("toolButtonStyle") == 0 )        return -1;
 		if ( key.compare("iconSize") == 0 )               return -1;
+		if ( key.compare("startWithEmptySession") == 0 )  return false;
 	}
 	else if ( section.compare("autocomplete") == 0 ) {
 		if ( key.compare("useDocument") == 0 )   return true;

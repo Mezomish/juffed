@@ -62,9 +62,11 @@ JuffEd::JuffEd() : Juff::PluginNotifier(), Juff::DocHandlerInt() {
 	
 	search_ = new SearchEngine(this, mw_);
 	
-	setSessionName( MainSettings::get( MainSettings::LastSession ) );
-	if ( !loadSession() ) {
-		slotFileNew();
+	if (!MainSettings::get(MainSettings::StartWithEmptySession)) {
+		setSessionName( MainSettings::get( MainSettings::LastSession ) );
+		if ( !loadSession() ) {
+			slotFileNew();
+		}
 	}
 	
 	if ( viewer_->docCount(Juff::PanelAll) == 0 ) {

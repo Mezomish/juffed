@@ -92,6 +92,10 @@ void MainSettings::set(BoolKey key, bool value) {
 		case SearchCaseSensitive :
 			Settings::instance()->setValue("main", "searchCaseSensitive", value);
 			break;
+
+		case StartWithEmptySession :
+			Settings::instance()->setValue("main", "startWithEmptySession", value);
+			break;
 		
 		default: ;
 	}
@@ -180,6 +184,10 @@ bool MainSettings::get(BoolKey key) {
 		
 		case SearchCaseSensitive :
 			return Settings::instance()->boolValue("main", "searchCaseSensitive");
+			break;
+
+		case StartWithEmptySession :
+			return Settings::instance()->boolValue("main", "startWithEmptySession");
 			break;
 		
 		default :

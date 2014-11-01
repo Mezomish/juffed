@@ -47,6 +47,7 @@ public:
 		FSHideStatusbar,
 		UseCtrlTabMenu,
 		SearchCaseSensitive,
+		StartWithEmptySession,
 	};
 	
 	enum IntKey {

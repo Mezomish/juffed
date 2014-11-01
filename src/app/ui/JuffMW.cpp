@@ -92,7 +92,7 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	thanksTo
 			<< Helper("Eugene Pivnev", "ti.eugene@gmail.com", "mailto:ti.eugene@gmail.com", QObject::tr("Packaging, testing"))
 			<< Helper("Alexander Sokoloff", "sokoloff.a@gmail.com", "mailto:sokoloff.a@gmail.com", QObject::tr("Testing, design ideas, feature requests"))
-			<< Helper("Petr Vanek", "petr@scribus.info", "mailto:petr@scribus.info", QObject::tr("Patches, Mac OS X port"))
+			<< Helper("Petr Vanek", "petr@yarpen.cz", "mailto:petr@yarpen.cz", QObject::tr("Patches, Mac OS X port"))
 			<< Helper("David Stegbauer", "daaste@gmail.com", "mailto:daaste@gmail.com", QObject::tr("Patches"))
 			<< Helper("\"SoftIcon\"", "http://softicon.ru/", "http://softicon.ru/", QObject::tr("Application icon"))
 			<< Helper("Evgeny Muravjev Studio", "http://emuravjev.ru/", "http://emuravjev.ru/", QObject::tr("Website"))

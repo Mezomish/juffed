@@ -35,16 +35,7 @@
       <property name="spacing">
        <number>9</number>
       </property>
-      <property name="leftMargin">
-       <number>9</number>
-      </property>
-      <property name="topMargin">
-       <number>9</number>
-      </property>
-      <property name="rightMargin">
-       <number>9</number>
-      </property>
-      <property name="bottomMargin">
+      <property name="margin">
        <number>9</number>
       </property>
       <item>
@@ -64,6 +55,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="startWithEmptySessionChk">
+        <property name="text">
+         <string>Always start with an empty session</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -76,16 +74,7 @@
       <property name="spacing">
        <number>9</number>
       </property>
-      <property name="leftMargin">
-       <number>9</number>
-      </property>
-      <property name="topMargin">
-       <number>9</number>
-      </property>
-      <property name="rightMargin">
-       <number>9</number>
-      </property>
-      <property name="bottomMargin">
+      <property name="margin">
        <number>9</number>
       </property>
       <item>
@@ -114,16 +103,7 @@
       <property name="spacing">
        <number>9</number>
       </property>
-      <property name="leftMargin">
-       <number>9</number>
-      </property>
-      <property name="topMargin">
-       <number>9</number>
-      </property>
-      <property name="rightMargin">
-       <number>9</number>
-      </property>
-      <property name="bottomMargin">
+      <property name="margin">
        <number>9</number>
       </property>
       <item>

@@ -273,7 +273,7 @@ if ( MINGW )
 
     # resource compilation for MinGW
     add_custom_command ( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/app/juffed_ico.o
-        COMMAND windres.exe -I${CMAKE_CURRENT_SOURCE_DIR}/src/app -i${CMAKE_CURRENT_SOURCE_DIR}/src/app/juffed.rc 
+        COMMAND $(WINDRES) -I${CMAKE_CURRENT_SOURCE_DIR}/src/app -i${CMAKE_CURRENT_SOURCE_DIR}/src/app/juffed.rc 
             -o ${CMAKE_CURRENT_BINARY_DIR}/src/app/juffed_ico.o )
     set ( juffed_app_SRCS ${juffed_app_SRCS} ${CMAKE_CURRENT_BINARY_DIR}/src/app/juffed_ico.o)
 endif ( MINGW )

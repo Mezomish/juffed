@@ -49,6 +49,7 @@
 #include <QtNetwork/QLocalServer>
 #include <QtNetwork/QLocalSocket>
 #include <QtCore/QDir>
+#include <QtCore/QDataStream>
 
 namespace QtLP_Private {
 #include "qtlockedfile.h"

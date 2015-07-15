@@ -82,11 +82,11 @@
     </message>
     <message>
         <source>The file &apos;%1&apos; was modified by external program.</source>
-        <translation>O ficheiro %1 foi modificado po um programa externo.</translation>
+        <translation>O ficheiro %1 foi modificado por um programa externo.</translation>
     </message>
     <message>
         <source>Save current</source>
-        <translation>Gravar atual</translation>
+        <translation>Guardar atual</translation>
     </message>
     <message>
         <source>Reload from disk</source>
@@ -141,7 +141,7 @@
     </message>
     <message>
         <source>Backspace removes indent</source>
-        <translation>Backspace remote avanço</translation>
+        <translation>Backspace remove o avanço</translation>
     </message>
     <message>
         <source>Misc</source>
@@ -151,9 +151,9 @@
         <source>If &quot;Replace tabs with spaces&quot; option is checked, 
 the current option lets backspace key to remove the 
 whole indent instead of removind single whitespace</source>
-        <translation>Se a opção &quot;Substituir tabulações por espaços&quot; estiver ativa,
+        <translation>Se &quot;Substituir tabulações por espaços&quot; estiver ativa,
 a opção atual permite que a tecla Backspace remova o
-avanço em vez de remover um espaço em branco</translation>
+avanço em vez de remover o espaço em branco</translation>
     </message>
     <message>
         <source>Line length indicator</source>
@@ -472,11 +472,11 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Gravar</translation>
+        <translation>&amp;Guardar</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation>Gravar como</translation>
+        <translation>Guardar como</translation>
     </message>
     <message>
         <source>Close</source>
@@ -564,7 +564,7 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>Save all</source>
-        <translation>Gravar tudo</translation>
+        <translation>Guardar tudo</translation>
     </message>
     <message>
         <source>&amp;Reload</source>
@@ -580,7 +580,7 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>Save session as...</source>
-        <translation>Gravar sessão como...</translation>
+        <translation>Guardar sessão como...</translation>
     </message>
     <message>
         <source>Go to file</source>
@@ -604,7 +604,7 @@ Você quer salvar as alterações?</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation>&amp;Procurar</translation>
+        <translation>Pe&amp;squisar</translation>
     </message>
     <message>
         <source>For&amp;mat</source>
@@ -680,8 +680,8 @@ Você quer salvar as alterações?</translation>
     <message>
         <source> has been modified.
 Do you want to save your changes?</source>
-        <translation> foi modificado..
-Quer gravar as alterações?</translation>
+        <translation> foi modificado.
+Gostaria de guardar as alterações?</translation>
     </message>
     <message>
         <source>Close document</source>
@@ -697,7 +697,7 @@ Quer gravar as alterações?</translation>
     </message>
     <message>
         <source>Save %1 as...</source>
-        <translation>Gravar %1 como...</translation>
+        <translation>Guardar %1 como...</translation>
     </message>
     <message>
         <source>Rename file</source>
@@ -705,7 +705,7 @@ Quer gravar as alterações?</translation>
     </message>
     <message>
         <source>Input new file name:</source>
-        <translation>Escreva o novo nome:</translation>
+        <translation>Digite o novo nome:</translation>
     </message>
 </context>
 <context>
@@ -747,7 +747,7 @@ Quer gravar as alterações?</translation>
     </message>
     <message>
         <source>Make backup copy when save file</source>
-        <translation>Criar cópia de segurança ao gravar o ficheiro</translation>
+        <translation>Criar cópia de segurança ao guardar o ficheiro</translation>
     </message>
     <message>
         <source>Save session when close</source>
@@ -767,7 +767,7 @@ Quer gravar as alterações?</translation>
     </message>
     <message>
         <source>Saving</source>
-        <translation>Gravar</translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <source>Strip trailing spaces</source>
@@ -848,7 +848,7 @@ Quer gravar as alterações?</translation>
     </message>
     <message>
         <source>French translation</source>
-        <translation>Tradução francesa</translation>
+        <translation>Tradução em francês</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -1016,7 +1016,7 @@ Continuar do começo?</translation>
     </message>
     <message>
         <source>Keep syntax highlighting</source>
-        <translation>Manter destaque de sintaxe</translation>
+        <translation>Manter realce de sintaxe</translation>
     </message>
     <message>
         <source>Keep background color</source>
@@ -1028,7 +1028,7 @@ Continuar do começo?</translation>
     </message>
     <message>
         <source>Syntax highlighting</source>
-        <translation>Destaque de sintaxe</translation>
+        <translation>Realce de sintaxe</translation>
     </message>
     <message>
         <source>Line endings</source>
@@ -1191,7 +1191,7 @@ Continuar do começo?</translation>
     </message>
     <message>
         <source>Directive Operand</source>
-        <translation>Operand de diretiva</translation>
+        <translation>Operador de diretiva</translation>
     </message>
     <message>
         <source>Comment Block</source>
@@ -1423,7 +1423,7 @@ Continuar do começo?</translation>
     </message>
     <message>
         <source>Section Definition</source>
-        <translation>Definição de secção</translation>
+        <translation>Definição pela secção</translation>
     </message>
     <message>
         <source>Subsection Definition</source>
@@ -1466,7 +1466,7 @@ Continuar do começo?</translation>
     <name>SciDoc</name>
     <message>
         <source>Can&apos;t open file for writing</source>
-        <translation>Não pode abrir o ficheiro para escrita</translation>
+        <translation>Não foi possível abrir o ficheiro</translation>
     </message>
 </context>
 <context>
@@ -1677,11 +1677,11 @@ Continuar do começo?</translation>
     </message>
     <message>
         <source>Save selected</source>
-        <translation>Gravar selecionados</translation>
+        <translation>Guardar selecionados</translation>
     </message>
     <message>
         <source>Do not save</source>
-        <translation>Não gravar</translation>
+        <translation>Não guardar</translation>
     </message>
     <message>
         <source>Do not close</source>
@@ -1689,11 +1689,11 @@ Continuar do começo?</translation>
     </message>
     <message>
         <source>Please select files you&apos;d like to save.</source>
-        <translation>Selecione os ficheiros que quer gravar.</translation>
+        <translation>Selecione os ficheiros que quer guardar.</translation>
     </message>
     <message>
         <source>Save all</source>
-        <translation>Gravar todos</translation>
+        <translation>Guardar todos</translation>
     </message>
 </context>
 <context>
@@ -1829,7 +1829,7 @@ Continuar do começo?</translation>
     </message>
     <message>
         <source>Text under the icon</source>
-        <translation>Text abaixo dos ícones</translation>
+        <translation>Texto abaixo dos ícones</translation>
     </message>
     <message>
         <source>North</source>

@@ -65,8 +65,8 @@ AboutDlg* createAboutDlg(QWidget* parent) {
 	QString text = QString("   %1   <br><br>").arg(QObject::tr("Advanced text editor"));
 	text += "   Copyright &copy; 2007-2010 Mikhail Murzin   <br><br>";
 	text += "<a href=\"http://juffed.com/\">http://juffed.com</a><br><br>";
-	text += "<a href=\"https://github.com/Mezomish/juffed/issues \">Report a bug</a><br><br>";
-	text += "<a href=\"http:///https://github.com/Mezomish/juffed/issues\">Request a feature</a>";
+	text += "<a href=\"https://github.com/Mezomish/juffed/issues\">Report a bug</a><br><br>";
+	text += "<a href=\"https://github.com/Mezomish/juffed/issues\">Request a feature</a>";
 	
 	QString auth("<br>&nbsp;Mikhail Murzin a.k.a. Mezomish<br>&nbsp;&nbsp;<a href='mailto:mezomish@gmail.com'>mezomish@gmail.com</a>");
 

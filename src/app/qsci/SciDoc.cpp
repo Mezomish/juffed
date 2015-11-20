@@ -871,7 +871,7 @@ void SciDoc::toggleCommentLines() {
 	QString s = syntax();
 	if ( s == "C++" || s == "PHP" || s == "C#" || s == "Java" || s == "JavaScript" )
 		comment = "//";
-	else if ( s == "Bash" || s == "Python" || s == "CMake" || s == "Makefile" || s == "Perl")
+	else if ( s == "Bash" || s == "Python" || s == "CMake" || s == "Makefile" || s == "Perl" || s == "Properties")
 		comment = "#";
 	else if ( s == "Fortran" )
 		comment = "!";

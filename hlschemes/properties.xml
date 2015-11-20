@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE JuffScheme>
+<JuffScheme>
+<scheme name="Properties">
+	<style name="assignment" color="#990000" />
+	<style name="comment" color="#999999" italic="true" />
+	<style name="key" color="#000099" bold="true" />
+	<style name="section" color="#009999" />
+</scheme>
+</JuffScheme>

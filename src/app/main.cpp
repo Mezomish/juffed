@@ -77,10 +77,12 @@ void loadTranslations(QApplication& app) {
 		lng = detectLanguage();
 	}
 	QTranslator* translator = new QTranslator();
-	if ( translator->load("juffed_" + lng, AppInfo::translationPath()) ) {
-		if ( !translator->isEmpty() ) {
-			app.installTranslator(translator);
-		}
+	if ( translator->load("juffed_" + lng, AppInfo::translationPath()) && !translator->isEmpty() ) {
+		app.installTranslator(translator);
+	}
+	else {
+		delete translator;
+		translator = NULL;
 	}
 	
 	QTranslator* qtTranslator = new QTranslator;

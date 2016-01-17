@@ -23,6 +23,14 @@ if ( QSCI_FORTRAN_LEXER )
     )
 endif ( QSCI_FORTRAN_LEXER )
 
+# find Properties lexer
+find_path ( QSCI_PROPERTIES_LEXER qscilexerproperties.h ${QSCINTILLA_INCLUDE_DIR} )
+if ( QSCI_PROPERTIES_LEXER )
+    ADD_DEFINITIONS (
+        -DJUFF_PROPERTIES_LEXER
+    )
+endif ( QSCI_PROPERTIES_LEXER )
+
 # find CSS3Property
 find_path ( QSCI_CSS_LEXER qscilexercss.h ${QSCINTILLA_INCLUDE_DIR} )
 if ( QSCI_CSS_LEXER )

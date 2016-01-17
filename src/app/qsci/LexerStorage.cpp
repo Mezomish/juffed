@@ -58,6 +58,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <qscilexerfortran.h>
 #endif // JUFF_FORTRAN_LEXER
 
+#ifdef JUFF_PROPERTIES_LEXER
+#include <qscilexerproperties.h>
+#endif // JUFF_PROPERTIES_LEXER
+
 // Qt headers
 #include <QtCore/QFileInfo>
 #include <QtCore/QMap>
@@ -553,6 +557,19 @@ void LSInterior::readCustomStyle(const QString& name) {
 	}
 #endif	//	JUFF_FORTRAN_LEXER
 
+#ifdef JUFF_PROPERTIES_LEXER
+	else if ( name.compare("Properties") == 0 ) {
+		scheme = new Scheme();
+		scheme->defaultStyle = styles["default"];
+		scheme->rules
+				<< Rule(styles["assignment"], QList<int>() << QsciLexerProperties::Assignment)
+				<< Rule(styles["comment"], QList<int>() << QsciLexerProperties::Comment)
+				<< Rule(styles["key"], QList<int>() << QsciLexerProperties::Key)
+				<< Rule(styles["section"], QList<int>() << QsciLexerProperties::Section);
+		schemes_[name] = scheme;
+	}
+#endif	//	JUFF_PROPERTIES_LEXER
+
 
 //	Log::debug("Exiting readCustomStyle()");
 }
@@ -719,6 +736,12 @@ QsciLexer* LSInterior::lexer(const QString& name) {
 			newLexer = new QsciLexerFortran();
 		}
 #endif // JUFF_FORTRAN_LEXER
+
+#ifdef JUFF_PROPERTIES_LEXER
+		else if ( name.compare("Properties") == 0 ) {
+			newLexer = new QsciLexerProperties();
+		}
+#endif // JUFF_PROPERTIES_LEXER
 		else if ( name.compare("Ada") == 0 ) {
 			newLexer = new QsciLexerAda();
 		}
@@ -857,7 +880,13 @@ QStringList LexerStorage::lexersList() const {
 			<< "Pascal"
 #endif	//	JUFF_PASCAL_LEXER
 
-			<< "Perl" << "Python" << "PHP" << "Ruby" << "SQL"
+			<< "Perl"
+
+#ifdef JUFF_PROPERTIES_LEXER
+			<< "Properties"
+#endif	//	JUFF_PROPERTIES_LEXER
+
+			 << "Python" << "PHP" << "Ruby" << "SQL"
 
 #ifdef JUFF_TCL_LEXER
 			<< "TCL"

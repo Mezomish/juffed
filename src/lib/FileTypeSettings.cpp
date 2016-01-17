@@ -107,6 +107,9 @@ QStringList FileTypeSettings::getFileNamePatterns(const QString& type) {
 		else if ( type == "Perl") {
 			list << "*.p[lm]";
 		}
+		else if ( type == "Properties") {
+			list << "*.desktop" << "*.ini" << "*.properties";
+		}
 		else if ( type == "Python") {
 			list << "*.py";
 		}

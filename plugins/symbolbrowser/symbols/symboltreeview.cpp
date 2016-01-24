@@ -182,9 +182,9 @@ void SymbolTreeView::docClosed(const QString &docName){
  *****************************************************************************/
 void SymbolTreeView::docRenamed(const QString &oldDocName, const QString newDocName) {
     DocSymbols *symb = mDocuments.value(oldDocName);
+    mDocuments.remove(oldDocName);
     mDocuments[newDocName] = symb;
     symb->setDocName(newDocName);
-    mDocuments.remove(oldDocName);
     refresh();
 }
 

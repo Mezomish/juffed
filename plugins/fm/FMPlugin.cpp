@@ -20,11 +20,22 @@
 #include "ManageDlg.h"
 #include "TreeView.h"
 
-FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
+FMPlugin::FMPlugin() : QObject(), JuffPlugin()
+, w_(0)
+, tree_(0)
+, model_(0)
+, pathEd_(0)
+, backBtn_(0)
+, favoritesMenu_(0)
+, addToFavoritesAct_(0)
+, manageFavoritesAct_(0)
+{
 	showAsTree = PluginSettings::getBool(this, "ShowAsTree", false);
     showHidden = PluginSettings::getBool(this, "ShowHidden", false);
     sortColumn = PluginSettings::getInt(this, "sortColumn", 0);
+}
 
+void FMPlugin::init() {
 	w_ = new QWidget();
 	w_->setWindowTitle(tr("Files"));
 
@@ -92,10 +103,13 @@ FMPlugin::FMPlugin() : QObject(), JuffPlugin() {
 }
 
 FMPlugin::~FMPlugin() {
-    sortColumn = tree_->header()->sortIndicatorSection();
-    PluginSettings::set(this, "sortColumn", sortColumn);
-
-	w_->deleteLater();
+	if ( tree_ ) {
+		sortColumn = tree_->header()->sortIndicatorSection();
+		PluginSettings::set(this, "sortColumn", sortColumn);
+	}
+	if ( w_ ) {
+		w_->deleteLater();
+	}
 }
 
 QString FMPlugin::name() const {

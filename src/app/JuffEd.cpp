@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include <QToolBar>
 #include <QStatusBar>
+#include <QTimer>
 
 #include "AppInfo.h"
 #include "CharsetSettings.h"
@@ -1153,7 +1154,8 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 		Juff::PanelIndex anotherPanel = ( panel == Juff::PanelLeft ? Juff::PanelRight : Juff::PanelLeft );
 		
 		if ( viewer_->docCount(panel) == 1 && viewer_->docCount(anotherPanel) == 0
-			 && !doc->isModified() && doc->isNoname() ) {
+			 && !doc->isModified() && doc->isNoname()
+			 && !MainSettings::get(MainSettings::ExitOnLastDocClosed) ) {
 			// this is a special case when there is only one doc is
 			// opened, is't Noname and unmodified. Don't close it but
 			// return true in case the close was called by closeEvent.
@@ -1173,9 +1175,13 @@ bool JuffEd::closeDocWithConfirmation(Juff::Document* doc) {
 			// yes, we need to hide it
 			// now check if there is no documents at all
 			if ( viewer_->docCount(anotherPanel) == 0 ) {
-				// no docs! create one
-				openDoc("", panel);
-				updateMW(curDoc());
+				// no docs! exit or create one
+				if (MainSettings::get(MainSettings::ExitOnLastDocClosed)) {
+					QTimer::singleShot(0, mw_, SLOT(close()));
+				} else {
+					openDoc("", panel);
+					updateMW(curDoc());
+				}
 			}
 			else {
 				// second panel contains docs

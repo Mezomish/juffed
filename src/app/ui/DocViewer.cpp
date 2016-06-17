@@ -218,6 +218,9 @@ void DocViewer::updateDocTitle(Juff::Document* doc) {
 }
 
 void DocViewer::removeDocFromList(Juff::Document* doc) {
+	if ( curDoc_ == doc ) {
+		curDoc_ = NullDoc::instance();
+	}
 	docStack_.removeAll(doc);
 }
 

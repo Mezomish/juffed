@@ -1,9 +1,10 @@
 #include "KeysPage.h"
 
-#include <QPushButton>
+#include <QAction>
 #include <QHeaderView>
 #include <QKeyEvent>
 #include <QMessageBox>
+#include <QPushButton>
 
 #include "KeySettings.h"
 #include "Log.h"

@@ -3,9 +3,6 @@
 
 #include <Qsci/qscilexer.h>
 
-// located in SciLexer.h
-#define SCLEX_NSIS 43
-
 #define SCE_NSIS_DEFAULT 0
 #define SCE_NSIS_COMMENT 1
 #define SCE_NSIS_STRINGDQ 2

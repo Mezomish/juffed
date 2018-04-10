@@ -3,9 +3,6 @@
 
 #include <Qsci/qscilexer.h>
 
-// located in SciLexer.h
-#define SCLEX_LISP 21
-
 #define SCE_LISP_DEFAULT 0
 #define SCE_LISP_COMMENT 1
 #define SCE_LISP_NUMBER 2

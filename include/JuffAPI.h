@@ -23,7 +23,13 @@ public:
 	* See "Document.h" for details.
 	*/
 	Juff::Document* currentDocument() const;
-	
+
+	/**
+	* Returns current document on panel or NullDoc if there is no current document.
+	* See "Document.h" for details.
+	*/
+	Juff::Document* currentDocument(Juff::PanelIndex panel) const;
+
 	/**
 	* Returns document by file name or NullDoc if there is no such document opened.
 	* See "Document.h" for details.

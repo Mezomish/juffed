@@ -8,6 +8,7 @@ OPTION(BUILD_SORT "Build Sort Document plugin" ON)
 OPTION(BUILD_KEYS "Build Keybindings plugin" ON)
 OPTION(BUILD_AUTOSAVE "Build Autosave plugin" ON)
 OPTION(BUILD_COLORPICKER "Build ColorPicker plugin" ON)
+OPTION(BUILD_COMPARE "Build Compare plugin" ON)
 
 # disabled since it's really buggy and crashes on doc change
 OPTION(BUILD_TODOLIST "Build TODOList plugin" OFF)
@@ -120,3 +121,7 @@ endif (BUILD_AUTOSAVE)
 if (BUILD_COLORPICKER)
     add_subdirectory(colorpicker)
 endif (BUILD_COLORPICKER)
+
+if (BUILD_COMPARE)
+    add_subdirectory(compare)
+endif (BUILD_COMPARE)

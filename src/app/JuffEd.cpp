@@ -922,6 +922,10 @@ Juff::Document* JuffEd::curDoc() const {
 	return viewer_->currentDoc();
 }
 
+Juff::Document* JuffEd::curDoc(Juff::PanelIndex panel) const {
+	return viewer_->currentDoc(panel);
+}
+
 Juff::Document* JuffEd::getDoc(const QString& fileName) const {
 	return viewer_->document(fileName);
 }

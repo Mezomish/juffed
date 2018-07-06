@@ -43,6 +43,10 @@ Juff::Document* JuffAPI::currentDocument() const {
 	return int_->handler_->curDoc();
 }
 
+Juff::Document* JuffAPI::currentDocument(Juff::PanelIndex panel) const {
+	return int_->handler_->curDoc(panel);
+}
+
 Juff::Document* JuffAPI::document(const QString& fileName) const {
 	return int_->handler_->getDoc(fileName);
 }

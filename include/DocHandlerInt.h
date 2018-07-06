@@ -41,6 +41,11 @@ public:
 	virtual Juff::Document* curDoc() const = 0;
 
 	/**
+	* Returns current document from panel. If there is no documents then returns a NullDoc.
+	*/
+	virtual Juff::Document* curDoc(Juff::PanelIndex panel) const = 0;
+
+	/**
 	* Returns document by file name. If there is no such document opened then returns a NullDoc.
 	*/
 	virtual Juff::Document* getDoc(const QString&) const = 0;

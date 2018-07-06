@@ -4,7 +4,7 @@ Copyright (C) 2007-2009 Mikhail Murzin <mezomish@gmail.com>
 
 Requirements:
 	Qt (>= 4.2)
-	QScintilla2 (>= 2.1)
+	QScintilla2 (>= 2.1, including Designer plugin for QScintilla2)
 
 
 Building and Installation:

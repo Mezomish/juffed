@@ -3,9 +3,6 @@
 
 #include <Qsci/qscilexer.h>
 
-// located in SciLexer.h
-#define SCLEX_HASKELL 68
-
 #define SCE_HA_DEFAULT 0
 #define SCE_HA_IDENTIFIER 1
 #define SCE_HA_KEYWORD 2

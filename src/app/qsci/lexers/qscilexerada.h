@@ -3,9 +3,6 @@
 
 #include <Qsci/qscilexer.h>
 
-// located in SciLexer.h
-#define SCLEX_ADA 20
-
 #define SCE_ADA_DEFAULT 0
 #define SCE_ADA_WORD 1
 #define SCE_ADA_IDENTIFIER 2

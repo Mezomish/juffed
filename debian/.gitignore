@@ -1,0 +1,12 @@
+/*.debhelper.log
+/*.substvars
+/debhelper-build-stamp
+/files
+
+/.debhelper/
+/juffed-dev/
+/juffed-plugins/
+/juffed/
+/libjuff0.10/
+/libjuffed-engine-qsci0.10/
+/tmp/

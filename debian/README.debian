@@ -1,0 +1,19 @@
+Preparing a snapshot tar-ball
+=============================
+
+git clone git://github.com/mezomish/juffed upstream
+
+cd upstream
+version=$(git describe)
+rm -rf .git*
+rm make_tarball.sh 
+rm pack.bat 
+rm -rf debian.in
+rm -rf win32
+cd ..
+
+mv upstream $version
+
+tar cfvJ juffed_$ver.orig.tar.xz $version
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 02 Jul 2016 22:20:10 +0200

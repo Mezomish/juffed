@@ -1,0 +1,228 @@
+juffed (0.10-89-g3690b60-5) unstable; urgency=medium
+
+  * Fixed override_dh_makeshlib not to add a ldconfig trigger
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 21 Jul 2018 14:05:28 +0200
+
+juffed (0.10-89-g3690b60-4) unstable; urgency=medium
+
+  * Made libjuff and libjuffed-engine-qsc private (Closes: #897776)
+  * Bumped Standards to 4.1.5, no changes needed
+  * Recommend juffed-plugins
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 21 Jul 2018 12:30:59 +0200
+
+juffed (0.10-89-g3690b60-3) unstable; urgency=medium
+
+  * Fixed symbol for riscv64
+
+ -- Alf Gaida <agaida@siduction.org>  Fri, 29 Jun 2018 19:40:27 +0200
+
+juffed (0.10-89-g3690b60-2) unstable; urgency=medium
+
+  * Really fixed the VCS fields
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 29 Apr 2018 22:57:00 +0200
+
+juffed (0.10-89-g3690b60-1) unstable; urgency=medium
+
+  * Cherry-picked latest upstream version 0.10-89-g3690b60.
+  * Added upstream PR for qscintilla (Closes: #897133)
+  * Relaxed minimum debhelper version to >= 11~
+  * Removed not needed minimium cmake version
+  * Bumped Standards to 4.1.4
+  * Changed VCS fields for salsa
+  * Bumped years in copyright
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 29 Apr 2018 14:17:15 +0200
+
+juffed (0.10-85-g5ba17f9-17) unstable; urgency=medium
+
+  * patched for new qsci names, thanks Scott Kitterman
+    (Closes: #885631)
+  * Bumped Standards to 4.1.3 - no changes needed
+  * Bumped debhelper to >= 11
+  * Bumped compat to 11
+  * Fixed arch handling in rules
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 04 Jan 2018 02:42:44 +0100
+
+juffed (0.10-85-g5ba17f9-16) unstable; urgency=medium
+
+  * Fixed typo Arch -> arch
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 01 Oct 2017 02:33:30 +0200
+
+juffed (0.10-85-g5ba17f9-15) unstable; urgency=medium
+
+  * Added missed symbol for 32bit arches
+  * Bumped Standards fo 4.1.1, no changes needed
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 01 Oct 2017 01:39:57 +0200
+
+juffed (0.10-85-g5ba17f9-14) unstable; urgency=medium
+
+  * Deleted some symbols that magically disappeared. Added one
+    new symbol (Closes: #876918)
+  * Added override_dh_missing
+  * Bumped Standards to 4.1.0
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 28 Sep 2017 01:20:17 +0200
+
+juffed (0.10-85-g5ba17f9-13) unstable; urgency=medium
+
+  * Fixed 64 bit symbol (Closes: #871992)
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 13 Aug 2017 18:38:14 +0200
+
+juffed (0.10-85-g5ba17f9-12) unstable; urgency=medium
+
+  * Fixed symbols for amd64 and i368 for gcc 7.10 (Closes: #871181)
+  * Don't build with terminal integration - terminal causes segfaults at
+    closing time
+  * Removed build dependency libqtermwidget
+  * Bumped year in copyright
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 12 Aug 2017 21:55:34 +0200
+
+juffed (0.10-85-g5ba17f9-11) unstable; urgency=medium
+
+  * Fixed typo in changelog
+  * The changed symbols work with gcc-7, FTBFS fixed
+    (Closes: #853464)
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 01 Jul 2017 12:57:18 +0200
+
+juffed (0.10-85-g5ba17f9-10) unstable; urgency=medium
+
+  * Mark juffed Multi-Arch foreign to satisfy the Multiarch-Ruler
+  * Added some optional symbols for builds with gcc-7 (>= 7.1)
+  * Removed --parallel from rules, default in compat 10
+  * Bump Standards to 4.0.0, no changes needed
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 29 Jun 2017 23:36:48 +0200
+
+juffed (0.10-85-g5ba17f9-9) unstable; urgency=medium
+
+  * Following the Multiarch hinter
+    - Marked juffed-plugins Multi-Arch: same
+    - Marked libjuff0.10 Multi-Arch: same
+    - libjuffed-engine-qsci0.10 Multi-Arch: same
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 27 Sep 2016 23:11:37 +0200
+
+juffed (0.10-85-g5ba17f9-8) unstable; urgency=medium
+
+  * Set build language in rules: export LC_ALL=C.UTF-8
+
+ -- Alf Gaida <agaida@siduction.org>  Mon, 19 Sep 2016 16:35:52 +0200
+
+juffed (0.10-85-g5ba17f9-7) unstable; urgency=medium
+
+  * Fixed typo in changelog
+
+ -- Alf Gaida <agaida@siduction.org>  Mon, 19 Sep 2016 04:06:51 +0200
+
+juffed (0.10-85-g5ba17f9-6) unstable; urgency=medium
+
+  * Bump compat to 10
+  * Bump build dependency debhelper (>=10)
+  * set --builddirectory=./build, hopefully make the package reproducible
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 18 Sep 2016 17:25:40 +0200
+
+juffed (0.10-85-g5ba17f9-5) unstable; urgency=medium
+
+  * Fixed symbols for armel and armhf, since gcc 6.2 seems to create
+    different symbols than its predecessor
+
+ -- Alf Gaida <agaida@siduction.org>  Fri, 26 Aug 2016 01:06:39 +0200
+
+juffed (0.10-85-g5ba17f9-4) unstable; urgency=medium
+
+  * Cherry-picked changes from experimental
+  * Switch to unstable
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 25 Aug 2016 19:52:11 +0200
+
+juffed (0.10-85-g5ba17f9-3) experimental; urgency=medium
+
+  * Added missed blank in symbols
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 23 Aug 2016 21:37:35 +0200
+
+juffed (0.10-85-g5ba17f9-2) experimental; urgency=medium
+
+  * Fixed symbols - symbol not in powerpc
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 23 Aug 2016 19:22:28 +0200
+
+juffed (0.10-85-g5ba17f9-1) experimental; urgency=medium
+
+  * Adding upstream version 0.10-85-g5ba17f9.
+    (Closes: #742580, #675293, #688483, #798065, #812133, #591398)
+  * Switch to experimental
+  * README.debian added
+  * Deleted not needed debian/patches
+  * Bump compat to 9
+  * Renamed install to juffed.install
+  * Added debian/.gitignore
+  * New maintainer: LXQt Packaging Team (Closes: #829319)
+  * Added myself to Uploaders
+  * Added ChangZhuo Chen to Uploaders
+  * Bump Standards to 3.9.8, no changes needed
+  * Added Homepage
+  * Added secure VCS-Fields
+  * Updated build dependencies for Qt 5
+  * Updated package descriptions
+  * Added libjuff0.10 and libjuffed-engine-qsci0.10
+  * Removed outdated and false manpage
+  * Fixed juffed-dev.install
+  * Fixed juffed.install
+  * Fixed juffed-plugins.install
+  * Added libjuff0.10.install and libjuff0.10.symbols
+  * Added libjuffed-engine-qsci0.10.install and
+    libjuffed-engine-qsci0.10.symbols
+  * Fixed debian/rules - build with Qt5, hardening
+  * Fixed the copyright format line
+  * Fixed upstream-name and source in copyright
+  * Fixed watch file
+  * Fixed debian/copyrights
+  * Added LGPL-2.1-with-Nokia-Qt-LGPL-Exception-version-1.1-or-GPL-3
+    to copyrights
+  * Fixed package descriptions.
+  * Added lintian-override for missed man-page
+  * Override missed man-page
+  * Set CMAKE_BUILD_TYPE=RelWithDebInfo
+  * Added terminal support
+  * Applied two upstream patches by Philipp Wiesemann <philipp.wiesemann@arcor.de>
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 20 Aug 2016 01:29:16 +0200
+
+juffed (0.9.1137-1) experimental; urgency=low
+
+  * New upstream release.
+  * Remove debian/juffed.1, added upstream (in debian.in).
+  * Remove debian/patches/static.patch: we can now bundle the .so after
+    upstream has resolved soname issues.
+  * debian/control:
+    - Bump Standards-Version to 0.9.2.
+    - Update homepage.
+    - Do not build-depend on chrpath, not needed anymore.
+  * debian/rules:
+    - Remove chrpath rule, not needed anymore.
+  * Add juffed-dev and juffed-plugins packages.
+  * Do not install the libkeybindings.so plugin: causes a segfault on my
+    amd64 machine.
+
+ -- Maia Kozheva <sikon@ubuntu.com>  Sat, 30 Apr 2011 13:43:26 +0700
+
+juffed (0.8.1-1) unstable; urgency=low
+
+  * Initial release. (Closes: #589925)
+  * debian/patches/static.patch:
+    - Build libjuff as a static library for now, so it does not install
+      files into /usr/lib and juffed is the only package using it. When
+      we package plugins, we can consider moving it out.
+
+ -- Maia Kozheva <sikon@ubuntu.com>  Thu, 22 Jul 2010 15:01:58 +0700

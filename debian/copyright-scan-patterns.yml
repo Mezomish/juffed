@@ -1,0 +1,33 @@
+check:
+  suffixes:
+  - asm
+  - cmake
+ignore:
+  pattern:
+  - /base_version
+  - /version
+  - /debian/
+  - /ChangeLog
+  - /COPYING
+  - /INSTALL
+  - /README
+  - /TODO
+  suffixes:
+  - api
+  - desktop
+  - diff
+  - in
+  - icns
+  - ico
+  - jpg
+  - moc
+  - png
+  - pri
+  - pro
+  - qrc
+  - rc
+  - spec
+  - ts
+  - txt
+  - ui
+  - xml

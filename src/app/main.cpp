@@ -140,6 +140,7 @@ bool hasValidDoubleDashParam( const QCoreApplication& app ) {
 
 int runSingle(int argc, char* argv[]) {
 	QtSingleApplication app(argc, argv);
+        app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 	initApp(app);
 
 	if ( hasValidDoubleDashParam( app ) ) {
@@ -168,6 +169,7 @@ int runSingle(int argc, char* argv[]) {
 
 int runNotSingle(int argc, char* argv[]) {
 	QApplication app(argc, argv);
+        app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
 	initApp(app);
 
 	if ( hasValidDoubleDashParam( app ) ) {

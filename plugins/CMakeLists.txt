@@ -9,16 +9,13 @@ OPTION(BUILD_KEYS "Build Keybindings plugin" ON)
 OPTION(BUILD_AUTOSAVE "Build Autosave plugin" ON)
 OPTION(BUILD_COLORPICKER "Build ColorPicker plugin" ON)
 OPTION(BUILD_COMPARE "Build Compare plugin" ON)
+OPTION(BUILD_TERMINAL "Build terminal plugin" ON)
 
 # disabled since it's really buggy and crashes on doc change
 OPTION(BUILD_TODOLIST "Build TODOList plugin" OFF)
 
-# it's better to keep it OFF by default since it requires libqtermwidget
-# which is absent by default in main distros
-OPTION(BUILD_TERMINAL "Build terminal plugin" OFF)
-
 project (juffed-plugins)
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.7)
 
 option(USE_QT5 "Use Qt5. Defaults to Qt4" OFF)
 

@@ -7,7 +7,7 @@
 #include <Log.h>
 #include <PluginSettings.h>
 
-#include "qtermwidget.h"
+#include <qtermwidget5/qtermwidget.h>
 
 
 Preferences::Preferences(const QObject *parent,

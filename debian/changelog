@@ -1,3 +1,9 @@
+juffed (0.10-93-8cc2f49b-1) unstable; urgency=medium
+
+  * Enable building for terminal plugin and other changes
+
+ -- Aleksey Komarov <q4arus@ya.ru>  Sat, 26 Mar 2022 05:49:39 +0300
+
 juffed (0.10-89-g3690b60-5) unstable; urgency=medium
 
   * Fixed override_dh_makeshlib not to add a ldconfig trigger

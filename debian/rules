@@ -22,7 +22,6 @@ override_dh_auto_configure:
 	dh_auto_configure -- \
 		-DLIB_SUFFIX=/$(INST_ARCH)/libjuff \
 		-DCMAKE_INSTALL_RPATH="/usr/lib/$(INST_ARCH)/libjuff" \
-		-DBUILD_TERMINAL=OFF \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo
 
 override_dh_makeshlibs:

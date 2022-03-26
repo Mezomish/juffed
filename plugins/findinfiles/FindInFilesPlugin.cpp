@@ -24,8 +24,8 @@ public:
 	PluginInterior(FindInFilesPlugin * parent) {
 		ed_ = new QLineEdit();
 		ed_->setMaximumWidth(200);
-		searchAct_ = new QAction(tr("Search in files"), 0);
-		searchAct_->setShortcut(QKeySequence("Ctrl+Alt+F"));
+		searchAct_ = new QAction(tr("Find in files"), 0);
+		searchAct_->setShortcut(QKeySequence("Ctrl+Shift+F"));
 		stopAct_ = new QAction(QIcon(":stop"), tr("Stop searching"), 0);
 		stopAct_->setEnabled(false);
 		stopAct_->setVisible(false);

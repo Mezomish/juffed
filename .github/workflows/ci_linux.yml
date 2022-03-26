@@ -51,6 +51,9 @@ jobs:
       if: matrix.configuration == 'Debug'
       run: ninja
       working-directory: build
+    - name: Save current datetime
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H-%M')"
     - name: Release amd64 | Build deb packages with debuild
       if: matrix.configuration == 'Release' && matrix.platform == 'amd64'
       run: |
@@ -71,5 +74,5 @@ jobs:
       if: matrix.configuration == 'Release'
       uses: actions/upload-artifact@v3
       with:
-        name: ubuntu-release-${{ matrix.platform }}-deb-files
+        name: ubuntu-release-${{ matrix.platform }}-deb-files-${{ steps.date.outputs.date }}
         path: /home/runner/work/juffed/*.deb

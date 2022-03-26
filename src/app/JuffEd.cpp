@@ -1219,6 +1219,8 @@ void JuffEd::updateMW(Juff::Document* doc) {
 		if ( !_sessionName.isEmpty() )
 			title += QString("[%1] - ").arg( _sessionName );
 		
+		title += QString("%1 - ").arg( QFileInfo(doc->fileName()).absolutePath() );
+		
 		posL_->show();
 		nameL_->show();
 		charsetL_->show();

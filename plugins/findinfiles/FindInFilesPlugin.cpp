@@ -167,7 +167,15 @@ void FindInFilesPlugin::startSearch() {
 			pInt_->worker_.wait();
 		}
 
-		pInt_->worker_.setParams(FindWorker::Params(findText, startDir, rec, patternVariant, filePatterns.split(";")));
+		QStringList patternsList = filePatterns.split(", ");
+		if ( patternsList.size() == 1 && filePatterns.contains(" ") )
+			patternsList = filePatterns.split(" ");
+		if ( patternsList.size() == 1 && filePatterns.contains(";") )
+			patternsList = filePatterns.split(";");
+		if ( patternsList.size() == 1 && filePatterns.contains(",") )
+			patternsList = filePatterns.split(",");
+
+		pInt_->worker_.setParams(FindWorker::Params(findText, startDir, rec, patternVariant, patternsList));
 		pInt_->worker_.start(QThread::LowestPriority);
 	}
 }

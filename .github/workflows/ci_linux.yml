@@ -1,0 +1,75 @@
+name: CI Linux
+
+on: [push, pull_request]
+
+jobs:
+  linux-build:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [Release, Debug]
+        platform: [i386, amd64]
+    name: 'Linux ${{ matrix.configuration}} ${{ matrix.platform}}'
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+    - name: amd64 | Install libs
+      if: matrix.platform == 'amd64'
+      run: |
+        sudo apt-get update
+        sudo apt-get install cmake ninja-build qttools5-dev libqscintilla2-qt5-dev libqtermwidget5-0-dev libutf8proc-dev
+    - name: i386 | Install libs
+      if: matrix.platform == 'i386'
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get remove libutf8proc2
+        sudo apt-get update
+        sudo apt-get -y install --allow-downgrades libpcre2-8-0=10.34-7 # fix CI error https://github.com/actions/virtual-environments/issues/4620
+        # additional i386 packages:
+        sudo apt-get install qtbase5-dev:i386 libqt5help5:i386 libqt5designercomponents5:i386 libqt5designer5:i386 libqscintilla2-qt5-l10n
+        # real packages:
+        sudo apt-get install gcc-multilib g++-multilib cmake ninja-build qttools5-dev:i386
+        # libqscintilla2-qt5-dev:i386 and libqtermwidget5-0-dev:i386 is missing in ubuntu 20.04, will take it from launchpad
+        mkdir i386 && cd i386
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libqscintilla2-qt5-15_2.11.2+dfsg-5_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libqscintilla2-qt5-dev_2.11.2+dfsg-5_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libqtermwidget5-0-dev_0.14.1-0ubuntu3_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libqtermwidget5-0_0.14.1-0ubuntu3_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libutf8proc-dev_2.4.0-2build1_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libutf8proc2_2.4.0-2build1_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/qtermwidget5-data_0.14.1-0ubuntu3_all.deb
+        sudo dpkg -i *.deb
+    - name: Debug amd64 | Configure with cmake
+      if: matrix.configuration == 'Debug' && matrix.platform == 'amd64'
+      run: mkdir build && cd build && cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.configuration}}
+    - name: Debug i386 | Configure with cmake
+      if: matrix.configuration == 'Debug' && matrix.platform == 'i386'
+      run: mkdir build && cd build && CXXFLAGS="-m32" cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.configuration}}
+    - name: Debug | Build with cmake
+      if: matrix.configuration == 'Debug'
+      run: ninja
+      working-directory: build
+    - name: Release amd64 | Build deb packages with debuild
+      if: matrix.configuration == 'Release' && matrix.platform == 'amd64'
+      run: |
+        sudo apt-get install devscripts debhelper libenca-dev
+        debuild -b -uc -us
+    - name: Release i386 | Build deb packages with cross-config + dpkg-buildpackage
+      if: matrix.configuration == 'Release' && matrix.platform == 'i386'
+      run: |
+        sudo apt-get install build-essential crossbuild-essential-i386 debhelper
+        # libenca-dev:i386 is missing in ubuntu 20.04, will take it from launchpad
+        mkdir x86 && cd x86
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libenca-dev_1.19-1_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libenca0_1.19-1_i386.deb
+        sudo dpkg -i *.deb
+        cd ..
+        CONFIG_SITE=/etc/dpkg-cross/cross-config.amd64 DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -Pcross,nocheck -ai386 -b -uc -us
+    - name: Release | Upload deb packages
+      if: matrix.configuration == 'Release'
+      uses: actions/upload-artifact@v3
+      with:
+        name: ubuntu-release-${{ matrix.platform }}-deb-files
+        path: /home/runner/work/juffed/*.deb

@@ -99,8 +99,8 @@ void FindInFilesPlugin::init() {
 }
 
 FindInFilesPlugin::~FindInFilesPlugin() { 
-    if (pInt_)
-	    delete pInt_;
+	if (pInt_)
+	delete pInt_;
 }
 
 QString FindInFilesPlugin::name() const {

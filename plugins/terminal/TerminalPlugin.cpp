@@ -63,7 +63,9 @@ void TerminalPlugin::init()
 }
 
 TerminalPlugin::~TerminalPlugin() {
-	delete w_;
+	if ( w_ ) {
+		w_->deleteLater();
+	}
 }
 
 QString TerminalPlugin::name() const {

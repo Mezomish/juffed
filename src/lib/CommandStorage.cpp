@@ -35,6 +35,7 @@ CommandStorage::CommandStorage(IconManagerInt* mgr) : CommandStorageInt(), iconM
 	keys_[VIEW_ZOOM_OUT]     = QKeySequence("Ctrl+-");
 	keys_[VIEW_ZOOM_100]     = QKeySequence("Ctrl+0");
 	keys_[VIEW_FULLSCREEN]   = QKeySequence("F11");
+	keys_[MOVE_TO_OTHER_TAB] = QKeySequence("Alt+Z");
 	
 	keys_[HELP_ABOUT]        = QKeySequence("F1");
 	

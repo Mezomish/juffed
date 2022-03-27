@@ -126,6 +126,7 @@ void JuffEd::initActions() {
 	st->addAction(VIEW_ZOOM_OUT,     tr("Zoom Out"), this, SLOT(slotZoomOut()));
 	st->addAction(VIEW_ZOOM_100,     tr("Zoom 100%"), this, SLOT(slotZoom100()));
 	st->addAction(VIEW_FULLSCREEN,   tr("Fullscreen"), this, SLOT(slotFullscreen()));
+	st->addAction(MOVE_TO_OTHER_TAB, tr("Move to the other panel"), this, SLOT(slotMoveToOtherTab()));
 	
 	st->addAction(TOOLS_SETTINGS,    tr("Settings"), this, SLOT(slotSettings()));
 	st->addAction(HELP_ABOUT,        tr("About"), mw_, SLOT(slotAbout()));
@@ -302,6 +303,8 @@ void JuffEd::buildUI() {
 	menu->addAction(st->action(VIEW_ZOOM_IN));
 	menu->addAction(st->action(VIEW_ZOOM_OUT));
 	menu->addAction(st->action(VIEW_ZOOM_100));
+	menu->addSeparator();
+	menu->addAction(st->action(MOVE_TO_OTHER_TAB));
 	menu->addSeparator();
 	
 	// SEARCH
@@ -778,6 +781,10 @@ void JuffEd::slotZoom100(){
 
 void JuffEd::slotFullscreen() {
 	mw_->toggleFullscreen();
+}
+
+void JuffEd::slotMoveToOtherTab() {
+	viewer_->moveDocToOtherTab();
 }
 
 void JuffEd::slotOpenWithCharset() {

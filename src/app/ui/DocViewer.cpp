@@ -412,6 +412,9 @@ QStringList DocViewer::docNamesList(PanelIndex panel) const {
 	return list;
 }
 
+void DocViewer::moveDocToOtherTab() {
+	onDocMoveRequested(curDoc_, curTab_);
+}
 
 
 void DocViewer::onDocMoveRequested(Juff::Document* doc, Juff::TabWidget* tw) {

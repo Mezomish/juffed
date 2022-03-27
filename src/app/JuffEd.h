@@ -77,6 +77,7 @@ public slots:
 	void slotZoomOut();
 	void slotZoom100();
 	void slotFullscreen();
+	void slotMoveToOtherTab();
 	
 	void slotOpenWithCharset();
 	void slotSetCharset();

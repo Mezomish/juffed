@@ -10,11 +10,11 @@
 SearchDlg::SearchDlg(QWidget* parent) : QDialog(parent) {
 	ui.setupUi(this);
 	
-    QCompleter *completer = new QCompleter(this);
-    model = new QFileSystemModel(completer);
-    model->setRootPath("");
-    completer->setModel(model);
-    ui.dirEd->setCompleter(completer);
+	QCompleter *completer = new QCompleter(this);
+	model = new QFileSystemModel(completer);
+	model->setRootPath("");
+	completer->setModel(model);
+	ui.dirEd->setCompleter(completer);
 	
 	connect(ui.browseBtn, SIGNAL(clicked()), SLOT(slotBrowse()));
 	
@@ -24,10 +24,10 @@ SearchDlg::SearchDlg(QWidget* parent) : QDialog(parent) {
 void SearchDlg::slotBrowse() {
 	QString dir = ui.dirEd->text();
 	dir = QFileDialog::getExistingDirectory(parentWidget(), tr("Browse"), dir);
-    if ( !dir.isEmpty() ) {
+	if ( !dir.isEmpty() ) {
 		ui.dirEd->setText(dir);
-        model->setRootPath(dir);
-    }
+		model->setRootPath(dir);
+	}
 }
 
 
@@ -71,7 +71,7 @@ void SearchDlg::setFindText(const QString& text) {
 }
 void SearchDlg::setStartDir(const QString& dir) {
 	ui.dirEd->setText(dir);
-    model->setRootPath(dir);
+	model->setRootPath(dir);
 }
 void SearchDlg::setSearchInFiles(bool inFiles) {
 	if ( inFiles ) {

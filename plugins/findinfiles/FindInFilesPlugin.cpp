@@ -24,8 +24,8 @@ public:
 	PluginInterior(FindInFilesPlugin * parent) {
 		ed_ = new QLineEdit();
 		ed_->setMaximumWidth(200);
-		searchAct_ = new QAction(tr("Search in files"), 0);
-		searchAct_->setShortcut(QKeySequence("Ctrl+Alt+F"));
+		searchAct_ = new QAction(tr("Find in files"), 0);
+		searchAct_->setShortcut(QKeySequence("Ctrl+Shift+F"));
 		stopAct_ = new QAction(QIcon(":stop"), tr("Stop searching"), 0);
 		stopAct_->setEnabled(false);
 		stopAct_->setVisible(false);
@@ -99,8 +99,8 @@ void FindInFilesPlugin::init() {
 }
 
 FindInFilesPlugin::~FindInFilesPlugin() { 
-    if (pInt_)
-	    delete pInt_;
+	if (pInt_)
+	delete pInt_;
 }
 
 QString FindInFilesPlugin::name() const {
@@ -167,7 +167,15 @@ void FindInFilesPlugin::startSearch() {
 			pInt_->worker_.wait();
 		}
 
-		pInt_->worker_.setParams(FindWorker::Params(findText, startDir, rec, patternVariant, filePatterns.split(";")));
+		QStringList patternsList = filePatterns.split(", ");
+		if ( patternsList.size() == 1 && filePatterns.contains(" ") )
+			patternsList = filePatterns.split(" ");
+		if ( patternsList.size() == 1 && filePatterns.contains(";") )
+			patternsList = filePatterns.split(";");
+		if ( patternsList.size() == 1 && filePatterns.contains(",") )
+			patternsList = filePatterns.split(",");
+
+		pInt_->worker_.setParams(FindWorker::Params(findText, startDir, rec, patternVariant, patternsList));
 		pInt_->worker_.start(QThread::LowestPriority);
 	}
 }
@@ -220,21 +228,33 @@ void FindInFilesPlugin::slotItemDoubleClicked(QTreeWidgetItem* item, int) {
 }
 
 void FindInFilesPlugin::slotAdvSearch() {
-	QString text = pInt_->ed_->text();
+	QString searchText;
+	Juff::Document* doc = api()->currentDocument();
+	if ( doc->hasSelectedText() ) {
+		int line1, col1, line2, col2;
+		doc->getSelection(line1, col1, line2, col2);
+		if ( line1 == line2 ) {
+			doc->getSelectedText(searchText);
+		}
+	}
+	else {
+		searchText = PluginSettings::getString(this, "searchText");
+	}
+
 	bool searchInFiles = PluginSettings::getBool(this, "searchInFiles");
 	QString startDir = PluginSettings::getString(this, "searchStartDir");
 	bool recursive = PluginSettings::getBool(this, "searchRecursively");
 	QString filePatterns = PluginSettings::getString(this, "filePatterns");
 	int patternVariant = PluginSettings::getInt(this, "patternVariant", 0);
-	
+
 	if ( startDir.isEmpty() ) {
-		QString curFile = api()->currentDocument()->fileName();
+		QString curFile = doc->fileName();
 		if ( !curFile.isEmpty() )
 			startDir = QFileInfo(curFile).absolutePath();
 	}
 	
 	SearchDlg dlg(api()->mainWindow());
-	dlg.setFindText(text);
+	dlg.setFindText(searchText);
 	dlg.setSearchInFiles(searchInFiles);
 	dlg.setStartDir(startDir);
 	dlg.setRecursive(recursive);
@@ -249,9 +269,9 @@ void FindInFilesPlugin::slotAdvSearch() {
 	PluginSettings::set(this, "patternVariant", dlg.patternVariant());
 
 	if ( QDialog::Accepted == result ) {
-		text = dlg.findText();
-		pInt_->ed_->setText(text);
-		PluginSettings::set(this, "searchText", text);
+		searchText = dlg.findText();
+		pInt_->ed_->setText(searchText);
+		PluginSettings::set(this, "searchText", searchText);
 		startSearch();
 	}
 	

@@ -40,6 +40,7 @@ const QString VIEW_ZOOM_IN      = "main:viewZoomIn";
 const QString VIEW_ZOOM_OUT     = "main:viewZoomOut";
 const QString VIEW_ZOOM_100     = "main:viewZoom100";
 const QString VIEW_FULLSCREEN   = "main:viewFullscreen";
+const QString MOVE_TO_OTHER_TAB = "main:MoveToOtherTab";
 
 const QString TOOLS_SETTINGS    = "main::toolsSettings";
 

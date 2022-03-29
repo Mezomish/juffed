@@ -218,6 +218,9 @@ void DocViewer::updateDocTitle(Juff::Document* doc) {
 }
 
 void DocViewer::removeDocFromList(Juff::Document* doc) {
+	if ( curDoc_ == doc ) {
+		curDoc_ = NullDoc::instance();
+	}
 	docStack_.removeAll(doc);
 }
 
@@ -409,6 +412,9 @@ QStringList DocViewer::docNamesList(PanelIndex panel) const {
 	return list;
 }
 
+void DocViewer::moveDocToOtherTab() {
+	onDocMoveRequested(curDoc_, curTab_);
+}
 
 
 void DocViewer::onDocMoveRequested(Juff::Document* doc, Juff::TabWidget* tw) {

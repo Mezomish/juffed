@@ -38,7 +38,7 @@ IF(QT4_FOUND)
                 ${FRAMEWORK_INCLUDE_DIR}/Qsci
     )
 
-    SET(QSCINTILLA_NAMES ${QSCINTILLA_NAMES} qscintilla2 libqscintilla2)
+    SET(QSCINTILLA_NAMES ${QSCINTILLA_NAMES} qscintilla2 libqscintilla2 qscintilla2_qt4)
     FIND_LIBRARY(QSCINTILLA_LIBRARY
         NAMES ${QSCINTILLA_NAMES}
         PATHS ${QT_LIBRARY_DIR}
@@ -52,7 +52,7 @@ ELSEIF(Qt5Widgets_FOUND)
         ENDIF()
     ENDFOREACH()
 
-    SET(QSCINTILLA_NAMES ${QSCINTILLA_NAMES} qt5scintilla2 libqt5scintilla2 libqscintilla2-qt5 qscintilla2-qt5)
+    SET(QSCINTILLA_NAMES ${QSCINTILLA_NAMES} qt5scintilla2 libqt5scintilla2 libqscintilla2-qt5 qscintilla2-qt5 qscintilla2_qt5)
     GET_TARGET_PROPERTY(QT5_WIDGETSLIBRARY Qt5::Widgets LOCATION)
     GET_FILENAME_COMPONENT(QT5_WIDGETSLIBRARYPATH ${QT5_WIDGETSLIBRARY} PATH)
 

@@ -1,0 +1,8 @@
+usr/bin/juffed
+usr/share/pixmaps/juffed.png
+usr/share/applications/juffed.desktop
+usr/share/juffed/
+
+usr/lib/*/libjuff/libjuffed-engine-qsci.so.0.10
+usr/lib/*/libjuff/libjuff.so.0.10
+

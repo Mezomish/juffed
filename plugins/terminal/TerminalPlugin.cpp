@@ -7,7 +7,7 @@
 #include <Log.h>
 #include <PluginSettings.h>
 
-#include "qtermwidget.h"
+#include <qtermwidget5/qtermwidget.h>
 
 
 Preferences::Preferences(const QObject *parent,
@@ -63,7 +63,9 @@ void TerminalPlugin::init()
 }
 
 TerminalPlugin::~TerminalPlugin() {
-	delete w_;
+	if ( w_ ) {
+		w_->deleteLater();
+	}
 }
 
 QString TerminalPlugin::name() const {

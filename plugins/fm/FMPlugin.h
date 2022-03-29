@@ -22,6 +22,8 @@ public:
 	FMPlugin();
 	virtual ~FMPlugin();
 
+	virtual void init();
+
 	//	info
 	virtual QString name() const;
 	virtual QString title() const;

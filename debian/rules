@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+# DH_VERBOSE=1
+
+export USE_QT5=true
+export USE_SYSTEM_SINGLETON=false
+export USE_ENCA=true
+export LC_ALL=C.UTF-8
+
+INST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh ${@} --buildsystem cmake \
+		--builddirectory=./build
+
+override_dh_missing:
+	dh_missing --fail-missing
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DLIB_SUFFIX=/$(INST_ARCH)/libjuff \
+		-DCMAKE_INSTALL_RPATH="/usr/lib/$(INST_ARCH)/libjuff" \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+override_dh_makeshlibs:
+	dh_makeshlibs --no-scripts

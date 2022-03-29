@@ -61,7 +61,7 @@ void SearchEngine::find() {
 	
 	// check for selected text
 	QString selectedText;
-	if ( !searchPopup_->isVisible() && curDoc_->hasSelectedText() ) {
+	if ( curDoc_->hasSelectedText() ) {
 		int line1, col1, line2, col2;
 		curDoc_->getSelection(line1, col1, line2, col2);
 		if ( line1 == line2 ) {

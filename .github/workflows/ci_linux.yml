@@ -1,0 +1,122 @@
+name: CI Linux
+
+on: [push, pull_request]
+
+jobs:
+  linux-build:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [RelWithDebInfo, Debug]
+        platform: [armv7, aarch64, i386, amd64]
+        exclude:
+          - {configuration: Debug, platform: armv7}
+          - {configuration: Debug, platform: aarch64}
+    name: 'Linux ${{ matrix.configuration}} ${{ matrix.platform}}'
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+
+    - name: Save current datetime
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H-%M')"
+
+    - name: amd64 | Install libs
+      if: matrix.platform == 'amd64'
+      run: |
+        sudo apt-get update
+        sudo apt-get install cmake ninja-build qtbase5-dev qttools5-dev libqscintilla2-qt5-dev libqtermwidget5-0-dev libutf8proc-dev
+
+    - name: i386 | Install libs
+      if: matrix.platform == 'i386'
+      run: |
+        sudo dpkg --add-architecture i386
+        sudo apt-get remove libutf8proc2
+        sudo apt-get update
+        sudo apt-get -y install --allow-downgrades libpcre2-8-0=10.34-7 # fix CI error https://github.com/actions/virtual-environments/issues/4620
+        # additional i386 packages:
+        sudo apt-get install libqt5help5:i386 libqt5designercomponents5:i386 libqt5designer5:i386 libqscintilla2-qt5-l10n
+        # real packages:
+        sudo apt-get install gcc-multilib g++-multilib cmake ninja-build qtbase5-dev:i386 qttools5-dev:i386
+        # libqscintilla2-qt5-dev:i386 and libqtermwidget5-0-dev:i386 is missing in ubuntu 20.04, will take it from launchpad
+        mkdir i386 && cd i386
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libqscintilla2-qt5-15_2.11.2+dfsg-5_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libqscintilla2-qt5-dev_2.11.2+dfsg-5_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libqtermwidget5-0-dev_0.14.1-0ubuntu3_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libqtermwidget5-0_0.14.1-0ubuntu3_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libutf8proc-dev_2.4.0-2build1_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libutf8proc2_2.4.0-2build1_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/qtermwidget5-data_0.14.1-0ubuntu3_all.deb
+        sudo dpkg -i *.deb
+
+    - name: Debug amd64 | Configure with cmake
+      if: matrix.configuration == 'Debug' && matrix.platform == 'amd64'
+      run: mkdir build && cd build && cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.configuration}}
+
+    - name: Debug i386 | Configure with cmake
+      if: matrix.configuration == 'Debug' && matrix.platform == 'i386'
+      run: mkdir build && cd build && CXXFLAGS="-m32" cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.configuration}}
+
+    - name: Debug | Build with cmake
+      if: matrix.configuration == 'Debug'
+      run: ninja
+      working-directory: build
+
+    - name: RelWithDebInfo amd64 | Build deb packages with debuild
+      if: matrix.configuration == 'RelWithDebInfo' && matrix.platform == 'amd64'
+      run: |
+        sudo apt-get install devscripts debhelper libenca-dev
+        debuild -b -uc -us
+
+    - name: RelWithDebInfo i386 | Build deb packages with cross-config + dpkg-buildpackage
+      if: matrix.configuration == 'RelWithDebInfo' && matrix.platform == 'i386'
+      run: |
+        sudo apt-get install build-essential crossbuild-essential-i386 debhelper
+        # libenca-dev:i386 is missing in ubuntu 20.04, will take it from launchpad
+        mkdir x86 && cd x86
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libenca-dev_1.19-1_i386.deb
+        curl -LJO https://github.com/q4a/juffed/releases/download/i386-deps/libenca0_1.19-1_i386.deb
+        sudo dpkg -i *.deb
+        cd ..
+        CONFIG_SITE=/etc/dpkg-cross/cross-config.amd64 DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -Pcross,nocheck -ai386 -b -uc -us
+
+    - name: armv7, aarch64 | Install libs and build with dpkg-buildpackage
+      if: matrix.platform == 'armv7' || matrix.platform == 'aarch64'
+      uses: uraimo/run-on-arch-action@v2.1.2
+      with:
+        arch: ${{ matrix.platform }}
+        distro: ubuntu20.04
+        # GitHub token used for caching Docker images in project's public package registry
+        githubToken: ${{ github.token }}
+        # Mount the juffed directory as /artifacts in the container
+        dockerRunArgs: |
+          --volume "/home/runner/work/juffed:/artifacts"
+        # Install dependencies in the container. They will be cached
+        install: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt-get update -q -y
+          # Install cmake >=3.18 to fix for cmake bug on qemu+armhf: https://gitlab.kitware.com/cmake/cmake/-/issues/20568
+          if [ "${{ matrix.platform }}" = "armv7" ]; then
+            apt-get install -q -y gpg wget
+            wget --no-check-certificate https://apt.kitware.com/ubuntu/pool/main/c/cmake/cmake_3.20.5-0kitware1ubuntu20.04.1_armhf.deb
+            wget --no-check-certificate https://apt.kitware.com/ubuntu/pool/main/c/cmake/cmake-data_3.20.5-0kitware1ubuntu20.04.1_all.deb
+            dpkg -i cmake*.deb
+          fi
+          apt-get install -q -y gcc g++ cmake ninja-build qtbase5-dev qttools5-dev libqscintilla2-qt5-dev libqtermwidget5-0-dev libutf8proc-dev
+          # Install debuild dependencies
+          apt-get install -q -y pkg-config devscripts debhelper libenca-dev
+        run: |
+          cmake --version
+          # Will use regular dpkg-buildpackage instead of debuild because of this bug: https://bugs.launchpad.net/cloud-images/+bug/1881217
+          #debuild -b -uc -us
+          dpkg-buildpackage -b -uc -us
+          cp ../*.deb /artifacts
+
+    - name: RelWithDebInfo | Upload deb packages
+      if: matrix.configuration == 'RelWithDebInfo'
+      uses: actions/upload-artifact@v3
+      with:
+        name: ubuntu-release-${{ matrix.platform }}-deb-files-${{ steps.date.outputs.date }}
+        path: /home/runner/work/juffed/*.deb

@@ -36,12 +36,12 @@ public:
 	void updateDocTitle(Juff::Document*);
 	
 	/**
-	* Makes the document with index \par index current for panel \par panel.
-	*/
-	
-	int currentIndex(PanelIndex) const;
-	/**
 	* Returns the index of current document for panel \par panel.
+	*/
+	int currentIndex(PanelIndex) const;
+	
+	/**
+	* Makes the document with index \par index current for panel \par panel.
 	*/
 	void setCurrentIndex(PanelIndex, int);
 	
@@ -60,6 +60,11 @@ public:
 	* Otherwise returns an empty list
 	*/
 	QStringList docNamesList(PanelIndex) const;
+	
+	/**
+	* Moves current document to the other TabWidget (not current one).
+	*/
+	void moveDocToOtherTab();
 
 
 

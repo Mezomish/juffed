@@ -1,0 +1,100 @@
+---
+
+cmake/*:
+  license: BSD-3-clause
+
+cmake/AppInfo*:
+  copyright: 2014, Alexander Volkov <volkov0aa@gmail.com>
+  license: BSD-3-clause
+
+example/example.cpp:
+  copyright: 2007-2016, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+include/Constants.h:
+  copyright: 2010-2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+include/IconManagerInt.h:
+  copyright: 2010, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+include/JuffAPI.h:
+  copyright: 2010, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+include/LibConfig.h:
+  copyright: 2010, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+include/SettingsPage.h:
+  copyright: 2011, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+include/Utils.h:
+  copyright: 2011, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+macosx/strip_bundle.sh:
+  copyright: 2012, Petr Vanek <petr@scribus.info>
+  license: GPL-2
+
+plugins/cmake/*:
+  copyright: 2012, Petr Vanek <petr@scribus.info>
+  license: BSD-3-clause
+  
+plugins/colorpicker/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+plugins/doclist/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+plugins/favorites/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+plugins/findinfiles/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+plugins/fm/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+plugins/keybindings/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+plugins/python/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+plugins/sort/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+plugins/symbolbrowser/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+plugins/terminal/*:
+  copyright: 2010 Petr Vanek <petr@scribus.info>
+  license: GPL-2
+
+plugins/xmlformat/*:
+  copyright: 2010 Petr Vanek <petr@scribus.info>
+  license: GPL-2
+
+plugins/zencoding/*:
+  copyright: 2012, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+src/app/*:
+  copyright: 2010-2014, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2
+
+src/lib/:
+  copyright: 2010-2014, Mikhail Murzin <mezomish@gmail.com>
+  license: GPL-2

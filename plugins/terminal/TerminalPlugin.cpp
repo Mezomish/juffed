@@ -1,5 +1,6 @@
 #include "TerminalPlugin.h"
 
+#include <QtGlobal>
 #include <QtCore>
 #include <QAction>
 #include <QWidget>
@@ -7,8 +8,11 @@
 #include <Log.h>
 #include <PluginSettings.h>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <qtermwidget5/qtermwidget.h>
-
+#else
+#include <qtermwidget4/qtermwidget.h>
+#endif
 
 Preferences::Preferences(const QObject *parent,
                          const QString &color,
@@ -38,7 +42,6 @@ Preferences::Preferences(const QObject *parent,
     connect(sizeSpinBox, SIGNAL(valueChanged(int)),
             parent, SLOT(fontSizeChanged(int)));
 }
-
 
 TerminalPlugin::TerminalPlugin() : QObject(), JuffPlugin() {
 	w_ = new QTermWidget();

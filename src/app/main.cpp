@@ -3,6 +3,7 @@
 #include "MainSettings.h"
 #include "Settings.h"
 
+#include <QtGlobal>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -134,25 +135,27 @@ bool hasValidDoubleDashParam( const QCoreApplication& app ) {
 			return true;
 		}
 	}
-	
+
 	return false;
 }
 
 int runSingle(int argc, char* argv[]) {
 	QtSingleApplication app(argc, argv);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+#endif
 	initApp(app);
 
 	if ( hasValidDoubleDashParam( app ) ) {
 		return 0;
 	}
-	
+
 	// check if instance already exists
 	QStringList fileList;
 	foreach (QString param, app.arguments()) {
 		fileList << QFileInfo(param).absoluteFilePath();
 	}
-	
+
 	if ( app.sendMessage(fileList.join("\n")) )
 		return 0;
 
@@ -169,13 +172,15 @@ int runSingle(int argc, char* argv[]) {
 
 int runNotSingle(int argc, char* argv[]) {
 	QApplication app(argc, argv);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
         app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+#endif
 	initApp(app);
 
 	if ( hasValidDoubleDashParam( app ) ) {
 		return 0;
 	}
-	
+
 	JuffEd juffed;
 
 	juffed.mainWindow()->show();

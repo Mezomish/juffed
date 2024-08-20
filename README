@@ -21,8 +21,12 @@ Building and Installation:
 		$ cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=release
 		$ make
 		$ sudo make install
-To install to a fake root folder for further packaging use 'make INSTALL_ROOT=<path> install'
+	To install to a fake root folder for further packaging use 'make INSTALL_ROOT=<path> install'
 
+	MacOS:
+		You may install from MacPorts:
+
+		$ sudo port install JuffEd
 
 License:
 	JuffEd is distributed under the GNU General Public License.

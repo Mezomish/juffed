@@ -4,16 +4,18 @@ on: [push, pull_request]
 
 jobs:
   linux-build:
-    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
-        configuration: [RelWithDebInfo, Debug]
-        platform: [armv7, aarch64, i386, amd64]
-        exclude:
-          - {configuration: Debug, platform: armv7}
-          - {configuration: Debug, platform: aarch64}
-    name: 'Linux ${{ matrix.configuration}} ${{ matrix.platform}}'
+        m:
+        - { os: ubuntu-24.04-arm, configuration: Release, arch: armv7 }
+        - { os: ubuntu-24.04-arm, configuration: Release, arch: aarch64 }
+        - { os: ubuntu-20.04, configuration: Release, arch: i386 }
+        - { os: ubuntu-20.04, configuration: Release, arch: amd64 }
+        - { os: ubuntu-20.04, configuration: Debug, arch: i386 }
+        - { os: ubuntu-20.04, configuration: Debug, arch: amd64 }
+    runs-on: ${{matrix.m.os}}
+    name: 'Linux ${{matrix.m.configuration}} ${{matrix.m.arch}}'
     steps:
     - uses: actions/checkout@v2
       with:
@@ -21,16 +23,16 @@ jobs:
 
     - name: Save current datetime
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d_%H-%M')"
+      run: echo "date=$(date +'%Y-%m-%d_%H-%M')" >> $GITHUB_OUTPUT
 
     - name: amd64 | Install libs
-      if: matrix.platform == 'amd64'
+      if: matrix.m.arch == 'amd64'
       run: |
         sudo apt-get update
         sudo apt-get install cmake ninja-build qtbase5-dev qttools5-dev libqscintilla2-qt5-dev libqtermwidget5-0-dev libutf8proc-dev
 
     - name: i386 | Install libs
-      if: matrix.platform == 'i386'
+      if: matrix.m.arch == 'i386'
       run: |
         sudo dpkg --add-architecture i386
         sudo apt-get remove libutf8proc2
@@ -52,26 +54,26 @@ jobs:
         sudo dpkg -i *.deb
 
     - name: Debug amd64 | Configure with cmake
-      if: matrix.configuration == 'Debug' && matrix.platform == 'amd64'
-      run: mkdir build && cd build && cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.configuration}}
+      if: matrix.m.configuration == 'Debug' && matrix.m.arch == 'amd64'
+      run: mkdir build && cd build && cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.m.configuration}}
 
     - name: Debug i386 | Configure with cmake
-      if: matrix.configuration == 'Debug' && matrix.platform == 'i386'
-      run: mkdir build && cd build && CXXFLAGS="-m32" cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.configuration}}
+      if: matrix.m.configuration == 'Debug' && matrix.m.arch == 'i386'
+      run: mkdir build && cd build && CXXFLAGS="-m32" cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.m.configuration}}
 
     - name: Debug | Build with cmake
-      if: matrix.configuration == 'Debug'
+      if: matrix.m.configuration == 'Debug'
       run: ninja
       working-directory: build
 
-    - name: RelWithDebInfo amd64 | Build deb packages with debuild
-      if: matrix.configuration == 'RelWithDebInfo' && matrix.platform == 'amd64'
+    - name: Release amd64 | Build deb packages with debuild
+      if: matrix.m.configuration == 'Release' && matrix.m.arch == 'amd64'
       run: |
         sudo apt-get install devscripts debhelper libenca-dev
         debuild -b -uc -us
 
-    - name: RelWithDebInfo i386 | Build deb packages with cross-config + dpkg-buildpackage
-      if: matrix.configuration == 'RelWithDebInfo' && matrix.platform == 'i386'
+    - name: Release i386 | Build deb packages with cross-config + dpkg-buildpackage
+      if: matrix.m.configuration == 'Release' && matrix.m.arch == 'i386'
       run: |
         sudo apt-get install build-essential crossbuild-essential-i386 debhelper
         # libenca-dev:i386 is missing in ubuntu 20.04, will take it from launchpad
@@ -83,13 +85,13 @@ jobs:
         CONFIG_SITE=/etc/dpkg-cross/cross-config.amd64 DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -Pcross,nocheck -ai386 -b -uc -us
 
     - name: armv7, aarch64 | Install libs and build with dpkg-buildpackage
-      if: matrix.platform == 'armv7' || matrix.platform == 'aarch64'
-      uses: uraimo/run-on-arch-action@v2.1.2
+      if: matrix.m.arch == 'armv7' || matrix.m.arch == 'aarch64'
+      uses: uraimo/run-on-arch-action@v3
       with:
-        arch: ${{ matrix.platform }}
+        arch: ${{matrix.m.arch}}
         distro: ubuntu20.04
         # GitHub token used for caching Docker images in project's public package registry
-        githubToken: ${{ github.token }}
+        githubToken: ${{github.token}}
         # Mount the juffed directory as /artifacts in the container
         dockerRunArgs: |
           --volume "/home/runner/work/juffed:/artifacts"
@@ -98,7 +100,7 @@ jobs:
           export DEBIAN_FRONTEND=noninteractive
           apt-get update -q -y
           # Install cmake >=3.18 to fix for cmake bug on qemu+armhf: https://gitlab.kitware.com/cmake/cmake/-/issues/20568
-          if [ "${{ matrix.platform }}" = "armv7" ]; then
+          if [ "${{matrix.m.arch}}" = "armv7" ]; then
             apt-get install -q -y gpg wget
             wget --no-check-certificate https://apt.kitware.com/ubuntu/pool/main/c/cmake/cmake_3.20.5-0kitware1ubuntu20.04.1_armhf.deb
             wget --no-check-certificate https://apt.kitware.com/ubuntu/pool/main/c/cmake/cmake-data_3.20.5-0kitware1ubuntu20.04.1_all.deb
@@ -114,9 +116,9 @@ jobs:
           dpkg-buildpackage -b -uc -us
           cp ../*.deb /artifacts
 
-    - name: RelWithDebInfo | Upload deb packages
-      if: matrix.configuration == 'RelWithDebInfo'
-      uses: actions/upload-artifact@v3
+    - name: Release | Upload deb packages
+      if: matrix.m.configuration == 'Release'
+      uses: actions/upload-artifact@main
       with:
-        name: ubuntu-release-${{ matrix.platform }}-deb-files-${{ steps.date.outputs.date }}
-        path: /home/runner/work/juffed/*.deb
+        name: ubuntu-release-${{matrix.m.arch}}-deb-files-${{steps.date.outputs.date}}
+        path: /home/runner/work/juffed/*.deb # ../*.deb - but relative pathing is not allowed.

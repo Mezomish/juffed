@@ -346,6 +346,7 @@ void Document::onModifiedExternally(const QString& path) {
 		question += tr("What do you want to do?");
 		QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question,
 		                   QMessageBox::Open | QMessageBox::Save | QMessageBox::Cancel, this);
+		msgBox.setIconPixmap(QPixmap(":32/help-browser.png"));
 		QAbstractButton* btn = msgBox.button(QMessageBox::Save);
 		if ( btn ) {
 			btn->setText(tr("Save current"));
@@ -389,6 +390,7 @@ void Document::onModifiedExternally(const QString& path) {
 		QString question = tr("The file '%1' was deleted or renamed.").arg(title()) + "\n";
 		question += tr("What do you want to do?");
 		QMessageBox msgBox(QMessageBox::Question, tr("Warning"), question, QMessageBox::Save | QMessageBox::Cancel, this);
+		msgBox.setIconPixmap(QPixmap(":32/help-browser.png"));
 		QAbstractButton* btn = msgBox.button(QMessageBox::Save);
 		if ( 0 != btn ) {
 			btn->setText(tr("Save current"));

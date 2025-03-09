@@ -18,6 +18,7 @@
 		<file alias="32/edit-undo.png">../images/icons/32/edit-undo.png</file>
 		<file alias="32/preferences-system.png">../images/icons/32/preferences-system.png</file>
 		<file alias="32/application-exit.png">../images/icons/32/application-exit.png</file>
+		<file alias="32/help-browser.png">../images/icons/32/help-browser.png</file>
 		<file alias="32/view-refresh.png">../images/icons/32/view-refresh.png</file>
 		<file alias="32/zoom-original.png">../images/icons/32/zoom-original.png</file>
 		<file alias="32/zoom-in.png">../images/icons/32/zoom-in.png</file>
@@ -38,6 +39,7 @@
 		<file alias="24/edit-undo.png">../images/icons/24/edit-undo.png</file>
 		<file alias="24/preferences-system.png">../images/icons/24/preferences-system.png</file>
 		<file alias="24/application-exit.png">../images/icons/24/application-exit.png</file>
+		<file alias="24/help-browser.png">../images/icons/24/help-browser.png</file>
 		<file alias="24/view-refresh.png">../images/icons/24/view-refresh.png</file>
 		<file alias="24/zoom-original.png">../images/icons/24/zoom-original.png</file>
 		<file alias="24/zoom-in.png">../images/icons/24/zoom-in.png</file>
@@ -58,6 +60,7 @@
 		<file alias="16/edit-undo.png">../images/icons/16/edit-undo.png</file>
 		<file alias="16/preferences-system.png">../images/icons/16/preferences-system.png</file>
 		<file alias="16/application-exit.png">../images/icons/16/application-exit.png</file>
+		<file alias="16/help-browser.png">../images/icons/16/help-browser.png</file>
 		<file alias="16/view-refresh.png">../images/icons/16/view-refresh.png</file>
 		<file alias="16/zoom-original.png">../images/icons/16/zoom-original.png</file>
 		<file alias="16/zoom-in.png">../images/icons/16/zoom-in.png</file>

@@ -117,7 +117,9 @@ public:
 	void setScrollPos(int);
 	SciDoc::Eol eol() const;
 	void setEol(SciDoc::Eol);
-    bool indentationsUseTabs() const;
+	bool isExternalModified() const;
+	void setExternalModified(bool);
+	bool indentationsUseTabs() const;
 	void setIndentationsUseTabs(bool);
 	int tabWidth() const;
 	void setTabWidth(int);
@@ -155,6 +157,7 @@ private:
 
 	class Interior;
 	Interior* int_;
+	bool extModif_;
 };
 
 }

@@ -287,6 +287,7 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 //	LOGGER;
 
 	int_ = new Interior(this);
+	extModif_ = false;
 
 	JuffScintilla* edits[] = { int_->edit1_, int_->edit2_ };
 	for ( int i = 0; i < 2; ++i) {
@@ -313,7 +314,7 @@ SciDoc::SciDoc(const QString& fileName) : Juff::Document(fileName) {
 		setEol(eol);
 		setIndentationsUseTabs(indentation.first);
 		setTabWidth(indentation.second);
-		int_->edit1_->setModified(false);
+		setModified(false);
 
 		//	syntax highlighting
 		lexName = LexerStorage::instance()->lexerName(fileName);
@@ -446,7 +447,7 @@ int SciDoc::lineCount() const {
 }
 
 bool SciDoc::isModified() const {
-	return int_->edit1_->isModified();
+	return extModif_ || int_->edit1_->isModified();
 }
 
 bool SciDoc::hasSelectedText() const {
@@ -509,6 +510,9 @@ QString SciDoc::syntax() const {
 }
 
 void SciDoc::setModified(bool modified) {
+	if ( !modified )
+		extModif_ = false;
+
 	int_->edit1_->setModified(modified);
 }
 
@@ -1214,7 +1218,7 @@ bool SciDoc::save(QString& error) {
 		file.write(codec()->fromUnicode(text));
 		file.close();
 //		Document::save(error);
-		int_->edit1_->setModified(false);
+		setModified(false);
 		result = true;
 	}
 	else {
@@ -1309,6 +1313,14 @@ void SciDoc::setEol(SciDoc::Eol eol) {
 			int_->edit2_->convertEols(QsciScintilla::EolMac);
 			break;
 	}
+}
+
+bool SciDoc::isExternalModified() const {
+	return extModif_;
+}
+
+void SciDoc::setExternalModified(bool modified) {
+	extModif_ = modified;
 }
 
 bool SciDoc::indentationsUseTabs() const {

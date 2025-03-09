@@ -67,7 +67,8 @@ public:
 			<< new SettingsCheckItem("main", "makeBackupOnSave", ui.makeBackupChk)
 			<< new SettingsCheckItem("main", "stripTrailingSpaces", ui.stripSpacesChk)
 			<< new SettingsCheckItem("main", "singleInstance", ui.singleInstanceChk)
-			<< new SettingsCheckItem("main", "startWithEmptySession", ui.startWithEmptySessionChk);
+			<< new SettingsCheckItem("main", "startWithEmptySession", ui.startWithEmptySessionChk)
+			<< new SettingsSelectItem("main", "externalModifications", ui.externalModificationsCmb, SettingsSelectItem::IndexModeWithDefaultValue)
 		;
 		
 		QMap<QString, QString> lngs;

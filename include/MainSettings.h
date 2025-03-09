@@ -55,6 +55,7 @@ public:
 		TabPosition,
 		IconSize,
 		SearchMode,
+		ExternalModifications,
 	};
 	
 	static void set(IntKey, int);

@@ -3,6 +3,7 @@
 		<file alias="doc_icon">../images/res/16/doc_icon.png</file>
 		<file alias="doc_icon_red">../images/res/16/doc_icon_red.png</file>
 		<file alias="doc_icon_warning">../images/res/16/doc_icon_warning.png</file>
+		<file alias="doc_modified">../images/res/16/doc_modified16.png</file>
 		
 		<file alias="32/document-new.png">../images/icons/32/document-new.png</file>
 		<file alias="32/document-open.png">../images/icons/32/document-open.png</file>

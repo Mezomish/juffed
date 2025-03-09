@@ -40,6 +40,10 @@ void MainSettings::set(IntKey key, int value) {
 		case SearchMode : 
 			Settings::instance()->setValue("main", "searchMode", value);
 			break;
+		
+		case ExternalModifications :
+			Settings::instance()->setValue("main", "externalModifications", value);
+			break;
 	}
 }
 
@@ -138,6 +142,10 @@ int MainSettings::get(IntKey key) {
 		
 		case SearchMode :
 			return Settings::instance()->intValue("main", "searchMode");
+			break;
+		
+		case ExternalModifications :
+			return Settings::instance()->intValue("main", "externalModifications");
 			break;
 	}
 	return -1;

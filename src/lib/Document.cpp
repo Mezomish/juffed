@@ -142,6 +142,9 @@ QIcon Document::icon() const {
 	if ( !isNoname() && !QFileInfo(fileName()).exists() ) {
 		return QIcon(":doc_icon_warning");
 	}
+	else if ( isExternalModified() ) {
+		return QIcon(":doc_modified");
+	}
 	else {
 		return QIcon( (isModified() ? ":doc_icon_red" : ":doc_icon") );
 	}
@@ -334,6 +337,13 @@ void Document::stopWatcher() {
 
 void Document::onModifiedExternally(const QString& path) {
 	LOGGER;
+	int extMod = MainSettings::get(MainSettings::ExternalModifications);
+	if ( extMod == 0 ) { // Set red save icon and mark *
+		setExternalModified(true);
+		emit modified(true);
+		return;
+	}
+
 	if ( notificationIsInProgress_ ) {
 		return;
 	}

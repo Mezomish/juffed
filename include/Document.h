@@ -75,6 +75,11 @@ public:
 	virtual bool isModified() const { return false; }
 	
 	/**
+	* Returns whether document is modified by external programs.
+	*/
+	virtual bool isExternalModified() const { return false; }
+	
+	/**
 	* Returns document's icon for tab bar.
 	*/
 	virtual QIcon icon() const;
@@ -194,6 +199,11 @@ public:
 	* Sets the 'modified' flag to the document.
 	*/
 	virtual void setModified(bool) {}
+	
+	/**
+	* Sets the 'modified by external programs' flag to the document.
+	*/
+	virtual void setExternalModified(bool) {}
 	
 	/**
 	* Replaces the currently selected text with \param text. If there was

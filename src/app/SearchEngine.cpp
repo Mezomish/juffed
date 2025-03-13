@@ -77,7 +77,9 @@ void SearchEngine::find() {
 	else {
 		Juff::SearchResults* res = curDoc_->searchResults();
 		if ( res != NULL ) {
-			searchPopup_->setFindText(res->params().findWhat);
+			//searchPopup_->setFindText(res->params().findWhat);
+			selectedText = res->params().findWhat;
+			searchPopup_->setFindText(selectedText);
 			curDoc_->highlightSearchResults();
 		}
 		else {

@@ -2,13 +2,13 @@
 <!DOCTYPE JuffScheme>
 <JuffScheme>
 <scheme name="JavaScript">
-	<style name="comment" color="#999999" bold="false" italic="true" />
-	<style name="commentdoc" color="#999999" />
-	<style name="commentdockeyword" color="#000060" bgColor="#f0f0f6" />
-	<style name="number" color="#0000ff" bold="false" italic="true" />
-	<style name="keyword" color="#000099" bold="true" italic="true" />
-	<style name="singleString" color="#cc0000" bold="false" italic="true" />
-	<style name="doubleString" color="#cc0000" bold="false" italic="true" />
-	<style name="identifier" color="#806080" bold="false" italic="false" />
+	<style name="comment" color="#a8abb0" italic="true" />
+	<style name="commentdoc" color="#a8abb0" italic="true" />
+	<style name="commentdockeyword" color="#a8abb0" italic="true" />
+	<style name="number" color="#8a602c" />
+	<style name="keyword" color="#45c6d6" italic="true" />
+	<style name="singleString" color="#d69545" />
+	<style name="doubleString" color="#d69545" />
+	<style name="identifier" color="#d6cf9a" />
 </scheme>
 </JuffScheme>

@@ -365,6 +365,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 				<< Rule(styles["entity"], QList<int>() << QsciLexerHTML::Entity)
 				<< Rule(styles["singleString"], QList<int>() << QsciLexerHTML::HTMLSingleQuotedString)
 				<< Rule(styles["doubleString"], QList<int>() << QsciLexerHTML::HTMLDoubleQuotedString)
+				<< Rule(styles["jsWord"], QList<int>() << QsciLexerHTML::JavaScriptWord)
 				<< Rule(styles["jsKeyword"], QList<int>() << QsciLexerHTML::JavaScriptKeyword)
 				<< Rule(styles["jsSingleString"], QList<int>() << QsciLexerHTML::JavaScriptSingleQuotedString)
 				<< Rule(styles["jsDoubleString"], QList<int>() << QsciLexerHTML::JavaScriptDoubleQuotedString)
@@ -567,6 +568,7 @@ void LSInterior::readCustomStyle(const QString& name) {
 		scheme = new Scheme();
 		scheme->defaultStyle = styles["default"];
 		scheme->rules
+				<< Rule(styles["default"], QList<int>() << QsciLexerProperties::Default)
 				<< Rule(styles["assignment"], QList<int>() << QsciLexerProperties::Assignment)
 				<< Rule(styles["comment"], QList<int>() << QsciLexerProperties::Comment)
 				<< Rule(styles["key"], QList<int>() << QsciLexerProperties::Key)

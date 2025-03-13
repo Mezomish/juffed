@@ -177,7 +177,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key.compare("showWhitespaces") == 0 )       return false;
 		if ( key.compare("showLineEnds") == 0 )          return false;
 		if ( key.compare("wrapWords") == 0 )             return false;
-		if ( key.compare("tabStopWidth") == 0 )          return 8;
+		if ( key.compare("tabStopWidth") == 0 )          return 4;
 		if ( key.compare("replaceTabsWithSpaces") == 0 ) return false;
 		if ( key.compare("backspaceUnindents") == 0 )    return true;
 		if ( key.compare("autoDetectIndentation") == 0 )    return true;
@@ -208,7 +208,7 @@ QVariant Settings::defaultValue(const QString& section, const QString& key) {
 		if ( key.compare("indentsColor") == 0 )           return QColor(160, 160, 160);
 		if ( key.compare("wordHLColor") == 0 )            return QColor(30, 255, 30);
 		if ( key.compare("searchHLColor") == 0 )          return QColor(255, 128, 0);
-		if ( key.compare("curLineColor") == 0 )           return QColor(240, 240, 255);
+		if ( key.compare("curLineColor") == 0 )           return QColor(80, 80, 80);
 		if ( key.compare("markersColor") == 0 )           return QColor(170, 170, 250);
 		if ( key.compare("marginsBgColor") == 0 )         return QApplication::palette().color(QPalette::Window);
 		if ( key.compare("whiteSpaceColor") == 0 )        return QColor(155, 155, 185);

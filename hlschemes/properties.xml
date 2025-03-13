@@ -2,9 +2,10 @@
 <!DOCTYPE JuffScheme>
 <JuffScheme>
 <scheme name="Properties">
-	<style name="assignment" color="#990000" />
-	<style name="comment" color="#999999" italic="true" />
-	<style name="key" color="#000099" bold="true" />
-	<style name="section" color="#009999" />
+	<style name="default" color="#d69545" />
+	<style name="assignment" color="#ffffff" />
+	<style name="comment" color="#a8abb0" italic="true" />
+	<style name="key" color="#d6cf9a" />
+	<style name="section" color="#45c6d6" italic="true" />
 </scheme>
 </JuffScheme>

@@ -2,17 +2,17 @@
 <!DOCTYPE JuffScheme>
 <JuffScheme>
 <scheme name="Python">
-	<style name="comment" color="#108040" italic="true" />
-	<style name="keyword" color="#e43434" bold="true" />
-	<style name="number" color="#0000ff" />
-	<style name="operator" color="#254cb3" />
-	<style name="function" color="#a0a500" bold="true" />
-	<style name="stringSingle" color="#0000ff" />
-	<style name="stringDouble" color="#1e90ff" />
-	<style name="tripleSingle" color="#cc0000" />
-	<style name="tripleDouble" color="#0000ff" />
-	<style name="decorator" color="#f48397" bold="true" />
-	<style name="unclosedString" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
+	<style name="comment" color="#a8abb0" italic="true" />
+	<style name="keyword" color="#45c6d6" italic="true" />
+	<style name="number" color="#8a602c" />
+	<style name="operator" color="#d6bb9a" />
+	<style name="function" color="#45c6d6" italic="true" />
+	<style name="stringSingle" color="#d69545" />
+	<style name="stringDouble" color="#d69545" />
+	<style name="tripleSingle" color="#d69545" />
+	<style name="tripleDouble" color="#d69545" />
+	<style name="decorator" color="#ff8080" bold="true" />
+	<style name="unclosedString" color="#ff0000" />
 	<style name="identifier" />
 </scheme>
 </JuffScheme>

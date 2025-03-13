@@ -2,14 +2,14 @@
 <!DOCTYPE JuffScheme>
 <JuffScheme>
 <scheme name="C++">
-	<style name="preprocessor" color="#00aa00" />
-	<style name="keyword" color="#000099" />
-	<style name="number" color="#009900" bold="true" />
-	<style name="string" color="#bb0000" />
-	<style name="comment" color="#99a999" bgColor="#f0f6f0" italic="true"/>
-	<style name="commentdoc" color="#a09090" bgColor="#f6f0f0" />
-	<style name="commentdockeyword" color="#903030" bgColor="#f6f0f0" bold="true" />
-	<style name="unclosedString" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
-	<style name="operator" color="#660099" />
+	<style name="preprocessor" color="#ff6aad" />
+	<style name="keyword" color="#45c6d6" italic="true" />
+	<style name="number" color="#8a602c" />
+	<style name="string" color="#d69545" />
+	<style name="comment" color="#a8abb0" italic="true" />
+	<style name="commentdoc" color="#a8abb0" italic="true" />
+	<style name="commentdockeyword" color="#a8abb0" italic="true" />
+	<style name="unclosedString" color="#ff0000" />
+	<style name="operator" color="#d6bb9a" />
 </scheme>
 </JuffScheme>

@@ -2,10 +2,10 @@
 <!DOCTYPE JuffScheme>
 <JuffScheme>
 <scheme name="XML">
-	<style name="tag" color="#000000" bold="true" />
-	<style name="attribute" color="#005500" />
-	<style name="comment" color="#999999" italic="true" />
-	<style name="value" color="#660000" />
-	<style name="entity" color="#0000aa" />
+	<style name="tag" color="#45c6d6" italic="true" />
+	<style name="attribute" color="#d6cf9a" />
+	<style name="comment" color="#a8abb0" italic="true" />
+	<style name="value" color="#d69545" />
+	<style name="entity" color="#8a602c" />
 </scheme>
 </JuffScheme>

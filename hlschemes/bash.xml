@@ -2,15 +2,15 @@
 <!DOCTYPE JuffScheme>
 <JuffScheme>
 <scheme name="Bash">
-	<style name="comment" color="#999999" bold="false" italic="true" />
-	<style name="keyword" color="#660066" bold="true" italic="false" />
-	<style name="singleString" color="#aa0000" bold="false" italic="false" />
-	<style name="doubleString" color="#aa0000" bold="false" italic="false" />
-	<style name="variable" color="#306030" bold="false" italic="false" />
-	<style name="backticks" color="#0000ff" bgColor="#f0e0ff" bold="false" italic="false" />
-	<style name="operator" color="#009900" bold="false" italic="false" />
-	<style name="scalar" color="#309030" bold="false" italic="false" />
-	<style name="error" color="#990000" bgColor="#ff3030" bold="false" italic="false" />
+	<style name="comment" color="#a8abb0" italic="true" />
+	<style name="keyword" color="#45c6d6" italic="true" />
+	<style name="singleString" color="#d69545" />
+	<style name="doubleString" color="#d69545" />
+	<style name="variable" color="#d6cf9a" />
+	<style name="backticks" color="#9aa7d6" />
+	<style name="operator" color="#d6bb9a" />
+	<style name="scalar" color="#d6cf9a" />
+	<style name="error" color="#ff0000" />
 	<style name="identifier" />
 </scheme>
 </JuffScheme>

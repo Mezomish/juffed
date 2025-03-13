@@ -2,12 +2,12 @@
 <!DOCTYPE JuffScheme>
 <JuffScheme>
 <scheme name="SQL">
-	<style name="comment" color="#108040" italic="true" />
-	<style name="keyword" color="#141484" bold="true" />
-	<style name="number" color="#0080a0" />
-	<style name="operator" color="#400000" />
-	<style name="singleString" color="#a00000" />
-	<style name="doubleString" color="#a000c0" />
-	<style name="identifier" color="#303030" />
+	<style name="comment" color="#a8abb0" italic="true" />
+	<style name="keyword" color="#45c6d6" italic="true" />
+	<style name="number" color="#8a602c" />
+	<style name="operator" color="#d6bb9a" />
+	<style name="singleString" color="#d69545" />
+	<style name="doubleString" color="#d69545" />
+	<style name="identifier" color="#d6cf9a" />
 </scheme>
 </JuffScheme>

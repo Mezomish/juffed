@@ -2,11 +2,11 @@
 <!DOCTYPE JuffScheme>
 <JuffScheme>
 <scheme name="Diff">
-	<style name="lineadded" color="#009900" bold="false" italic="false" />
-	<style name="lineremoved" color="#cc0000" bold="false" italic="false" />
-	<style name="comment" color="#609090" bold="false" italic="true" />
-	<style name="header" color="#666699" bold="false" italic="false" />
-	<style name="position" color="#aaaa33" bold="false" italic="false" />
-	<style name="command" color="#000066" bold="true" italic="false" />
+	<style name="lineadded" color="#66a334" />
+	<style name="lineremoved" color="#ff7878" />
+	<style name="comment" color="#a8abb0" italic="true" />
+	<style name="header" color="#3edcff" />
+	<style name="position" color="#aaaa33" />
+	<style name="command" color="#419aff" bold="true" />
 </scheme>
 </JuffScheme>

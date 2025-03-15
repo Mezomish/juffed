@@ -69,6 +69,9 @@ Juff::ActionList SortDocumentPlugin::mainMenuActions(Juff::MenuID id) const
     return list;
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#define qStableSort std::stable_sort
+#endif
 void SortDocumentPlugin::sortDocument()
 {
   Juff::Document* doc = api()->currentDocument();
@@ -83,7 +86,7 @@ void SortDocumentPlugin::sortDocument()
 
     //list.removeDuplicates();
     //list.sort();
-    qStableSort(list);
+    qStableSort(list.begin(), list.end());
 
     content = list.join("\n");
 

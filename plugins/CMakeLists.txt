@@ -17,7 +17,8 @@ OPTION(BUILD_TODOLIST "Build TODOList plugin" OFF)
 project (juffed-plugins)
 cmake_minimum_required (VERSION 3.7)
 
-option(USE_QT5 "Use Qt5. Defaults to Qt4" OFF)
+option(USE_QT6 "Use Qt6. Defaults to Qt4" OFF)
+option(USE_QT5 "Use Qt5. Defaults to Qt4" ON)
 
 # plugins are built standalone if is JUFFED_CMAKE_PLUGINS not set
 # Required variables (includes, libs) has to go from
@@ -25,7 +26,22 @@ option(USE_QT5 "Use Qt5. Defaults to Qt4" OFF)
 # b) upstream CMakeLists.txt for the in-juffed build
 set ( CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} )
 if (NOT JUFFED_CMAKE_PLUGINS)
-    if (USE_QT5)
+    if (USE_QT6)
+        find_package ( Qt6 COMPONENTS Widgets Xml Network PrintSupport LinguistTools CONFIG REQUIRED )
+        set (JUFF_QT_IMPORTED_TARGETS Qt6::Widgets Qt6::Xml Qt6::Network Qt6::PrintSupport)
+
+        macro(qt_wrap_ui)
+          qt6_wrap_ui(${ARGN})
+        endmacro()
+
+        macro(qt_add_resources)
+          qt6_add_resources(${ARGN})
+        endmacro()
+
+        macro(qt_add_translation)
+          qt6_add_translation(${ARGN})
+        endmacro()
+    elseif (USE_QT5)
         find_package ( Qt5 COMPONENTS Widgets Xml Network PrintSupport LinguistTools CONFIG REQUIRED )
         set (JUFF_QT_IMPORTED_TARGETS Qt5::Widgets Qt5::Xml Qt5::Network Qt5::PrintSupport)
 

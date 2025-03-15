@@ -146,7 +146,11 @@ DocListPanel::DocListPanel(JuffAPI *api)
     filter_->setClearButtonEnabled(true);
 #endif
     QVBoxLayout* vBox = new QVBoxLayout();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    vBox->setContentsMargins(0, 0, 0, 0);
+#else
     vBox->setMargin(0);
+#endif
     vBox->setSpacing(2);
     setLayout(vBox);
 	

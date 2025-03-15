@@ -184,12 +184,21 @@ void JuffScintilla::focusOutEvent(QFocusEvent* e) {
 
 void JuffScintilla::wheelEvent(QWheelEvent* e) {
 	if ( e->modifiers() & Qt::ControlModifier ) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		if ( e->angleDelta().y() < 0 ) {
+			zoomOut();
+		}
+		else if ( e->angleDelta().y() > 0 ) {
+			zoomIn();
+		}
+#else
 		if ( e->delta() < 0 ) {
 			zoomOut();
 		}
 		else if ( e->delta() > 0 ) {
 			zoomIn();
 		}
+#endif
 	}
 	else {
 		QsciScintilla::wheelEvent(e);

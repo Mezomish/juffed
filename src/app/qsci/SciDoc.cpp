@@ -96,7 +96,7 @@ std::pair<bool,int> guessIndentation(const QString& fileName) {
 			int space_block_count = 0;  // Counter of how many text blocks start with spaces
 			
 			QString prev_indent("");  // Stores prior line's indentation string
-			int prev_spaces;  // Stores the prior line's leading spaces
+			int prev_spaces = 0;  // Stores the prior line's leading spaces
 			
 			std::map<int, int> space_counts;  // Stores the number of indentation increases of various sizes in spaces
 			space_counts[1] = space_counts[2] = space_counts[3] = space_counts[4] = space_counts[5] = space_counts[6] = space_counts[7] = space_counts[8] = 0; 
@@ -1193,8 +1193,12 @@ void SciDoc::readFile() {
 //		}
 
 		QTextStream ts(&file);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		int_->edit1_->setText(codec()->toUnicode(file.readAll()));
+#else
 		ts.setCodec(codec());
 		int_->edit1_->setText(ts.readAll());
+#endif
 	}
 }
 

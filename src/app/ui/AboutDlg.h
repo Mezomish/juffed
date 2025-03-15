@@ -28,7 +28,7 @@ class QString;
 class AboutDlg : public QDialog {
 Q_OBJECT
 public:
-	AboutDlg(QWidget* parent = 0, Qt::WindowFlags f = 0);
+	AboutDlg(QWidget* parent = 0, Qt::WindowFlags f = {});
 	virtual ~AboutDlg();
 	
 	/**

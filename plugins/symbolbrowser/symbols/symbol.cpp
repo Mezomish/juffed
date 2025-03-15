@@ -280,6 +280,9 @@ void Symbol::setParent(Symbol *parent) {
 /*****************************************************************************
  *
  *****************************************************************************/
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#define qSort std::sort
+#endif
 void Symbol::sort(SortType sortType, bool recursive){
     switch (sortType) {
         case SortByLine: qSort(this->begin(), this->end(), lesThenLine);

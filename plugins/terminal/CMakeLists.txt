@@ -2,7 +2,11 @@
 set (terminal_SRC TerminalPlugin.cpp)
 set (terminal_UI preferences.ui)
 
-if (USE_QT5)
+if (USE_QT6)
+    find_package ( QTermWidget6 REQUIRED )
+    qt6_wrap_ui(terminal_UI_SRC ${terminal_UI})
+    set(qtermwidget_lib "qtermwidget6")
+elseif (USE_QT5)
     find_package ( QTermWidget5 REQUIRED )
     qt5_wrap_ui(terminal_UI_SRC ${terminal_UI})
     set(qtermwidget_lib "qtermwidget5")

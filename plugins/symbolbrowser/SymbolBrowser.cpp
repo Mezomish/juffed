@@ -130,7 +130,11 @@ void SymbolBrowser::init() {
 
     QVBoxLayout* layout = new QVBoxLayout(panel);
     layout->addWidget(mView);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    layout->setContentsMargins(0, 0, 0, 0);
+#else
     layout->setMargin(0);
+#endif
     layout->setSpacing(2);
 
     panel->setLayout(layout);

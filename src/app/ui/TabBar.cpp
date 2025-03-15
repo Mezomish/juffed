@@ -38,7 +38,11 @@ TabBar::TabBar(Juff::TabWidget* widget) : QTabBar(), index_(-1), tabMenu_(NULL),
 
 void TabBar::mouseReleaseEvent(QMouseEvent* e) {
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	if ( e->button() & Qt::MiddleButton ) {
+#else
 	if ( e->button() & Qt::MidButton ) {
+#endif
 		int index = tabAt(e->pos());
 		emit tabCloseRequested(index);
 	}

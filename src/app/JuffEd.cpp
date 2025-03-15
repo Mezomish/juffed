@@ -2,6 +2,7 @@
 
 #include "JuffEd.h"
 
+#include <QActionGroup>
 #include <QApplication>
 #include <QClipboard>
 #include <QDockWidget>

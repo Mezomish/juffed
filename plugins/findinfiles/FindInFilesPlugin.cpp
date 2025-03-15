@@ -1,6 +1,7 @@
 #include <QDebug>
 
 #include "FindInFilesPlugin.h"
+#include "Constants.h"
 
 #include "SearchDlg.h"
 #include "FindWorker.h"
@@ -46,7 +47,11 @@ public:
 		tree_ = new QTreeWidget();
 		QVBoxLayout* vBox = new QVBoxLayout();
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		vBox->setContentsMargins(0, 0, 0, 0);
+#else
 		vBox->setMargin(0);
+#endif
 		vBox->addWidget(tree_);
 		widget_->setLayout(vBox);
 
@@ -189,7 +194,7 @@ void FindInFilesPlugin::findInFiles(const QString& findText, const QStringList& 
 }
 
 void FindInFilesPlugin::findInText(const QString& findText, const QString& text, const QString& fileName) {
-	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
+	QStringList lines = text.split(LineSeparatorRx);
 	int lineIndex = 0;
 	foreach (QString line, lines) {
 		int column = line.indexOf(findText);

@@ -42,7 +42,11 @@ protected slots:
 	void makeStep(int);
 
 protected:
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	virtual void enterEvent(QEnterEvent* event);
+#else
 	virtual void enterEvent(QEvent* event);
+#endif
 	virtual void leaveEvent(QEvent* event);
 	virtual void mousePressEvent(QMouseEvent*);
 

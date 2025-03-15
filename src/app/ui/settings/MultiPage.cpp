@@ -57,11 +57,15 @@ public:
 
 		panel_ = new QWidget();
 		panelLayout_ = new QHBoxLayout();
-		panelLayout_->setMargin(0);
-		panel_->setLayout(panelLayout_);
-
 		QHBoxLayout* hbox = new QHBoxLayout();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		panelLayout_->setContentsMargins(0, 0, 0, 0);
+		hbox->setContentsMargins(0, 0, 0, 0);
+#else
+		panelLayout_->setMargin(0);
 		hbox->setMargin(0);
+#endif
+		panel_->setLayout(panelLayout_);
 
 		splitter_ = new QSplitter;
 		splitter_->setChildrenCollapsible(false);

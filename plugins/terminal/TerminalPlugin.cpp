@@ -8,7 +8,9 @@
 #include <Log.h>
 #include <PluginSettings.h>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <qtermwidget6/qtermwidget.h>
+#elif QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <qtermwidget5/qtermwidget.h>
 #else
 #include <qtermwidget4/qtermwidget.h>

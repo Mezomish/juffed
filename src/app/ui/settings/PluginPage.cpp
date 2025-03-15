@@ -34,7 +34,11 @@ PluginPage::PluginPage(const QString& pluginName, QWidget* page, QWidget* parent
 	usePluginChk_ = new QCheckBox(tr("Enabled"));
 	connect(usePluginChk_, SIGNAL(toggled(bool)), SLOT(enablePage(bool)));
 	vBox->addWidget(usePluginChk_);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	vBox->setContentsMargins(0, 0, 0, 0);
+#else
 	vBox->setMargin(0);
+#endif
 
 	if ( page ) {
 		vBox->addWidget(page);

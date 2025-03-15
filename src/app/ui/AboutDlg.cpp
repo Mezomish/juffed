@@ -71,7 +71,11 @@ public:
 		QHBoxLayout* hBox2 = new QHBoxLayout();
 		hBox2->addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum));
 		hBox2->addWidget(closeBtn_);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+		hBox2->setContentsMargins(0, 0, 0, 0);
+#else
 		hBox2->setMargin(0);
+#endif
 		hBox2->setSpacing(0);
 		
 		QVBoxLayout* vBox = new QVBoxLayout();

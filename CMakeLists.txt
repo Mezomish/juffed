@@ -20,6 +20,7 @@ project (juffed)
 cmake_minimum_required (VERSION 3.7)
 
 # build options
+option(USE_QT6 "Use Qt6. Defaults to Qt4" OFF)
 option(USE_QT5 "Use Qt5. Defaults to Qt4" ON)
 option(USE_SYSTEM_QTSINGLEAPPLICATION "Try to find system-wide QtSingleApplication library" $ENV{USE_SYSTEM_SINGLETON})
 option(USE_ENCA "Try to find Enca library for file encoding check" $ENV{USE_ENCA})
@@ -92,7 +93,22 @@ message ( STATUS "" )
 
 set (CMAKE_AUTOMOC ON)
 
-if (USE_QT5)
+if (USE_QT6)
+    find_package ( Qt6 COMPONENTS Core5Compat Widgets Xml Network PrintSupport LinguistTools CONFIG REQUIRED )
+    set (JUFF_QT_IMPORTED_TARGETS Qt6::Core5Compat Qt6::Widgets Qt6::Xml Qt6::Network Qt6::PrintSupport)
+
+    macro(qt_wrap_ui)
+      qt6_wrap_ui(${ARGN})
+    endmacro()
+
+    macro(qt_add_resources)
+      qt6_add_resources(${ARGN})
+    endmacro()
+
+    macro(qt_add_translation)
+      qt6_add_translation(${ARGN})
+    endmacro()
+elseif (USE_QT5)
     find_package ( Qt5 COMPONENTS Widgets Xml Network PrintSupport LinguistTools CONFIG REQUIRED )
     set (JUFF_QT_IMPORTED_TARGETS Qt5::Widgets Qt5::Xml Qt5::Network Qt5::PrintSupport)
 

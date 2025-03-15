@@ -15,8 +15,13 @@ ColorFormatDlg::ColorFormatDlg( JuffPlugin* plugin, const QColor& color, QWidget
 	
 	_ui.btnHtml->setText( color.name() );
 	_ui.btnHex->setText( color.name().replace("#", "0x") );
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	_ui.btnHexSplitted->setText( QString().asprintf("0x%02hX, 0x%02hX, 0x%02hX", (unsigned short)r, (unsigned short)g, (unsigned short)b) );
+	_ui.btnSplitted->setText( QString().asprintf("%i, %i, %i", r, g, b) );
+#else
 	_ui.btnHexSplitted->setText( QString().sprintf("0x%02hX, 0x%02hX, 0x%02hX", (unsigned short)r, (unsigned short)g, (unsigned short)b) );
 	_ui.btnSplitted->setText( QString().sprintf("%i, %i, %i", r, g, b) );
+#endif
 	
 	_ui.buttonGroup->setId( _ui.btnHtml, 0 );
 	_ui.buttonGroup->setId( _ui.btnHex, 1 );

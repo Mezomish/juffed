@@ -23,7 +23,12 @@ class QAction;
 class QObject;
 class QKeySequence;
 class QString;
+#include <QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+using QStringList = QList<QString>;
+#else
 class QStringList;
+#endif
 
 class CommandStorageInt {
 public:

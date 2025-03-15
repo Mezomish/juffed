@@ -115,7 +115,11 @@ void Popup::setAlpha(int alpha) {
 	headerL_->setStyleSheet(labelStyleSheet);
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+void Popup::enterEvent(QEnterEvent* event) {
+#else
 void Popup::enterEvent(QEvent* event) {
+#endif
 	setAlpha(AlphaSolid);
 	QFrame::enterEvent(event);
 }

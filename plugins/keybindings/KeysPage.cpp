@@ -61,7 +61,7 @@ void KeysPage::apply() {
 		if ( item != NULL ) {
 			QString id = item->data(3, Qt::UserRole + 1).toString();
 			if ( !id.isEmpty() ) {
-				if ( id != NULL ) {
+				{ // if ( id != NULL ) {
 					KeySettings::setKeySequence(id, item->text(2));
 					storage_->setShortcut(id,  item->text(2));
 				}

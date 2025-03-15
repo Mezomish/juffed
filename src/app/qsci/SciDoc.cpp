@@ -59,9 +59,16 @@ SciDoc::Eol guessEol(const QString& fileName) {
 		QFile file(fileName);
 		if ( file.open(QIODevice::ReadOnly) ) {
 			QString line = QString::fromLocal8Bit(file.readLine().constData());
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+			static QRegularExpression re("[^\r\n]*(\r?\n?)");
+			QRegularExpressionMatch regMatch = re.match(line);
+			if ( regMatch.hasMatch() ) {
+				 QString ending = regMatch.captured(1);
+#else
 			QRegExp re(".*(\r?\n?)");
 			if ( re.exactMatch(line) ) {
 				QString ending = re.cap(1);
+#endif
 				if ( ending == "\r\n" ) {
 					eol = SciDoc::EolWin;
 				}
@@ -101,16 +108,53 @@ std::pair<bool,int> guessIndentation(const QString& fileName) {
 			std::map<int, int> space_counts;  // Stores the number of indentation increases of various sizes in spaces
 			space_counts[1] = space_counts[2] = space_counts[3] = space_counts[4] = space_counts[5] = space_counts[6] = space_counts[7] = space_counts[8] = 0; 
 			
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+			static QRegularExpression blank_re(
+		  QRegularExpression::anchoredPattern("[\t ]*\r?\n?")); // Checks if line is blank
+			static QRegularExpression indent_re("^[\t ]*");     // Finds all leading whitespace
+			static QRegularExpression tabs_re("^\t*");          // Finds leading tabs
+			static QRegularExpression spaces_re("^ *");         // Finds leading spaces
+#else
 			QRegExp blank_re("[\t ]*\r?\n?"); // Checks if line is blank
 			QRegExp indent_re("^[\t ]*");     // Finds all leading whitespace
 			QRegExp tabs_re("^\t*");          // Finds leading tabs
 			QRegExp spaces_re("^ *");         // Finds leading spaces
+#endif
 			
 			// Collect indentation statistics
 			for ( int i = 0; !file.atEnd() && i < 1000; ++i ) {  // Stop at end of document or 1000 lines, whichever comes first
 				QString line = QString::fromLocal8Bit(file.readLine().constData());
 				
 				// Skip blank lines, as they are likely to have malformed indentation
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+				if (blank_re.match(line).hasMatch())
+					continue;
+
+				// Skip subsequent lines with identical indentation.
+				// In other words, we're counting blocks of indented text, not lines
+				QRegularExpressionMatch cur_match = indent_re.match(line);
+				if (prev_indent == cur_match.captured(0))
+					continue;
+				prev_indent = cur_match.captured(0);
+
+				// Check for a leading tab
+				cur_match = tabs_re.match(line);
+				if (cur_match.capturedLength() > 0) {
+					tab_block_count++;
+					prev_spaces = 0;
+					continue;
+				}
+
+				// Check for a leading space
+				cur_match = spaces_re.match(line);
+				if (cur_match.capturedLength() > 0) {
+					space_block_count++;
+					// Count the number of spaces in indentation increases
+					if (prev_spaces < cur_match.capturedLength())
+						space_counts[cur_match.capturedLength() - prev_spaces]++;
+					prev_spaces = cur_match.capturedLength();
+				}
+#else
 				if (blank_re.exactMatch(line))
 					continue;
 				
@@ -138,6 +182,7 @@ std::pair<bool,int> guessIndentation(const QString& fileName) {
 						space_counts[spaces_re.matchedLength() - prev_spaces]++;
 					prev_spaces = spaces_re.matchedLength();
 				}
+#endif
 			}
 			
 			// Guess indentation style based on the collected statistics
@@ -1532,7 +1577,11 @@ void SciDoc::stripTrailingSpaces() {
 	getCursorPos(line, col);
 	QString text = int_->curEdit_->text();
 	QStringList lines = text.split(LineSeparatorRx);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	static QRegularExpression rx("[ \t]+$");
+#else
 	QRegExp rx("[ \t]+$");
+#endif
 	int i = 0;
 
 	beginUndoAction();

@@ -170,7 +170,11 @@ QString XmlformatPlugin::changeSpacesToTabs(const QString &text)
 
     foreach (QString line, text.split('\n'))
     {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        int ix = line.indexOf(QRegularExpression("\\S"));
+#else
         int ix = line.indexOf(QRegExp("\\S"));
+#endif
         if (ix < 1)
             ret << line;
         else

@@ -1,10 +1,15 @@
 #ifndef __JUFFED_CONSTANTS_H__
 #define __JUFFED_CONSTANTS_H__
 
-#include <QRegExp>
 #include <QString>
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QRegularExpression>
+const QRegularExpression LineSeparatorRx = QRegularExpression("\r\n|\n|\r");
+#else
+#include <QRegExp>
 const QRegExp LineSeparatorRx   = QRegExp("\r\n|\n|\r");
+#endif
 
 const QString FILE_NEW          = "main:fileNew";
 const QString FILE_OPEN         = "main:fileOpen";

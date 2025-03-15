@@ -48,6 +48,9 @@
 #include "qtlocalpeer.h"
 #include <QtCore/QCoreApplication>
 #include <QtCore/QTime>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QRegularExpression>
+#endif
 
 #if defined(Q_OS_WIN)
 #include <QtCore/QLibrary>
@@ -81,7 +84,11 @@ QtLocalPeer::QtLocalPeer(QObject* parent, const QString &appId)
 #endif
         prefix = id.section(QLatin1Char('/'), -1);
     }
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    prefix.remove(QRegularExpression("[^a-zA-Z]"));
+#else
     prefix.remove(QRegExp("[^a-zA-Z]"));
+#endif
     prefix.truncate(6);
 
     QByteArray idc = id.toUtf8();

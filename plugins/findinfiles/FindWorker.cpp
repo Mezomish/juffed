@@ -1,6 +1,7 @@
 #include <QDebug>
 
 #include "FindWorker.h"
+#include "Constants.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
@@ -18,7 +19,7 @@ void FindWorker::run() {
 }
 
 void FindWorker::findInText(const QString& findText, const QString& text, const QString& fileName) {
-	QStringList lines = text.split(QRegExp("\r\n|\n|\r"));
+	QStringList lines = text.split(LineSeparatorRx);
 	int lineIndex = 0;
 	foreach (QString line, lines) {
 		int column = line.indexOf(findText);
@@ -46,8 +47,16 @@ void FindWorker::findInDir(const QString& findText, const QString& dirName) {
 		else if ( params_.patternVariant == 1 ) {
 			// fileName must match one of patterns
 			foreach (QString pattern, params_.filePatterns) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+				QRegularExpression rx(
+					QRegularExpression::wildcardToRegularExpression(pattern),
+					QRegularExpression::CaseInsensitiveOption
+				);
+				if ( rx.match(fileName).hasMatch() ) {
+#else
 				QRegExp rx(pattern, Qt::CaseInsensitive, QRegExp::Wildcard);
 				if ( rx.exactMatch(fileName) ) {
+#endif
 					proceed = true;
 					break;
 				}
@@ -57,8 +66,16 @@ void FindWorker::findInDir(const QString& findText, const QString& dirName) {
 			// fileName must NOT match any of patterns
 			proceed = true;
 			foreach (QString pattern, params_.filePatterns) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+				QRegularExpression rx(
+					QRegularExpression::wildcardToRegularExpression(pattern),
+					QRegularExpression::CaseInsensitiveOption
+				);
+				if ( rx.match(fileName).hasMatch() ) {
+#else
 				QRegExp rx(pattern, Qt::CaseInsensitive, QRegExp::Wildcard);
 				if ( rx.exactMatch(fileName) ) {
+#endif
 					proceed = false;
 					break;
 				}

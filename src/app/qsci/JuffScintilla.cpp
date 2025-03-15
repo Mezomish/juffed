@@ -84,8 +84,13 @@ QString JuffScintilla::wordUnderCursor() {
 	int line, col;
 	getCursorPosition(&line, &col);
 	QString str = text(line);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	int startPos = str.left(col).lastIndexOf(QRegularExpression("\\b"));
+	int endPos = str.indexOf(QRegularExpression("\\b"), col);
+#else
 	int startPos = str.left(col).lastIndexOf(QRegExp("\\b"));
 	int endPos = str.indexOf(QRegExp("\\b"), col);
+#endif
 	if ( startPos >= 0 && endPos >= 0 && endPos > startPos )
 		return str.mid(startPos, endPos - startPos);
 	else

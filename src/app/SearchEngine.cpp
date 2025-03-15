@@ -339,10 +339,17 @@ void SearchEngine::onFindPrev() {
 }
 
 void expandRegExpMatches(const QString& selectedText, QString& replaceWith, const Juff::SearchParams& params) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	QRegularExpression regExp(QRegularExpression::anchoredPattern(params.findWhat));
+	QRegularExpressionMatch regMatch = regExp.match(selectedText);
+	if ( regMatch.hasMatch() ) {
+		QStringList matches = regMatch.capturedTexts();
+#else
 	QRegExp regExp(params.findWhat);
 	
 	if ( regExp.exactMatch(selectedText) ) {
 		QStringList matches = regExp.capturedTexts();
+#endif
 		int n = matches.size();
 		for ( int i = 0; i < n; ++i ) {
 			replaceWith.replace(QString("\\%1").arg(i), matches[i]);
@@ -494,6 +501,23 @@ int findInString(const QString& line, int startFrom, const Juff::SearchParams& p
 	}
 	
 	QString str = params.findWhat;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+	QRegularExpression regExp;
+	if ( params.mode == Juff::SearchParams::WholeWords )
+		regExp = QRegularExpression(QString("\\b%1\\b").arg(QRegularExpression::escape(str)));
+	else
+		regExp = QRegularExpression(str);
+	if ( !params.caseSensitive )
+		regExp.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
+
+	int index = -1;
+	if ( params.mode != Juff::SearchParams::PlainText ) {
+		QRegularExpressionMatch regMatch = regExp.match(line, startFrom);
+		index = regMatch.capturedStart();
+		length = regMatch.capturedLength();
+		return index;
+	}
+#else
 	QRegExp regExp;
 	if ( params.mode == Juff::SearchParams::WholeWords ) {
 		regExp = QRegExp(QString("\\b%1\\b").arg(QRegExp::escape(str)));
@@ -508,6 +532,7 @@ int findInString(const QString& line, int startFrom, const Juff::SearchParams& p
 		length = regExp.matchedLength();
 		return index;
 	}
+#endif
 	else {
 		if ( !params.caseSensitive ) {
 			index = line.indexOf(str, startFrom, Qt::CaseInsensitive);

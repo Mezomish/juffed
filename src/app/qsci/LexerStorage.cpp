@@ -70,6 +70,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
 #include <QtXml/QDomNode>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QRegularExpression>
+#else
+#include <QRegExp>
+#endif
 
 // local headers
 #include "AppInfo.h"
@@ -805,7 +810,6 @@ LexerStorage::~LexerStorage() {
 QString LexerStorage::lexerName(const QString& fName) {
 	QFileInfo fi(fName);
 	QString fileName = fi.fileName();
-	QString ext = fi.suffix().toLower();
 	QString name = "none";
 
 	//	try to guess lexer using file name
@@ -815,10 +819,18 @@ QString LexerStorage::lexerName(const QString& fName) {
 	foreach(QString type, types ) {
 		QStringList patterns = FileTypeSettings::getFileNamePatterns(type);
 		foreach (QString pattern, patterns) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+			QRegularExpression rx(
+				QRegularExpression::wildcardToRegularExpression(pattern),
+				QRegularExpression::CaseInsensitiveOption
+			);
+			if ( rx.match(fileName).hasMatch() ) {
+#else
 			QRegExp rx(pattern);
 			rx.setPatternSyntax(QRegExp::Wildcard);
 			rx.setCaseSensitivity(Qt::CaseInsensitive);
 			if ( rx.exactMatch(fileName) ) {
+#endif
 				return type;
 			}
 		}
@@ -834,10 +846,18 @@ QString LexerStorage::lexerName(const QString& fName) {
 		foreach(QString type, types) {
 			QStringList patterns = FileTypeSettings::getFirstLinePatterns(type);
 			foreach (QString pattern, patterns) {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+				QRegularExpression rx(
+					QRegularExpression::wildcardToRegularExpression(pattern),
+					QRegularExpression::CaseInsensitiveOption
+				);
+				if ( rx.match(line).hasMatch() ) {
+#else
 				QRegExp rx(pattern);
 				rx.setPatternSyntax(QRegExp::Wildcard);
 				rx.setCaseSensitivity(Qt::CaseInsensitive);
 				if ( rx.exactMatch(line) ) {
+#endif
 					return type;
 				}
 			}

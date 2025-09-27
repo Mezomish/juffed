@@ -20,8 +20,8 @@ project (juffed)
 cmake_minimum_required (VERSION 3.7)
 
 # build options
-option(USE_QT6 "Use Qt6. Defaults to Qt4" OFF)
-option(USE_QT5 "Use Qt5. Defaults to Qt4" ON)
+option(USE_QT6 "Use Qt6. Defaults to Qt4" ON)
+option(USE_QT5 "Use Qt5. Defaults to Qt4" OFF)
 option(USE_SYSTEM_QTSINGLEAPPLICATION "Try to find system-wide QtSingleApplication library" $ENV{USE_SYSTEM_SINGLETON})
 option(USE_ENCA "Try to find Enca library for file encoding check" $ENV{USE_ENCA})
 

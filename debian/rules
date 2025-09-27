@@ -1,7 +1,8 @@
 #!/usr/bin/make -f
 # DH_VERBOSE=1
 
-export USE_QT5=true
+export USE_QT6=true
+export USE_QT5=false
 export USE_SYSTEM_SINGLETON=false
 export USE_ENCA=true
 export LC_ALL=C.UTF-8

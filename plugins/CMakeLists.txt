@@ -17,8 +17,8 @@ OPTION(BUILD_TODOLIST "Build TODOList plugin" OFF)
 project (juffed-plugins)
 cmake_minimum_required (VERSION 3.7)
 
-option(USE_QT6 "Use Qt6. Defaults to Qt4" OFF)
-option(USE_QT5 "Use Qt5. Defaults to Qt4" ON)
+option(USE_QT6 "Use Qt6. Defaults to Qt4" ON)
+option(USE_QT5 "Use Qt5. Defaults to Qt4" OFF)
 
 # plugins are built standalone if is JUFFED_CMAKE_PLUGINS not set
 # Required variables (includes, libs) has to go from

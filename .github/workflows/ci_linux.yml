@@ -10,12 +10,12 @@ jobs:
         m:
         - { os: ubuntu-24.04-arm, configuration: Release, arch: armv7 }
         - { os: ubuntu-24.04-arm, configuration: Release, arch: aarch64 }
-        - { os: ubuntu-24.04, configuration: Release, arch: amd64 }
-        - { os: ubuntu-24.04, configuration: Debug, arch: amd64 }
+#        - { os: ubuntu-24.04, configuration: Release, arch: amd64 }
+#        - { os: ubuntu-24.04, configuration: Debug, arch: amd64 }
     runs-on: ${{matrix.m.os}}
     name: 'Linux ${{matrix.m.configuration}} ${{matrix.m.arch}}'
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
       with:
         submodules: 'recursive'
 
@@ -49,31 +49,22 @@ jobs:
       uses: uraimo/run-on-arch-action@v3
       with:
         arch: ${{matrix.m.arch}}
-        distro: ubuntu20.04
+        distro: ubuntu_rolling
         # GitHub token used for caching Docker images in project's public package registry
         githubToken: ${{github.token}}
         # Mount the juffed directory as /artifacts in the container
         dockerRunArgs: |
-          --volume "/home/runner/work/juffed:/artifacts"
+          --volume "/home/runner/work/juffed/juffed:/artifacts"
         # Install dependencies in the container. They will be cached
         install: |
           export DEBIAN_FRONTEND=noninteractive
           apt-get update -q -y
-          # Install cmake >=3.18 to fix for cmake bug on qemu+armhf: https://gitlab.kitware.com/cmake/cmake/-/issues/20568
-          if [ "${{matrix.m.arch}}" = "armv7" ]; then
-            apt-get install -q -y gpg wget
-            wget --no-check-certificate https://apt.kitware.com/ubuntu/pool/main/c/cmake/cmake_3.20.5-0kitware1ubuntu20.04.1_armhf.deb
-            wget --no-check-certificate https://apt.kitware.com/ubuntu/pool/main/c/cmake/cmake-data_3.20.5-0kitware1ubuntu20.04.1_all.deb
-            dpkg -i cmake*.deb
-          fi
-          apt-get install -q -y gcc g++ cmake ninja-build qtbase5-dev qttools5-dev libqscintilla2-qt5-dev libqtermwidget5-0-dev libutf8proc-dev
+          apt-get install -q -y gcc g++ cmake ninja-build qt6-5compat-dev qt6-tools-dev qt6-tools-dev-tools libqscintilla2-qt6-dev libqtermwidget6-2-dev libutf8proc-dev
           # Install debuild dependencies
           apt-get install -q -y pkg-config devscripts debhelper libenca-dev
         run: |
           cmake --version
-          # Will use regular dpkg-buildpackage instead of debuild because of this bug: https://bugs.launchpad.net/cloud-images/+bug/1881217
-          #debuild -b -uc -us
-          dpkg-buildpackage -b -uc -us
+          debuild -b -uc -us
           cp ../*.deb /artifacts
 
     - name: Release | Upload deb packages
@@ -81,4 +72,4 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: ubuntu-release-${{matrix.m.arch}}-deb-files-${{steps.date.outputs.date}}
-        path: /home/runner/work/juffed/*.deb # ../*.deb - but relative pathing is not allowed.
+        path: ./*.deb

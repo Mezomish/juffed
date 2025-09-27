@@ -9,6 +9,7 @@ Build-Depends: debhelper (>= 11~),
                libenca-dev,
                libqscintilla2-qt6-dev,
                pkg-config,
+               qt6-5compat-dev,
                qt6-tools-dev,
                qt6-tools-dev-tools
 Standards-Version: 4.1.5

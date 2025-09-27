@@ -8,10 +8,10 @@ jobs:
       fail-fast: false
       matrix:
         m:
-        - { os: ubuntu-24.04-arm, configuration: Release, arch: armv7 }
-        - { os: ubuntu-24.04-arm, configuration: Release, arch: aarch64 }
-#        - { os: ubuntu-24.04, configuration: Release, arch: amd64 }
-#        - { os: ubuntu-24.04, configuration: Debug, arch: amd64 }
+        - { os: ubuntu-24.04-arm, configuration: Release, arch: armv7, base_image: --platform=linux/arm/v7 arm32v7/ubuntu:25.04 }
+        - { os: ubuntu-24.04-arm, configuration: Release, arch: aarch64, base_image: --platform=linux/arm64 arm64v8/ubuntu:25.04  }
+        - { os: ubuntu-24.04, configuration: Release, arch: amd64, base_image: --platform=linux/amd64 amd64/ubuntu:25.04  }
+        - { os: ubuntu-24.04, configuration: Debug, arch: amd64, base_image: --platform=linux/amd64 amd64/ubuntu:25.04  }
     runs-on: ${{matrix.m.os}}
     name: 'Linux ${{matrix.m.configuration}} ${{matrix.m.arch}}'
     steps:
@@ -23,33 +23,12 @@ jobs:
       id: date
       run: echo "date=$(date +'%Y-%m-%d_%H-%M')" >> $GITHUB_OUTPUT
 
-    - name: amd64 | Install libs
-      if: matrix.m.arch == 'amd64'
-      run: |
-        sudo apt-get update
-        sudo apt-get install cmake ninja-build qtbase5-dev qttools5-dev libqscintilla2-qt5-dev libqtermwidget5-1-dev libutf8proc-dev
-
-    - name: Debug amd64 | Configure with cmake
-      if: matrix.m.configuration == 'Debug' && matrix.m.arch == 'amd64'
-      run: mkdir build && cd build && cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.m.configuration}}
-
-    - name: Debug | Build with cmake
-      if: matrix.m.configuration == 'Debug'
-      run: ninja
-      working-directory: build
-
-    - name: Release amd64 | Build deb packages with debuild
-      if: matrix.m.configuration == 'Release' && matrix.m.arch == 'amd64'
-      run: |
-        sudo apt-get install devscripts debhelper libenca-dev build-essential
-        debuild -b -uc -us
-
-    - name: armv7, aarch64 | Install libs and build with dpkg-buildpackage
-      if: matrix.m.arch == 'armv7' || matrix.m.arch == 'aarch64'
+    - name: Install libs and build with dpkg-buildpackage for Release or ninja for Debug
       uses: uraimo/run-on-arch-action@v3
       with:
-        arch: ${{matrix.m.arch}}
-        distro: ubuntu_rolling
+        arch: none
+        distro: none
+        base_image: ${{matrix.m.base_image}}
         # GitHub token used for caching Docker images in project's public package registry
         githubToken: ${{github.token}}
         # Mount the juffed directory as /artifacts in the container
@@ -64,8 +43,13 @@ jobs:
           apt-get install -q -y pkg-config devscripts debhelper libenca-dev
         run: |
           cmake --version
-          debuild -b -uc -us
-          cp ../*.deb /artifacts
+          if [ "${{matrix.m.configuration}}" == "Release" ]; then
+            debuild -b -uc -us
+          fi
+          if [ "${{matrix.m.configuration}}" == "Debug" ]; then
+            mkdir build && cd build && cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{matrix.m.configuration}}
+            ninja
+          fi
 
     - name: Release | Upload deb packages
       if: matrix.m.configuration == 'Release'
